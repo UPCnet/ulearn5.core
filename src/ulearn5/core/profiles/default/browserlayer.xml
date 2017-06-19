@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+  <layer
+      name="ulearn5.core"
+      interface="ulearn5.core.interfaces.IUlearn5CoreLayer"
+      />
+</layers>
