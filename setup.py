@@ -42,6 +42,9 @@ setup(
         'Products.GenericSetup>=1.8.2',
         'setuptools',
         'z3c.jbot',
+        'five.grok',
+        'plone.app.dexterity [grok]',
+        'collective.z3cform.datagridfield',
     ],
     extras_require={
         'test': [

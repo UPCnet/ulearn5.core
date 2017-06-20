@@ -1,14 +1,60 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="ulearn5.core">
-
-  <i18n:registerTranslations directory="locales" />
 
   <includeDependencies package="." />
 
+  <permission
+    id="ulearn.addCommunity"
+    title="Ulearn: Add Community"
+    />
+
+  <permission
+    id="ulearn.addOportunitat"
+    title="Ulearn: Add Oportunitat"
+    />
+
+  <permission
+      id="ulearn.APIAccess"
+      title="Ulearn: API Access"
+      />
+
+  <permission
+    id="ulearn.addPrivateFolder"
+    title="Ulearn: Add Private Folder"
+    />
+
+  <permission id="ulearn5.core.setup"
+              title="Plone Site Setup: uLearn">
+    <role name="Manager"/>
+    <role name="Site Administrator"/>
+  </permission>
+
   <include package=".browser" />
+
+
+  <i18n:registerTranslations directory="locales" />
+
+
+  <browser:resource
+    name="cpulearn.jpg"
+    file="cpulearn.jpg"
+    />
+
+
+  <browser:page
+      name="ulearn-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.UlearnControlPanel"
+      permission="ulearn5.core.setup"
+      />
+
+  <adapter factory=".factories.DXFileFactory" />
 
 
   <genericsetup:registerProfile
@@ -33,5 +79,16 @@
   <utility
       factory=".setuphandlers.HiddenProfiles"
       name="ulearn5.core-hiddenprofiles" />
+
+
+  <!-- The utilities browser view (can't be a grok view) -->
+  <browser:page
+      for="*"
+      name="ulearn.utils"
+      class=".utils.ulearnUtils"
+      permission="zope2.Public"
+      allowed_interface=".interfaces.IUlearnUtils"
+      />
+
 
 </configure>

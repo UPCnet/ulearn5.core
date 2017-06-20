@@ -1,3 +1,4 @@
 <?xml version="1.0"?>
 <registry>
+    <records interface="ulearn5.core.controlpanel.IUlearnControlPanelSettings" purge="False" />
 </registry>
