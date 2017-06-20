@@ -6,7 +6,7 @@
 # locales/[language]/LC_MESSAGES/ulearn5.core.po
 # (e.g. locales/de/LC_MESSAGES/ulearn5.core.po)
 
-domain=ulearn5.core
+domain=ulearn
 
 i18ndude rebuild-pot --pot $domain.pot --create $domain ../
 i18ndude sync --pot $domain.pot */LC_MESSAGES/$domain.po

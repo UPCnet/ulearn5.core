@@ -1,0 +1,451 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2014-03-17 08:10+0000\n"
+"PO-Revision-Date: 2014-03-17 09:17+0100\n"
+"Last-Translator: Corina Riba Santos <corina.riba@upcnet.es>\n"
+"Language-Team: Plone Team <plone.team@upcnet.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: ca\n"
+"Language-Name: Catalan\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+#. Default: "Cancelar"
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:136
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:81
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#. Default: "Se han guardado los cambios"
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:77
+msgid "Changes saved"
+msgstr "S'han desat els canvis."
+
+#: ../../../../ulearn.core/ulearn/core/content/community_templates/communityadder.pt:15
+#: ../../../../ulearn.core/ulearn/core/content/community_templates/communityedit.pt:15
+msgid "Close"
+msgstr "Tanca"
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:54
+msgid "Closed"
+msgstr "Tancat"
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:53
+msgid "Convidats moderadors"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:87
+#: ../../../../ulearn.core/ulearn/core/content/community.py:212
+msgid "Crea la comunitat"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:40
+msgid "Data d'inici"
+msgstr ""
+
+#. Default: "Descripción"
+#: ../../../../ulearn.core/ulearn/core/content/community.py:77
+msgid "Descripció"
+msgstr ""
+
+#. Default: "Documento"
+#: ../../../../ulearn.core/ulearn/core/profiles/default/types/File.xml
+msgid "Document"
+msgstr "Document"
+
+#. Default: "Documentos"
+#: ../../../../ulearn.core/ulearn/core/content/community.py:371
+msgid "Documents"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:46
+msgid "Durada de la reunió"
+msgstr ""
+
+#. Default: "Edición cancelada"
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:83
+msgid "Edit cancelled"
+msgstr "S'ha cancel·lat l'edició."
+
+#. Default: "Edición cancelada"
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:138
+msgid "Edit cancelled."
+msgstr "S'ha cancel·lat l'edició."
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:283
+msgid "Edita la comunitat"
+msgstr ""
+
+#. Default: "El hashtag (por ejemplo: ulearn) que utilizará esta comunidad. No hace falta añadir el \"#\"."
+#: ../../../../ulearn.core/ulearn/core/content/community.py:106
+msgid "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el "#"."
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:372
+msgid "Enllaços"
+msgstr ""
+
+#. Default: "Error"
+#: ../../../../ulearn.theme/ulearn/theme/browser/views_templates/user_profile.pt:40
+msgid "Error"
+msgstr "Error"
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:376
+msgid "Esdeveniments"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:373
+msgid "Fotos"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:130
+msgid "Hi ha hagut algun problema i la reunió virtual no ha estat creada."
+msgstr ""
+
+#. Default: "Imagen"
+#: ../../../../ulearn.core/ulearn/core/content/community.py:99
+msgid "Imatge"
+msgstr "Imatge"
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:100
+msgid "Imatge que defineix la comunitat"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:47
+msgid "Indiqueu durada de la reunió."
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:66
+msgid "Indiqueu el nombre total d'assistents previstos."
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:41
+msgid "Indiqueu la data d'inici de la reserva."
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:35
+msgid "Indiqueu la descripció de la reunió virtual."
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:59
+msgid "Invitats espectadors"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:78
+msgid "La descripció de la comunitat"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:97
+msgid "La reunió no es pot crear perquè l'usuari no te informat la adreca de correu electrònic."
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:125
+msgid "La reunió virtual ha estat creada."
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:93
+msgid "Llista amb les persones subscrites"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:60
+msgid "Llista d'emails dels convidats ESPECTADORS, separats per comes."
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:54
+msgid "Llista d'emails dels convidats MODERADORS, separats per comes."
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:71
+msgid "Nom"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:72
+msgid "Nom de la comunitat"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:34
+msgid "Nom de la reunió"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/browser/views.py:65
+msgid "Nombre de convidats total"
+msgstr ""
+
+#. Default: "Abrir"
+#: ../../../../ulearn.core/ulearn/core/content/community.py:55
+msgid "Open"
+msgstr "Oberta"
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:61
+msgid "Organizative"
+msgstr "Organitzativa"
+
+#. Default: "Guardar"
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:70
+msgid "Save"
+msgstr "Desa"
+
+#. Default: "Site setup"
+#: ../../../../ulearn.theme/ulearn/theme/templates/genweb.theme.browser.viewlets_templates.personal_bar.pt:53
+msgid "Site Setup"
+msgstr "Configuració del lloc"
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:92
+msgid "Subscrits"
+msgstr ""
+
+msgid "The link is used almost verbatim, relative links become absolute and the strings \"${navigation_root_url}\" and \"${portal_url}\" get replaced with the real navigation_root_url or portal_url. If in doubt which one to use, please use navigation_root_url"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:83
+msgid "Tipus de comunitat"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:105
+msgid "Twitter hashtag"
+msgstr "Hashtag de Twitter"
+
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:60
+msgid "Ulearn settings"
+msgstr "Configuració d'UPCnet uLearn"
+
+#. Default: "Biography"
+#: ../../../../ulearn.theme/ulearn/theme/browser/views_templates/user_profile.pt:96
+msgid "biografia"
+msgstr "Biografia"
+
+#. Default: "last modified"
+#: ../../../../ulearn.theme/ulearn/theme/templates/plone.app.contenttypes.plone.app.contenttypes.browser.templates.folder_summary_view.pt:88
+msgid "box_last_modified"
+msgstr "darrera modificació"
+
+#. Default: "Button bar"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/homebuttonbar.py:26
+msgid "buttonbar"
+msgstr ""
+
+#. Default: "URL del campus"
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:19
+msgid "campus_url"
+msgstr ""
+
+#. Default: "Comments portlet"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/comments.py:29
+msgid "comments"
+msgstr "Comentaris"
+
+#. Default: "Communities portlet"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/communities.py:29
+msgid "communities"
+msgstr ""
+
+#: ../../../../ulearn.core/ulearn/core/content/community.py:84
+msgid "community_type_description"
+msgstr ""
+
+#. Default: "La comunitat ${comunitat} ha estat creada."
+#: ../../../../ulearn.core/ulearn/core/content/community.py:248
+msgid "comunitat_creada"
+msgstr ""
+
+#. Default: "La comunitat ${comunitat} ha estat modificada."
+#: ../../../../ulearn.core/ulearn/core/content/community.py:315
+msgid "comunitat_modificada"
+msgstr ""
+
+#. Default: "If your user name and password are correct, the problem may be that your browser is not configured to accept cookies."
+#: ../../../../ulearn.theme/ulearn/theme/skins/ulearntheme_custom/login_failed.cpt:72
+msgid "description_not_accept_cookies"
+msgstr "Si el nom d'usuari i la contrasenya són correctes, el problema pot ser que el vostre navegador no està configurat per a acceptar galetes."
+
+#. Default: "If you are still reaching this page after correctly configuring your browser, here are some possible reasons:"
+#: ../../../../ulearn.theme/ulearn/theme/skins/ulearntheme_custom/login_failed.cpt:77
+msgid "description_still_failure"
+msgstr "Si encara es mostra aquesta pàgina després de configurar el vostre navegador, hi ha algunes explicacions possibles:"
+
+#. Default: "You may be running web filtering software that disables cookies. If so, you will need to configure the software so that it enables you to accept cookies from ${url}"
+#: ../../../../ulearn.theme/ulearn/theme/skins/ulearntheme_custom/login_failed.cpt:87
+msgid "description_still_failure_reason1"
+msgstr "Potser esteu accedint a través d'un programari de filtratge que inhabilita les galetes. Si és així, caldrà que configureu el programa per tal que us permeti acceptar galetes des de ${url}"
+
+#. Default: "Your computer may be behind a firewall or proxy server that prevents cookies from being sent to or from your browser. If so, you will need to ask your systems administrator if the problem can be fixed."
+#: ../../../../ulearn.theme/ulearn/theme/skins/ulearntheme_custom/login_failed.cpt:89
+msgid "description_still_failure_reason2"
+msgstr "Potser esteu accedint a través d'un tallafocs (<em>firewall</em>) o un servidor intermediari (<em>proxy</em>) que no permet enviar galetes al vostre navegador. Si és així caldrà que contacteu amb l'administrador de xarxa."
+
+#. Default: "Dirección de correo"
+#: ../../../../ulearn.theme/ulearn/theme/browser/views_templates/user_profile.pt:101
+msgid "eMail"
+msgstr "Correu electrònic"
+
+#. Default: "eConnect"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/econnect.py:19
+msgid "econnect"
+msgstr ""
+
+# TRANSLATE VIEW NAMES
+#
+#. Default: "Event Listing"
+msgid "event_listing"
+msgstr ""
+
+#. Default: "Event"
+msgid "event_view"
+msgstr "Visualitza l'esdeveniment"
+
+#. Default: "Afegiu la URL del campus associat a aquestes comunitats."
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:21
+msgid "help_campus_url"
+msgstr ""
+
+#. Default: "Aquest és el llindar del winwin #1."
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:30
+msgid "help_llindar_winwin1"
+msgstr ""
+
+#. Default: "Aquest és el llindar del winwin #2."
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:39
+msgid "help_llindar_winwin2"
+msgstr ""
+
+#. Default: "Aquest és el llindar del winwin #3."
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:48
+msgid "help_llindar_winwin3"
+msgstr ""
+
+#. Default: "Configuració de Ulearn"
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:61
+msgid "help_ulearn_settings_editform"
+msgstr ""
+
+#. Default: "Homepage"
+#: ../../../../ulearn.theme/ulearn/theme/browser/views_templates/user_profile.pt:111
+msgid "homepage"
+msgstr "Pàgina d'inici"
+
+#. Default: "Author's external home page…"
+#: ../../../../ulearn.theme/ulearn/theme/browser/views_templates/user_profile.pt:113
+msgid "label_author_external_home_page"
+msgstr "Pàgina externa de l'autor…"
+
+#. Default: "by ${author}"
+#: ../../../../ulearn.theme/ulearn/theme/templates/plone.app.contenttypes.plone.app.contenttypes.browser.templates.folder_summary_view.pt:77
+msgid "label_by_author"
+msgstr "per ${author}"
+
+#. Default: "(${location}, from ${start} to ${end})"
+#: ../../../../ulearn.theme/ulearn/theme/templates/plone.app.contenttypes.plone.app.contenttypes.browser.templates.folder_summary_view.pt:54
+msgid "label_event_byline_with_location"
+msgstr "(${location}, de ${start} a ${end})"
+
+#. Default: "(from ${start} to ${end})"
+#: ../../../../ulearn.theme/ulearn/theme/templates/plone.app.contenttypes.plone.app.contenttypes.browser.templates.folder_summary_view.pt:66
+msgid "label_event_byline_without_location"
+msgstr "(de ${start} a ${end})"
+
+#. Default: "Log in"
+#: ../../../../ulearn.theme/ulearn/theme/skins/ulearntheme_custom/login_form.cpt:202
+msgid "label_log_in"
+msgstr "Identifica"
+
+#. Default: "Username"
+#: ../../../../ulearn.theme/ulearn/theme/skins/ulearntheme_custom/login_form.cpt:174
+msgid "label_login_name"
+msgstr "Nom d'usuari"
+
+#. Default: "Password"
+#: ../../../../ulearn.theme/ulearn/theme/skins/ulearntheme_custom/login_form.cpt:189
+msgid "label_password"
+msgstr "Contrasenya"
+
+#. Default: "Items relacionados"
+msgid "label_related_items"
+msgstr "Contingut relacionat"
+
+#. Default: "Llindar del winwin 1"
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:28
+msgid "llindar_winwin1"
+msgstr ""
+
+#. Default: "Llindar del winwin 2"
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:37
+msgid "llindar_winwin2"
+msgstr ""
+
+#. Default: "Llindar del winwin 3"
+#: ../../../../ulearn.core/ulearn/core/controlpanel.py:46
+msgid "llindar_winwin3"
+msgstr ""
+
+#. Default: "Location"
+#: ../../../../ulearn.theme/ulearn/theme/browser/views_templates/user_profile.pt:106
+msgid "location"
+msgstr "Ubicació"
+
+#. Default: "Most valued portlet"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/mostvalued.py:29
+msgid "mostvalued"
+msgstr ""
+
+#. Default: "User profile"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/profile.py:37
+msgid "profile"
+msgstr "perfil"
+
+#. Default: "Stats"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/stats.py:33
+msgid "stats"
+msgstr ""
+
+#. Default: "Calendar"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/templates/calendar.pt:31
+msgid "summary_calendar"
+msgstr "Calendari"
+
+#. Default: "No user by that name."
+#: ../../../../ulearn.theme/ulearn/theme/browser/views_templates/user_profile.pt:43
+msgid "text_no_user_by_name"
+msgstr "No hi ha cap usuari amb aquest nom."
+
+#. Default: "Thinnkers portlet"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/thinnkers.py:34
+msgid "thinnkers"
+msgstr ""
+
+#. Default: "Calendar portlet"
+#: ../../../../ulearn.theme/ulearn/theme/portlets/calendar.py:33
+msgid "ulearncalendar"
+msgstr ""
+
+msgid "Add a new discussion item"
+msgstr "Afegir un debat"
+
+msgid "Add a new folder"
+msgstr "Afegir una carpeta"
+
+msgid "Lets you upload a video to the site."
+msgstr "Afegir un video"
+
+msgid "telephone"
+msgstr "Telèfon"
+
+msgid "ubicacio"
+msgstr "Ubicació"
+
+msgid "Add a new document"
+msgstr "Afegir un document"
+
+msgid "Add a new link"
+msgstr "Afegir un enllaç"
+
+#: ../../../../ulearn.core/ulearn/core/profiles/default/types/File.xml:5
+msgid "Add a new file"
+msgstr "Afegir un fitxer"
+
+#: ../../../../ulearn.core/ulearn/core/profiles/default/types/Image.xml:4
+msgid "Add a new image"
+msgstr "Afegir una imatge"
