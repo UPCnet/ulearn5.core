@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="portal_types">
+ <object name="Plone Site" meta_type="Factory-based Type Information with dynamic views"/>
+ <object meta_type="Dexterity FTI" name="Folder" />
+ <object meta_type="Dexterity FTI" name="File" />
+ <object meta_type="Dexterity FTI" name="AppFile" />
+ <object meta_type="Dexterity FTI" name="AppImage" />
+ <object meta_type="Dexterity FTI" name="ulearn.community" />
+ <object meta_type="Dexterity FTI" name="ulearn.discussion" />
+ <object meta_type="Dexterity FTI" name="ulearn.video" />
+ <object meta_type="Dexterity FTI" name="ulearn.video_embed" />
+ <object meta_type="Dexterity FTI" name="privateFolder" />
+</object>

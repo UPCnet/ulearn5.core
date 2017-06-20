@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<object name="Folder" meta_type="Dexterity FTI" i18n:domain="plone"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="description" i18n:translate="">Add a new folder</property>
+ <property name="filter_content_types">True</property>
+ <property name="allowed_content_types">
+    <element value="Document"/>
+    <element value="File"/>
+    <element value="Folder"/>
+    <element value="Image"/>
+    <element value="Link"/>
+    <element value="privateFolder"/>
+    <element value="ulearn.video"/>
+    <element value="ulearn.video_embed"/>
+    <element value="Event"/>
+    <element value="ulearn.discussion"/>
+    <element value="Collection"/>
+    <element value="News Item"/>
+ </property>
+ <property name="default_view">summary_view</property>
+ <property name="view_methods">
+  <element value="listing_view"/>
+  <element value="folder_extended"/>
+  <element value="album_view"/>
+  <element value="summary_view"/>
+  <element value="tabular_view"/>
+  <element value="full_view"/>
+  <element value="filtered_contents_search_view"/>
+  <element value="contents_pretty_view"/>
+ </property>
+</object>

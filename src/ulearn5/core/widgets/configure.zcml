@@ -1,0 +1,31 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="genweb">
+
+    <class class=".token_input_widget.KeywordsTokenInputWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.ITokenInputWidget"
+        />
+    </class>
+
+    <class class=".token_input_widget.UsersTokenInputWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.ITokenInputWidget"
+        />
+    </class>
+
+    <class class=".select2_user_widget.Select2UserInputWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.IAjaxSelectWidget"
+        />
+    </class>
+
+    <adapter factory=".select2_user_widget.SelectWidgetConverter" />
+    <adapter factory=".select2_tags_widget.TagsSelectWidgetConverter" />
+    <adapter factory=".select2_tags_widget.SubjectsFieldWidget" />
+
+</configure>

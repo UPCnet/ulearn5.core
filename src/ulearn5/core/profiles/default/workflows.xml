@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<object name="portal_workflow" meta_type="Plone Workflow Tool">
+ <object name="genweb_intranet" meta_type="Workflow"/>
+ <object name="oportunity" meta_type="Workflow"/>
+ <object name="news_intranet" meta_type="Workflow"/>
+ <bindings>
+    <default>
+        <bound-workflow workflow_id="genweb_intranet" />
+    </default>
+    <type type_id="ulearn.oportunity">
+       <bound-workflow workflow_id="oportunity"/>
+    </type>
+    <type type_id="News Item">
+       <bound-workflow workflow_id="news_intranet"/>
+    </type>
+ </bindings>
+</object>

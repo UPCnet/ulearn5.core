@@ -5,6 +5,7 @@ z3c.jbot
 five.grok
 plone.app.dexterity [grok]
 collective.z3cform.datagridfield
+souper
 
 [test]
 plone.app.testing

@@ -45,6 +45,7 @@ setup(
         'five.grok',
         'plone.app.dexterity [grok]',
         'collective.z3cform.datagridfield',
+        'souper',
     ],
     extras_require={
         'test': [

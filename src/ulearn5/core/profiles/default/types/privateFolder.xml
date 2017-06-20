@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<object name="privateFolder" meta_type="Dexterity FTI" i18n:domain="ulearn"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+ <!-- Basic metadata -->
+ <property name="title" i18n:translate="">privateFolder</property>
+ <property name="description" i18n:translate="">Add a new private folder</property>
+ <property name="icon_expr"></property>
+ <property name="factory">privateFolder</property>
+ <property name="add_view_expr">string:${folder_url}/++add++privateFolder</property>
+ <property name="link_target"></property>
+ <property name="immediate_view">view</property>
+ <property name="global_allow">True</property>
+ <property name="filter_content_types">True</property>
+ <property name="allowed_content_types">
+    <element value="Collection"/>
+    <element value="Document"/>
+    <element value="File"/>
+    <element value="Folder"/>
+    <element value="Image"/>
+    <element value="Link"/><element value="contents_pretty_view"/>
+    <element value="privateFolder"/>
+ </property>
+ <property name="allow_discussion">False</property>
+
+ <!-- schema interface -->
+ <property name="schema"/>
+ <property name="model_source"/>
+ <property name="model_file">plone.app.contenttypes.schema:folder.xml</property>
+
+ <!-- class used for content items -->
+ <property name="klass">plone.app.contenttypes.content.Folder</property>
+
+ <!-- add permission -->
+ <property name="add_permission">ulearn.addPrivateFolder</property>
+
+ <!-- enabled behaviors -->
+ <property name="behaviors">
+    <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
+    <element value="plone.app.content.interfaces.INameFromTitle"/>
+    <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion"/>
+    <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
+    <element value="plone.app.dexterity.behaviors.id.IShortName"/>
+    <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
+    <element value="plone.app.relationfield.behavior.IRelatedItems"/>
+    <element value="plone.app.dexterity.behaviors.nextprevious.INextPreviousToggle"/>
+ </property>
+
+  <!-- View information -->
+ <property name="default_view">summary_view</property>
+ <property name="view_methods">
+  <element value="listing_view"/>
+  <element value="folder_extended"/>
+  <element value="album_view"/>
+  <element value="summary_view"/>
+  <element value="tabular_view"/>
+  <element value="full_view"/>
+  <element value="filtered_contents_search_view"/>
+  <element value="contents_pretty_view"/>
+ </property>
+ <property name="default_view_fallback">False</property>
+
+ <!-- Method aliases -->
+ <alias from="(Default)" to="(dynamic view)"/>
+ <alias from="edit" to="@@edit"/>
+ <alias from="sharing" to="@@sharing"/>
+ <alias from="view" to="(selected layout)"/>
+
+ <!-- Actions -->
+ <action title="View" action_id="view" category="object" condition_expr=""
+    description="" icon_expr="" link_target="" url_expr="string:${object_url}"
+    visible="True">
+  <permission value="View"/>
+ </action>
+ <action title="Edit" action_id="edit" category="object" condition_expr=""
+    description="" icon_expr="" link_target=""
+    url_expr="string:${object_url}/edit" visible="True">
+  <permission value="Modify portal content"/>
+ </action>
+</object>

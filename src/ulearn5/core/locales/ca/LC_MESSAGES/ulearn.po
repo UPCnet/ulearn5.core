@@ -247,7 +247,7 @@ msgid "Inicio_stats"
 msgstr "Inici estadístiques"
 
 #: ./ulearn/core/configure.zcml:70
-msgid "Installs the ulearn.core package"
+msgid "Installs the ulearn5.core package"
 msgstr ""
 
 #. Default: "Invitados espectadores"
@@ -470,7 +470,7 @@ msgid "Uninstall base setup for ulearn."
 msgstr ""
 
 #: ./ulearn/core/configure.zcml:78
-msgid "Uninstall ulearn.core"
+msgid "Uninstall ulearn5.core"
 msgstr ""
 
 #. Default: "Usuario <span class=\"formHelp\"></span>"
@@ -1278,17 +1278,17 @@ msgid "shared_with_me"
 msgstr "Compartit amb mi"
 
 #. Default: "Shared content"
-#: ../../../../../../ulearn.core/ulearn/core/browser/sharing_templates/shared.pt:26
+#: ../../../../../../ulearn5.core/ulearn/core/browser/sharing_templates/shared.pt:26
 msgid "shared_content"
 msgstr "Contingut compartit"
 
 #. Default: "All content shared by any member of this community"
-#: ../../../../../../ulearn.core/ulearn/core/browser/sharing_templates/shared.pt:26
+#: ../../../../../../ulearn5.core/ulearn/core/browser/sharing_templates/shared.pt:26
 msgid "shared_content_description"
 msgstr "Tots el contingut compartit per algun membre d'aquesta comunitat "
 
 #. Default: "Shared content"
-#: ../../../../../../ulearn.core/ulearn/core/browser/sharing_templates/shared.pt:26
+#: ../../../../../../ulearn5.core/ulearn/core/browser/sharing_templates/shared.pt:26
 msgid "shared_content_title"
 msgstr "Accès a tot el contingut compartit"
 
@@ -1516,7 +1516,7 @@ msgid "ubicacio"
 msgstr "Ubicació"
 
 #: ./ulearn/core/configure.zcml:70
-msgid "ulearn.core"
+msgid "ulearn5.core"
 msgstr ""
 
 #. Default: "Activity"

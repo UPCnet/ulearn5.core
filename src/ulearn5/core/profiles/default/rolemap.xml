@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<rolemap>
+  <roles>
+    <role name="Api"/>
+    <role name="CC organizative"/>
+    <role name="CC open"/>
+    <role name="CC closed"/>
+  </roles>
+  <permissions>
+    <permission name="Ulearn: Add Oportunitat" acquire="True">
+      <role name="Editor"/>
+      <role name="Site Administrator"/>
+      <role name="WebMaster"/>
+      <role name="Contributor"/>
+      <role name="Manager"/>
+    </permission>
+    <permission name="Ulearn: Add Community" acquire="True">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="CC organizative"/>
+      <role name="CC open"/>
+      <role name="CC closed"/>
+      <role name="WebMaster"/>
+      <role name="Contributor"/>
+    </permission>
+    <permission name="Delete objects" acquire="True">
+      <role name="Owner"/>
+      <role name="Manager"/>
+      <role name="Editor"/>
+      <role name="Contributor"/>
+    </permission>
+    <permission name="Plone Site Setup: Users and Groups" acquire="True">
+      <role name="Manager"/>
+      <role name="WebMaster"/>
+    </permission>
+    <permission name="Plone Site Setup: Overview" acquire="True">
+      <role name="Manager"/>
+      <role name="WebMaster"/>
+    </permission>
+    <permission name="Plone Site Setup: uLearn" acquire="True">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="WebMaster"/>
+    </permission>
+    <permission name="Ulearn: API Access" acquire="True">
+      <role name="Api"/>
+    </permission>
+    <permission name="Ulearn: Add Private Folder" acquire="True">
+      <role name="Editor"/>
+      <role name="Site Administrator"/>
+      <role name="Manager"/>
+    </permission>
+    <permission name="Portlets: Manage portlets"
+                acquire="True">
+      <role name="Manager"/>
+      <role name="WebMaster"/>
+    </permission>
+  </permissions>
+</rolemap>

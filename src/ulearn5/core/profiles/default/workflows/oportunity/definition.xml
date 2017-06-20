@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<dc-workflow workflow_id="oportunity" title="Oportunitat d'innovació" description="Ha de poder tenir els següents estats: - Idea - Oportunitat - Disseny de concepte - Plà de marqueting - Solució tecnològuca i promoció - Transferència de coneixement - Mercat - Arxivada - Realitzada - Rebutjada  Les transicions son sempre només cap endavant, en aquest ordre que estan escrites o cap a Rebutjada desde qualsevol estat.  Els permisos seran sempre per tothom editor.  " state_variable="review_state" initial_state="Idea" manager_bypass="False">
+ <state state_id="Arxivada" title="Arxivada">
+  <exit-transition transition_id="a realitzada"/>
+  <exit-transition transition_id="rebutjar"/>
+ </state>
+ <state state_id="Disseny de concepte" title="Disseny de concepte">
+  <exit-transition transition_id="a pla de marqueting"/>
+  <exit-transition transition_id="rebutjar"/>
+ </state>
+ <state state_id="Idea" title="Idea">
+  <exit-transition transition_id="a oportunitat"/>
+  <exit-transition transition_id="rebutjar"/>
+ </state>
+ <state state_id="Mercat" title="Mercat">
+  <exit-transition transition_id="a arxivada"/>
+  <exit-transition transition_id="rebutjar"/>
+ </state>
+ <state state_id="Oportunitat" title="Oportunitat">
+  <exit-transition transition_id="a disseny de concepte"/>
+  <exit-transition transition_id="rebutjar"/>
+ </state>
+ <state state_id="Pla de marqueting" title="Plà de marqueting">
+  <exit-transition transition_id="a solucio tecnologica i promocio"/>
+  <exit-transition transition_id="rebutjar"/>
+ </state>
+ <state state_id="Realitzada" title="Realitzada">
+ </state>
+ <state state_id="Rebutjada" title="Rebutjada">
+ </state>
+ <state state_id="Solucio tecnologica i promocio" title="Solució tecnològica i promoció">
+  <exit-transition transition_id="a transferencia de coneixement"/>
+  <exit-transition transition_id="rebutjar"/>
+ </state>
+ <state state_id="Transferencia de coneixement" title="Transferència de coneixement">
+  <exit-transition transition_id="a mercat"/>
+  <exit-transition transition_id="rebutjar"/>
+ </state>
+ <transition transition_id="a arxivada" title="a arxivada" new_state="Arxivada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=a arxivada" category="workflow" icon="">a arxivada</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Editor</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="a disseny de concepte" title="a disseny de concepte" new_state="Disseny de concepte" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=a disseny de concepte" category="workflow" icon="">a disseny de concepte</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Editor</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="a mercat" title="a mercat" new_state="Mercat" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=a mercat" category="workflow" icon="">a mercat</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Editor</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="a oportunitat" title="a oportunitat" new_state="Oportunitat" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=a oportunitat" category="workflow" icon="">A oportunitat</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Editor</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="a pla de marqueting" title="a plà de marqueting" new_state="Pla de marqueting" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=a pla de marqueting" category="workflow" icon="">a plà de marqueting</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Editor</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="a realitzada" title="a realitzada" new_state="Realitzada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=a realitzada" category="workflow" icon="">a realitzada</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Editor</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="a solucio tecnologica i promocio" title="a solució tecnològuca i promoció" new_state="Solucio tecnologica i promocio" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=a solucio tecnologica i promocio" category="workflow" icon="">a solució tecnològuca i promoció</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Editor</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="a transferencia de coneixement" title="a transferència de coneixement" new_state="Transferencia de coneixement" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=a transferencia de coneixement" category="workflow" icon="">a transferència de coneixement</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Editor</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="rebutjar" title="rebutjar" new_state="Rebutjada" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=rebutjar" category="workflow" icon="">rebutjar</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Editor</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
+  <description>Previous transition</description>
+  <default>
+
+   <expression>transition/getId|nothing</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
+  <description>The ID of the user who performed the last transition</description>
+  <default>
+
+   <expression>user/getId</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
+  <description>Comment about the last transition</description>
+  <default>
+
+   <expression>python:state_change.kwargs.get('comment', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
+  <description>Provides access to workflow history</description>
+  <default>
+
+   <expression>state_change/getHistory</expression>
+  </default>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </variable>
+ <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
+  <description>When the previous transition was performed</description>
+  <default>
+
+   <expression>state_change/getDateTime</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+</dc-workflow>

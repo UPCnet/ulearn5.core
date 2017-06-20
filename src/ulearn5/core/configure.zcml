@@ -36,6 +36,7 @@
   </permission>
 
   <include package=".browser" />
+  <include package=".widgets" />
 
 
   <i18n:registerTranslations directory="locales" />

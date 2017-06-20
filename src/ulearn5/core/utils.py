@@ -9,6 +9,31 @@ from zope.component import getUtility
 # from mrs.max.utilities import IMAXClient
 import transaction
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+import json
+
+
+def json_response(func):
+    """ Decorator to transform the result of the decorated function to json.
+        Expect a list (collection) that it's returned as is with response 200 or
+        a dict with 'data' and 'status_code' as keys that gets extracted and
+        applied the response.
+    """
+    def decorator(*args, **kwargs):
+        instance = args[0]
+        request = getattr(instance, 'request', None)
+        request.response.setHeader(
+            'Content-Type',
+            'application/json; charset=utf-8'
+        )
+        result = func(*args, **kwargs)
+        if isinstance(result, list):
+            request.response.setStatus(200)
+            return json.dumps(result, indent=2, sort_keys=True)
+        else:
+            request.response.setStatus(result.get('status_code', 200))
+            return json.dumps(result.get('data', result), indent=2, sort_keys=True)
+
+    return decorator
 
 
 class ulearnUtils(BrowserView):

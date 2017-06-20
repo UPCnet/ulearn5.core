@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="ulearn">
+
+<head>
+  <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
+    <script type="text/javascript"
+      tal:attributes="src string:${context/absolute_url}/communityVariables.js">
+    </script>
+    <script type="text/javascript"
+      tal:attributes="src string:${view/portal_url}/++maxui++static/maxui.loader.js">
+    </script>
+    <script type="text/javascript">
+      setInterval(function(){$("#maxui-news-activities .maxui-button").trigger("click");}, 180000);
+      $(document).ready(function(){
+        if (!window.location.origin) {
+            window.location.origin = window.location.protocol + '//' + window.location.hostname + (window.location.port ? (':' + window.location.port) : '');
+        }
+        $.get(window.location.origin + window.location.pathname + "/updateuseraccessdatetime", function(data){
+        });
+      });
+    </script>
+  </div>
+  <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+
+<metal:main fill-slot="main">
+
+  <metal:content-core define-macro="main">
+
+    <div ng-controller="subscribeToOpenCommunity as ctrl">
+      <alert ng-if="ctrl.show_alert"
+             close="ctrl.closeAlert()"
+             type="info"
+             ng-cloak>
+        <p>
+        <strong i18n:translate="info">
+          Info
+        </strong>
+        <tal:msg i18n:translate="community_open_and_no_subscribed">
+          This is an open community, but you are not currently subscribed.
+        </tal:msg>
+        </p>
+        <p>
+          <a i18n:translate="subscribe" class="btn btn-info"
+             ng-click="ctrl.confirmSubscribe()"
+             tal:attributes="data-community string:${context/absolute_url};
+                             data-name context/Title">
+            Subscribe
+          </a>
+        </p>
+      </alert>
+
+    </div>
+
+    <div class="tab-pane active" id="maxui-widget-container"></div>
+
+  </metal:content-core>
+</metal:main>
+
+</body>
+</html>

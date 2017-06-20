@@ -242,7 +242,7 @@ msgid "Inicio_stats"
 msgstr ""
 
 #: ./ulearn/core/configure.zcml:70
-msgid "Installs the ulearn.core package"
+msgid "Installs the ulearn5.core package"
 msgstr ""
 
 #: ./ulearn/core/browser/views.py:70
@@ -459,7 +459,7 @@ msgid "Uninstall base setup for ulearn."
 msgstr ""
 
 #: ./ulearn/core/configure.zcml:78
-msgid "Uninstall ulearn.core"
+msgid "Uninstall ulearn5.core"
 msgstr ""
 
 #. Default: "Usuario <span class=\"formHelp\"></span>"
@@ -1480,7 +1480,7 @@ msgid "ubicacio"
 msgstr ""
 
 #: ./ulearn/core/configure.zcml:70
-msgid "ulearn.core"
+msgid "ulearn5.core"
 msgstr ""
 
 #. Default: "Activity"

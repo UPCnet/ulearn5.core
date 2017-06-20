@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8'?>
+<object>
+ <resourcetypes>
+  <linkable>
+   <element value="Document"/>
+   <element value="Image"/>
+   <element value="Topic"/>
+   <element value="File"/>
+   <element value="Folder"/>
+   <element value="News Item"/>
+   <element value="Event"/>
+   <element value="FileAttachment" remove="True"/>
+   <element value="Ploneboard" remove="True"/>
+   <element value="PloneboardForum" remove="True"/>
+   <element value="Collage" remove="True"/>
+   <element value="PlonePopoll" remove="True"/>
+   <element value="FormFolder" remove="True"/>
+   <element value="ImageAttachment" remove="True"/>
+  </linkable>
+  <containsobjects>
+   <element value="Folder"/>
+   <element value="ulearn.community"/>
+   <element value="Plone Site"/>
+   <element value="Ploneboard" remove="True"/>
+  </containsobjects>
+ </resourcetypes>
+</object>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<object name="Collection" meta_type="Dexterity FTI" i18n:domain="plone"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="behaviors">
+  <element value="plone.app.content.interfaces.INameFromTitle"/>
+  <element value="plone.app.contenttypes.behaviors.collection.ICollection"/>
+  <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion"/>
+  <element
+     value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
+  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
+  <element value="plone.app.contenttypes.behaviors.richtext.IRichText"/>
+  <element value="plone.app.relationfield.behavior.IRelatedItems"/>
+  <element value="plone.app.lockingbehavior.behaviors.ILocking"/>
+ </property>
+ <property name="view_methods">
+  <element value="standard_view"/>
+  <element value="summary_view"/>
+  <element value="all_content"/>
+  <element value="tabular_view"/>
+  <element value="thumbnail_view"/>
+  <element value="summary_view_news"/>
+ </property>
+</object>

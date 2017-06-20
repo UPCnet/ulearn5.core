@@ -1,4 +1,4 @@
-msgid ""
+smsgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
 "POT-Creation-Date: 2016-07-08 07:34+0000\n"
@@ -239,8 +239,8 @@ msgid "Inicio_stats"
 msgstr "Inicio estadísticas"
 
 #: ./ulearn/core/configure.zcml:70
-msgid "Installs the ulearn.core package"
-msgstr "Instalar paquete ulearn.core"
+msgid "Installs the ulearn5.core package"
+msgstr "Instalar paquete ulearn5.core"
 
 #: ./ulearn/core/browser/views.py:70
 msgid "Invitats espectadors"
@@ -458,8 +458,8 @@ msgid "Uninstall base setup for ulearn."
 msgstr "Desinstalar configuración base de ulearn"
 
 #: ./ulearn/core/configure.zcml:78
-msgid "Uninstall ulearn.core"
-msgstr "Desinstalar ulearn.core"
+msgid "Uninstall ulearn5.core"
+msgstr "Desinstalar ulearn5.core"
 
 #. Default: "Usuario <span class=\"formHelp\"></span>"
 #: ./ulearn/core/browser/stats_templates/statsview.pt:224
@@ -845,17 +845,17 @@ msgid "shared_with_me"
 msgstr "Compartido conmigo"
 
 #. Default: "Shared content"
-#: ../../../../../../ulearn.core/ulearn/core/browser/sharing_templates/shared.pt:26
+#: ../../../../../../ulearn5.core/ulearn/core/browser/sharing_templates/shared.pt:26
 msgid "shared_content"
 msgstr "Contenido compartido"
 
 #. Default: "All content shared by any member of this community"
-#: ../../../../../../ulearn.core/ulearn/core/browser/sharing_templates/shared.pt:26
+#: ../../../../../../ulearn5.core/ulearn/core/browser/sharing_templates/shared.pt:26
 msgid "shared_content_description"
 msgstr "Todo el contenido compartido por algun miembro de esta comunidad"
 
 #. Default: "Shared content"
-#: ../../../../../../ulearn.core/ulearn/core/browser/sharing_templates/shared.pt:26
+#: ../../../../../../ulearn5.core/ulearn/core/browser/sharing_templates/shared.pt:26
 msgid "shared_content_title"
 msgstr "Acceso a todo el contenido compartido"
 
@@ -1500,8 +1500,8 @@ msgid "ubicacio"
 msgstr "Ubicación"
 
 #: ./ulearn/core/configure.zcml:70
-msgid "ulearn.core"
-msgstr "ulearn.core"
+msgid "ulearn5.core"
+msgstr "ulearn5.core"
 
 #. Default: "Activity"
 #: ../ulearn.theme/ulearn/theme/browser/viewlets_templates/folderbar.pt:15
