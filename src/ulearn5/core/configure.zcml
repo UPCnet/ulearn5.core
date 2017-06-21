@@ -57,6 +57,13 @@
       permission="ulearn5.core.setup"
       />
 
+  <browser:page
+      name="ulearn-control-portlets"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlportlets.PortletsControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
   <adapter factory=".factories.DXFileFactory" />
 
 
