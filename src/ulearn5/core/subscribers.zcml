@@ -1,0 +1,63 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="ulearn">
+
+    <!-- Added Event Subscriber -->
+    <subscriber
+        handler=".hooks.Added"
+        for="plone.app.contenttypes.interfaces.IDocument
+             zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler=".hooks.Added"
+        for="plone.app.contenttypes.interfaces.IFile
+             zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler=".hooks.Added"
+        for="plone.app.contenttypes.interfaces.ILink
+             zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler=".hooks.Added"
+        for="plone.app.contenttypes.interfaces.IImage
+             zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler=".hooks.Added"
+        for="plone.app.contenttypes.interfaces.IEvent
+             zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <!-- Modified Event Subscriber -->
+    <subscriber
+        handler=".hooks.Modified"
+        for="plone.app.contenttypes.interfaces.IDocument
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        />
+
+    <subscriber
+        handler=".hooks.Modified"
+        for="plone.app.contenttypes.interfaces.IEvent
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        />
+
+<!--     <subscriber
+        handler=".browser.sharing.SharingChanged"
+        for="plone.dexterity.interfaces.IDexterityContent
+             plone.app.workflow.interfaces.ILocalrolesModifiedEvent"
+        />
+
+    <subscriber
+        handler=".browser.sharing.RemoveObject"
+        for="plone.dexterity.interfaces.IDexterityContent
+             zope.container.interfaces.IObjectRemovedEvent"
+        />
+ -->
+</configure>

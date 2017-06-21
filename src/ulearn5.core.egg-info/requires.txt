@@ -3,9 +3,15 @@ Products.GenericSetup>=1.8.2
 setuptools
 z3c.jbot
 five.grok
+pas.plugins.osiris
 plone.app.dexterity [grok]
+plone.app.contenttypes
+plone.app.event
+infrae.rest
+Products.PloneFormGen
 collective.z3cform.datagridfield
 souper
+collective.polls
 
 [test]
 plone.app.testing

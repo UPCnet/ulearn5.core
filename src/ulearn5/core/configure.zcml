@@ -41,6 +41,8 @@
 
   <i18n:registerTranslations directory="locales" />
 
+  <include file="subscribers.zcml" />
+
 
   <browser:resource
     name="cpulearn.jpg"

@@ -43,9 +43,15 @@ setup(
         'setuptools',
         'z3c.jbot',
         'five.grok',
+        'pas.plugins.osiris',
         'plone.app.dexterity [grok]',
+        'plone.app.contenttypes',
+        'plone.app.event',
+        'infrae.rest',
+        'Products.PloneFormGen',
         'collective.z3cform.datagridfield',
         'souper',
+        'collective.polls'
     ],
     extras_require={
         'test': [
