@@ -17,7 +17,7 @@ from Products.CMFCore.utils import getToolByName
 
 from ulearn5.core.interfaces import IHomePage
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-from ulearn5.theme.controlportlets import IPortletsSettings
+from ulearn5.core.controlportlets import IPortletsSettings
 
 import logging
 
