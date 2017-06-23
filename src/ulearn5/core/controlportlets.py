@@ -12,9 +12,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 from plone.app.registry.browser import controlpanel
 
-#from mrs.max import MRSMAXMessageFactory as _
-#OJO provisional para que no pete al quitar el mrs.max
-from ulearn5.core import _
+from mrs5.max import MRSMAXMessageFactory as _
 
 from plone.directives import form
 

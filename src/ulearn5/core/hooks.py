@@ -12,7 +12,7 @@ from ulearn5.core.interfaces import IAppImage
 from ulearn5.core.interfaces import IAppFile
 from ulearn5.core.content.community import ICommunity
 
-#from mrs.max.utilities import IMAXClient
+from mrs5.max.utilities import IMAXClient
 from plone import api
 from souper.soup import get_soup
 from souper.soup import Record
@@ -60,9 +60,9 @@ def communityAdded(content, event):
     memberdata = pm.getMemberById(username)
     oauth_token = memberdata.getProperty('oauth_token', None)
 
-    # maxclient, settings = getUtility(IMAXClient)()
-    # maxclient.setActor(username)
-    # maxclient.setToken(oauth_token)
+    maxclient, settings = getUtility(IMAXClient)()
+    maxclient.setActor(username)
+    maxclient.setToken(oauth_token)
 
     activity_text = {
         'ca': u'He creat una nova comunitat: {}',
@@ -213,13 +213,12 @@ def getUserOauthToken(pm):
 
 
 def connectMaxclient(username, oauth_token):
-    # maxclient, settings = getUtility(IMAXClient)()
-    # maxclient.setActor(username)
-    # maxclient.setToken(oauth_token)
+    maxclient, settings = getUtility(IMAXClient)()
+    maxclient.setActor(username)
+    maxclient.setToken(oauth_token)
 
-    # return maxclient
-    return True
-
+    return maxclient
+    
 
 @grok.subscribe(ICommunity, IObjectAddedEvent)
 def UpdateUserCommunityAccess(content, event):

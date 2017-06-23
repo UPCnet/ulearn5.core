@@ -5,7 +5,7 @@ from five import grok
 from Products.CMFCore.utils import getToolByName
 from Products.PlonePAS.interfaces.membership import IMembershipTool
 
-#from mrs.max.utilities import IMAXClient
+from mrs5.max.utilities import IMAXClient
 from ulearn5.theme.interfaces import IUlearn5ThemeLayer
 from zope.component import getUtility
 from zope.interface import Interface
@@ -45,9 +45,9 @@ class PortraitUploadAdapter(object):
             scaled.seek(0)
 
             # Upload to MAX server using restricted user credentials
-            # maxclient, settings = getUtility(IMAXClient)()
-            # maxclient.setActor(settings.max_restricted_username)
-            # maxclient.setToken(settings.max_restricted_token)
+            maxclient, settings = getUtility(IMAXClient)()
+            maxclient.setActor(settings.max_restricted_username)
+            maxclient.setToken(settings.max_restricted_token)
             try:
                 maxclient.people[safe_id].avatar.post(upload_file=scaled)
             except Exception as exc:

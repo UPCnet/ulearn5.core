@@ -59,8 +59,8 @@ from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.adapters.favorites import IFavorite
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
-#from mrs.max.utilities import IMAXClient
-#from mrs.max.utilities import IHubClient
+from mrs5.max.utilities import IMAXClient
+from mrs5.max.utilities import IHubClient
 
 from ulearn5.core import _
 from ulearn5.core.interfaces import IDXFileFactory
@@ -284,16 +284,15 @@ class CommunityAdapterMixin(object):
             self.max_notifications = False
 
     def get_max_client(self):
-        # self.maxclient, self.settings = getUtility(IMAXClient)()
-        # self.maxclient.setActor(self.settings.max_restricted_username)
-        # self.maxclient.setToken(self.settings.max_restricted_token)
-        return True
+        self.maxclient, self.settings = getUtility(IMAXClient)()
+        self.maxclient.setActor(self.settings.max_restricted_username)
+        self.maxclient.setToken(self.settings.max_restricted_token)
+       
 
     def get_hub_client(self):
-        # self.hubclient, settings = getUtility(IHubClient)()
-        # self.hubclient.setActor(settings.max_restricted_username)
-        # self.hubclient.setToken(settings.max_restricted_token)
-        return True
+        self.hubclient, settings = getUtility(IHubClient)()
+        self.hubclient.setActor(settings.max_restricted_username)
+        self.hubclient.setToken(settings.max_restricted_token)
 
     def create_max_context(self):
         """ Add context for the community on MAX server given a set of

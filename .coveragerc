@@ -1,0 +1,6 @@
+[report]
+include =
+    src/base5/*
+omit =
+    */test*
+    */upgrades/*

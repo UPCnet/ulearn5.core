@@ -15,7 +15,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 #from genweb.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 
 from ulearn5.core import _
-#from mrs.max.utilities import IMAXClient
+from mrs5.max.utilities import IMAXClient
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
 from plone import api
@@ -353,11 +353,11 @@ class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
 
         if data.get('nonvisibles', False):
             """ Make users invisible in searches """
-            # maxclient, settings = getUtility(IMAXClient)()
-            # maxclient.setActor(settings.max_restricted_username)
-            # maxclient.setToken(settings.max_restricted_token)
+            maxclient, settings = getUtility(IMAXClient)()
+            maxclient.setActor(settings.max_restricted_username)
+            maxclient.setToken(settings.max_restricted_token)
 
-            # current_vips = maxclient.admin.security.get()
+            current_vips = maxclient.admin.security.get()
             current_vips = current_vips.get('roles').get('NonVisible', [])
 
             un_vip = [a for a in current_vips if a not in data.get('nonvisibles')]
