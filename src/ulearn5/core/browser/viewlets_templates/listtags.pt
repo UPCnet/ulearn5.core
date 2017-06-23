@@ -1,0 +1,31 @@
+<div i18n:domain="plone"
+     id="category"
+     class="documentByLine listtags"
+     tal:define="categories context/Subject|nothing;
+                 url_quote  nocall:modules/Products.PythonScripts.standard/url_quote;"
+     tal:condition="categories">
+  <tal:filedunder i18n:translate="label_follow_cat">Seguir categoría:</tal:filedunder>
+  <span tal:repeat="category categories">
+    <span tal:define="exists python:viewlet.isTagFollowed(category)"
+         tal:condition="exists"
+         class="tagfollowed">
+      <a href=""
+         rel="tag"
+         tal:content="category"
+         tal:attributes="href string:${context/absolute_url}/toggle_subscriptiontag?tag=${category}">
+        Category
+      </a>
+    </span>
+    <span tal:define="exists python:viewlet.isTagFollowed(category)"
+         tal:condition="not:exists"
+         class="tagnotfollowed">
+      <a href=""
+         rel="tag"
+         tal:content="category"
+         tal:attributes="href string:${context/absolute_url}/toggle_subscriptiontag?tag=${category}">
+        Category
+      </a>
+    </span>
+    <span class="separator" tal:condition="not: repeat/category/end">,</span>
+  </span>
+</div>

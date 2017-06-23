@@ -1,0 +1,23 @@
+<tal:block condition="viewlet/canManageSite">
+  <div>Flash</div>
+  <div i18n:domain="ulearn" id="toggle-flash">
+    <div tal:condition="not:viewlet/isNewFlash">
+        <label class="switch">
+          <input type="checkbox">
+          <div class="sliderbutton round"
+               tal:attributes="data-dextobject context/absolute_url"
+               >
+          </div>
+        </label>
+    </div>
+    <div tal:condition="viewlet/isNewFlash">
+        <label class="switch">
+          <input type="checkbox" checked>
+          <div class="sliderbutton round"
+               tal:attributes="data-dextobject context/absolute_url"
+               >
+          </div>
+        </label>
+    </div>
+   </div>
+</tal:block>

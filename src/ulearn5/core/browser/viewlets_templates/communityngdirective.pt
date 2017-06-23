@@ -1,0 +1,5 @@
+<communityinfo tal:attributes="community_url viewlet/community_url;
+    community_gwuuid viewlet/community_gwuuid;
+    community_hash viewlet/community_hash;
+    community_type viewlet/community_type">
+</communityinfo>

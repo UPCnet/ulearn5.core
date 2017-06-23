@@ -1,0 +1,25 @@
+<div i18n:domain="ulearn" id="toggle-important">
+    <div>Destacada</div>
+    <div tal:condition="not:viewlet/isNewImportant">
+        <div tal:condition="not:viewlet/isNewImportant">
+            <label class="switch">
+              <input type="checkbox">
+              <div class="sliderbutton round"
+                   tal:attributes="data-dextobject context/absolute_url"
+                   >
+              </div>
+            </label>
+        </div>
+    </div>
+    <div tal:condition="viewlet/isNewImportant">
+        <div tal:condition="viewlet/isNewImportant">
+            <label class="switch">
+              <input type="checkbox" checked>
+              <div class="sliderbutton round"
+                   tal:attributes="data-dextobject context/absolute_url"
+                   >
+              </div>
+            </label>
+        </div>
+    </div>
+ </div>

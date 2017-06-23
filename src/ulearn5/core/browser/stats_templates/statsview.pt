@@ -1,0 +1,320 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="ulearn">
+
+<head>
+  <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
+
+    <script type="text/javascript">
+
+      $(document).ready(function(event) {
+
+        $(".user-select").select2({
+            placeholder: "Todos los usuarios",
+            minimumInputLength: 3,
+            ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+                url: portal_url + "/max.ajaxusersearch",
+                dataType: 'json',
+                quietMillis: 250,
+                data: function (term, page) {
+                    return {
+                        q: term,
+                        page: page
+                    };
+                },
+                results: function (data, page) { // parse the results into the format expected by Select2.
+                    return data;
+                },
+            },
+            allowClear:true,
+            initSelection: function(element, callback) {
+                var value = $(element).val();
+                if (value == 'all') {
+                  value = _ulearn_i18n("Todos los usuarios")
+                  callback({text:value})
+                }
+            },
+
+        });
+
+        $(".keyword-select").select2({tags:[]});
+
+          function create_header(headers) {
+            var header = ''
+            _.each(headers, function(element, index, list) {
+              header += '<th style="text-align:center;">' + element + '</th>\n'
+            })
+            return '<tr>' + header + '</tr>\n'
+
+          }
+
+          function create_body(rows) {
+            var body = '';
+            _.each(rows, function(row, index, list) {
+              body += create_row(row)
+            })
+            return body
+          }
+
+          function create_row(cols) {
+            var row = ''
+            _.each(cols, function(col, index, list) {
+              var style = "text-align:center;";
+              if (index==0) {style += "font-weight:bold;"}
+              row += '<td style="'+ style +'">' + col + '</td>\n'
+            })
+            return '<tr>' + row + '</tr>\n'
+          }
+
+
+          function get_form_params() {
+              var start = $('#first_month_year option:selected').val() + '-' + $('#first_month option:selected').val();
+              var end = $('#last_month_year option:selected').val() + '-' + $('#last_month option:selected').val();
+
+              var community = $('#community option:selected').val();
+              var user = $('.user-select').select2('val');
+              var keywords = $('.keyword-select').select2('val');
+              var access_type = $('#access_type option:selected').val();
+
+              return {
+                start: start,
+                end: end,
+                community: community,
+                user: user,
+                keywords: keywords,
+                access_type: access_type
+              }
+          }
+
+          $('#form-buttons-load').on('click',  function(event) {
+              event.preventDefault();
+              event.stopPropagation();
+
+              $.get(portal_url + '/ulearn-stats-query', get_form_params(), function(data) {
+                  var $stats_container = $('#stats-results')
+                  var $header = $stats_container.find('table thead')
+                  var $body = $stats_container.find('table tbody')
+
+                  $header.html(create_header(_.union([''], data['headers'])))
+                  $body.html(create_body(data['rows']))
+                  $stats_container.show()
+                  console.log(data)
+              })
+          })
+
+          $('#form-buttons-export').on('click',  function(event) {
+              event.preventDefault();
+              event.stopPropagation();
+
+              var params = get_form_params();
+              params.format = 'csv';
+              var url = portal_url + '/ulearn-stats-query?' + $.param(params)
+
+              var a = document.createElement('a');
+              a.setAttribute('href', url);
+              a.setAttribute('target', '_blank');
+              document.body.appendChild(a);
+              debugger;
+              a.click();
+          })
+      })
+
+    </script>
+
+  </div>
+  <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1);
+                             dummy python:request.set('disable_plone.rightcolumn',1)" />
+
+
+</head>
+
+<body>
+
+<metal:main fill-slot="main">
+
+  <metal:content-core define-macro="main">
+
+   <div id="viewlet-above-content-title"></div>
+   <h1 class="documentFirstHeading" i18n:translate="stats">Stats</h1>
+
+
+<!-- _________________________________ FIRST MONTH ______________________________________________ -->
+
+
+
+<form id="ulearn-stats">
+<div  class="row-fluid">
+
+<div class="field empty span6">
+    <label for="form-widgets-IDublinCore-effective" class="horizontal" i18n:translate="Inicio_stats">
+        Inicio
+        <span class="formHelp" i18n:translate="Mes_inicial">Mes inicialsds</span>
+    </label>
+
+    <div class="fieldErrorBox"></div>
+
+    <!-- month -->
+
+    <select class="month datetime-widget datetime-field" id="first_month" name="first_month">
+      <option tal:repeat="month python:view.get_months('start')" tal:attributes="value month/value; selected month/selected" tal:content="month/title">xxxxxx</option>
+    </select>
+    <span class="separator">/</span>
+
+    <!-- year -->
+
+    <select class="year datetime-widget datetime-field" id="first_month_year" name="first_month_year">
+      <option tal:repeat="year python:view.get_years('start')" tal:attributes="value year/value; selected year/selected" tal:content="year/title">xxxxxx</option>
+    </select>
+</div>
+
+<!-- _________________________________ LAST MONTH ______________________________________________ -->
+
+<div class="field empty span6">
+    <label for="form-widgets-IDublinCore-effective" class="horizontal" i18n:translate="Fin_stats">
+        Fin
+        <span class="formHelp" i18n:translate="Mes_final">Mes final</span>
+    </label>
+
+    <div class="fieldErrorBox"></div>
+
+    <!-- month -->
+
+
+    <select class="month datetime-widget datetime-field" id="last_month" name="last_month">
+      <option tal:repeat="month python:view.get_months('end')" tal:attributes="value month/value; selected month/selected" tal:content="month/title">xxxxxx</option>
+    </select>
+    <span class="separator">/</span>
+
+    <!-- year -->
+
+
+    <select class="year datetime-widget datetime-field" id="last_month_year" name="last_month_year">
+      <option tal:repeat="year python:view.get_years('end')" tal:attributes="value year/value; selected year/selected" tal:content="year/title">xxxxxx</option>
+    </select>
+</div>
+</div>
+
+<br/>
+<!-- _________________________________ ______________________________________________ -->
+
+
+<div id="stats-filter-1" class="row-fluid">
+  <div class="field empty span6">
+      <label for="form-widgets-IDublinCore-effective" class="horizontal" i18n:translate="Comunitat_stats">
+          Comunidad
+          <span class="formHelp"></span>
+      </label>
+
+      <div class="fieldErrorBox"></div>
+
+    <select class="year datetime-widget datetime-field" id="community" name="community">
+      <option tal:repeat="community view/get_communities" tal:attributes="value community/hash" tal:content="community/title">Todas las comunidades</option>
+    </select>
+
+
+  </div>
+
+
+  <div class="field empty span6">
+      <label for="form-widgets-IDublinCore-effective" class="horizontal" i18n:translate="Usuario_stats">
+          Usuario
+          <span class="formHelp"></span>
+      </label>
+
+      <div class="fieldErrorBox"></div>
+
+      <input type="text" class="user-select" value="all" style="width:100%;"/>
+
+  </div>
+</div>
+
+<br/>
+
+<!-- _________________________________ ______________________________________________ -->
+
+
+<div id="stats-filter-1" class="row-fluid">
+  <div class="field empty span6">
+      <label for="form-widgets-IDublinCore-effective" class="horizontal" i18n:translate="Filtro por palabra clave">
+          Filtro por palabra clave
+          <span class="formHelp"></span>
+      </label>
+
+      <div class="fieldErrorBox"></div>
+
+    <input type="text" class="keyword-select"  style="width:100%;"/>
+
+  </div>
+
+  <div class="field empty span6">
+    <!--
+      <label for="form-widgets-IDublinCore-effective" class="horizontal">
+          Tipos de acceso
+          <span class="formHelp"></span>
+      </label>
+
+      <div class="fieldErrorBox"></div>
+
+    <select class="year datetime-widget datetime-field" id="access_type" name="access_type">
+      <option value="">Todos</option>
+      <option value="web">Web</option>
+      <option value="mobile">Móvil</option>
+
+    </select>
+-->
+
+  </div>
+</div>
+
+
+
+<div class="formControls">
+    <button id="form-buttons-load" class="button-field context" i18n:translate="search">Cerca</button>
+    <button id="form-buttons-export" class="button-field context" i18n:translate="exporta">Exporta</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true" i18n:translate="btnCancel">Cancela</button>
+</div>
+</form>
+
+<br/>
+<div id="stats-results" style="display:none;">
+
+   <div id="viewlet-above-content-title"></div>
+   <h2 class="documentFirstHeading" i18n:translate="Resultados">Resultados</h2>
+
+
+   <table class="table table-striped">
+     <thead>
+       <tr>
+         <th></th>
+         <th>Entradas</th>
+         <th>Comentarios</th>
+         <th>Documentos</th>
+         <th>Enlaces</th>
+         <th>Media</th>
+       </tr>
+     </thead>
+
+     <tbody>
+     <tr>
+        <td>Gener</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+     </tr>
+     </tbody>
+   </table>
+
+</div>
+
+  </metal:content-core>
+</metal:main>
+
+</body>
+</html>

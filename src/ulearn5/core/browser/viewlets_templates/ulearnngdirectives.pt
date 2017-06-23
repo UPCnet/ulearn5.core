@@ -1,0 +1,3 @@
+<statsinfo tal:attributes="communities viewlet/get_communities;
+                           extended_report viewlet/show_extended">
+</statsinfo>
