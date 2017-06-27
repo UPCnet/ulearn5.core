@@ -12,17 +12,17 @@ from plone.dexterity.utils import createContentInContainer
 
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
-from genweb.portlets.browser.manager import ISpanStorage
+from base5.core.browser.manager import ISpanStorage
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from zope.interface import alsoProvides
 from mrs5.max.utilities import IMAXClient
 from ulearn5.core.api.people import Person
-from genweb.core.utils import remove_user_from_catalog
+from base5.core.utils import remove_user_from_catalog
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
-from genweb.core.gwuuid import IGWUUID
+from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.browser.security import execute_under_special_role
 
 import transaction
@@ -35,7 +35,7 @@ from plone.namedfile.file import NamedBlobFile
 from zope.component import queryUtility
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
-from genweb.core.utilities import IElasticSearch
+from base5.core.utilities import IElasticSearch
 from ulearn5.core.browser.sharing import ElasticSharing
 
 
@@ -310,7 +310,7 @@ class ImportFileToFolder(grok.View):
     """
     grok.context(IPloneSiteRoot)
     grok.name('importfiletofolder')
-    grok.require('genweb.webmaster')
+    grok.require('base.webmaster')
 
     def render(self):
         portal = api.portal.get()

@@ -29,8 +29,8 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from ulearn5.core.interfaces import IDocumentFolder, ILinksFolder, IPhotosFolder, IEventsFolder
 from ulearn5.core.content.community import IInitializedCommunity
 from ulearn5.core.content.community import Community
-from genweb.core.browser.helpers import listPloneSites
-from genweb.core.gwuuid import ATTRIBUTE_NAME
+# from genweb.core.browser.helpers import listPloneSites
+from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.interfaces import IDiscussionFolder
 from ulearn5.core import _
 from ulearn5.core.content.community import ICommunityTyped
@@ -40,11 +40,23 @@ from max5.client.rest import RequestError
 
 from itertools import chain
 import logging
-from genweb.core.gwuuid import IGWUUID
+from ulearn5.core.gwuuid import IGWUUID
 from repoze.catalog.query import Eq, Or
 
 logger = logging.getLogger(__name__)
 
+
+def listPloneSites(zope):
+    """ List the available plonesites to be used by other function """
+    out = []
+    for item in zope.values():
+        if IFolder.providedBy(item) and not IPloneSiteRoot.providedBy(item):
+            for site in item.values():
+                if IPloneSiteRoot.providedBy(site):
+                    out.append(site)
+        elif IPloneSiteRoot.providedBy(item):
+            out.append(item)
+    return out
 
 class portletfix(grok.View):
     grok.context(IPloneSiteRoot)

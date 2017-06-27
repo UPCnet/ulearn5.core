@@ -1,0 +1,132 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="ulearn">
+
+<head>
+  <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1);
+                             disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
+</head>
+
+<body>
+
+<metal:main fill-slot="main">
+
+  <metal:content-core define-macro="main">
+
+    <div ng-controller="uLearnSharingACL as ctrl" ngCloak>
+
+      <input type="hidden"
+             tal:attributes="sharing view/get_acl" />
+
+      <div class="user_group btn-group" ng-cloak>
+        <button class="btn active"
+                ng-click="ctrl.active_tab = 'users'"
+                ng-class="{active: ctrl.active_tab == 'users'}">{{'COMMUNITY_ACL.USERS' | translate}}</button>
+        <button class="btn"
+                ng-click="ctrl.active_tab = 'groups'"
+                ng-class="{active: ctrl.active_tab == 'groups'}">{{'COMMUNITY_ACL.GROUPS' | translate}}</button>
+      </div>
+
+      <div class="acl_tabs"
+           ng-switch="ctrl.active_tab">
+        <div ng-switch-when="users" ng-cloak>
+
+          <ui-select ng-model="ctrl.principals.selected" on-select="ctrl.selectUser($item, $model)" theme="selectize" style="width: 300px;">
+            <ui-select-match placeholder="{{'COMMUNITY_ACL.SEARCHUSERS' | translate}}">{{$select.selected.id}}</ui-select-match>
+            <ui-select-choices repeat="principal in ctrl.principals"
+                 refresh="ctrl.searchUser($select.search)"
+                 refresh-delay="400">
+                <div ng-bind-html="principal.displayName | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+
+<!--!           <h2>The ACL</h2>
+          <ul>
+              <li ng-repeat="user in ctrl.users">{{user.id}}</li>
+          </ul> -->
+
+          <table datatable="ng" dt-options="ctrl.dtOptions" dt-column-defs="ctrl.dtColumnDefs" class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>{{'COMMUNITY_ACL.USERNAME' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.DISPLAYNAME' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.READER' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.WRITER' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.OWNER' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.ACTIONS' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in ctrl.users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.displayName }}</td>
+                <td class="text-center"><input ng-model="user.role" type="radio" name="{{user.id}}" value="reader" checked></td>
+                <td class="text-center"><input ng-model="user.role" type="radio" name="{{user.id}}" value="writer"></td>
+                <td class="text-center"><input ng-model="user.role" type="radio" name="{{user.id}}" value="owner"></td>
+                <td class="text-center">
+                    <button type="button" ng-click="ctrl.deleteUser(user)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+              </tr>
+              <!--! <tt>{{ctrl.users | json}}</tt><br/> -->
+            </tbody>
+          </table>
+        </div>
+        <div ng-switch-when="groups" ng-cloak>
+
+          <ui-select ng-model="ctrl.group_results.selected" on-select="ctrl.selectGroup($item, $model)" theme="selectize" style="width: 300px;">
+            <ui-select-match placeholder="{{'COMMUNITY_ACL.SEARCHGROUPS' | translate}}">{{$select.selected.id}}</ui-select-match>
+            <ui-select-choices repeat="principal in ctrl.group_results"
+                 refresh="ctrl.searchGroup($select.search)"
+                 refresh-delay="400">
+                <div ng-bind-html="principal.id | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+
+<!--!
+          <h2>The ACL</h2>
+          <ul>
+              <li ng-repeat="group in ctrl.groups">{{group.id}}</li>
+          </ul> -->
+
+          <table datatable="ng" dt-options="ctrl.dtOptions" dt-column-defs="ctrl.dtColumnDefs" class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>{{'COMMUNITY_ACL.GROUPNAME' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.DISPLAYNAME' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.READER' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.WRITER' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.OWNER' | translate}}</th>
+                <th>{{'COMMUNITY_ACL.ACTIONS' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="group in ctrl.groups">
+                <td>{{ group.id }}</td>
+                <td>{{ group.displayName }}</td>
+                <td class="text-center"><input ng-model="group.role" type="radio" name="{{group.id}}" value="reader" checked></td>
+                <td class="text-center"><input ng-model="group.role" type="radio" name="{{group.id}}" value="writer"></td>
+                <td class="text-center"><input ng-model="group.role" type="radio" name="{{group.id}}" value="owner"></td>
+                <td class="text-center">
+                    <button type="button" ng-click="ctrl.deleteGroup(group)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+              </tr>
+              <!--! <tt>{{ctrl.groups | json}}</tt><br/> -->
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      <button class="submit-widget button-field context"
+              i18n:translate="Save"
+              ng-click="ctrl.saveAcl()" ng-cloak>Save</button>
+    </div>
+  </metal:content-core>
+</metal:main>
+
+</body>
+</html>

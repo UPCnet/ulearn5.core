@@ -8,7 +8,7 @@ from repoze.catalog.query import And
 from souper.soup import get_soup
 from zope.component import getUtility
 
-from genweb.core.utils import add_user_to_catalog
+from base5.core.utils import add_user_to_catalog
 from mrs5.max.utilities import IMAXClient
 
 import json

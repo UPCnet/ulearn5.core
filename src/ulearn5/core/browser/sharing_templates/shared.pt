@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="ulearn">
+
+<head>
+  <metal:block fill-slot="top_slot">
+      <tal:insert tal:replace="nothing"
+                  tal:define="dummy python:request.set('enable_border', 1);
+                              disable_column_one python:request.set('disable_plone.rightcolumn',1);" />
+    </metal:block>
+</head>
+
+<body>
+
+  <metal:main metal:fill-slot="main"
+              tal:define="b_start python:0;
+                         b_start request/b_start | b_start;
+                         continguts python: view.getContent()">
+
+  <div id="librarysearch">
+
+    <h1 class="documentFirstHeading" i18n:translate="shared_content">Shared content</h1>
+    <div class="documentDescription" i18n:translate="shared_content_description">Elements shared on this community</div>
+    <section id="tagslist"
+             tal:define="site_properties context/portal_properties/site_properties;
+                        use_view_action site_properties/typesUseViewActionInListings|python:()">
+
+      <ul>
+          <tal:nofavorite repeat="contingut continguts">
+            <li tal:define="item_type contingut/portal_type;
+                              item_url contingut/getURL;">
+              <div class="nofavorite">
+                <a tal:attributes="href python: item_url+'/view' if item_type in use_view_action else item_url;">
+                  <h4 tal:attributes="class item_type"><span tal:replace="contingut/Title">Title</span>
+                  <i class="shared_icon fa fa-share-alt-square" aria-hidden="true"></i>
+                  </h4>
+                  <p tal:condition="contingut/Description"><span tal:content="contingut/Description">Description</span>
+                  </p>
+                </a>
+              </div>
+           </li>
+          </tal:nofavorite>
+
+      </ul>
+
+
+    </section>
+
+  </div>
+
+  </metal:main>
+</body>
+</html>

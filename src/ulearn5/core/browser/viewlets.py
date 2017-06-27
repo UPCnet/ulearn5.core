@@ -7,7 +7,7 @@ from zope.component.hooks import getSite
 from zope.security import checkPermission
 from plone.app.layout.viewlets.interfaces import IPortalHeader
 
-from genweb.core.gwuuid import IGWUUID
+from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core import _
 from Acquisition import aq_chain
@@ -16,11 +16,12 @@ from plone.app.contenttypes.interfaces import INewsItem
 from plone.app.layout.viewlets.interfaces import IAboveContentTitle
 from plone.memoize.view import memoize_contextless
 from Products.CMFCore.utils import getToolByName
-from genweb.core.adapters import IImportant
-from genweb.core.adapters import IFlash
-from genweb.core.adapters import IOutOfList
-from genweb.core.utils import genweb_config
-from ulearn.theme.browser.interfaces import IUlearnTheme
+from base5.core.adapters import IImportant
+from base5.core.adapters import IFlash
+from base5.core.adapters import IOutOfList
+from base5.core.utils import genweb_config
+
+from ulearn5.core.interfaces import IUlearn5CoreLayer
 from souper.soup import get_soup
 from repoze.catalog.query import Eq
 import json
@@ -52,7 +53,7 @@ class ULearnNGDirectives(grok.Viewlet):
     grok.context(Interface)
     grok.name('ulearn.ulearnngdirectives')
     grok.viewletmanager(IPortalHeader)
-    grok.layer(IUlearnTheme)
+    grok.layer(IUlearn5CoreLayer)
 
     def get_communities(self):
         """ Gets the communities to show in the stats selectize dropdown
@@ -95,7 +96,7 @@ class newsToolBar(viewletBase):
     grok.context(INewsItem)
     grok.template('newstoolbar')
     grok.viewletmanager(IAboveContentTitle)
-    grok.layer(IUlearnTheme)
+    grok.layer(IUlearn5CoreLayer)
     grok.require('cmf.ModifyPortalContent')
 
     def permisos_important(self):
@@ -186,8 +187,8 @@ class ListTagsNews(viewletBase):
     grok.context(INewsItem)
     grok.template('listtags')
     grok.viewletmanager(IAboveContentTitle)
-    grok.require('genweb.authenticated')
-    grok.layer(IUlearnTheme)
+    grok.require('base.authenticated')
+    grok.layer(IUlearn5CoreLayer)
 
     def isTagFollowed(self, category):
         portal = getSite()

@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:grok="http://namespaces.zope.org/grok"
@@ -7,39 +8,46 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="ulearn5.core">
 
-  <includeDependencies package="." />
+  <grok:grok package="." />
+  <configure zcml:condition="installed AccessControl.security">
 
-  <permission
-    id="ulearn.addCommunity"
-    title="Ulearn: Add Community"
-    />
-
-  <permission
-    id="ulearn.addOportunitat"
-    title="Ulearn: Add Oportunitat"
-    />
-
-  <permission
-      id="ulearn.APIAccess"
-      title="Ulearn: API Access"
+    <permission
+      id="ulearn.addCommunity"
+      title="Ulearn: Add Community"
       />
 
-  <permission
-    id="ulearn.addPrivateFolder"
-    title="Ulearn: Add Private Folder"
-    />
+    <permission
+      id="ulearn.addOportunitat"
+      title="Ulearn: Add Oportunitat"
+      />
 
-  <permission id="ulearn5.core.setup"
-              title="Plone Site Setup: uLearn">
-    <role name="Manager"/>
-    <role name="Site Administrator"/>
-  </permission>
+    <permission
+        id="ulearn.APIAccess"
+        title="Ulearn: API Access"
+        />
 
-  <include package=".browser" />
-  <include package=".widgets" />
+    <permission
+      id="ulearn.addPrivateFolder"
+      title="Ulearn: Add Private Folder"
+      />
+
+    <permission id="ulearn5.core.setup"
+                title="Plone Site Setup: uLearn">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+    </permission>
+
+  </configure>
 
 
   <i18n:registerTranslations directory="locales" />
+  <includeDependencies package="." />
+
+
+  <include package=".widgets" />
+  <include package=".browser" />
+
+
 
   <include file="subscribers.zcml" />
 

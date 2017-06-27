@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from five import grok
 from zope.component.hooks import getSite
 
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
-# from ulearn.theme.browser.interfaces import IUlearnTheme
 from ulearn5.core.interfaces import IUlearn5CoreLayer
+
 
 import inspect
 import importlib
@@ -16,7 +17,11 @@ import importlib
 MODULES_TO_INSPECT = ['ulearn5.core.browser.setup',
                       'ulearn5.core.browser.migrations']
 
+grok.templatedir("inspector_templates")
+
 class clouseau(grok.View):
+    grok.name('clouseau')
+    grok.template('clouseau')
     grok.context(IPloneSiteRoot)
     grok.layer(IUlearn5CoreLayer)
 
@@ -25,12 +30,12 @@ class clouseau(grok.View):
 
         urls = []
 
-        for module in MODULES_TO_INSPECT:
-            themodule = importlib.import_module(module)
-            members = inspect.getmembers(themodule, inspect.isclass)
+        # for module in MODULES_TO_INSPECT:
+        #     themodule = importlib.import_module(module)
+        #     members = inspect.getmembers(themodule, inspect.isclass)
 
-            for name, klass in members:
-                if grok.View in klass.__bases__:
-                    urls.append('{}/{}'.format(portal.absolute_url(), name.lower()))
+        #     for name, klass in members:
+        #         if grok.View in klass.__bases__:
+        #             urls.append('{}/{}'.format(portal.absolute_url(), name.lower()))
 
         return urls

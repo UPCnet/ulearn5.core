@@ -12,6 +12,7 @@ Products.PloneFormGen
 collective.z3cform.datagridfield
 souper
 collective.polls
+collective.autopermission
 
 [test]
 plone.app.testing

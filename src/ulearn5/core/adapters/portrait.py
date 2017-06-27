@@ -7,6 +7,7 @@ from Products.PlonePAS.interfaces.membership import IMembershipTool
 
 from mrs5.max.utilities import IMAXClient
 from ulearn5.theme.interfaces import IUlearn5ThemeLayer
+from base5.core.adapters.portrait import IPortraitUploadAdapter
 from zope.component import getUtility
 from zope.interface import Interface
 
@@ -14,13 +15,6 @@ import logging
 import PIL
 
 logger = logging.getLogger(__name__)
-
-
-class IPortraitUploadAdapter(Interface):
-    """ The marker interface for the portrait upload adapter used for implement
-        special actions after upload. The idea is to have a default (core)
-        action and then other that override the default one using IBrowserLayer.
-    """
 
 
 @grok.implementer(IPortraitUploadAdapter)

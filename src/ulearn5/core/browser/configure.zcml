@@ -1,21 +1,12 @@
-<configure
+ <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:grok="http://namespaces.zope.org/grok"
     i18n_domain="ulearn5.core">
 
-  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+<!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
-  <browser:jbot
-      directory="overrides"
-      layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
-      />
 
-  <!-- Publish static files -->
-  <plone:static
-      name="ulearn5.core"
-      type="plone"
-      directory="static"
-      />
 
 </configure>

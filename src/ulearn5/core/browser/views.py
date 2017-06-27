@@ -19,7 +19,8 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-from ulearn.theme.browser.interfaces import IUlearnTheme
+from ulearn5.core.interfaces import IUlearn5CoreLayer
+
 from datetime import datetime
 
 from souper.soup import get_soup
@@ -98,7 +99,7 @@ class IReservaBBB(form.Schema):
 class reservaBBB(form.SchemaForm):
     grok.name('addBBBReservation')
     grok.context(IPloneSiteRoot)
-    grok.require('genweb.member')
+    grok.require('base.member')
 
     schema = IReservaBBB
     ignoreContext = True
@@ -188,8 +189,8 @@ class reservaBBB(form.SchemaForm):
 class AjaxUserSearch(grok.View):
     grok.context(Interface)
     grok.name('genweb.ajaxusersearch')
-    grok.require('genweb.authenticated')
-    grok.layer(IUlearnTheme)
+    grok.require('base.authenticated')
+    grok.layer(IUlearn5CoreLayer)
 
     def render(self):
         self.request.response.setHeader('Content-type', 'application/json')
@@ -218,8 +219,8 @@ class AjaxUserSearch(grok.View):
 class addUserSearch(grok.View):
     grok.context(Interface)
     grok.name('add_user_search')
-    grok.require('genweb.authenticated')
-    grok.layer(IUlearnTheme)
+    grok.require('base.authenticated')
+    grok.layer(IUlearn5CoreLayer)
 
     def render(self):
         portal = getSite()
@@ -261,8 +262,8 @@ class addUserSearch(grok.View):
 class removeUserSearch(grok.View):
     grok.context(Interface)
     grok.name('remove_user_search')
-    grok.require('genweb.authenticated')
-    grok.layer(IUlearnTheme)
+    grok.require('base.authenticated')
+    grok.layer(IUlearn5CoreLayer)
 
     def render(self):
         portal = getSite()
@@ -294,8 +295,8 @@ class removeUserSearch(grok.View):
 class isSearchInSearchers(grok.View):
     grok.context(Interface)
     grok.name('search_in_searchers')
-    grok.require('genweb.authenticated')
-    grok.layer(IUlearnTheme)
+    grok.require('base.authenticated')
+    grok.layer(IUlearn5CoreLayer)
 
     def render(self):
         portal = getSite()
@@ -323,8 +324,8 @@ class isSearchInSearchers(grok.View):
 class getUserSearchers(grok.View):
     grok.context(Interface)
     grok.name('get_user_searchers')
-    grok.require('genweb.authenticated')
-    grok.layer(IUlearnTheme)
+    grok.require('base.authenticated')
+    grok.layer(IUlearn5CoreLayer)
 
     def render(self):
         portal = getSite()
@@ -346,8 +347,8 @@ class MigrateAvatars(grok.View):
     """ Migrate avatar images from disk to web (migration on sunday 27/11/2017) """
     grok.name('migrate_avatars')
     grok.context(Interface)
-    grok.require('genweb.member')
-    grok.layer(IUlearnTheme)
+    grok.require('base.member')
+    grok.layer(IUlearn5CoreLayer)
 
     def render(self):
         path = '/var/plone/import-images/'
