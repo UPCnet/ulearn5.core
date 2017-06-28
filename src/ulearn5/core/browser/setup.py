@@ -18,7 +18,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from zope.interface import alsoProvides
 from mrs5.max.utilities import IMAXClient
-from ulearn5.core.api.people import Person
+# from ulearn5.core.api.people import Person
 from base5.core.utils import remove_user_from_catalog
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
@@ -43,6 +43,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+grok.templatedir("views_templates")
+
 
 class setupHomePage(grok.View):
     grok.context(IPloneSiteRoot)
@@ -54,15 +56,15 @@ class setupHomePage(grok.View):
         # Add portlets programatically
         target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager1', context=frontpage)
         target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
-        from ulearn.theme.portlets.profile import Assignment as profileAssignment
-        from ulearn.theme.portlets.communities import Assignment as communitiesAssignment
-        from ulearn.theme.portlets.thinnkers import Assignment as thinnkersAssignment
+        from ulearn5.theme.portlets.profile import Assignment as profileAssignment
+        from ulearn5.theme.portlets.communities import Assignment as communitiesAssignment
+        from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
         from mrs5.max.portlets.maxui import Assignment as maxAssignment
-        from ulearn.theme.portlets.homebuttonbar import Assignment as homebuttonbarAssignment
-        from ulearn.theme.portlets.calendar import Assignment as calendarAssignment
-        from ulearn.theme.portlets.stats import Assignment as statsAssignment
-        from ulearn.theme.portlets.econnect import Assignment as econnectAssignment
-        from ulearn.theme.portlets.angularrouteview import Assignment as angularrouteviewAssignment
+        from ulearn5.theme.portlets.homebuttonbar import Assignment as homebuttonbarAssignment
+        from ulearn5.theme.portlets.calendar import Assignment as calendarAssignment
+        from ulearn5.theme.portlets.stats import Assignment as statsAssignment
+        from ulearn5.theme.portlets.econnect import Assignment as econnectAssignment
+        from ulearn5.theme.portlets.angularrouteview import Assignment as angularrouteviewAssignment
 
         target_manager_assignments['profile'] = profileAssignment()
         target_manager_assignments['communities'] = communitiesAssignment()
@@ -114,9 +116,10 @@ class memberFolderSetup(grok.View):
 class changeURLCommunities(grok.View):
     """ Aquesta vista canvia la url de les comunitats """
     grok.name('changeurlcommunities')
+    grok.template('changeurlcommunities')
     grok.context(IPloneSiteRoot)
 
-    render = ViewPageTemplateFile('views_templates/changeurlcommunities.pt')
+    # render = ViewPageTemplateFile('views_templates/changeurlcommunities.pt')
 
     def update(self):
         try:
@@ -144,71 +147,73 @@ class changeURLCommunities(grok.View):
                     community.maxclient.contexts[community_url].put(**properties_to_update)
                     self.context.plone_log('Comunitat amb url {} actualitzada per {}'.format(community_url, community_url_nova))
 
-class deleteUsers(grok.View):
-    """ Delete users from the plone & max & communities """
-    grok.name('deleteusers')
-    grok.context(IPloneSiteRoot)
+# class deleteUsers(grok.View):
+#     """ Delete users from the plone & max & communities """
+#     grok.name('deleteusers')
+#      grok.template('deleteusers')
+#     grok.context(IPloneSiteRoot)
 
-    render = ViewPageTemplateFile('views_templates/deleteusers.pt')
+#     render = ViewPageTemplateFile('views_templates/deleteusers.pt')
 
-    def update(self):
-        try:
-            from plone.protect.interfaces import IDisableCSRFProtection
-            alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
-        if self.request.environ['REQUEST_METHOD'] == 'POST':
+#     def update(self):
+#         try:
+#             from plone.protect.interfaces import IDisableCSRFProtection
+#             alsoProvides(self.request, IDisableCSRFProtection)
+#         except:
+#             pass
+#         if self.request.environ['REQUEST_METHOD'] == 'POST':
 
-            if self.request.form['users'] != '':
-                users = self.request.form['users'].split(',')
+#             if self.request.form['users'] != '':
+#                 users = self.request.form['users'].split(',')
 
-                for user in users:
-                    user = user.strip()
-                    try:
-                        person = Person(self.context, [user])
-                        person.deleteMembers([user])
-                        remove_user_from_catalog(user.lower())
-                        pc = api.portal.get_tool(name='portal_catalog')
-                        username = user
-                        comunnities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
-                        for num, community in enumerate(comunnities):
-                            obj = community._unrestrictedGetObject()
-                            self.context.plone_log('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
-                            gwuuid = IGWUUID(obj).get()
-                            portal = api.portal.get()
-                            soup = get_soup('communities_acl', portal)
+#                 for user in users:
+#                     user = user.strip()
+#                     try:
+#                         person = Person(self.context, [user])
+#                         person.deleteMembers([user])
+#                         remove_user_from_catalog(user.lower())
+#                         pc = api.portal.get_tool(name='portal_catalog')
+#                         username = user
+#                         comunnities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
+#                         for num, community in enumerate(comunnities):
+#                             obj = community._unrestrictedGetObject()
+#                             self.context.plone_log('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
+#                             gwuuid = IGWUUID(obj).get()
+#                             portal = api.portal.get()
+#                             soup = get_soup('communities_acl', portal)
 
-                            records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
+#                             records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
 
-                            # Save ACL into the communities_acl soup
-                            if records:
-                                acl_record = records[0]
-                                acl = acl_record.attrs['acl']
-                                exist = [a for a in acl['users'] if a['id'] == unicode(username)]
-                                if exist:
-                                    acl['users'].remove(exist[0])
-                                    acl_record.attrs['acl'] = acl
-                                    soup.reindex(records=[acl_record])
-                                    adapter = obj.adapted()
-                                    adapter.set_plone_permissions(adapter.get_acl())
+#                             # Save ACL into the communities_acl soup
+#                             if records:
+#                                 acl_record = records[0]
+#                                 acl = acl_record.attrs['acl']
+#                                 exist = [a for a in acl['users'] if a['id'] == unicode(username)]
+#                                 if exist:
+#                                     acl['users'].remove(exist[0])
+#                                     acl_record.attrs['acl'] = acl
+#                                     soup.reindex(records=[acl_record])
+#                                     adapter = obj.adapted()
+#                                     adapter.set_plone_permissions(adapter.get_acl())
 
-                        maxclient, settings = getUtility(IMAXClient)()
-                        maxclient.setActor(settings.max_restricted_username)
-                        maxclient.setToken(settings.max_restricted_token)
-                        maxclient.people[username].delete()
-                        logger.info('Delete user: {}'.format(user))
-                    except:
-                        logger.error('User not deleted: {}'.format(user))
-                        pass
+#                         maxclient, settings = getUtility(IMAXClient)()
+#                         maxclient.setActor(settings.max_restricted_username)
+#                         maxclient.setToken(settings.max_restricted_token)
+#                         maxclient.people[username].delete()
+#                         logger.info('Delete user: {}'.format(user))
+#                     except:
+#                         logger.error('User not deleted: {}'.format(user))
+#                         pass
 
-                logger.info('Finished deleted users: {}'.format(users))
+#                 logger.info('Finished deleted users: {}'.format(users))
 
 class deleteUsersInCommunities(grok.View):
     """ Delete users from the plone & max & communities """
     grok.name('deleteusersincommunities')
+    grok.template('deleteusersincommunities')
     grok.context(IPloneSiteRoot)
 
-    render = ViewPageTemplateFile('views_templates/deleteusersincommunities.pt')
+    # render = ViewPageTemplateFile('views_templates/deleteusersincommunities.pt')
 
     def update(self):
         try:
@@ -310,7 +315,7 @@ class ImportFileToFolder(grok.View):
     """
     grok.context(IPloneSiteRoot)
     grok.name('importfiletofolder')
-    grok.require('base.webmaster')
+    # grok.require('base.webmaster')
 
     def render(self):
         portal = api.portal.get()
@@ -343,9 +348,10 @@ class ImportFileToFolder(grok.View):
 class updateSharingCommunityElastic(grok.View):
     """ Aquesta vista actualitza tots els objectes de la comunitat al elasticsearch """
     grok.name('updatesharingcommunityelastic')
+    grok.template('updatesharingcommunityelastic')
     grok.context(IPloneSiteRoot)
 
-    render = ViewPageTemplateFile('views_templates/updatesharingcommunityelastic.pt')
+    # render = ViewPageTemplateFile('views_templates/updatesharingcommunityelastic.pt')
 
     def update(self):
         try:

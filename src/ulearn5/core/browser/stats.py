@@ -55,7 +55,7 @@ STATS = ['activity', 'comments', 'documents', 'links', 'media']
 class StatsView(grok.View):
     grok.context(Interface)
     grok.name('ulearn-stats')
-    grok.require('base.webmaster')
+    # grok.require('base.webmaster')
 
     def __init__(self, context, request):
         super(StatsView, self).__init__(context, request)
@@ -198,7 +198,7 @@ class StatsQueryBase(grok.View):
 class StatsQuery(StatsQueryBase):
     grok.context(Interface)
     grok.name('ulearn-stats-query')
-    grok.require('base.webmaster')
+    # grok.require('base.webmaster')
 
     def render(self):
         if self.params['end'] < self.params['start']:
@@ -241,7 +241,7 @@ class StatsQuery(StatsQueryBase):
 class StatsQueryDrilldown(StatsQueryBase):
     grok.context(Interface)
     grok.name('ulearn-stats-query-drilldown')
-    grok.require('base.webmaster')
+    # grok.require('base.webmaster')
 
     def render(self):
         drilldown = self.get_stats(

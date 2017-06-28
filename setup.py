@@ -51,8 +51,7 @@ setup(
         'Products.PloneFormGen',
         'collective.z3cform.datagridfield',
         'souper',
-        'collective.polls',
-        'collective.autopermission'
+        'collective.polls'
     ],
     extras_require={
         'test': [

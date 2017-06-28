@@ -106,7 +106,7 @@ def makeFolder(portal, name):
 class GenerateReport(StatsQueryBase):
     grok.context(Interface)
     grok.name('statscsv_view')
-    grok.require('base.webmaster')
+    # grok.require('base.webmaster')
     """
     Download the content type as a CSV file.
     """

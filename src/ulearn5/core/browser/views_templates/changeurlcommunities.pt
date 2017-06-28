@@ -19,16 +19,19 @@
          Status message
      </div>
 
+     <div id="content">
 
-      <form method="post" enctype="multipart/form-data" action="changeurlcommunities">
-        Afegeix la url antiga:
-        <input name="url_antiga" type="text" style="width: 442px;"/>
-        <br>
-        Afegeix la url nova:
-        <input name="url" type="text" style="width: 448px;"/>
-        <br>
-        <button name="save" type="submit">Canvia la url</button>
-      </form>
+        <form method="post" enctype="multipart/form-data" action="changeurlcommunities">
+          Afegeix la url antiga:
+          <input name="url_antiga" type="text" style="width: 442px;"/>
+          <br>
+          Afegeix la url nova:
+          <input name="url" type="text" style="width: 448px;"/>
+          <br>
+          <button name="save" type="submit">Canvia la url</button>
+        </form>
+      
+    </div>
 
 
     </tal:main-macro>
@@ -37,3 +40,4 @@
 
 </body>
 </html>
+

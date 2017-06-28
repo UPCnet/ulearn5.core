@@ -8,36 +8,39 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="ulearn5.core">
 
+ 
+
+  <!-- Compat with Plone 5 -->
+  <include package="Products.CMFCore" file="permissions.zcml" />
+  
+
+  <!-- <permission
+    id="ulearn.addCommunity"
+    title="Ulearn: Add Community"
+    />
+
+  <permission
+    id="ulearn.addOportunitat"
+    title="Ulearn: Add Oportunitat"
+    />
+
+  <permission
+      id="ulearn.APIAccess"
+      title="Ulearn: API Access"
+      />
+
+  <permission
+    id="ulearn.addPrivateFolder"
+    title="Ulearn: Add Private Folder"
+    />
+
+  <permission id="ulearn5.core.setup"
+              title="Plone Site Setup: uLearn">
+    <role name="Manager"/>
+    <role name="Site Administrator"/>
+  </permission>
+ -->
   <grok:grok package="." />
-  <configure zcml:condition="installed AccessControl.security">
-
-    <permission
-      id="ulearn.addCommunity"
-      title="Ulearn: Add Community"
-      />
-
-    <permission
-      id="ulearn.addOportunitat"
-      title="Ulearn: Add Oportunitat"
-      />
-
-    <permission
-        id="ulearn.APIAccess"
-        title="Ulearn: API Access"
-        />
-
-    <permission
-      id="ulearn.addPrivateFolder"
-      title="Ulearn: Add Private Folder"
-      />
-
-    <permission id="ulearn5.core.setup"
-                title="Plone Site Setup: uLearn">
-      <role name="Manager"/>
-      <role name="Site Administrator"/>
-    </permission>
-
-  </configure>
 
 
   <i18n:registerTranslations directory="locales" />
@@ -62,7 +65,7 @@
       name="ulearn-controlpanel"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       class=".controlpanel.UlearnControlPanel"
-      permission="ulearn5.core.setup"
+      permission="cmf.ManagePortal"
       />
 
   <browser:page

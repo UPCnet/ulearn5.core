@@ -14,8 +14,7 @@ import importlib
 #                       'ulearn5.core.browser.setup',
 #                       'ulearn.core.browser.migrations']
 
-MODULES_TO_INSPECT = ['ulearn5.core.browser.setup',
-                      'ulearn5.core.browser.migrations']
+MODULES_TO_INSPECT = ['ulearn5.core.browser.setup']
 
 grok.templatedir("inspector_templates")
 
@@ -30,12 +29,12 @@ class clouseau(grok.View):
 
         urls = []
 
-        # for module in MODULES_TO_INSPECT:
-        #     themodule = importlib.import_module(module)
-        #     members = inspect.getmembers(themodule, inspect.isclass)
+        for module in MODULES_TO_INSPECT:
+            themodule = importlib.import_module(module)
+            members = inspect.getmembers(themodule, inspect.isclass)
 
-        #     for name, klass in members:
-        #         if grok.View in klass.__bases__:
-        #             urls.append('{}/{}'.format(portal.absolute_url(), name.lower()))
+            for name, klass in members:
+                if grok.View in klass.__bases__:
+                    urls.append('{}/{}'.format(portal.absolute_url(), name.lower()))
 
         return urls

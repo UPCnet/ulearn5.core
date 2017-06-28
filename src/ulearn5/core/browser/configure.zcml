@@ -5,7 +5,7 @@
     xmlns:grok="http://namespaces.zope.org/grok"
     i18n_domain="ulearn5.core">
 
-<!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
 
 

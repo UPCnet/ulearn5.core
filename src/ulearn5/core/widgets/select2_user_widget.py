@@ -114,7 +114,7 @@ class SelectWidgetConverter(BaseDataConverter):
 class fromUsername2DisplayName(grok.View):
     grok.context(Interface)
     grok.name('genweb.fromusername2displayname')
-    grok.require('base.authenticated')
+    # grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):

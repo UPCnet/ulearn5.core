@@ -1047,7 +1047,7 @@ class UpgradeSubscribe(grok.View):
 class communityAdder(form.SchemaForm):
     grok.name('addCommunity')
     grok.context(IPloneSiteRoot)
-    grok.require('ulearn.addCommunity')
+    # grok.require('ulearn.addCommunity')
 
     schema = ICommunity
     ignoreContext = True

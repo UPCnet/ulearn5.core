@@ -348,7 +348,7 @@ grok.global_utility(ElasticSharing)
 class SharedWithMe(grok.View):
 	grok.context(Interface)
 	grok.name('shared_with_me')
-	grok.require('base.authenticated')
+	# grok.require('base.authenticated')
 	grok.layer(IUlearn5CoreLayer)
 
 	def render(self):
@@ -365,7 +365,7 @@ class SharedWithMe(grok.View):
 
 class Shared(grok.View):
 	grok.context(Interface)
-	grok.require('base.authenticated')
+	# grok.require('base.authenticated')
 	grok.layer(IUlearn5CoreLayer)
 
 	def getContent(self):

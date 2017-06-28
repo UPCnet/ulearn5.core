@@ -67,7 +67,7 @@ class ULearnNGDirectives(grok.Viewlet):
         """ This attribute from the directive is used to show special buttons or
             links in the stats tabs. This is common in client packages.
         """
-        return api.portal.get_registry_record(name='ulearn.core.controlpanel.IUlearnControlPanelSettings.stats_button')
+        return api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.stats_button')
 
 
 class viewletBase(grok.Viewlet):
@@ -187,7 +187,7 @@ class ListTagsNews(viewletBase):
     grok.context(INewsItem)
     grok.template('listtags')
     grok.viewletmanager(IAboveContentTitle)
-    grok.require('base.authenticated')
+    # grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def isTagFollowed(self, category):
