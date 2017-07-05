@@ -15,19 +15,19 @@
 <metal:main fill-slot="content">
     <tal:main-macro metal:define-macro="main">
 
-     <div metal:use-macro="context/global_statusmessage/macros/portal_message">
-         Status message
-     </div>
+      <div metal:use-macro="context/global_statusmessage/macros/portal_message">
+          Status message
+      </div>
 
-
-      <form method="post" enctype="multipart/form-data"
-      action="updatesharingcommunityelastic">
-        Afegeix el id de la comunitat:
-        <input name="id" type="text" style="width: 442px;"/>
-        <br>
-        <button name="save" type="submit">Actualitza elasticsearch</button>
-      </form>
-
+      <div id="content">
+        <form method="post" enctype="multipart/form-data"
+        action="updatesharingcommunityelastic">
+          Afegeix el id de la comunitat:
+          <input name="id" type="text" style="width: 442px;"/>
+          <br>
+          <button name="save" type="submit">Actualitza elasticsearch</button>
+        </form>
+      </div>
 
     </tal:main-macro>
 

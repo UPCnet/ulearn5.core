@@ -1,0 +1,36 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="ulearn5.core">
+
+    <include package="collective.monkeypatcher" />
+
+    <monkey:patch
+        description="Extended configuration for enumerateUsers"
+        class="Products.PlonePAS.plugins.property.ZODBMutablePropertyProvider"
+        original="enumerateUsers"
+        replacement=".patches.enumerateUsers"
+        />
+
+    <monkey:patch
+        description="Remove user usergroup-userprefs"
+        class="plone.app.controlpanel.usergroups.UsersOverviewControlPanel"
+        original="deleteMembers"
+        replacement=".patches.deleteMembers"
+        />
+
+    <monkey:patch
+        description="Extended authenticateCredentials for save Successfull login users"
+        class="Products.LDAPMultiPlugins.LDAPPluginBase.LDAPPluginBase"
+        original="authenticateCredentials"
+        replacement=".patches.authenticateCredentials"
+        />
+
+    <monkey:patch
+        description="Notify LocalrolesModifiedEvent"
+        class="plone.app.workflow.browser.sharing.SharingView"
+        original="handle_form"
+        replacement=".patches.handle_form"
+        />
+
+</configure>

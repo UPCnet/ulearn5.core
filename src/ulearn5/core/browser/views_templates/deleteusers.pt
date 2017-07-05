@@ -15,19 +15,19 @@
 <metal:main fill-slot="content">
     <tal:main-macro metal:define-macro="main">
 
-     <div metal:use-macro="context/global_statusmessage/macros/portal_message">
-         Status message
-     </div>
+      <div metal:use-macro="context/global_statusmessage/macros/portal_message">
+          Status message
+      </div>
 
-
-      <form method="post" enctype="multipart/form-data" action="deleteusers">
-        Afegeix la llista d'usuaris a esborrar separats per coma:
-        <br>
-        <textarea class="form-control" rows="15" name="users" type="text"></textarea>
-        <br>
-        <button name="save" type="submit">Esborra usuaris</button>
-      </form>
-
+      <div id="content">
+        <form method="post" enctype="multipart/form-data" action="deleteusers">
+          Afegeix la llista d'usuaris a esborrar separats per coma:
+          <br>
+          <textarea class="form-control" rows="15" name="users" type="text"></textarea>
+          <br>
+          <button name="save" type="submit">Esborra usuaris</button>
+        </form>
+      </div>
 
     </tal:main-macro>
 

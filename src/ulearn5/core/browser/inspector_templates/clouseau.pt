@@ -24,15 +24,16 @@
 
   <div metal:fill-slot="main">
 
-  <div class="lead clearfix" tal:repeat="url view/get_templates">
-    <a tal:attributes="href url" tal:content="url">The url</a>
-  </div>
+
+      <div class="lead clearfix" tal:repeat="url view/get_templates">
+        <a tal:attributes="href url" tal:content="url">The url</a>
+      </div>
 
   </div>
 
-        <div metal:fill-slot="portlets_two_slot">
-            <tal:comment tal:replace="nothing">get rid of the left hand column portlets to avoid confusion</tal:comment>
-        </div>
+  <div metal:fill-slot="portlets_two_slot">
+      <tal:comment tal:replace="nothing">get rid of the left hand column portlets to avoid confusion</tal:comment>
+  </div>
 
 </body>
 </html>

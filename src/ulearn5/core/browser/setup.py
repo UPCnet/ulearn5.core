@@ -51,6 +51,11 @@ class setupHomePage(grok.View):
     grok.require('zope2.ViewManagementScreens')
 
     def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
         portal = getSite()
         frontpage = portal['front-page']
         # Add portlets programatically
