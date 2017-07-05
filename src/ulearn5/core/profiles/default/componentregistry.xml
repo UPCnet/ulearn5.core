@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<componentregistry>
+  <utilities>
+    <utility
+      interface="plone.app.users.userdataschema.IUserDataSchemaProvider"
+      factory="mrs5.max.userdataschema.UserDataSchemaProvider"
+      remove="True"
+    />
+    <utility
+      interface="plone.app.users.userdataschema.IUserDataSchemaProvider"
+      factory="ulearn5.core.userschema.UlearnUserSchema"
+    />
+  </utilities>
+</componentregistry>
