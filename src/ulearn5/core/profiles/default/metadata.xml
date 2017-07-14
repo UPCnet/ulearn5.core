@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <version>1000</version>
-  <dependencies>
-  </dependencies>
+      <dependencies>
+          <dependency>profile-collective.z3cform.datagridfield:default</dependency>
+          <dependency>profile-pas.plugins.preauth:default</dependency>
+          <dependency>profile-pas.plugins.osiris:default</dependency>
+          <dependency>profile-mrs5.max:default</dependency>
+          <dependency>profile-base5.core:default</dependency>
+          <dependency>profile-ulearn5.theme:default</dependency>
+      </dependencies>
 </metadata>
