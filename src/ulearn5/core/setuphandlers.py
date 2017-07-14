@@ -139,7 +139,7 @@ def setup_ulearn_icon_set():
                            u''
                            ]
 
-    api.portal.set_registry_record('genweb.controlpanel.core.IGenwebCoreControlPanelSettings.custom_editor_icons', ulearn_custom_icons)
+    api.portal.set_registry_record('base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.custom_editor_icons', ulearn_custom_icons)
 
 
 def setup_ulearn_portlets_settings():

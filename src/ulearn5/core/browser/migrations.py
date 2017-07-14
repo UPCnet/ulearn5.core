@@ -323,7 +323,7 @@ class ReinstalluLearnControlPanel(grok.View):
 
 class BulkReinstalluLearn(grok.View):
     """
-        Reinstall genweb.controlpanel in all the Plone instance of this Zope.
+        Reinstall base5.core.controlpanel in all the Plone instance of this Zope.
         Useful when added some parameter to the control panel and you want to
         apply it at the same time in all the existing Plone sites in the Zope.
     """

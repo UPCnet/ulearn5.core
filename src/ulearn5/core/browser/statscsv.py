@@ -35,7 +35,7 @@ def set_header_csv():
     user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
 
     try:
-        extender_name = api.portal.get_registry_record('genweb.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender')
+        extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender')
     except:
         extender_name = ''
 
