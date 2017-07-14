@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="mrs.max">
+
+  <!-- Enhanced user properties adapter -->
+  <adapter
+      provides=".userschema.IUlearnUserSchema"
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      factory=".userschema.ULearnUserDataPanelAdapter"
+      />
+
+</configure>

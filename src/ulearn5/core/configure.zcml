@@ -8,11 +8,11 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="ulearn5.core">
 
- 
+
 
   <!-- Compat with Plone 5 -->
   <include package="Products.CMFCore" file="permissions.zcml" />
-  
+
 
   <!-- <permission
     id="ulearn.addCommunity"

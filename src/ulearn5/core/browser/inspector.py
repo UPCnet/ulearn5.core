@@ -14,7 +14,8 @@ import importlib
 #                       'ulearn5.core.browser.setup',
 #                       'ulearn.core.browser.migrations']
 
-MODULES_TO_INSPECT = ['ulearn5.core.browser.setup']
+MODULES_TO_INSPECT = ['base5.core.browser.setup',
+                      'ulearn5.core.browser.setup']
 
 grok.templatedir("inspector_templates")
 
