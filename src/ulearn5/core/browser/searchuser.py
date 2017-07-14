@@ -23,7 +23,7 @@ import unicodedata
 def searchUsersFunction(context, request, search_string):  # noqa
     portal = getSite()
     pm = api.portal.get_tool(name='portal_membership')
-    nonvisibles = api.portal.get_registry_record(name='ulearn.core.controlpanel.IUlearnControlPanelSettings.nonvisibles')
+    nonvisibles = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.nonvisibles')
 
     current_user = api.user.get_current()
     oauth_token = current_user.getProperty('oauth_token', '')

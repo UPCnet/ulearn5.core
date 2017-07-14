@@ -208,7 +208,7 @@ class GenerateReport(StatsQueryBase):
             activities['rows'].append(userAttr)
 
     def getTranslateActivityFolder(self):
-        lang = api.portal.get_registry_record(name='ulearn.core.controlpanel.IUlearnControlPanelSettings.language')
+        lang = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.language')
         if lang == 'ca':
             activity_folder = 'activitat'
         elif lang == 'es':

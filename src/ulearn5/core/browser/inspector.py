@@ -12,7 +12,7 @@ import importlib
 
 # MODULES_TO_INSPECT = ['genweb.core.browser.setup',
 #                       'ulearn5.core.browser.setup',
-#                       'ulearn.core.browser.migrations']
+#                       'ulearn5.core.browser.migrations']
 
 MODULES_TO_INSPECT = ['base5.core.browser.setup',
                       'ulearn5.core.browser.setup']

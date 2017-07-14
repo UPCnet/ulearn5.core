@@ -65,7 +65,7 @@ class TestExample(uLearnTestBase):
         """ Validate that our products GS profile has been run and the product
             installed
         """
-        pid = 'ulearn.core'
+        pid = 'ulearn5.core'
         installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]
         self.assertTrue(pid in installed,
                         'package appears not to have been installed')

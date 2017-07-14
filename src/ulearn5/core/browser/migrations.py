@@ -295,9 +295,9 @@ class ReinstalluLearn(grok.View):
         output = []
         qi = getToolByName(context, 'portal_quickinstaller')
 
-        if qi.isProductInstalled('ulearn.core'):
-            qi.reinstallProducts(['ulearn.core'])
-            output.append('{}: Successfully reinstalled ulearn.core'.format(context))
+        if qi.isProductInstalled('ulearn5.core'):
+            qi.reinstallProducts(['ulearn5.core'])
+            output.append('{}: Successfully reinstalled ulearn5.core'.format(context))
         return '\n'.join(output)
 
 
@@ -312,11 +312,11 @@ class ReinstalluLearnControlPanel(grok.View):
         output = []
 
         setup = api.portal.get_tool('portal_setup')
-        profile_id = 'profile-ulearn.core:default'
+        profile_id = 'profile-ulearn5.core:default'
         step_id = 'plone.app.registry'
         setup.runImportStepFromProfile(profile_id, step_id,
                                        run_dependencies=True, purge_old=None)
-        output.append('{}: Successfully reinstalled ulearn.core control panel'.format(context))
+        output.append('{}: Successfully reinstalled ulearn5.core control panel'.format(context))
 
         return '\n'.join(output)
 

@@ -17,7 +17,7 @@ class TestExample(uLearnTestBase):
         self.portal = self.layer['portal']
         self.request = self.layer['request']
 
-        ulearnthemeegg = pkg_resources.get_distribution('ulearn.theme')
+        ulearnthemeegg = pkg_resources.get_distribution('ulearn5.theme')
         ulearnjsegg = pkg_resources.get_distribution('ulearn.js')
 
         resource_file_css = open('{}/ulearn/theme/config.json'.format(ulearnthemeegg.location))

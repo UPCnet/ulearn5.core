@@ -275,8 +275,8 @@ def setupVarious(context):
         for portlet in target_manager_assignments.keys():
             del target_manager_assignments[portlet]
 
-        from ulearn.theme.portlets.calendar import Assignment as calendarAssignment
-        from ulearn.theme.portlets.stats import Assignment as statsAssignment
+        from ulearn5.core.theme.portlets.calendar import Assignment as calendarAssignment
+        from ulearn5.theme.portlets.stats import Assignment as statsAssignment
         # from ulearn.theme.portlets.econnect import Assignment as econnectAssignment
 
         target_manager_assignments['calendar'] = calendarAssignment()
