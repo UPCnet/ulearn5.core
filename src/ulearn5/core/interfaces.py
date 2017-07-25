@@ -9,9 +9,6 @@ from zope.filerepresentation.interfaces import IFileFactory
 class IUlearn5CoreLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
-class IHomePage(Interface):
-    """ Marker interface for home page documents """
-
 class IDocumentFolder(Interface):
     """ Marker for documents folder """
 

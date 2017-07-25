@@ -35,7 +35,6 @@ src/ulearn5/core/testing.py
 src/ulearn5/core/userschema.py
 src/ulearn5/core/utils.py
 src/ulearn5/core/adapters/__init__.py
-src/ulearn5/core/adapters/favorites.py
 src/ulearn5/core/adapters/portrait.py
 src/ulearn5/core/api/__init__.py
 src/ulearn5/core/api/communities.py
