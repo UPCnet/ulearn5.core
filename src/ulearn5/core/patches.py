@@ -28,7 +28,6 @@ def enumerateUsers(self, id=None, login=None, exact_match=False, **kw):
         """ See IUserEnumerationPlugin.
         """
         plugin_id = self.getId()
-
         # This plugin can't search for a user by id or login, because there is
         # no such keys in the storage (data dict in the comprehensive list)
         # If kw is empty or not, we continue the search.

@@ -12,9 +12,10 @@
         replacement=".patches.enumerateUsers"
         />
 
+    <!-- Antes class="plone.app.controlpanel.usergroups.UsersOverviewControlPanel" -->
     <monkey:patch
         description="Remove user usergroup-userprefs"
-        class="plone.app.controlpanel.usergroups.UsersOverviewControlPanel"
+        class="Products.CMFPlone.controlpanel.browser.usergroups_usersoverview.UsersOverviewControlPanel"
         original="deleteMembers"
         replacement=".patches.deleteMembers"
         />

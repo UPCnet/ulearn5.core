@@ -53,6 +53,7 @@
 
 
   <include file="subscribers.zcml" />
+  <include file="patches.zcml" />
 
 
   <browser:resource

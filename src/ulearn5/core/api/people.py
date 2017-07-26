@@ -138,6 +138,7 @@ class Person(REST):
         """
             Creates a user
         """
+        import ipdb;ipdb.set_trace()
         userid = self.params.pop('username')
         username = userid.lower()
         email = self.params.pop('email')
