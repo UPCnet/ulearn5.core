@@ -12,7 +12,6 @@ Products.PloneFormGen
 collective.z3cform.datagridfield
 souper
 collective.polls
-ulearn.js
 
 [test]
 plone.app.testing

@@ -56,7 +56,7 @@ from souper.soup import Record
 
 from ulearn5.core.utils import json_response
 from ulearn5.core.gwuuid import IGWUUID
-from ulearn5.core.adapters.favorites import IFavorite
+from base5.core.adapters.favorites import IFavorite
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
 from mrs5.max.utilities import IMAXClient
@@ -287,7 +287,7 @@ class CommunityAdapterMixin(object):
         self.maxclient, self.settings = getUtility(IMAXClient)()
         self.maxclient.setActor(self.settings.max_restricted_username)
         self.maxclient.setToken(self.settings.max_restricted_token)
-       
+
 
     def get_hub_client(self):
         self.hubclient, settings = getUtility(IHubClient)()
