@@ -6,7 +6,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from zope.component import getUtility
-# from mrs.max.utilities import IMAXClient
+from mrs5.max.utilities import IMAXClient
 import transaction
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 import json
@@ -68,9 +68,9 @@ class ulearnUtils(BrowserView):
             return False
 
     def url_max_server(self):
-        # self.maxclient, self.settings = getUtility(IMAXClient)()
-        #return self.settings.max_server
-        return True
+        self.maxclient, self.settings = getUtility(IMAXClient)()
+        return self.settings.max_server
+
 
     def is_activate_sharedwithme(self):
         if (api.portal.get_registry_record('base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.elasticsearch') != None) and (api.portal.get_registry_record('ulearn5.core.controlpanel.IUlearnControlPanelSettings.activate_sharedwithme') == True):
