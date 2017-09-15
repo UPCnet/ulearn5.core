@@ -51,7 +51,8 @@ setup(
         'Products.PloneFormGen',
         'collective.z3cform.datagridfield',
         'souper',
-        'collective.polls'
+        'collective.polls',
+        'ulearn.js'
     ],
     extras_require={
         'test': [
