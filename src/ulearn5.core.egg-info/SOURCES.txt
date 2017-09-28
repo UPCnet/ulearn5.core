@@ -7,7 +7,6 @@ setup.py
 docs/LICENSE.GPL
 docs/LICENSE.rst
 docs/index.rst
-src/ulearn5/.DS_Store
 src/ulearn5/__init__.py
 src/ulearn5.core.egg-info/PKG-INFO
 src/ulearn5.core.egg-info/SOURCES.txt
@@ -17,7 +16,6 @@ src/ulearn5.core.egg-info/namespace_packages.txt
 src/ulearn5.core.egg-info/not-zip-safe
 src/ulearn5.core.egg-info/requires.txt
 src/ulearn5.core.egg-info/top_level.txt
-src/ulearn5/core/.DS_Store
 src/ulearn5/core/__init__.py
 src/ulearn5/core/badges.py
 src/ulearn5/core/configure.zcml
@@ -133,7 +131,6 @@ src/ulearn5/core/profiles/default/workflows/news_intranet/definition.xml
 src/ulearn5/core/profiles/default/workflows/oportunity/definition.xml
 src/ulearn5/core/profiles/uninstall/browserlayer.xml
 src/ulearn5/core/profiles/uninstall/workflows.xml
-src/ulearn5/core/tests/.DS_Store
 src/ulearn5/core/tests/__init__.py
 src/ulearn5/core/tests/avatar.png
 src/ulearn5/core/tests/disabled_test_robot.py
