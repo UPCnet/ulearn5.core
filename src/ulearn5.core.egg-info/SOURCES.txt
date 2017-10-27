@@ -25,6 +25,7 @@ src/ulearn5/core/cpulearn.jpg
 src/ulearn5/core/factories.py
 src/ulearn5/core/gwuuid.py
 src/ulearn5/core/hooks.py
+src/ulearn5/core/indexers.py
 src/ulearn5/core/interfaces.py
 src/ulearn5/core/overrides.zcml
 src/ulearn5/core/patches.py

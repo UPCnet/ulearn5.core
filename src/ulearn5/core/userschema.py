@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from zope import schema
 from zope.interface import Interface
 from zope.interface import implements
@@ -8,9 +8,8 @@ from mrs5.max.userdataschema import EnhancedUserDataPanelAdapter
 # from mrs.max.userdataschema import UserDataSchemaProvider
 
 # from plone.app.users.browser.formlib import FileUpload
-from ZPublisher.HTTPRequest import FileUpload
 # from plone.app.users.userdataschema import IUserDataSchemaProvider
-from plone.app.users.schema import IUserDataSchema, ICombinedRegisterSchema
+from plone.app.users.schema import ICombinedRegisterSchema
 from plone.app.users.schema import checkEmailAddress
 
 from zope.interface import alsoProvides

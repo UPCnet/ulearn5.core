@@ -51,7 +51,8 @@ setup(
         'Products.PloneFormGen',
         'collective.z3cform.datagridfield',
         'souper',
-        'collective.polls'
+        'collective.polls>=1.10b1',
+        'zope.formlib'
     ],
     extras_require={
         'test': [
