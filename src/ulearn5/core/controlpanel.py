@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from zope import schema
 from zope.component import getUtility
 from z3c.form import button
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from zope.schema.interfaces import IVocabularyFactory
 
 from plone.supermodel import model
 from plone.directives import dexterity, form
@@ -12,16 +10,12 @@ from plone.app.registry.browser import controlpanel
 
 from Products.statusmessages.interfaces import IStatusMessage
 
-#from genweb.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
-
 from ulearn5.core import _
 from mrs5.max.utilities import IMAXClient
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
 from plone import api
 import transaction
-from zope.interface import implementer
-from plone.app.vocabularies.terms import safe_simplevocabulary_from_values
 
 
 communityActivityView = SimpleVocabulary(

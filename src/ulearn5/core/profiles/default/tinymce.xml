@@ -4,7 +4,7 @@
   <linkable>
    <element value="Document"/>
    <element value="Image"/>
-   <element value="Topic"/>
+   <element value="Collection"/>
    <element value="File"/>
    <element value="Folder"/>
    <element value="News Item"/>
@@ -12,7 +12,6 @@
    <element value="FileAttachment" remove="True"/>
    <element value="Ploneboard" remove="True"/>
    <element value="PloneboardForum" remove="True"/>
-   <element value="Collage" remove="True"/>
    <element value="PlonePopoll" remove="True"/>
    <element value="FormFolder" remove="True"/>
    <element value="ImageAttachment" remove="True"/>
