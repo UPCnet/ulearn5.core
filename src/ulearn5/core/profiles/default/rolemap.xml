@@ -7,7 +7,7 @@
     <role name="CC closed"/>
   </roles>
   <permissions>
-   <!--  <permission name="Ulearn: Add Oportunitat" acquire="True">
+    <permission name="Ulearn: Add Oportunitat" acquire="True">
       <role name="Editor"/>
       <role name="Site Administrator"/>
       <role name="WebMaster"/>
@@ -22,7 +22,7 @@
       <role name="CC closed"/>
       <role name="WebMaster"/>
       <role name="Contributor"/>
-    </permission> -->
+    </permission>
     <permission name="Delete objects" acquire="True">
       <role name="Owner"/>
       <role name="Manager"/>
@@ -37,7 +37,7 @@
       <role name="Manager"/>
       <role name="WebMaster"/>
     </permission>
-    <!-- <permission name="Plone Site Setup: uLearn" acquire="True">
+    <permission name="Plone Site Setup: uLearn" acquire="True">
       <role name="Manager"/>
       <role name="Site Administrator"/>
       <role name="WebMaster"/>
@@ -49,7 +49,7 @@
       <role name="Editor"/>
       <role name="Site Administrator"/>
       <role name="Manager"/>
-    </permission> -->
+    </permission>
     <permission name="Portlets: Manage portlets"
                 acquire="True">
       <role name="Manager"/>

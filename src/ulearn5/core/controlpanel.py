@@ -56,7 +56,7 @@ class IUlearnControlPanelSettings(model.Schema):
         _(u'General'),
         fields=['campus_url', 'library_url', 'people_literal',
                 'threshold_winwin1', 'threshold_winwin2',
-                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_sharedwithme'])
+                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'activate_sharedwithme'])
 
     model.fieldset(
         'Specific',
@@ -141,6 +141,15 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_info_servei',
                       default=_(u'Aquest és l\'enllaç al servei.')),
         required=False,
+    )
+
+    activate_news = schema.Bool(
+        title=_(u'activate_news',
+            default=_(u"Mostra les noticies a les que estic subscrit")),
+        description=_(u'help_activate_news',
+                default=_(u"Mostra o no el botó de Noticies a la tile central de les comunitats")),
+        required=False,
+        default=False,
     )
 
     activate_sharedwithme = schema.Bool(

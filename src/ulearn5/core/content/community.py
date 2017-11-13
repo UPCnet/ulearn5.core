@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
-from AccessControl import getSecurityManager
 from five import grok
 from plone import api
 from hashlib import sha1
 from z3c.form import button
 from zope import schema
 from zope.container.interfaces import IObjectAddedEvent
-from zope.component import getMultiAdapter
+from zope.component._api import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
-from zope.component import getAdapter
 from zope.component.hooks import getSite
 from zope.container.interfaces import INameChooser
 from zope.event import notify
@@ -25,7 +23,6 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
 from zope.interface import implementer
 from zope.globalrequest import getRequest
-from zope.publisher.interfaces.browser import IBrowserRequest
 from plone.dexterity.content import Container
 from plone.dexterity.utils import createContentInContainer
 from plone.directives import form
@@ -36,14 +33,12 @@ from plone.portlets.constants import CONTEXT_CATEGORY
 from plone.portlets.interfaces import ILocalPortletAssignmentManager
 from plone.portlets.interfaces import IPortletManager
 from plone.dexterity.interfaces import IDexterityContent
-
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.statusmessages.interfaces import IStatusMessage
 from ZPublisher.HTTPRequest import FileUpload
-
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.indexes.keyword import CatalogKeywordIndex
@@ -53,26 +48,24 @@ from souper.soup import NodeAttributeIndexer
 from repoze.catalog.query import Eq, Or
 from souper.soup import get_soup
 from souper.soup import Record
-
-from ulearn5.core.utils import json_response
-from ulearn5.core.gwuuid import IGWUUID
+from base5.core.utils import json_response
 from base5.core.adapters.favorites import IFavorite
+from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
 from mrs5.max.utilities import IMAXClient
 from mrs5.max.utilities import IHubClient
-
 from ulearn5.core import _
 from ulearn5.core.interfaces import IDXFileFactory
 from ulearn5.core.interfaces import IDocumentFolder
 from ulearn5.core.interfaces import IEventsFolder
 from ulearn5.core.interfaces import IPhotosFolder
 from ulearn5.core.interfaces import IDiscussionFolder
+from DateTime.DateTime import DateTime
 
 import json
 import logging
 import mimetypes
-from DateTime.DateTime import DateTime
 
 
 logger = logging.getLogger(__name__)
@@ -93,13 +86,11 @@ ORGANIZATIVE_PERMISSIONS = dict(read='subscribed',
                                 subscribe='restricted',
                                 unsubscribe='restricted')
 
-
 class CommunityForbiddenAction(Exception):
-    """
-        Exception to be raised when trying to execute an action that
-        is forbidden in the context being executed
-    """
+    """ Exception to be raised when trying to execute an action that
+        is forbidden in the context being executed """
 
+### DEFINICIO DE COMUNITAT ###
 
 @grok.provider(IContextSourceBinder)
 def availableCommunityTypes(context):
@@ -134,11 +125,6 @@ def communityActivityViews(context):
     terms.append(SimpleVocabulary.createTerm(u'Activitats destacades', 'activitats_destacades', _(u'Activitats destacades')))
 
     return SimpleVocabulary(terms)
-
-
-class IInitializedCommunity(Interface):
-    """ A Community that has been succesfully initialized
-    """
 
 
 class ICommunity(form.Schema):
@@ -227,9 +213,23 @@ class ICommunity(form.Schema):
     )
 
 
-class ICommunityACL(Interface):
-    """Helper to retrieve the community ACL safely by adapting any ICommunity"""
+### INTERFICIES QUE POT IMPLEMENTAR UNA COMUNITAT ###
 
+class ICommunityACL(Interface):
+    """ Helper to retrieve the community ACL safely by adapting any ICommunity """
+
+class IInitializedCommunity(Interface):
+    """ A Community that has been succesfully initialized """
+
+class ICommunityTyped(Interface):
+    """ The adapter for the ICommunity It would adapt the Community instances in
+        order to have a centralized way of dealing with community types and the
+        common processes with them. """
+
+class ICommunityInitializeAdapter(Interface):
+    """ The marker interface for initialize community adapter used for a especific
+        folders and templates. The idea is to have a default (core) action and
+        then other that override the default one using IBrowserLayer """
 
 @grok.implementer(ICommunityACL)
 @grok.adapter(ICommunity)
@@ -248,13 +248,7 @@ class GetCommunityACL(object):
         else:
             return None
 
-
-class ICommunityTyped(Interface):
-    """ The adapter for the ICommunity It would adapt the Community instances in
-        order to have a centralized way of dealing with community types and the
-        common processes with them.
-    """
-
+### METODES COMUNS PER A TOTS ELS TIPUS DE COMUNITATS (PARAMETRES MAX) ###
 
 class CommunityAdapterMixin(object):
     """ Common methods for community adapters """
@@ -287,7 +281,6 @@ class CommunityAdapterMixin(object):
         self.maxclient, self.settings = getUtility(IMAXClient)()
         self.maxclient.setActor(self.settings.max_restricted_username)
         self.maxclient.setToken(self.settings.max_restricted_token)
-
 
     def get_hub_client(self):
         self.hubclient, settings = getUtility(IHubClient)()
@@ -654,51 +647,6 @@ class Community(Container):
         return adapter
 
 
-@indexer(ICommunity)
-def imageFilename(context):
-    """ Create a catalogue indexer, registered as an adapter, which can
-        populate the ``context.filename`` value and index it.
-    """
-    return context.image.filename
-grok.global_adapter(imageFilename, name='image_filename')
-
-
-@indexer(ICommunity)
-def subscribed_items(context):
-    """ Create a catalogue indexer, registered as an adapter, which can
-        populate the ``context.subscribed`` value count it and index.
-    """
-    return len(list(set(context.readers + context.subscribed + context.owners)))
-grok.global_adapter(subscribed_items, name='subscribed_items')
-
-
-@indexer(ICommunity)
-def subscribed_users(context):
-    """ Create a catalogue indexer, registered as an adapter, which can
-        populate the ``context.subscribed`` value count it and index.
-    """
-    return list(set(context.readers + context.subscribed + context.owners))
-grok.global_adapter(subscribed_users, name='subscribed_users')
-
-
-@indexer(ICommunity)
-def community_type(context):
-    """ Create a catalogue indexer, registered as an adapter, which can
-        populate the ``community_type`` value count it and index.
-    """
-    return context.community_type
-grok.global_adapter(community_type, name='community_type')
-
-
-@indexer(ICommunity)
-def community_hash(context):
-    """ Create a catalogue indexer, registered as an adapter, which can
-        populate the ``community_hash`` value count it and index.
-    """
-    return sha1(context.absolute_url()).hexdigest()
-grok.global_adapter(community_hash, name='community_hash')
-
-
 class View(grok.View):
     grok.context(ICommunity)
 
@@ -748,9 +696,8 @@ class UpdateUserAccessDateTime(grok.View):
 
     @json_response
     def render(self):
-        """ Quan accedeixes a la comunitat, actualitza la data d'accès de l'usuari a la comunitat
-            i per tant, el comptador de pendents queda a 0.
-        """
+        """ Quan accedeixes a la comunitat, actualitza la data d'accès de l'usuari
+            a la comunitat i per tant, el comptador de pendents queda a 0. """
         portal = api.portal.get()
         current_user = api.user.get_current()
         user_community = current_user.id + '_' + self.context.id
@@ -1018,36 +965,10 @@ class UnSubscribe(grok.View):
                         status_code=400)
 
 
-class UpgradeSubscribe(grok.View):
-    """ DEPRECATED: ASK JAVIER. Upgrade subscription from reader to editor in an open community. """
-
-    grok.context(ICommunity)
-    grok.name('upgrade-subscribe')
-
-    def render(self):
-        community = self.context
-        pm = getToolByName(self.context, 'portal_membership')
-        current_user = pm.getAuthenticatedMember().getUserName()
-
-        if community.community_type == u'Open':
-            if current_user in community.readers:
-                community.remove_subscription(unicode(current_user), 'readers')
-                community.add_subscription(unicode(current_user), 'subscribed')
-                community.reindexObject()
-                notify(ObjectModifiedEvent(community))
-                return True
-            else:
-                return False
-
-        elif community.community_type == u'Organizative':
-            # Bad, bad guy... You shouldn't been trying this...
-            return False
-
-
 class communityAdder(form.SchemaForm):
     grok.name('addCommunity')
     grok.context(IPloneSiteRoot)
-    # grok.require('ulearn.addCommunity')
+    grok.require('ulearn.addCommunity')
 
     schema = ICommunity
     ignoreContext = True
@@ -1227,18 +1148,13 @@ class communityEdit(form.SchemaForm):
             self.request.response.redirect(self.context.absolute_url())
 
 
-class ICommunityInitializeAdapter(Interface):
-    """ The marker interface for initialize community adapter used for a especific
-        folders and templates. The idea is to have a default (core) action and
-        then other that override the default one using IBrowserLayer
-    """
-
-
 @grok.implementer(ICommunityInitializeAdapter)
 @grok.adapter(ICommunity, Interface)
 class CommunityInitializeAdapter(object):
     """ Default adapter for initialize community custom actions """
+
     def __init__(self, context, request):
+        import ipdb; ipdb.set_trace()
         self.context = context
         self.request = request
 
@@ -1248,6 +1164,7 @@ class CommunityInitializeAdapter(object):
             the context directly into the MAX server with only the creator as
             subscriber (and owner).
         """
+        import ipdb; ipdb.set_trace()
         initial_acl = dict(users=[dict(id=unicode(community.Creator().encode('utf-8')), role='owner')])
         adapter = community.adapted()
 
@@ -1278,9 +1195,9 @@ class CommunityInitializeAdapter(object):
 
         # Set default view layout
         documents.setLayout('filtered_contents_search_view')
-        media.setLayout('folder_summary_view')
-        events.setLayout('folder_summary_view')
-        discussion.setLayout('discussion_folder_view')
+        media.setLayout('summary_view')
+        events.setLayout('summary_view')
+        discussion.setLayout('discussion_view')
 
         # Mark them with a marker interface
         alsoProvides(documents, IDocumentFolder)
@@ -1307,24 +1224,24 @@ class CommunityInitializeAdapter(object):
         behavior.setImmediatelyAddableTypes(('ulearn.discussion', 'Folder'))
 
         # Blacklist the right column portlets on documents
-        right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
-        blacklist = getMultiAdapter((documents, right_manager), ILocalPortletAssignmentManager)
-        blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+        #right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
+        #blacklist = getMultiAdapter((documents, right_manager), ILocalPortletAssignmentManager)
+        #blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
         # Blacklist the right column portlets on media
-        right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
-        blacklist = getMultiAdapter((media, right_manager), ILocalPortletAssignmentManager)
-        blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+        #right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
+        #blacklist = getMultiAdapter((media, right_manager), ILocalPortletAssignmentManager)
+        #blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
         # Blacklist the right column portlets on events
-        right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
-        blacklist = getMultiAdapter((events, right_manager), ILocalPortletAssignmentManager)
-        blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+        #right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
+        #blacklist = getMultiAdapter((events, right_manager), ILocalPortletAssignmentManager)
+        #blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
         # Blacklist the right column portlets on discussion
-        right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
-        blacklist = getMultiAdapter((discussion, right_manager), ILocalPortletAssignmentManager)
-        blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+        #right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
+        #blacklist = getMultiAdapter((discussion, right_manager), ILocalPortletAssignmentManager)
+        #blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
         # Reindex all created objects
         community.reindexObject()
@@ -1345,6 +1262,13 @@ def initialize_community(community, event):
         the context directly into the MAX server with only the creator as
         subscriber (and owner).
     """
+    # adapter = community.adapted()
+    #from zope.component import getGlobalSiteManager
+    #effective_name = self.community_type if name is None else name
+    #request = request if request is not None else getRequest()
+    #adapter = getMultiAdapter((self, request), ICommunityTyped, name=effective_name)
+    #return adapter
+    import ipdb; ipdb.set_trace()
     adapter = getMultiAdapter((event.object, event.object.REQUEST), ICommunityInitializeAdapter)
     adapter(community)
 
@@ -1368,6 +1292,8 @@ def delete_community(community, event):
         logger.error('There was an error deleting the community {}'.format(community.absolute_url()))
 
 
+### UTILITIES ###
+
 @implementer(ICatalogFactory)
 class ACLSoupCatalog(object):
     def __call__(self, context):
@@ -1381,16 +1307,16 @@ class ACLSoupCatalog(object):
         groups = NodeAttributeIndexer('groups')
         catalog['groups'] = CatalogKeywordIndex(groups)
         return catalog
+
+
 grok.global_utility(ACLSoupCatalog, name='communities_acl')
 
 
 @implementer(ICatalogFactory)
 class UserCommunityAccessCatalogFactory(object):
     """ Save the date of user access to the community
-
         :index user_community: TextIndex - user_community = current_user + '_' + community
         :index data_access: FieldIndex -  DateTime of user access to the community
-
     """
 
     def __call__(self, context):
@@ -1401,4 +1327,60 @@ class UserCommunityAccessCatalogFactory(object):
         catalog['data_access'] = CatalogFieldIndex(dataindexer)
         return catalog
 
+
 grok.global_utility(UserCommunityAccessCatalogFactory, name="user_community_access")
+
+### INDEXERS TO CATALOG ###
+
+@indexer(ICommunity)
+def imageFilename(context):
+    """ Create a catalogue indexer, registered as an adapter, which can
+        populate the ``context.filename`` value and index it.
+    """
+    return context.image.filename
+
+
+grok.global_adapter(imageFilename, name='image_filename')
+
+@indexer(ICommunity)
+def subscribed_items(context):
+    """ Create a catalogue indexer, registered as an adapter, which can
+        populate the ``context.subscribed`` value count it and index.
+    """
+    return len(list(set(context.readers + context.subscribed + context.owners)))
+
+
+grok.global_adapter(subscribed_items, name='subscribed_items')
+
+
+@indexer(ICommunity)
+def subscribed_users(context):
+    """ Create a catalogue indexer, registered as an adapter, which can
+        populate the ``context.subscribed`` value count it and index.
+    """
+    return list(set(context.readers + context.subscribed + context.owners))
+
+
+grok.global_adapter(subscribed_users, name='subscribed_users')
+
+
+@indexer(ICommunity)
+def community_type(context):
+    """ Create a catalogue indexer, registered as an adapter, which can
+        populate the ``community_type`` value count it and index.
+    """
+    return context.community_type
+
+
+grok.global_adapter(community_type, name='community_type')
+
+
+@indexer(ICommunity)
+def community_hash(context):
+    """ Create a catalogue indexer, registered as an adapter, which can
+        populate the ``community_hash`` value count it and index.
+    """
+    return sha1(context.absolute_url()).hexdigest()
+
+
+grok.global_adapter(community_hash, name='community_hash')

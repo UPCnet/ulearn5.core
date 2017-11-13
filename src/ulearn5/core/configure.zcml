@@ -8,109 +8,74 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="ulearn5.core">
 
+    <!-- <include package="Products.CMFCore" file="permissions.zcml" /> -->
 
+    <permission id="ulearn.addCommunity" title="Ulearn: Add Community" />
+    <permission id="ulearn.addOportunitat" title="Ulearn: Add Oportunitat" />
+    <permission id="ulearn.APIAccess" title="Ulearn: API Access" />
+    <permission id="ulearn.addPrivateFolder" title="Ulearn: Add Private Folder" />
+    <permission id="ulearn5.core.setup" title="Plone Site Setup: uLearn">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+    </permission>
 
-  <!-- Compat with Plone 5 -->
-  <include package="Products.CMFCore" file="permissions.zcml" />
+    <includeDependencies package="." />
+    <grok:grok package="." />
+    <i18n:registerTranslations directory="locales" />
+    <include package=".widgets" />
+    <include package=".browser" />
+    <include file="subscribers.zcml" />
+    <include file="patches.zcml" />
 
+    <browser:resource
+        name="cpulearn.jpg"
+        file="cpulearn.jpg"
+        />
 
-  <!-- <permission
-    id="ulearn.addCommunity"
-    title="Ulearn: Add Community"
-    />
+    <browser:page
+        for="*"
+        name="ulearn.utils"
+        class=".utils.ulearnUtils"
+        permission="zope2.Public"
+        allowed_interface=".interfaces.IUlearnUtils"
+        />
 
-  <permission
-    id="ulearn.addOportunitat"
-    title="Ulearn: Add Oportunitat"
-    />
+    <browser:page
+        name="ulearn-controlpanel"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.UlearnControlPanel"
+        permission="cmf.ManagePortal"
+        />
 
-  <permission
-      id="ulearn.APIAccess"
-      title="Ulearn: API Access"
-      />
+    <browser:page
+        name="ulearn-control-portlets"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlportlets.PortletsControlPanel"
+        permission="cmf.ManagePortal"
+        />
 
-  <permission
-    id="ulearn.addPrivateFolder"
-    title="Ulearn: Add Private Folder"
-    />
+    <adapter factory=".factories.DXFileFactory" />
 
-  <permission id="ulearn5.core.setup"
-              title="Plone Site Setup: uLearn">
-    <role name="Manager"/>
-    <role name="Site Administrator"/>
-  </permission>
- -->
-  <grok:grok package="." />
+    <genericsetup:registerProfile
+        name="default"
+        title="ulearn5.core"
+        directory="profiles/default"
+        description="Installs the ulearn5.core add-on."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        post_handler=".setuphandlers.post_install"
+        />
 
+    <genericsetup:registerProfile
+        name="uninstall"
+        title="ulearn5.core (uninstall)"
+        directory="profiles/uninstall"
+        description="Uninstalls the ulearn5.core add-on."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        post_handler=".setuphandlers.uninstall"
+        />
 
-  <i18n:registerTranslations directory="locales" />
-  <includeDependencies package="." />
-
-
-  <include package=".widgets" />
-  <include package=".browser" />
-
-
-
-  <include file="subscribers.zcml" />
-  <include file="patches.zcml" />
-
-
-  <browser:resource
-    name="cpulearn.jpg"
-    file="cpulearn.jpg"
-    />
-
-
-  <browser:page
-      name="ulearn-controlpanel"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      class=".controlpanel.UlearnControlPanel"
-      permission="cmf.ManagePortal"
-      />
-
-  <browser:page
-      name="ulearn-control-portlets"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      class=".controlportlets.PortletsControlPanel"
-      permission="cmf.ManagePortal"
-      />
-
-  <adapter factory=".factories.DXFileFactory" />
-
-
-  <genericsetup:registerProfile
-      name="default"
-      title="ulearn5.core"
-      directory="profiles/default"
-      description="Installs the ulearn5.core add-on."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.post_install"
-      />
-
-  <genericsetup:registerProfile
-      name="uninstall"
-      title="ulearn5.core (uninstall)"
-      directory="profiles/uninstall"
-      description="Uninstalls the ulearn5.core add-on."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.uninstall"
-      />
-
-
-  <utility
-      factory=".setuphandlers.HiddenProfiles"
-      name="ulearn5.core-hiddenprofiles" />
-
-
-  <!-- The utilities browser view (can't be a grok view) -->
-  <browser:page
-      for="*"
-      name="ulearn.utils"
-      class=".utils.ulearnUtils"
-      permission="zope2.Public"
-      allowed_interface=".interfaces.IUlearnUtils"
-      />
-
+    <utility
+        factory=".setuphandlers.HiddenProfiles"
+        name="ulearn5.core-hiddenprofiles" />
 
 </configure>
