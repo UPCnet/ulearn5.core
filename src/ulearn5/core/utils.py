@@ -83,4 +83,7 @@ class ulearnUtils(BrowserView):
             return False
 
     def is_activate_news(self):
-        return api.portal.get_registry_record('ulearn5.core.controlpanel.IUlearnControlPanelSettings.activate_news')
+        if api.portal.get_registry_record('ulearn5.core.controlpanel.IUlearnControlPanelSettings.activate_news') == True:
+            return True
+        else:
+            return False
