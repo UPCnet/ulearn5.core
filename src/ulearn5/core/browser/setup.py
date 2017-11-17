@@ -12,7 +12,7 @@ from plone.dexterity.utils import createContentInContainer
 
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
-from base5.core.browser.manager import ISpanStorage
+# from base5.core.browser.manager import ISpanStorage
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
@@ -59,37 +59,37 @@ class setupHomePage(grok.View):
         portal = getSite()
         frontpage = portal['front-page']
         # Add portlets programatically
-        target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager1', context=frontpage)
-        target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
-        from ulearn5.theme.portlets.profile import Assignment as profileAssignment
-        from ulearn5.theme.portlets.communities import Assignment as communitiesAssignment
-        from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
-        from mrs5.max.portlets.maxui import Assignment as maxAssignment
-        from ulearn5.theme.portlets.homebuttonbar import Assignment as homebuttonbarAssignment
-        from ulearn5.theme.portlets.calendar import Assignment as calendarAssignment
-        from ulearn5.theme.portlets.stats import Assignment as statsAssignment
-        from ulearn5.theme.portlets.econnect import Assignment as econnectAssignment
-        from ulearn5.theme.portlets.angularrouteview import Assignment as angularrouteviewAssignment
-
-        target_manager_assignments['profile'] = profileAssignment()
-        target_manager_assignments['communities'] = communitiesAssignment()
-        target_manager_assignments['thinnkers'] = thinnkersAssignment()
-
-        target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager3', context=frontpage)
-        target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
-        target_manager_assignments['angularroute'] = angularrouteviewAssignment()
-        target_manager_assignments['buttons'] = homebuttonbarAssignment()
-        target_manager_assignments['max'] = maxAssignment()
-
-        portletManager = getUtility(IPortletManager, 'genweb.portlets.HomePortletManager3')
-        spanstorage = getMultiAdapter((frontpage, portletManager), ISpanStorage)
-        spanstorage.span = '8'
-
-        target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager4', context=frontpage)
-        target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
-        target_manager_assignments['calendar'] = calendarAssignment()
-        target_manager_assignments['stats'] = statsAssignment()
-        target_manager_assignments['econnect'] = econnectAssignment()
+        # target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager1', context=frontpage)
+        # target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
+        # from ulearn5.theme.portlets.profile import Assignment as profileAssignment
+        # from ulearn5.theme.portlets.communities import Assignment as communitiesAssignment
+        # from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
+        # from mrs5.max.portlets.maxui import Assignment as maxAssignment
+        # from ulearn5.theme.portlets.homebuttonbar import Assignment as homebuttonbarAssignment
+        # from ulearn5.theme.portlets.calendar import Assignment as calendarAssignment
+        # from ulearn5.theme.portlets.stats import Assignment as statsAssignment
+        # from ulearn5.theme.portlets.econnect import Assignment as econnectAssignment
+        # from ulearn5.theme.portlets.angularrouteview import Assignment as angularrouteviewAssignment
+        #
+        # target_manager_assignments['profile'] = profileAssignment()
+        # target_manager_assignments['communities'] = communitiesAssignment()
+        # target_manager_assignments['thinnkers'] = thinnkersAssignment()
+        #
+        # target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager3', context=frontpage)
+        # target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
+        # target_manager_assignments['angularroute'] = angularrouteviewAssignment()
+        # target_manager_assignments['buttons'] = homebuttonbarAssignment()
+        # target_manager_assignments['max'] = maxAssignment()
+        #
+        # portletManager = getUtility(IPortletManager, 'genweb.portlets.HomePortletManager3')
+        # spanstorage = getMultiAdapter((frontpage, portletManager), ISpanStorage)
+        # spanstorage.span = '8'
+        #
+        # target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager4', context=frontpage)
+        # target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
+        # target_manager_assignments['calendar'] = calendarAssignment()
+        # target_manager_assignments['stats'] = statsAssignment()
+        # target_manager_assignments['econnect'] = econnectAssignment()
 
 
 class ldapkillah(grok.View):

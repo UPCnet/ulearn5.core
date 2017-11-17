@@ -15,7 +15,7 @@ from plone.portlets.utils import registerPortletType, unregisterPortletType
 
 from Products.CMFCore.utils import getToolByName
 
-from base5.core.browser.interfaces import IHomePage
+# from base5.core.browser.interfaces import IHomePage
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.controlportlets import IPortletsSettings
 
@@ -215,27 +215,27 @@ def setupVarious(context):
     # portlets are defined to, failing to do so turns in the users can't see the
     # home page - Taken from 'setupdxctsite' view in genweb.core
     pl = getToolByName(portal, 'portal_languages')
-    from plone.dexterity.interfaces import IDexterityContent
-    front_page = getattr(portal, 'front-page', False)
-    if front_page and not IDexterityContent.providedBy(front_page):
-        portal.manage_delObjects('front-page')
-        frontpage = createContentInContainer(portal, 'Document', title=u"front-page", checkConstraints=False)
-        alsoProvides(frontpage, IHomePage)
-        frontpage.exclude_from_nav = True
-        frontpage.language = pl.getDefaultLanguage()
-        frontpage.reindexObject()
-        logger.info('DX default content site setup successfully.')
-    elif not front_page:
-        frontpage = createContentInContainer(portal, 'Document', title=u'front-page', checkConstraints=False)
-        alsoProvides(frontpage, IHomePage)
-        frontpage.exclude_from_nav = True
-        frontpage.language = pl.getDefaultLanguage()
-        frontpage.reindexObject()
-        logger.info('DX default content site setup successfully.')
-    else:
-        alsoProvides(front_page, IHomePage)
-        front_page.language = pl.getDefaultLanguage()
-        front_page.reindexObject()
+    # from plone.dexterity.interfaces import IDexterityContent
+    # front_page = getattr(portal, 'front-page', False)
+    # if front_page and not IDexterityContent.providedBy(front_page):
+    #     portal.manage_delObjects('front-page')
+    #     frontpage = createContentInContainer(portal, 'Document', title=u"front-page", checkConstraints=False)
+    #     alsoProvides(frontpage, IHomePage)
+    #     frontpage.exclude_from_nav = True
+    #     frontpage.language = pl.getDefaultLanguage()
+    #     frontpage.reindexObject()
+    #     logger.info('DX default content site setup successfully.')
+    # elif not front_page:
+    #     frontpage = createContentInContainer(portal, 'Document', title=u'front-page', checkConstraints=False)
+    #     alsoProvides(frontpage, IHomePage)
+    #     frontpage.exclude_from_nav = True
+    #     frontpage.language = pl.getDefaultLanguage()
+    #     frontpage.reindexObject()
+    #     logger.info('DX default content site setup successfully.')
+    # else:
+    #     alsoProvides(front_page, IHomePage)
+    #     front_page.language = pl.getDefaultLanguage()
+    #     front_page.reindexObject()
 
     # Set the default page to the homepage view
     portal.setDefaultPage('homepage')
