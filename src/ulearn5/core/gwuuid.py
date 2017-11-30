@@ -1,9 +1,8 @@
 from five import grok
 from zope.interface import Interface
 from zope.component import queryUtility
-from zope import interface
-from zope import component
-
+from zope.interface import implements
+from zope.component import adapts
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent
 from zope.lifecycleevent.interfaces import IObjectCopiedEvent
 
@@ -22,10 +21,8 @@ ATTRIBUTE_NAME = '_gw.uuid'
 
 class IGWUUID(Interface):
     """ The interface of the adapter for getting and setting the gwuuid """
-
     def get():
         """Return the UUID of the context"""
-
     def set(uuid):
         """Set the unique id of the context with the uuid value.
         """
@@ -33,7 +30,6 @@ class IGWUUID(Interface):
 
 @grok.subscribe(IAttributeUUID, IObjectCreatedEvent)
 def addAttributeUUID(obj, event):
-
     if not IObjectCopiedEvent.providedBy(event):
         if getattr(aq_base(obj), ATTRIBUTE_NAME, None):
             return  # defensive: keep existing UUID on non-copy create
@@ -49,9 +45,9 @@ def addAttributeUUID(obj, event):
     setattr(obj, ATTRIBUTE_NAME, uuid)
 
 
-@grok.implementer(IGWUUID)
-@grok.adapter(IAttributeUUID)
 class MutableAttributeUUID(object):
+    implements(IGWUUID)
+    adapts(IAttributeUUID)
 
     def __init__(self, context):
         self.context = context

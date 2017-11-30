@@ -1,4 +1,4 @@
-smsgid ""
+msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
 "POT-Creation-Date: 2016-07-08 07:34+0000\n"
@@ -842,7 +842,7 @@ msgstr "No hay contenido compartido contigo ahora mismo"
 #. Default: "Shared with me"
 #: ../../../../../../ulearn.theme/ulearn/theme/portlets/templates/buttonbar.pt:24
 msgid "shared_with_me"
-msgstr "Compartido conmigo"
+msgstr "Compartido"
 
 #. Default: "Shared content"
 #: ../../../../../../ulearn5.core/ulearn/core/browser/sharing_templates/shared.pt:26
@@ -1260,7 +1260,7 @@ msgstr "Mis comunidades"
 #. Default: "My Communities"
 #: ../ulearn.theme/ulearn/theme/portlets/mycommunities/mycommunities.py:19
 msgid "mycommunities"
-msgstr "Mis comunidades"
+msgstr "Comunidades"
 
 #. Default: "mysubjects"
 #: ../ulearn.theme/ulearn/theme/portlets/mysubjects/mysubjects.py:42

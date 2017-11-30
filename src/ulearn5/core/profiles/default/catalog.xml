@@ -6,4 +6,5 @@
     <column value="community_type"/>
     <column value="community_hash"/>
     <column value="is_shared"/>
+    <column value="gwuuid"/>
 </object>

@@ -6,9 +6,7 @@ from hashlib import sha1
 from z3c.form import button
 from zope import schema
 from zope.container.interfaces import IObjectAddedEvent
-from zope.component._api import getMultiAdapter
-from zope.component import getUtility
-from zope.component import queryUtility
+from zope.component import getMultiAdapter, getUtility, adapts
 from zope.component.hooks import getSite
 from zope.container.interfaces import INameChooser
 from zope.event import notify
@@ -29,9 +27,6 @@ from plone.directives import form
 from plone.indexer import indexer
 from plone.memoize.view import memoize_contextless
 from plone.namedfile.field import NamedBlobImage
-from plone.portlets.constants import CONTEXT_CATEGORY
-from plone.portlets.interfaces import ILocalPortletAssignmentManager
-from plone.portlets.interfaces import IPortletManager
 from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
@@ -231,9 +226,11 @@ class ICommunityInitializeAdapter(Interface):
         folders and templates. The idea is to have a default (core) action and
         then other that override the default one using IBrowserLayer """
 
-@grok.implementer(ICommunityACL)
-@grok.adapter(ICommunity)
+#@grok.implementer(ICommunityACL)
+#@grok.adapter(ICommunity)
 class GetCommunityACL(object):
+    implements(ICommunityACL)
+    adapts(ICommunity)
     def __init__(self, context):
         self.context = context
 
@@ -545,7 +542,7 @@ class CommunityAdapterMixin(object):
 
 
 @grok.implementer(ICommunityTyped)
-@grok.adapter(ICommunity, Interface, name='Organizative')
+@grok.adapter(ICommunity, Interface)
 class OrganizativeCommunity(CommunityAdapterMixin):
     """ Named adapter for the organizative communities """
     def __init__(self, context, request):
@@ -574,7 +571,7 @@ class OrganizativeCommunity(CommunityAdapterMixin):
 
 
 @grok.implementer(ICommunityTyped)
-@grok.adapter(ICommunity, Interface, name='Open')
+@grok.adapter(ICommunity, Interface)
 class OpenCommunity(CommunityAdapterMixin):
     """ Named adapter for the open communities """
     def __init__(self, context, request):
@@ -605,7 +602,7 @@ class OpenCommunity(CommunityAdapterMixin):
 
 
 @grok.implementer(ICommunityTyped)
-@grok.adapter(ICommunity, Interface, name='Closed')
+@grok.adapter(ICommunity, Interface)
 class ClosedCommunity(CommunityAdapterMixin):
     """ Named adapter for the closed communities """
     def __init__(self, context, request):
@@ -1154,7 +1151,6 @@ class CommunityInitializeAdapter(object):
     """ Default adapter for initialize community custom actions """
 
     def __init__(self, context, request):
-        import ipdb; ipdb.set_trace()
         self.context = context
         self.request = request
 
@@ -1164,7 +1160,6 @@ class CommunityInitializeAdapter(object):
             the context directly into the MAX server with only the creator as
             subscriber (and owner).
         """
-        import ipdb; ipdb.set_trace()
         initial_acl = dict(users=[dict(id=unicode(community.Creator().encode('utf-8')), role='owner')])
         adapter = community.adapted()
 
@@ -1262,14 +1257,7 @@ def initialize_community(community, event):
         the context directly into the MAX server with only the creator as
         subscriber (and owner).
     """
-    # adapter = community.adapted()
-    #from zope.component import getGlobalSiteManager
-    #effective_name = self.community_type if name is None else name
-    #request = request if request is not None else getRequest()
-    #adapter = getMultiAdapter((self, request), ICommunityTyped, name=effective_name)
-    #return adapter
-    import ipdb; ipdb.set_trace()
-    adapter = getMultiAdapter((event.object, event.object.REQUEST), ICommunityInitializeAdapter)
+    adapter = getMultiAdapter((event.object, event.object.REQUEST), ICommunityInitializeAdapter, name="init_community")
     adapter(community)
 
 

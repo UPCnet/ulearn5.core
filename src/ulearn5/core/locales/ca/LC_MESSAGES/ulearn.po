@@ -1244,12 +1244,12 @@ msgstr "Habilitar portlet mrs_max_widget"
 #. Default: "My communities"
 #: ../ulearn.theme/ulearn/theme/portlets/templates/buttonbar.pt:23
 msgid "my_communities"
-msgstr "Les meves Comunitats"
+msgstr "Comunitats"
 
 #. Default: "My Communities"
 #: ../ulearn.theme/ulearn/theme/portlets/mycommunities/mycommunities.py:19
 msgid "mycommunities"
-msgstr "Les meves Comunitats"
+msgstr "Comunitats"
 
 #. Default: "mysubjects"
 #: ../ulearn.theme/ulearn/theme/portlets/mysubjects/mysubjects.py:42
@@ -1275,7 +1275,7 @@ msgstr "No hi ha contingut compartit amb tu ara mateix"
 #. Default: "Shared with me"
 #: ../../../../../../ulearn.theme/ulearn/theme/portlets/templates/buttonbar.pt:24
 msgid "shared_with_me"
-msgstr "Compartit amb mi"
+msgstr "Compartit"
 
 #. Default: "Shared content"
 #: ../../../../../../ulearn5.core/ulearn/core/browser/sharing_templates/shared.pt:26
