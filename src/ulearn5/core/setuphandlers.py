@@ -149,14 +149,14 @@ def setup_ulearn_icon_set():
 #
 #     activate_portlets = []
 #     portlets_slots = ["plone.leftcolumn", "plone.rightcolumn",
-#                       "genweb.portlets.HomePortletManager1", "genweb.portlets.HomePortletManager2",
-#                       "genweb.portlets.HomePortletManager3", "genweb.portlets.HomePortletManager4",
-#                       "genweb.portlets.HomePortletManager5", "genweb.portlets.HomePortletManager6",
-#                       "genweb.portlets.HomePortletManager7", "genweb.portlets.HomePortletManager8",
-#                       "genweb.portlets.HomePortletManager9", "genweb.portlets.HomePortletManager10"]
+#                  "ContentWellPortlets.AbovePortletManager1", "ContentWellPortlets.AbovePortletManager2",
+#                  "ContentWellPortlets.AbovePortletManager3", "ContentWellPortlets.BelowPortletManager1",
+#                  "ContentWellPortlets.BelowPortletManager2", "ContentWellPortlets.BelowPortletManager3",
+#                  "ContentWellPortlets.BelowTitlePortletManager1", "ContentWellPortlets.BelowTitlePortletManager2",
+#                  "ContentWellPortlets.BelowTitlePortletManager3"]
 #
 #     for manager_name in portlets_slots:
-#         if 'genweb' in manager_name:
+#         if 'ContentWellPortlets' in manager_name:
 #             manager = getUtility(IPortletManager, name=manager_name, context=site['front-page'])
 #             mapping = getMultiAdapter((site['front-page'], manager), IPortletAssignmentMapping)
 #             [activate_portlets.append(item[0]) for item in mapping.items()]
@@ -173,9 +173,6 @@ def setup_ulearn_icon_set():
 #             idPortlet = portlet.replace('_', '.')
 #             namePortlet = portlet.replace('_', ' ')
 #
-#             if portlet == 'genweb_portlets_news_events_listing':
-#                 idPortlet = 'genweb.portlets.news_events_listing'
-#                 namePortlet = 'genweb portlets news_events_listing'
 #
 #             if reg.value is True:
 #                 registerPortletType(site,

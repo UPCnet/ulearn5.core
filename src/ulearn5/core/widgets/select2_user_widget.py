@@ -37,7 +37,7 @@ class Select2UserInputWidget(textarea.TextAreaWidget):
                 tokenSeparators: [","],
                 minimumInputLength: 3,
                 ajax: {
-                    url: portal_url + '/genweb.ajaxusersearch',
+                    url: portal_url + '/ulearn.ajaxusersearch',
                     data: function (term, page) {
                         return {
                             q: term,
@@ -50,7 +50,7 @@ class Select2UserInputWidget(textarea.TextAreaWidget):
                 },
                 initSelection: function(element, callback) {
                     var id=$(element).val();
-                    $.ajax(portal_url + '/genweb.fromusername2displayname', {
+                    $.ajax(portal_url + '/ulearn.fromusername2displayname', {
                         data: {
                             q: id,
                         },
@@ -113,7 +113,7 @@ class SelectWidgetConverter(BaseDataConverter):
 
 class fromUsername2DisplayName(grok.View):
     grok.context(Interface)
-    grok.name('genweb.fromusername2displayname')
+    grok.name('ulearn.fromusername2displayname')
     # grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 

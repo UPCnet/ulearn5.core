@@ -188,7 +188,7 @@ class reservaBBB(form.SchemaForm):
 
 class AjaxUserSearch(grok.View):
     grok.context(Interface)
-    grok.name('genweb.ajaxusersearch')
+    grok.name('ulearn.ajaxusersearch')
     # grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 

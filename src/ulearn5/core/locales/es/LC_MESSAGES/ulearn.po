@@ -656,11 +656,6 @@ msgstr "Exporta"
 msgid "fullname"
 msgstr "Nombre completo"
 
-#. Default: "Habilitar portlet genweb_portlets_news_events_listing"
-#: ./ulearn/core/controlpanel.py:294
-msgid "genweb_portlets_news_events_listing"
-msgstr "Habilitar portlet genweb_portlets_news_events_listing"
-
 #. Default: "Go to the campus"
 #: ../ulearn.theme/ulearn/theme/portlets/templates/communities.pt:74
 msgid "gotocampus"
@@ -764,16 +759,6 @@ msgstr "Habilitar el portlet homepage"
 #: ./ulearn/core/controlpanel.py:440
 msgid "help_genweb_portlets_news"
 msgstr "Habilitar el portlet noticias"
-
-#. Default: "Habilita el portlet genweb_portlets_news_events_listing."
-#: ./ulearn/core/controlpanel.py:296
-msgid "help_genweb_portlets_news_events_listing"
-msgstr "Habilitar el portlet genweb_portlets_news_events_listing"
-
-#. Default: "Habilita el portlet Upc News."
-#: ./ulearn/core/controlpanel.py:458
-msgid "help_genweb_portlets_upcnews"
-msgstr "genweb_portlets_news_events_listing UPC news"
 
 #. Default: "The URL for your external home page, if you have one."
 #: ./ulearn/core/userschema.py:34
@@ -992,11 +977,6 @@ msgstr "Habilitar el portlet eConnect"
 #: ./ulearn/core/controlpanel.py:602
 msgid "help_ulearn_most_valued"
 msgstr "Habilitar el portlet ulearn most valued"
-
-#. Default: "Habilita el portlet per a poder customitzar la botonera."
-#: ./ulearn/core/controlpanel.py:485
-msgid "help_ulearn_portlets_custombuttonbar"
-msgstr "Habilitar el portlet para poder customizar la botonera"
 
 #. Default: "Habilita el portlet para mostrar las notícias en el flash informativo."
 #: ./ulearn/core/controlpanel.py:521
@@ -1558,11 +1538,6 @@ msgstr "Media"
 #: ./ulearn/core/controlpanel.py:600
 msgid "ulearn_most_valued"
 msgstr "Habilitar portlet Ulearn Most Valued"
-
-#. Default: "Habilitar portlet ulearn_portlets_custombuttonbar"
-#: ./ulearn/core/controlpanel.py:483
-msgid "ulearn_portlets_custombuttonbar"
-msgstr "Habilitar portlet ulearn_portlets_custombuttonbar"
 
 #. Default: "Habilitar portlet flashesinformativos"
 #: ./ulearn/core/controlpanel.py:519

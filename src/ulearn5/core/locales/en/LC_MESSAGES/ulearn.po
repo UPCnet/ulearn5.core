@@ -674,11 +674,6 @@ msgstr "Export"
 msgid "fullname"
 msgstr "Fullname"
 
-#. Default: "Habilitar portlet genweb_portlets_news_events_listing"
-#: ./ulearn/core/controlpanel.py:294
-msgid "genweb_portlets_news_events_listing"
-msgstr "Enable portlet genweb_portlets_news_events_listing"
-
 #. Default: "Go to the campus"
 #: ../ulearn.theme/ulearn/theme/portlets/templates/communities.pt:74
 msgid "gotocampus"
@@ -782,11 +777,6 @@ msgstr "Enable portlet homepage."
 #: ./ulearn/core/controlpanel.py:440
 msgid "help_genweb_portlets_news"
 msgstr "Enable portlet News"
-
-#. Default: "Habilita el portlet genweb_portlets_news_events_listing."
-#: ./ulearn/core/controlpanel.py:296
-msgid "help_genweb_portlets_news_events_listing"
-msgstr "Enable portlet genweb_portlets_news_events_listing."
 
 #. Default: "Habilita el portlet Upc News."
 #: ./ulearn/core/controlpanel.py:458
@@ -1044,11 +1034,6 @@ msgstr "Enable portlet eConnect."
 #: ./ulearn/core/controlpanel.py:602
 msgid "help_ulearn_most_valued"
 msgstr "Enable portlet ulearn most valued."
-
-#. Default: "Habilita el portlet per a poder customitzar la botonera."
-#: ./ulearn/core/controlpanel.py:485
-msgid "help_ulearn_portlets_custombuttonbar"
-msgstr "Enable the portlet to customize the power button."
 
 #. Default: "Habilita el portlet para mostrar las notícias en el flash informativo."
 #: ./ulearn/core/controlpanel.py:521
@@ -1580,11 +1565,6 @@ msgstr "Media"
 #: ./ulearn/core/controlpanel.py:600
 msgid "ulearn_most_valued"
 msgstr "Enable portlet Ulearn Most Valued"
-
-#. Default: "Habilitar portlet ulearn_portlets_custombuttonbar"
-#: ./ulearn/core/controlpanel.py:483
-msgid "ulearn_portlets_custombuttonbar"
-msgstr "Enable portlet ulearn_portlets_custombuttonbar"
 
 #. Default: "Habilitar portlet flashesinformativos"
 #: ./ulearn/core/controlpanel.py:519

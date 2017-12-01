@@ -19,7 +19,7 @@ from Products.CMFCore.utils import getToolByName
 from base5.core.adapters import IImportant
 from base5.core.adapters import IFlash
 from base5.core.adapters import IOutOfList
-from base5.core.utils import genweb_config
+from base5.core.utils import base_config
 
 from ulearn5.core.interfaces import IUlearn5CoreLayer
 from souper.soup import get_soup
@@ -81,8 +81,8 @@ class viewletBase(grok.Viewlet):
     def portal(self):
         return getSite()
 
-    def genweb_config(self):
-        return genweb_config()
+    def base_config(self):
+        return base_config()
 
     def pref_lang(self):
         """ Extracts the current language for the current user
@@ -98,6 +98,11 @@ class newsToolBar(viewletBase):
     grok.viewletmanager(IAboveContentTitle)
     grok.layer(IUlearn5CoreLayer)
     grok.require('cmf.ModifyPortalContent')
+
+    isPortletListActivate = False
+    isPortletFlashActivate = False
+    isPortletImportantActivate = False
+    isManagementNewsActivate = False
 
     def permisos_important(self):
         # TODO: Comprovar que l'usuari tingui permisos per a marcar com a important
@@ -141,18 +146,18 @@ class newsToolBar(viewletBase):
         is_outoflist = IOutOfList(context).is_outoflist
         return is_outoflist
 
-    def getListOfPortlets(self):
+    def autoCheckPortletsSetted(self):
         site = getSite()
         activate_portlets = []
         portlets_slots = ["plone.leftcolumn", "plone.rightcolumn",
-                          "genweb.portlets.HomePortletManager1", "genweb.portlets.HomePortletManager2",
-                          "genweb.portlets.HomePortletManager3", "genweb.portlets.HomePortletManager4",
-                          "genweb.portlets.HomePortletManager5", "genweb.portlets.HomePortletManager6",
-                          "genweb.portlets.HomePortletManager7", "genweb.portlets.HomePortletManager8",
-                          "genweb.portlets.HomePortletManager9", "genweb.portlets.HomePortletManager10"]
+                          "ContentWellPortlets.AbovePortletManager1", "ContentWellPortlets.AbovePortletManager2",
+                          "ContentWellPortlets.AbovePortletManager3", "ContentWellPortlets.BelowPortletManager1",
+                          "ContentWellPortlets.BelowPortletManager2", "ContentWellPortlets.BelowPortletManager3",
+                          "ContentWellPortlets.BelowTitlePortletManager1", "ContentWellPortlets.BelowTitlePortletManager2",
+                          "ContentWellPortlets.BelowTitlePortletManager3"]
 
         for manager_name in portlets_slots:
-            if 'genweb' in manager_name:
+            if 'ContentWellPortlets' in manager_name:
                 manager = getUtility(IPortletManager, name=manager_name, context=site['front-page'])
                 mapping = getMultiAdapter((site['front-page'], manager), IPortletAssignmentMapping)
                 [activate_portlets.append(item[0]) for item in mapping.items()]
@@ -160,34 +165,20 @@ class newsToolBar(viewletBase):
                 manager = getUtility(IPortletManager, name=manager_name, context=site)
                 mapping = getMultiAdapter((site, manager), IPortletAssignmentMapping)
                 [activate_portlets.append(item[0]) for item in mapping.items()]
-        return activate_portlets
 
-    def isPortletListActivate(self):
-        activate_portlets = self.getListOfPortlets()
-        return True if 'my-subscribed-news' in activate_portlets else False
+        self.isManagementNewsActivate = True if 'my-subscribed-news' in activate_portlets or 'flashesinformativos' in activate_portlets or 'importantnews' in activate_portlets else False
+        self.isPortletImportantActivate = True if 'importantnews' in activate_portlets else False
+        self.isPortletFlashActivate = True if 'flashesinformativos' in activate_portlets else False
+        self.isPortletListActivate = True if 'my-subscribed-news' in activate_portlets else False
 
-    def isPortletFlashActivate(self):
-        activate_portlets = self.getListOfPortlets()
-        return True if 'flashesinformativos' in activate_portlets else False
-
-    def isPortletImportantActivate(self):
-        activate_portlets = self.getListOfPortlets()
-        return True if 'importantnews' in activate_portlets else False
-
-    def isManagementNewsActivate(self):
-        activate_portlets = self.getListOfPortlets()
-        if 'my-subscribed-news' in activate_portlets or 'flashesinformativos' in activate_portlets or 'importantnews' in activate_portlets:
-            return True
-        else:
-            return False
+        return True
 
 
 class ListTagsNews(viewletBase):
-    grok.name('genweb.listtags')
+    grok.name('ulearn.listtags')
     grok.context(INewsItem)
     grok.template('listtags')
     grok.viewletmanager(IAboveContentTitle)
-    # grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def isTagFollowed(self, category):
