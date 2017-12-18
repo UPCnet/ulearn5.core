@@ -8,10 +8,7 @@ from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from zope.component import getUtility
 from mrs5.max.utilities import IMAXClient
 import transaction
-from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 import json
-from souper.soup import get_soup
-from repoze.catalog.query import Eq
 
 
 def json_response(func):

@@ -52,7 +52,11 @@ setup(
         'collective.z3cform.datagridfield',
         'souper',
         'collective.polls>=1.10b1',
-        'zope.formlib'
+        'zope.formlib',
+        'base5.core',
+        'base5.portlets',
+        'ulearn5.theme',
+        'mrs5.max'
     ],
     extras_require={
         'test': [

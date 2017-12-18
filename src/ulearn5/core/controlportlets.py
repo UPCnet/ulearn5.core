@@ -3,17 +3,12 @@ from zope import schema
 from z3c.form import button
 from zope.component import getUtility, getMultiAdapter
 from zope.component.hooks import getSite
-
 from plone.portlets.utils import registerPortletType, unregisterPortletType
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
-
 from Products.statusmessages.interfaces import IStatusMessage
-
 from plone.app.registry.browser import controlpanel
-
 from mrs5.max import MRSMAXMessageFactory as _
-
 from plone.directives import form
 
 
@@ -173,7 +168,7 @@ class IPortletsSettings(form.Schema):
         description=_(u'help_ulearn_angularRouteView',
                       default=_(u"Habilita el portlet angular per a poder fer ús de les rutes angularjs.")),
         required=False,
-        default=True,
+        default=False,
     )
 
     ulearn_portlets_buttonbar = schema.Bool(

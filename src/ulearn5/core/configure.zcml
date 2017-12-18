@@ -56,6 +56,12 @@
 
     <adapter factory=".factories.DXFileFactory" />
 
+    <genericsetup:importStep
+      name="ulearn5.core.setupstep"
+      title="ulearn5.core special import handlers"
+      description=""
+      handler="ulearn5.core.setuphandlers.setupVarious" />
+
     <genericsetup:registerProfile
         name="default"
         title="ulearn5.core"
