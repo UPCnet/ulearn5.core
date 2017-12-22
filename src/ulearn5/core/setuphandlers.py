@@ -202,8 +202,10 @@ def setupVarious(context):
     portal.validate_email = False
 
     # Update types with default action listing
-    #import ipdb; ipdb.set_trace()
     site_properties = api.portal.get_tool(name='portal_properties').site_properties
-    #site_properties.typesUseViewActionInListings = site_properties.typesUseViewActionInListings + ('ulearn.video',)
+    try:
+        site_properties.manage_addProperty('typesUseViewActionInListings', 'ulearn.video', 'lines')
+    except:
+        print "La propietat 'ulearn.video' ja estava afegida al portal site_properties"
     import transaction
     transaction.commit()
