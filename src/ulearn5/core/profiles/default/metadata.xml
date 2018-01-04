@@ -7,6 +7,7 @@
           <dependency>profile-pas.plugins.osiris:default</dependency>
           <dependency>profile-mrs5.max:default</dependency>
           <dependency>profile-base5.core:default</dependency>
+          <dependency>profile-base5.portlets:default</dependency>
           <dependency>profile-ulearn5.theme:default</dependency>
       </dependencies>
 </metadata>
