@@ -377,13 +377,13 @@ class updateSharingCommunityElastic(grok.View):
                 if community:
                     obj = community[0]._unrestrictedGetObject()
 
-
+                elastic_index = ElasticSharing().get_index_name().lower()
                 try:
                     self.elastic = getUtility(IElasticSearch)
-                    self.elastic().search(index=ElasticSharing().get_index_name())
+                    self.elastic().search(index=elastic_index)
                 except:
                     self.elastic().indices.create(
-                        index=ElasticSharing().get_index_name(),
+                        index=elastic_index,
                         body={
                             'mappings': {
                                 'sharing': {
@@ -427,13 +427,13 @@ class updateSharingCommunitiesElastic(grok.View):
             id_community = absolute_path + '/' + obj.id
             self.context.plone_log('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
             community = pc.unrestrictedSearchResults(path=id_community)
-
+            elastic_index = ElasticSharing().get_index_name().lower()
             try:
                 self.elastic = getUtility(IElasticSearch)
-                self.elastic().search(index=ElasticSharing().get_index_name())
+                self.elastic().search(index=elastic_index)
             except:
                 self.elastic().indices.create(
-                    index=ElasticSharing().get_index_name(),
+                    index=elastic_index,
                     body={
                         'mappings': {
                             'sharing': {
@@ -471,13 +471,13 @@ class createElasticSharing(grok.View):
             alsoProvides(self.request, IDisableCSRFProtection)
         except:
             pass
-
+        elastic_index = ElasticSharing().get_index_name().lower()
         try:
             self.elastic = getUtility(IElasticSearch)
-            self.elastic().search(index=ElasticSharing().get_index_name())
+            self.elastic().search(index=elastic_index)
         except:
             self.elastic().indices.create(
-                index=ElasticSharing().get_index_name(),
+                index=elastic_index,
                 body={
                     'mappings': {
                         'sharing': {

@@ -30,10 +30,10 @@ class TestExample(uLearnTestBase):
                                        u'http://pc60012.estacions.upcnet.es:9200')
         self.elastic = getUtility(IElasticSearch)
         self.elastic.create_new_connection()
-        self.elastic().indices.create(index=ElasticSharing().get_index_name())
+        self.elastic().indices.create(index=ElasticSharing().get_index_name().lower())
 
     def tearDown(self):
-        self.elastic().indices.delete(index=ElasticSharing().get_index_name())
+        self.elastic().indices.delete(index=ElasticSharing().get_index_name().lower())
 
     @unittest.skipUnless(os.environ.get('ES_TEST', False), 'Skipping due to lack of ES access')
     def test_make_record(self):
@@ -54,7 +54,7 @@ class TestExample(uLearnTestBase):
 
         time.sleep(1)
 
-        result = self.elastic().search(index=ElasticSharing().get_index_name(),
+        result = self.elastic().search(index=ElasticSharing().get_index_name().lower(),
                                        doc_type='sharing',
                                        body={'query': {'match': {'principal': 'janet.dura'}}})
 
@@ -66,7 +66,7 @@ class TestExample(uLearnTestBase):
         ElasticSharing().remove(folder, 'janet.dura')
 
         time.sleep(1)
-        result = self.elastic().search(index=ElasticSharing().get_index_name(),
+        result = self.elastic().search(index=ElasticSharing().get_index_name().lower(),
                                        doc_type='sharing',
                                        body={'query': {'match': {'principal': 'janet.dura'}}})
 
