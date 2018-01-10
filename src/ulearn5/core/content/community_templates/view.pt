@@ -25,16 +25,12 @@
       });
     </script>
   </div>
-  <metal:block fill-slot="top_slot"
-                 tal:define="dummy python:request.set('disable_border',1)" />
 </head>
 
 <body>
 
 <metal:main fill-slot="main">
-
   <metal:content-core define-macro="main">
-
     <div ng-controller="subscribeToOpenCommunity as ctrl">
       <alert ng-if="ctrl.show_alert"
              close="ctrl.closeAlert()"
@@ -61,7 +57,6 @@
     </div>
 
     <div class="tab-pane active" id="maxui-widget-container"></div>
-
   </metal:content-core>
 </metal:main>
 
