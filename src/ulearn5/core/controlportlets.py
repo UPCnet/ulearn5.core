@@ -9,12 +9,11 @@ from plone.portlets.interfaces import IPortletAssignmentMapping
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.app.registry.browser import controlpanel
 from mrs5.max import MRSMAXMessageFactory as _
-from plone.directives import form
+from zope.interface import Interface
 
 
-class IPortletsSettings(form.Schema):
-    """Enable allowed portlets on plone site.
-    """
+class IPortletsSettings(Interface):
+    """ Enable allowed portlets on plone site. """
 
     # ==== Portlets ====
 
@@ -25,7 +24,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet portlets_Search.")),
         required=False,
         default=False,
-    )
+        )
 
     portlets_Review = schema.Bool(
         title=_(u'portlets_Review',
@@ -34,7 +33,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet portlets_Review.")),
         required=False,
         default=False,
-    )
+        )
 
     portlets_Recent = schema.Bool(
         title=_(u'portlets_Recent',
@@ -43,7 +42,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet portlets_Recent.")),
         required=False,
         default=False,
-    )
+        )
 
     portlets_News = schema.Bool(
         title=_(u'portlets_News',
@@ -52,7 +51,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet portlets_News.")),
         required=False,
         default=False,
-    )
+        )
 
     mrs_max_widget = schema.Bool(
         title=_(u'mrs_max_widget',
@@ -60,8 +59,8 @@ class IPortletsSettings(form.Schema):
         description=_(u'help_mrs_max_widget',
                       default=_(u"Habilita el portlet mrs_max_widget.")),
         required=False,
-        default=False,
-    )
+        default=True,
+        )
 
     portlets_Events = schema.Bool(
         title=_(u'portlets_Events',
@@ -70,7 +69,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet portlets_Events.")),
         required=False,
         default=False,
-    )
+        )
 
     portlets_Calendar = schema.Bool(
         title=_(u'portlets_Calendar',
@@ -79,7 +78,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet portlets_Calendar.")),
         required=False,
         default=False,
-    )
+        )
 
     plone_portlet_collection_Collection = schema.Bool(
         title=_(u'plone_portlet_collection_Collection',
@@ -88,7 +87,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet plone_portlet_collection_Collection.")),
         required=False,
         default=False,
-    )
+        )
 
     portlets_Login = schema.Bool(
         title=_(u'portlets_Login',
@@ -97,7 +96,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet portlets_Login.")),
         required=False,
         default=False,
-    )
+        )
 
     portlets_Navigation = schema.Bool(
         title=_(u'portlets_Navigation',
@@ -106,7 +105,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet portlets_Navigation.")),
         required=False,
         default=False,
-    )
+        )
 
     portlets_rss = schema.Bool(
         title=_(u'portlets_rss',
@@ -115,7 +114,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet portlets_rss.")),
         required=False,
         default=False,
-    )
+        )
 
     plone_portlet_static_Static = schema.Bool(
         title=_(u'plone_portlet_static_Static',
@@ -124,7 +123,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet plone_portlet_static_Static.")),
         required=False,
         default=False,
-    )
+        )
 
     collective_polls_VotePortlet = schema.Bool(
         title=_(u'collective_polls_VotePortlet',
@@ -133,7 +132,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet collective_polls_VotePortlet.")),
         required=False,
         default=False,
-    )
+        )
 
     ulearn_portlets_mytags = schema.Bool(
         title=_(u'ulearn_portlets_mytags',
@@ -142,7 +141,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita portlet amb el núvol de tags.")),
         required=False,
         default=False,
-    )
+        )
 
     ulearn_portlets_mycommunities = schema.Bool(
         title=_(u'ulearn_portlets_mycommunities',
@@ -151,16 +150,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet que mostra les comunitats on estic suscrit o puc suscriurem.")),
         required=False,
         default=False,
-    )
-
-    ulearn_portlets_subscribednews = schema.Bool(
-        title=_(u'ulearn_portlets_subscribednews',
-                default=_(u"Habilitar portlet ulearn_portlets_subscribednews")),
-        description=_(u'help_ulearn_portlets_subscribednews',
-                      default=_(u"Habilita el portlet per a veure les notícies les quals contenen un tag que segueixo.")),
-        required=False,
-        default=False,
-    )
+        )
 
     ulearn_portlets_angularrouteview = schema.Bool(
         title=_(u'ulearn_angularRouteView',
@@ -168,8 +158,8 @@ class IPortletsSettings(form.Schema):
         description=_(u'help_ulearn_angularRouteView',
                       default=_(u"Habilita el portlet angular per a poder fer ús de les rutes angularjs.")),
         required=False,
-        default=False,
-    )
+        default=True,
+        )
 
     ulearn_portlets_buttonbar = schema.Bool(
         title=_(u'ulearn_button_bar',
@@ -178,7 +168,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet botonera central.")),
         required=False,
         default=True,
-    )
+        )
 
     ulearn_portlets_communities = schema.Bool(
         title=_(u'ulearn_communities',
@@ -187,7 +177,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet lateral on mostra les comunitats favorites.")),
         required=False,
         default=True,
-    )
+        )
 
     ulearn_portlets_profile = schema.Bool(
         title=_(u'ulearn_profile',
@@ -196,7 +186,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet on mostra el perfil usuari, o la comunitat on estem.")),
         required=False,
         default=True,
-    )
+        )
 
     ulearn_portlets_thinnkers = schema.Bool(
         title=_(u'ulearn_thinkers',
@@ -205,7 +195,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet on es mostren els usuaris, amb la cerca .")),
         required=False,
         default=True,
-    )
+        )
 
     ulearn_portlets_calendar = schema.Bool(
         title=_(u'ulearn_calendar',
@@ -214,7 +204,7 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet per a mostrar el calendari amb els events.")),
         required=False,
         default=True,
-    )
+        )
 
     ulearn_portlets_sharedwithme = schema.Bool(
         title=_(u'ulearn_sharedwithme',
@@ -223,88 +213,87 @@ class IPortletsSettings(form.Schema):
                       default=_(u"Habilita el portlet per a veure el compartit amb mi.")),
         required=False,
         default=False,
-    )
+        )
 
-    # ulearn_portlets_mysubjects = schema.Bool(
-    #     title=_(u'ulearn_portlets_mysubjects',
-    #             default=_(u"Habilitar portlet ulearn_portlets_mysubjects")),
-    #     description=_(u'help_ulearn_portlets_mysubjects',
-    #                   default=_(u"Habilita el portlet per a poder veure els meus cursos del EVA.")),
-    #     required=False,
-    #     default=False,
-    # )
+    ulearn_portlets_mysubjects = schema.Bool(
+        title=_(u'ulearn_portlets_mysubjects',
+                default=_(u"Habilitar portlet ulearn_portlets_mysubjects")),
+        description=_(u'help_ulearn_portlets_mysubjects',
+                      default=_(u"Habilita el portlet per a poder veure els meus cursos del EVA.")),
+        required=False,
+        default=False,
+        )
 
-    # ulearn_portlets_flashesinformativos = schema.Bool(
-    #     title=_(u'ulearn_portlets_flashesinformativos',
-    #             default=_(u"Habilitar portlet flashesinformativos")),
-    #     description=_(u'help_ulearn_portlets_flashesinformativos',
-    #                   default=_(u"Habilita el portlet para mostrar las notícias en el flash informativo.")),
-    #     required=False,
-    #     default=False,
-    # )
-    #
-    # ulearn_portlets_importantnews = schema.Bool(
-    #     title=_(u'ulearn_portlets_importantnews',
-    #             default=_(u"Habilitar portlet importantnews")),
-    #     description=_(u'help_ulearn_portlets_importantnews',
-    #                   default=_(u"Habilita el portlet para mostrar las notícias marcadas como destacadas.")),
-    #     required=False,
-    #     default=False,
-    # )
+    ulearn_portlets_flashesinformativos = schema.Bool(
+        title=_(u'ulearn_portlets_flashesinformativos',
+                default=_(u"Habilitar portlet flashesinformativos")),
+        description=_(u'help_ulearn_portlets_flashesinformativos',
+                      default=_(u"Habilita el portlet para mostrar las notícias en el flash informativo.")),
+        required=False,
+        default=False,
+        )
 
-    # ulearn_portlets_discussion = schema.Bool(
-    #     title=_(u'ulearn_discussion',
-    #             default=_(u"Habilitar portlet Ulearn Discussion")),
-    #     description=_(u'help_ulearn_discussion',
-    #                   default=_(u"Habilita el portlet.")),
-    #     required=False,
-    #     default=False,
-    # )
-    #
-    # ulearn_portlets_econnect = schema.Bool(
-    #     title=_(u'ulearn_econnect',
-    #             default=_(u"Habilitar portlet Ulearn eConnect")),
-    #     description=_(u'help_ulearn_econnect',
-    #                   default=_(u"Habilita el portlet eConnect.")),
-    #     required=False,
-    #     default=False,
-    # )
-    #
-    # ulearn_portlets_mostvalued = schema.Bool(
-    #     title=_(u'ulearn_most_valued',
-    #             default=_(u"Habilitar portlet Ulearn Most Valued")),
-    #     description=_(u'help_ulearn_most_valued',
-    #                   default=_(u"Habilita el portlet ulearn most valued.")),
-    #     required=False,
-    #     default=False,
-    # )
-    #
-    # ulearn_portlets_stats = schema.Bool(
-    #     title=_(u'ulearn_stats',
-    #             default=_(u"Habilitar portlet Ulearn Stats")),
-    #     description=_(u'help_ulearn_stats',
-    #                   default=_(u"Habilita el portlet per a veure les estadístiques.")),
-    #     required=False,
-    #     default=True,
-    # )
+    ulearn_portlets_importantnews = schema.Bool(
+        title=_(u'ulearn_portlets_importantnews',
+                default=_(u"Habilitar portlet importantnews")),
+        description=_(u'help_ulearn_portlets_importantnews',
+                      default=_(u"Habilita el portlet para mostrar las notícias marcadas como destacadas.")),
+        required=False,
+        default=False,
+        )
+
+    ulearn_portlets_discussion = schema.Bool(
+        title=_(u'ulearn_discussion',
+                default=_(u"Habilitar portlet Ulearn Discussion")),
+        description=_(u'help_ulearn_discussion',
+                      default=_(u"Habilita el portlet.")),
+        required=False,
+        default=False,
+        )
+
+    ulearn_portlets_econnect = schema.Bool(
+        title=_(u'ulearn_econnect',
+                default=_(u"Habilitar portlet Ulearn eConnect")),
+        description=_(u'help_ulearn_econnect',
+                      default=_(u"Habilita el portlet eConnect.")),
+        required=False,
+        default=False,
+        )
+
+    ulearn_portlets_mostvalued = schema.Bool(
+        title=_(u'ulearn_most_valued',
+                default=_(u"Habilitar portlet Ulearn Most Valued")),
+        description=_(u'help_ulearn_most_valued',
+                      default=_(u"Habilita el portlet ulearn most valued.")),
+        required=False,
+        default=False,
+        )
+
+    ulearn_portlets_stats = schema.Bool(
+        title=_(u'ulearn_stats',
+                default=_(u"Habilitar portlet Ulearn Stats")),
+        description=_(u'help_ulearn_stats',
+                      default=_(u"Habilita el portlet per a veure les estadístiques.")),
+        required=False,
+        default=False,
+        )
     # ==== FIN Portlets ====
 
 
-class PortletsSettingsEditForm(controlpanel.RegistryEditForm):
-    """MAXUI settings form.
-    """
+class PortletsSettingsForm(controlpanel.RegistryEditForm):
+    """Portlets settings form. """
+
     schema = IPortletsSettings
-    id = "PortletsSettingsEditForm"
+    id = "PortletsSettingsForm"
     label = _(u"Portlets settings")
     description = _(u"help_portlets_settings_editform",
                     default=u"Settings Portlets. Configure allowed Portlets.")
 
-    def updateFields(self):
-        super(PortletsSettingsEditForm, self).updateFields()
-        # self.fields = self.fields.omit('max_app_token')
-
-    def updateWidgets(self):
-        super(PortletsSettingsEditForm, self).updateWidgets()
+    # def updateFields(self):
+    #     super(PortletsSettingsForm, self).updateFields()
+    #
+    # def updateWidgets(self):
+    #     super(PortletsSettingsForm, self).updateWidgets()
 
     @button.buttonAndHandler(_('Save'), name=None)
     def handleSave(self, action):
@@ -367,4 +356,4 @@ class PortletsSettingsEditForm(controlpanel.RegistryEditForm):
 
 class PortletsControlPanel(controlpanel.ControlPanelFormWrapper):
     """Portlets settings control panel. """
-    form = PortletsSettingsEditForm
+    form = PortletsSettingsForm

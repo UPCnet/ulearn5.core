@@ -119,7 +119,9 @@ def setup_ulearn_portlets_settings():
             [activate_portlets.append(item[0]) for item in mapping.items()]
 
     registry = queryUtility(IRegistry)
+    registry.registerInterface(IPortletsSettings)
     ulearn_settings = registry.forInterface(IPortletsSettings)
+
     portlets = [port for port in ulearn_settings.__registry__.records.items() if 'portlet' in port[0]]
     if portlets:
         for portlet, reg in portlets:
@@ -157,7 +159,7 @@ def setupVarious(context):
 
     add_catalog_indexes(portal, logger)
     setup_ulearn_icon_set()
-    #setup_ulearn_portlets_settings()
+    setup_ulearn_portlets_settings()
 
     # Set the default page to the homepage view
     portal.setDefaultPage('front-page')
