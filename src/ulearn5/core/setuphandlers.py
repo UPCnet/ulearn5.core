@@ -98,52 +98,53 @@ def setup_ulearn_icon_set():
     api.portal.set_registry_record('base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.custom_editor_icons', ulearn_custom_icons)
 
 
-def setup_ulearn_portlets_settings():
-    site = getSite()
-    activate_portlets = []
-    portlets_slots = ["plone.leftcolumn", "plone.rightcolumn",
-                      "ContentWellPortlets.AbovePortletManager1", "ContentWellPortlets.AbovePortletManager2",
-                      "ContentWellPortlets.AbovePortletManager3", "ContentWellPortlets.BelowPortletManager1",
-                      "ContentWellPortlets.BelowPortletManager2", "ContentWellPortlets.BelowPortletManager3",
-                      "ContentWellPortlets.BelowTitlePortletManager1", "ContentWellPortlets.BelowTitlePortletManager2",
-                      "ContentWellPortlets.BelowTitlePortletManager3"]
-
-    for manager_name in portlets_slots:
-        if 'ContentWellPortlets' in manager_name:
-            manager = getUtility(IPortletManager, name=manager_name, context=site['front-page'])
-            mapping = getMultiAdapter((site['front-page'], manager), IPortletAssignmentMapping)
-            [activate_portlets.append(item[0]) for item in mapping.items()]
-        else:
-            manager = getUtility(IPortletManager, name=manager_name, context=site)
-            mapping = getMultiAdapter((site, manager), IPortletAssignmentMapping)
-            [activate_portlets.append(item[0]) for item in mapping.items()]
-
-    registry = queryUtility(IRegistry)
-    registry.registerInterface(IPortletsSettings)
-    ulearn_settings = registry.forInterface(IPortletsSettings)
-
-    portlets = [port for port in ulearn_settings.__registry__.records.items() if 'portlet' in port[0]]
-    if portlets:
-        for portlet, reg in portlets:
-            portlet = portlet.split('.')[-1]
-            idPortlet = portlet.replace('_', '.')
-            namePortlet = portlet.replace('_', ' ')
-
-            if reg.value is True:
-                registerPortletType(site,
-                                    title=namePortlet,
-                                    description=namePortlet,
-                                    addview=idPortlet)
-
-            if idPortlet.split('.')[-1] in activate_portlets:
-                reg.value = True
-                registerPortletType(site,
-                                    title=namePortlet,
-                                    description=namePortlet,
-                                    addview=idPortlet)
-
-            if reg.value is False:
-                unregisterPortletType(site, idPortlet)
+# def setup_ulearn_portlets_settings():
+#     site = getSite()
+#     activate_portlets = []
+#     portlets_slots = ["plone.leftcolumn", "plone.rightcolumn",
+#                       "ContentWellPortlets.AbovePortletManager1", "ContentWellPortlets.AbovePortletManager2",
+#                       "ContentWellPortlets.AbovePortletManager3", "ContentWellPortlets.BelowPortletManager1",
+#                       "ContentWellPortlets.BelowPortletManager2", "ContentWellPortlets.BelowPortletManager3",
+#                       "ContentWellPortlets.BelowTitlePortletManager1", "ContentWellPortlets.BelowTitlePortletManager2",
+#                       "ContentWellPortlets.BelowTitlePortletManager3"]
+#
+#     for manager_name in portlets_slots:
+#         if 'ContentWellPortlets' in manager_name:
+#             manager = getUtility(IPortletManager, name=manager_name, context=site['front-page'])
+#             mapping = getMultiAdapter((site['front-page'], manager), IPortletAssignmentMapping)
+#             [activate_portlets.append(item[0]) for item in mapping.items()]
+#         else:
+#             manager = getUtility(IPortletManager, name=manager_name, context=site)
+#             mapping = getMultiAdapter((site, manager), IPortletAssignmentMapping)
+#             [activate_portlets.append(item[0]) for item in mapping.items()]
+#
+#     registry = queryUtility(IRegistry)
+#     registry.registerInterface(IPortletsSettings)
+#     ulearn_settings = registry.forInterface(IPortletsSettings)
+#
+#     portlets = [port for port in ulearn_settings.__registry__.records.items() if 'portlet' in port[0]]
+#     #import ipdb; ipdb.set_trace()
+#     if portlets:
+#         for portlet, reg in portlets:
+#             portlet = portlet.split('.')[-1]
+#             idPortlet = portlet.replace('_', '.')
+#             namePortlet = portlet.replace('_', ' ')
+#
+#             if reg.value is True:
+#                 registerPortletType(site,
+#                                     title=namePortlet,
+#                                     description=namePortlet,
+#                                     addview=idPortlet)
+#
+#             if idPortlet.split('.')[-1] in activate_portlets:
+#                 reg.value = True
+#                 registerPortletType(site,
+#                                     title=namePortlet,
+#                                     description=namePortlet,
+#                                     addview=idPortlet)
+#
+#             if reg.value is False:
+#                 unregisterPortletType(site, idPortlet)
 
 
 def setupVarious(context):
@@ -159,7 +160,7 @@ def setupVarious(context):
 
     add_catalog_indexes(portal, logger)
     setup_ulearn_icon_set()
-    setup_ulearn_portlets_settings()
+    #setup_ulearn_portlets_settings()
 
     # Set the default page to the homepage view
     portal.setDefaultPage('front-page')

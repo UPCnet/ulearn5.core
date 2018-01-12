@@ -12,7 +12,7 @@ from plone.dexterity.utils import createContentInContainer
 
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
-# from base5.core.browser.manager import ISpanStorage
+from base5.portlets.browser.manager import IColStorage
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
@@ -58,39 +58,74 @@ class setupHomePage(grok.View):
             pass
         portal = getSite()
         frontpage = portal['front-page']
-        # Add portlets programatically
-        # target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager1', context=frontpage)
-        # target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
-        # from ulearn5.theme.portlets.profile import Assignment as profileAssignment
-        # from ulearn5.theme.portlets.communities import Assignment as communitiesAssignment
-        # from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
-        # from mrs5.max.portlets.maxui import Assignment as maxAssignment
-        # from ulearn5.theme.portlets.homebuttonbar import Assignment as homebuttonbarAssignment
-        # from ulearn5.theme.portlets.calendar import Assignment as calendarAssignment
-        # from ulearn5.theme.portlets.stats import Assignment as statsAssignment
-        # from ulearn5.theme.portlets.econnect import Assignment as econnectAssignment
-        # from ulearn5.theme.portlets.angularrouteview import Assignment as angularrouteviewAssignment
-        #
-        # target_manager_assignments['profile'] = profileAssignment()
-        # target_manager_assignments['communities'] = communitiesAssignment()
-        # target_manager_assignments['thinnkers'] = thinnkersAssignment()
-        #
-        # target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager3', context=frontpage)
-        # target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
-        # target_manager_assignments['angularroute'] = angularrouteviewAssignment()
-        # target_manager_assignments['buttons'] = homebuttonbarAssignment()
-        # target_manager_assignments['max'] = maxAssignment()
-        #
-        # portletManager = getUtility(IPortletManager, 'genweb.portlets.HomePortletManager3')
-        # spanstorage = getMultiAdapter((frontpage, portletManager), ISpanStorage)
-        # spanstorage.span = '8'
-        #
-        # target_manager = queryUtility(IPortletManager, name='genweb.portlets.HomePortletManager4', context=frontpage)
-        # target_manager_assignments = getMultiAdapter((frontpage, target_manager), IPortletAssignmentMapping)
-        # target_manager_assignments['calendar'] = calendarAssignment()
-        # target_manager_assignments['stats'] = statsAssignment()
-        # target_manager_assignments['econnect'] = econnectAssignment()
 
+        from plone.portlets.interfaces import ILocalPortletAssignmentManager
+        from plone.portlets.constants import CONTEXT_CATEGORY
+
+        # Get the proper portlet manager
+        manager = getUtility(IPortletManager, name=u"plone.rightcolumn")
+        # Get the current blacklist for the location
+        blacklist = getMultiAdapter((self.context, manager), ILocalPortletAssignmentManager)
+        # Turn off the manager
+        blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+
+        # Get the proper portlet manager
+        manager = getUtility(IPortletManager, name=u"plone.footerportlets")
+        # Get the current blacklist for the location
+        blacklist = getMultiAdapter((self.context, manager), ILocalPortletAssignmentManager)
+        # Turn off the manager
+        blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+
+        # Get the proper portlet manager
+        manager = getUtility(IPortletManager, name=u"plone.leftcolumn")
+        # Get the current blacklist for the location
+        blacklist = getMultiAdapter((frontpage, manager), ILocalPortletAssignmentManager)
+        # Turn off the manager
+        blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+
+        from zope.container.interfaces import INameChooser
+        from ulearn5.theme.portlets.communities import Assignment as communitiesAssignment
+        from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
+        from mrs5.max.portlets.maxui import Assignment as maxAssignment
+        from ulearn5.theme.portlets.buttonbar.buttonbar import Assignment as buttonbarAssignment
+        from ulearn5.theme.portlets.mycommunities.mycommunities import Assignment as mycommunitiesAssignment
+        from ulearn5.theme.portlets.calendar import Assignment as calendarAssignment
+        from ulearn5.theme.portlets.angularrouteview import Assignment as angularrouteviewAssignment
+
+        # Add portlets programatically
+        column = getUtility(IPortletManager, name='ContentWellPortlets.BelowTitlePortletManager1')
+        manager = getMultiAdapter((frontpage, column), IPortletAssignmentMapping)
+        chooser = INameChooser(manager)
+        manager[chooser.chooseName(None, communitiesAssignment())] = communitiesAssignment()
+        #manager[chooser.chooseName(None, chatAssignment())] = chatAssignment()
+        manager[chooser.chooseName(None, thinnkersAssignment())] = thinnkersAssignment()
+
+        column = getUtility(IPortletManager, name='ContentWellPortlets.BelowTitlePortletManager2')
+        manager = getMultiAdapter((frontpage, column), IPortletAssignmentMapping)
+        chooser = INameChooser(manager)
+        manager[chooser.chooseName(None, angularrouteviewAssignment())] = angularrouteviewAssignment()
+        manager[chooser.chooseName(None, buttonbarAssignment())] = buttonbarAssignment()
+        manager[chooser.chooseName(None, maxAssignment())] = maxAssignment()
+        manager[chooser.chooseName(None, mycommunitiesAssignment())] = mycommunitiesAssignment()
+
+        column = getUtility(IPortletManager, name='ContentWellPortlets.BelowTitlePortletManager3')
+        manager = getMultiAdapter((frontpage, column), IPortletAssignmentMapping)
+        chooser = INameChooser(manager)
+        manager[chooser.chooseName(None, calendarAssignment())] = calendarAssignment()
+
+        portletManager = getUtility(IPortletManager, 'ContentWellPortlets.BelowTitlePortletManager1')
+        colstorage = getMultiAdapter((frontpage, portletManager), IColStorage)
+        colstorage.col = '3'
+
+        portletManager = getUtility(IPortletManager, 'ContentWellPortlets.BelowTitlePortletManager2')
+        colstorage = getMultiAdapter((frontpage, portletManager), IColStorage)
+        colstorage.col = '6'
+
+        portletManager = getUtility(IPortletManager, 'ContentWellPortlets.BelowTitlePortletManager3')
+        colstorage = getMultiAdapter((frontpage, portletManager), IColStorage)
+        colstorage.col = '3'
+
+        return 'Done'
 
 class ldapkillah(grok.View):
     grok.context(IPloneSiteRoot)
@@ -124,7 +159,7 @@ class changeURLCommunities(grok.View):
     grok.template('changeurlcommunities')
     grok.context(IPloneSiteRoot)
 
-    # render = ViewPageTemplateFile('views_templates/changeurlcommunities.pt')
+    #render = ViewPageTemplateFile('views_templates/changeurlcommunities.pt')
 
     def update(self):
         try:
@@ -135,7 +170,6 @@ class changeURLCommunities(grok.View):
         if self.request.environ['REQUEST_METHOD'] == 'POST':
             pc = api.portal.get_tool('portal_catalog')
             communities = pc.searchResults(portal_type='ulearn.community')
-            # portal_url = api.portal.get().absolute_url()
 
             if self.request.form['url'] != '':
                 url_nova = self.request.form['url']
@@ -323,15 +357,14 @@ class ImportFileToFolder(grok.View):
     # grok.require('base.webmaster')
 
     def render(self):
-        portal = api.portal.get()
         folder_name = self.request.get("folder")
         local_file = self.request.get("local_file")
 
-        f = open(local_file,'r')
+        f = open(local_file, 'r')
         content = f.read()
         f.close()
 
-        plone_folder = getDestinationFolder(folder_name,create_month=False)
+        plone_folder = getDestinationFolder(folder_name, create_month=False)
         from plone.protect.interfaces import IDisableCSRFProtection
         from zope.interface import alsoProvides
         alsoProvides(self.request, IDisableCSRFProtection)
@@ -389,14 +422,14 @@ class updateSharingCommunityElastic(grok.View):
                                 'sharing': {
                                     'properties': {
                                         'path': {'type': 'string'},
-                                        'principal': {'type': 'string','index': 'not_analyzed' },
+                                        'principal': {'type': 'string', 'index': 'not_analyzed' },
                                         'roles': {'type': 'string'},
                                         'uuid': {'type': 'string'}
+                                        }
                                     }
                                 }
                             }
-                        }
-                    )
+                        )
 
                 for brain in community:
                     obj = brain._unrestrictedGetObject()
@@ -439,14 +472,14 @@ class updateSharingCommunitiesElastic(grok.View):
                             'sharing': {
                                 'properties': {
                                     'path': {'type': 'string'},
-                                    'principal': {'type': 'string','index': 'not_analyzed' },
+                                    'principal': {'type': 'string', 'index': 'not_analyzed' },
                                     'roles': {'type': 'string'},
                                     'uuid': {'type': 'string'}
+                                    }
                                 }
                             }
                         }
-                    }
-                )
+                    )
 
             for brain in community:
                 obj = brain._unrestrictedGetObject()
@@ -483,13 +516,13 @@ class createElasticSharing(grok.View):
                         'sharing': {
                             'properties': {
                                 'path': {'type': 'string'},
-                                'principal': {'type': 'string','index': 'not_analyzed' },
+                                'principal': {'type': 'string', 'index': 'not_analyzed' },
                                 'roles': {'type': 'string'},
                                 'uuid': {'type': 'string'}
+                                }
                             }
                         }
                     }
-                }
-            )
+                )
 
             self.response.setBody('OK')

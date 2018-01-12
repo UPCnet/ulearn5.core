@@ -260,15 +260,6 @@ class IPortletsSettings(Interface):
         default=False,
         )
 
-    ulearn_portlets_mostvalued = schema.Bool(
-        title=_(u'ulearn_most_valued',
-                default=_(u"Habilitar portlet Ulearn Most Valued")),
-        description=_(u'help_ulearn_most_valued',
-                      default=_(u"Habilita el portlet ulearn most valued.")),
-        required=False,
-        default=False,
-        )
-
     ulearn_portlets_stats = schema.Bool(
         title=_(u'ulearn_stats',
                 default=_(u"Habilitar portlet Ulearn Stats")),
@@ -289,11 +280,11 @@ class PortletsSettingsForm(controlpanel.RegistryEditForm):
     description = _(u"help_portlets_settings_editform",
                     default=u"Settings Portlets. Configure allowed Portlets.")
 
-    # def updateFields(self):
-    #     super(PortletsSettingsForm, self).updateFields()
-    #
-    # def updateWidgets(self):
-    #     super(PortletsSettingsForm, self).updateWidgets()
+    def updateFields(self):
+        super(PortletsSettingsForm, self).updateFields()
+
+    def updateWidgets(self):
+        super(PortletsSettingsForm, self).updateWidgets()
 
     @button.buttonAndHandler(_('Save'), name=None)
     def handleSave(self, action):
