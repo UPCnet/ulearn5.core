@@ -99,7 +99,7 @@ class IReservaBBB(form.Schema):
 class reservaBBB(form.SchemaForm):
     grok.name('addBBBReservation')
     grok.context(IPloneSiteRoot)
-    # grok.require('base.member')
+    grok.require('base.member')
 
     schema = IReservaBBB
     ignoreContext = True
@@ -189,7 +189,7 @@ class reservaBBB(form.SchemaForm):
 class AjaxUserSearch(grok.View):
     grok.context(Interface)
     grok.name('ulearn.ajaxusersearch')
-    # grok.require('base.authenticated')
+    grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):
@@ -219,7 +219,7 @@ class AjaxUserSearch(grok.View):
 class addUserSearch(grok.View):
     grok.context(Interface)
     grok.name('add_user_search')
-    # grok.require('base.authenticated')
+    grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):
@@ -262,7 +262,7 @@ class addUserSearch(grok.View):
 class removeUserSearch(grok.View):
     grok.context(Interface)
     grok.name('remove_user_search')
-    # grok.require('base.authenticated')
+    grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):
@@ -295,7 +295,7 @@ class removeUserSearch(grok.View):
 class isSearchInSearchers(grok.View):
     grok.context(Interface)
     grok.name('search_in_searchers')
-    # grok.require('base.authenticated')
+    grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):
@@ -324,7 +324,7 @@ class isSearchInSearchers(grok.View):
 class getUserSearchers(grok.View):
     grok.context(Interface)
     grok.name('get_user_searchers')
-    # grok.require('base.authenticated')
+    grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):
@@ -347,7 +347,7 @@ class MigrateAvatars(grok.View):
     """ Migrate avatar images from disk to web (migration on sunday 27/11/2017) """
     grok.name('migrate_avatars')
     grok.context(Interface)
-    # grok.require('base.member')
+    grok.require('base.member')
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):

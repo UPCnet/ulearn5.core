@@ -354,7 +354,7 @@ class ImportFileToFolder(grok.View):
     """
     grok.context(IPloneSiteRoot)
     grok.name('importfiletofolder')
-    # grok.require('base.webmaster')
+    grok.require('base.webmaster')
 
     def render(self):
         folder_name = self.request.get("folder")
@@ -404,7 +404,7 @@ class updateSharingCommunityElastic(grok.View):
 
             if self.request.form['id'] != '':
                 id_community = absolute_path + '/' + self.request.form['id']
-                self.context.plone_log('Actualitzant elasticsearch dades comunitat {}'.format(id_community))
+                logger.info('Actualitzant elasticsearch dades comunitat {}'.format(id_community))
                 community = pc.unrestrictedSearchResults(path=id_community)
 
                 if community:
@@ -436,7 +436,7 @@ class updateSharingCommunityElastic(grok.View):
                     if not ICommunity.providedBy(obj):
                         elastic_sharing = queryUtility(IElasticSharing)
                         elastic_sharing.modified(obj)
-                        self.context.plone_log('Actualitzat el objecte {} de la comunitat {}'.format(obj, id_community))
+                        logger.info('Actualitzat el objecte {} de la comunitat {}'.format(obj, id_community))
 
 class updateSharingCommunitiesElastic(grok.View):
     """ Aquesta vista actualitza el sharing de tots els objectes de totes les comunitats al elasticsearch """
@@ -458,7 +458,7 @@ class updateSharingCommunitiesElastic(grok.View):
         for num, community in enumerate(comunnities):
             obj = community._unrestrictedGetObject()
             id_community = absolute_path + '/' + obj.id
-            self.context.plone_log('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
+            logger.info('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
             community = pc.unrestrictedSearchResults(path=id_community)
             elastic_index = ElasticSharing().get_index_name().lower()
             try:
@@ -487,7 +487,7 @@ class updateSharingCommunitiesElastic(grok.View):
                     elastic_sharing = queryUtility(IElasticSharing)
                     elastic_sharing.modified(obj)
 
-                    self.context.plone_log('Actualitzat el objecte {} de la comunitat {}'.format(obj, id_community))
+                    logger.info('Actualitzat el objecte {} de la comunitat {}'.format(obj, id_community))
 
         logger.info('Finished update sharing in communities: {}'.format(portal.absolute_url()))
         self.response.setBody('OK')

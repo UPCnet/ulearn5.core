@@ -85,9 +85,9 @@ class ElasticSharing(object):
             to be inserted on ES
         """
         path = self.relative_path(object)
-
+        elastic_index = self.get_index_name().lower()
         record = dict(
-            index=self.get_index_name(),
+            index=elastic_index,
             doc_type='sharing',
             id=str(uuid.uuid1()),
             body=dict(
@@ -159,34 +159,33 @@ class ElasticSharing(object):
             principals_to_delete = set(existing_principals) - set(current_principals_in_groups) - set(current_principals)
             for principal in principals_to_delete:
                 self.remove(object, principal)
-
             # Add new records or modify existing ones
             for principal, roles in current_local_roles.items():
                 if api.group.get(groupname=principal):
                     users = api.user.get_users(groupname=principal)
-                owner = object.getOwner()._id
-                for user in users:
-                    principal = user.id
+                    owner = object.getOwner()._id
+                    for user in users:
+                        principal = user.id
 
-                    if principal != owner:
-                        es_record = self.get(object, principal)
+                        if principal != owner:
+                            es_record = self.get(object, principal)
 
-                        if not es_record:
-                            self.add(object, principal)
-                        elif es_record[0]['roles'] != roles:
-                            self.modify(object, principal, attributes=roles)
-                        else:
-                            pass
-                    else:
-                        es_record = self.get(object, principal)
+                            if not es_record:
+                                self.add(object, principal)
+                            elif es_record[0]['roles'] != roles:
+                                self.modify(object, principal, attributes=roles)
+                            else:
+                                pass
+                else:
+                    es_record = self.get(object, principal)
 
-                    if not es_record:
-                        self.add(object, principal)
-                    elif es_record[0]['roles'] != roles:
-                        self.modify(object, principal, attributes=roles)
-                    else:
-                        pass
-                    # No changes to roles, ignore others
+                if not es_record:
+                    self.add(object, principal)
+                elif es_record[0]['roles'] != roles:
+                    self.modify(object, principal, attributes=roles)
+                else:
+                    pass
+                # No changes to roles, ignore others
         except:
             pass
 
@@ -255,46 +254,46 @@ class ElasticSharing(object):
 
         communities_by_path = {a.getPath(): a for a in portal_catalog.unrestrictedSearchResults(portal_type='ulearn.community')}
 
-    def format_item(item):
-        #community_path = re.sub(r'(^{}\/[^\/]+)\/?.*$'.format(self.site_root_path), r'\1', str(item['path']))
-        community_path = str(format(self.site_root_path) + '/' + item['path'].split('/')[1])
-        community = communities_by_path[community_path]
+        def format_item(item):
+            #community_path = re.sub(r'(^{}\/[^\/]+)\/?.*$'.format(self.site_root_path), r'\1', str(item['path']))
+            community_path = str(format(self.site_root_path) + '/' + item['path'].split('/')[1])
+            community = communities_by_path[community_path]
 
-        item_catalog = portal_catalog.unrestrictedSearchResults(gwuuid=str(item['uuid']))[0]
-        return dict(
-            title=item_catalog.Title,
-            url=item_catalog.getURL(),
-            portal_type=item_catalog.portal_type,
-            community_displayname=community.Title,
-            community_url=community.getURL(),
-            by=item_catalog.Creator,
-            by_profile='{}/profile/{}'.format(getSite().absolute_url(), item_catalog.Creator)
-                )
+            item_catalog = portal_catalog.unrestrictedSearchResults(gwuuid=str(item['uuid']))[0]
+            return dict(
+                title=item_catalog.Title,
+                url=item_catalog.getURL(),
+                portal_type=item_catalog.portal_type,
+                community_displayname=community.Title,
+                community_url=community.getURL(),
+                by=item_catalog.Creator,
+                by_profile='{}/profile/{}'.format(getSite().absolute_url(), item_catalog.Creator)
+                    )
 
-    def is_shared(item):
-        item_catalog = portal_catalog.unrestrictedSearchResults(gwuuid=str(item['uuid']))[0]
+        def is_shared(item):
+            item_catalog = portal_catalog.unrestrictedSearchResults(gwuuid=str(item['uuid']))[0]
 
-        object = item_catalog._unrestrictedGetObject()
+            object = item_catalog._unrestrictedGetObject()
 
-        groups = []
-        groups_user = api.group.get_groups(username=username)
-        if groups_user:
-            groups = [group.id for group in groups_user]
+            groups = []
+            groups_user = api.group.get_groups(username=username)
+            if groups_user:
+                groups = [group.id for group in groups_user]
 
-        if [group for group in groups if group in object.__ac_local_roles__.keys()]:
-            owner = object.getOwner()._id
-            if username != owner:
-                return True
-            else:
-                return False
-        elif username in object.__ac_local_roles__.keys():
-            is_Owner = [a for a in object.__ac_local_roles__[username] if a in ['Owner']]
-            if is_Owner:
-                return False
-            effective_roles = [a for a in object.__ac_local_roles__[username] if a not in ['Owner']]
-            if effective_roles:
-                return True
-        return False
+            if [group for group in groups if group in object.__ac_local_roles__.keys()]:
+                owner = object.getOwner()._id
+                if username != owner:
+                    return True
+                else:
+                    return False
+            elif username in object.__ac_local_roles__.keys():
+                is_Owner = [a for a in object.__ac_local_roles__[username] if a in ['Owner']]
+                if is_Owner:
+                    return False
+                effective_roles = [a for a in object.__ac_local_roles__[username] if a not in ['Owner']]
+                if effective_roles:
+                    return True
+            return False
 
         # shared_items = portal_catalog.searchResults(is_shared=True)
 
@@ -332,7 +331,7 @@ grok.global_utility(ElasticSharing)
 class SharedWithMe(grok.View):
     grok.context(Interface)
     grok.name('shared_with_me')
-    # grok.require('base.authenticated')
+    grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):
@@ -347,7 +346,7 @@ class SharedWithMe(grok.View):
 
 class Shared(grok.View):
     grok.context(Interface)
-    # grok.require('base.authenticated')
+    grok.require('base.authenticated')
     grok.layer(IUlearn5CoreLayer)
 
     def getContent(self):
@@ -412,17 +411,17 @@ class SharedMarker(grok.Adapter):
             print 'Unshared'
             print
 
-    def SharingChanged(content, event):
-        """ Hook to store shared mark on object & elastic """
-        elastic_sharing = queryUtility(IElasticSharing)
-        elastic_sharing.modified(content)
+def SharingChanged(content, event):
+    """ Hook to store shared mark on object & elastic """
+    elastic_sharing = queryUtility(IElasticSharing)
+    elastic_sharing.modified(content)
 
-    def RemoveObject(content, event):
-        """ Hook delete object plone remove object elastic """
-        elastic_sharing = queryUtility(IElasticSharing)
-        current_local_roles = elastic_sharing.object_local_roles(content)
-        content.manage_delLocalRoles(current_local_roles)
-        elastic_sharing.modified(content)
+def RemoveObject(content, event):
+    """ Hook delete object plone remove object elastic """
+    elastic_sharing = queryUtility(IElasticSharing)
+    current_local_roles = elastic_sharing.object_local_roles(content)
+    content.manage_delLocalRoles(current_local_roles)
+    elastic_sharing.modified(content)
 
 
 @indexer(IDexterityContent)
