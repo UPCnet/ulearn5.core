@@ -13,14 +13,17 @@ from zope.interface import Interface
 
 import logging
 import PIL
+from zope.interface import implements
+from zope.component import adapts
 
 logger = logging.getLogger(__name__)
 
 
-@grok.implementer(IPortraitUploadAdapter)
-@grok.adapter(IMembershipTool, IUlearn5ThemeLayer)
 class PortraitUploadAdapter(object):
     """ Default adapter for portrait custom actions """
+    implements(IPortraitUploadAdapter)
+    adapts(IMembershipTool, IUlearn5ThemeLayer)
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -29,23 +32,24 @@ class PortraitUploadAdapter(object):
         if portrait and portrait.filename:
             # scaled, mimetype = scale_image(portrait, max_size=(250, 250))
             scaled, mimetype = convertSquareImage(portrait)
-            portrait = Image(id=safe_id, file=scaled, title='')
-            membertool = getToolByName(self.context, 'portal_memberdata')
-            membertool._setPortrait(portrait, safe_id)
+            if scaled:
+                portrait = Image(id=safe_id, file=scaled, title='')
+                membertool = getToolByName(self.context, 'portal_memberdata')
+                membertool._setPortrait(portrait, safe_id)
 
-            # Update the user's avatar on MAX
-            # the next line to user's that have '-' in id
-            safe_id = safe_id.replace('--', '-')
-            scaled.seek(0)
+                # Update the user's avatar on MAX
+                # the next line to user's that have '-' in id
+                safe_id = safe_id.replace('--', '-')
+                scaled.seek(0)
 
-            # Upload to MAX server using restricted user credentials
-            maxclient, settings = getUtility(IMAXClient)()
-            maxclient.setActor(settings.max_restricted_username)
-            maxclient.setToken(settings.max_restricted_token)
-            try:
-                maxclient.people[safe_id].avatar.post(upload_file=scaled)
-            except Exception as exc:
-                logger.error(exc.message)
+                # Upload to MAX server using restricted user credentials
+                maxclient, settings = getUtility(IMAXClient)()
+                maxclient.setActor(settings.max_restricted_username)
+                maxclient.setToken(settings.max_restricted_token)
+                try:
+                    maxclient.people[safe_id].avatar.post(upload_file=scaled)
+                except Exception as exc:
+                    logger.error(exc.message)
 
 
 def convertSquareImage(image_file):

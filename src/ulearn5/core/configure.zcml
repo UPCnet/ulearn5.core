@@ -100,4 +100,12 @@
        provides="ulearn5.core.content.community.ICommunityACL"
        factory="ulearn5.core.content.community.GetCommunityACL"
        />
+
+    <adapter
+       for="Products.PlonePAS.interfaces.membership.IMembershipTool
+            ulearn5.theme.interfaces.IUlearn5ThemeLayer"
+       provides="base5.core.adapters.portrait.IPortraitUploadAdapter"
+       factory="ulearn5.core.adapters.portrait.PortraitUploadAdapter"
+       />
+
 </configure>

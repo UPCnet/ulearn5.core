@@ -2,7 +2,7 @@
 from zope import schema
 from zope.interface import Interface
 from zope.interface import implements
-
+from plone.namedfile.field import NamedBlobImage
 # from mrs.max.userdataschema import IEnhancedUserDataSchema
 from mrs5.max.userdataschema import EnhancedUserDataPanelAdapter
 # from mrs.max.userdataschema import UserDataSchemaProvider
@@ -70,14 +70,15 @@ class IUlearnUserSchema(Interface):
                       'your office is located.'),
         required=False)
 
-    # portrait = FileUpload(
-    #     title=_(u'label_portrait', default=u'Portrait'),
-    #     description=_(u'help_portrait',
-    #                   default=u'To add or change the portrait: click the '
-    #                   '"Browse" button; select a picture of yourself. '
-    #                   'Recommended image size is 75 pixels wide by 100 '
-    #                   'pixels tall.'),
-    #     required=False)
+    portrait = NamedBlobImage(
+        title=_(u'label_portrait', default=u'Portrait'),
+        description=_(
+            u'help_portrait',
+            default=u'To add or change the portrait: click the "Browse" '
+                    u'button; select a picture of yourself. Recommended '
+                    u'image size is 75 pixels wide by 100 pixels tall.'
+        ),
+        required=False)
 
     pdelete = schema.Bool(
         title=_(u'label_delete_portrait', default=u'Delete Portrait'),
