@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <dc-workflow workflow_id="news_intranet" title="News intranet workflow" description="Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)." state_variable="review_state"         initial_state="esborrany" manager_bypass="False" >
+
  <permission>Access contents information</permission>
  <permission>Add portal content</permission>
  <permission>Change portal events</permission>
@@ -10,6 +11,7 @@
  <state state_id="esborrany" title="Draft" >
   <exit-transition transition_id="hide" />
   <exit-transition transition_id="publicaalaintranet" />
+  <exit-transition transition_id="publish" />
   <exit-transition transition_id="submit" />
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
@@ -51,6 +53,7 @@
 
  </state>
  <state state_id="intranet" title="Intranet" >
+  <exit-transition transition_id="publish" />
   <exit-transition transition_id="retiraaesborrany" />
   <exit-transition transition_id="submit" />
   <permission-map name="Access contents information" acquired="False">
@@ -95,6 +98,7 @@
 
  </state>
  <state state_id="pending" title="Pending review" >
+  <exit-transition transition_id="publica" />
   <exit-transition transition_id="reject" />
   <exit-transition transition_id="retiraalaintranet" />
   <permission-map name="Access contents information" acquired="False">
@@ -168,6 +172,15 @@
 
 
  </state>
+ <state state_id="published" title="Published" >
+  <description>Visible to everyone, not editable by the owner.</description>
+  <exit-transition transition_id="reject" />
+  <exit-transition transition_id="restrict" />
+  <exit-transition transition_id="retiraalaintranet" />
+
+
+
+ </state>
  <transition transition_id="hide" title="hide" new_state="private" trigger="USER" before_script="" after_script="" >
   <description>Making an item private means that it will not be visible to anyone but the owner and the site administrator.</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=hide" category="workflow" icon="">Make private</action>
@@ -180,6 +193,17 @@
  <transition transition_id="publicaalaintranet" title="publicaalaintranet" new_state="intranet" trigger="USER" before_script="" after_script="" >
   <description>Making an item published to intranet means that it will be visible to the members (readers).</description>
   <action url="%(content_url)s/content_status_modify?workflow_action=publicaalaintranet" category="workflow" icon="">publicaalaintranet</action>
+  <guard >
+   <guard-role>Editor</guard-role>
+   <guard-role>Reviewer</guard-role>
+   <guard-role>Manager</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+
+ </transition>
+ <transition transition_id="publish" title="Reviewer publishes content" new_state="published" trigger="USER" before_script="" after_script="" >
+  <description>Publishing the item makes it visible to other users.</description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=publish" category="workflow" icon="">Publish</action>
   <guard >
    <guard-role>Editor</guard-role>
    <guard-role>Reviewer</guard-role>

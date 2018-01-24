@@ -4,46 +4,52 @@ from zope.component import queryUtility
 from zope.component import getUtility
 from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
+from zope.interface import alsoProvides
+from zope.interface import Interface
 
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
+from Products.CMFCore.utils import getToolByName
 
+from plone import api
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.dexterity.utils import createContentInContainer
+from plone.namedfile.file import NamedBlobFile
+from plone.registry.interfaces import IRegistry
 
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-
-from base5.portlets.browser.manager import IColStorage
-
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone import api
-from zope.interface import alsoProvides
-from mrs5.max.utilities import IMAXClient
-# from ulearn5.core.api.people import Person
-from base5.core.utils import remove_user_from_catalog
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
-from ulearn5.core.gwuuid import IGWUUID
-from ulearn5.core.browser.security import execute_under_special_role
-
 import transaction
 from datetime import datetime
 from Acquisition import aq_inner
-from zope.site.hooks import setSite
-from Products.CMFCore.utils import getToolByName
-from plone.namedfile.file import NamedBlobFile
 
-from zope.component import queryUtility
+from base5.core.utilities import IElasticSearch
+from base5.portlets.browser.manager import IColStorage
+from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
-from base5.core.utilities import IElasticSearch
 from ulearn5.core.browser.sharing import ElasticSharing
-
+# from ulearn5.core.api.people import Person
 
 import logging
 logger = logging.getLogger(__name__)
 
 
 grok.templatedir("views_templates")
+NEWS_QUERY = [{'i': u'portal_type', 'o': u'plone.app.querystring.operation.selection.is', 'v': [u'News Item']},
+              {'i': u'review_state', 'o': u'plone.app.querystring.operation.selection.is', 'v': [u'published', u'intranet']},
+              {'i': u'path', 'o': u'plone.app.querystring.operation.string.relativePath', 'v': u'..'}]
+QUERY_SORT_ON = u'effective'
+
+
+class debug(grok.View):
+    """ Convenience view for faster debugging. Needs to be manager. """
+    grok.context(Interface)
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        import ipdb; ipdb.set_trace()  # Magic! Do not delete!!! :)
 
 
 class setupHomePage(grok.View):
@@ -61,8 +67,19 @@ class setupHomePage(grok.View):
         frontpage.description = u''
         from plone.app.textfield.value import RichTextValue
         frontpage.text = RichTextValue(u'', 'text/plain', 'text/html')
-        import transaction
         transaction.commit()
+
+        # Delete original 'aggregator' collection from 'News' folder
+        if getattr(portal['news'], 'aggregator', False):
+                api.content.delete(obj=portal['news']['aggregator'])
+
+        # Create the aggregator with new criteria
+        col_news = self.create_content(portal['news'], 'Collection', 'aggregator', title='aggregator', description=u'Site news')
+        col_news.title = 'News'
+        col_news.query = NEWS_QUERY
+        col_news.sort_on = QUERY_SORT_ON
+
+        col_news.reindexObject()
 
         from plone.portlets.interfaces import ILocalPortletAssignmentManager
         from plone.portlets.constants import CONTEXT_CATEGORY
@@ -128,7 +145,23 @@ class setupHomePage(grok.View):
         colstorage = getMultiAdapter((frontpage, portletManager), IColStorage)
         colstorage.col = '3'
 
+        registry = queryUtility(IRegistry)
+        settings = registry.forInterface(ISiteSyndicationSettings)
+        settings.allowed = True
+        settings.default_enabled = True
+        settings.search_rss_enabled = True
+        settings.show_author_info = True
+        settings.render_body = True
+        settings.show_syndication_button = True
+        settings.show_syndication_link = True
+        transaction.commit()
+
         return 'Done'
+
+    def create_content(self, container, portal_type, id, publish=True, **kwargs):
+        if not getattr(container, id, False):
+            createContentInContainer(container, portal_type, checkConstraints=False, **kwargs)
+        return getattr(container, id)
 
 class ldapkillah(grok.View):
     grok.context(IPloneSiteRoot)
