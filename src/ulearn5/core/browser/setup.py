@@ -58,6 +58,11 @@ class setupHomePage(grok.View):
             pass
         portal = getSite()
         frontpage = portal['front-page']
+        frontpage.description = u''
+        from plone.app.textfield.value import RichTextValue
+        frontpage.text = RichTextValue(u'', 'text/plain', 'text/html')
+        import transaction
+        transaction.commit()
 
         from plone.portlets.interfaces import ILocalPortletAssignmentManager
         from plone.portlets.constants import CONTEXT_CATEGORY
@@ -88,7 +93,6 @@ class setupHomePage(grok.View):
         from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
         from mrs5.max.portlets.maxui import Assignment as maxAssignment
         from ulearn5.theme.portlets.buttonbar.buttonbar import Assignment as buttonbarAssignment
-        from ulearn5.theme.portlets.mycommunities.mycommunities import Assignment as mycommunitiesAssignment
         from ulearn5.theme.portlets.calendar import Assignment as calendarAssignment
         from ulearn5.theme.portlets.angularrouteview import Assignment as angularrouteviewAssignment
 
@@ -106,7 +110,6 @@ class setupHomePage(grok.View):
         manager[chooser.chooseName(None, angularrouteviewAssignment())] = angularrouteviewAssignment()
         manager[chooser.chooseName(None, buttonbarAssignment())] = buttonbarAssignment()
         manager[chooser.chooseName(None, maxAssignment())] = maxAssignment()
-        manager[chooser.chooseName(None, mycommunitiesAssignment())] = mycommunitiesAssignment()
 
         column = getUtility(IPortletManager, name='ContentWellPortlets.BelowTitlePortletManager3')
         manager = getMultiAdapter((frontpage, column), IPortletAssignmentMapping)
