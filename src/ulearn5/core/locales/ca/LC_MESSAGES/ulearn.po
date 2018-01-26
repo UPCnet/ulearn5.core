@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-01-25 12:51+0000\n"
+"POT-Creation-Date: 2018-01-26 10:16+0000\n"
 "PO-Revision-Date: 2014-04-14 11:20+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -56,7 +56,7 @@ msgstr "Text que es mostrarà com a títol dels enllaços directes."
 msgid "All dates"
 msgstr "Totes les dates"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:71
+#: ulearn5/theme/browser/viewlets_templates/header.pt:103
 msgid "Buscar"
 msgstr "Cerca"
 
@@ -74,7 +74,7 @@ msgstr "Calendari"
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:75
+#: ulearn5/theme/browser/viewlets_templates/header.pt:107
 msgid "Cerca"
 msgstr "Cerca"
 
@@ -503,6 +503,11 @@ msgstr "Visibilitat"
 msgid "Workflow state"
 msgstr "Estats"
 
+#. Default: "Accessibilitat"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:10
+msgid "accessibility"
+msgstr "Accessibilitat"
+
 #. Default: "Mostra les noticies a les que estic subscrit"
 #: ../controlpanel.py:147
 msgid "activate_news"
@@ -637,6 +642,11 @@ msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom
 msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
+#. Default: "Contacte"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:8
+msgid "contact"
+msgstr "Contacte"
+
 #. Default: "Attendees"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:101
 msgid "contact_attendees"
@@ -660,6 +670,11 @@ msgstr "Crear una comunitat"
 #: ulearn5/theme/browser/user_profile.py:106
 msgid "description"
 msgstr "Descripció"
+
+#. Default: "Avís legal"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:11
+msgid "disclaimer"
+msgstr "Avís legal"
 
 #. Default: "Discussion portlet"
 #: ulearn5/theme/portlets/discussion.py:34
@@ -1271,18 +1286,28 @@ msgstr "Color principal"
 msgid "maxui_form_bg"
 msgstr "Color del fons del widget de MAX."
 
+#. Default: "Estadístiques"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:68
+msgid "menu-gestio-estadistiques"
+msgstr "Estadístiques"
+
+#. Default: "Noticies"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:51
+msgid "menu-gestio-noticies"
+msgstr "Noticies"
+
 #. Default: "Management"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:21
+#: ulearn5/theme/browser/viewlets_templates/header.pt:43
 msgid "menu-gestion"
 msgstr "Gestió"
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:29
+#: ulearn5/theme/browser/viewlets_templates/header.pt:57
 msgid "menu-gestion-menu"
 msgstr "Gestionar menú"
 
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:35
+#: ulearn5/theme/browser/viewlets_templates/header.pt:63
 msgid "menu-reset-menu"
 msgstr "Actualitzar menú"
 
@@ -1363,7 +1388,7 @@ msgstr "Habilitar portlet plone_portlet_static_Static"
 #. Default: "Select search base Folder or Collection to search for events. The URL to to this item will also be used to link to in calendar searches. If empty, the whole site will be searched and the event listing view will be called on the site root."
 #: ulearn5/theme/browser/tiles/calendari.py:76
 msgid "portlet_help_search_base"
-msgstr ""
+msgstr "Seleccioneu la carpeta o la col · lecció de la base de cerca per cercar esdeveniments. L'URL a aquest element també s'utilitzarà per enllaçar a les cerques del calendari. Si està buit, es buscarà tot el lloc i se us crideu la vista de l'anunci d'esdeveniments a l'arrel del lloc."
 
 #. Default: "Search base"
 #: ulearn5/theme/browser/tiles/calendari.py:75
@@ -1534,6 +1559,11 @@ msgstr "Compartit"
 #: ulearn5/theme/portlets/sharedwithme.py:19
 msgid "sharedwithme"
 msgstr "Compartit amb mi"
+
+#. Default: "Mapa del web"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:9
+msgid "sitemap"
+msgstr "Mapa del web"
 
 #. Default: "Stats"
 #: ../browser/stats_templates/statsview.pt:143

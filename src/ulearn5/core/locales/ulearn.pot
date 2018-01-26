@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-01-25 12:51+0000\n"
+"POT-Creation-Date: 2018-01-26 10:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 msgid "All dates"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:71
+#: ulearn5/theme/browser/viewlets_templates/header.pt:103
 msgid "Buscar"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:75
+#: ulearn5/theme/browser/viewlets_templates/header.pt:107
 msgid "Cerca"
 msgstr ""
 
@@ -492,6 +492,11 @@ msgstr ""
 msgid "Workflow state"
 msgstr ""
 
+#. Default: "Accessibilitat"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:10
+msgid "accessibility"
+msgstr ""
+
 #. Default: "Mostra les noticies a les que estic subscrit"
 #: ../controlpanel.py:147
 msgid "activate_news"
@@ -623,6 +628,11 @@ msgstr ""
 msgid "comunitat_modificada"
 msgstr ""
 
+#. Default: "Contacte"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:8
+msgid "contact"
+msgstr ""
+
 #. Default: "Attendees"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:101
 msgid "contact_attendees"
@@ -645,6 +655,11 @@ msgstr ""
 
 #: ulearn5/theme/browser/user_profile.py:106
 msgid "description"
+msgstr ""
+
+#. Default: "Avís legal"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:11
+msgid "disclaimer"
 msgstr ""
 
 #. Default: "Discussion portlet"
@@ -1257,18 +1272,28 @@ msgstr ""
 msgid "maxui_form_bg"
 msgstr ""
 
+#. Default: "Estadístiques"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:68
+msgid "menu-gestio-estadistiques"
+msgstr ""
+
+#. Default: "Noticies"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:51
+msgid "menu-gestio-noticies"
+msgstr ""
+
 #. Default: "Management"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:21
+#: ulearn5/theme/browser/viewlets_templates/header.pt:43
 msgid "menu-gestion"
 msgstr ""
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:29
+#: ulearn5/theme/browser/viewlets_templates/header.pt:57
 msgid "menu-gestion-menu"
 msgstr ""
 
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:35
+#: ulearn5/theme/browser/viewlets_templates/header.pt:63
 msgid "menu-reset-menu"
 msgstr ""
 
@@ -1517,6 +1542,11 @@ msgstr ""
 #. Default: "SharedWithMe"
 #: ulearn5/theme/portlets/sharedwithme.py:19
 msgid "sharedwithme"
+msgstr ""
+
+#. Default: "Mapa del web"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:9
+msgid "sitemap"
 msgstr ""
 
 #. Default: "Stats"

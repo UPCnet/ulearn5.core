@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-01-25 12:51+0000\n"
+"POT-Creation-Date: 2018-01-26 10:16+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Roberto Diaz <roberto.diaz@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -56,7 +56,7 @@ msgstr "Add the quick links by language"
 msgid "All dates"
 msgstr "All dates"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:71
+#: ulearn5/theme/browser/viewlets_templates/header.pt:103
 msgid "Buscar"
 msgstr "Search"
 
@@ -74,7 +74,7 @@ msgstr "Calendar"
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:75
+#: ulearn5/theme/browser/viewlets_templates/header.pt:107
 msgid "Cerca"
 msgstr "Search"
 
@@ -506,6 +506,11 @@ msgstr "Visibility"
 msgid "Workflow state"
 msgstr "Workflow state"
 
+#. Default: "Accessibilitat"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:10
+msgid "accessibility"
+msgstr "Accessibilty"
+
 #. Default: "Mostra les noticies a les que estic subscrit"
 #: ../controlpanel.py:147
 msgid "activate_news"
@@ -640,6 +645,11 @@ msgstr "Community ${comunitat} already exists, please choose a different name."
 msgid "comunitat_modificada"
 msgstr "Community ${comunitat} has been modified."
 
+#. Default: "Contacte"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:8
+msgid "contact"
+msgstr "Contact"
+
 #. Default: "Attendees"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:101
 msgid "contact_attendees"
@@ -663,6 +673,11 @@ msgstr "Create a new community"
 #: ulearn5/theme/browser/user_profile.py:106
 msgid "description"
 msgstr "Description"
+
+#. Default: "Avís legal"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:11
+msgid "disclaimer"
+msgstr "Disclaimer"
 
 #. Default: "Discussion portlet"
 #: ulearn5/theme/portlets/discussion.py:34
@@ -1274,18 +1289,28 @@ msgstr "Main color"
 msgid "maxui_form_bg"
 msgstr "Background color widget MAX."
 
+#. Default: "Estadístiques"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:68
+msgid "menu-gestio-estadistiques"
+msgstr "Stats"
+
+#. Default: "Noticies"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:51
+msgid "menu-gestio-noticies"
+msgstr "News"
+
 #. Default: "Management"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:21
+#: ulearn5/theme/browser/viewlets_templates/header.pt:43
 msgid "menu-gestion"
 msgstr "Management"
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:29
+#: ulearn5/theme/browser/viewlets_templates/header.pt:57
 msgid "menu-gestion-menu"
 msgstr "Management menu"
 
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:35
+#: ulearn5/theme/browser/viewlets_templates/header.pt:63
 msgid "menu-reset-menu"
 msgstr "Reset Menu"
 
@@ -1302,7 +1327,7 @@ msgstr "Enable portlet mrs_max_widget"
 #. Default: "My communities"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:22
 msgid "my_communities"
-msgstr "My communities"
+msgstr "Communities"
 
 #. Default: "mysubjects"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:42
@@ -1535,6 +1560,11 @@ msgstr "Shared"
 #: ulearn5/theme/portlets/sharedwithme.py:19
 msgid "sharedwithme"
 msgstr "SharedWithMe"
+
+#. Default: "Mapa del web"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:9
+msgid "sitemap"
+msgstr "Sitemap"
 
 #. Default: "Stats"
 #: ../browser/stats_templates/statsview.pt:143

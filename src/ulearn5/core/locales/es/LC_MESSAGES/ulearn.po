@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-01-25 12:51+0000\n"
+"POT-Creation-Date: 2018-01-26 10:16+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -56,7 +56,7 @@ msgstr "Texto que mostrará como título de los enlaces directos"
 msgid "All dates"
 msgstr "Todas las fechas"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:71
+#: ulearn5/theme/browser/viewlets_templates/header.pt:103
 msgid "Buscar"
 msgstr "Buscar"
 
@@ -74,7 +74,7 @@ msgstr "Calendario"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:75
+#: ulearn5/theme/browser/viewlets_templates/header.pt:107
 msgid "Cerca"
 msgstr "Buscar"
 
@@ -491,6 +491,11 @@ msgstr "Visibilidad"
 msgid "Workflow state"
 msgstr "Estado workflow"
 
+#. Default: "Accessibilitat"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:10
+msgid "accessibility"
+msgstr "Accesibilidad"
+
 #. Default: "Mostra les noticies a les que estic subscrit"
 #: ../controlpanel.py:147
 msgid "activate_news"
@@ -622,6 +627,11 @@ msgstr "La comunidad ${comunitat} ya existe, por favor elija otro nombre."
 msgid "comunitat_modificada"
 msgstr "La comunidad ${comunitat} ha sido modificada."
 
+#. Default: "Contacte"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:8
+msgid "contact"
+msgstr "Contacto"
+
 #. Default: "Attendees"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:101
 msgid "contact_attendees"
@@ -645,6 +655,11 @@ msgstr "Crear nueva comunidad"
 #: ulearn5/theme/browser/user_profile.py:106
 msgid "description"
 msgstr "Descripción"
+
+#. Default: "Avís legal"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:11
+msgid "disclaimer"
+msgstr "Aviso legal"
 
 #. Default: "Discussion portlet"
 #: ulearn5/theme/portlets/discussion.py:34
@@ -1256,18 +1271,28 @@ msgstr "Color principal"
 msgid "maxui_form_bg"
 msgstr "Color de fondo del widget de MAX."
 
+#. Default: "Estadístiques"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:68
+msgid "menu-gestio-estadistiques"
+msgstr "Estadísticas"
+
+#. Default: "Noticies"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:51
+msgid "menu-gestio-noticies"
+msgstr "Noticias"
+
 #. Default: "Management"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:21
+#: ulearn5/theme/browser/viewlets_templates/header.pt:43
 msgid "menu-gestion"
 msgstr "Gestión"
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:29
+#: ulearn5/theme/browser/viewlets_templates/header.pt:57
 msgid "menu-gestion-menu"
 msgstr "Gestionar menú"
 
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:35
+#: ulearn5/theme/browser/viewlets_templates/header.pt:63
 msgid "menu-reset-menu"
 msgstr "Actualizar menú"
 
@@ -1284,7 +1309,7 @@ msgstr "Habilitar portlet mrs_max_widget"
 #. Default: "My communities"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:22
 msgid "my_communities"
-msgstr "Mis comunidades"
+msgstr "Comunidades"
 
 #. Default: "mysubjects"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:42
@@ -1517,6 +1542,11 @@ msgstr "Compartido"
 #: ulearn5/theme/portlets/sharedwithme.py:19
 msgid "sharedwithme"
 msgstr "Compartido conmigo"
+
+#. Default: "Mapa del web"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:9
+msgid "sitemap"
+msgstr "Mapa de la web"
 
 #. Default: "Stats"
 #: ../browser/stats_templates/statsview.pt:143
