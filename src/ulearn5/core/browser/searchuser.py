@@ -13,6 +13,8 @@ from repoze.catalog.query import Eq
 from repoze.catalog.query import And
 from souper.soup import get_soup
 
+from operator import itemgetter
+
 from mrs5.max.utilities import IMAXClient
 from ulearn5.core.content.community import ICommunity
 
@@ -22,7 +24,7 @@ import unicodedata
 
 def searchUsersFunction(context, request, search_string):  # noqa
     portal = getSite()
-    pm = api.portal.get_tool(name='portal_membership')
+    # pm = api.portal.get_tool(name='portal_membership')
     nonvisibles = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.nonvisibles')
 
     current_user = api.user.get_current()
@@ -51,7 +53,7 @@ def searchUsersFunction(context, request, search_string):  # noqa
             normalized_query = normalized_query.replace('.', ' ') + '*'
             users = [r for r in soup.query(Eq('searchable_text', normalized_query))]
         else:
-            too_many_users = api.portal.get_tool('portal_properties').site_properties.many_users
+            too_many_users = api.portal.get_registry_record('plone.many_users')
             if too_many_users:
                 users = []
             else:
@@ -138,7 +140,7 @@ def searchUsersFunction(context, request, search_string):  # noqa
             normalized_query = normalized_query.replace('.', ' ') + '*'
             users = [r for r in soup.query(Eq('searchable_text', normalized_query))]
         else:
-            too_many_users = api.portal.get_tool('portal_properties').site_properties.many_users
+            too_many_users = api.portal.get_registry_record('plone.many_users')
             if too_many_users:
                 users = []
             else:
@@ -162,7 +164,7 @@ def searchUsersFunction(context, request, search_string):  # noqa
 
     users_profile = []
     for user in users:
-        if user is not None:
+        if user is not None and user.attrs['username'] != 'admin':
             if isinstance(user, Record):
                 user_dict = {}
                 for user_property in user_properties_utility.properties:
@@ -173,7 +175,7 @@ def searchUsersFunction(context, request, search_string):  # noqa
                         user_dict.update({user_property: user.attrs.get(user_property, '')})
 
                 user_dict.update(dict(id=user.attrs['username']))
-                userImage = '<img src="' + settings.max_server + '/people/' + user.attrs['username'] + '/avatar/large" alt="' +  user.attrs['username'] + '" title="' +  user.attrs['username'] + '" height="105" width="105" >'
+                userImage = '<img src="' + settings.max_server + '/people/' + user.attrs['username'] + '/avatar/large" alt="' + user.attrs['username'] + '" title="' + user.attrs['username'] + '" height="105" width="105" >'
                 # userImage = pm.getPersonalPortrait(user.attrs['username'])
                 # userImage.alt = user.attrs['username']
                 # userImage.title = user.attrs['username']
@@ -195,7 +197,7 @@ def searchUsersFunction(context, request, search_string):  # noqa
                         user_dict.update({user_property: user.get(user_property, '')})
 
                 user_dict.update(dict(id=user.get('id', '')))
-                userImage = '<img src="' + settings.max_server + '/people/' + user.attrs['username'] + '/avatar/large" alt="' +  user.attrs['username'] + '" title="' +  user.attrs['username'] + '" height="105" width="105" >'
+                userImage = '<img src="' + settings.max_server + '/people/' + user.attrs['username'] + '/avatar/large" alt="' + user.attrs['username'] + '" title="' + user.attrs['username'] + '" height="105" width="105" >'
                 # userImage = pm.getPersonalPortrait(user.attrs['username'])
                 # userImage.alt = user.attrs['username']
                 # userImage.title = user.attrs['username']
@@ -214,4 +216,5 @@ def searchUsersFunction(context, request, search_string):  # noqa
             llista.append(users_profile[escollit])
         return {'content': llista, 'length': len_usuaris, 'big': True}
     else:
+        users_profile.sort(key=itemgetter('username'))
         return {'content': users_profile, 'length': len_usuaris, 'big': False}
