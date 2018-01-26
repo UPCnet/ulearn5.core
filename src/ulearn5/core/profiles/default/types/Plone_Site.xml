@@ -9,6 +9,7 @@
     <element value="Folder"/>
     <element value="Image"/>
     <element value="ulearn.community"/>
+    <element value="privateFolder"/>
  </property>
  <property name="default_view">homepage</property>
  <property name="view_methods">
