@@ -11,16 +11,19 @@ from Acquisition import aq_inner
 from zExceptions import Forbidden
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import ILanguageSchema
 from mrs5.max.utilities import IMAXClient
 from plone.i18n.interfaces import INegotiateLanguage
-
-from base5.core.utils import remove_user_from_catalog
+from plone.registry.interfaces import IRegistry
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
+
+from base5.core.utils import remove_user_from_catalog
 from ulearn5.core.gwuuid import IGWUUID
 
 import logging
 logger = logging.getLogger('event.LDAPMultiPlugin')
+
 
 # We are patching the enumerateUsers method of the mutable_properties plugin to
 # make it return all the available user properties extension
@@ -155,16 +158,18 @@ class NegotiateLanguage(object):
 
     def __init__(self, site, request):
         """Setup the current language stuff."""
-        tool = getToolByName(site, 'portal_languages')
+        registry = getUtility(IRegistry)
+        lan_tool = registry.forInterface(ILanguageSchema, prefix='plone')
+        tool = api.portal.get_tool('portal_languages')
         langs = []
-        useContent = tool.use_content_negotiation
-        useCcTLD = tool.use_cctld_negotiation
-        useSubdomain = tool.use_subdomain_negotiation
-        usePath = tool.use_path_negotiation
-        useCookie = tool.use_cookie_negotiation
-        setCookieEverywhere = tool.set_cookie_everywhere
-        authOnly = tool.authenticated_users_only
-        useRequest = tool.use_request_negotiation
+        useContent = lan_tool.use_content_negotiation
+        useCcTLD = lan_tool.use_cctld_negotiation
+        useSubdomain = lan_tool.use_subdomain_negotiation
+        usePath = lan_tool.use_path_negotiation
+        useCookie = lan_tool.use_cookie_negotiation
+        setCookieEverywhere = lan_tool.set_cookie_always
+        authOnly = lan_tool.authenticated_users_only
+        useRequest = lan_tool.use_request_negotiation
         useDefault = 1  # This should never be disabled
         langsCookie = None
 
@@ -211,7 +216,7 @@ class NegotiateLanguage(object):
         self.language_list = langs[1:-1]
 
         # Patched to meet the feature requirements for the client
-        custom_lang_cookie = request.cookies.get('uLearn_I18N_Custom')
+        custom_lang_cookie = request.cookies.get('I18N_LANGUAGE')
         if custom_lang_cookie:
             self.language = custom_lang_cookie
 

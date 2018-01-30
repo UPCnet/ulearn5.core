@@ -20,7 +20,7 @@ from repoze.catalog.query import Eq
 from DateTime.DateTime import DateTime
 from zope.component import providedBy
 from plone.app.workflow.interfaces import ILocalrolesModifiedEvent
-from plone.app.controlpanel.interfaces import IConfigurationChangedEvent
+from Products.CMFPlone.interfaces import IConfigurationChangedEvent
 from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 from zope.globalrequest import getRequest
 
@@ -218,7 +218,7 @@ def connectMaxclient(username, oauth_token):
     maxclient.setToken(oauth_token)
 
     return maxclient
-    
+
 
 @grok.subscribe(ICommunity, IObjectAddedEvent)
 def UpdateUserCommunityAccess(content, event):
@@ -247,21 +247,21 @@ def updateCustomLangCookie(event):
         to the custom Language Negotiator set for the Blanquerna layer, the site
         language is forced to the one in the cookie.
     """
-
     if 'language' in event.data:
         if event.data['language']:
-            event.context.request.response.setCookie('uLearn_I18N_Custom', event.data['language'], path='/')
+            event.context.request.response.setCookie('I18N_LANGUAGE', event.data['language'], path='/')
             event.context.request.response.redirect(event.context.context.absolute_url()+'/@@personal-information')
 
 
 @grok.subscribe(IUserLoggedInEvent)
 def updateCustomLangCookieLogginIn(event):
     """ This subscriber will trigger when a user change his/her profile data. It
-       sets a cookie for the 'language' user profile setting. After this, due
+        sets a cookie for the 'language' user profile setting. After this, due
         to the custom Language Negotiator set for the Blanquerna layer, the site
         language is forced to the one in the cookie.
     """
     request = getRequest()
-    lang = event.object.getProperty('language', None)
+    current = api.user.get_current()
+    lang = current.getProperty('language')
     if lang and request is not None:
-        request.response.setCookie('uLearn_I18N_Custom', lang, path='/')
+        request.response.setCookie('I18N_LANGUAGE', lang, path='/')

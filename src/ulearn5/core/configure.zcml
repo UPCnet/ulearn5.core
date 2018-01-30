@@ -108,4 +108,9 @@
        factory="ulearn5.core.adapters.portrait.PortraitUploadAdapter"
        />
 
+     <adapter
+          factory=".patches.NegotiateLanguage"
+          for="* ulearn5.theme.interfaces.IUlearn5ThemeLayer"
+          />
+
 </configure>
