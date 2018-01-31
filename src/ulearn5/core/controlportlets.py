@@ -8,7 +8,7 @@ from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.app.registry.browser import controlpanel
-from mrs5.max import MRSMAXMessageFactory as _
+from ulearn5.core import _
 from zope.interface import Interface
 
 
