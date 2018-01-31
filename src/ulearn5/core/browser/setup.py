@@ -10,7 +10,6 @@ from zope.interface import Interface
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
-from Products.CMFCore.utils import getToolByName
 
 from plone import api
 from plone.portlets.interfaces import IPortletManager
