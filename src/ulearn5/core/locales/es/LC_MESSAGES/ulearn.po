@@ -841,7 +841,7 @@ msgstr "Enlace del servicio que aparece en la parte superior de la cabecera."
 #: ../controlpanel.py:276
 #: ../profiles/default/userschema.xml
 msgid "help_language"
-msgstr "Este es el idioma del espacio, que se configura cuando el paquete se reinstala."
+msgstr "Este es el idioma del espacio."
 
 #. Default: "Afegiu la URL de la biblioteca associada a aquestes comunitats."
 #: ../controlpanel.py:96

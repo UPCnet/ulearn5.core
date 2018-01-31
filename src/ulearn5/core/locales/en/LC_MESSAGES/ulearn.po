@@ -859,7 +859,7 @@ msgstr "Link to the service"
 #: ../controlpanel.py:276
 #: ../profiles/default/userschema.xml
 msgid "help_language"
-msgstr "This is the language of space that is configured when you reinstall the package."
+msgstr "This is the language of space."
 
 #. Default: "Afegiu la URL de la biblioteca associada a aquestes comunitats."
 #: ../controlpanel.py:96

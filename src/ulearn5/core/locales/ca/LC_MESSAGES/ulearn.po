@@ -856,7 +856,7 @@ msgstr "Enllaç al servei."
 #: ../controlpanel.py:276
 #: ../profiles/default/userschema.xml
 msgid "help_language"
-msgstr "Idioma de l'espai, que es configura quan reinstal·la el paquet."
+msgstr "Idioma de l'espai."
 
 #. Default: "Afegiu la URL de la biblioteca associada a aquestes comunitats."
 #: ../controlpanel.py:96
