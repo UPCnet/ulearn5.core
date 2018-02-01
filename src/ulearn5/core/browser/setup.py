@@ -7,6 +7,7 @@ from zope.component.hooks import getSite
 from zope.interface import alsoProvides
 from zope.interface import Interface
 
+from Products.CMFPlone.interfaces import ILanguageSchema
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
@@ -158,6 +159,11 @@ class setupHomePage(grok.View):
         settings.render_body = True
         settings.show_syndication_button = True
         settings.show_syndication_link = True
+
+        # Cookies
+        lan_tool = registry.forInterface(ILanguageSchema, prefix='plone')
+        lan_tool.use_content_negotiation = True
+        lan_tool.use_cookie_negotiation = True
         transaction.commit()
 
         return 'Done'
