@@ -1,0 +1,1 @@
+<codeinfo tal:attributes="codeinfo viewlet/csrf;"></codeinfo>

@@ -70,6 +70,18 @@ class ULearnNGDirectives(grok.Viewlet):
         return api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.stats_button')
 
 
+class csrfNGDirective(grok.Viewlet):
+    grok.context(Interface)
+    grok.name('ulearn.csrfngdirective')
+    grok.viewletmanager(IPortalHeader)
+    grok.layer(IUlearn5CoreLayer)
+
+    def update(self):
+        self.csrf = ''
+        from plone.protect.authenticator import createToken
+        self.csrf = createToken()
+
+
 class viewletBase(grok.Viewlet):
     grok.baseclass()
 
