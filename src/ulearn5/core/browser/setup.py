@@ -10,6 +10,7 @@ from zope.interface import Interface
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
+from Products.CMFCore.utils import getToolByName
 
 from plone import api
 from plone.portlets.interfaces import IPortletManager
@@ -67,6 +68,8 @@ class setupHomePage(grok.View):
         frontpage.description = u''
         from plone.app.textfield.value import RichTextValue
         frontpage.text = RichTextValue(u'', 'text/plain', 'text/html')
+        wftool = getToolByName(frontpage, 'portal_workflow')
+        wftool.doActionFor(self.context, 'publishtointranet')
         transaction.commit()
 
         # Delete original 'aggregator' collection from 'News' folder
