@@ -10,6 +10,7 @@ from zope.interface import Interface
 from Products.CMFPlone.interfaces import ILanguageSchema
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
 from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
 from Products.CMFCore.utils import getToolByName
 
@@ -164,6 +165,10 @@ class setupHomePage(grok.View):
         lan_tool = registry.forInterface(ILanguageSchema, prefix='plone')
         lan_tool.use_content_negotiation = True
         lan_tool.use_cookie_negotiation = True
+
+        # Toolbar position
+        site_tool = registry.forInterface(ISiteSchema, prefix='plone')
+        site_tool.toolbar_position = 'top'
         transaction.commit()
 
         return 'Done'
