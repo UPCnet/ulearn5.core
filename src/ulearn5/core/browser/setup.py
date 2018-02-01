@@ -69,7 +69,8 @@ class setupHomePage(grok.View):
         from plone.app.textfield.value import RichTextValue
         frontpage.text = RichTextValue(u'', 'text/plain', 'text/html')
         wftool = getToolByName(frontpage, 'portal_workflow')
-        wftool.doActionFor(self.context, 'publishtointranet')
+        wftool.doActionFor(frontpage, 'reject')
+        wftool.doActionFor(frontpage, 'publishtointranet')
         transaction.commit()
 
         # Delete original 'aggregator' collection from 'News' folder
