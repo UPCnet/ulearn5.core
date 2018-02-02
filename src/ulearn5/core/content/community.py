@@ -58,6 +58,9 @@ from ulearn5.core.interfaces import IPhotosFolder
 from ulearn5.core.interfaces import IDiscussionFolder
 from DateTime.DateTime import DateTime
 
+from zope.interface import implements
+from zope.component import adapts
+
 import json
 import logging
 import mimetypes
@@ -326,7 +329,7 @@ class CommunityAdapterMixin(object):
             self.maxclient.contexts[self.context.absolute_url()].put(**properties_to_update)
 
         # Update the community_type field
-        self.context.community_type = self.__component_name__
+        self.context.community_type = self.get_community_type_adapter()
 
         # and related permissions
         self.set_plone_permissions(self.get_acl())
@@ -540,11 +543,11 @@ class CommunityAdapterMixin(object):
         # Finally, we update the plone permissions
         self.set_plone_permissions(acl)
 
-
-@grok.implementer(ICommunityTyped)
-@grok.adapter(ICommunity, Interface)
 class OrganizativeCommunity(CommunityAdapterMixin):
     """ Named adapter for the organizative communities """
+    implements(ICommunityTyped)
+    adapts(ICommunity, Interface)
+
     def __init__(self, context, request):
         super(OrganizativeCommunity, self).__init__(context)
         self.max_permissions = ORGANIZATIVE_PERMISSIONS
@@ -569,11 +572,14 @@ class OrganizativeCommunity(CommunityAdapterMixin):
     def subscribe_user(self, user_id):
         raise CommunityForbiddenAction('Subscription to organizative community forbidden.')
 
+    def get_community_type_adapter(self):
+        return 'Organizative'
 
-@grok.implementer(ICommunityTyped)
-@grok.adapter(ICommunity, Interface)
 class OpenCommunity(CommunityAdapterMixin):
     """ Named adapter for the open communities """
+    implements(ICommunityTyped)
+    adapts(ICommunity, Interface)
+
     def __init__(self, context, request):
         super(OpenCommunity, self).__init__(context)
         self.max_permissions = OPEN_PERMISSIONS
@@ -600,11 +606,14 @@ class OpenCommunity(CommunityAdapterMixin):
 
         super(OpenCommunity, self).set_plone_permissions(acl, changed)
 
+    def get_community_type_adapter(self):
+        return 'Open'
 
-@grok.implementer(ICommunityTyped)
-@grok.adapter(ICommunity, Interface)
 class ClosedCommunity(CommunityAdapterMixin):
     """ Named adapter for the closed communities """
+    implements(ICommunityTyped)
+    adapts(ICommunity, Interface)
+
     def __init__(self, context, request):
         super(ClosedCommunity, self).__init__(context)
         self.max_permissions = CLOSED_PERMISSIONS
@@ -632,6 +641,10 @@ class ClosedCommunity(CommunityAdapterMixin):
 
     def subscribe_user(self, user_id):
         raise CommunityForbiddenAction('Subscription to closed community forbidden.')
+
+
+    def get_community_type_adapter(self):
+        return 'Closed'
 
 
 class Community(Container):
@@ -1145,10 +1158,13 @@ class communityEdit(form.SchemaForm):
             self.request.response.redirect(self.context.absolute_url())
 
 
-@grok.implementer(ICommunityInitializeAdapter)
-@grok.adapter(ICommunity, Interface)
+# @grok.implementer(ICommunityInitializeAdapter)
+# @grok.adapter(ICommunity, Interface)
 class CommunityInitializeAdapter(object):
     """ Default adapter for initialize community custom actions """
+    implements(ICommunityInitializeAdapter)
+    adapts(ICommunity, Interface)
+
 
     def __init__(self, context, request):
         self.context = context

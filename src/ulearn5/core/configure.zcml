@@ -85,9 +85,30 @@
         name="ulearn5.core-hiddenprofiles" />
 
     <adapter factory="ulearn5.core.content.community.CommunityInitializeAdapter" name="init_community"/>
-    <adapter factory="ulearn5.core.content.community.OrganizativeCommunity" name="Organizative"/>
-    <adapter factory="ulearn5.core.content.community.OpenCommunity" name="Open"/>
-    <adapter factory="ulearn5.core.content.community.ClosedCommunity" name="Closed"/>
+
+    <adapter
+        for="ulearn5.core.content.community.ICommunity
+             zope.interface.Interface"
+        provides="ulearn5.core.content.community.ICommunityTyped"
+        factory="ulearn5.core.content.community.OrganizativeCommunity"
+        name="Organizative"
+        />
+
+    <adapter
+        for="ulearn5.core.content.community.ICommunity
+             zope.interface.Interface"
+        provides="ulearn5.core.content.community.ICommunityTyped"
+        factory="ulearn5.core.content.community.OpenCommunity"
+        name="Open"
+        />
+
+    <adapter
+        for="ulearn5.core.content.community.ICommunity
+             zope.interface.Interface"
+        provides="ulearn5.core.content.community.ICommunityTyped"
+        factory="ulearn5.core.content.community.ClosedCommunity"
+        name="Closed"
+        />
 
     <adapter
         for="plone.uuid.interfaces.IAttributeUUID"
