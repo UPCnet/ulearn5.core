@@ -33,6 +33,7 @@ from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.browser.sharing import ElasticSharing
+from ulearn5.core.controlportlets import IPortletsSettings
 # from ulearn5.core.api.people import Person
 
 import logging
@@ -169,6 +170,10 @@ class setupHomePage(grok.View):
         # Toolbar position
         site_tool = registry.forInterface(ISiteSchema, prefix='plone')
         site_tool.toolbar_position = 'top'
+
+        # Portlet Static
+        portlets_tool = registry.forInterface(IPortletsSettings)
+        portlets_tool.plone_portlet_static_Static = True
         transaction.commit()
 
         return 'Done'
