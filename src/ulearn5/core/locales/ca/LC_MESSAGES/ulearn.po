@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-01-26 10:16+0000\n"
+"POT-Creation-Date: 2018-02-02 12:03+0000\n"
 "PO-Revision-Date: 2014-04-14 11:20+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -18,12 +18,12 @@ msgstr ""
 msgid "/mail_password_form?userid="
 msgstr "/mail_password_form?userid="
 
-#: ../content/community.py:120
+#: ../content/community.py:123
 #: ../controlpanel.py:24
 msgid "Activitats destacades"
 msgstr "Activitats destacades"
 
-#: ../content/community.py:119
+#: ../content/community.py:122
 #: ../controlpanel.py:23
 msgid "Activitats mes valorades"
 msgstr "Activitats més valorades"
@@ -52,7 +52,7 @@ msgstr "Afegir una carpeta privada"
 msgid "Add the quick links by language"
 msgstr "Text que es mostrarà com a títol dels enllaços directes."
 
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:50
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:43
 msgid "All dates"
 msgstr "Totes les dates"
 
@@ -78,15 +78,19 @@ msgstr "Cancel·la"
 msgid "Cerca"
 msgstr "Cerca"
 
+#: ../profiles/default/actions.xml
+msgid "Change password"
+msgstr "Canviar contrasenya"
+
 #: ../controlpanel.py:391
 msgid "Changes saved"
 msgstr "Canvis desats"
 
-#: ../patches.py:291
+#: ../patches.py:296
 msgid "Changes saved."
 msgstr "Canvis desats"
 
-#: ../content/community.py:104
+#: ../content/community.py:107
 msgid "Closed"
 msgstr "Tancada"
 
@@ -104,7 +108,7 @@ msgstr "Estadístiques"
 msgid "Convidats moderadors"
 msgstr "Convidats moderadors"
 
-#: ../content/community.py:982
+#: ../content/community.py:995
 msgid "Crea la comunitat"
 msgstr "Crea la comunitat"
 
@@ -112,7 +116,7 @@ msgstr "Crea la comunitat"
 msgid "Create new meeting space"
 msgstr "Crea una reunió online"
 
-#: ../content/community.py:118
+#: ../content/community.py:121
 #: ../controlpanel.py:22
 msgid "Darreres activitats"
 msgstr "Darreres activitats"
@@ -122,17 +126,17 @@ msgstr "Darreres activitats"
 msgid "Data d'inici"
 msgstr "Data d'inici"
 
-#: ../content/community.py:136
+#: ../content/community.py:139
 msgid "Descripció"
 msgstr "Descripció"
 
 #: ../browser/migrations.py:171
-#: ../content/community.py:1189
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:50
+#: ../content/community.py:1205
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:47
 msgid "Discussion"
 msgstr "Debats"
 
-#: ../content/community.py:1183
+#: ../content/community.py:1199
 msgid "Documents"
 msgstr "Documents"
 
@@ -167,11 +171,11 @@ msgstr "Edició cancel·lada"
 msgid "Edit cancelled."
 msgstr "Edició cancel·lada"
 
-#: ../content/community.py:1085
+#: ../content/community.py:1098
 msgid "Edita la comunitat"
 msgstr "Desa"
 
-#: ../content/community.py:170
+#: ../content/community.py:173
 msgid "Editors"
 msgstr "Editores"
 
@@ -180,16 +184,16 @@ msgid "Eines"
 msgstr "Eines"
 
 #. Default: "Stream"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:13
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:12
 msgid "Entrada"
 msgstr "Activitat"
 
-#: ../content/community.py:1185
+#: ../content/community.py:1201
 msgid "Esdeveniments"
 msgstr "Esdeveniments"
 
 #. Default: "Esdeveniments"
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:37
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:35
 msgid "Events"
 msgstr "Esdeveniments"
 
@@ -211,6 +215,10 @@ msgstr "Icona Font Awesome"
 msgid "General"
 msgstr "General"
 
+#: ../profiles/default/actions.xml
+msgid "Go to homepage"
+msgstr "Inici"
+
 #: ../controlpanel.py:382
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr "Has marcat el comparteix pero falta la url del elasticsearch"
@@ -226,11 +234,11 @@ msgstr "Hi ha hagut algun problema i la sesió virtual no ha estat creada."
 msgid "How many items to list."
 msgstr "Quants elements cal mostrar"
 
-#: ../content/community.py:187
+#: ../content/community.py:190
 msgid "Imatge"
 msgstr "Imatge"
 
-#: ../content/community.py:188
+#: ../content/community.py:191
 msgid "Imatge que defineix la comunitat"
 msgstr "Imatge que defineix la comunitat"
 
@@ -254,7 +262,7 @@ msgstr "Indiqueu la descripció de la sesió virtual."
 msgid "Inicio_stats"
 msgstr "Inici estadístiques"
 
-#: ulearn5/theme/configure.zcml:76
+#: ulearn5/theme/configure.zcml:77
 msgid "Installs the Plone theme package ulearn5.theme."
 msgstr "Instal·la el paquet temàtic Plone ulearn5.theme"
 
@@ -273,7 +281,7 @@ msgstr "Invitats espectadors"
 msgid "Items in which workflow state to show."
 msgstr "Estat per a mostrar els elements."
 
-#: ../content/community.py:137
+#: ../content/community.py:140
 msgid "La descripció de la comunitat"
 msgstr "La descripció de la comunitat"
 
@@ -314,7 +322,7 @@ msgid "Llista d'emails dels convidats MODERADORS, separats per comes."
 msgstr "Llista d'adreces de correu electrònic dels convidats MODERADORS, separades per comes."
 
 #: ../browser/migrations.py:213
-#: ../content/community.py:1184
+#: ../content/community.py:1200
 msgid "Media"
 msgstr "Media"
 
@@ -338,11 +346,11 @@ msgstr "Mes inicial"
 msgid "New window"
 msgstr "Obrir finestra nova?"
 
-#: ../content/community.py:130
+#: ../content/community.py:133
 msgid "Nom"
 msgstr "Nom"
 
-#: ../content/community.py:131
+#: ../content/community.py:134
 msgid "Nom de la comunitat"
 msgstr "Nom de la comunitat"
 
@@ -351,11 +359,15 @@ msgstr "Nom de la comunitat"
 msgid "Nom de la reunió"
 msgstr "Nom de la reunió"
 
-#: ../content/community.py:205
+#: ../profiles/default/actions.xml
+msgid "None"
+msgstr ""
+
+#: ../content/community.py:208
 msgid "Notify activity and comments via push"
 msgstr "Notificar activitat i comentaris via 'push'"
 
-#: ../content/community.py:199
+#: ../content/community.py:202
 msgid "Notify activity via push"
 msgstr "Notificar activitat via 'push'"
 
@@ -365,15 +377,15 @@ msgstr "Notificar activitat via 'push'"
 msgid "Number of items to display"
 msgstr "Elements a mostrar"
 
-#: ../content/community.py:99
+#: ../content/community.py:102
 msgid "Open"
 msgstr "Oberta"
 
-#: ../content/community.py:109
+#: ../content/community.py:112
 msgid "Organizative"
 msgstr "Organitzativa"
 
-#: ../content/community.py:179
+#: ../content/community.py:182
 msgid "Owners"
 msgstr "Propietarios"
 
@@ -385,7 +397,7 @@ msgstr "Configuració dels portlets"
 msgid "QuickLinks"
 msgstr "Enllaços directes"
 
-#: ../content/community.py:159
+#: ../content/community.py:162
 msgid "Readers"
 msgstr "Lectors"
 
@@ -403,15 +415,15 @@ msgstr "Desa"
 msgid "Specific"
 msgstr "Específic"
 
-#: ../content/community.py:171
+#: ../content/community.py:174
 msgid "Subscribed people with editor permissions"
 msgstr "Llista amb les persones subscrites amb permís d'edició"
 
-#: ../content/community.py:180
+#: ../content/community.py:183
 msgid "Subscribed people with owner permissions"
 msgstr "Llista amb les persones propietàries de la comunitat"
 
-#: ../content/community.py:160
+#: ../content/community.py:163
 msgid "Subscribed people with read-only permissions"
 msgstr "Llista amb les persones subscrites amb permís de lectura"
 
@@ -443,7 +455,7 @@ msgstr "Aquest portlet mostra els articles de notícies subscrits."
 msgid "Tile used to show the Calendar"
 msgstr "S'utilitza la tile per mostrar el calendari"
 
-#: ../content/community.py:142
+#: ../content/community.py:145
 msgid "Tipus de comunitat"
 msgstr "Tipus de comunitat"
 
@@ -460,7 +472,7 @@ msgstr "Títol de la tile"
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
 
-#: ../content/community.py:193
+#: ../content/community.py:196
 msgid "Twitter hashtag"
 msgstr "Twitter hashtag"
 
@@ -476,11 +488,11 @@ msgstr "Configuració de uLearn"
 msgid "Una comunitat administrable"
 msgstr "Una comunitat administrable"
 
-#: ulearn5/theme/configure.zcml:85
+#: ulearn5/theme/configure.zcml:86
 msgid "Uninstall: ulearn5.theme"
 msgstr "Desinstal·la: ulearn5.theme"
 
-#: ulearn5/theme/configure.zcml:85
+#: ulearn5/theme/configure.zcml:86
 msgid "Uninstalls the Plone theme package ulearn5.theme."
 msgstr "Desinstal·la el paquet de temes Plone ulearn5.theme."
 
@@ -518,7 +530,7 @@ msgstr "Mostra les noticies a les que estic subscrit"
 msgid "activate_sharedwithme"
 msgstr "Mostra el que hi ha compartit amb mi"
 
-#: ../content/community.py:150
+#: ../content/community.py:153
 #: ../controlpanel.py:319
 msgid "activity_view"
 msgstr "Visualització Activitats Comunitat"
@@ -620,7 +632,7 @@ msgstr "Comunitats"
 msgid "community_open_and_no_subscribed"
 msgstr "Aquesta comunitat és oberta, però actualment no hi estàs subscrit"
 
-#: ../content/community.py:143
+#: ../content/community.py:146
 msgid "community_type_description"
 msgstr ""
 "Oberta: Pública (la veu tothom) i et pots subscriure i desubscriure't. \n"
@@ -628,17 +640,17 @@ msgstr ""
 " Organitzativa: Només et pot subscriure un administrador i no et pots desubscriure't."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1032
+#: ../content/community.py:1045
 msgid "comunitat_creada"
 msgstr "La comunitat ${comunitat} ha estat creada."
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1008
+#: ../content/community.py:1021
 msgid "comunitat_existeix"
 msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1138
+#: ../content/community.py:1151
 msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
@@ -648,17 +660,17 @@ msgid "contact"
 msgstr "Contacte"
 
 #. Default: "Attendees"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:101
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:86
 msgid "contact_attendees"
 msgstr "Assistents"
 
 #. Default: "Contact Name"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:84
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:73
 msgid "contact_name"
 msgstr "Nom de contacte"
 
 #. Default: "Contact Phone"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:94
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:81
 msgid "contact_phone"
 msgstr "Telèfon de contacte"
 
@@ -682,7 +694,7 @@ msgid "discussion"
 msgstr "Debats"
 
 #. Default: "Edit this community"
-#: ulearn5/theme/portlets/profile/profile.pt:48
+#: ulearn5/theme/portlets/profile/profile.pt:54
 msgid "editcommunity"
 msgstr "Editar la comunitat"
 
@@ -695,27 +707,27 @@ msgid "entrades"
 msgstr "entrades"
 
 #. Default: "Event"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:16
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:15
 msgid "event_event"
 msgstr "Quan"
 
 #. Default: "Web"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:110
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:93
 msgid "event_url"
 msgstr "URL de l'esdeveniment"
 
 #. Default: "What"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:24
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:21
 msgid "event_what"
 msgstr "Què"
 
 #. Default: "When"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:32
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:27
 msgid "event_when"
 msgstr "Quan"
 
 #. Default: "Where"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:75
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:66
 msgid "event_where"
 msgstr "On"
 
@@ -725,12 +737,12 @@ msgid "exporta"
 msgstr "Exporta"
 
 #. Default: "Visit external website"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:112
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:95
 msgid "external_website"
 msgstr "Lloc web relacionat"
 
 #. Default: "búsqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:104
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:95
 msgid "find_label"
 msgstr "Cerca..."
 
@@ -753,17 +765,17 @@ msgstr "Veure els meus cursos del Campus"
 msgid "gotolibrary"
 msgstr "Veure la llibreria"
 
-#: ../content/community.py:194
+#: ../content/community.py:197
 msgid "hashtag_help"
 msgstr "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el '#'."
 
 #. Default: "Add event to calendar"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:134
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:113
 msgid "heading_add_to_calendar"
 msgstr "Afegeix un esdeveniment al calendari"
 
 #. Default: "Send event to attendees"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:120
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:101
 msgid "heading_send_event"
 msgstr "Enviar als assistents"
 
@@ -777,7 +789,7 @@ msgstr "Mostra o no el botó de Noticies a la tile central de les comunitats"
 msgid "help_activate_sharedwithme"
 msgstr "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 
-#: ../content/community.py:151
+#: ../content/community.py:154
 #: ../controlpanel.py:320
 msgid "help_activity_view"
 msgstr "Selecciona el mode de visualització de les activitats de la comunitat"
@@ -804,6 +816,7 @@ msgstr "Aquest és la propietat de CSS de background."
 
 #. Default: "A short overview of who you are and what you do. Will be displayed on your author page, linked from the items you create."
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:59
 msgid "help_biography"
 msgstr "Una breu ressenya de qui ets i què fas. Es mostrarà a la pàgina del vostre autor, enllaçat des dels elements que creeu."
 
@@ -842,8 +855,14 @@ msgstr "Aquest és el color per les comunitats obertes."
 msgid "help_color_community_organizative"
 msgstr "Aquest és el color per les comunitats organitzatives."
 
+#. Default: "Enter full name, e.g. John Smith."
+#: ../userschema.py:40
+msgid "help_full_name_creation"
+msgstr ""
+
 #. Default: "The URL for your external home page, if you have one."
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:52
 msgid "help_homepage"
 msgstr "L'URL de la vostra pàgina externa, si teniu una."
 
@@ -855,6 +874,7 @@ msgstr "Enllaç al servei."
 #. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
 #: ../controlpanel.py:276
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:111
 msgid "help_language"
 msgstr "Idioma de l'espai."
 
@@ -880,6 +900,7 @@ msgstr "Aquest és el llindar del Winwinn #3."
 
 #. Default: "Your location - either city and country - or in a company setting, where your office is located."
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:67
 msgid "help_location"
 msgstr "La seva ubicació - ja sigui de la ciutat i el país - o en un entorn d'empresa, on es troba la seva oficina."
 
@@ -903,7 +924,7 @@ msgstr "Habilita el portlet mrs_max_widget."
 msgid "help_navigation_title"
 msgstr "Títol de l'arbre de navegació"
 
-#: ../content/community.py:206
+#: ../content/community.py:209
 msgid "help_notify_activity_via_push_comments_too"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat i els comentaris d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
@@ -969,6 +990,7 @@ msgstr "Configuració de portlets. Configura els portlets permesos."
 
 #. Default: "To add or change the portrait: click the \"Browse\" button; select a picture of yourself. Recommended image size is 75 pixels wide by 100 pixels tall."
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:75
 msgid "help_portrait"
 msgstr "Per afegir o canviar la imatge: feu clic al botó Examinar; seleccionar una imatge. La mida recomanada de la imatge és de 75 píxels d'amplada per 100 píxels d'alt."
 
@@ -997,16 +1019,19 @@ msgstr "Mostra o no el botó d'accés a estadístiques diàries a stats/activity
 
 #. Default: "Contacte telefònic"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:104
 msgid "help_telefon"
 msgstr "Contacte telefònic"
 
 #. Default: "Fill in your Twitter username."
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:90
 msgid "help_twitter"
 msgstr "Introdueix el teu nom d'usuari de Twitter"
 
 #. Default: "Equip, Àrea / Companyia / Departament"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:97
 msgid "help_ubicacio"
 msgstr "Equip, Àrea / Companyia / Departament"
 
@@ -1149,12 +1174,13 @@ msgid "label-toogle-list"
 msgstr "Llista"
 
 #. Default: "iCal"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:143
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:122
 msgid "label_add_to_ical"
 msgstr "iCal"
 
 #. Default: "Biography"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:58
 msgid "label_biography"
 msgstr "Biografia"
 
@@ -1166,9 +1192,24 @@ msgstr "Marca com a favorit"
 msgid "label_delete_community"
 msgstr "Eliminar comunitat"
 
+#. Default: "Delete Portrait"
+#: ../userschema.py:84
+msgid "label_delete_portrait"
+msgstr ""
+
 #: ulearn5/theme/browser/views_templates/communities.pt:67
 msgid "label_edit_community"
 msgstr "Modificar comunitat"
+
+#. Default: "E-mail"
+#: ../userschema.py:45
+msgid "label_email"
+msgstr ""
+
+#. Default: "Full Name"
+#: ../userschema.py:39
+msgid "label_full_name"
+msgstr ""
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:53
 msgid "label_go_subject"
@@ -1176,6 +1217,7 @@ msgstr "Anar a l'assignatura"
 
 #. Default: "Home page"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:51
 msgid "label_homepage"
 msgstr "Pàgina web"
 
@@ -1185,11 +1227,13 @@ msgstr "Tasques"
 
 #. Default: "Language"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:110
 msgid "label_language"
 msgstr "Idioma"
 
 #. Default: "Location"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:66
 msgid "label_location"
 msgstr "Ubicació"
 
@@ -1205,11 +1249,12 @@ msgstr "No hi ha assignatures disponibles."
 
 #. Default: "Portrait"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:74
 msgid "label_portrait"
 msgstr "Foto"
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:473
+#: ulearn5/theme/browser/views.py:474
 msgid "label_show_all"
 msgstr "Mostrar tots els elements"
 
@@ -1219,16 +1264,20 @@ msgstr "Subscriure's a la comunitat"
 
 #. Default: "Telèfon"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:103
 msgid "label_telefon"
 msgstr "Telèfon"
 
-#. Default: "Twitter"
+#. Default: "Twitter username"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:89
+#, fuzzy
 msgid "label_twitter"
 msgstr "Twitter"
 
 #. Default: "Ubicació"
 #: ../profiles/default/userschema.xml
+#: ../userschema.py:96
 msgid "label_ubicacio"
 msgstr "Ubicació"
 
@@ -1322,7 +1371,7 @@ msgid "mrs_max_widget"
 msgstr "Habilitar portlet mrs_max_widget"
 
 #. Default: "My communities"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:22
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:21
 msgid "my_communities"
 msgstr "Comunitats"
 
@@ -1343,12 +1392,12 @@ msgid "newdiscussion"
 msgstr "Nou debat"
 
 #. Default: "Create a new event"
-#: ulearn5/theme/portlets/templates/calendar.pt:119
+#: ulearn5/theme/portlets/templates/calendar.pt:122
 msgid "newevent"
 msgstr "Crear un esdeveniment "
 
 #. Default: "Noticies"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:31
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:30
 msgid "news"
 msgstr "Notícies"
 
@@ -1367,7 +1416,7 @@ msgstr "Persones no visibles"
 msgid "not_events_for_today"
 msgstr "Avui no hi ha esdeveniments"
 
-#: ../content/community.py:200
+#: ../content/community.py:203
 msgid "notify_activity_via_push_help"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
@@ -1455,7 +1504,7 @@ msgid "quicklinks_icon"
 msgstr "Icona Font Awesome"
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:142
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:128
 msgid "readmore"
 msgstr "Llegeix més"
 
@@ -1515,7 +1564,7 @@ msgid "seemorediscussions"
 msgstr "Veure més debats"
 
 #. Default: "See more events"
-#: ulearn5/theme/portlets/templates/calendar.pt:102
+#: ulearn5/theme/portlets/templates/calendar.pt:105
 msgid "seemoreevents"
 msgstr "Veure més esdeveniments"
 
@@ -1525,12 +1574,12 @@ msgid "seethinkers"
 msgstr "Veure tots els participants"
 
 #. Default: "Send invitation"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:124
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:105
 msgid "send_invitation_link"
 msgstr "Enviar convocatòria"
 
 #. Default: "There are not attendees to send the message"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:128
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:109
 msgid "send_invitation_not_attendees"
 msgstr "No hi ha assistents per enviar el missatge"
 
@@ -1550,7 +1599,7 @@ msgid "shared_content_title"
 msgstr "Accès a tot el contingut compartit"
 
 #. Default: "Shared with me"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:40
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:39
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 msgid "shared_with_me"
 msgstr "Compartit"
@@ -1632,7 +1681,7 @@ msgid "thinnkers"
 msgstr "Persones"
 
 #. Default: "Download this event in iCal format"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:137
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:116
 msgid "title_add_to_ical"
 msgstr "Baixeu aquest esdeveniment en format iCal"
 
@@ -1652,12 +1701,12 @@ msgstr "ulearn5.core"
 msgid "ulearn5.core (uninstall)"
 msgstr "ulearn5.core (desinstal·lar)"
 
-#: ulearn5/theme/configure.zcml:76
+#: ulearn5/theme/configure.zcml:77
 msgid "ulearn5.theme"
 msgstr "ulearn5.theme"
 
 #. Default: "Activity"
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:14
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:13
 msgid "ulearn_activity"
 msgstr "Activitat"
 
@@ -1687,7 +1736,7 @@ msgid "ulearn_discussion"
 msgstr "Habilitar portlet Ulearn Discussion"
 
 #. Default: "Documents"
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:25
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:24
 #: ulearn5/theme/portlets/templates/stats.pt:42
 msgid "ulearn_documents"
 msgstr "Documents"

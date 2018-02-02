@@ -294,7 +294,7 @@
  </object>
  <object name="user" meta_type="CMF Action Category">
   <property name="title">User actions</property>
-  <object name="Go to homepage" meta_type="CMF Action" i18n:domain="ulearn">
+  <object name="Go to homepage" meta_type="CMF Action" i18n:domain="ulearn" insert-before="preferences">
    <property name="title" i18n:translate="">Go to homepage</property>
    <property name="description" i18n:translate="">None</property>
    <property
@@ -313,6 +313,19 @@
    <property
       name="url_expr">string:${globals_view/navigationRootUrl}/@@personal-information</property>
    <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python:member is not None</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="Change password" meta_type="CMF Action" i18n:domain="ulearn" insert-after="preferences">
+   <property name="title" i18n:translate="">Change password</property>
+   <property name="description" i18n:translate="">None</property>
+   <property
+      name="url_expr">string:https://identitatdigital.upc.edu/gcredencials/</property>
+   <property name="link_target">_blank</property>
    <property name="icon_expr"></property>
    <property name="available_expr">python:member is not None</property>
    <property name="permissions">
@@ -361,19 +374,6 @@
    <property name="visible">False</property>
    <property name="modal"
       type="text">{"prependContent": ".portalMessage"}</property>
-  </object>
-  <object name="Change password" meta_type="CMF Action" i18n:domain="ulearn">
-   <property name="title" i18n:translate="">Change password</property>
-   <property name="description" i18n:translate="">None</property>
-   <property
-      name="url_expr">string:https://identitatdigital.upc.edu/gcredencials/</property>
-   <property name="link_target">_blank</property>
-   <property name="icon_expr"></property>
-   <property name="available_expr">python:member is not None</property>
-   <property name="permissions">
-    <element value="View"/>
-   </property>
-   <property name="visible">True</property>
   </object>
   <object name="undo" meta_type="CMF Action" i18n:domain="plone">
    <property name="title" i18n:translate="">Undo</property>
