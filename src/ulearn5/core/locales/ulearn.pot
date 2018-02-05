@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-02-05 07:50+0000\n"
+"POT-Creation-Date: 2018-02-05 12:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
+
+#: ../patches.py:355
+msgid " ."
+msgstr ""
 
 #: ../controlpanel.py:331
 msgid "/mail_password_form?userid="
@@ -1309,6 +1313,36 @@ msgstr ""
 #. Default: "Color principal"
 #: ../controlpanel.py:165
 msgid "main_color"
+msgstr ""
+
+#. Default: "Manage homepage portlets"
+#: ../patches.py:334
+msgid "manage_homepage_portlets_description"
+msgstr ""
+
+#. Default: "Homepage"
+#: ../patches.py:333
+msgid "manage_homepage_portlets_title"
+msgstr ""
+
+#. Default: "Manage left portlets"
+#: ../patches.py:373
+msgid "manage_left_portlets_description"
+msgstr ""
+
+#. Default: "Left"
+#: ../patches.py:372
+msgid "manage_left_portlets_title"
+msgstr ""
+
+#. Default: "Manage right portlets"
+#: ../patches.py:376
+msgid "manage_right_portlets_description"
+msgstr ""
+
+#. Default: "Right"
+#: ../patches.py:375
+msgid "manage_right_portlets_title"
 msgstr ""
 
 #. Default: "Color del fons del widget de MAX."

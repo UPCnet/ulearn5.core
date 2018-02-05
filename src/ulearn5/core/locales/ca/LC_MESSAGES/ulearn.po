@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-02-05 07:50+0000\n"
+"POT-Creation-Date: 2018-02-05 12:03+0000\n"
 "PO-Revision-Date: 2014-04-14 11:20+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -13,6 +13,10 @@ msgstr ""
 "Language-Name: Catalan\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
+
+#: ../patches.py:355
+msgid " ."
+msgstr ""
 
 #: ../controlpanel.py:331
 msgid "/mail_password_form?userid="
@@ -1325,6 +1329,36 @@ msgstr "Localització"
 #: ../controlpanel.py:165
 msgid "main_color"
 msgstr "Color principal"
+
+#. Default: "Manage homepage portlets"
+#: ../patches.py:334
+msgid "manage_homepage_portlets_description"
+msgstr "Gestiona els portlets de la pàgina inicial"
+
+#. Default: "Homepage"
+#: ../patches.py:333
+msgid "manage_homepage_portlets_title"
+msgstr "Pàgina inicial"
+
+#. Default: "Manage left portlets"
+#: ../patches.py:373
+msgid "manage_left_portlets_description"
+msgstr "Gestiona els portlets de l'esquerra"
+
+#. Default: "Left"
+#: ../patches.py:372
+msgid "manage_left_portlets_title"
+msgstr "Esquerra"
+
+#. Default: "Manage right portlets"
+#: ../patches.py:376
+msgid "manage_right_portlets_description"
+msgstr "Gestiona els portlets de la dreta"
+
+#. Default: "Right"
+#: ../patches.py:375
+msgid "manage_right_portlets_title"
+msgstr "Dreta"
 
 #. Default: "Color del fons del widget de MAX."
 #: ../controlpanel.py:183

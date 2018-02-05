@@ -330,8 +330,8 @@ def getMenuItems(self, context, request):
         portal_url = getSite().absolute_url()
 
         items.append({
-            'title': _(u'manage_homepage_portlets', default=u'Homepage'),
-            'description': _(u'manage_homepage_portlets', default=u'Manage homepage portlets'),
+            'title': _(u'manage_homepage_portlets_title', default=u'Homepage'),
+            'description': _(u'manage_homepage_portlets_description', default=u'Manage homepage portlets'),
             'action': addTokenToUrl(
                 '{0}/front-page/@@manage-portletsbelowtitlecontent'.format(
                     portal_url),
@@ -368,6 +368,13 @@ def getMenuItems(self, context, request):
                 'submenu': None,
             }
 
+            if manager_name == 'plone.leftcolumn':
+                item['title'] = _(u'manage_left_portlets_title', default=u'Left')
+                item['description'] = _(u'manage_left_portlets_description', default=u'Manage left portlets')
+            elif manager_name == 'plone.rightcolumn':
+                item['title'] = _(u'manage_right_portlets_title', default=u'Right')
+                item['description'] = _(u'manage_right_portlets_description', default=u'Manage right portlets')
+
             items.append(item)
-        items.sort()
+        
         return items
