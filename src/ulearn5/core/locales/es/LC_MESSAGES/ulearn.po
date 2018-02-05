@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-02-02 12:03+0000\n"
+"POT-Creation-Date: 2018-02-05 07:50+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -77,10 +77,6 @@ msgstr "Cancelar"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:107
 msgid "Cerca"
 msgstr "Buscar"
-
-#: ../profiles/default/actions.xml
-msgid "Change password"
-msgstr "Cambiar contraseña"
 
 #: ../controlpanel.py:391
 msgid "Changes saved"
