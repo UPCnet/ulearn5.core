@@ -310,6 +310,7 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getUtilitiesFor
 from plone.protect.utils import addTokenToUrl
 from ulearn5.core import _
+from zope.component.hooks import getSite
 
 def getMenuItems(self, context, request):
         """Return menu item entries in a TAL-friendly form."""
@@ -326,14 +327,14 @@ def getMenuItems(self, context, request):
             'plone.app.portlets.PortletManagerBlacklist', [])
         managers = getUtilitiesFor(IPortletManager)
         current_url = context.absolute_url()
-
+        portal_url = getSite().absolute_url()
 
         items.append({
             'title': _(u'manage_homepage_portlets', default=u'Homepage'),
             'description': _(u'manage_homepage_portlets', default=u'Manage homepage portlets'),
             'action': addTokenToUrl(
                 '{0}/front-page/@@manage-portletsbelowtitlecontent'.format(
-                    current_url),
+                    portal_url),
                 request),
             'selected': False,
             'icon': None,

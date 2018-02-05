@@ -64,6 +64,7 @@ src/ulearn5/core/browser/sharing_templates/shared.pt
 src/ulearn5/core/browser/sharing_templates/sharing.pt
 src/ulearn5/core/browser/stats_templates/statsview.pt
 src/ulearn5/core/browser/viewlets_templates/communityngdirective.pt
+src/ulearn5/core/browser/viewlets_templates/csrfngdirective.pt
 src/ulearn5/core/browser/viewlets_templates/flash.pt
 src/ulearn5/core/browser/viewlets_templates/important.pt
 src/ulearn5/core/browser/viewlets_templates/listtags.pt
@@ -85,9 +86,8 @@ src/ulearn5/core/content/community_templates/editacl.pt
 src/ulearn5/core/content/community_templates/view.pt
 src/ulearn5/core/content/videoembed_templates/view.pt
 src/ulearn5/core/content/videoembed_templates/youtube.pt
-src/ulearn5/core/locales/tranlations.sh
+src/ulearn5/core/locales/translations.sh
 src/ulearn5/core/locales/ulearn.pot
-src/ulearn5/core/locales/ulearn5.core.pot
 src/ulearn5/core/locales/update.sh
 src/ulearn5/core/locales/ca/LC_MESSAGES/plone.mo
 src/ulearn5/core/locales/ca/LC_MESSAGES/plone.po
@@ -102,7 +102,6 @@ src/ulearn5/core/locales/es/LC_MESSAGES/ulearn.po
 src/ulearn5/core/profiles/default/actions.xml
 src/ulearn5/core/profiles/default/browserlayer.xml
 src/ulearn5/core/profiles/default/catalog.xml
-src/ulearn5/core/profiles/default/componentregistry.xml
 src/ulearn5/core/profiles/default/controlpanel.xml
 src/ulearn5/core/profiles/default/memberdata_properties.xml
 src/ulearn5/core/profiles/default/metadata.xml
@@ -111,6 +110,7 @@ src/ulearn5/core/profiles/default/rolemap.xml
 src/ulearn5/core/profiles/default/tinymce.xml
 src/ulearn5/core/profiles/default/types.xml
 src/ulearn5/core/profiles/default/ulearn5.core_various.txt
+src/ulearn5/core/profiles/default/userschema.xml
 src/ulearn5/core/profiles/default/workflows.xml
 src/ulearn5/core/profiles/default/types/AppFile.xml
 src/ulearn5/core/profiles/default/types/AppImage.xml
