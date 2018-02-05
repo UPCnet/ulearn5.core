@@ -2,4 +2,29 @@
 <registry>
     <records interface="ulearn5.core.controlpanel.IUlearnControlPanelSettings" purge="False" />
     <records interface="ulearn5.core.controlportlets.IPortletsSettings" purge="False"/>
+
+    <record name="plone.app.portlets.PortletManagerBlacklist">
+        <field type="plone.registry.field.List">
+          <title>Toolbar Portlet Manager Blacklist</title>
+          <description>A list of portlet manager names that will not be shown in the toolbar dropdown</description>
+          <value_type type="plone.registry.field.TextLine" />
+        </field>
+        <value purge="false">
+          <element>plone.dashboard1</element>
+          <element>plone.dashboard2</element>
+          <element>plone.dashboard3</element>
+          <element>plone.dashboard4</element>
+          <element>ContentWellPortlets.AbovePortletManager1</element>
+          <element>ContentWellPortlets.AbovePortletManager2</element>
+          <element>ContentWellPortlets.AbovePortletManager3</element>
+          <element>ContentWellPortlets.BelowPortletManager1</element>
+          <element>ContentWellPortlets.BelowPortletManager2</element>
+          <element>ContentWellPortlets.BelowPortletManager3</element>
+          <element>ContentWellPortlets.BelowTitlePortletManager1</element>
+          <element>ContentWellPortlets.BelowTitlePortletManager2</element>
+          <element>ContentWellPortlets.BelowTitlePortletManager3</element>
+          <element>plone.footerportlets</element>
+          <element>plone.rightcolumn</element>
+        </value>
+    </record>
 </registry>

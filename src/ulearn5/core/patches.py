@@ -300,3 +300,73 @@ def handle_form(self):
             postback = False
 
         return postback
+
+
+from AccessControl import getSecurityManager
+from plone.portlets.interfaces import IPortletManager
+from plone.app.contentmenu.menu import PortletManagerSubMenuItem
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtilitiesFor
+from plone.protect.utils import addTokenToUrl
+from ulearn5.core import _
+
+def getMenuItems(self, context, request):
+        """Return menu item entries in a TAL-friendly form."""
+        items = []
+        sm = getSecurityManager()
+        # Bail out if the user can't manage portlets
+        if not sm.checkPermission(
+                PortletManagerSubMenuItem.MANAGE_SETTINGS_PERMISSION,
+                context
+        ):
+            return items
+
+        blacklist = getUtility(IRegistry).get(
+            'plone.app.portlets.PortletManagerBlacklist', [])
+        managers = getUtilitiesFor(IPortletManager)
+        current_url = context.absolute_url()
+
+
+        items.append({
+            'title': _(u'manage_homepage_portlets', default=u'Homepage'),
+            'description': _(u'manage_homepage_portlets', default=u'Manage homepage portlets'),
+            'action': addTokenToUrl(
+                '{0}/front-page/@@manage-portletsbelowtitlecontent'.format(
+                    current_url),
+                request),
+            'selected': False,
+            'icon': None,
+            'extra': {
+                'id': 'portlet-manager-all',
+                'separator': None},
+            'submenu': None,
+        })
+
+
+        for manager in managers:
+            manager_name = manager[0]
+            # Don't show items like 'plone.dashboard1' by default
+            if manager_name in blacklist:
+                continue
+
+            item = {
+                'title': _(manager_name,
+                           default=u' '.join(manager_name.split(u'.')).title()),
+                'description': manager_name,
+                'action': addTokenToUrl(
+                    '{0}/@@topbar-manage-portlets/{1}'.format(
+                        current_url,
+                        manager_name),
+                    request),
+                'selected': False,
+                'icon': None,
+                'extra': {
+                    'id': 'portlet-manager-{0}'.format(manager_name),
+                    'separator': None},
+                'submenu': None,
+            }
+
+            items.append(item)
+        items.sort()
+        return items

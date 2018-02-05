@@ -34,4 +34,11 @@
         replacement=".patches.handle_form"
         />
 
+    <monkey:patch
+        description="Homepage in portlets administrator"
+        class="plone.app.contentmenu.menu.PortletManagerMenu"
+        original="getMenuItems"
+        replacement=".patches.getMenuItems"
+        />
+
 </configure>
