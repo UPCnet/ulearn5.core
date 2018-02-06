@@ -174,6 +174,11 @@ class setupHomePage(grok.View):
         # Portlet Static
         portlets_tool = registry.forInterface(IPortletsSettings)
         portlets_tool.plone_portlet_static_Static = True
+
+        # Types permited in news folder
+        news_tool = ISelectableConstrainTypes(portal['news'])
+        news_tool.setLocallyAllowedTypes(('News Item', 'Folder', 'Collection',))
+        news_tool.setImmediatelyAddableTypes(('News Item', 'Folder', 'Collection',))
         transaction.commit()
 
         return 'Done'
