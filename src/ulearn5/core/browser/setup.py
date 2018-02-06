@@ -203,6 +203,12 @@ class createMenuFolders(grok.View):
         return self.createOrGetObject(context, newid, title, u'privateFolder')
 
     def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
         portal = getSite()
         gestion = self.newPrivateFolder(portal, 'gestion', u'Gestión')
         gestion.exclude_from_nav = False
