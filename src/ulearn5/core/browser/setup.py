@@ -15,6 +15,7 @@ from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
 from Products.CMFCore.utils import getToolByName
 
 from plone import api
+from plone.app.discussion.interfaces import IDiscussionSettings
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.dexterity.utils import createContentInContainer
@@ -174,6 +175,10 @@ class setupHomePage(grok.View):
         # Portlet Static
         portlets_tool = registry.forInterface(IPortletsSettings)
         portlets_tool.plone_portlet_static_Static = True
+
+        # Enabled comments globally
+        discussion_tool = registry.forInterface(IDiscussionSettings)
+        discussion_tool.globally_enabled = True
 
         # Types permited in news folder
         news_tool = ISelectableConstrainTypes(portal['news'])
