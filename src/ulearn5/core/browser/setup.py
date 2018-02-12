@@ -30,6 +30,7 @@ from Acquisition import aq_inner
 
 from base5.core.utilities import IElasticSearch
 from base5.portlets.browser.manager import IColStorage
+from base5.core.utils import json_response
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
@@ -641,3 +642,27 @@ class createElasticSharing(grok.View):
                 )
 
             self.response.setBody('OK')
+
+
+class viewUsersWithNotUpdatedPhoto(grok.View):
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    @json_response
+    def render(self):
+        portal = api.portal.get()
+        soup = get_soup('user_properties', portal)
+        records = [r for r in soup.data.items()]
+
+        result = {}
+        for record in records:
+            userID = record[1].attrs['id']
+            if userID != 'admin':
+                mtool = getToolByName(self.context, 'portal_membership')
+                portrait = mtool.getPersonalPortrait(userID)
+                typePortrait = portrait.__class__.__name__
+                if typePortrait == 'FSImage' or (typePortrait == 'Image' and portrait.size == 9715):
+                    userInfo = {'fullname' : record[1].attrs['fullname']}
+                    result[userID] = userInfo
+
+        return result
