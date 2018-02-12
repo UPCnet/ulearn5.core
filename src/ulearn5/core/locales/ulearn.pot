@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-02-05 12:03+0000\n"
+"POT-Creation-Date: 2018-02-12 10:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,26 +63,14 @@ msgstr ""
 msgid "All dates"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:103
-msgid "Buscar"
-msgstr ""
-
 #: ulearn5/theme/portlets/legacycalendar.py:34
 msgid "Calendar"
-msgstr ""
-
-#: ulearn5/theme/browser/configure.zcml:38
-msgid "Calendari"
 msgstr ""
 
 #: ../browser/views.py:182
 #: ../controlpanel.py:395
 #: ../controlportlets.py:340
 msgid "Cancel"
-msgstr ""
-
-#: ulearn5/theme/browser/viewlets_templates/header.pt:107
-msgid "Cerca"
 msgstr ""
 
 #: ../controlpanel.py:391
@@ -269,7 +257,6 @@ msgstr ""
 msgid "Invitats espectadors"
 msgstr ""
 
-#: ulearn5/theme/browser/tiles/calendari.py:67
 #: ulearn5/theme/portlets/buttonbar/buttonbar.py:29
 #: ulearn5/theme/portlets/importantnews/importantnews.py:29
 msgid "Items in which workflow state to show."
@@ -332,8 +319,24 @@ msgstr ""
 msgid "Mes_inicial"
 msgstr ""
 
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "My Subjects"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "My Tags"
+msgstr ""
+
 #: ../controlpanel.py:46
 msgid "New window"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "News Flash"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "News Important"
 msgstr ""
 
 #: ../content/community.py:133
@@ -440,20 +443,8 @@ msgstr ""
 msgid "This portlet displays subscribed News Items."
 msgstr ""
 
-#: ulearn5/theme/browser/configure.zcml:38
-msgid "Tile used to show the Calendar"
-msgstr ""
-
 #: ../content/community.py:145
 msgid "Tipus de comunitat"
-msgstr ""
-
-#: ulearn5/theme/browser/tiles/calendari.py:61
-msgid "Title"
-msgstr ""
-
-#: ulearn5/theme/browser/tiles/calendari.py:62
-msgid "Title of the tile"
 msgstr ""
 
 #: ../browser/stats.py:69
@@ -467,6 +458,42 @@ msgstr ""
 
 #: ../controlpanel.py:81
 msgid "UPCnet only"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn AngularRouteView"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn Button Bar"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn Calendar"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn Communities"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn Profile"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn Profile Community"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn Thinnkers"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn discussion"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn eConnect"
 msgstr ""
 
 #: ../controlpanel.py:339
@@ -498,7 +525,6 @@ msgstr ""
 msgid "Visibility"
 msgstr ""
 
-#: ulearn5/theme/browser/tiles/calendari.py:66
 #: ulearn5/theme/portlets/buttonbar/buttonbar.py:28
 #: ulearn5/theme/portlets/importantnews/importantnews.py:28
 msgid "Workflow state"
@@ -565,9 +591,24 @@ msgstr ""
 msgid "background_property"
 msgstr ""
 
+#. Default: "Manage members"
+#: ulearn5/theme/portlets/profilecommunity/profilecommunity.pt:67
+msgid "btnAclCommunity"
+msgstr ""
+
 #. Default: "Cancela"
 #: ../browser/stats_templates/statsview.pt:279
 msgid "btnCancel"
+msgstr ""
+
+#. Default: "Change community type"
+#: ulearn5/theme/portlets/profilecommunity/profilecommunity.pt:72
+msgid "btnChangeTypeCommunity"
+msgstr ""
+
+#. Default: "Edit community"
+#: ulearn5/theme/portlets/profilecommunity/profilecommunity.pt:62
+msgid "btnEditCommunity"
 msgstr ""
 
 #. Default: "Button bar"
@@ -680,7 +721,8 @@ msgid "discussion"
 msgstr ""
 
 #. Default: "Edit this community"
-#: ulearn5/theme/portlets/profile/profile.pt:54
+#: ulearn5/theme/portlets/profile/profile.pt:52
+#: ulearn5/theme/portlets/profilecommunity/profilecommunity.pt:52
 msgid "editcommunity"
 msgstr ""
 
@@ -1240,7 +1282,7 @@ msgid "label_portrait"
 msgstr ""
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:474
+#: ulearn5/theme/browser/views.py:473
 msgid "label_show_all"
 msgstr ""
 
@@ -1407,7 +1449,7 @@ msgid "newdiscussion"
 msgstr ""
 
 #. Default: "Create a new event"
-#: ulearn5/theme/portlets/templates/calendar.pt:122
+#: ulearn5/theme/portlets/templates/calendar.pt:114
 msgid "newevent"
 msgstr ""
 
@@ -1426,7 +1468,6 @@ msgid "no_visibles"
 msgstr ""
 
 #. Default: "There are not events today"
-#: ulearn5/theme/browser/tiles/templates/calendari.pt:26
 #: ulearn5/theme/portlets/templates/calendar.pt:26
 msgid "not_events_for_today"
 msgstr ""
@@ -1447,16 +1488,6 @@ msgstr ""
 #. Default: "Habilitar portlet plone_portlet_static_Static"
 #: ../controlportlets.py:120
 msgid "plone_portlet_static_Static"
-msgstr ""
-
-#. Default: "Select search base Folder or Collection to search for events. The URL to to this item will also be used to link to in calendar searches. If empty, the whole site will be searched and the event listing view will be called on the site root."
-#: ulearn5/theme/browser/tiles/calendari.py:76
-msgid "portlet_help_search_base"
-msgstr ""
-
-#. Default: "Search base"
-#: ulearn5/theme/browser/tiles/calendari.py:75
-msgid "portlet_label_search_base"
 msgstr ""
 
 #. Default: "Habilitar portlet portlets_Calendar"
@@ -1511,6 +1542,11 @@ msgstr ""
 #. Default: "User profile"
 #: ulearn5/theme/portlets/profile/profile.py:33
 msgid "profile"
+msgstr ""
+
+#. Default: "Profile Community"
+#: ulearn5/theme/portlets/profilecommunity/profilecommunity.py:33
+msgid "profilecommunity"
 msgstr ""
 
 #. Default: "icon-link"
@@ -1577,7 +1613,7 @@ msgid "seemorediscussions"
 msgstr ""
 
 #. Default: "See more events"
-#: ulearn5/theme/portlets/templates/calendar.pt:105
+#: ulearn5/theme/portlets/templates/calendar.pt:97
 msgid "seemoreevents"
 msgstr ""
 
@@ -1608,6 +1644,7 @@ msgstr ""
 
 #. Default: "Shared content"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:74
+#: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
 msgid "shared_content_title"
 msgstr ""
 
@@ -1815,7 +1852,7 @@ msgid "ulearn_thinkers"
 msgstr ""
 
 #. Default: "Calendar portlet"
-#: ulearn5/theme/portlets/calendar.py:42
+#: ulearn5/theme/portlets/calendar.py:43
 msgid "ulearncalendar"
 msgstr ""
 
