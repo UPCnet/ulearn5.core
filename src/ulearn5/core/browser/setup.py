@@ -173,10 +173,6 @@ class setupHomePage(grok.View):
         site_tool = registry.forInterface(ISiteSchema, prefix='plone')
         site_tool.toolbar_position = 'top'
 
-        # Portlet Static
-        portlets_tool = registry.forInterface(IPortletsSettings)
-        portlets_tool.plone_portlet_static_Static = True
-
         # Enabled comments globally
         discussion_tool = registry.forInterface(IDiscussionSettings)
         discussion_tool.globally_enabled = True

@@ -1,0 +1,105 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GenWebUPC\n"
+"POT-Creation-Date: 2018-02-12 12:24+0000\n"
+"PO-Revision-Date: 2014-04-14 11:35+0100\n"
+"Last-Translator: Roberto Diaz <roberto.diaz@upcnet.es>\n"
+"Language-Team: Plone Team@UPCnet <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: ulearn.portlets\n"
+
+msgid "portlets_Search"
+msgstr "Portlet Search"
+
+msgid "portlets_Review"
+msgstr "Portlet Review"
+
+msgid "portlets_Recent"
+msgstr "Portlet Recents"
+
+msgid "portlets_News"
+msgstr "Portlet News"
+
+msgid "mrs5_max_maxuichat"
+msgstr "Portlet MAX UI"
+
+msgid "mrs5_max_maxuiactivity"
+msgstr "Portlet MAX UI: Activity"
+
+msgid "mrs5_max_maxuichat"
+msgstr "Portlet MAX UI: Chat"
+
+msgid "portlets_Events"
+msgstr "Portlet Events"
+
+msgid "portlets_Calendar"
+msgstr "Portlet Calendar"
+
+msgid "plone_portlet_collection_Collection"
+msgstr "Portlet Collection"
+
+msgid "portlets_Login"
+msgstr "Portlet Login"
+
+msgid "portlets_Navigation"
+msgstr "Portlet Navegation"
+
+msgid "portlets_rss"
+msgstr "Portlet RSS"
+
+msgid "plone_portlet_static_Static"
+msgstr "Portlet Static"
+
+msgid "collective_polls_VotePortlet"
+msgstr "Portlet Polls"
+
+msgid "ulearn_portlets_mytags"
+msgstr "Portlet Ulearn My tags"
+
+msgid "ulearn_portlets_angularrouteview"
+msgstr "Portlet Ulearn AngularRouteView"
+
+msgid "ulearn_portlets_buttonbar"
+msgstr "Portlet Ulearn ButtonBar"
+
+msgid "ulearn_portlets_communities"
+msgstr "Portlet Ulearn Comunities"
+
+msgid "ulearn_portlets_profile"
+msgstr "Portlet Ulearn Profile"
+
+msgid "ulearn_portlets_profilecommunity"
+msgstr "Portlet Ulearn Profile community"
+
+msgid "ulearn_portlets_thinnkers"
+msgstr "Portlet Ulearn Thinnkers"
+
+msgid "ulearn_portlets_calendar"
+msgstr "Portlet Ulearn Calendar"
+
+msgid "ulearn_portlets_sharedwithme"
+msgstr "Portlet Ulearn Shared with me"
+
+msgid "ulearn_portlets_mysubjects"
+msgstr "Portlet Ulearn My subjects"
+
+msgid "ulearn_portlets_flashesinformativos"
+msgstr "Portlet Ulearn Information flashes"
+
+msgid "ulearn_portlets_importantnews"
+msgstr "Portlet Ulearn Important news"
+
+msgid "ulearn_portlets_discussion"
+msgstr "Portlet Ulearn Discussions"
+
+msgid "ulearn_portlets_econnect"
+msgstr "Portlet Ulearn eConnect"
+
+msgid "ulearn_portlets_stats"
+msgstr "Portlet Ulearn Stats"

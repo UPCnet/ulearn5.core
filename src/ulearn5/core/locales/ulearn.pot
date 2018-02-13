@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-02-12 10:29+0000\n"
+"POT-Creation-Date: 2018-02-13 11:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgstr ""
 
 #: ../browser/views.py:182
 #: ../controlpanel.py:395
-#: ../controlportlets.py:340
+#: ../controlportlets.py:358
 msgid "Cancel"
 msgstr ""
 
@@ -150,7 +150,7 @@ msgid "Edit Subscribed News Portlet"
 msgstr ""
 
 #: ../controlpanel.py:397
-#: ../controlportlets.py:342
+#: ../controlportlets.py:360
 msgid "Edit cancelled"
 msgstr ""
 
@@ -304,7 +304,6 @@ msgid "Media"
 msgstr ""
 
 #. Default: "Online Meetings"
-#: ulearn5/theme/portlets/econnect.py:21
 #: ulearn5/theme/portlets/templates/econnect.pt:7
 msgid "Meetings space"
 msgstr ""
@@ -381,7 +380,7 @@ msgstr ""
 msgid "Owners"
 msgstr ""
 
-#: ../controlportlets.py:279
+#: ../controlportlets.py:297
 msgid "Portlets settings"
 msgstr ""
 
@@ -626,13 +625,18 @@ msgstr ""
 msgid "buttons_color_secondary"
 msgstr ""
 
+#. Default: "Calendar portlet"
+#: ulearn5/theme/portlets/calendar.py:43
+msgid "calendar"
+msgstr ""
+
 #. Default: "URL del campus"
 #: ../controlpanel.py:85
 msgid "campus_url"
 msgstr ""
 
 #. Default: "Habilitar portlet collective_polls_VotePortlet"
-#: ../controlportlets.py:129
+#: ../controlportlets.py:147
 msgid "collective_polls_VotePortlet"
 msgstr ""
 
@@ -718,6 +722,11 @@ msgstr ""
 #. Default: "Discussion portlet"
 #: ulearn5/theme/portlets/discussion.py:34
 msgid "discussion"
+msgstr ""
+
+#. Default: "Meetings space"
+#: ulearn5/theme/portlets/econnect.py:21
+msgid "econnect"
 msgstr ""
 
 #. Default: "Edit this community"
@@ -864,7 +873,7 @@ msgid "help_campus_url"
 msgstr ""
 
 #. Default: "Habilita el portlet collective_polls_VotePortlet."
-#: ../controlportlets.py:131
+#: ../controlportlets.py:149
 msgid "help_collective_polls_VotePortlet"
 msgstr ""
 
@@ -947,6 +956,16 @@ msgstr ""
 msgid "help_mrs_max_widget"
 msgstr ""
 
+#. Default: "Habilita el portlet mrs_maxactivity_widget."
+#: ../controlportlets.py:68
+msgid "help_mrs_maxactivity_widget"
+msgstr ""
+
+#. Default: "Habilita el portlet mrs_maxchat_widget."
+#: ../controlportlets.py:77
+msgid "help_mrs_maxchat_widget"
+msgstr ""
+
 #. Default: "The title of the navigation tree."
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:27
 msgid "help_navigation_title"
@@ -957,32 +976,32 @@ msgid "help_notify_activity_via_push_comments_too"
 msgstr ""
 
 #. Default: "Habilita el portlet plone_portlet_collection_Collection."
-#: ../controlportlets.py:86
+#: ../controlportlets.py:104
 msgid "help_plone_portlet_collection_Collection"
 msgstr ""
 
 #. Default: "Habilita el portlet plone_portlet_static_Static."
-#: ../controlportlets.py:122
+#: ../controlportlets.py:140
 msgid "help_plone_portlet_static_Static"
 msgstr ""
 
 #. Default: "Habilita el portlet portlets_Calendar."
-#: ../controlportlets.py:77
+#: ../controlportlets.py:95
 msgid "help_portlets_Calendar"
 msgstr ""
 
 #. Default: "Habilita el portlet portlets_Events."
-#: ../controlportlets.py:68
+#: ../controlportlets.py:86
 msgid "help_portlets_Events"
 msgstr ""
 
 #. Default: "Habilita el portlet portlets_Login."
-#: ../controlportlets.py:95
+#: ../controlportlets.py:113
 msgid "help_portlets_Login"
 msgstr ""
 
 #. Default: "Habilita el portlet portlets_Navigation."
-#: ../controlportlets.py:104
+#: ../controlportlets.py:122
 msgid "help_portlets_Navigation"
 msgstr ""
 
@@ -1007,12 +1026,12 @@ msgid "help_portlets_Search"
 msgstr ""
 
 #. Default: "Habilita el portlet portlets_rss."
-#: ../controlportlets.py:113
+#: ../controlportlets.py:131
 msgid "help_portlets_rss"
 msgstr ""
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:280
+#: ../controlportlets.py:298
 msgid "help_portlets_settings_editform"
 msgstr ""
 
@@ -1064,63 +1083,63 @@ msgid "help_ubicacio"
 msgstr ""
 
 #. Default: "Habilita el portlet angular per a poder fer ús de les rutes angularjs."
-#: ../controlportlets.py:158
+#: ../controlportlets.py:167
 msgid "help_ulearn_angularRouteView"
 msgstr ""
 
 #. Default: "Habilita el portlet botonera central."
-#: ../controlportlets.py:167
+#: ../controlportlets.py:176
 msgid "help_ulearn_button_bar"
 msgstr ""
 
 #. Default: "Habilita el portlet per a mostrar el calendari amb els events."
-#: ../controlportlets.py:203
+#: ../controlportlets.py:221
 msgid "help_ulearn_calendar"
 msgstr ""
 
 #. Default: "Habilita el portlet lateral on mostra les comunitats favorites."
-#: ../controlportlets.py:176
+#: ../controlportlets.py:185
 msgid "help_ulearn_communities"
 msgstr ""
 
 #. Default: "Habilita el portlet."
-#: ../controlportlets.py:248
+#: ../controlportlets.py:266
 msgid "help_ulearn_discussion"
 msgstr ""
 
 #. Default: "Habilita el portlet eConnect."
-#: ../controlportlets.py:257
+#: ../controlportlets.py:275
 msgid "help_ulearn_econnect"
 msgstr ""
 
 #. Default: "Habilita el portlet para mostrar las notícias en el flash informativo."
-#: ../controlportlets.py:230
+#: ../controlportlets.py:248
 msgid "help_ulearn_portlets_flashesinformativos"
 msgstr ""
 
 #. Default: "Habilita el portlet para mostrar las notícias marcadas como destacadas."
-#: ../controlportlets.py:239
+#: ../controlportlets.py:257
 msgid "help_ulearn_portlets_importantnews"
 msgstr ""
 
-#. Default: "Habilita el portlet que mostra les comunitats on estic suscrit o puc suscriurem."
-#: ../controlportlets.py:149
-msgid "help_ulearn_portlets_mycommunities"
-msgstr ""
-
 #. Default: "Habilita el portlet per a poder veure els meus cursos del EVA."
-#: ../controlportlets.py:221
+#: ../controlportlets.py:239
 msgid "help_ulearn_portlets_mysubjects"
 msgstr ""
 
 #. Default: "Habilita portlet amb el núvol de tags."
-#: ../controlportlets.py:140
+#: ../controlportlets.py:158
 msgid "help_ulearn_portlets_mytags"
 msgstr ""
 
 #. Default: "Habilita el portlet on mostra el perfil usuari, o la comunitat on estem."
-#: ../controlportlets.py:185
+#: ../controlportlets.py:194
 msgid "help_ulearn_profile"
+msgstr ""
+
+#. Default: "Habilita el portlet on mostra el perfil de la comunitat on estem."
+#: ../controlportlets.py:203
+msgid "help_ulearn_profilecommunity"
 msgstr ""
 
 #. Default: "uLearn configuration registry."
@@ -1129,17 +1148,17 @@ msgid "help_ulearn_settings_editform"
 msgstr ""
 
 #. Default: "Habilita el portlet per a veure el compartit amb mi."
-#: ../controlportlets.py:212
+#: ../controlportlets.py:230
 msgid "help_ulearn_sharedwithme"
 msgstr ""
 
 #. Default: "Habilita el portlet per a veure les estadístiques."
-#: ../controlportlets.py:266
+#: ../controlportlets.py:284
 msgid "help_ulearn_stats"
 msgstr ""
 
 #. Default: "Habilita el portlet on es mostren els usuaris, amb la cerca ."
-#: ../controlportlets.py:194
+#: ../controlportlets.py:212
 msgid "help_ulearn_thinkers"
 msgstr ""
 
@@ -1427,6 +1446,16 @@ msgstr ""
 msgid "mrs_max_widget"
 msgstr ""
 
+#. Default: "Habilitar portlet mrs_maxactivity_widget"
+#: ../controlportlets.py:66
+msgid "mrs_maxactivity_widget"
+msgstr ""
+
+#. Default: "Habilitar portlet mrs_maxchat_widget"
+#: ../controlportlets.py:75
+msgid "mrs_maxchat_widget"
+msgstr ""
+
 #. Default: "My communities"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:21
 msgid "my_communities"
@@ -1481,32 +1510,32 @@ msgid "people_literal"
 msgstr ""
 
 #. Default: "Habilitar portlet plone_portlet_collection_Collection"
-#: ../controlportlets.py:84
+#: ../controlportlets.py:102
 msgid "plone_portlet_collection_Collection"
 msgstr ""
 
 #. Default: "Habilitar portlet plone_portlet_static_Static"
-#: ../controlportlets.py:120
+#: ../controlportlets.py:138
 msgid "plone_portlet_static_Static"
 msgstr ""
 
 #. Default: "Habilitar portlet portlets_Calendar"
-#: ../controlportlets.py:75
+#: ../controlportlets.py:93
 msgid "portlets_Calendar"
 msgstr ""
 
 #. Default: "Habilitar portlet portlets_Events"
-#: ../controlportlets.py:66
+#: ../controlportlets.py:84
 msgid "portlets_Events"
 msgstr ""
 
 #. Default: "Habilitar portlet portlets_Login"
-#: ../controlportlets.py:93
+#: ../controlportlets.py:111
 msgid "portlets_Login"
 msgstr ""
 
 #. Default: "Habilitar portlet portlets_Navigation"
-#: ../controlportlets.py:102
+#: ../controlportlets.py:120
 msgid "portlets_Navigation"
 msgstr ""
 
@@ -1531,7 +1560,7 @@ msgid "portlets_Search"
 msgstr ""
 
 #. Default: "Habilitar portlet portlets_rss"
-#: ../controlportlets.py:111
+#: ../controlportlets.py:129
 msgid "portlets_rss"
 msgstr ""
 
@@ -1761,27 +1790,27 @@ msgid "ulearn_activity"
 msgstr ""
 
 #. Default: "Habilitar portlet angularRouteView"
-#: ../controlportlets.py:156
+#: ../controlportlets.py:165
 msgid "ulearn_angularRouteView"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn Button Bar"
-#: ../controlportlets.py:165
+#: ../controlportlets.py:174
 msgid "ulearn_button_bar"
 msgstr ""
 
 #. Default: "Habilitar portlet ulearn Calendar"
-#: ../controlportlets.py:201
+#: ../controlportlets.py:219
 msgid "ulearn_calendar"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn Comunnities"
-#: ../controlportlets.py:174
+#: ../controlportlets.py:183
 msgid "ulearn_communities"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn Discussion"
-#: ../controlportlets.py:246
+#: ../controlportlets.py:264
 msgid "ulearn_discussion"
 msgstr ""
 
@@ -1792,7 +1821,7 @@ msgid "ulearn_documents"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn eConnect"
-#: ../controlportlets.py:255
+#: ../controlportlets.py:273
 msgid "ulearn_econnect"
 msgstr ""
 
@@ -1807,53 +1836,48 @@ msgid "ulearn_media"
 msgstr ""
 
 #. Default: "Habilitar portlet flashesinformativos"
-#: ../controlportlets.py:228
+#: ../controlportlets.py:246
 msgid "ulearn_portlets_flashesinformativos"
 msgstr ""
 
 #. Default: "Habilitar portlet importantnews"
-#: ../controlportlets.py:237
+#: ../controlportlets.py:255
 msgid "ulearn_portlets_importantnews"
 msgstr ""
 
-#. Default: "Habilitar portlet ulearn_portlets_mycommunities"
-#: ../controlportlets.py:147
-msgid "ulearn_portlets_mycommunities"
-msgstr ""
-
 #. Default: "Habilitar portlet ulearn_portlets_mysubjects"
-#: ../controlportlets.py:219
+#: ../controlportlets.py:237
 msgid "ulearn_portlets_mysubjects"
 msgstr ""
 
 #. Default: "Habilitar portlet ulearn_portlets_mytags"
-#: ../controlportlets.py:138
+#: ../controlportlets.py:156
 msgid "ulearn_portlets_mytags"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn Profile"
-#: ../controlportlets.py:183
+#: ../controlportlets.py:192
 msgid "ulearn_profile"
 msgstr ""
 
+#. Default: "Habilitar portlet Ulearn Profile Community"
+#: ../controlportlets.py:201
+msgid "ulearn_profilecommunity"
+msgstr ""
+
 #. Default: "Habilitar portlet compartit amb mi"
-#: ../controlportlets.py:210
+#: ../controlportlets.py:228
 msgid "ulearn_sharedwithme"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn Stats"
-#: ../controlportlets.py:264
+#: ../controlportlets.py:282
 msgid "ulearn_stats"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn Thinkers"
-#: ../controlportlets.py:192
+#: ../controlportlets.py:210
 msgid "ulearn_thinkers"
-msgstr ""
-
-#. Default: "Calendar portlet"
-#: ulearn5/theme/portlets/calendar.py:43
-msgid "ulearncalendar"
 msgstr ""
 
 #. Default: "URL contrasenya oblidada"

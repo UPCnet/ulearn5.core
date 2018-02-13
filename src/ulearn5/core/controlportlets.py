@@ -53,11 +53,29 @@ class IPortletsSettings(Interface):
         default=False,
         )
 
-    mrs_max_widget = schema.Bool(
+    mrs5_max_maxui = schema.Bool(
         title=_(u'mrs_max_widget',
                 default=_(u"Habilitar portlet mrs_max_widget")),
         description=_(u'help_mrs_max_widget',
                       default=_(u"Habilita el portlet mrs_max_widget.")),
+        required=False,
+        default=True,
+        )
+
+    mrs5_max_maxuiactivity = schema.Bool(
+        title=_(u'mrs_maxactivity_widget',
+                default=_(u"Habilitar portlet mrs_maxactivity_widget")),
+        description=_(u'help_mrs_maxactivity_widget',
+                      default=_(u"Habilita el portlet mrs_maxactivity_widget.")),
+        required=False,
+        default=True,
+        )
+
+    mrs5_max_maxuichat = schema.Bool(
+        title=_(u'mrs_maxchat_widget',
+                default=_(u"Habilitar portlet mrs_maxchat_widget")),
+        description=_(u'help_mrs_maxchat_widget',
+                      default=_(u"Habilita el portlet mrs_maxchat_widget.")),
         required=False,
         default=True,
         )
@@ -122,7 +140,7 @@ class IPortletsSettings(Interface):
         description=_(u'help_plone_portlet_static_Static',
                       default=_(u"Habilita el portlet plone_portlet_static_Static.")),
         required=False,
-        default=False,
+        default=True,
         )
 
     collective_polls_VotePortlet = schema.Bool(
@@ -139,15 +157,6 @@ class IPortletsSettings(Interface):
                 default=_(u"Habilitar portlet ulearn_portlets_mytags")),
         description=_(u'help_ulearn_portlets_mytags',
                       default=_(u"Habilita portlet amb el núvol de tags.")),
-        required=False,
-        default=False,
-        )
-
-    ulearn_portlets_mycommunities = schema.Bool(
-        title=_(u'ulearn_portlets_mycommunities',
-                default=_(u"Habilitar portlet ulearn_portlets_mycommunities")),
-        description=_(u'help_ulearn_portlets_mycommunities',
-                      default=_(u"Habilita el portlet que mostra les comunitats on estic suscrit o puc suscriurem.")),
         required=False,
         default=False,
         )
@@ -184,6 +193,15 @@ class IPortletsSettings(Interface):
                 default=_(u"Habilitar portlet Ulearn Profile")),
         description=_(u'help_ulearn_profile',
                       default=_(u"Habilita el portlet on mostra el perfil usuari, o la comunitat on estem.")),
+        required=False,
+        default=True,
+        )
+
+    ulearn_portlets_profilecommunity = schema.Bool(
+        title=_(u'ulearn_profilecommunity',
+                default=_(u"Habilitar portlet Ulearn Profile Community")),
+        description=_(u'help_ulearn_profilecommunity',
+                      default=_(u"Habilita el portlet on mostra el perfil de la comunitat on estem.")),
         required=False,
         default=True,
         )
@@ -307,31 +325,31 @@ class PortletsSettingsForm(controlpanel.RegistryEditForm):
             if 'ContentWellPortlets' in manager_name:
                 manager = getUtility(IPortletManager, name=manager_name, context=site['front-page'])
                 mapping = getMultiAdapter((site['front-page'], manager), IPortletAssignmentMapping)
-                [activate_portlets.append(item[0]) for item in mapping.items()]
+                [activate_portlets.append(item[1].title) for item in mapping.items()]
             else:
                 manager = getUtility(IPortletManager, name=manager_name, context=site)
                 mapping = getMultiAdapter((site, manager), IPortletAssignmentMapping)
-                [activate_portlets.append(item[0]) for item in mapping.items()]
+                [activate_portlets.append(item[1].title) for item in mapping.items()]
 
-        portlets = {k: v for k, v in data.iteritems() if 'portlet' in k}
+        portlets = {k: v for k, v in data.iteritems() if 'portlet' in k.lower() or 'mrs5' in k.lower()}
         if portlets:
             for portlet, value in portlets.iteritems():
                 idPortlet = portlet.replace('_', '.')
-                namePortlet = portlet.replace('_', ' ')
 
                 if value is True:
                     registerPortletType(site,
-                                        title=namePortlet,
-                                        description=namePortlet,
+                                        title=portlet,
+                                        description=portlet,
                                         addview=idPortlet)
 
                 if idPortlet.split('.')[-1] in activate_portlets:
                     value = True
                     data[portlet] = True
                     registerPortletType(site,
-                                        title=namePortlet,
-                                        description=namePortlet,
+                                        title=portlet,
+                                        description=portlet,
                                         addview=idPortlet)
+
                 if value is False:
                     unregisterPortletType(site, idPortlet)
 

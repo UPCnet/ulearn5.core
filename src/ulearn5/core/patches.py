@@ -376,5 +376,37 @@ def getMenuItems(self, context, request):
                 item['description'] = _(u'manage_right_portlets_description', default=u'Manage right portlets')
 
             items.append(item)
-        
+
         return items
+
+
+
+def addable_portlets(self):
+    baseUrl = self.baseUrl()
+    addviewbase = baseUrl.replace(self.context_url(), '')
+    def sort_key(v):
+        return v.get('title')
+    def check_permission(p):
+        addview = p.addview
+        if not addview:
+            return False
+
+        addview = "%s/+/%s" % (addviewbase, addview,)
+        if addview.startswith('/'):
+            addview = addview[1:]
+        try:
+            self.context.restrictedTraverse(str(addview))
+        except (AttributeError, KeyError, Unauthorized,):
+            return False
+        return True
+
+    current = api.user.get_current()
+    lang = current.getProperty('language')
+    portlets = [{
+        'title': self.context.translate(p.title, domain='ulearn.portlets', target_language=lang),
+        'description': p.description,
+        'addview': '%s/+/%s' % (addviewbase, p.addview)
+        } for p in self.manager.getAddablePortletTypes() if check_permission(p)]
+
+    portlets.sort(key=sort_key)
+    return portlets

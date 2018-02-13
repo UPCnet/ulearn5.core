@@ -41,4 +41,11 @@
         replacement=".patches.getMenuItems"
         />
 
+    <monkey:patch
+        description="Translate title portlets"
+        class="plone.app.portlets.browser.editmanager.EditPortletManagerRenderer"
+        original="addable_portlets"
+        replacement=".patches.addable_portlets"
+        />
+
 </configure>
