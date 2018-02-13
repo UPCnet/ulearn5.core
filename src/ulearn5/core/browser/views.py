@@ -391,3 +391,42 @@ class MigrateAvatars(grok.View):
         new_file.seek(0)
 
         return new_file, mimetype
+
+
+class gwToggleSubscribedTag(grok.View):
+    grok.context(Interface)
+    grok.name('toggle_subscriptiontag')
+    grok.require('base.authenticated')
+    grok.layer(IUlearn5CoreLayer)
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            from zope.interface import alsoProvides
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+        portal = getSite()
+        current_user = api.user.get_current()
+        userid = current_user.id
+        tag = self.request.form['tag']
+        soup_tags = get_soup('user_subscribed_tags', portal)
+        exist = [r for r in soup_tags.query(Eq('id', userid))]
+
+        if not exist:
+            record = Record()
+            record.attrs['id'] = userid
+            record.attrs['tags'] = [tag]
+            soup_tags.add(record)
+        else:
+            subscribed = [True for utag in exist[0].attrs['tags'] if utag == tag]
+            if subscribed:
+                exist[0].attrs['tags'].remove(tag)
+            else:
+                exist[0].attrs['tags'].append(tag)
+        soup_tags.reindex()
+
+        if IPloneSiteRoot.providedBy(self.context):
+            self.request.response.redirect(self.context.absolute_url() + '/alltags')
+        else:
+            self.request.response.redirect(self.context.absolute_url())

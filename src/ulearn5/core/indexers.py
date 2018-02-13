@@ -1,6 +1,7 @@
 from zope.interface import implementer
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
+from repoze.catalog.indexes.keyword import CatalogKeywordIndex
 from repoze.catalog.indexes.text import CatalogTextIndex
 from souper.interfaces import ICatalogFactory
 from souper.soup import NodeAttributeIndexer
@@ -22,5 +23,18 @@ class MenuQuickLinksCatalogFactory(object):
         catalog['dades'] = CatalogFieldIndex(containerindexer)
         return catalog
 
-
 grok.global_utility(MenuQuickLinksCatalogFactory, name="menu_soup")
+
+
+@implementer(ICatalogFactory)
+class UserSubscribedTagsSoupCatalog(object):
+    def __call__(self, context):
+        catalog = Catalog()
+        idindexer = NodeAttributeIndexer('id')
+        catalog['id'] = CatalogFieldIndex(idindexer)
+        hashindex = NodeAttributeIndexer('tags')
+        catalog['tags'] = CatalogKeywordIndex(hashindex)
+
+        return catalog
+
+grok.global_utility(UserSubscribedTagsSoupCatalog, name='user_subscribed_tags')
