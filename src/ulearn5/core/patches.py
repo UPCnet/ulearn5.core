@@ -7,6 +7,7 @@ from zope.component import getUtilitiesFor
 from zope.interface import implements
 from souper.interfaces import ICatalogFactory
 
+from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from zExceptions import Forbidden
 from Products.CMFCore.interfaces import ISiteRoot
