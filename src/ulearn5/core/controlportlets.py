@@ -62,15 +62,6 @@ class IPortletsSettings(Interface):
         default=True,
         )
 
-    mrs5_max_maxuiactivity = schema.Bool(
-        title=_(u'mrs_maxactivity_widget',
-                default=_(u"Habilitar portlet mrs_maxactivity_widget")),
-        description=_(u'help_mrs_maxactivity_widget',
-                      default=_(u"Habilita el portlet mrs_maxactivity_widget.")),
-        required=False,
-        default=False,
-        )
-
     mrs5_max_maxuichat = schema.Bool(
         title=_(u'mrs_maxchat_widget',
                 default=_(u"Habilitar portlet mrs_maxchat_widget")),
