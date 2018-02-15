@@ -118,6 +118,7 @@ class setupHomePage(grok.View):
         from ulearn5.theme.portlets.communities import Assignment as communitiesAssignment
         from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
         from mrs5.max.portlets.maxui import Assignment as maxAssignment
+        from mrs5.max.portlets.maxuichat import Assignment as chatAssignment
         from ulearn5.theme.portlets.buttonbar.buttonbar import Assignment as buttonbarAssignment
         from ulearn5.theme.portlets.calendar import Assignment as calendarAssignment
         from ulearn5.theme.portlets.angularrouteview import Assignment as angularrouteviewAssignment
@@ -125,13 +126,17 @@ class setupHomePage(grok.View):
         # Add portlets programatically
         column = getUtility(IPortletManager, name='ContentWellPortlets.BelowTitlePortletManager1')
         manager = getMultiAdapter((frontpage, column), IPortletAssignmentMapping)
+        for portlet in manager:
+            del manager[portlet]
         chooser = INameChooser(manager)
         manager[chooser.chooseName(None, communitiesAssignment())] = communitiesAssignment()
-        #manager[chooser.chooseName(None, chatAssignment())] = chatAssignment()
+        manager[chooser.chooseName(None, chatAssignment())] = chatAssignment()
         manager[chooser.chooseName(None, thinnkersAssignment())] = thinnkersAssignment()
 
         column = getUtility(IPortletManager, name='ContentWellPortlets.BelowTitlePortletManager2')
         manager = getMultiAdapter((frontpage, column), IPortletAssignmentMapping)
+        for portlet in manager:
+            del manager[portlet]
         chooser = INameChooser(manager)
         manager[chooser.chooseName(None, angularrouteviewAssignment())] = angularrouteviewAssignment()
         manager[chooser.chooseName(None, buttonbarAssignment())] = buttonbarAssignment()
@@ -139,6 +144,8 @@ class setupHomePage(grok.View):
 
         column = getUtility(IPortletManager, name='ContentWellPortlets.BelowTitlePortletManager3')
         manager = getMultiAdapter((frontpage, column), IPortletAssignmentMapping)
+        for portlet in manager:
+            del manager[portlet]
         chooser = INameChooser(manager)
         manager[chooser.chooseName(None, calendarAssignment())] = calendarAssignment()
 
