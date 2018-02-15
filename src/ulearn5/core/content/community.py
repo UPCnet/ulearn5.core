@@ -28,6 +28,8 @@ from plone.indexer import indexer
 from plone.memoize.view import memoize_contextless
 from plone.namedfile.field import NamedBlobImage
 from plone.dexterity.interfaces import IDexterityContent
+from plone.portlets.interfaces import IPortletManager
+from plone.portlets.interfaces import IPortletRetriever
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFPlone.interfaces import IPloneSiteRoot
@@ -706,6 +708,17 @@ class View(grok.View):
             return True
         else:
             return False
+
+    def isDisplayedChat(self):
+        columns = ['plone.leftcolumn', 'plone.rightcolumn']
+        for column in columns:
+            managerColumn = getUtility(IPortletManager, name=column)
+            retriever = getMultiAdapter((self.context, managerColumn), IPortletRetriever)
+            portlets = retriever.getPortlets()
+            for portlet in portlets:
+                if portlet['name'] == 'maxuichat':
+                    return False
+        return True
 
 
 class UpdateUserAccessDateTime(grok.View):
