@@ -2,14 +2,18 @@
 from Products.CMFPlone.interfaces import INonInstallable
 from zope.interface import implementer
 from plone import api
+from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
 from plone.registry.interfaces import IRegistry
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.utils import registerPortletType
+from plone.portlets.utils import unregisterPortletType
 from Products.CMFCore.utils import getToolByName
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from ulearn5.core.controlportlets import IPortletsSettings
 
 import logging
 
@@ -95,6 +99,51 @@ def setup_ulearn_icon_set():
     api.portal.set_registry_record('base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.custom_editor_icons', ulearn_custom_icons)
 
 
+def setup_ulearn_portlets():
+    portlets_slots = ["plone.leftcolumn", "plone.rightcolumn",
+                      "ContentWellPortlets.AbovePortletManager1", "ContentWellPortlets.AbovePortletManager2",
+                      "ContentWellPortlets.AbovePortletManager3", "ContentWellPortlets.BelowPortletManager1",
+                      "ContentWellPortlets.BelowPortletManager2", "ContentWellPortlets.BelowPortletManager3",
+                      "ContentWellPortlets.BelowTitlePortletManager1", "ContentWellPortlets.BelowTitlePortletManager2",
+                      "ContentWellPortlets.BelowTitlePortletManager3"]
+
+    site = getSite()
+    activate_portlets = []
+    for manager_name in portlets_slots:
+        if 'ContentWellPortlets' in manager_name:
+            manager = getUtility(IPortletManager, name=manager_name, context=site['front-page'])
+            mapping = getMultiAdapter((site['front-page'], manager), IPortletAssignmentMapping)
+            [activate_portlets.append(item[1].title) for item in mapping.items()]
+        else:
+            manager = getUtility(IPortletManager, name=manager_name, context=site)
+            mapping = getMultiAdapter((site, manager), IPortletAssignmentMapping)
+            [activate_portlets.append(item[1].title) for item in mapping.items()]
+
+    registry = queryUtility(IRegistry)
+    portlets_tool = registry.forInterface(IPortletsSettings, check=False)
+    portlets = IPortletsSettings.namesAndDescriptions()
+    if portlets:
+        for portlet, description in portlets:
+            idPortlet = portlet.replace('_', '.')
+            valuePortlet = portlets_tool.__getattr__(portlet) if portlets_tool.__getattr__(portlet) else description.default
+
+            if valuePortlet is True:
+                registerPortletType(site,
+                                    title=portlet,
+                                    description=portlet,
+                                    addview=idPortlet)
+
+            if idPortlet.split('.')[-1] in activate_portlets:
+                valuePortlet = True
+                registerPortletType(site,
+                                    title=portlet,
+                                    description=portlet,
+                                    addview=idPortlet)
+
+            if valuePortlet is False:
+                unregisterPortletType(site, idPortlet)
+
+
 def setupVarious(context):
     # Ordinarily, GenericSetup handlers check for the existence of XML files.
     # Here, we are not parsing an XML file, but we use this text file as a
@@ -108,6 +157,7 @@ def setupVarious(context):
 
     add_catalog_indexes(portal, logger)
     setup_ulearn_icon_set()
+    setup_ulearn_portlets()
 
     # Set the default page to the homepage view
     portal.setDefaultPage('front-page')
