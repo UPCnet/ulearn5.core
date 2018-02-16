@@ -36,6 +36,7 @@ from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.browser.sharing import ElasticSharing
 from ulearn5.core.controlportlets import IPortletsSettings
+from ulearn5.core.setuphandlers import setup_ulearn_portlets
 # from ulearn5.core.api.people import Person
 
 import logging
@@ -160,6 +161,8 @@ class setupHomePage(grok.View):
         portletManager = getUtility(IPortletManager, 'ContentWellPortlets.BelowTitlePortletManager3')
         colstorage = getMultiAdapter((frontpage, portletManager), IColStorage)
         colstorage.col = '3'
+
+        setup_ulearn_portlets()
 
         registry = queryUtility(IRegistry)
         settings = registry.forInterface(ISiteSyndicationSettings)
