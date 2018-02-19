@@ -177,7 +177,27 @@
   <exit-transition transition_id="reject" />
   <exit-transition transition_id="restrict" />
   <exit-transition transition_id="retiraalaintranet" />
+  <permission-map name="Access contents information" acquired="True">
 
+  </permission-map>
+  <permission-map name="Add portal content" acquired="True">
+
+  </permission-map>
+  <permission-map name="Change portal events" acquired="True">
+
+  </permission-map>
+  <permission-map name="Delete objects" acquired="True">
+
+  </permission-map>
+  <permission-map name="List folder contents" acquired="True">
+
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="True">
+
+  </permission-map>
+  <permission-map name="View" acquired="True">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
 
 
  </state>

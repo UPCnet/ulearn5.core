@@ -5,12 +5,12 @@
   <element value="plone.app.content.interfaces.INameFromTitle"/>
   <element value="plone.app.contenttypes.behaviors.collection.ICollection"/>
   <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion"/>
-  <element
-     value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
+  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
-  <element value="plone.app.contenttypes.behaviors.richtext.IRichText"/>
+  <element value="base5.core.behaviors.richtext.IRichTextCustom"/>
   <element value="plone.app.relationfield.behavior.IRelatedItems"/>
   <element value="plone.app.lockingbehavior.behaviors.ILocking"/>
+  <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
  </property>
  <property name="view_methods">
   <element value="standard_view"/>

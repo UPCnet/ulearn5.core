@@ -3,4 +3,17 @@
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Document</property>
  <property name="description" i18n:translate="">Add a new document</property>
+
+ <property name="behaviors">
+    <element value="plone.app.content.interfaces.INameFromTitle" />
+    <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion" />
+    <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
+    <element value="plone.app.dexterity.behaviors.id.IShortName" />
+    <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
+    <element value="base5.core.behaviors.richtext.IRichTextCustom" />
+    <element value="plone.app.relationfield.behavior.IRelatedItems" />
+    <element value="plone.app.contenttypes.behaviors.tableofcontents.ITableOfContents" />
+    <element value="plone.app.lockingbehavior.behaviors.ILocking" />
+    <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
+ </property>
 </object>
