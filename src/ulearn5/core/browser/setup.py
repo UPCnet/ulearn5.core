@@ -176,7 +176,6 @@ class setupHomePage(grok.View):
 
         # Cookies
         lan_tool = registry.forInterface(ILanguageSchema, prefix='plone')
-        lan_tool.use_content_negotiation = True
         lan_tool.use_cookie_negotiation = True
 
         # Toolbar position

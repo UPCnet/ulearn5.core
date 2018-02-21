@@ -183,12 +183,15 @@ class NegotiateLanguage(object):
 
         if useCookie and not (authOnly and tool.isAnonymousUser()):
             # If we are using the cookie stuff we provide the setter here
-            set_language = tool.REQUEST.get('set_language', None)
+            set_language = request.get('set_language', None)
             if set_language:
-                langsCookie = tool.setLanguageCookie(set_language)
+                langsCookie = tool.setLanguageCookie(
+                    set_language,
+                    request=request
+                )
             else:
                 # Get from cookie
-                langsCookie = tool.getLanguageCookie()
+                langsCookie = tool.getLanguageCookie(request)
             langs.append(langsCookie)
 
         if useSubdomain:
@@ -216,10 +219,11 @@ class NegotiateLanguage(object):
         self.language = langs[0]
         self.language_list = langs[1:-1]
 
-        # Patched to meet the feature requirements for the client
-        custom_lang_cookie = request.cookies.get('I18N_LANGUAGE')
-        if custom_lang_cookie:
-            self.language = custom_lang_cookie
+        if useCookie:
+            # Patched to meet the feature requirements for the client
+            custom_lang_cookie = request.cookies.get('I18N_LANGUAGE')
+            if custom_lang_cookie:
+                self.language = custom_lang_cookie
 
 
 def authenticateCredentials(self, credentials):
