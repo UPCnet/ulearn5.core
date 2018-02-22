@@ -48,4 +48,11 @@
         replacement=".patches.addable_portlets"
         />
 
+    <monkey:patch
+        description="Hide field language"
+        class="plone.app.users.browser.personalpreferences.PersonalPreferencesPanel"
+        original="updateWidgets"
+        replacement=".patches.updateWidgetsPersonalPreferences"
+        />
+
 </configure>

@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import copy
+import z3c.form.interfaces
 
 from plone import api
 from zope.component import getUtility
@@ -14,6 +15,7 @@ from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import ILanguageSchema
 from mrs5.max.utilities import IMAXClient
+from plone.app.users.browser.personalpreferences import PersonalPreferencesPanel
 from plone.i18n.interfaces import INegotiateLanguage
 from plone.registry.interfaces import IRegistry
 from repoze.catalog.query import Eq
@@ -415,3 +417,17 @@ def addable_portlets(self):
 
     portlets.sort(key=sort_key)
     return portlets
+
+
+def updateWidgetsPersonalPreferences(self):
+    super(PersonalPreferencesPanel, self).updateWidgets()
+
+    self.widgets['language'].noValueMessage = _(
+        u"vocabulary-missing-single-value-for-edit",
+        u"Language neutral (site default)"
+    )
+    self.widgets["language"].mode = z3c.form.interfaces.HIDDEN_MODE
+    self.widgets['wysiwyg_editor'].noValueMessage = _(
+        u"vocabulary-available-editor-novalue",
+        u"Use site default"
+    )
