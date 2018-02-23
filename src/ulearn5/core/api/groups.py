@@ -23,7 +23,7 @@ class Groups(REST):
     placeholder_id = 'group'
 
     grok.adapts(APIRoot, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
 
 class Group(REST):
@@ -32,7 +32,7 @@ class Group(REST):
     """
 
     grok.adapts(Groups, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
 
 class Communities(REST):
@@ -50,7 +50,7 @@ class Communities(REST):
     """
 
     grok.adapts(Group, IPloneSiteRoot)
-    # grok.require('ulearn.APIAccess')
+    grok.require('ulearn.APIAccess')
 
     @api_resource()
     def GET(self):

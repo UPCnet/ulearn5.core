@@ -23,7 +23,7 @@ class Events(REST):
     placeholder_id = 'eventid'
 
     grok.adapts(APIRoot, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
 
 class Event(REST):
@@ -31,7 +31,7 @@ class Event(REST):
         /api/events/{eventid}
     """
     grok.adapts(Events, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
     def __init__(self, context, request):
         super(Event, self).__init__(context, request)

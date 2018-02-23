@@ -50,7 +50,7 @@ class Sync(REST):
         /api/people/sync
     """
     grok.adapts(People, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
     def __init__(self, context, request):
         super(Sync, self).__init__(context, request)
@@ -128,7 +128,7 @@ class Person(REST):
     """
 
     grok.adapts(People, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
     def __init__(self, context, request):
         super(Person, self).__init__(context, request)
@@ -343,7 +343,7 @@ class Subscriptions(REST):
     """
 
     grok.adapts(Person, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
     @api_resource()
     def GET(self):

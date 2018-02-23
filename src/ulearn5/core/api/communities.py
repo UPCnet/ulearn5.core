@@ -53,7 +53,7 @@ class Communities(REST):
     placeholder_id = 'community'
 
     grok.adapts(APIRoot, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
     @api_resource(required_roles=['Member', 'Manager'])
     def GET(self):
@@ -167,7 +167,7 @@ class Community(REST, CommunityMixin):
     """
 
     grok.adapts(Communities, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
     def __init__(self, context, request):
         super(Community, self).__init__(context, request)
@@ -267,7 +267,7 @@ class Count(REST, CommunityMixin):
     """
 
     grok.adapts(Communities, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
     def __init__(self, context, request):
         super(Count, self).__init__(context, request)
@@ -301,7 +301,7 @@ class Subscriptions(REST, CommunityMixin):
     """
 
     grok.adapts(Community, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
     @api_resource(get_target=True, required_roles=['Owner', 'Manager'])
     def GET(self):

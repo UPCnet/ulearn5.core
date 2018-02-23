@@ -26,7 +26,7 @@ class News(REST):
     placeholder_id = 'newid'
 
     grok.adapts(APIRoot, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
 
 class New(REST):
@@ -34,7 +34,7 @@ class New(REST):
         /api/news/{newid}
     """
     grok.adapts(News, IPloneSiteRoot)
-    # grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
 
     def __init__(self, context, request):
         super(New, self).__init__(context, request)

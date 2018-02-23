@@ -60,9 +60,6 @@ from ulearn5.core.interfaces import IPhotosFolder
 from ulearn5.core.interfaces import IDiscussionFolder
 from DateTime.DateTime import DateTime
 
-from zope.interface import implements
-from zope.component import adapts
-
 import json
 import logging
 import mimetypes
@@ -86,11 +83,13 @@ ORGANIZATIVE_PERMISSIONS = dict(read='subscribed',
                                 subscribe='restricted',
                                 unsubscribe='restricted')
 
+
 class CommunityForbiddenAction(Exception):
     """ Exception to be raised when trying to execute an action that
         is forbidden in the context being executed """
 
-### DEFINICIO DE COMUNITAT ###
+# DEFINICIO DE COMUNITAT
+
 
 @grok.provider(IContextSourceBinder)
 def availableCommunityTypes(context):
@@ -135,13 +134,14 @@ class ICommunity(form.Schema):
         title=_(u'Nom'),
         description=_(u'Nom de la comunitat'),
         required=True
-    )
+        )
 
     description = schema.Text(
         title=_(u'Descripció'),
         description=_(u'La descripció de la comunitat'),
         required=False
-    )
+        )
+
     form.mode(community_type='hidden')
     community_type = schema.Choice(
         title=_(u'Tipus de comunitat'),
@@ -149,7 +149,7 @@ class ICommunity(form.Schema):
         source=availableCommunityTypes,
         required=True,
         default=u'Closed'
-    )
+        )
 
     activity_view = schema.Choice(
         title=_(u'activity_view'),
@@ -192,50 +192,56 @@ class ICommunity(form.Schema):
         title=_(u'Imatge'),
         description=_(u'Imatge que defineix la comunitat'),
         required=False,
-    )
+        )
 
     twitter_hashtag = schema.TextLine(
         title=_(u'Twitter hashtag'),
         description=_(u'hashtag_help'),
         required=False
-    )
+        )
 
     notify_activity_via_push = schema.Bool(
         title=_(u'Notify activity via push'),
         description=_(u'notify_activity_via_push_help'),
         required=False
-    )
+        )
 
     notify_activity_via_push_comments_too = schema.Bool(
         title=_(u'Notify activity and comments via push'),
         description=_(u'help_notify_activity_via_push_comments_too'),
         required=False
-    )
+        )
 
 
-### INTERFICIES QUE POT IMPLEMENTAR UNA COMUNITAT ###
+# INTERFICIES QUE POT IMPLEMENTAR UNA COMUNITAT
+
 
 class ICommunityACL(Interface):
     """ Helper to retrieve the community ACL safely by adapting any ICommunity """
 
+
 class IInitializedCommunity(Interface):
     """ A Community that has been succesfully initialized """
+
 
 class ICommunityTyped(Interface):
     """ The adapter for the ICommunity It would adapt the Community instances in
         order to have a centralized way of dealing with community types and the
         common processes with them. """
 
+
 class ICommunityInitializeAdapter(Interface):
     """ The marker interface for initialize community adapter used for a especific
         folders and templates. The idea is to have a default (core) action and
         then other that override the default one using IBrowserLayer """
+
 
 #@grok.implementer(ICommunityACL)
 #@grok.adapter(ICommunity)
 class GetCommunityACL(object):
     implements(ICommunityACL)
     adapts(ICommunity)
+
     def __init__(self, context):
         self.context = context
 
@@ -250,7 +256,8 @@ class GetCommunityACL(object):
         else:
             return None
 
-### METODES COMUNS PER A TOTS ELS TIPUS DE COMUNITATS (PARAMETRES MAX) ###
+# METODES COMUNS PER A TOTS ELS TIPUS DE COMUNITATS (PARAMETRES MAX)
+
 
 class CommunityAdapterMixin(object):
     """ Common methods for community adapters """
@@ -299,13 +306,13 @@ class CommunityAdapterMixin(object):
             permissions=self.max_permissions,
             notifications=self.max_notifications,
             # Include notify=False
-        )
+            )
 
     def set_initial_max_metadata(self):
         # Update twitter hashtag
         self.maxclient.contexts[self.context.absolute_url()].put(
             twitterHashtag=self.context.twitter_hashtag
-        )
+            )
 
         # Update community tag
         self.maxclient.contexts[self.context.absolute_url()].tags.put(data=['[COMMUNITY]'])
@@ -545,6 +552,7 @@ class CommunityAdapterMixin(object):
         # Finally, we update the plone permissions
         self.set_plone_permissions(acl)
 
+
 class OrganizativeCommunity(CommunityAdapterMixin):
     """ Named adapter for the organizative communities """
     implements(ICommunityTyped)
@@ -557,16 +565,16 @@ class OrganizativeCommunity(CommunityAdapterMixin):
             reader={
                 'plone': ['Reader'],
                 'max': ['read']
-            },
+                },
             writer={
                 'plone': ['Reader', 'Contributor', 'Editor'],
                 'max': ['read', 'write']
-            },
+                },
             owner={
                 'plone': ['Reader', 'Contributor', 'Editor', 'Owner'],
                 'max': ['read', 'write', 'unsubscribe', 'flag', 'invite', 'kick', 'delete']
-            }
-        )
+                }
+            )
 
     def unsubscribe_user(self, user_id):
         raise CommunityForbiddenAction('Unsubscription from organizative community forbidden.')
@@ -584,6 +592,7 @@ class OrganizativeCommunity(CommunityAdapterMixin):
     def get_community_type_adapter(self):
         return 'Organizative'
 
+
 class OpenCommunity(CommunityAdapterMixin):
     """ Named adapter for the open communities """
     implements(ICommunityTyped)
@@ -597,16 +606,16 @@ class OpenCommunity(CommunityAdapterMixin):
             reader={
                 'plone': ['Reader'],
                 'max': ['read', 'unsubscribe']
-            },
+                },
             writer={
                 'plone': ['Reader', 'Contributor', 'Editor'],
                 'max': ['read', 'write', 'unsubscribe']
-            },
+                },
             owner={
                 'plone': ['Reader', 'Contributor', 'Editor', 'Owner'],
                 'max': ['read', 'write', 'unsubscribe', 'flag', 'invite', 'kick', 'delete']
-            }
-        )
+                }
+            )
 
     def set_plone_permissions(self, acl, changed=False):
         if not self.context.get_local_roles_for_userid(userid='AuthenticatedUsers'):
@@ -617,6 +626,7 @@ class OpenCommunity(CommunityAdapterMixin):
 
     def get_community_type_adapter(self):
         return 'Open'
+
 
 class ClosedCommunity(CommunityAdapterMixin):
     """ Named adapter for the closed communities """
@@ -630,16 +640,16 @@ class ClosedCommunity(CommunityAdapterMixin):
             reader={
                 'plone': ['Reader'],
                 'max': ['read', 'unsubscribe']
-            },
+                },
             writer={
                 'plone': ['Reader', 'Contributor', 'Editor'],
                 'max': ['read', 'write', 'unsubscribe']
-            },
+                },
             owner={
                 'plone': ['Reader', 'Contributor', 'Editor', 'Owner'],
                 'max': ['read', 'write', 'unsubscribe', 'flag', 'invite', 'kick', 'delete']
-            }
-        )
+                }
+            )
 
     def set_plone_permissions(self, acl, changed=False):
         if self.context.get_local_roles_for_userid(userid='AuthenticatedUsers'):
@@ -650,7 +660,6 @@ class ClosedCommunity(CommunityAdapterMixin):
 
     def subscribe_user(self, user_id):
         raise CommunityForbiddenAction('Subscription to closed community forbidden.')
-
 
     def get_community_type_adapter(self):
         return 'Closed'
@@ -668,6 +677,7 @@ class Community(Container):
 
 class View(grok.View):
     grok.context(ICommunity)
+    grok.require('zope2.View')
 
     def canEditCommunity(self):
         return checkPermission('cmf.RequestReview', self.context)
@@ -1185,7 +1195,6 @@ class CommunityInitializeAdapter(object):
     implements(ICommunityInitializeAdapter)
     adapts(ICommunity, Interface)
 
-
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -1316,7 +1325,7 @@ def delete_community(community, event):
         logger.error('There was an error deleting the community {}'.format(community.absolute_url()))
 
 
-### UTILITIES ###
+# UTILITIES
 
 @implementer(ICatalogFactory)
 class ACLSoupCatalog(object):
@@ -1354,7 +1363,8 @@ class UserCommunityAccessCatalogFactory(object):
 
 grok.global_utility(UserCommunityAccessCatalogFactory, name="user_community_access")
 
-### INDEXERS TO CATALOG ###
+# INDEXERS TO CATALOG
+
 
 @indexer(ICommunity)
 def imageFilename(context):
@@ -1365,6 +1375,7 @@ def imageFilename(context):
 
 
 grok.global_adapter(imageFilename, name='image_filename')
+
 
 @indexer(ICommunity)
 def subscribed_items(context):
