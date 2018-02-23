@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-02-13 11:22+0000\n"
+"POT-Creation-Date: 2018-02-23 10:30+0000\n"
 "PO-Revision-Date: 2014-04-14 11:20+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
 
-#: ../patches.py:355
+#: ../patches.py:362
 msgid " ."
 msgstr ""
 
@@ -22,12 +22,12 @@ msgstr ""
 msgid "/mail_password_form?userid="
 msgstr "/mail_password_form?userid="
 
-#: ../content/community.py:123
+#: ../content/community.py:125
 #: ../controlpanel.py:24
 msgid "Activitats destacades"
 msgstr "Activitats destacades"
 
-#: ../content/community.py:122
+#: ../content/community.py:124
 #: ../controlpanel.py:23
 msgid "Activitats mes valorades"
 msgstr "Activitats més valorades"
@@ -66,7 +66,7 @@ msgstr "Calendari"
 
 #: ../browser/views.py:182
 #: ../controlpanel.py:395
-#: ../controlportlets.py:358
+#: ../controlportlets.py:349
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -74,11 +74,11 @@ msgstr "Cancel·la"
 msgid "Changes saved"
 msgstr "Canvis desats"
 
-#: ../patches.py:296
+#: ../patches.py:303
 msgid "Changes saved."
 msgstr "Canvis desats"
 
-#: ../content/community.py:107
+#: ../content/community.py:109
 msgid "Closed"
 msgstr "Tancada"
 
@@ -96,7 +96,7 @@ msgstr "Estadístiques"
 msgid "Convidats moderadors"
 msgstr "Convidats moderadors"
 
-#: ../content/community.py:995
+#: ../content/community.py:1015
 msgid "Crea la comunitat"
 msgstr "Crea la comunitat"
 
@@ -104,7 +104,7 @@ msgstr "Crea la comunitat"
 msgid "Create new meeting space"
 msgstr "Crea una reunió online"
 
-#: ../content/community.py:121
+#: ../content/community.py:123
 #: ../controlpanel.py:22
 msgid "Darreres activitats"
 msgstr "Darreres activitats"
@@ -114,17 +114,17 @@ msgstr "Darreres activitats"
 msgid "Data d'inici"
 msgstr "Data d'inici"
 
-#: ../content/community.py:139
+#: ../content/community.py:141
 msgid "Descripció"
 msgstr "Descripció"
 
 #: ../browser/migrations.py:171
-#: ../content/community.py:1205
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:47
+#: ../content/community.py:1225
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:45
 msgid "Discussion"
 msgstr "Debats"
 
-#: ../content/community.py:1199
+#: ../content/community.py:1219
 msgid "Documents"
 msgstr "Documents"
 
@@ -150,7 +150,7 @@ msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícies destacades"
 
 #: ../controlpanel.py:397
-#: ../controlportlets.py:360
+#: ../controlportlets.py:351
 msgid "Edit cancelled"
 msgstr "Edició cancel·lada"
 
@@ -159,11 +159,11 @@ msgstr "Edició cancel·lada"
 msgid "Edit cancelled."
 msgstr "Edició cancel·lada"
 
-#: ../content/community.py:1098
+#: ../content/community.py:1118
 msgid "Edita la comunitat"
 msgstr "Desa"
 
-#: ../content/community.py:173
+#: ../content/community.py:175
 msgid "Editors"
 msgstr "Editores"
 
@@ -172,16 +172,16 @@ msgid "Eines"
 msgstr "Eines"
 
 #. Default: "Stream"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:12
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:11
 msgid "Entrada"
 msgstr "Activitat"
 
-#: ../content/community.py:1201
+#: ../content/community.py:1221
 msgid "Esdeveniments"
 msgstr "Esdeveniments"
 
 #. Default: "Esdeveniments"
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:35
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:33
 msgid "Events"
 msgstr "Esdeveniments"
 
@@ -222,11 +222,11 @@ msgstr "Hi ha hagut algun problema i la sesió virtual no ha estat creada."
 msgid "How many items to list."
 msgstr "Quants elements cal mostrar"
 
-#: ../content/community.py:190
+#: ../content/community.py:192
 msgid "Imatge"
 msgstr "Imatge"
 
-#: ../content/community.py:191
+#: ../content/community.py:193
 msgid "Imatge que defineix la comunitat"
 msgstr "Imatge que defineix la comunitat"
 
@@ -250,7 +250,7 @@ msgstr "Indiqueu la descripció de la sesió virtual."
 msgid "Inicio_stats"
 msgstr "Inici estadístiques"
 
-#: ulearn5/theme/configure.zcml:77
+#: ulearn5/theme/configure.zcml:75
 msgid "Installs the Plone theme package ulearn5.theme."
 msgstr "Instal·la el paquet temàtic Plone ulearn5.theme"
 
@@ -268,7 +268,7 @@ msgstr "Invitats espectadors"
 msgid "Items in which workflow state to show."
 msgstr "Estat per a mostrar els elements."
 
-#: ../content/community.py:140
+#: ../content/community.py:142
 msgid "La descripció de la comunitat"
 msgstr "La descripció de la comunitat"
 
@@ -309,7 +309,7 @@ msgid "Llista d'emails dels convidats MODERADORS, separats per comes."
 msgstr "Llista d'adreces de correu electrònic dels convidats MODERADORS, separades per comes."
 
 #: ../browser/migrations.py:213
-#: ../content/community.py:1200
+#: ../content/community.py:1220
 msgid "Media"
 msgstr "Media"
 
@@ -348,11 +348,11 @@ msgstr "Noticies flash"
 msgid "News Important"
 msgstr "Noticies importants"
 
-#: ../content/community.py:133
+#: ../content/community.py:135
 msgid "Nom"
 msgstr "Nom"
 
-#: ../content/community.py:134
+#: ../content/community.py:136
 msgid "Nom de la comunitat"
 msgstr "Nom de la comunitat"
 
@@ -365,11 +365,11 @@ msgstr "Nom de la reunió"
 msgid "None"
 msgstr ""
 
-#: ../content/community.py:208
+#: ../content/community.py:210
 msgid "Notify activity and comments via push"
 msgstr "Notificar activitat i comentaris via 'push'"
 
-#: ../content/community.py:202
+#: ../content/community.py:204
 msgid "Notify activity via push"
 msgstr "Notificar activitat via 'push'"
 
@@ -379,19 +379,19 @@ msgstr "Notificar activitat via 'push'"
 msgid "Number of items to display"
 msgstr "Elements a mostrar"
 
-#: ../content/community.py:102
+#: ../content/community.py:104
 msgid "Open"
 msgstr "Oberta"
 
-#: ../content/community.py:112
+#: ../content/community.py:114
 msgid "Organizative"
 msgstr "Organitzativa"
 
-#: ../content/community.py:182
+#: ../content/community.py:184
 msgid "Owners"
 msgstr "Propietarios"
 
-#: ../controlportlets.py:297
+#: ../controlportlets.py:288
 msgid "Portlets settings"
 msgstr "Configuració dels portlets"
 
@@ -399,7 +399,7 @@ msgstr "Configuració dels portlets"
 msgid "QuickLinks"
 msgstr "Enllaços directes"
 
-#: ../content/community.py:162
+#: ../content/community.py:164
 msgid "Readers"
 msgstr "Lectors"
 
@@ -417,15 +417,15 @@ msgstr "Desa"
 msgid "Specific"
 msgstr "Específic"
 
-#: ../content/community.py:174
+#: ../content/community.py:176
 msgid "Subscribed people with editor permissions"
 msgstr "Llista amb les persones subscrites amb permís d'edició"
 
-#: ../content/community.py:183
+#: ../content/community.py:185
 msgid "Subscribed people with owner permissions"
 msgstr "Llista amb les persones propietàries de la comunitat"
 
-#: ../content/community.py:163
+#: ../content/community.py:165
 msgid "Subscribed people with read-only permissions"
 msgstr "Llista amb les persones subscrites amb permís de lectura"
 
@@ -453,7 +453,7 @@ msgstr "Aquest portlet mostra els articles de notícies recents."
 msgid "This portlet displays subscribed News Items."
 msgstr "Aquest portlet mostra els articles de notícies subscrits."
 
-#: ../content/community.py:145
+#: ../content/community.py:147
 msgid "Tipus de comunitat"
 msgstr "Tipus de comunitat"
 
@@ -462,7 +462,7 @@ msgstr "Tipus de comunitat"
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
 
-#: ../content/community.py:196
+#: ../content/community.py:198
 msgid "Twitter hashtag"
 msgstr "Twitter hashtag"
 
@@ -514,11 +514,11 @@ msgstr "Configuració de uLearn"
 msgid "Una comunitat administrable"
 msgstr "Una comunitat administrable"
 
-#: ulearn5/theme/configure.zcml:86
+#: ulearn5/theme/configure.zcml:84
 msgid "Uninstall: ulearn5.theme"
 msgstr "Desinstal·la: ulearn5.theme"
 
-#: ulearn5/theme/configure.zcml:86
+#: ulearn5/theme/configure.zcml:84
 msgid "Uninstalls the Plone theme package ulearn5.theme."
 msgstr "Desinstal·la el paquet de temes Plone ulearn5.theme."
 
@@ -555,7 +555,7 @@ msgstr "Mostra les noticies a les que estic subscrit"
 msgid "activate_sharedwithme"
 msgstr "Mostra el que hi ha compartit amb mi"
 
-#: ../content/community.py:153
+#: ../content/community.py:155
 #: ../controlpanel.py:319
 msgid "activity_view"
 msgstr "Visualització Activitats Comunitat"
@@ -647,7 +647,7 @@ msgid "campus_url"
 msgstr "Adreça web del Campus"
 
 #. Default: "Habilitar portlet collective_polls_VotePortlet"
-#: ../controlportlets.py:147
+#: ../controlportlets.py:138
 msgid "collective_polls_VotePortlet"
 msgstr "Habilitar portlet Enquestes"
 
@@ -673,11 +673,11 @@ msgid "communities"
 msgstr "Comunitats"
 
 #. Default: "This is an open community, but you are not currently subscribed."
-#: ../content/community_templates/view.pt:43
+#: ../content/community_templates/view.pt:20
 msgid "community_open_and_no_subscribed"
 msgstr "Aquesta comunitat és oberta, però actualment no hi estàs subscrit"
 
-#: ../content/community.py:146
+#: ../content/community.py:148
 msgid "community_type_description"
 msgstr ""
 "Oberta: Pública (la veu tothom) i et pots subscriure i desubscriure't. \n"
@@ -685,17 +685,17 @@ msgstr ""
 " Organitzativa: Només et pot subscriure un administrador i no et pots desubscriure't."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1045
+#: ../content/community.py:1065
 msgid "comunitat_creada"
 msgstr "La comunitat ${comunitat} ha estat creada."
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1021
+#: ../content/community.py:1041
 msgid "comunitat_existeix"
 msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1151
+#: ../content/community.py:1171
 msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
@@ -724,7 +724,7 @@ msgstr "Telèfon de contacte"
 msgid "createcommunity"
 msgstr "Crear una comunitat"
 
-#: ulearn5/theme/browser/user_profile.py:106
+#: ulearn5/theme/browser/user_profile.py:97
 msgid "description"
 msgstr "Descripció"
 
@@ -749,7 +749,7 @@ msgstr "Reunions online"
 msgid "editcommunity"
 msgstr "Editar la comunitat"
 
-#: ulearn5/theme/browser/user_profile.py:106
+#: ulearn5/theme/browser/user_profile.py:97
 msgid "email"
 msgstr "Adreça de correu"
 
@@ -802,7 +802,7 @@ msgstr "Cerca..."
 msgid "flashesinformativos"
 msgstr "Última hora"
 
-#: ulearn5/theme/browser/user_profile.py:106
+#: ulearn5/theme/browser/user_profile.py:97
 msgid "fullname"
 msgstr "Nom complert"
 
@@ -816,7 +816,7 @@ msgstr "Veure els meus cursos del Campus"
 msgid "gotolibrary"
 msgstr "Veure la llibreria"
 
-#: ../content/community.py:197
+#: ../content/community.py:199
 msgid "hashtag_help"
 msgstr "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el '#'."
 
@@ -840,7 +840,7 @@ msgstr "Mostra o no el botó de Noticies a la tile central de les comunitats"
 msgid "help_activate_sharedwithme"
 msgstr "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 
-#: ../content/community.py:154
+#: ../content/community.py:156
 #: ../controlpanel.py:320
 msgid "help_activity_view"
 msgstr "Selecciona el mode de visualització de les activitats de la comunitat"
@@ -887,7 +887,7 @@ msgid "help_campus_url"
 msgstr "Afegiu la URL del Campus associat a aquestes comunitats."
 
 #. Default: "Habilita el portlet collective_polls_VotePortlet."
-#: ../controlportlets.py:149
+#: ../controlportlets.py:140
 msgid "help_collective_polls_VotePortlet"
 msgstr "Habilita el portlet Enquestes."
 
@@ -906,10 +906,16 @@ msgstr "Aquest és el color per les comunitats obertes."
 msgid "help_color_community_organizative"
 msgstr "Aquest és el color per les comunitats organitzatives."
 
+#. Default: "We will use this address if you need to recover your password"
+#: ../profiles/default/userschema.xml
+msgid "help_email"
+msgstr "Indica el teu correu (s'utilizarà en el cas de restablir la contrasenya)."
+
 #. Default: "Enter full name, e.g. John Smith."
+#: ../profiles/default/userschema.xml
 #: ../userschema.py:40
 msgid "help_full_name_creation"
-msgstr ""
+msgstr "Indica el nom sencer, per exemple, John Smith."
 
 #. Default: "The URL for your external home page, if you have one."
 #: ../profiles/default/userschema.xml
@@ -970,13 +976,8 @@ msgstr "Aquest és el color del fons del widget de MAX."
 msgid "help_mrs_max_widget"
 msgstr "Habilita el portlet MAX UI."
 
-#. Default: "Habilita el portlet mrs_maxactivity_widget."
-#: ../controlportlets.py:68
-msgid "help_mrs_maxactivity_widget"
-msgstr "Habilita el portlet MAX UI: Activitat."
-
 #. Default: "Habilita el portlet mrs_maxchat_widget."
-#: ../controlportlets.py:77
+#: ../controlportlets.py:68
 msgid "help_mrs_maxchat_widget"
 msgstr "Habilita el portlet MAX UI: Xat."
 
@@ -985,37 +986,37 @@ msgstr "Habilita el portlet MAX UI: Xat."
 msgid "help_navigation_title"
 msgstr "Títol de l'arbre de navegació"
 
-#: ../content/community.py:209
+#: ../content/community.py:211
 msgid "help_notify_activity_via_push_comments_too"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat i els comentaris d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
 #. Default: "Habilita el portlet plone_portlet_collection_Collection."
-#: ../controlportlets.py:104
+#: ../controlportlets.py:95
 msgid "help_plone_portlet_collection_Collection"
 msgstr "Habilita el portlet Col·lecció."
 
 #. Default: "Habilita el portlet plone_portlet_static_Static."
-#: ../controlportlets.py:140
+#: ../controlportlets.py:131
 msgid "help_plone_portlet_static_Static"
 msgstr "Habilita el portlet Static."
 
 #. Default: "Habilita el portlet portlets_Calendar."
-#: ../controlportlets.py:95
+#: ../controlportlets.py:86
 msgid "help_portlets_Calendar"
 msgstr "Habilita el portlet Calendari."
 
 #. Default: "Habilita el portlet portlets_Events."
-#: ../controlportlets.py:86
+#: ../controlportlets.py:77
 msgid "help_portlets_Events"
 msgstr "Habilita el portlet Esdeveniments."
 
 #. Default: "Habilita el portlet portlets_Login."
-#: ../controlportlets.py:113
+#: ../controlportlets.py:104
 msgid "help_portlets_Login"
 msgstr "Habilita el portlet Login."
 
 #. Default: "Habilita el portlet portlets_Navigation."
-#: ../controlportlets.py:122
+#: ../controlportlets.py:113
 msgid "help_portlets_Navigation"
 msgstr "Habilita el portlet Navegació."
 
@@ -1041,12 +1042,12 @@ msgid "help_portlets_Search"
 msgstr "Habilita el portlet Cercador."
 
 #. Default: "Habilita el portlet portlets_rss."
-#: ../controlportlets.py:131
+#: ../controlportlets.py:122
 msgid "help_portlets_rss"
 msgstr "Habilita el portlet RSS."
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:298
+#: ../controlportlets.py:289
 msgid "help_portlets_settings_editform"
 msgstr "Configuració de portlets. Configura els portlets permesos."
 
@@ -1098,62 +1099,62 @@ msgid "help_ubicacio"
 msgstr "Equip, Àrea / Companyia / Departament"
 
 #. Default: "Habilita el portlet angular per a poder fer ús de les rutes angularjs."
-#: ../controlportlets.py:167
+#: ../controlportlets.py:158
 msgid "help_ulearn_angularRouteView"
 msgstr "Habilita el portlet angular per a poder fer ús de les rutes angularjs."
 
 #. Default: "Habilita el portlet botonera central."
-#: ../controlportlets.py:176
+#: ../controlportlets.py:167
 msgid "help_ulearn_button_bar"
 msgstr "Habilita el portlet botonera central."
 
 #. Default: "Habilita el portlet per a mostrar el calendari amb els events."
-#: ../controlportlets.py:221
+#: ../controlportlets.py:212
 msgid "help_ulearn_calendar"
 msgstr "Habilita el portlet per a mostrar el calendari amb els esdeveniments."
 
 #. Default: "Habilita el portlet lateral on mostra les comunitats favorites."
-#: ../controlportlets.py:185
+#: ../controlportlets.py:176
 msgid "help_ulearn_communities"
 msgstr "Habilita el portlet lateral on mostra les comunitats favorites."
 
 #. Default: "Habilita el portlet."
-#: ../controlportlets.py:266
+#: ../controlportlets.py:257
 msgid "help_ulearn_discussion"
 msgstr "Habilita el portlet Debats."
 
 #. Default: "Habilita el portlet eConnect."
-#: ../controlportlets.py:275
+#: ../controlportlets.py:266
 msgid "help_ulearn_econnect"
 msgstr "Habilita el portlet eConnect."
 
 #. Default: "Habilita el portlet para mostrar las notícias en el flash informativo."
-#: ../controlportlets.py:248
+#: ../controlportlets.py:239
 msgid "help_ulearn_portlets_flashesinformativos"
 msgstr "Habilita el portlet para mostrar las notícias en el flash informativo."
 
 #. Default: "Habilita el portlet para mostrar las notícias marcadas como destacadas."
-#: ../controlportlets.py:257
+#: ../controlportlets.py:248
 msgid "help_ulearn_portlets_importantnews"
 msgstr "Habilita el portlet para mostrar las notícias marcadas como destacadas."
 
 #. Default: "Habilita el portlet per a poder veure els meus cursos del EVA."
-#: ../controlportlets.py:239
+#: ../controlportlets.py:230
 msgid "help_ulearn_portlets_mysubjects"
 msgstr "Habilita el portlet per a poder veure els meus cursos del EVA."
 
 #. Default: "Habilita portlet amb el núvol de tags."
-#: ../controlportlets.py:158
+#: ../controlportlets.py:149
 msgid "help_ulearn_portlets_mytags"
 msgstr "Habilita portlet amb el núvol de tags."
 
 #. Default: "Habilita el portlet on mostra el perfil usuari, o la comunitat on estem."
-#: ../controlportlets.py:194
+#: ../controlportlets.py:185
 msgid "help_ulearn_profile"
 msgstr "Habilita el portlet on mostra el perfil d'usuari, o de la comunitat on estem."
 
 #. Default: "Habilita el portlet on mostra el perfil de la comunitat on estem."
-#: ../controlportlets.py:203
+#: ../controlportlets.py:194
 msgid "help_ulearn_profilecommunity"
 msgstr "Habilita el portlet on mostra el perfil de la comunitat on estem."
 
@@ -1163,17 +1164,17 @@ msgid "help_ulearn_settings_editform"
 msgstr "Configuració de uLearn"
 
 #. Default: "Habilita el portlet per a veure el compartit amb mi."
-#: ../controlportlets.py:230
+#: ../controlportlets.py:221
 msgid "help_ulearn_sharedwithme"
 msgstr "Habilita el portlet per a veure el compartit amb mi."
 
 #. Default: "Habilita el portlet per a veure les estadístiques."
-#: ../controlportlets.py:284
+#: ../controlportlets.py:275
 msgid "help_ulearn_stats"
 msgstr "Habilita el portlet per a veure les estadístiques."
 
 #. Default: "Habilita el portlet on es mostren els usuaris, amb la cerca ."
-#: ../controlportlets.py:212
+#: ../controlportlets.py:203
 msgid "help_ulearn_thinkers"
 msgstr "Habilita el portlet on es mostren els usuaris, amb la cerca."
 
@@ -1197,7 +1198,7 @@ msgstr "Token to connect to moodle."
 msgid "help_wsurl"
 msgstr "Url on moodle."
 
-#: ulearn5/theme/browser/user_profile.py:106
+#: ulearn5/theme/browser/user_profile.py:97
 msgid "home_page"
 msgstr "Pàgina personal"
 
@@ -1206,7 +1207,7 @@ msgid "importantnews"
 msgstr "Notícies importants"
 
 #. Default: "Info"
-#: ../content/community_templates/view.pt:40
+#: ../content/community_templates/view.pt:17
 msgid "info"
 msgstr "Informació"
 
@@ -1264,14 +1265,16 @@ msgid "label_edit_community"
 msgstr "Modificar comunitat"
 
 #. Default: "E-mail"
+#: ../profiles/default/userschema.xml
 #: ../userschema.py:45
 msgid "label_email"
-msgstr ""
+msgstr "Correu"
 
 #. Default: "Full Name"
+#: ../profiles/default/userschema.xml
 #: ../userschema.py:39
 msgid "label_full_name"
-msgstr ""
+msgstr "Nom complet"
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:53
 msgid "label_go_subject"
@@ -1383,7 +1386,7 @@ msgstr "Llindar del Winwinn 2"
 msgid "llindar_winwin3"
 msgstr "Llindar del Winwinn 3"
 
-#: ulearn5/theme/browser/user_profile.py:106
+#: ulearn5/theme/browser/user_profile.py:97
 msgid "location"
 msgstr "Localització"
 
@@ -1393,32 +1396,32 @@ msgid "main_color"
 msgstr "Color principal"
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:334
+#: ../patches.py:341
 msgid "manage_homepage_portlets_description"
 msgstr "Gestiona els portlets de la pàgina inicial"
 
 #. Default: "Homepage"
-#: ../patches.py:333
+#: ../patches.py:340
 msgid "manage_homepage_portlets_title"
 msgstr "Pàgina inicial"
 
 #. Default: "Manage left portlets"
-#: ../patches.py:373
+#: ../patches.py:380
 msgid "manage_left_portlets_description"
 msgstr "Gestiona els portlets de l'esquerra"
 
 #. Default: "Left"
-#: ../patches.py:372
+#: ../patches.py:379
 msgid "manage_left_portlets_title"
 msgstr "Esquerra"
 
 #. Default: "Manage right portlets"
-#: ../patches.py:376
+#: ../patches.py:383
 msgid "manage_right_portlets_description"
 msgstr "Gestiona els portlets de la dreta"
 
 #. Default: "Right"
-#: ../patches.py:375
+#: ../patches.py:382
 msgid "manage_right_portlets_title"
 msgstr "Dreta"
 
@@ -1462,18 +1465,13 @@ msgstr "S'ha actualitzat el menú satisfactòriament."
 msgid "mrs_max_widget"
 msgstr "Habilitar portlet MAX UI"
 
-#. Default: "Habilitar portlet mrs_maxactivity_widget"
-#: ../controlportlets.py:66
-msgid "mrs_maxactivity_widget"
-msgstr "Habilitar portlet MAX UI: Activitat"
-
 #. Default: "Habilitar portlet mrs_maxchat_widget"
-#: ../controlportlets.py:75
+#: ../controlportlets.py:66
 msgid "mrs_maxchat_widget"
 msgstr "Habilitar portlet MAX UI: Xat"
 
 #. Default: "My communities"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:21
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:20
 msgid "my_communities"
 msgstr "Comunitats"
 
@@ -1499,7 +1497,7 @@ msgid "newevent"
 msgstr "Crear un esdeveniment "
 
 #. Default: "Noticies"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:30
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:29
 msgid "news"
 msgstr "Notícies"
 
@@ -1517,7 +1515,7 @@ msgstr "Persones no visibles"
 msgid "not_events_for_today"
 msgstr "Avui no hi ha esdeveniments"
 
-#: ../content/community.py:203
+#: ../content/community.py:205
 msgid "notify_activity_via_push_help"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
@@ -1526,32 +1524,32 @@ msgid "people_literal"
 msgstr "Literals d'identificació de persones"
 
 #. Default: "Habilitar portlet plone_portlet_collection_Collection"
-#: ../controlportlets.py:102
+#: ../controlportlets.py:93
 msgid "plone_portlet_collection_Collection"
 msgstr "Habilitar portlet Col·lecció"
 
 #. Default: "Habilitar portlet plone_portlet_static_Static"
-#: ../controlportlets.py:138
+#: ../controlportlets.py:129
 msgid "plone_portlet_static_Static"
 msgstr "Habilitar portlet Static"
 
 #. Default: "Habilitar portlet portlets_Calendar"
-#: ../controlportlets.py:93
+#: ../controlportlets.py:84
 msgid "portlets_Calendar"
 msgstr "Habilitar portlet Calendari"
 
 #. Default: "Habilitar portlet portlets_Events"
-#: ../controlportlets.py:84
+#: ../controlportlets.py:75
 msgid "portlets_Events"
 msgstr "Habilitar portlet Esdeveniments"
 
 #. Default: "Habilitar portlet portlets_Login"
-#: ../controlportlets.py:111
+#: ../controlportlets.py:102
 msgid "portlets_Login"
 msgstr "Habilitar portlet Login"
 
 #. Default: "Habilitar portlet portlets_Navigation"
-#: ../controlportlets.py:120
+#: ../controlportlets.py:111
 msgid "portlets_Navigation"
 msgstr "Habilitar portlet Navegació"
 
@@ -1576,7 +1574,7 @@ msgid "portlets_Search"
 msgstr "Habilitar portlet Cercador"
 
 #. Default: "Habilitar portlet portlets_rss"
-#: ../controlportlets.py:129
+#: ../controlportlets.py:120
 msgid "portlets_rss"
 msgstr "Habilitar portlet RSS"
 
@@ -1696,7 +1694,7 @@ msgid "shared_content_title"
 msgstr "Accès a tot el contingut compartit"
 
 #. Default: "Shared with me"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:39
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 msgid "shared_with_me"
 msgstr "Compartit"
@@ -1739,7 +1737,7 @@ msgid "subjects"
 msgstr "Assignatures"
 
 #. Default: "Subscribe"
-#: ../content/community_templates/view.pt:48
+#: ../content/community_templates/view.pt:25
 msgid "subscribe"
 msgstr "Subscriure"
 
@@ -1753,7 +1751,7 @@ msgstr "Detalls de l'esdeveniment"
 msgid "teacher"
 msgstr "Professor"
 
-#: ulearn5/theme/browser/user_profile.py:106
+#: ulearn5/theme/browser/user_profile.py:97
 msgid "telefon"
 msgstr "Tèlefon"
 
@@ -1782,11 +1780,11 @@ msgstr "Persones"
 msgid "title_add_to_ical"
 msgstr "Baixeu aquest esdeveniment en format iCal"
 
-#: ulearn5/theme/browser/user_profile.py:106
+#: ulearn5/theme/browser/user_profile.py:97
 msgid "twitter_username"
 msgstr "Usuari de Twitter"
 
-#: ulearn5/theme/browser/user_profile.py:106
+#: ulearn5/theme/browser/user_profile.py:97
 msgid "ubicacio"
 msgstr "Ubicació"
 
@@ -1798,48 +1796,48 @@ msgstr "ulearn5.core"
 msgid "ulearn5.core (uninstall)"
 msgstr "ulearn5.core (desinstal·lar)"
 
-#: ulearn5/theme/configure.zcml:77
+#: ulearn5/theme/configure.zcml:75
 msgid "ulearn5.theme"
 msgstr "ulearn5.theme"
 
 #. Default: "Activity"
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:13
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:11
 msgid "ulearn_activity"
 msgstr "Activitat"
 
 #. Default: "Habilitar portlet angularRouteView"
-#: ../controlportlets.py:165
+#: ../controlportlets.py:156
 msgid "ulearn_angularRouteView"
 msgstr "Habilitar portlet Ulearn AngularRouteView"
 
 #. Default: "Habilitar portlet Ulearn Button Bar"
-#: ../controlportlets.py:174
+#: ../controlportlets.py:165
 msgid "ulearn_button_bar"
 msgstr "Habilitar portlet Ulearn Button Bar"
 
 #. Default: "Habilitar portlet ulearn Calendar"
-#: ../controlportlets.py:219
+#: ../controlportlets.py:210
 msgid "ulearn_calendar"
 msgstr "Habilitar portlet Ulearn Calendari"
 
 #. Default: "Habilitar portlet Ulearn Comunnities"
-#: ../controlportlets.py:183
+#: ../controlportlets.py:174
 msgid "ulearn_communities"
 msgstr "Habilitar portlet Ulearn Comunitats"
 
 #. Default: "Habilitar portlet Ulearn Discussion"
-#: ../controlportlets.py:264
+#: ../controlportlets.py:255
 msgid "ulearn_discussion"
 msgstr "Habilitar portlet Ulearn Debats"
 
 #. Default: "Documents"
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:24
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:22
 #: ulearn5/theme/portlets/templates/stats.pt:42
 msgid "ulearn_documents"
 msgstr "Documents"
 
 #. Default: "Habilitar portlet Ulearn eConnect"
-#: ../controlportlets.py:273
+#: ../controlportlets.py:264
 msgid "ulearn_econnect"
 msgstr "Habilitar portlet Ulearn eConnect"
 
@@ -1854,47 +1852,47 @@ msgid "ulearn_media"
 msgstr "Media"
 
 #. Default: "Habilitar portlet flashesinformativos"
-#: ../controlportlets.py:246
+#: ../controlportlets.py:237
 msgid "ulearn_portlets_flashesinformativos"
 msgstr "Habilitar portlet Ulearn Flashes Informatius"
 
 #. Default: "Habilitar portlet importantnews"
-#: ../controlportlets.py:255
+#: ../controlportlets.py:246
 msgid "ulearn_portlets_importantnews"
 msgstr "Habilitar portlet Ulearn Notícies destacades"
 
 #. Default: "Habilitar portlet ulearn_portlets_mysubjects"
-#: ../controlportlets.py:237
+#: ../controlportlets.py:228
 msgid "ulearn_portlets_mysubjects"
 msgstr "Habilitar portlet Ulearn Els meus cursos"
 
 #. Default: "Habilitar portlet ulearn_portlets_mytags"
-#: ../controlportlets.py:156
+#: ../controlportlets.py:147
 msgid "ulearn_portlets_mytags"
 msgstr "Habilitar portlet Ulearn Les meves etiquetes"
 
 #. Default: "Habilitar portlet Ulearn Profile"
-#: ../controlportlets.py:192
+#: ../controlportlets.py:183
 msgid "ulearn_profile"
 msgstr "Habilitar portlet Ulearn Perfil"
 
 #. Default: "Habilitar portlet Ulearn Profile Community"
-#: ../controlportlets.py:201
+#: ../controlportlets.py:192
 msgid "ulearn_profilecommunity"
 msgstr "Habilitar portlet Ulearn Perfil Comunitat"
 
 #. Default: "Habilitar portlet compartit amb mi"
-#: ../controlportlets.py:228
+#: ../controlportlets.py:219
 msgid "ulearn_sharedwithme"
 msgstr "Habilitar portlet Ulearn Compartit amb mi"
 
 #. Default: "Habilitar portlet Ulearn Stats"
-#: ../controlportlets.py:282
+#: ../controlportlets.py:273
 msgid "ulearn_stats"
 msgstr "Habilitar portlet Ulearn Estadístiques"
 
 #. Default: "Habilitar portlet Ulearn Thinkers"
-#: ../controlportlets.py:210
+#: ../controlportlets.py:201
 msgid "ulearn_thinkers"
 msgstr "Habilitar portlet Ulearn Persones"
 
@@ -1920,6 +1918,16 @@ msgstr "URL del video"
 #: ../content/video_embed.py:20
 msgid "video_url_description"
 msgstr "Afegeix l'adreça web del video de youtube"
+
+#. Default: "Use site default"
+#: ../patches.py:430
+msgid "vocabulary-available-editor-novalue"
+msgstr "Utilitza el lloc predeterminat"
+
+#. Default: "Language neutral (site default)"
+#: ../patches.py:425
+msgid "vocabulary-missing-single-value-for-edit"
+msgstr "Idioma neutral (predeterminat del lloc)"
 
 #. Default: "<i class=\"fa fa-arrow-circle-right\"></i> Create a new session"
 #: ulearn5/theme/portlets/templates/econnect.pt:8

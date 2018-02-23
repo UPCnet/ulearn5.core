@@ -33,7 +33,7 @@
 
     </div>
 
-    <span id="view_conversations" tal:attributes="data-showConversations view/isDisplayedChat">
+    <span id="view_conversations" tal:attributes="data-showConversations view/isDisplayedChat"></span>
     <div class="tab-pane active" id="maxui-widget-container"></div>
     <script type="text/javascript"
       tal:attributes="src string:${context/absolute_url}/communityVariables.js">

@@ -26,7 +26,7 @@ msgstr "Portlet Recents"
 msgid "portlets_News"
 msgstr "Portlet News"
 
-msgid "mrs5_max_maxuichat"
+msgid "mrs5_max_maxui"
 msgstr "Portlet MAX UI"
 
 msgid "mrs5_max_maxuiactivity"
