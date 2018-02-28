@@ -674,6 +674,13 @@ class Community(Container):
         adapter = getMultiAdapter((self, request), ICommunityTyped, name=effective_name)
         return adapter
 
+    def canSetDefaultPage(self):
+        """
+        Override BrowserDefaultMixin because default page stuff doesn't make
+        sense for topics.
+        """
+        return False
+
 
 class View(grok.View):
     grok.context(ICommunity)
