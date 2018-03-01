@@ -11,13 +11,7 @@
     <element value="ulearn.community"/>
     <element value="privateFolder"/>
  </property>
- <property name="default_view">homepage</property>
+ <property name="default_view"></property>
  <property name="view_methods">
-  <element value="homepage"/>
-  <element value="listing_view"/>
-  <element value="summary_view"/>
-  <element value="full_view"/>
-  <element value="tabular_view"/>
-  <element value="album_view"/>
  </property>
 </object>
