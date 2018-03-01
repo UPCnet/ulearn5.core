@@ -38,14 +38,22 @@
         description="Homepage in portlets administrator"
         class="plone.app.contentmenu.menu.PortletManagerMenu"
         original="getMenuItems"
-        replacement=".patches.getMenuItems"
+        replacement=".patches.getPortletMenuItems"
         />
+
 
     <monkey:patch
         description="Translate title portlets"
         class="plone.app.portlets.browser.editmanager.EditPortletManagerRenderer"
         original="addable_portlets"
         replacement=".patches.addable_portlets"
+        />
+
+    <monkey:patch
+        description="Translate title displays"
+        class="Products.CMFDynamicViewFTI.browserdefault.BrowserDefaultMixin"
+        original="getAvailableLayouts"
+        replacement=".patches.getAvailableLayouts"
         />
 
     <monkey:patch

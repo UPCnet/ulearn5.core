@@ -3,16 +3,21 @@ import copy
 import z3c.form.interfaces
 
 from plone import api
+from zope.component import getSiteManager
 from zope.component import getUtility
 from zope.component import getUtilitiesFor
 from zope.interface import implements
+from zope.interface import providedBy
 from souper.interfaces import ICatalogFactory
 
+from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from zExceptions import Forbidden
 from Products.CMFCore.interfaces import ISiteRoot
+from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import utils
 from Products.CMFPlone.interfaces import ILanguageSchema
 from mrs5.max.utilities import IMAXClient
 from plone.app.users.browser.personalpreferences import PersonalPreferencesPanel
@@ -319,7 +324,7 @@ from plone.protect.utils import addTokenToUrl
 from ulearn5.core import _
 from zope.component.hooks import getSite
 
-def getMenuItems(self, context, request):
+def getPortletMenuItems(self, context, request):
         """Return menu item entries in a TAL-friendly form."""
         items = []
         sm = getSecurityManager()
@@ -387,7 +392,6 @@ def getMenuItems(self, context, request):
         return items
 
 
-
 def addable_portlets(self):
     baseUrl = self.baseUrl()
     addviewbase = baseUrl.replace(self.context_url(), '')
@@ -417,6 +421,24 @@ def addable_portlets(self):
 
     portlets.sort(key=sort_key)
     return portlets
+
+
+security = ClassSecurityInfo()
+
+@security.protected(View)
+def getAvailableLayouts(self):
+    # Get the layouts registered for this object from its FTI.
+    fti = self.getTypeInfo()
+    if fti is None:
+        return ()
+    result = []
+    method_ids = fti.getAvailableViewMethods(self)
+    current = api.user.get_current()
+    lang = current.getProperty('language')
+    for mid in method_ids:
+        title = self.translate(mid, domain='ulearn.displays', target_language=lang)
+        result.append((mid, title))
+    return result
 
 
 def updateWidgetsPersonalPreferences(self):
