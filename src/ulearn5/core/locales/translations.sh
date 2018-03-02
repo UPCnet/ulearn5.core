@@ -1,14 +1,15 @@
 #!/bin/bash
 
-domain=ulearn
+DOMAINS="ulearn ulearn.portlets ulearn.displays"
+LANGUAGES="ca es en"
 
-msgfmt -o ca/LC_MESSAGES/$domain.mo  ca/LC_MESSAGES/$domain.po
-msgfmt -o es/LC_MESSAGES/$domain.mo  es/LC_MESSAGES/$domain.po
-msgfmt -o en/LC_MESSAGES/$domain.mo  en/LC_MESSAGES/$domain.po
-
-
-domain=ulearn.portlets
-
-msgfmt -o ca/LC_MESSAGES/$domain.mo  ca/LC_MESSAGES/$domain.po
-msgfmt -o es/LC_MESSAGES/$domain.mo  es/LC_MESSAGES/$domain.po
-msgfmt -o en/LC_MESSAGES/$domain.mo  en/LC_MESSAGES/$domain.po
+for domain in $DOMAINS
+do
+  for language in $LANGUAGES
+  do
+    if [ -f "$language/LC_MESSAGES/$domain.mo" ]
+    then
+      msgfmt -o $language/LC_MESSAGES/$domain.mo  $language/LC_MESSAGES/$domain.po
+    fi
+  done
+done

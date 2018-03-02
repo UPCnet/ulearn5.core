@@ -273,7 +273,7 @@ class IUlearnControlPanelSettings(model.Schema):
     language = schema.Choice(
         title=_(u'language',
                 default=_(u'Idioma de l\'espai')),
-        description=_(u'help_language',
+        description=_(u'help_site_language',
                       default=_(u'Aquest és l\'idioma de l\'espai, que es configura quan el paquet es reinstala.')),
         required=True,
         values=['ca', 'es', 'en'],

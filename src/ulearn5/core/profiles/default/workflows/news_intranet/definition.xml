@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="news_intranet" title="News intranet workflow" description="Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)." state_variable="review_state"         initial_state="esborrany" manager_bypass="False" >
+<dc-workflow
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="ulearn"
+  workflow_id="news_intranet" title="News intranet workflow"
+  description="Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)."
+  state_variable="review_state" initial_state="esborrany" manager_bypass="False"
+  i18n:attributes="title; description">
 
  <permission>Access contents information</permission>
  <permission>Add portal content</permission>
@@ -8,7 +13,8 @@
  <permission>List folder contents</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
- <state state_id="esborrany" title="Draft" >
+
+ <state state_id="esborrany" title="Draft" i18n:attributes="title">
   <exit-transition transition_id="hide" />
   <exit-transition transition_id="publicaalaintranet" />
   <exit-transition transition_id="publish" />
@@ -19,9 +25,7 @@
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="Add portal content" acquired="True">
-
-  </permission-map>
+  <permission-map name="Add portal content" acquired="True" />
   <permission-map name="Change portal events" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -34,9 +38,7 @@
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="List folder contents" acquired="True">
-
-  </permission-map>
+  <permission-map name="List folder contents" acquired="True" />
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -49,10 +51,9 @@
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-
-
  </state>
- <state state_id="intranet" title="Intranet" >
+
+ <state state_id="intranet" title="Intranet" i18n:attributes="title">
   <exit-transition transition_id="publish" />
   <exit-transition transition_id="retiraaesborrany" />
   <exit-transition transition_id="submit" />
@@ -63,9 +64,7 @@
    <permission-role>Reader</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="Add portal content" acquired="True">
-
-  </permission-map>
+  <permission-map name="Add portal content" acquired="True" />
   <permission-map name="Change portal events" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -78,9 +77,7 @@
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="List folder contents" acquired="True">
-
-  </permission-map>
+  <permission-map name="List folder contents" acquired="True" />
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -94,10 +91,9 @@
    <permission-role>Reader</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-
-
  </state>
- <state state_id="pending" title="Pending review" >
+
+ <state state_id="pending" title="Pending review" i18n:attributes="title">
   <exit-transition transition_id="publica" />
   <exit-transition transition_id="reject" />
   <exit-transition transition_id="retiraalaintranet" />
@@ -108,9 +104,7 @@
    <permission-role>Reader</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="Add portal content" acquired="True">
-
-  </permission-map>
+  <permission-map name="Add portal content" acquired="True" />
   <permission-map name="Change portal events" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -123,9 +117,7 @@
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="List folder contents" acquired="True">
-
-  </permission-map>
+  <permission-map name="List folder contents" acquired="True" />
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
@@ -138,18 +130,15 @@
    <permission-role>Reader</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-
-
  </state>
- <state state_id="private" title="Private" >
+
+ <state state_id="private" title="Private" i18n:attributes="title">
   <exit-transition transition_id="show" />
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
-  <permission-map name="Add portal content" acquired="True">
-
-  </permission-map>
+  <permission-map name="Add portal content" acquired="True" />
   <permission-map name="Change portal events" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -158,9 +147,7 @@
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
-  <permission-map name="List folder contents" acquired="True">
-
-  </permission-map>
+  <permission-map name="List folder contents" acquired="True" />
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -169,183 +156,248 @@
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
-
-
  </state>
- <state state_id="published" title="Published" >
-  <description>Visible to everyone, not editable by the owner.</description>
+
+ <state state_id="published" title="Published" i18n:attributes="title">
+  <description i18n:translate="">
+    Visible to everyone, not editable by the owner.
+  </description>
   <exit-transition transition_id="reject" />
   <exit-transition transition_id="restrict" />
   <exit-transition transition_id="retiraalaintranet" />
-  <permission-map name="Access contents information" acquired="True">
-
-  </permission-map>
-  <permission-map name="Add portal content" acquired="True">
-
-  </permission-map>
-  <permission-map name="Change portal events" acquired="True">
-
-  </permission-map>
-  <permission-map name="Delete objects" acquired="True">
-
-  </permission-map>
-  <permission-map name="List folder contents" acquired="True">
-
-  </permission-map>
-  <permission-map name="Modify portal content" acquired="True">
-
-  </permission-map>
+  <permission-map name="Access contents information" acquired="True" />
+  <permission-map name="Add portal content" acquired="True" />
+  <permission-map name="Change portal events" acquired="True" />
+  <permission-map name="Delete objects" acquired="True" />
+  <permission-map name="List folder contents" acquired="True" />
+  <permission-map name="Modify portal content" acquired="True" />
   <permission-map name="View" acquired="True">
    <permission-role>Anonymous</permission-role>
   </permission-map>
-
-
  </state>
- <transition transition_id="hide" title="hide" new_state="private" trigger="USER" before_script="" after_script="" >
-  <description>Making an item private means that it will not be visible to anyone but the owner and the site administrator.</description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=hide" category="workflow" icon="">Make private</action>
-  <guard >
+
+ <transition transition_id="hide" title="Member makes content private"
+   new_state="private" trigger="USER" before_script="" after_script=""
+   i18n:attributes="title">
+  <description i18n:translate="">
+    Making an item private means that it will not be visible to anyone but the owner and the site administrator.
+  </description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=hide"
+    category="workflow" icon="" i18n:translate="">
+    Make private
+  </action>
+  <guard>
    <guard-role>Owner</guard-role>
    <guard-role>Manager</guard-role>
   </guard>
-
  </transition>
- <transition transition_id="publicaalaintranet" title="publicaalaintranet" new_state="intranet" trigger="USER" before_script="" after_script="" >
-  <description>Making an item published to intranet means that it will be visible to the members (readers).</description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=publicaalaintranet" category="workflow" icon="">publicaalaintranet</action>
-  <guard >
+
+ <transition transition_id="publicaalaintranet" title="publicaalaintranet"
+   new_state="intranet" trigger="USER" before_script="" after_script=""
+   i18n:attributes="title">
+  <description i18n:translate="">
+    Making an item published to intranet means that it will be visible to the members (readers).
+  </description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=publicaalaintranet"
+    category="workflow" icon="" i18n:translate="">
+    publicaalaintranet
+  </action>
+  <guard>
    <guard-role>Editor</guard-role>
    <guard-role>Reviewer</guard-role>
    <guard-role>Manager</guard-role>
    <guard-role>Owner</guard-role>
   </guard>
-
  </transition>
- <transition transition_id="publish" title="Reviewer publishes content" new_state="published" trigger="USER" before_script="" after_script="" >
-  <description>Publishing the item makes it visible to other users.</description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=publish" category="workflow" icon="">Publish</action>
-  <guard >
+
+ <transition transition_id="publish" title="Reviewer publishes content"
+   new_state="published" trigger="USER" before_script="" after_script=""
+   i18n:attributes="title">
+  <description i18n:translate="">
+    Publishing the item makes it visible to other users.
+  </description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=publish"
+    category="workflow" icon="" i18n:translate="">
+    Publish
+  </action>
+  <guard>
    <guard-role>Editor</guard-role>
    <guard-role>Reviewer</guard-role>
    <guard-role>Manager</guard-role>
    <guard-role>Owner</guard-role>
   </guard>
-
  </transition>
- <transition transition_id="reject" title="reject" new_state="esborrany" trigger="USER" before_script="" after_script="" >
-  <description>Send the item back to draft.</description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=reject" category="workflow" icon="">reject</action>
-  <guard >
+
+ <transition transition_id="reject" title="Reviewer sends content back for re-drafting"
+   new_state="esborrany" trigger="USER" before_script="" after_script=""
+   i18n:attributes="title">
+  <description i18n:translate="">
+    Send the item back to draft.
+  </description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=reject"
+    category="workflow" icon=""  i18n:translate="">
+    reject
+  </action>
+  <guard>
    <guard-role>Reviewer</guard-role>
    <guard-role>Manager</guard-role>
   </guard>
-
  </transition>
- <transition transition_id="restrict" title="Restrict" new_state="restricted-to-managers" trigger="USER" before_script="" after_script="" >
-  <description>Making an item private means that it will not be visible to anyone but the owner and the site administrator.</description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=restrict" category="workflow" icon="">Restrict</action>
-  <guard >
+
+ <transition transition_id="restrict" title="Restrict" new_state="restricted-to-managers"
+   trigger="USER" before_script="" after_script="" i18n:attributes="title">
+  <description i18n:translate="">
+    Making an item private means that it will not be visible to anyone but the owner and the site administrator.
+  </description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=restrict"
+    category="workflow" icon="" i18n:translate="">
+    Restrict
+  </action>
+  <guard>
    <guard-role>Manager</guard-role>
   </guard>
-
  </transition>
- <transition transition_id="retiraaesborrany" title="retiraaesborrany" new_state="esborrany" trigger="USER" before_script="" after_script="" >
-  <description>Send the item back to draft.</description>
-  <action url="" category="workflow" icon="">retiraaesborrany</action>
-  <guard >
+
+ <transition transition_id="retiraaesborrany" title="retiraaesborrany"
+   new_state="esborrany" trigger="USER" before_script="" after_script=""
+   i18n:attributes="title">
+  <description i18n:translate="">
+    Send the item back to draft.
+  </description>
+  <action url="" category="workflow" icon="" i18n:translate="">
+    retiraaesborrany
+  </action>
+  <guard>
    <guard-role>Editor</guard-role>
    <guard-role>Manager</guard-role>
   </guard>
-
  </transition>
- <transition transition_id="retiraalaintranet" title="retiraalaintranet" new_state="intranet" trigger="USER" before_script="" after_script="" >
-  <description>Making an item published to intranet means that it will be visible to the members (readers).</description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=retiraalaintranet" category="workflow" icon="">retiraalaintranet</action>
-  <guard >
+
+ <transition transition_id="retiraalaintranet" title="retiraalaintranet"
+    new_state="intranet" trigger="USER" before_script="" after_script=""
+    i18n:attributes="title">
+  <description i18n:translate="">
+    Making an item published to intranet means that it will be visible to the members (readers).
+  </description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=retiraalaintranet"
+    category="workflow" icon="" i18n:translate="">
+    retiraalaintranet
+  </action>
+  <guard>
    <guard-role>Editor</guard-role>
    <guard-role>Manager</guard-role>
   </guard>
-
  </transition>
- <transition transition_id="retract" title="retract" new_state="esborrany" trigger="USER" before_script="" after_script="" >
-  <action url="%(content_url)s/content_status_modify?workflow_action=retract" category="workflow" icon="">retract</action>
-  <guard >
+
+ <transition transition_id="retract" title="Member retracts submission" new_state="esborrany"
+   trigger="USER" before_script="" after_script="" i18n:attributes="title">
+  <action url="%(content_url)s/content_status_modify?workflow_action=retract"
+    category="workflow" icon="" i18n:translate="">
+    Retract
+  </action>
+  <guard>
    <guard-role>Editor</guard-role>
    <guard-role>Manager</guard-role>
   </guard>
-
  </transition>
- <transition transition_id="show" title="show" new_state="esborrany" trigger="USER" before_script="" after_script="" >
-  <description>Promotes your private item to a draft.</description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=show" category="workflow" icon="">Make draft</action>
-  <guard >
+
+ <transition transition_id="show" title="Member promotes content to public draft"
+   new_state="esborrany" trigger="USER" before_script="" after_script=""
+   i18n:attributes="title">
+  <description i18n:translate="">
+    Promotes your private item to a draft.
+  </description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=show"
+    category="workflow" icon="" i18n:translate="">
+    Make draft
+  </action>
+  <guard>
    <guard-role>Owner</guard-role>
    <guard-role>Manager</guard-role>
   </guard>
-
  </transition>
- <transition transition_id="submit" title="submit" new_state="pending" trigger="USER" before_script="" after_script="" >
-  <description>Puts your item in a review queue, so it can be published on the site.</description>
-  <action url="%(content_url)s/content_status_modify?workflow_action=submit" category="workflow" icon="">enviaarevisar</action>
-  <guard >
+
+ <transition transition_id="submit" title="Member promotes content to public draft" new_state="pending"
+   trigger="USER" before_script="" after_script="" i18n:attributes="title">
+  <description i18n:translate="">
+    Puts your item in a review queue, so it can be published on the site.
+  </description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=submit"
+    category="workflow" icon="" i18n:translate="">
+    Submit for publication
+  </action>
+  <guard>
    <guard-role>Editor</guard-role>
    <guard-role>Manager</guard-role>
    <guard-role>Owner</guard-role>
   </guard>
-
  </transition>
- <worklist worklist_id="reviewer_queue" title="" >
-  <action url="%(portal_url)s/search?review_state=pending" category="global" icon="">Pending reviewer_queue</action>
-  <guard >
+
+ <worklist worklist_id="reviewer_queue" title="">
+  <action url="%(portal_url)s/search?review_state=pending" category="global"
+    icon="" i18n:translate="">
+    Pending reviewer queue
+  </action>
+  <guard>
    <guard-permission>Review portal content</guard-permission>
   </guard>
   <match name="review_state" values="pending" />
  </worklist>
- <variable variable_id="action" for_catalog="False" for_status="True" update_always="True" >
-  <description>The last transition</description>
-  <default>
 
+ <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
+  <description i18n:translate="">
+    Previous transition
+  </description>
+  <default>
    <expression>transition/getId|nothing</expression>
   </default>
-  <guard >
+  <guard>
   </guard>
  </variable>
- <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True" >
-  <description>The ID of the user who performed the last transition</description>
-  <default>
 
+ <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
+  <description i18n:translate="">
+    The ID of the user who performed the last transition
+  </description>
+  <default>
    <expression>user/getId</expression>
   </default>
-  <guard >
+  <guard>
   </guard>
  </variable>
- <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True" >
-  <description>Comments about the last transition</description>
-  <default>
 
+ <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
+  <description i18n:translate="">
+    Comments about the last transition
+  </description>
+  <default>
    <expression>python:state_change.kwargs.get('comment', '')</expression>
   </default>
-  <guard >
+  <guard>
   </guard>
  </variable>
- <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False" >
-  <description>Provides access to workflow history</description>
-  <default>
 
+ <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
+  <description i18n:translate="">
+    Provides access to workflow history
+  </description>
+  <default>
    <expression>state_change/getHistory</expression>
   </default>
-  <guard >
+  <guard>
    <guard-permission>Request review</guard-permission>
    <guard-permission>Review portal content</guard-permission>
   </guard>
  </variable>
- <variable variable_id="time" for_catalog="False" for_status="True" update_always="True" >
-  <description>Time of the last transition</description>
-  <default>
 
+ <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
+  <description i18n:translate="">
+    Time of the last transition
+  </description>
+  <default>
    <expression>state_change/getDateTime</expression>
   </default>
-  <guard >
+  <guard>
   </guard>
  </variable>
 

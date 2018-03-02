@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-02-23 10:30+0000\n"
+"POT-Creation-Date: 2018-03-02 07:07+0000\n"
 "PO-Revision-Date: 2014-04-14 11:20+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -14,20 +14,20 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
 
-#: ../patches.py:362
+#: ../patches.py:367
 msgid " ."
-msgstr ""
+msgstr " ."
 
 #: ../controlpanel.py:331
 msgid "/mail_password_form?userid="
 msgstr "/mail_password_form?userid="
 
-#: ../content/community.py:125
+#: ../content/community.py:124
 #: ../controlpanel.py:24
 msgid "Activitats destacades"
 msgstr "Activitats destacades"
 
-#: ../content/community.py:124
+#: ../content/community.py:123
 #: ../controlpanel.py:23
 msgid "Activitats mes valorades"
 msgstr "Activitats més valorades"
@@ -64,6 +64,10 @@ msgstr "Totes les dates"
 msgid "Calendar"
 msgstr "Calendari"
 
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "Can only be seen and edited by the owner."
+msgstr "Només pot ser vist i editat pel propietari."
+
 #: ../browser/views.py:182
 #: ../controlpanel.py:395
 #: ../controlportlets.py:349
@@ -74,13 +78,17 @@ msgstr "Cancel·la"
 msgid "Changes saved"
 msgstr "Canvis desats"
 
-#: ../patches.py:303
+#: ../patches.py:308
 msgid "Changes saved."
 msgstr "Canvis desats"
 
-#: ../content/community.py:109
+#: ../content/community.py:108
 msgid "Closed"
 msgstr "Tancada"
+
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Comments about the last transition"
+msgstr "Comentaris sobre l'última transició"
 
 #: ../profiles/default/types/ulearn.community.xml
 msgid "Comunitat"
@@ -96,7 +104,7 @@ msgstr "Estadístiques"
 msgid "Convidats moderadors"
 msgstr "Convidats moderadors"
 
-#: ../content/community.py:1015
+#: ../content/community.py:1032
 msgid "Crea la comunitat"
 msgstr "Crea la comunitat"
 
@@ -104,7 +112,7 @@ msgstr "Crea la comunitat"
 msgid "Create new meeting space"
 msgstr "Crea una reunió online"
 
-#: ../content/community.py:123
+#: ../content/community.py:122
 #: ../controlpanel.py:22
 msgid "Darreres activitats"
 msgstr "Darreres activitats"
@@ -114,19 +122,24 @@ msgstr "Darreres activitats"
 msgid "Data d'inici"
 msgstr "Data d'inici"
 
-#: ../content/community.py:141
+#: ../content/community.py:140
 msgid "Descripció"
 msgstr "Descripció"
 
 #: ../browser/migrations.py:171
-#: ../content/community.py:1225
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:45
+#: ../content/community.py:1241
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:46
 msgid "Discussion"
 msgstr "Debats"
 
-#: ../content/community.py:1219
+#: ../content/community.py:1235
 msgid "Documents"
 msgstr "Documents"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Draft"
+msgstr "Esborrany"
 
 #. Default: "Duración de la reunión"
 #: ../browser/views.py:73
@@ -159,7 +172,7 @@ msgstr "Edició cancel·lada"
 msgid "Edit cancelled."
 msgstr "Edició cancel·lada"
 
-#: ../content/community.py:1118
+#: ../content/community.py:1135
 msgid "Edita la comunitat"
 msgstr "Desa"
 
@@ -171,17 +184,21 @@ msgstr "Editores"
 msgid "Eines"
 msgstr "Eines"
 
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "Els usuaris no poden publicar els objectes, exclusiu per intranets."
+msgstr "Els usuaris no poden publicar els objectes, exclusiu per intranets."
+
 #. Default: "Stream"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:11
 msgid "Entrada"
 msgstr "Activitat"
 
-#: ../content/community.py:1221
+#: ../content/community.py:1237
 msgid "Esdeveniments"
 msgstr "Esdeveniments"
 
 #. Default: "Esdeveniments"
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:33
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:34
 msgid "Events"
 msgstr "Esdeveniments"
 
@@ -203,6 +220,10 @@ msgstr "Icona Font Awesome"
 msgid "General"
 msgstr "General"
 
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "Genweb intranet workflow"
+msgstr "Genweb intranet workflow"
+
 #: ../profiles/default/actions.xml
 msgid "Go to homepage"
 msgstr "Inici"
@@ -221,6 +242,10 @@ msgstr "Hi ha hagut algun problema i la sesió virtual no ha estat creada."
 #: ulearn5/theme/portlets/importantnews/importantnews.py:24
 msgid "How many items to list."
 msgstr "Quants elements cal mostrar"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
+msgstr "Si heu enviat l'element per error o voleu fer edicions addicionals, això us tornarà a portar."
 
 #: ../content/community.py:192
 msgid "Imatge"
@@ -258,6 +283,11 @@ msgstr "Instal·la el paquet temàtic Plone ulearn5.theme"
 msgid "Installs the ulearn5.core add-on."
 msgstr "Instal·la el complement ulearn5.core"
 
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Intranet"
+msgstr "Intranet"
+
 #. Default: "Invitados espectadores"
 #: ../browser/views.py:86
 msgid "Invitats espectadors"
@@ -268,7 +298,7 @@ msgstr "Invitats espectadors"
 msgid "Items in which workflow state to show."
 msgstr "Estat per a mostrar els elements."
 
-#: ../content/community.py:142
+#: ../content/community.py:141
 msgid "La descripció de la comunitat"
 msgstr "La descripció de la comunitat"
 
@@ -308,8 +338,28 @@ msgstr "Llista d'adreces de correu electrònic dels convidats ESPECTADORS, separ
 msgid "Llista d'emails dels convidats MODERADORS, separats per comes."
 msgstr "Llista d'adreces de correu electrònic dels convidats MODERADORS, separades per comes."
 
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Make draft"
+msgstr "Feu-ho esborrany"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Make private"
+msgstr "Fes-ho privat"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Making an item private means that it will not be visible to anyone but the owner and the site administrator."
+msgstr "Fer un element privat significa que no serà visible per ningú, sinó per al propietari i l'administrador del lloc."
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Making an item published to intranet means that it will be visible to the members (readers)."
+msgstr "Fer un article públic a la intranet vol dir que serà visible per als membres (lectors)."
+
 #: ../browser/migrations.py:213
-#: ../content/community.py:1220
+#: ../content/community.py:1236
 msgid "Media"
 msgstr "Media"
 
@@ -317,6 +367,21 @@ msgstr "Media"
 #: ulearn5/theme/portlets/templates/econnect.pt:7
 msgid "Meetings space"
 msgstr "Reunions online"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Member makes content private"
+msgstr "El membre fa contingut privat"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Member promotes content to public draft"
+msgstr "El membre promociona el contingut del projecte públic"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Member retracts submission"
+msgstr "El membre retreu la submissió"
 
 #. Default: "Mes final"
 #: ../browser/stats_templates/statsview.pt:180
@@ -348,11 +413,15 @@ msgstr "Noticies flash"
 msgid "News Important"
 msgstr "Noticies importants"
 
-#: ../content/community.py:135
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "News intranet workflow"
+msgstr "News intranet workflow"
+
+#: ../content/community.py:134
 msgid "Nom"
 msgstr "Nom"
 
-#: ../content/community.py:136
+#: ../content/community.py:135
 msgid "Nom de la comunitat"
 msgstr "Nom de la comunitat"
 
@@ -379,11 +448,11 @@ msgstr "Notificar activitat via 'push'"
 msgid "Number of items to display"
 msgstr "Elements a mostrar"
 
-#: ../content/community.py:104
+#: ../content/community.py:103
 msgid "Open"
 msgstr "Oberta"
 
-#: ../content/community.py:114
+#: ../content/community.py:113
 msgid "Organizative"
 msgstr "Organitzativa"
 
@@ -391,9 +460,62 @@ msgstr "Organitzativa"
 msgid "Owners"
 msgstr "Propietarios"
 
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Pending review"
+msgstr "Pendent de revisió"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Pending reviewer queue"
+msgstr "Pendent en la cua del revisor"
+
 #: ../controlportlets.py:288
 msgid "Portlets settings"
 msgstr "Configuració dels portlets"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Previous transition"
+msgstr "Transició prèvia"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Private"
+msgstr "Privat"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Promotes your private item to a draft."
+msgstr "Promou el teu article privat a un esborrany."
+
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Provides access to workflow history"
+msgstr "Proporciona accés a la història del workflow"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Publish"
+msgstr "Publicat"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "Publish To Intranet"
+msgstr "Publicar en la intranet"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Published"
+msgstr "Publicat"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Publishing the item makes it visible to other users."
+msgstr "La publicació de l'element fa que sigui visible per a altres usuaris."
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Puts your item in a review queue, so it can be published on the site."
+msgstr "Publica el teu article en una cua de revisió, de manera que es pot publicar al lloc."
 
 #: ../controlpanel.py:77
 msgid "QuickLinks"
@@ -403,9 +525,45 @@ msgstr "Enllaços directes"
 msgid "Readers"
 msgstr "Lectors"
 
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Restrict"
+msgstr "Restringeix"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "Restricted to managers"
+msgstr "Restringit als administradors"
+
 #: ../browser/stats_templates/statsview.pt:287
 msgid "Resultados"
 msgstr "Resultats"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Retract"
+msgstr "Publicar"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "Retract To Intranet"
+msgstr "Publicar a la intranet"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Reviewer publishes content"
+msgstr "L'avaluador publica contingut"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Reviewer sends content back for re-drafting"
+msgstr "L'avaluador envia el contingut per tornar a redactar"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "Reviewer tasks"
+msgstr "Tasques dels revisors"
+
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)."
+msgstr "Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)."
 
 #: ../browser/sharing_templates/sharing.pt:124
 #: ../browser/views.py:116
@@ -413,9 +571,19 @@ msgstr "Resultats"
 msgid "Save"
 msgstr "Desa"
 
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Send the item back to draft."
+msgstr "Envia l'article a l'esborrany."
+
 #: ../controlpanel.py:63
 msgid "Specific"
 msgstr "Específic"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Submit for publication"
+msgstr "Enviar per a la publicació"
 
 #: ../content/community.py:176
 msgid "Subscribed people with editor permissions"
@@ -437,6 +605,10 @@ msgstr "Text"
 msgid "Text Quick Links"
 msgstr "Títol dels enllaços directes"
 
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "The ID of the user who performed the last transition"
+msgstr "La identificació de l'usuari que va realitzar l'última transició"
+
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:189
 msgid "This portlet displays Flashes Informativos."
 msgstr "Aquest portlet mostra Flashes informatius."
@@ -452,6 +624,10 @@ msgstr "Aquest portlet mostra els articles de notícies recents."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.py:222
 msgid "This portlet displays subscribed News Items."
 msgstr "Aquest portlet mostra els articles de notícies subscrits."
+
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Time of the last transition"
+msgstr "Temps de l'última transició"
 
 #: ../content/community.py:147
 msgid "Tipus de comunitat"
@@ -534,6 +710,19 @@ msgstr "Usuari"
 #: ../controlpanel.py:73
 msgid "Visibility"
 msgstr "Visibilitat"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "Visible to everyone, but not approved by the reviewers."
+msgstr "Visible per a tots, però no aprovat pels revisors."
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "Visible to everyone, not editable by the owner."
+msgstr "Visible per a tothom, no editable pel propietari."
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+msgid "Waiting to be reviewed, not editable by the owner."
+msgstr "A l'espera de ser revisat, el propietari no editarà."
 
 #: ulearn5/theme/portlets/buttonbar/buttonbar.py:28
 #: ulearn5/theme/portlets/importantnews/importantnews.py:28
@@ -666,10 +855,14 @@ msgstr "Color comunitat oberta"
 msgid "color_community_organizative"
 msgstr "Color comunitat organitzativa"
 
-#. Default: "Comunidades"
+#. Default: "Communities portlet"
 #: ulearn5/theme/portlets/communities.py:32
-#: ulearn5/theme/portlets/templates/communities.pt:11
 msgid "communities"
+msgstr "Comunitats"
+
+#. Default: "Comunidades"
+#: ulearn5/theme/portlets/templates/communities.pt:11
+msgid "communities_title"
 msgstr "Comunitats"
 
 #. Default: "This is an open community, but you are not currently subscribed."
@@ -685,17 +878,17 @@ msgstr ""
 " Organitzativa: Només et pot subscriure un administrador i no et pots desubscriure't."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1065
+#: ../content/community.py:1082
 msgid "comunitat_creada"
 msgstr "La comunitat ${comunitat} ha estat creada."
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1041
+#: ../content/community.py:1058
 msgid "comunitat_existeix"
 msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1171
+#: ../content/community.py:1188
 msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
@@ -793,7 +986,7 @@ msgid "external_website"
 msgstr "Lloc web relacionat"
 
 #. Default: "búsqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:95
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
 msgid "find_label"
 msgstr "Cerca..."
 
@@ -821,12 +1014,12 @@ msgid "hashtag_help"
 msgstr "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el '#'."
 
 #. Default: "Add event to calendar"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:113
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:116
 msgid "heading_add_to_calendar"
 msgstr "Afegeix un esdeveniment al calendari"
 
 #. Default: "Send event to attendees"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:101
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:103
 msgid "heading_send_event"
 msgstr "Enviar als assistents"
 
@@ -928,8 +1121,7 @@ msgstr "L'URL de la vostra pàgina externa, si teniu una."
 msgid "help_info_servei"
 msgstr "Enllaç al servei."
 
-#. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
-#: ../controlpanel.py:276
+#. Default: "Enter your language"
 #: ../profiles/default/userschema.xml
 #: ../userschema.py:111
 msgid "help_language"
@@ -1037,7 +1229,6 @@ msgstr "Habilita el portlet Revisió."
 
 #. Default: "Habilita el portlet portlets_Search."
 #: ../controlportlets.py:23
-#, fuzzy
 msgid "help_portlets_Search"
 msgstr "Habilita el portlet Cercador."
 
@@ -1074,6 +1265,11 @@ msgstr "En aquesta taula s'han d'afegir tots els enllaços directes que volem mo
 #: ../controlpanel.py:176
 msgid "help_secondary_color"
 msgstr "Aquest és el color secundari de l'espai."
+
+#. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
+#: ../controlpanel.py:276
+msgid "help_site_language"
+msgstr "Aquest és l'idioma de l'espai."
 
 #. Default: "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 #: ../controlpanel.py:132
@@ -1208,6 +1404,7 @@ msgstr "Notícies importants"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
+#: ulearn5/theme/browser/viewlets_templates/header.pt:98
 msgid "info"
 msgstr "Informació"
 
@@ -1237,7 +1434,7 @@ msgid "label-toogle-list"
 msgstr "Llista"
 
 #. Default: "iCal"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:122
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:125
 msgid "label_add_to_ical"
 msgstr "iCal"
 
@@ -1258,7 +1455,7 @@ msgstr "Eliminar comunitat"
 #. Default: "Delete Portrait"
 #: ../userschema.py:84
 msgid "label_delete_portrait"
-msgstr ""
+msgstr "Eliminar foto"
 
 #: ulearn5/theme/browser/views_templates/communities.pt:67
 msgid "label_edit_community"
@@ -1336,7 +1533,6 @@ msgstr "Telèfon"
 #. Default: "Twitter username"
 #: ../profiles/default/userschema.xml
 #: ../userschema.py:89
-#, fuzzy
 msgid "label_twitter"
 msgstr "Twitter"
 
@@ -1396,32 +1592,32 @@ msgid "main_color"
 msgstr "Color principal"
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:341
+#: ../patches.py:346
 msgid "manage_homepage_portlets_description"
 msgstr "Gestiona els portlets de la pàgina inicial"
 
 #. Default: "Homepage"
-#: ../patches.py:340
+#: ../patches.py:345
 msgid "manage_homepage_portlets_title"
 msgstr "Pàgina inicial"
 
 #. Default: "Manage left portlets"
-#: ../patches.py:380
+#: ../patches.py:385
 msgid "manage_left_portlets_description"
 msgstr "Gestiona els portlets de l'esquerra"
 
 #. Default: "Left"
-#: ../patches.py:379
+#: ../patches.py:384
 msgid "manage_left_portlets_title"
 msgstr "Esquerra"
 
 #. Default: "Manage right portlets"
-#: ../patches.py:383
+#: ../patches.py:388
 msgid "manage_right_portlets_description"
 msgstr "Gestiona els portlets de la dreta"
 
 #. Default: "Right"
-#: ../patches.py:382
+#: ../patches.py:387
 msgid "manage_right_portlets_title"
 msgstr "Dreta"
 
@@ -1592,15 +1788,32 @@ msgstr "Perfil d'usuari"
 msgid "profilecommunity"
 msgstr "Perfil de la comunitat"
 
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "publicaalaintranet"
+msgstr "Publica a la intranet"
+
 #. Default: "icon-link"
 #: ../controlpanel.py:305
 msgid "quicklinks_icon"
 msgstr "Icona Font Awesome"
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:128
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:129
 msgid "readmore"
 msgstr "Llegeix més"
+
+#: ../profiles/default/workflows/genweb_intranet/definition.xml
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "reject"
+msgstr "Rebutjar"
+
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "retiraaesborrany"
+msgstr "Retira a esborrany"
+
+#: ../profiles/default/workflows/news_intranet/definition.xml
+msgid "retiraalaintranet"
+msgstr "Retira a la intranet"
 
 # msgid "help_ulearn_settings_editform"
 # msgstr "Registre de configuració d'uLearn."
@@ -1668,12 +1881,12 @@ msgid "seethinkers"
 msgstr "Veure tots els participants"
 
 #. Default: "Send invitation"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:105
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:107
 msgid "send_invitation_link"
 msgstr "Enviar convocatòria"
 
 #. Default: "There are not attendees to send the message"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:109
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:111
 msgid "send_invitation_not_attendees"
 msgstr "No hi ha assistents per enviar el missatge"
 
@@ -1776,7 +1989,7 @@ msgid "thinnkers"
 msgstr "Persones"
 
 #. Default: "Download this event in iCal format"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:116
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:119
 msgid "title_add_to_ical"
 msgstr "Baixeu aquest esdeveniment en format iCal"
 
@@ -1920,12 +2133,12 @@ msgid "video_url_description"
 msgstr "Afegeix l'adreça web del video de youtube"
 
 #. Default: "Use site default"
-#: ../patches.py:430
+#: ../patches.py:452
 msgid "vocabulary-available-editor-novalue"
 msgstr "Utilitza el lloc predeterminat"
 
 #. Default: "Language neutral (site default)"
-#: ../patches.py:425
+#: ../patches.py:447
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Idioma neutral (predeterminat del lloc)"
 

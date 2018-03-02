@@ -55,7 +55,7 @@
     <field name="twitter_username" type="zope.schema.TextLine" users:forms="In User Profile">
       <description i18n:translate="help_twitter">Fill in your Twitter username.</description>
       <required>False</required>
-      <title i18n:translate="label_twitter">Twitter</title>
+      <title i18n:translate="label_twitter">Twitter username</title>
     </field>
     <field name="ubicacio" type="zope.schema.TextLine" users:forms="In User Profile">
       <description i18n:translate="help_ubicacio">Equip, Àrea / Companyia / Departament</description>
