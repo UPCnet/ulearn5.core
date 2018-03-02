@@ -167,6 +167,9 @@ def setupVarious(context):
     portal.manage_setLocalRoles('AuthenticatedUsers', ['Reader'])
     portal['front-page'].manage_setLocalRoles('AuthenticatedUsers', ['Reader'])
 
+    # Assign permission for delete the front-page
+    portal['front-page']._Delete_objects_Permission = ('Manager',)
+
     # Set mailhost
     mh = getToolByName(portal, 'MailHost')
     mh.smtp_host = 'localhost'
