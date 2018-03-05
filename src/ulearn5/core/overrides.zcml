@@ -1,13 +1,22 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="mrs.max">
+    i18n_domain="ulearn5.core">
 
   <!-- Enhanced user properties adapter -->
-  <adapter
+
+    <adapter
+      factory=".userschema.UlearnUserDataPanelExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+
+    <adapter
       provides=".userschema.IUlearnUserSchema"
       for="Products.CMFCore.interfaces.ISiteRoot"
-      factory=".userschema.ULearnUserDataPanelAdapter"
+      factory=".userschema.UlearnUserDataSchemaAdapter"
       />
+
+    <adapter
+      factory=".userschema.UlearnRegistrationPanelExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
 
 </configure>
