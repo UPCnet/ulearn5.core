@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-03-06 14:10+0000\n"
+"POT-Creation-Date: 2018-03-06 15:39+0000\n"
 "PO-Revision-Date: 2014-04-14 11:20+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -215,6 +215,10 @@ msgstr "Fin estadístiques"
 #: ../controlpanel.py:45
 msgid "Font Awesome Icon"
 msgstr "Icona Font Awesome"
+
+#: ../setuphandlers.py:176
+msgid "Front page"
+msgstr "Pàgina principal"
 
 #: ../controlpanel.py:56
 msgid "General"

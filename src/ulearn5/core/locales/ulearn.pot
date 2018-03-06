@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-03-06 14:10+0000\n"
+"POT-Creation-Date: 2018-03-06 15:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -211,6 +211,10 @@ msgstr ""
 
 #: ../controlpanel.py:45
 msgid "Font Awesome Icon"
+msgstr ""
+
+#: ../setuphandlers.py:176
+msgid "Front page"
 msgstr ""
 
 #: ../controlpanel.py:56

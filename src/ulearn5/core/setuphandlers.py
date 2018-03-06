@@ -15,6 +15,8 @@ from Products.CMFCore.utils import getToolByName
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.controlportlets import IPortletsSettings
 
+from ulearn5.core import _
+
 import logging
 
 PROFILE_ID = 'profile-ulearn5.core:default'
@@ -169,6 +171,10 @@ def setupVarious(context):
 
     # Assign permission for delete the front-page
     portal['front-page']._Delete_objects_Permission = ('Manager',)
+
+    # Rename front-page
+    portal['front-page'].setTitle(portal.translate(_(u'Front page')))
+    portal['front-page'].reindexObject()
 
     # Set mailhost
     mh = getToolByName(portal, 'MailHost')

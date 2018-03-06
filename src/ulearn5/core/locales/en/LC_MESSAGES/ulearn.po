@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-03-06 14:10+0000\n"
+"POT-Creation-Date: 2018-03-06 15:39+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Roberto Diaz <roberto.diaz@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -216,6 +216,10 @@ msgstr "Emd <span class=\"formHelp\">x</span>"
 #: ../controlpanel.py:45
 msgid "Font Awesome Icon"
 msgstr "Icon Font Awesome"
+
+#: ../setuphandlers.py:176
+msgid "Front page"
+msgstr "Front page"
 
 #: ../controlpanel.py:56
 msgid "General"
