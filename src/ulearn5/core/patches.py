@@ -453,3 +453,58 @@ def updateWidgetsPersonalPreferences(self):
         u"vocabulary-available-editor-novalue",
         u"Use site default"
     )
+
+default_portrait = '/++theme++ulearn5/assets/images/defaultUser.png'
+from zope.interface import alsoProvides
+from zope.component import getUtility
+from mrs5.max.utilities import IMAXClient
+from ulearn5.core.adapters.portrait import convertSquareImage
+import urllib
+from OFS.Image import Image
+from Products.CMFCore.utils import getToolByName
+from plone.memoize import ram
+from time import time
+
+@ram.cache(lambda *args: time() // (60 * 60))
+def getPersonalPortrait(self, id=None, verifyPermission=0):
+    """Return a members personal portait.
+
+    Modified from CMFPlone version to URL-quote the member id.
+    """
+    if not id:
+        id = self.getAuthenticatedMember().getId()
+
+    try:
+        from plone.protect.interfaces import IDisableCSRFProtection
+        alsoProvides(self.request, IDisableCSRFProtection)
+    except:
+        pass
+
+    maxclient, settings = getUtility(IMAXClient)()
+    foto = maxclient.people[id].avatar
+    imageUrl = foto.uri + '/large'
+
+    portrait = urllib.urlretrieve(imageUrl)
+
+    scaled, mimetype = convertSquareImage(portrait[0])
+    portrait = Image(id=id, file=scaled, title=id)
+
+    membertool = getToolByName(self, 'portal_memberdata')
+    membertool._setPortrait(portrait, id)
+    import transaction
+    transaction.commit()
+
+    membertool = getToolByName(self, 'portal_memberdata')
+    portrait = membertool._getPortrait(id)
+    if isinstance(portrait, str):
+        portrait = None
+
+    if portrait is not None:
+        if verifyPermission and not _checkPermission('View', portrait):
+            # Don't return the portrait if the user can't get to it
+            portrait = None
+    if portrait is None:
+        portal = getToolByName(self, 'portal_url').getPortalObject()
+        portrait = getattr(portal, default_portrait, None)
+
+    return portrait

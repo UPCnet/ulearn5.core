@@ -63,4 +63,11 @@
         replacement=".patches.updateWidgetsPersonalPreferences"
         />
 
+    <monkey:patch
+        description="Patch to extend the features of the getPersonalPortrait"
+        class="Products.PlonePAS.tools.membership.MembershipTool"
+        original="getPersonalPortrait"
+        replacement=".patches.getPersonalPortrait"
+        />
+
 </configure>
