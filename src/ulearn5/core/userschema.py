@@ -105,38 +105,6 @@ class UlearnRegistrationPanelExtender(extensible.FormExtender):
         self.add(fields)
 
 
-
-
-# class ULearnUserDataPanelAdapter(AccountPanelSchemaAdapter):
-
-    # def __init__(self, context):
-    #     """ Load MAX avatar in portrait.
-
-    #     """
-    #     super(EnhancedUserDataPanelAdapter, self).__init__(context)
-
-    #     try:
-    #         from plone.protect.interfaces import IDisableCSRFProtection
-    #         alsoProvides(self.request, IDisableCSRFProtection)
-    #     except:
-    #         pass
-
-    #     maxclient, settings = getUtility(IMAXClient)()
-    #     foto = maxclient.people[self.context.id].avatar
-    #     imageUrl = foto.uri
-
-    #     portrait = urllib.urlretrieve(imageUrl)
-
-    #     scaled, mimetype = convertSquareImage(portrait[0])
-    #     portrait = Image(id=self.context.id, file=scaled, title='')
-
-    #     membertool = getToolByName(self.context, 'portal_memberdata')
-    #     membertool._setPortrait(portrait, self.context.id)
-    #     import transaction
-    #     transaction.commit()
-
-
-
 @implementer(ICatalogFactory)
 class UserNewsSearchSoupCatalog(object):
     def __call__(self, context):
