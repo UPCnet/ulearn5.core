@@ -56,6 +56,7 @@ from ulearn5.core import _
 from ulearn5.core.interfaces import IDXFileFactory
 from ulearn5.core.interfaces import IDocumentFolder
 from ulearn5.core.interfaces import IEventsFolder
+from ulearn5.core.interfaces import INewsItemFolder
 from ulearn5.core.interfaces import IPhotosFolder
 from ulearn5.core.interfaces import IDiscussionFolder
 from DateTime.DateTime import DateTime
@@ -1230,11 +1231,13 @@ class CommunityInitializeAdapter(object):
         documents = createContentInContainer(community, 'Folder', title='documents', checkConstraints=False)
         media = createContentInContainer(documents, 'Folder', title='media', checkConstraints=False)
         events = createContentInContainer(community, 'Folder', title='events', checkConstraints=False)
+        news = createContentInContainer(community, 'Folder', title='news', checkConstraints=False)
 
         # Set the correct title, translated
         documents.setTitle(community.translate(_(u'Documents')))
         media.setTitle(community.translate(_(u'Media')))
         events.setTitle(community.translate(_(u'Esdeveniments')))
+        news.setTitle(community.translate(_(u'Noticies')))
 
         # Create the default discussion container and set title
         discussion = createContentInContainer(community, 'Folder', title='discussion', checkConstraints=False)
@@ -1244,12 +1247,14 @@ class CommunityInitializeAdapter(object):
         documents.setLayout('filtered_contents_search_view')
         media.setLayout('summary_view')
         events.setLayout('summary_view')
+        news.setLayout('summary_view')
         discussion.setLayout('discussion_view')
 
         # Mark them with a marker interface
         alsoProvides(documents, IDocumentFolder)
         alsoProvides(media, IPhotosFolder)
         alsoProvides(events, IEventsFolder)
+        alsoProvides(news, INewsItemFolder)
         alsoProvides(discussion, IDiscussionFolder)
 
         # Set on them the allowable content types
@@ -1265,6 +1270,10 @@ class CommunityInitializeAdapter(object):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Event', 'Folder'))
         behavior.setImmediatelyAddableTypes(('Event', 'Folder'))
+        behavior = ISelectableConstrainTypes(news)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('News Item', 'Folder'))
+        behavior.setImmediatelyAddableTypes(('News Item', 'Folder'))
         behavior = ISelectableConstrainTypes(discussion)
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('ulearn.discussion', 'Folder'))

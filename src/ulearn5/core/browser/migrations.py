@@ -26,7 +26,7 @@ from plone.uuid.interfaces import IUUIDGenerator
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
-from ulearn5.core.interfaces import IDocumentFolder, ILinksFolder, IPhotosFolder, IEventsFolder
+from ulearn5.core.interfaces import IDocumentFolder, ILinksFolder, IPhotosFolder, IEventsFolder, INewsItemFolder
 from ulearn5.core.content.community import IInitializedCommunity
 from ulearn5.core.content.community import Community
 # from genweb.core.browser.helpers import listPloneSites
@@ -90,7 +90,8 @@ class linkFolderFix(grok.View):
         folder_ifaces = {IDocumentFolder.__identifier__: 'documents',
                          ILinksFolder.__identifier__: 'links',
                          IPhotosFolder.__identifier__: 'media',
-                         IEventsFolder.__identifier__: 'events'}
+                         IEventsFolder.__identifier__: 'events',
+                         INewsItemFolder.__identifier__: 'news'}
 
         for iface in folder_ifaces.keys():
             results = pc.searchResults(object_provides=iface)

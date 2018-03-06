@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-03-02 07:07+0000\n"
+"POT-Creation-Date: 2018-03-06 14:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,12 +25,12 @@ msgstr ""
 msgid "/mail_password_form?userid="
 msgstr ""
 
-#: ../content/community.py:124
+#: ../content/community.py:125
 #: ../controlpanel.py:24
 msgid "Activitats destacades"
 msgstr ""
 
-#: ../content/community.py:123
+#: ../content/community.py:124
 #: ../controlpanel.py:23
 msgid "Activitats mes valorades"
 msgstr ""
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Changes saved."
 msgstr ""
 
-#: ../content/community.py:108
+#: ../content/community.py:109
 msgid "Closed"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Convidats moderadors"
 msgstr ""
 
-#: ../content/community.py:1032
+#: ../content/community.py:1033
 msgid "Crea la comunitat"
 msgstr ""
 
@@ -114,7 +114,7 @@ msgstr ""
 msgid "Create new meeting space"
 msgstr ""
 
-#: ../content/community.py:122
+#: ../content/community.py:123
 #: ../controlpanel.py:22
 msgid "Darreres activitats"
 msgstr ""
@@ -123,17 +123,17 @@ msgstr ""
 msgid "Data d'inici"
 msgstr ""
 
-#: ../content/community.py:140
+#: ../content/community.py:141
 msgid "Descripció"
 msgstr ""
 
-#: ../browser/migrations.py:171
-#: ../content/community.py:1241
+#: ../browser/migrations.py:172
+#: ../content/community.py:1244
 #: ulearn5/theme/browser/viewlets_templates/folderbar.pt:46
 msgid "Discussion"
 msgstr ""
 
-#: ../content/community.py:1235
+#: ../content/community.py:1237
 msgid "Documents"
 msgstr ""
 
@@ -171,11 +171,11 @@ msgstr ""
 msgid "Edit cancelled."
 msgstr ""
 
-#: ../content/community.py:1135
+#: ../content/community.py:1136
 msgid "Edita la comunitat"
 msgstr ""
 
-#: ../content/community.py:175
+#: ../content/community.py:176
 msgid "Editors"
 msgstr ""
 
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Entrada"
 msgstr ""
 
-#: ../content/community.py:1237
+#: ../content/community.py:1239
 msgid "Esdeveniments"
 msgstr ""
 
@@ -243,11 +243,11 @@ msgstr ""
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
 msgstr ""
 
-#: ../content/community.py:192
+#: ../content/community.py:193
 msgid "Imatge"
 msgstr ""
 
-#: ../content/community.py:193
+#: ../content/community.py:194
 msgid "Imatge que defineix la comunitat"
 msgstr ""
 
@@ -290,7 +290,7 @@ msgstr ""
 msgid "Items in which workflow state to show."
 msgstr ""
 
-#: ../content/community.py:141
+#: ../content/community.py:142
 msgid "La descripció de la comunitat"
 msgstr ""
 
@@ -346,8 +346,8 @@ msgstr ""
 msgid "Making an item published to intranet means that it will be visible to the members (readers)."
 msgstr ""
 
-#: ../browser/migrations.py:213
-#: ../content/community.py:1236
+#: ../browser/migrations.py:214
+#: ../content/community.py:1238
 msgid "Media"
 msgstr ""
 
@@ -405,11 +405,11 @@ msgstr ""
 msgid "News intranet workflow"
 msgstr ""
 
-#: ../content/community.py:134
+#: ../content/community.py:135
 msgid "Nom"
 msgstr ""
 
-#: ../content/community.py:135
+#: ../content/community.py:136
 msgid "Nom de la comunitat"
 msgstr ""
 
@@ -421,11 +421,15 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: ../content/community.py:210
+#: ../content/community.py:1240
+msgid "Noticies"
+msgstr ""
+
+#: ../content/community.py:211
 msgid "Notify activity and comments via push"
 msgstr ""
 
-#: ../content/community.py:204
+#: ../content/community.py:205
 msgid "Notify activity via push"
 msgstr ""
 
@@ -435,15 +439,15 @@ msgstr ""
 msgid "Number of items to display"
 msgstr ""
 
-#: ../content/community.py:103
+#: ../content/community.py:104
 msgid "Open"
 msgstr ""
 
-#: ../content/community.py:113
+#: ../content/community.py:114
 msgid "Organizative"
 msgstr ""
 
-#: ../content/community.py:184
+#: ../content/community.py:185
 msgid "Owners"
 msgstr ""
 
@@ -508,7 +512,7 @@ msgstr ""
 msgid "QuickLinks"
 msgstr ""
 
-#: ../content/community.py:164
+#: ../content/community.py:165
 msgid "Readers"
 msgstr ""
 
@@ -572,15 +576,15 @@ msgstr ""
 msgid "Submit for publication"
 msgstr ""
 
-#: ../content/community.py:176
+#: ../content/community.py:177
 msgid "Subscribed people with editor permissions"
 msgstr ""
 
-#: ../content/community.py:185
+#: ../content/community.py:186
 msgid "Subscribed people with owner permissions"
 msgstr ""
 
-#: ../content/community.py:165
+#: ../content/community.py:166
 msgid "Subscribed people with read-only permissions"
 msgstr ""
 
@@ -616,7 +620,7 @@ msgstr ""
 msgid "Time of the last transition"
 msgstr ""
 
-#: ../content/community.py:147
+#: ../content/community.py:148
 msgid "Tipus de comunitat"
 msgstr ""
 
@@ -625,7 +629,7 @@ msgstr ""
 msgid "Todas las comunidades"
 msgstr ""
 
-#: ../content/community.py:198
+#: ../content/community.py:199
 msgid "Twitter hashtag"
 msgstr ""
 
@@ -731,7 +735,7 @@ msgstr ""
 msgid "activate_sharedwithme"
 msgstr ""
 
-#: ../content/community.py:155
+#: ../content/community.py:156
 #: ../controlpanel.py:319
 msgid "activity_view"
 msgstr ""
@@ -857,22 +861,22 @@ msgstr ""
 msgid "community_open_and_no_subscribed"
 msgstr ""
 
-#: ../content/community.py:148
+#: ../content/community.py:149
 msgid "community_type_description"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1082
+#: ../content/community.py:1083
 msgid "comunitat_creada"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1058
+#: ../content/community.py:1059
 msgid "comunitat_existeix"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1188
+#: ../content/community.py:1189
 msgid "comunitat_modificada"
 msgstr ""
 
@@ -993,7 +997,7 @@ msgstr ""
 msgid "gotolibrary"
 msgstr ""
 
-#: ../content/community.py:199
+#: ../content/community.py:200
 msgid "hashtag_help"
 msgstr ""
 
@@ -1017,7 +1021,7 @@ msgstr ""
 msgid "help_activate_sharedwithme"
 msgstr ""
 
-#: ../content/community.py:156
+#: ../content/community.py:157
 #: ../controlpanel.py:320
 msgid "help_activity_view"
 msgstr ""
@@ -1040,12 +1044,6 @@ msgstr ""
 #. Default: "Aquest és la propietat de CSS de background."
 #: ../controlpanel.py:212
 msgid "help_background_property"
-msgstr ""
-
-#. Default: "A short overview of who you are and what you do. Will be displayed on your author page, linked from the items you create."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:59
-msgid "help_biography"
 msgstr ""
 
 #. Default: "Aquest és el color primari dels botons."
@@ -1083,31 +1081,13 @@ msgstr ""
 msgid "help_color_community_organizative"
 msgstr ""
 
-#. Default: "We will use this address if you need to recover your password"
-#: ../profiles/default/userschema.xml
-msgid "help_email"
-msgstr ""
-
-#. Default: "Enter full name, e.g. John Smith."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:40
-msgid "help_full_name_creation"
-msgstr ""
-
-#. Default: "The URL for your external home page, if you have one."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:52
-msgid "help_homepage"
-msgstr ""
-
 #. Default: "Aquest és l'enllaç al servei."
 #: ../controlpanel.py:141
 msgid "help_info_servei"
 msgstr ""
 
 #. Default: "Enter your language"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:111
+#: ../userschema.py:69
 msgid "help_language"
 msgstr ""
 
@@ -1129,12 +1109,6 @@ msgstr ""
 #. Default: "Aquest és el llindar del winwin #3."
 #: ../controlpanel.py:123
 msgid "help_llindar_winwin3"
-msgstr ""
-
-#. Default: "Your location - either city and country - or in a company setting, where your office is located."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:67
-msgid "help_location"
 msgstr ""
 
 #. Default: "Aquest és el color principal de l'espai."
@@ -1162,7 +1136,7 @@ msgstr ""
 msgid "help_navigation_title"
 msgstr ""
 
-#: ../content/community.py:211
+#: ../content/community.py:212
 msgid "help_notify_activity_via_push_comments_too"
 msgstr ""
 
@@ -1226,12 +1200,6 @@ msgstr ""
 msgid "help_portlets_settings_editform"
 msgstr ""
 
-#. Default: "To add or change the portrait: click the \"Browse\" button; select a picture of yourself. Recommended image size is 75 pixels wide by 100 pixels tall."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:75
-msgid "help_portrait"
-msgstr ""
-
 #. Default: "Afegiu la icona del Font Awesome que voleu que es mostri"
 #: ../controlpanel.py:307
 msgid "help_quicklinks_icon"
@@ -1261,20 +1229,17 @@ msgid "help_stats_button"
 msgstr ""
 
 #. Default: "Contacte telefònic"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:104
+#: ../userschema.py:62
 msgid "help_telefon"
 msgstr ""
 
 #. Default: "Fill in your Twitter username."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:90
+#: ../userschema.py:48
 msgid "help_twitter"
 msgstr ""
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:97
+#: ../userschema.py:55
 msgid "help_ubicacio"
 msgstr ""
 
@@ -1422,12 +1387,6 @@ msgstr ""
 msgid "label_add_to_ical"
 msgstr ""
 
-#. Default: "Biography"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:58
-msgid "label_biography"
-msgstr ""
-
 #: ulearn5/theme/browser/views_templates/communities.pt:54
 msgid "label_check_favorite"
 msgstr ""
@@ -1436,35 +1395,12 @@ msgstr ""
 msgid "label_delete_community"
 msgstr ""
 
-#. Default: "Delete Portrait"
-#: ../userschema.py:84
-msgid "label_delete_portrait"
-msgstr ""
-
 #: ulearn5/theme/browser/views_templates/communities.pt:67
 msgid "label_edit_community"
 msgstr ""
 
-#. Default: "E-mail"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:45
-msgid "label_email"
-msgstr ""
-
-#. Default: "Full Name"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:39
-msgid "label_full_name"
-msgstr ""
-
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:53
 msgid "label_go_subject"
-msgstr ""
-
-#. Default: "Home page"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:51
-msgid "label_homepage"
 msgstr ""
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:32
@@ -1472,15 +1408,8 @@ msgid "label_info_tasks"
 msgstr ""
 
 #. Default: "Language"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:110
+#: ../userschema.py:68
 msgid "label_language"
-msgstr ""
-
-#. Default: "Location"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:66
-msgid "label_location"
 msgstr ""
 
 #. Default: "Title"
@@ -1493,12 +1422,6 @@ msgstr ""
 msgid "label_not_subjects"
 msgstr ""
 
-#. Default: "Portrait"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:74
-msgid "label_portrait"
-msgstr ""
-
 #. Default: "Show all items"
 #: ulearn5/theme/browser/views.py:473
 msgid "label_show_all"
@@ -1509,20 +1432,17 @@ msgid "label_subscribe_to_community"
 msgstr ""
 
 #. Default: "Telèfon"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:103
+#: ../userschema.py:61
 msgid "label_telefon"
 msgstr ""
 
 #. Default: "Twitter username"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:89
+#: ../userschema.py:47
 msgid "label_twitter"
 msgstr ""
 
 #. Default: "Ubicació"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:96
+#: ../userschema.py:54
 msgid "label_ubicacio"
 msgstr ""
 
@@ -1693,7 +1613,7 @@ msgstr ""
 msgid "not_events_for_today"
 msgstr ""
 
-#: ../content/community.py:205
+#: ../content/community.py:206
 msgid "notify_activity_via_push_help"
 msgstr ""
 

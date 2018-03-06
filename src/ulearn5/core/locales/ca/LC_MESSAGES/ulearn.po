@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-03-02 07:07+0000\n"
+"POT-Creation-Date: 2018-03-06 14:10+0000\n"
 "PO-Revision-Date: 2014-04-14 11:20+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -22,12 +22,12 @@ msgstr " ."
 msgid "/mail_password_form?userid="
 msgstr "/mail_password_form?userid="
 
-#: ../content/community.py:124
+#: ../content/community.py:125
 #: ../controlpanel.py:24
 msgid "Activitats destacades"
 msgstr "Activitats destacades"
 
-#: ../content/community.py:123
+#: ../content/community.py:124
 #: ../controlpanel.py:23
 msgid "Activitats mes valorades"
 msgstr "Activitats més valorades"
@@ -82,7 +82,7 @@ msgstr "Canvis desats"
 msgid "Changes saved."
 msgstr "Canvis desats"
 
-#: ../content/community.py:108
+#: ../content/community.py:109
 msgid "Closed"
 msgstr "Tancada"
 
@@ -104,7 +104,7 @@ msgstr "Estadístiques"
 msgid "Convidats moderadors"
 msgstr "Convidats moderadors"
 
-#: ../content/community.py:1032
+#: ../content/community.py:1033
 msgid "Crea la comunitat"
 msgstr "Crea la comunitat"
 
@@ -112,7 +112,7 @@ msgstr "Crea la comunitat"
 msgid "Create new meeting space"
 msgstr "Crea una reunió online"
 
-#: ../content/community.py:122
+#: ../content/community.py:123
 #: ../controlpanel.py:22
 msgid "Darreres activitats"
 msgstr "Darreres activitats"
@@ -122,17 +122,17 @@ msgstr "Darreres activitats"
 msgid "Data d'inici"
 msgstr "Data d'inici"
 
-#: ../content/community.py:140
+#: ../content/community.py:141
 msgid "Descripció"
 msgstr "Descripció"
 
-#: ../browser/migrations.py:171
-#: ../content/community.py:1241
+#: ../browser/migrations.py:172
+#: ../content/community.py:1244
 #: ulearn5/theme/browser/viewlets_templates/folderbar.pt:46
 msgid "Discussion"
 msgstr "Debats"
 
-#: ../content/community.py:1235
+#: ../content/community.py:1237
 msgid "Documents"
 msgstr "Documents"
 
@@ -172,11 +172,11 @@ msgstr "Edició cancel·lada"
 msgid "Edit cancelled."
 msgstr "Edició cancel·lada"
 
-#: ../content/community.py:1135
+#: ../content/community.py:1136
 msgid "Edita la comunitat"
 msgstr "Desa"
 
-#: ../content/community.py:175
+#: ../content/community.py:176
 msgid "Editors"
 msgstr "Editores"
 
@@ -193,7 +193,7 @@ msgstr "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 msgid "Entrada"
 msgstr "Activitat"
 
-#: ../content/community.py:1237
+#: ../content/community.py:1239
 msgid "Esdeveniments"
 msgstr "Esdeveniments"
 
@@ -247,11 +247,11 @@ msgstr "Quants elements cal mostrar"
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
 msgstr "Si heu enviat l'element per error o voleu fer edicions addicionals, això us tornarà a portar."
 
-#: ../content/community.py:192
+#: ../content/community.py:193
 msgid "Imatge"
 msgstr "Imatge"
 
-#: ../content/community.py:193
+#: ../content/community.py:194
 msgid "Imatge que defineix la comunitat"
 msgstr "Imatge que defineix la comunitat"
 
@@ -298,7 +298,7 @@ msgstr "Invitats espectadors"
 msgid "Items in which workflow state to show."
 msgstr "Estat per a mostrar els elements."
 
-#: ../content/community.py:141
+#: ../content/community.py:142
 msgid "La descripció de la comunitat"
 msgstr "La descripció de la comunitat"
 
@@ -358,8 +358,8 @@ msgstr "Fer un element privat significa que no serà visible per ningú, sinó p
 msgid "Making an item published to intranet means that it will be visible to the members (readers)."
 msgstr "Fer un article públic a la intranet vol dir que serà visible per als membres (lectors)."
 
-#: ../browser/migrations.py:213
-#: ../content/community.py:1236
+#: ../browser/migrations.py:214
+#: ../content/community.py:1238
 msgid "Media"
 msgstr "Media"
 
@@ -417,11 +417,11 @@ msgstr "Noticies importants"
 msgid "News intranet workflow"
 msgstr "News intranet workflow"
 
-#: ../content/community.py:134
+#: ../content/community.py:135
 msgid "Nom"
 msgstr "Nom"
 
-#: ../content/community.py:135
+#: ../content/community.py:136
 msgid "Nom de la comunitat"
 msgstr "Nom de la comunitat"
 
@@ -434,11 +434,15 @@ msgstr "Nom de la reunió"
 msgid "None"
 msgstr ""
 
-#: ../content/community.py:210
+#: ../content/community.py:1240
+msgid "Noticies"
+msgstr "Notícies"
+
+#: ../content/community.py:211
 msgid "Notify activity and comments via push"
 msgstr "Notificar activitat i comentaris via 'push'"
 
-#: ../content/community.py:204
+#: ../content/community.py:205
 msgid "Notify activity via push"
 msgstr "Notificar activitat via 'push'"
 
@@ -448,15 +452,15 @@ msgstr "Notificar activitat via 'push'"
 msgid "Number of items to display"
 msgstr "Elements a mostrar"
 
-#: ../content/community.py:103
+#: ../content/community.py:104
 msgid "Open"
 msgstr "Oberta"
 
-#: ../content/community.py:113
+#: ../content/community.py:114
 msgid "Organizative"
 msgstr "Organitzativa"
 
-#: ../content/community.py:184
+#: ../content/community.py:185
 msgid "Owners"
 msgstr "Propietarios"
 
@@ -521,7 +525,7 @@ msgstr "Publica el teu article en una cua de revisió, de manera que es pot publ
 msgid "QuickLinks"
 msgstr "Enllaços directes"
 
-#: ../content/community.py:164
+#: ../content/community.py:165
 msgid "Readers"
 msgstr "Lectors"
 
@@ -585,15 +589,15 @@ msgstr "Específic"
 msgid "Submit for publication"
 msgstr "Enviar per a la publicació"
 
-#: ../content/community.py:176
+#: ../content/community.py:177
 msgid "Subscribed people with editor permissions"
 msgstr "Llista amb les persones subscrites amb permís d'edició"
 
-#: ../content/community.py:185
+#: ../content/community.py:186
 msgid "Subscribed people with owner permissions"
 msgstr "Llista amb les persones propietàries de la comunitat"
 
-#: ../content/community.py:165
+#: ../content/community.py:166
 msgid "Subscribed people with read-only permissions"
 msgstr "Llista amb les persones subscrites amb permís de lectura"
 
@@ -629,7 +633,7 @@ msgstr "Aquest portlet mostra els articles de notícies subscrits."
 msgid "Time of the last transition"
 msgstr "Temps de l'última transició"
 
-#: ../content/community.py:147
+#: ../content/community.py:148
 msgid "Tipus de comunitat"
 msgstr "Tipus de comunitat"
 
@@ -638,7 +642,7 @@ msgstr "Tipus de comunitat"
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
 
-#: ../content/community.py:198
+#: ../content/community.py:199
 msgid "Twitter hashtag"
 msgstr "Twitter hashtag"
 
@@ -744,7 +748,7 @@ msgstr "Mostra les noticies a les que estic subscrit"
 msgid "activate_sharedwithme"
 msgstr "Mostra el que hi ha compartit amb mi"
 
-#: ../content/community.py:155
+#: ../content/community.py:156
 #: ../controlpanel.py:319
 msgid "activity_view"
 msgstr "Visualització Activitats Comunitat"
@@ -870,7 +874,7 @@ msgstr "Comunitats"
 msgid "community_open_and_no_subscribed"
 msgstr "Aquesta comunitat és oberta, però actualment no hi estàs subscrit"
 
-#: ../content/community.py:148
+#: ../content/community.py:149
 msgid "community_type_description"
 msgstr ""
 "Oberta: Pública (la veu tothom) i et pots subscriure i desubscriure't. \n"
@@ -878,17 +882,17 @@ msgstr ""
 " Organitzativa: Només et pot subscriure un administrador i no et pots desubscriure't."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1082
+#: ../content/community.py:1083
 msgid "comunitat_creada"
 msgstr "La comunitat ${comunitat} ha estat creada."
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1058
+#: ../content/community.py:1059
 msgid "comunitat_existeix"
 msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1188
+#: ../content/community.py:1189
 msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
@@ -1009,7 +1013,7 @@ msgstr "Veure els meus cursos del Campus"
 msgid "gotolibrary"
 msgstr "Veure la llibreria"
 
-#: ../content/community.py:199
+#: ../content/community.py:200
 msgid "hashtag_help"
 msgstr "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el '#'."
 
@@ -1033,7 +1037,7 @@ msgstr "Mostra o no el botó de Noticies a la tile central de les comunitats"
 msgid "help_activate_sharedwithme"
 msgstr "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 
-#: ../content/community.py:156
+#: ../content/community.py:157
 #: ../controlpanel.py:320
 msgid "help_activity_view"
 msgstr "Selecciona el mode de visualització de les activitats de la comunitat"
@@ -1057,12 +1061,6 @@ msgstr "Aquest és el color de fons global."
 #: ../controlpanel.py:212
 msgid "help_background_property"
 msgstr "Aquest és la propietat de CSS de background."
-
-#. Default: "A short overview of who you are and what you do. Will be displayed on your author page, linked from the items you create."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:59
-msgid "help_biography"
-msgstr "Una breu ressenya de qui ets i què fas. Es mostrarà a la pàgina del vostre autor, enllaçat des dels elements que creeu."
 
 #. Default: "Aquest és el color primari dels botons."
 #: ../controlpanel.py:230
@@ -1099,31 +1097,13 @@ msgstr "Aquest és el color per les comunitats obertes."
 msgid "help_color_community_organizative"
 msgstr "Aquest és el color per les comunitats organitzatives."
 
-#. Default: "We will use this address if you need to recover your password"
-#: ../profiles/default/userschema.xml
-msgid "help_email"
-msgstr "Indica el teu correu (s'utilizarà en el cas de restablir la contrasenya)."
-
-#. Default: "Enter full name, e.g. John Smith."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:40
-msgid "help_full_name_creation"
-msgstr "Indica el nom sencer, per exemple, John Smith."
-
-#. Default: "The URL for your external home page, if you have one."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:52
-msgid "help_homepage"
-msgstr "L'URL de la vostra pàgina externa, si teniu una."
-
 #. Default: "Aquest és l'enllaç al servei."
 #: ../controlpanel.py:141
 msgid "help_info_servei"
 msgstr "Enllaç al servei."
 
 #. Default: "Enter your language"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:111
+#: ../userschema.py:69
 msgid "help_language"
 msgstr "Idioma de l'espai."
 
@@ -1146,12 +1126,6 @@ msgstr "Aquest és el llindar del Winwinn #2."
 #: ../controlpanel.py:123
 msgid "help_llindar_winwin3"
 msgstr "Aquest és el llindar del Winwinn #3."
-
-#. Default: "Your location - either city and country - or in a company setting, where your office is located."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:67
-msgid "help_location"
-msgstr "La seva ubicació - ja sigui de la ciutat i el país - o en un entorn d'empresa, on es troba la seva oficina."
 
 #. Default: "Aquest és el color principal de l'espai."
 #: ../controlpanel.py:167
@@ -1178,7 +1152,7 @@ msgstr "Habilita el portlet MAX UI: Xat."
 msgid "help_navigation_title"
 msgstr "Títol de l'arbre de navegació"
 
-#: ../content/community.py:211
+#: ../content/community.py:212
 msgid "help_notify_activity_via_push_comments_too"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat i els comentaris d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
@@ -1242,12 +1216,6 @@ msgstr "Habilita el portlet RSS."
 msgid "help_portlets_settings_editform"
 msgstr "Configuració de portlets. Configura els portlets permesos."
 
-#. Default: "To add or change the portrait: click the \"Browse\" button; select a picture of yourself. Recommended image size is 75 pixels wide by 100 pixels tall."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:75
-msgid "help_portrait"
-msgstr "Per afegir o canviar la imatge: feu clic al botó Examinar; seleccionar una imatge. La mida recomanada de la imatge és de 75 píxels d'amplada per 100 píxels d'alt."
-
 #. Default: "Afegiu la icona del Font Awesome que voleu que es mostri"
 #: ../controlpanel.py:307
 msgid "help_quicklinks_icon"
@@ -1277,20 +1245,17 @@ msgid "help_stats_button"
 msgstr "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 
 #. Default: "Contacte telefònic"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:104
+#: ../userschema.py:62
 msgid "help_telefon"
 msgstr "Contacte telefònic"
 
 #. Default: "Fill in your Twitter username."
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:90
+#: ../userschema.py:48
 msgid "help_twitter"
 msgstr "Introdueix el teu nom d'usuari de Twitter"
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:97
+#: ../userschema.py:55
 msgid "help_ubicacio"
 msgstr "Equip, Àrea / Companyia / Departament"
 
@@ -1438,12 +1403,6 @@ msgstr "Llista"
 msgid "label_add_to_ical"
 msgstr "iCal"
 
-#. Default: "Biography"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:58
-msgid "label_biography"
-msgstr "Biografia"
-
 #: ulearn5/theme/browser/views_templates/communities.pt:54
 msgid "label_check_favorite"
 msgstr "Marca com a favorit"
@@ -1452,52 +1411,22 @@ msgstr "Marca com a favorit"
 msgid "label_delete_community"
 msgstr "Eliminar comunitat"
 
-#. Default: "Delete Portrait"
-#: ../userschema.py:84
-msgid "label_delete_portrait"
-msgstr "Eliminar foto"
-
 #: ulearn5/theme/browser/views_templates/communities.pt:67
 msgid "label_edit_community"
 msgstr "Modificar comunitat"
 
-#. Default: "E-mail"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:45
-msgid "label_email"
-msgstr "Correu"
-
-#. Default: "Full Name"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:39
-msgid "label_full_name"
-msgstr "Nom complet"
-
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:53
 msgid "label_go_subject"
 msgstr "Anar a l'assignatura"
-
-#. Default: "Home page"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:51
-msgid "label_homepage"
-msgstr "Pàgina web"
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:32
 msgid "label_info_tasks"
 msgstr "Tasques"
 
 #. Default: "Language"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:110
+#: ../userschema.py:68
 msgid "label_language"
 msgstr "Idioma"
-
-#. Default: "Location"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:66
-msgid "label_location"
-msgstr "Ubicació"
 
 #. Default: "Title"
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:26
@@ -1509,12 +1438,6 @@ msgstr "Títol"
 msgid "label_not_subjects"
 msgstr "No hi ha assignatures disponibles."
 
-#. Default: "Portrait"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:74
-msgid "label_portrait"
-msgstr "Foto"
-
 #. Default: "Show all items"
 #: ulearn5/theme/browser/views.py:473
 msgid "label_show_all"
@@ -1525,20 +1448,17 @@ msgid "label_subscribe_to_community"
 msgstr "Subscriure's a la comunitat"
 
 #. Default: "Telèfon"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:103
+#: ../userschema.py:61
 msgid "label_telefon"
 msgstr "Telèfon"
 
 #. Default: "Twitter username"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:89
+#: ../userschema.py:47
 msgid "label_twitter"
 msgstr "Twitter"
 
 #. Default: "Ubicació"
-#: ../profiles/default/userschema.xml
-#: ../userschema.py:96
+#: ../userschema.py:54
 msgid "label_ubicacio"
 msgstr "Ubicació"
 
@@ -1711,7 +1631,7 @@ msgstr "Persones no visibles"
 msgid "not_events_for_today"
 msgstr "Avui no hi ha esdeveniments"
 
-#: ../content/community.py:205
+#: ../content/community.py:206
 msgid "notify_activity_via_push_help"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
