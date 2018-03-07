@@ -58,7 +58,6 @@ from ulearn5.core.interfaces import IDocumentFolder
 from ulearn5.core.interfaces import IEventsFolder
 from ulearn5.core.interfaces import INewsItemFolder
 from ulearn5.core.interfaces import IPhotosFolder
-from ulearn5.core.interfaces import IDiscussionFolder
 from DateTime.DateTime import DateTime
 
 import json
@@ -1239,23 +1238,17 @@ class CommunityInitializeAdapter(object):
         events.setTitle(community.translate(_(u'Esdeveniments')))
         news.setTitle(community.translate(_(u'Noticies')))
 
-        # Create the default discussion container and set title
-        discussion = createContentInContainer(community, 'Folder', title='discussion', checkConstraints=False)
-        discussion.setTitle(community.translate(_(u'Discussion')))
-
         # Set default view layout
         documents.setLayout('filtered_contents_search_view')
         media.setLayout('summary_view')
         events.setLayout('summary_view')
         news.setLayout('summary_view')
-        discussion.setLayout('discussion_view')
 
         # Mark them with a marker interface
         alsoProvides(documents, IDocumentFolder)
         alsoProvides(media, IPhotosFolder)
         alsoProvides(events, IEventsFolder)
         alsoProvides(news, INewsItemFolder)
-        alsoProvides(discussion, IDiscussionFolder)
 
         # Set on them the allowable content types
         behavior = ISelectableConstrainTypes(documents)
@@ -1274,10 +1267,6 @@ class CommunityInitializeAdapter(object):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('News Item', 'Folder'))
         behavior.setImmediatelyAddableTypes(('News Item', 'Folder'))
-        behavior = ISelectableConstrainTypes(discussion)
-        behavior.setConstrainTypesMode(1)
-        behavior.setLocallyAllowedTypes(('ulearn.discussion', 'Folder'))
-        behavior.setImmediatelyAddableTypes(('ulearn.discussion', 'Folder'))
 
         NEWS_QUERY = [
             {'i': u'portal_type',
@@ -1309,7 +1298,6 @@ class CommunityInitializeAdapter(object):
         documents.reindexObject()
         media.reindexObject()
         events.reindexObject()
-        discussion.reindexObject()
         news.reindexObject()
         col_news.reindexObject()
 

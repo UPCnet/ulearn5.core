@@ -30,10 +30,6 @@ class INewsItemFolder(Interface):
     """ Marker for news item folder """
 
 
-class IDiscussionFolder(Interface):
-    """ Marker for discussion folder """
-
-
 class IDXFileFactory(IFileFactory):
     """ adapter factory for DX types
     """

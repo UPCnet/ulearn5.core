@@ -388,21 +388,6 @@
    </property>
    <property name="visible">True</property>
   </object>
-  <object name="review-comments" meta_type="CMF Action" i18n:domain="plone">
-   <property name="title" i18n:translate="">Moderate comments</property>
-   <property name="description" i18n:translate=""></property>
-   <property
-      name="url_expr">string:${globals_view/navigationRootUrl}/@@moderate-comments</property>
-   <property name="link_target"></property>
-   <property
-      name="icon_expr">string:${globals_view/navigationRootUrl}/discussionitem_icon.png</property>
-   <property
-      name="available_expr">portal/@@moderate-comments-enabled|nothing</property>
-   <property name="permissions">
-    <element value="Review comments"/>
-   </property>
-   <property name="visible">False</property>
-  </object>
   <object name="logout" meta_type="CMF Action" i18n:domain="plone">
    <property name="title" i18n:translate="">Log out</property>
    <property name="description" i18n:translate=""></property>

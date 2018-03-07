@@ -157,41 +157,6 @@ class InitializeAllCommunities(grok.View):
                 notify(ObjectModifiedEvent(community))
 
 
-class CreateDiscussionFolders(grok.View):
-    grok.context(IPloneSiteRoot)
-    grok.require('zope2.ViewManagementScreens')
-
-    def render(self):
-        pc = api.portal.get_tool(name='portal_catalog')
-        communities = pc.searchResults(portal_type='ulearn.community')
-        for community in communities:
-            community = community.getObject()
-            if 'discussion' not in community.objectIds():
-                # Create the default discussion container and set title
-                discussion = createContentInContainer(community, 'Folder', title='discussion', checkConstraints=False)
-                discussion.setTitle(community.translate(_(u'Discussion')))
-
-                discussion.setLayout('discussion_folder_view')
-
-                alsoProvides(discussion, IDiscussionFolder)
-
-                behavior = ISelectableConstrainTypes(discussion)
-                behavior.setConstrainTypesMode(1)
-                behavior.setLocallyAllowedTypes(('ulearn.discussion', 'Folder'))
-                behavior.setImmediatelyAddableTypes(('ulearn.discussion', 'Folder'))
-
-                # Blacklist the right column portlets on discussion
-                right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
-                blacklist = getMultiAdapter((discussion, right_manager), ILocalPortletAssignmentManager)
-                blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
-
-                discussion.reindexObject()
-
-                logger.info('Created discussion folder in {}'.format(community.absolute_url()))
-
-        return 'Done.'
-
-
 class InitializeVideos(grok.View):
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
