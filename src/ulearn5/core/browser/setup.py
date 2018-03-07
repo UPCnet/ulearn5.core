@@ -35,7 +35,6 @@ from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.browser.sharing import ElasticSharing
-from ulearn5.core.controlportlets import IPortletsSettings
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
 # from ulearn5.core.api.people import Person
 
@@ -44,8 +43,8 @@ logger = logging.getLogger(__name__)
 
 
 grok.templatedir("views_templates")
-NEWS_QUERY = [{'i': u'portal_type', 'o': u'plone.app.querystring.operation.selection.is', 'v': [u'News Item']},
-              {'i': u'review_state', 'o': u'plone.app.querystring.operation.selection.is', 'v': [u'published', u'intranet']},
+NEWS_QUERY = [{'i': u'portal_type', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'News Item']},
+              {'i': u'review_state', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'published', u'intranet']},
               {'i': u'path', 'o': u'plone.app.querystring.operation.string.relativePath', 'v': u'..'}]
 QUERY_SORT_ON = u'effective'
 

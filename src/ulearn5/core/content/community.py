@@ -1279,25 +1279,30 @@ class CommunityInitializeAdapter(object):
         behavior.setLocallyAllowedTypes(('ulearn.discussion', 'Folder'))
         behavior.setImmediatelyAddableTypes(('ulearn.discussion', 'Folder'))
 
-        # Blacklist the right column portlets on documents
-        #right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
-        #blacklist = getMultiAdapter((documents, right_manager), ILocalPortletAssignmentManager)
-        #blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+        NEWS_QUERY = [
+            {'i': u'portal_type',
+             'o': u'plone.app.querystring.operation.selection.any',
+             'v': [u'News Item'],
+             },
+            {'i': u'review_state',
+             'o': u'plone.app.querystring.operation.selection.any',
+             'v': [u'published', u'intranet'],
+             },
+            {'i': u'path',
+             'o': u'plone.app.querystring.operation.string.relativePath',
+             'v': u'..',
+             },
+            ]
+        # 'v': u'..'}]
+        QUERY_SORT_ON = u'effective'
 
-        # Blacklist the right column portlets on media
-        #right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
-        #blacklist = getMultiAdapter((media, right_manager), ILocalPortletAssignmentManager)
-        #blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
-
-        # Blacklist the right column portlets on events
-        #right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
-        #blacklist = getMultiAdapter((events, right_manager), ILocalPortletAssignmentManager)
-        #blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
-
-        # Blacklist the right column portlets on discussion
-        #right_manager = queryUtility(IPortletManager, name=u'plone.rightcolumn')
-        #blacklist = getMultiAdapter((discussion, right_manager), ILocalPortletAssignmentManager)
-        #blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+        # Create the aggregator with new criteria
+        col_news = createContentInContainer(news, 'Collection', title='aggregator', checkConstraints=False)
+        col_news.setTitle(news.translate(_(u'Noticies')))
+        col_news.setDescription(news.translate(_(u'Noticies de la comunitat')))
+        col_news.query = NEWS_QUERY
+        col_news.sort_on = QUERY_SORT_ON
+        news.setDefaultPage('aggregator')
 
         # Reindex all created objects
         community.reindexObject()
@@ -1305,6 +1310,8 @@ class CommunityInitializeAdapter(object):
         media.reindexObject()
         events.reindexObject()
         discussion.reindexObject()
+        news.reindexObject()
+        col_news.reindexObject()
 
         # Mark community as initialitzated, to avoid previous
         # folder creations to trigger modify event
