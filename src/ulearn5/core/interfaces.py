@@ -9,7 +9,6 @@ from zope.filerepresentation.interfaces import IFileFactory
 class IUlearn5CoreLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
-
 class IDocumentFolder(Interface):
     """ Marker for documents folder """
 
@@ -26,13 +25,16 @@ class IEventsFolder(Interface):
     """ Marker for events folder """
 
 
+class IDiscussionFolder(Interface):
+    """ Marker for discussion folder """
+
+
 class INewsItemFolder(Interface):
     """ Marker for news item folder """
 
 
 class IDXFileFactory(IFileFactory):
-    """ adapter factory for DX types
-    """
+    """ adapter factory for DX types """
 
 
 class IAppImage(Interface):
