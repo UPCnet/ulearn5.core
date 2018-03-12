@@ -18,6 +18,5 @@
   <element value="all_content"/>
   <element value="tabular_view"/>
   <element value="thumbnail_view"/>
-  <element value="summary_view_news"/>
  </property>
 </object>
