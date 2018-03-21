@@ -55,7 +55,7 @@
               <li ng-repeat="user in ctrl.users">{{user.id}}</li>
           </ul> -->
 
-          <table datatable="ng" dt-options="ctrl.dtOptions" dt-column-defs="ctrl.dtColumnDefs" class="table table-striped table-bordered">
+          <table ui-jq="dataTable" ui-options="ctrl.dtOptions"  ui-column-defs="ctrl.dtColumnDefs" class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>{{'COMMUNITY_ACL.USERNAME' | translate}}</th>
@@ -65,7 +65,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="user in ctrl.users">
+              <tr ng-repeat="user in ctrl.users" id="{{ user.id }}">
                 <td>{{ user.id }}</td>
                 <td>{{ user.displayName }}</td>
                 <td tal:repeat="role roles" class="text-center"><input ng-model="user.role" type="radio" name="{{user.id}}" tal:attributes="value role/id" checked></td>
@@ -94,7 +94,7 @@
               <li ng-repeat="group in ctrl.groups">{{group.id}}</li>
           </ul> -->
 
-          <table datatable="ng" dt-options="ctrl.dtOptions" dt-column-defs="ctrl.dtColumnDefs" class="table table-striped table-bordered">
+          <table ui-jq="dataTable" ui-options="ctrl.dtOptions"  ui-column-defs="ctrl.dtColumnDefs" class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>{{'COMMUNITY_ACL.GROUPNAME' | translate}}</th>
