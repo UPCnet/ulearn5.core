@@ -28,13 +28,15 @@
       <input type="hidden"
              tal:attributes="roles view/get_acl_roles_json" />
 
-      <div class="user_group btn-group" ng-cloak>
-        <button class="btn active"
+      <div class="autotabs" ng-cloak>
+        <nav class="autotoc-nav">
+        <a class="autotoc-level-1 active"
                 ng-click="ctrl.active_tab = 'users'"
-                ng-class="{active: ctrl.active_tab == 'users'}">{{'COMMUNITY_ACL.USERS' | translate}}</button>
-        <button class="btn"
+                ng-class="{active: ctrl.active_tab == 'users'}">{{'COMMUNITY_ACL.USERS' | translate}}</a>
+        <a class="autotoc-level-1"
                 ng-click="ctrl.active_tab = 'groups'"
-                ng-class="{active: ctrl.active_tab == 'groups'}">{{'COMMUNITY_ACL.GROUPS' | translate}}</button>
+                ng-class="{active: ctrl.active_tab == 'groups'}">{{'COMMUNITY_ACL.GROUPS' | translate}}</a>
+</nav>
       </div>
 
       <div class="acl_tabs"
@@ -120,7 +122,7 @@
 
         </div>
       </div>
-      <button class="submit-widget button-field context"
+      <button class="btn button-field context"
               i18n:translate="Save"
               ng-click="ctrl.saveAcl()" ng-cloak>Save</button>
     </div>
