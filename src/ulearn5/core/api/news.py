@@ -11,6 +11,7 @@ from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
+from ulearn5.core.api import ObjectNotFound
 
 from datetime import datetime
 
@@ -20,6 +21,10 @@ import requests
 class News(REST):
     """
         /api/news
+        and
+        /api/news/NEW_ID
+
+        Get all News by "X-Oauth-Username"
     """
 
     placeholder_type = 'new'
@@ -27,6 +32,106 @@ class News(REST):
 
     grok.adapts(APIRoot, IPloneSiteRoot)
     grok.require('base.authenticated')
+
+    @api_resource(required=[])
+    def GET(self):
+        show_news_in_app = api.portal.get_registry_record(name='ulearn.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
+        results = []
+        news_per_page = 10  # Default items per page
+        pagination_page = self.params.pop('page', None)
+        more_items = False
+        total_news = 0
+        if show_news_in_app:
+            mountpoint_id = self.context.getPhysicalPath()[1]
+            if mountpoint_id == self.context.id:
+                default_path = api.portal.get().absolute_url_path() + '/news'
+            else:
+                default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/news'
+            total_news = len(api.content.find(
+                portal_type="News Item",
+                path=default_path,
+                sort_order='descending',
+                sort_on='effective',
+                is_inapp=True))
+            if pagination_page:
+                # Si page = 0, devolvemos la ?page=1 (que es lo mismo)
+                if pagination_page == '0':
+                    pagination_page = 1
+                start = int(news_per_page) * (int(pagination_page) - 1)
+                end = int(news_per_page) * int(pagination_page)
+                # Devolvemos paginando
+                news = api.content.find(
+                    portal_type="News Item",
+                    path=default_path,
+                    sort_order='descending',
+                    sort_on='effective',
+                    is_inapp=True)[start:end]
+                if end < total_news:
+                    more_items = True
+            else:
+                # No paginammos, solo devolvemos 10 primeras => ?page=1
+                news = api.content.find(
+                    portal_type="News Item",
+                    path=default_path,
+                    sort_order='descending',
+                    sort_on='effective',
+                    is_inapp=True)[0:news_per_page]
+                if news_per_page < total_news:
+                    more_items = True
+            for item in news:
+                value = item.getObject()
+                if value.effective_date:
+                    date = value.effective_date.strftime("%d/%m/%Y")
+                else:
+                    date = value.creation_date.strftime("%d/%m/%Y")
+                if value.text:
+                    text = value.text.output
+                else:
+                    text = ''
+
+                is_inapp = None
+                is_outoflist = None
+                is_flash = None
+                is_important = None
+                filename = None
+                contentType = None
+                raw_image = None
+
+                if getattr(item, 'is_inapp', None):
+                    is_inapp = item.is_inapp
+                if getattr(item, 'is_outoflist', None):
+                    is_outoflist = item.is_outoflist
+                if getattr(item, 'is_flash', None):
+                    is_flash = item.is_flash
+                if getattr(item, 'is_important', None):
+                    is_important = item.is_important
+                if getattr(value, 'image', None):
+                    filename = value.image.filename
+                    contentType = value.image.contentType
+                    raw_image = value.absolute_url() + '/thumbnail-image'
+
+                new = dict(title=value.title,
+                           id=value.id,
+                           description=value.description,
+                           path=item.getURL(),
+                           absolute_url=value.absolute_url_path(),
+                           text=text,
+                           filename=filename,
+                           caption=value.image_caption,
+                           is_inapp=is_inapp,
+                           is_outoflist=is_outoflist,
+                           is_flash=is_flash,
+                           is_important=is_important,
+                           effective_date=date,
+                           creators=value.creators,
+                           raw_image=raw_image,
+                           content_type=contentType,
+                           )
+                results.append(new)
+        values = dict(items=results,
+                      more_items=more_items,
+                      total_news=total_news)
+        return ApiResponse(values)
 
 
 class New(REST):
@@ -64,6 +169,73 @@ class New(REST):
                                  date_end)
 
         return result
+
+    @api_resource(required=['newid'])
+    def GET(self):
+        show_news_in_app = api.portal.get_registry_record(name='ulearn.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
+        if show_news_in_app:
+            newid = self.params['newid']
+            mountpoint_id = self.context.getPhysicalPath()[1]
+            if mountpoint_id == self.context.id:
+                default_path = api.portal.get().absolute_url_path() + '/news'
+            else:
+                default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/news'
+            item = api.content.find(portal_type="News Item", path=default_path, id=newid)
+            if item:
+                newitem = item[0]
+                value = newitem.getObject()
+                if value.effective_date:
+                    date = value.effective_date.strftime("%d/%m/%Y")
+                else:
+                    date = value.creation_date.strftime("%d/%m/%Y")
+                if value.text:
+                    text = value.text.output
+                else:
+                    text = ''
+
+                is_inapp = None
+                is_outoflist = None
+                is_flash = None
+                is_important = None
+                filename = None
+                contentType = None
+                raw_image = None
+
+                if getattr(newitem, 'is_inapp', None):
+                    is_inapp = newitem.is_inapp
+                if getattr(newitem, 'is_outoflist', None):
+                    is_outoflist = newitem.is_outoflist
+                if getattr(newitem, 'is_flash', None):
+                    is_flash = newitem.is_flash
+                if getattr(newitem, 'is_important', None):
+                    is_important = newitem.is_important
+                if getattr(value, 'image', None):
+                    filename = value.image.filename
+                    contentType = value.image.contentType
+                    raw_image = value.absolute_url() + '/thumbnail-image'
+
+                new = dict(title=value.title,
+                           id=value.id,
+                           description=value.description,
+                           path=value.absolute_url(),
+                           absolute_url=value.absolute_url_path(),
+                           text=text,
+                           filename=filename,
+                           caption=value.image_caption,
+                           is_inapp=is_inapp,
+                           is_outoflist=is_outoflist,
+                           is_flash=is_flash,
+                           is_important=is_important,
+                           effective_date=date,
+                           creators=value.creators,
+                           content_type=contentType,
+                           raw_image=raw_image,
+                           )
+            else:
+                raise ObjectNotFound('News Item not found')
+            return ApiResponse(new)
+        else:
+            return ApiResponse.from_string('Show in App not enabled on this site', code=404)
 
     def create_new(self, newid, title, desc, body, imgData, imgName, date_start, date_end):
         date_start = date_start.split('/')

@@ -56,7 +56,7 @@ class IUlearnControlPanelSettings(model.Schema):
         _(u'General'),
         fields=['campus_url', 'library_url', 'people_literal',
                 'threshold_winwin1', 'threshold_winwin2',
-                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'activate_sharedwithme'])
+                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'activate_sharedwithme', 'buttonbar_selected'])
 
     model.fieldset(
         'Specific',
@@ -79,7 +79,7 @@ class IUlearnControlPanelSettings(model.Schema):
 
     model.fieldset('UPCnet only',
                    _(u'UPCnet only'),
-                   fields=['language', 'activity_view', 'url_forget_password'])
+                   fields=['language', 'activity_view', 'url_forget_password', 'show_news_in_app'])
 
     campus_url = schema.TextLine(
         title=_(u'campus_url',
@@ -160,6 +160,13 @@ class IUlearnControlPanelSettings(model.Schema):
         required=False,
         default=False,
     )
+
+    buttonbar_selected = schema.Choice(
+        title=_(u'buttonbar_selected'),
+        description=_(u'Select the active button in the button bar.'),
+        values=['stream', 'news', 'mycommunities', 'sharedwithme'],
+        required=True,
+        default='stream')
 
     main_color = schema.TextLine(
         title=_(u'main_color',
@@ -330,6 +337,14 @@ class IUlearnControlPanelSettings(model.Schema):
         required=True,
         default=_(u'/mail_password_form?userid='))
 
+    show_news_in_app = schema.Bool(
+        title=_(u'show_news_in_app',
+                default=_(u"Show News Items in App")),
+        description=_(u'help_show_news_in_app',
+                      default=_(u"If selected, then gives the option to show the News Items in Mobile App.")),
+        required=False,
+        default=False,
+    )
 
 class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
     """ Ulearn settings form """

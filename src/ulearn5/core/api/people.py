@@ -13,6 +13,7 @@ from mrs5.max.utilities import IMAXClient
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
+from ulearn5.core.api import ObjectNotFound
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.browser.security import execute_under_special_role
 
@@ -25,6 +26,11 @@ from souper.soup import get_soup
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.content.community import ICommunityACL
 
+from Products.CMFCore.interfaces import ISiteRoot
+from zExceptions import Forbidden
+from souper.interfaces import ICatalogFactory
+from zope.component import getUtilitiesFor
+
 import logging
 import requests
 
@@ -36,13 +42,57 @@ logger = logging.getLogger(__name__)
 class People(REST):
     """
         /api/people
+        Returns all Users with their properties
     """
 
     placeholder_type = 'person'
     placeholder_id = 'username'
 
     grok.adapts(APIRoot, IPloneSiteRoot)
-    grok.require('genweb.authenticated')
+    grok.require('base.authenticated')
+
+    @api_resource(required=[])
+    def GET(self):
+        portal = api.portal.get()
+        soup = get_soup('user_properties', portal)
+        records = [r for r in soup.data.items()]
+
+        result = {}
+        user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+        extender_name = api.portal.get_registry_record('genweb.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender')
+        for record in records:
+
+            username = record[1].attrs['username']
+            user = api.user.get(username=username)
+            rendered_properties = []
+            if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
+                extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+                for prop in extended_user_properties_utility.directory_properties:
+                    userProp = user.getProperty(prop, '')
+                    if userProp:
+                        rendered_properties.append(dict(
+                            name=prop,
+                            value=userProp,
+                            icon=extended_user_properties_utility.directory_icons[prop]
+                        ))
+            else:
+                # If it's not extended, then return the simple set of data we know
+                # about the user using also the directory_properties field
+                for prop in user_properties_utility.directory_properties:
+                    try:
+                        userProp = user.getProperty(prop, '')
+                        if userProp:
+                            rendered_properties.append(dict(
+                                name=prop,
+                                value=userProp,
+                                icon=user_properties_utility.directory_icons[prop],
+                            ))
+                    except:
+                        # Some users has @ in the username and is not valid...
+                        pass
+            result[record[1].attrs['id']] = rendered_properties
+
+        return ApiResponse(result)
 
 
 class Sync(REST):
@@ -334,6 +384,42 @@ class Person(REST):
     #     elif status == 200:
     #         return ApiResponse.from_string('User {} updated'.format(self.params['username'].lower()), code=status)
 
+    @api_resource(required=['username'])
+    def GET(self):
+        """ Returns the user profile values. """
+        username = self.params['username']
+        user = api.user.get(username=username)
+
+        user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+
+        rendered_properties = []
+        try:
+            extender_name = api.portal.get_registry_record('genweb.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender')
+            if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
+                extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+                for prop in extended_user_properties_utility.profile_properties:
+                    userProp = user.getProperty(prop, '')
+                    if userProp:
+                        rendered_properties.append(dict(
+                            name=prop,
+                            value=userProp,
+                            icon=extended_user_properties_utility.directory_icons[prop]
+                        ))
+            else:
+                # If it's not extended, then return the simple set of data we know
+                # about the user using also the profile_properties field
+                for prop in user_properties_utility.profile_properties:
+                    userProp = user.getProperty(prop, '')
+                    if userProp:
+                        rendered_properties.append(dict(
+                            name=prop,
+                            value=userProp,
+                            icon=user_properties_utility.directory_icons[prop]
+                        ))
+        except:
+            raise ObjectNotFound('User not found')
+
+        return ApiResponse(rendered_properties)
 
 class Subscriptions(REST):
     """
