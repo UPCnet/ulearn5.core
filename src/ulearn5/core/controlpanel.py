@@ -392,15 +392,20 @@ class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
                 portal = api.portal.get()
                 if portal.portal_actions.object.local_roles.visible == False:
                     portal.portal_actions.object.local_roles.visible = True
-                    transaction.commit()
+                portal.portal_actions.object.local_roles.manage_changeProperties(
+                available_expr = "python:here.portal_type not in ['ulearn.community']")
+                transaction.commit()
+
             else:
                 IStatusMessage(self.request).addStatusMessage(_(u'Has marcat el comparteix pero falta la url del elasticsearch'),
                                                               'info')
         else:
             portal = api.portal.get()
-            if portal.portal_actions.object.local_roles.visible == True:
-                portal.portal_actions.object.local_roles.visible = False
-                transaction.commit()
+            if portal.portal_actions.object.local_roles.visible == False:
+                portal.portal_actions.object.local_roles.visible = True
+            portal.portal_actions.object.local_roles.manage_changeProperties(
+            available_expr = "python:here.portal_type in ['privateFolder']")
+            transaction.commit()
 
 
         IStatusMessage(self.request).addStatusMessage(_(u'Changes saved'),

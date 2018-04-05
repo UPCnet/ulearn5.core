@@ -122,7 +122,7 @@
    <property name="link_target"></property>
    <property name="icon_expr"></property>
    <property
-      name="available_expr">python:here.portal_type not in ['ulearn.community']</property>
+      name="available_expr">python:here.portal_type in ['privateFolder']</property>
    <property name="permissions">
     <element value="Sharing page: Delegate roles"/>
    </property>
