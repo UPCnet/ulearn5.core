@@ -34,6 +34,14 @@ def json_response(func):
 
     return decorator
 
+def is_activate_owncloud(self):
+    """ Returns True id ulearn5.owncloud is installed """
+    qi = getToolByName(self.context, 'portal_quickinstaller')
+    prods = qi.listInstalledProducts()
+    for prod in prods:
+        if prod['id'] == 'ulearn5.owncloud':
+            return True
+    return False
 
 class ulearnUtils(BrowserView):
     """ Convenience methods placeholder ulearn.utils view. """

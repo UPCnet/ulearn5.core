@@ -58,6 +58,10 @@ from ulearn5.core.interfaces import IDocumentFolder
 from ulearn5.core.interfaces import IEventsFolder
 from ulearn5.core.interfaces import INewsItemFolder
 from ulearn5.core.interfaces import IPhotosFolder
+from ulearn5.core.utils import is_activate_owncloud
+from ulearn5.owncloud.utilities import IOwncloudClient
+from ulearn5.owncloud.api.owncloud import HTTPResponseError, OCSResponseError
+from ulearn5.owncloud.api.owncloud import Client
 from DateTime.DateTime import DateTime
 
 import json
@@ -1225,6 +1229,26 @@ class CommunityInitializeAdapter(object):
 
         # Auto-favorite the creator user to this community
         IFavorite(community).add(community.Creator())
+
+        if is_activate_owncloud(self):
+            client = getUtility(IOwncloudClient)
+            valor = client.admin_connection()
+            # Create structure folders community in domain
+            domain = api.portal.get_registry_record('ulearn5.owncloud.controlpanel.IOCSettings.connector_domain')
+            try:
+                valor.file_info(domain.lower() + community.id)
+            except OCSResponseError:
+                pass
+            except HTTPResponseError as err:
+                if err.status_code == 404:
+                    valor.mkdir(domain.lower() + '/' + community.id)
+
+                    # Assign owner permissions
+                    current = api.user.get_current()
+                    valor.share_file_with_user(domain.lower() + '/' + community.id, current.id , perms=Client.OCS_PERMISSION_ALL) #Propietari
+                else:
+                    logger.warning('The community {} not has been creation in owncloud'.format(community.id))
+                    raise
 
         # Create default content containers
         documents = createContentInContainer(community, 'Folder', title='documents', checkConstraints=False)
