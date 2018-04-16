@@ -145,6 +145,13 @@ def setup_ulearn_portlets():
             if valuePortlet is False:
                 unregisterPortletType(site, idPortlet)
 
+    lessvars = registry.get('plone.lessvariables', {})
+    lessvars['plone-screen-sm-min'] = u'300px'
+    lessvars['plone-screen-xs-min'] = u'300px'
+
+    import transaction
+    transaction.commit()
+
 
 def setupVarious(context):
     # Ordinarily, GenericSetup handlers check for the existence of XML files.

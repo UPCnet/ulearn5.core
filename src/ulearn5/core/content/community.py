@@ -1232,22 +1232,23 @@ class CommunityInitializeAdapter(object):
 
         if is_activate_owncloud(self.context):
             client = getUtility(IOwncloudClient)
-            valor = client.admin_connection()
+            session = client.admin_connection()
             # Create structure folders community in domain
             domain = api.portal.get_registry_record('ulearn5.owncloud.controlpanel.IOCSettings.connector_domain')
             try:
-                valor.file_info(domain.lower() + community.id)
+                session.file_info(domain.lower() + community.id)
             except OCSResponseError:
-                pass
+                logger.warning('The community {} not has been created in owncloud due to {}'.format(community.id, OCSResponseError))
+                raise
             except HTTPResponseError as err:
                 if err.status_code == 404:
-                    valor.mkdir(domain.lower() + '/' + community.id)
+                    session.mkdir(domain.lower() + '/' + community.id)
 
                     # Assign owner permissions
                     current = api.user.get_current()
-                    valor.share_file_with_user(domain.lower() + '/' + community.id, current.id , perms=Client.OCS_PERMISSION_ALL) #Propietari
+                    session.share_file_with_user(domain.lower() + '/' + community.id, current.id , perms=Client.OCS_PERMISSION_ALL) #Propietari
                 else:
-                    logger.warning('The community {} not has been creation in owncloud'.format(community.id))
+                    logger.warning('The community {} not has been created in owncloud due to {}'.format(community.id, err.status_code))
                     raise
 
         # Create default content containers

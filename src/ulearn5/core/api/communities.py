@@ -342,7 +342,7 @@ class Subscriptions(REST, CommunityMixin):
         # check_permission = self.check_roles(self.community, ['Owner', 'Manager'])
         # if check_permission is not True:
         #     return check_permission
-
+        
         self.set_subscriptions()
 
         # Response successful
