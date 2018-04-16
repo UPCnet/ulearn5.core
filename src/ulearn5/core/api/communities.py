@@ -21,6 +21,12 @@ from souper.soup import get_soup
 import requests
 from plone.namedfile.file import NamedBlobImage
 from mimetypes import MimeTypes
+from ulearn5.core.utils import is_activate_owncloud
+from ulearn5.owncloud.utilities import IOwncloudClient
+from ulearn5.owncloud.api.owncloud import Client
+from plone.app.layout.navigation.root import getNavigationRootObject
+from zope.component import getUtility
+from ulearn5.owncloud.api.owncloud import HTTPResponseError, OCSResponseError
 
 
 class CommunityMixin(object):
@@ -342,7 +348,7 @@ class Subscriptions(REST, CommunityMixin):
         # check_permission = self.check_roles(self.community, ['Owner', 'Manager'])
         # if check_permission is not True:
         #     return check_permission
-        
+
         self.set_subscriptions()
 
         # Response successful
@@ -396,6 +402,72 @@ class Subscriptions(REST, CommunityMixin):
         # Communicate the change in the community subscription to the uLearnHub
         # XXX: Until we do not have a proper Hub online
         adapter.update_hub_subscriptions()
+
+        # If is activate owncloud modify permissions owncloud
+        if is_activate_owncloud(self.context):
+            self.update_owncloud_permission(acl)
+
+    def update_owncloud_permission(self, acl):
+        # Modify permissions owncloud
+
+        domain = api.portal.get_registry_record('ulearn5.owncloud.controlpanel.IOCSettings.connector_domain')
+        portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
+        root = getNavigationRootObject(self.context, portal_state.portal())
+        ppath = self.target.getPhysicalPath()
+        relative = ppath[len(root.getPhysicalPath()):]
+        path = "/".join(relative)
+
+        permissions = []
+        users_permissions = []
+        users_editacl = []
+
+        # Get permissions owncloud for the community
+        client = getUtility(IOwncloudClient)
+        session = client.admin_connection()
+        share_info = session.get_shares(domain.lower() + '/' + path)
+
+        for share in share_info:
+            new_permission = dict(user_id = share.get_share_with(),
+                                  share_id = share.get_id())
+            permissions.append(new_permission)
+            users_permissions.append(share.get_share_with())
+
+        # Search the users that we have to remove and delete our owncloud permissions
+        users_editacl = [user['id'] for user in acl['users']]
+        users_delete = set(users_permissions) - set(users_editacl)
+        for user in users_delete:
+            share_id = [aa['share_id'] for aa in permissions if (aa['user_id'] == user)]
+            session.delete_share(share_id[0])
+
+        # Add or modify the permissions of the users
+        for user in acl['users']:
+            update_share = False
+            if 'owner' in user['role']:
+                for share in share_info:
+                    if user['id'] in share.get_share_with():
+                        session.update_share(share.get_id(), perms=Client.OCS_PERMISSION_ALL)
+                        update_share = True
+                        break
+                if not update_share:
+                    session.share_file_with_user(domain.lower() + '/' + path, user['id'], perms=Client.OCS_PERMISSION_ALL) #Propietari
+            elif 'writer' in user['role']:
+                for share in share_info:
+                    if user['id'] in share.get_share_with():
+                        session.update_share(share.get_id(), perms=Client.OCS_PERMISSION_EDIT)
+                        update_share = True
+                        break
+                if not update_share:
+                    session.share_file_with_user(domain.lower() + '/' + path, user['id'], perms=Client.OCS_PERMISSION_EDIT) #Editor
+            elif 'reader' in user['role']:
+                for share in share_info:
+                    if user['id'] in share.get_share_with():
+                        session.update_share(share.get_id(), perms=Client.OCS_PERMISSION_READ)
+                        update_share = True
+                        break
+                if not update_share:
+                    session.share_file_with_user(domain.lower() + '/' + path, user['id']) #Lector
+            else:
+                pass
 
     def update_subscriptions(self):
         adapter = self.target.adapted(request=self.request)
