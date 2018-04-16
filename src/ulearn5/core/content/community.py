@@ -1230,7 +1230,7 @@ class CommunityInitializeAdapter(object):
         # Auto-favorite the creator user to this community
         IFavorite(community).add(community.Creator())
 
-        if is_activate_owncloud(self):
+        if is_activate_owncloud(self.context):
             client = getUtility(IOwncloudClient)
             valor = client.admin_connection()
             # Create structure folders community in domain

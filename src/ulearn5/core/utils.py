@@ -36,7 +36,7 @@ def json_response(func):
 
 def is_activate_owncloud(self):
     """ Returns True id ulearn5.owncloud is installed """
-    qi = getToolByName(self.context, 'portal_quickinstaller')
+    qi = getToolByName(self, 'portal_quickinstaller')
     prods = qi.listInstalledProducts()
     for prod in prods:
         if prod['id'] == 'ulearn5.owncloud':
