@@ -78,7 +78,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="group in ctrl.groups">
+                  <tr ng-repeat="group in ctrl.groups" id="{{ group.id }}">
                     <td>{{ group.id }}</td>
                     <td>{{ group.displayName }}</td>
                     <td tal:repeat="role roles" class="text-center"><input ng-model="group.role" type="radio" name="{{group.id}}" tal:attributes="value role/id" checked></td>

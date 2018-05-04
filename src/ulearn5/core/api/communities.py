@@ -420,6 +420,7 @@ class Subscriptions(REST, CommunityMixin):
         permissions = []
         users_permissions = []
         users_editacl = []
+        groups_editacl = []
 
         # Get permissions owncloud for the community
         client = getUtility(IOwncloudClient)
@@ -434,7 +435,9 @@ class Subscriptions(REST, CommunityMixin):
 
         # Search the users that we have to remove and delete our owncloud permissions
         users_editacl = [user['id'] for user in acl['users']]
-        users_delete = set(users_permissions) - set(users_editacl)
+        groups_editacl = [group['id'] for group in acl['groups']]
+        users_delete = set(users_permissions) - set(users_editacl) - set(groups_editacl)
+
         for user in users_delete:
             share_id = [aa['share_id'] for aa in permissions if (aa['user_id'] == user)]
             session.delete_share(share_id[0])
@@ -466,6 +469,37 @@ class Subscriptions(REST, CommunityMixin):
                         break
                 if not update_share:
                     session.share_file_with_user(domain.lower() + '/' + path, user['id']) #Lector
+            else:
+                pass
+
+
+        # Add or modify the permissions of the groups
+        for group in acl['groups']:
+            update_share = False
+            if 'owner' in group['role']:
+                for share in share_info:
+                    if group['id'] in share.get_share_with():
+                        session.update_share(share.get_id(), perms=Client.OCS_PERMISSION_ALL)
+                        update_share = True
+                        break
+                if not update_share:
+                    session.share_file_with_group(domain.lower() + '/' + path, group['id'], perms=Client.OCS_PERMISSION_ALL) #Propietari
+            elif 'writer' in group['role']:
+                for share in share_info:
+                    if group['id'] in share.get_share_with():
+                        session.update_share(share.get_id(), perms=Client.OCS_PERMISSION_EDIT)
+                        update_share = True
+                        break
+                if not update_share:
+                    session.share_file_with_group(domain.lower() + '/' + path, group['id'], perms=Client.OCS_PERMISSION_EDIT) #Editor
+            elif 'reader' in group['role']:
+                for share in share_info:
+                    if group['id'] in share.get_share_with():
+                        session.update_share(share.get_id(), perms=Client.OCS_PERMISSION_READ)
+                        update_share = True
+                        break
+                if not update_share:
+                    session.share_file_with_group(domain.lower() + '/' + path, group['id']) #Lector
             else:
                 pass
 
