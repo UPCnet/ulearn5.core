@@ -1293,12 +1293,12 @@ class CommunityInitializeAdapter(object):
         behavior.setImmediatelyAddableTypes(('Image', 'Folder'))
         behavior = ISelectableConstrainTypes(events)
         behavior.setConstrainTypesMode(1)
-        behavior.setLocallyAllowedTypes(('Event', 'Folder'))
-        behavior.setImmediatelyAddableTypes(('Event', 'Folder'))
+        behavior.setLocallyAllowedTypes(('Event', 'Folder', 'Image'))
+        behavior.setImmediatelyAddableTypes(('Event', 'Folder', 'Image'))
         behavior = ISelectableConstrainTypes(news)
         behavior.setConstrainTypesMode(1)
-        behavior.setLocallyAllowedTypes(('News Item', 'Folder'))
-        behavior.setImmediatelyAddableTypes(('News Item', 'Folder'))
+        behavior.setLocallyAllowedTypes(('News Item', 'Folder', 'Image'))
+        behavior.setImmediatelyAddableTypes(('News Item', 'Folder', 'Image'))
 
         NEWS_QUERY = [
             {'i': u'portal_type',
