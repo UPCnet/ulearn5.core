@@ -3,7 +3,6 @@ from plone import api
 from zope.component import getUtility
 from zope.component import getMultiAdapter
 from zope.publisher.browser import TestRequest
-from zope.component import getAdapter
 
 from plone.app.testing import login
 from plone.app.testing import logout
@@ -11,10 +10,8 @@ from plone.app.testing import logout
 from mrs5.max.utilities import IMAXClient
 from ulearn5.core.gwuuid import IGWUUID
 
-from ulearn5.core.content.community import ICommunityTyped
 from ulearn5.core.tests import uLearnTestBase
 from ulearn5.core.content.community import ICommunityACL
-from ulearn5.core.testing import ULEARN_CORE_FUNCTIONAL_TESTING
 from ulearn5.core.testing import ULEARN5_CORE_INTEGRATION_TESTING
 from ulearn5.core.content.community import OPEN_PERMISSIONS
 from ulearn5.core.content.community import CLOSED_PERMISSIONS
