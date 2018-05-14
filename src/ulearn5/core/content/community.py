@@ -50,18 +50,13 @@ from base5.core.adapters.favorites import IFavorite
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
-from mrs5.max.utilities import IMAXClient
-from mrs5.max.utilities import IHubClient
+from mrs5.max.utilities import IMAXClient, IHubClient
 from ulearn5.core import _
-from ulearn5.core.interfaces import IDXFileFactory
-from ulearn5.core.interfaces import IDocumentFolder
-from ulearn5.core.interfaces import IEventsFolder
-from ulearn5.core.interfaces import INewsItemFolder
-from ulearn5.core.interfaces import IPhotosFolder
+from ulearn5.core.interfaces import IDXFileFactory, IDocumentFolder, IEventsFolder, INewsItemFolder, IPhotosFolder
 from ulearn5.core.utils import is_activate_owncloud
+from ulearn5.owncloud.utils import update_owncloud_permission
 from ulearn5.owncloud.utilities import IOwncloudClient
-from ulearn5.owncloud.api.owncloud import HTTPResponseError, OCSResponseError
-from ulearn5.owncloud.api.owncloud import Client
+from ulearn5.owncloud.api.owncloud import Client, HTTPResponseError, OCSResponseError
 from DateTime.DateTime import DateTime
 
 import json
@@ -535,6 +530,9 @@ class CommunityAdapterMixin(object):
         # Finally, we update the plone permissions
         self.set_plone_permissions(acl)
 
+        if is_activate_owncloud(self.context):
+            update_owncloud_permission(self.context, acl)
+
         # Unfavorite
         IFavorite(self.context).remove(user_id)
 
@@ -556,6 +554,8 @@ class CommunityAdapterMixin(object):
         # Finally, we update the plone permissions
         self.set_plone_permissions(acl)
 
+        if is_activate_owncloud(self.context):
+            update_owncloud_permission(self.context, acl)
 
 class OrganizativeCommunity(CommunityAdapterMixin):
     """ Named adapter for the organizative communities """
