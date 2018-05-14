@@ -56,7 +56,8 @@ setup(
         'base5.core',
         'base5.portlets',
         'ulearn5.theme',
-        'mrs5.max'
+        'mrs5.max',
+        'unittest2'
     ],
     extras_require={
         'test': [

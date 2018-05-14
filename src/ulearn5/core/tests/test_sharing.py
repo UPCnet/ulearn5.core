@@ -79,6 +79,6 @@ class TestExample(uLearnTestBase):
         time.sleep(1)
 
         result = ElasticSharing().get(folder, 'janet.dura')
-        self.assertTrue('Editor' in result['roles'])
-        self.assertTrue(result['path'] == '/test-folder')
-        self.assertTrue(result['principal'] == 'janet.dura')
+        self.assertTrue('Editor' in result[0]['roles'])
+        self.assertTrue(result[0]['path'] == '/test-folder')
+        self.assertTrue(result[0]['principal'] == 'janet.dura')
