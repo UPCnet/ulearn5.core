@@ -72,6 +72,13 @@ class IUlearnUserSchema(model.Schema):
         vocabulary=u"plone.app.vocabularies.SupportedContentLanguages",
     )
 
+    visible_userprofile_portlet = schema.Bool(
+        title=_(u'label_userprofile', default=u'See portlet user profile'),
+        description=_(u'help_userprofile', default=u'Show or hide the portlet that shows your profile picture and badges.'),
+        required=False,
+        default=True,
+    )
+
 
 class UlearnUserDataSchemaAdapter(AccountPanelSchemaAdapter):
     schema = IUlearnUserSchema
