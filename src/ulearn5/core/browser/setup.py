@@ -49,6 +49,22 @@ NEWS_QUERY = [{'i': u'portal_type', 'o': u'plone.app.querystring.operation.selec
 QUERY_SORT_ON = u'effective'
 
 
+def createOrGetObject(context, newid, title, type_name):
+    if newid in context.contentIds():
+        obj = context[newid]
+    else:
+        obj = createContentInContainer(context, type_name, title=title, checkConstrains=False)
+        transaction.savepoint()
+        if obj.id != newid:
+            context.manage_renameObject(obj.id, newid)
+        obj.reindexObject()
+    return obj
+
+
+def newPrivateFolder(context, newid, title):
+    return createOrGetObject(context, newid, title, u'privateFolder')
+
+
 class debug(grok.View):
     """ Convenience view for faster debugging. Needs to be manager. """
     grok.context(Interface)
@@ -203,19 +219,41 @@ class createMenuFolders(grok.View):
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
-    def createOrGetObject(self, context, newid, title, type_name):
-        if newid in context.contentIds():
-            obj = context[newid]
-        else:
-            obj = createContentInContainer(context, type_name, title=title, checkConstrains=False)
-            transaction.savepoint()
-            if obj.id != newid:
-                context.manage_renameObject(obj.id, newid)
-            obj.reindexObject()
-        return obj
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
 
-    def newPrivateFolder(self, context, newid, title):
-        return self.createOrGetObject(context, newid, title, u'privateFolder')
+        portal = getSite()
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion.exclude_from_nav = False
+        gestion.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(gestion)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        enlaces_cabecera = newPrivateFolder(gestion, 'menu', u'Menu')
+        enlaces_cabecera.exclude_from_nav = False
+        enlaces_cabecera.reindexObject()
+
+        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
+            language_folder = newPrivateFolder(enlaces_cabecera, language, language)
+            language_folder.exclude_from_nav = False
+            language_folder.reindexObject()
+            behavior = ISelectableConstrainTypes(language_folder)
+            behavior.setConstrainTypesMode(1)
+            behavior.setLocallyAllowedTypes(('Folder', 'privateFolder', 'Link',))
+            behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder', 'Link',))
+
+        return 'Done'
+
+
+class createCustomizedHeaderFolder(grok.View):
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
 
     def render(self):
         try:
@@ -225,7 +263,7 @@ class createMenuFolders(grok.View):
             pass
 
         portal = getSite()
-        gestion = self.newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
         gestion.exclude_from_nav = False
         gestion.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(gestion)
@@ -233,18 +271,54 @@ class createMenuFolders(grok.View):
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
 
-        enlaces_cabecera = self.newPrivateFolder(gestion, 'menu', u'Menu')
-        enlaces_cabecera.exclude_from_nav = False
-        enlaces_cabecera.reindexObject()
+        description = u'La capçalera utilitzarà la primera imatge del directori, aquesta imatge ha de tenir una alçada de 83px. \nLa cabecera utilizará la primera imagen del directorio, esta imagen tiene que tener una altura de 83px. \nThe header will use the first image of the directory, this image must have a height of 83px.'
 
-        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
-            language_folder = self.newPrivateFolder(enlaces_cabecera, language, language)
-            language_folder.exclude_from_nav = False
-            language_folder.reindexObject()
-            behavior = ISelectableConstrainTypes(language_folder)
-            behavior.setConstrainTypesMode(1)
-            behavior.setLocallyAllowedTypes(('Folder', 'privateFolder', 'Link',))
-            behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder', 'Link',))
+        header = newPrivateFolder(gestion, 'header', u'Header')
+        header.exclude_from_nav = False
+        header.description = description
+        header.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(header)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Image', 'Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Image', 'Folder', 'privateFolder',))
+
+        header.reindexObject()
+        return 'Done'
+
+
+class createCustomizedFooterFolder(grok.View):
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = getSite()
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion.exclude_from_nav = False
+        gestion.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(gestion)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        description = u'El peu de pàgina utilizarà el primer document del directori.\nEl pie de página utilizará el primer documento del directorio.\nThe footer will use the first document in the directory.'
+
+        footer = newPrivateFolder(gestion, 'footer', u'Footer')
+        footer.exclude_from_nav = False
+        footer.setLayout('folder_listing')
+        footer.description = description
+        behavior = ISelectableConstrainTypes(footer)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Document', 'Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Document', 'Folder', 'privateFolder',))
+
+        footer.reindexObject()
+        return 'Done'
 
 
 class ldapkillah(grok.View):
