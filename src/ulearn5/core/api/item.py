@@ -49,35 +49,56 @@ class Item(REST):
             if item_path[-5:] == '/view':
                 item_path = item_path.replace('/view', '')
 
-            value = api.content.find(path=item_path)[0]
-            item = value.getObject()
-            text = image = image_caption = ''
-            raw_image = content_type = ''
+            try:
+                # Check if value deleted / moved --> NOT FOUND!
+                item_found = api.content.find(path=item_path)[0]
+            except:
+                item_found = False
 
-            if value.portal_type == 'News Item':
-                text = item.text.output
-                image_caption = item.image_caption
-                image = item.image.filename
-            if value.portal_type == 'Image':
-                image = item.image.filename
-                raw_image = b64encode(item.image.data),
-                content_type = item.image.contentType
-            if value.portal_type == 'Document':
-                text = item.text.output
+            if item_found:
+                value = item_found
+                item = value.getObject()
+                text = image = image_caption = ''
+                raw_image = content_type = ''
 
-            new = dict(title=value.Title,
-                       id=value.id,
-                       description=value.Description,
-                       portal_type=value.portal_type,
-                       external_url=False,
-                       absolute_url=expanded,
-                       text=text,
-                       image_caption=image_caption,
-                       image=image,
-                       raw_image=raw_image,
-                       content_type=content_type
-                       )
-            results.append(new)
+                external_url = False
+                if value.portal_type == 'News Item':
+                    text = item.text.output
+                    image_caption = item.image_caption
+                    image = item.image.filename
+                elif value.portal_type == 'Image':
+                    image = item.image.filename
+                    raw_image = b64encode(item.image.data),
+                    content_type = item.image.contentType
+                elif value.portal_type == 'Document':
+                    text = item.text.output
+                elif value.portal_type == 'Link':
+                    text = item.remoteUrl
+                    external_url = True
+                elif value.portal_type == 'Event':
+                    text = item.text.output
+                    external_url = True
+                elif value.portal_type == 'File':
+                    text = ''
+                    external_url = True
+                else:
+                    text = ''
+                    external_url = True
+
+                new = dict(title=value.Title,
+                           id=value.id,
+                           description=value.Description,
+                           portal_type=value.portal_type,
+                           external_url=external_url,
+                           absolute_url=expanded,
+                           text=text,
+                           item_not_found=False,
+                           image_caption=image_caption,
+                           image=image,
+                           raw_image=raw_image,
+                           content_type=content_type
+                           )
+                results.append(new)
         else:
             # Bit.ly object linked is from outside this Community
             # Only reports url
@@ -89,6 +110,7 @@ class Item(REST):
                        external_url=True,
                        absolute_url=expanded,
                        text='',
+                       item_not_found=False,
                        image_caption='',
                        image='',
                        raw_image='',

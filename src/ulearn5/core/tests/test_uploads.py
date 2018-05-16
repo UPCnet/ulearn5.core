@@ -3,7 +3,7 @@ from zope.component import getUtility
 from plone.app.testing import login
 
 from ulearn5.core.tests import uLearnTestBase
-from ulearn5.core.testing import ULEARN_CORE_FUNCTIONAL_TESTING
+from ulearn5.core.testing import ULEARN5_CORE_FUNCTIONAL_TESTING
 from ulearn5.core.interfaces import IAppImage
 from mrs5.max.utilities import IMAXClient
 
@@ -14,7 +14,7 @@ import transaction
 
 class TestUploads(uLearnTestBase):
 
-    layer = ULEARN_CORE_FUNCTIONAL_TESTING
+    layer = ULEARN5_CORE_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.app = self.layer['app']

@@ -45,7 +45,6 @@ setup(
         'five.grok',
         'pas.plugins.osiris',
         'plone.app.dexterity [grok]',
-        'plone.app.contenttypes',
         'plone.app.event',
         'infrae.rest',
         'Products.PloneFormGen',
@@ -56,8 +55,9 @@ setup(
         'base5.core',
         'base5.portlets',
         'ulearn5.theme',
+        'ulearn5.owncloud',
         'mrs5.max',
-        'unittest2'
+        'ipdb'
     ],
     extras_require={
         'test': [
@@ -65,8 +65,13 @@ setup(
             # Plone KGS does not use this version, because it would break
             # Remove if your package shall be part of coredev.
             # plone_coredev tests as of 2016-04-01.
+            'Products.PloneLDAP',
             'plone.testing>=5.0.0',
-            'plone.app.contenttypes',
+            'unittest2',
+            'httpretty',
+            'elasticsearch',
+            'ulearn5.js',
+            'plone.app.iterate',
             'plone.app.robotframework[debug]',
         ],
     },

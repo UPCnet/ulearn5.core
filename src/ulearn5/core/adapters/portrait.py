@@ -54,7 +54,13 @@ class PortraitUploadAdapter(object):
 
 def convertSquareImage(image_file):
     CONVERT_SIZE = (250, 250)
-    image = PIL.Image.open(image_file)
+    try:
+        image = PIL.Image.open(image_file)
+    except:
+        new_file = None
+        mimetype = 'image/jpg'
+        return new_file, mimetype
+
     format = image.format
     mimetype = 'image/%s' % format.lower()
 

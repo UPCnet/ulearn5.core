@@ -35,7 +35,7 @@ class News(REST):
 
     @api_resource(required=[])
     def GET(self):
-        show_news_in_app = api.portal.get_registry_record(name='ulearn.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
+        show_news_in_app = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
         results = []
         news_per_page = 10  # Default items per page
         pagination_page = self.params.pop('page', None)
@@ -172,7 +172,7 @@ class New(REST):
 
     @api_resource(required=['newid'])
     def GET(self):
-        show_news_in_app = api.portal.get_registry_record(name='ulearn.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
+        show_news_in_app = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
         if show_news_in_app:
             newid = self.params['newid']
             mountpoint_id = self.context.getPhysicalPath()[1]

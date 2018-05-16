@@ -106,7 +106,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], u'ulearn.testuser1')
 
         # Test for internal objects
-        self.assertEqual(community.objectIds(), ['documents', 'events'])
+        self.assertEqual(community.objectIds(), ['documents', 'events', 'news'])
 
         # Test for photo folder
         self.assertEqual(community['documents'].objectIds(), ['media', ])
@@ -161,7 +161,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], u'ulearn.testuser1')
 
         # Test for internal objects
-        self.assertEqual(community.objectIds(), ['documents', 'events'])
+        self.assertEqual(community.objectIds(), ['documents', 'events', 'news'])
 
         # Test for photo folder
         self.assertEqual(community['documents'].objectIds(), ['media', ])
@@ -216,7 +216,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], u'ulearn.testuser1')
 
         # Test for internal objects
-        self.assertEqual(community.objectIds(), ['documents', 'events'])
+        self.assertEqual(community.objectIds(), ['documents', 'events', 'news'])
 
         # Test for photo folder
         self.assertEqual(community['documents'].objectIds(), ['media', ])

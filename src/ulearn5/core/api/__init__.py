@@ -9,9 +9,7 @@ from zExceptions import NotFound
 from zope.event import notify
 from zope.component import queryUtility
 from zope.interface import alsoProvides
-
 from plone.registry.interfaces import IRegistry
-
 from max5.client import MaxClient
 from mrs5.max.browser.controlpanel import IMAXUISettings
 import json

@@ -26,6 +26,7 @@
     <include package=".browser" />
     <include file="subscribers.zcml" />
     <include file="patches.zcml" />
+    <include file="behaviors.zcml" />
 
     <browser:resource
         name="cpulearn.jpg"
