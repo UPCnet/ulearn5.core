@@ -7,13 +7,6 @@
     <role name="CC closed"/>
   </roles>
   <permissions>
-   <!--  <permission name="Ulearn: Add Oportunitat" acquire="True">
-      <role name="Editor"/>
-      <role name="Site Administrator"/>
-      <role name="WebMaster"/>
-      <role name="Contributor"/>
-      <role name="Manager"/>
-    </permission> -->
     <permission name="Ulearn: Add Community" acquire="True">
       <role name="Manager"/>
       <role name="Site Administrator"/>

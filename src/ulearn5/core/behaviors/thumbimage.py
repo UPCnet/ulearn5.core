@@ -11,7 +11,7 @@ from plone.supermodel import model
 
 @provider(IFormFieldProvider)
 class IThumbimage(model.Schema):
-    """Add Thumbnail image to News Items
+    """Add Thumbnail image to News Items for the API
     """
 
     directives.read_permission(thumbnail_image='Zope2.View')

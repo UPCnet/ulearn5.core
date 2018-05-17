@@ -16,6 +16,7 @@ from collective.z3cform.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
 from plone import api
 import transaction
+from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 
 
 communityActivityView = SimpleVocabulary(
@@ -287,7 +288,7 @@ class IUlearnControlPanelSettings(model.Schema):
         default='es',
     )
 
-    #form.widget(nonvisibles=Select2MAXUserInputFieldWidget)
+    form.widget(nonvisibles=Select2MAXUserInputFieldWidget)
     nonvisibles = schema.List(
         title=_(u'no_visibles'),
         description=_(u'Llista amb les persones que no han de sortir a les cerques i que tenen accés restringit per les demés persones.'),

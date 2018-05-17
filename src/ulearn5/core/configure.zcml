@@ -11,8 +11,7 @@
     <!-- <include package="Products.CMFCore" file="permissions.zcml" /> -->
 
     <permission id="ulearn.addCommunity" title="Ulearn: Add Community" />
-    <permission id="ulearn.addOportunitat" title="Ulearn: Add Oportunitat" />
-    <permission id="ulearn.APIAccess" title="Ulearn: API Access" />
+     <permission id="ulearn.APIAccess" title="Ulearn: API Access" />
     <permission id="ulearn.addPrivateFolder" title="Ulearn: Add Private Folder" />
     <permission id="ulearn5.core.setup" title="Plone Site Setup: uLearn">
       <role name="Manager"/>

@@ -5,7 +5,7 @@
     xmlns:grok="http://namespaces.zope.org/grok"
     i18n_domain="ulearn">
 
---[[for="plone.app.contenttypes.interfaces.INewsItem"--]]
+  <!-- for="plone.app.contenttypes.interfaces.INewsItem" -->
   <plone:behavior
       title="Thumb News Images for App"
       description="Create thumb of News images for show in app"

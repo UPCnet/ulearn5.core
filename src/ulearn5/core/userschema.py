@@ -3,10 +3,6 @@ from zope import schema
 from zope.interface import Interface
 from zope.interface import implements
 from plone.namedfile.field import NamedBlobImage
-# from mrs.max.userdataschema import IUlearnUserSchema
-# from mrs5.max.userdataschema import EnhancedUserDataPanelAdapter
-# from mrs.max.userdataschema import UserDataSchemaProvider
-
 from plone.app.users.schema import checkEmailAddress
 
 from zope.interface import alsoProvides

@@ -10,7 +10,6 @@
  <object name="intranet_workflow" meta_type="Workflow"/>
  <object name="news_intranet" meta_type="Workflow"/>
  <object name="one_state_workflow" meta_type="Workflow"/>
- <object name="oportunity" meta_type="Workflow"/>
  <object name="plone_workflow" meta_type="Workflow"/>
  <object name="simple_publication_workflow" meta_type="Workflow"/>
  <bindings>
@@ -39,8 +38,5 @@
    <bound-workflow workflow_id="news_intranet"/>
   </type>
   <type type_id="Plone Site"/>
-  <type type_id="ulearn.oportunity">
-   <bound-workflow workflow_id="oportunity"/>
-  </type>
  </bindings>
 </object>
