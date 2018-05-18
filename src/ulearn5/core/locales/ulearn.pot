@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-15 10:33+0000\n"
+"POT-Creation-Date: 2018-05-16 09:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,6 +63,7 @@ msgstr ""
 msgid "All dates"
 msgstr ""
 
+#: ulearn5/theme/portlets/calendar.py:41
 #: ulearn5/theme/portlets/legacycalendar.py:34
 msgid "Calendar"
 msgstr ""
@@ -496,6 +497,10 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
+#: ulearn5/theme/portlets/templates/calendar.pt:112
+msgid "Published in"
+msgstr ""
+
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Publishing the item makes it visible to other users."
@@ -820,11 +825,6 @@ msgstr ""
 #. Default: "Color secundari dels botons"
 #: ../controlpanel.py:244
 msgid "buttons_color_secondary"
-msgstr ""
-
-#. Default: "Calendar portlet"
-#: ulearn5/theme/portlets/calendar.py:43
-msgid "calendar"
 msgstr ""
 
 #. Default: "URL del campus"
@@ -1602,7 +1602,7 @@ msgid "newdiscussion"
 msgstr ""
 
 #. Default: "Create a new event"
-#: ulearn5/theme/portlets/templates/calendar.pt:114
+#: ulearn5/theme/portlets/templates/calendar.pt:123
 msgid "newevent"
 msgstr ""
 
@@ -1782,7 +1782,7 @@ msgid "seemorediscussions"
 msgstr ""
 
 #. Default: "See more events"
-#: ulearn5/theme/portlets/templates/calendar.pt:97
+#: ulearn5/theme/portlets/templates/calendar.pt:99
 msgid "seemoreevents"
 msgstr ""
 

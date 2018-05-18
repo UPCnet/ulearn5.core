@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-05-15 10:33+0000\n"
+"POT-Creation-Date: 2018-05-16 09:55+0000\n"
 "PO-Revision-Date: 2014-04-14 11:20+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -60,6 +60,7 @@ msgstr "Text que es mostrarà com a títol dels enllaços directes."
 msgid "All dates"
 msgstr "Totes les dates"
 
+#: ulearn5/theme/portlets/calendar.py:41
 #: ulearn5/theme/portlets/legacycalendar.py:34
 msgid "Calendar"
 msgstr "Calendari"
@@ -508,6 +509,10 @@ msgstr "Publicar en la intranet"
 msgid "Published"
 msgstr "Publicat"
 
+#: ulearn5/theme/portlets/templates/calendar.pt:112
+msgid "Published in"
+msgstr "Publicat en"
+
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Publishing the item makes it visible to other users."
@@ -833,11 +838,6 @@ msgstr "Color primari dels botons"
 #: ../controlpanel.py:244
 msgid "buttons_color_secondary"
 msgstr "Color secundari dels botons"
-
-#. Default: "Calendar portlet"
-#: ulearn5/theme/portlets/calendar.py:43
-msgid "calendar"
-msgstr "Calendari"
 
 #. Default: "URL del campus"
 #: ../controlpanel.py:85
@@ -1618,7 +1618,7 @@ msgid "newdiscussion"
 msgstr "Nou debat"
 
 #. Default: "Create a new event"
-#: ulearn5/theme/portlets/templates/calendar.pt:114
+#: ulearn5/theme/portlets/templates/calendar.pt:123
 msgid "newevent"
 msgstr "Crear un esdeveniment "
 
@@ -1801,7 +1801,7 @@ msgid "seemorediscussions"
 msgstr "Veure més debats"
 
 #. Default: "See more events"
-#: ulearn5/theme/portlets/templates/calendar.pt:97
+#: ulearn5/theme/portlets/templates/calendar.pt:99
 msgid "seemoreevents"
 msgstr "Veure més esdeveniments"
 
