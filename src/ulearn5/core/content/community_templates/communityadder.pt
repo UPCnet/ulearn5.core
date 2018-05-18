@@ -6,8 +6,7 @@
 
       <div id="content-core">
         <form action="." method="post"
-              tal:attributes="action view/action; enctype view/enctype"
-              onsubmit="return validateForm()">
+              tal:attributes="action view/action; enctype view/enctype">
           <metal:use use-macro="context/@@ploneform-macros/fields" />
           <div class="modal-footer">
             <tal:buttons repeat="action view/actions/values|nothing">
@@ -17,35 +16,5 @@
           </div>
         </form>
       </div>
-      <script type="text/javascript">
-
-        function validateForm() {
-
-            if ($.find('#form-widgets-title')[0].value == "")
-            {
-                $('#formfield-form-widgets-title').addClass('error')
-                return false
-            }
-
-            if ($.find('#form-widgets-title')[0].value != "")
-            {
-                $('#formfield-form-widgets-title').removeClass('error')
-            }
-
-
-            if ($.find('#form-widgets-terms input')[0].checked == false)
-            {
-                $('#formfield-form-widgets-terms').addClass('error')
-                return false
-            }
-
-            if ($.find('#form-widgets-terms input')[0].checked == true)
-            {
-                $('#formfield-form-widgets-terms').removeClass('error')
-            }
-
-        }
-
-    </script>
 
 </html>
