@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.2 (unreleased)
+0.2 (2018-05-23)
 ----------------
 
-- Nothing changed yet.
-
+* Migration to independent package for osiris5 [alberto.duran]
 
 0.1 (2018-05-22)
 ----------------
