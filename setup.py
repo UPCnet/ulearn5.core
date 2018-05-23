@@ -43,7 +43,7 @@ setup(
         'setuptools',
         'z3c.jbot',
         'five.grok',
-        'pas.plugins.osiris',
+        'pas.plugins.osiris5',
         'plone.app.dexterity [grok]',
         'plone.app.event',
         'infrae.rest',

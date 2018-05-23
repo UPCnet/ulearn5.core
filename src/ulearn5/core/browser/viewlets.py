@@ -109,7 +109,6 @@ class newsToolBar(viewletBase):
     grok.context(INewsItem)
     grok.template('newstoolbar')
     grok.viewletmanager(IAboveContentTitle)
-    grok.layer(IUlearn5CoreLayer)
     grok.require('cmf.ModifyPortalContent')
 
 
