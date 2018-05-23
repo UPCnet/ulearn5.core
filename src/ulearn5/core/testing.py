@@ -24,6 +24,8 @@ from mrs5.max.utilities import IMAXClient
 from mrs5.max.utilities import set_user_oauth_token
 
 from ulearn5.theme.interfaces import IUlearn5ThemeLayer
+from ulearn5.core.interfaces import IUlearn5CoreLayer
+from plone.dexterity.utils import createContentInContainer
 
 import requests.packages.urllib3
 requests.packages.urllib3.disable_warnings()
@@ -44,13 +46,13 @@ def setup_user_max(username, password):
     api.user.get(username).setMemberProperties(mapping={'oauth_token': token})
 
 
-def set_browserlayer(request):
-    """Set the BrowserLayer for the request.
+# def set_browserlayer(request):
+#     """Set the BrowserLayer for the request.
 
-    We have to set the browserlayer manually, since importing the profile alone
-    doesn't do it in tests.
-    """
-    alsoProvides(request, IUlearnTheme)
+#     We have to set the browserlayer manually, since importing the profile alone
+#     doesn't do it in tests.
+#     """
+#     alsoProvides(request, IUlearn5CoreLayer)
 
 
 class Ulearn5CoreLayer(PloneSandboxLayer):
@@ -72,10 +74,12 @@ class Ulearn5CoreLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         # Needed for PAC not complain about not having one... T_T
         portal.portal_workflow.setDefaultChain("simple_publication_workflow")
+        frontpage = createContentInContainer(portal, 'Document', title=u'front-page', checkConstraints=False)
+        news = createContentInContainer(portal, 'Folder', title='news', checkConstraints=False)
 
         applyProfile(portal, 'ulearn5.core:default')
 
-        # portal.acl_users.userFolderAddUser('admin', 'secret', ['Manager'], [])
+        portal.acl_users.userFolderAddUser('admin', 'secret', ['Manager'], [])
         portal.acl_users.userFolderAddUser('manager', 'secret', ['Manager'], [])
         # portal.acl_users.userFolderAddUser('user', 'secret', ['Member'], [])
         # portal.acl_users.userFolderAddUser('poweruser', 'secret', ['Member', 'WebMaster'], [])
@@ -105,7 +109,7 @@ ULEARN5_CORE_INTEGRATION_TESTING = IntegrationTesting(
 
 
 ULEARN5_CORE_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(ULEARN5_CORE_FIXTURE,),
+    bases=(ULEARN5_CORE_FIXTURE, z2.ZSERVER_FIXTURE),
     name='Ulearn5CoreLayer:FunctionalTesting'
 )
 

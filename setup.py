@@ -14,7 +14,7 @@ long_description = '\n\n'.join([
 
 setup(
     name='ulearn5.core',
-    version='1.0a1',
+    version='0.2.dev0',
     description="Core Comunitats Plone 5",
     long_description=long_description,
     # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -43,9 +43,8 @@ setup(
         'setuptools',
         'z3c.jbot',
         'five.grok',
-        'pas.plugins.osiris',
+        'pas.plugins.osiris5',
         'plone.app.dexterity [grok]',
-        'plone.app.contenttypes',
         'plone.app.event',
         'infrae.rest',
         'Products.PloneFormGen',
@@ -56,7 +55,9 @@ setup(
         'base5.core',
         'base5.portlets',
         'ulearn5.theme',
-        'mrs5.max'
+        'ulearn5.owncloud',
+        'mrs5.max',
+        'ipdb'
     ],
     extras_require={
         'test': [
@@ -64,8 +65,13 @@ setup(
             # Plone KGS does not use this version, because it would break
             # Remove if your package shall be part of coredev.
             # plone_coredev tests as of 2016-04-01.
+            'Products.PloneLDAP',
             'plone.testing>=5.0.0',
-            'plone.app.contenttypes',
+            'unittest2',
+            'httpretty',
+            'elasticsearch',
+            'ulearn5.js',
+            'plone.app.iterate',
             'plone.app.robotframework[debug]',
         ],
     },

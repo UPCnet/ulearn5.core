@@ -403,7 +403,7 @@ class TestAPI(uLearnTestBase):
                     end=u'18/10/2015/09:00')
 
         event_view = self.request_API_endpoint(username, ['api', 'events', eventid], body=event)
-        response = event_views.POST()
+        response = event_view.POST()
         response = json.loads(response)
 
         self.assertEqual(response['message'], 'Event {} updated'.format(eventid))
@@ -441,7 +441,7 @@ class TestAPI(uLearnTestBase):
         response = json.loads(response)
 
         self.assertEqual(user_view.request.response.getStatus(), 200)
-        self.assertEqual(response, {})
+        self.assertEqual(response, {u'synced_users': [u'janet.dura']})
         logout()
 
     def test_people_subscribe_get(self):

@@ -3,7 +3,7 @@ import unittest
 import robotsuite
 from plone.testing import layered
 
-from ulearn5.core.testing import ULEARN_CORE_FUNCTIONAL_TESTING
+from ulearn5.core.testing import ULEARN5_CORE_FUNCTIONAL_TESTING
 
 
 def test_suite():
@@ -18,7 +18,7 @@ def test_suite():
         suite.addTests([
             layered(
                 robotsuite.RobotTestSuite(test),
-                layer=ULEARN_CORE_FUNCTIONAL_TESTING
+                layer=ULEARN5_CORE_FUNCTIONAL_TESTING
             ),
         ])
     return suite

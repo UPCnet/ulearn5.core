@@ -18,6 +18,7 @@ from mrs5.max.utilities import IMAXClient
 
 from datetime import timedelta
 from plone.app.event.dx.behaviors import EventAccessor
+from plone.dexterity.utils import createContentInContainer
 
 TZNAME = 'Europe/Vienna'
 
@@ -58,17 +59,21 @@ class RendererTest(uLearnTestBase):
         start = localized_now() + delta_start
         end = localized_now() + delta_end
 
-        EventAccessor.event_type = 'Event'
-        acc = EventAccessor.create(
-            container=context,
-            content_id=id,
-            title=title,
-            start=start,
-            end=end,
-            timezone=TZNAME,
-            whole_day=whole_day,
-            open_end=open_end
+        acc = createContentInContainer(
+            context, 'Event', id=id, title=title, start=start, end=end, timezone=TZNAME, whole_day=whole_day, open_end=open_end
         )
+
+        # EventAccessor.event_type = 'Event'
+        # acc = EventAccessor.create(
+        #     container=context,
+        #     content_id=id,
+        #     title=title,
+        #     start=start,
+        #     end=end,
+        #     timezone=TZNAME,
+        #     whole_day=whole_day,
+        #     open_end=open_end
+        # )
         acc.location = u'Graz, Austria'
 
         return context[id]

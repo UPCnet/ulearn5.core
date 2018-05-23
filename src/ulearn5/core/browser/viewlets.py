@@ -19,6 +19,7 @@ from Products.CMFCore.utils import getToolByName
 from base5.core.adapters import IImportant
 from base5.core.adapters import IFlash
 from base5.core.adapters import IOutOfList
+from base5.core.adapters import IShowInApp
 from base5.core.utils import base_config
 
 from ulearn5.core.interfaces import IUlearn5CoreLayer
@@ -108,13 +109,8 @@ class newsToolBar(viewletBase):
     grok.context(INewsItem)
     grok.template('newstoolbar')
     grok.viewletmanager(IAboveContentTitle)
-    grok.layer(IUlearn5CoreLayer)
     grok.require('cmf.ModifyPortalContent')
 
-    isPortletListActivate = False
-    isPortletFlashActivate = False
-    isPortletImportantActivate = False
-    isManagementNewsActivate = False
 
     def permisos_important(self):
         # TODO: Comprovar que l'usuari tingui permisos per a marcar com a important
@@ -158,9 +154,13 @@ class newsToolBar(viewletBase):
         is_outoflist = IOutOfList(context).is_outoflist
         return is_outoflist
 
+    def isNewApp(self):
+        context = aq_inner(self.context)
+        return IShowInApp(context).is_inapp
+
     def autoCheckPortletsSetted(self):
         site = getSite()
-        activate_portlets = []
+        active_portlets = []
         portlets_slots = ["plone.leftcolumn", "plone.rightcolumn",
                           "ContentWellPortlets.AbovePortletManager1", "ContentWellPortlets.AbovePortletManager2",
                           "ContentWellPortlets.AbovePortletManager3", "ContentWellPortlets.BelowPortletManager1",
@@ -172,18 +172,39 @@ class newsToolBar(viewletBase):
             if 'ContentWellPortlets' in manager_name:
                 manager = getUtility(IPortletManager, name=manager_name, context=site['front-page'])
                 mapping = getMultiAdapter((site['front-page'], manager), IPortletAssignmentMapping)
-                [activate_portlets.append(item[0]) for item in mapping.items()]
+                [active_portlets.append(item[0]) for item in mapping.items()]
             else:
                 manager = getUtility(IPortletManager, name=manager_name, context=site)
                 mapping = getMultiAdapter((site, manager), IPortletAssignmentMapping)
-                [activate_portlets.append(item[0]) for item in mapping.items()]
+                [active_portlets.append(item[0]) for item in mapping.items()]
 
-        self.isManagementNewsActivate = True if 'my-subscribed-news' in activate_portlets or 'flashesinformativos' in activate_portlets or 'importantnews' in activate_portlets else False
-        self.isPortletImportantActivate = True if 'importantnews' in activate_portlets else False
-        self.isPortletFlashActivate = True if 'flashesinformativos' in activate_portlets else False
-        self.isPortletListActivate = True if 'my-subscribed-news' in activate_portlets else False
+        return active_portlets
 
-        return True
+    def isPortletListActivate(self):
+        active_portlets = self.autoCheckPortletsSetted()
+        show_news = api.portal.get_registry_record(
+            name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.activate_news')
+        return True if ('my-subscribed-news' in active_portlets) or show_news else False
+
+    def isPortletFlashActivate(self):
+        active_portlets = self.autoCheckPortletsSetted()
+        return True if 'flashesinformativos' in active_portlets else False
+
+    def isPortletImportantActivate(self):
+        active_portlets = self.autoCheckPortletsSetted()
+        return True if 'importantnews' in active_portlets else False
+
+    def isViewInAppChecked(self):
+        show_news_in_app = api.portal.get_registry_record(
+            name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
+        return show_news_in_app
+
+    def isManagementNewsActivate(self):
+        active_portlets = self.autoCheckPortletsSetted()
+        if 'my-subscribed-news' in active_portlets or 'flashesinformativos' in active_portlets or 'importantnews' in active_portlets or self.isViewInAppChecked():
+            return True
+        else:
+            return False
 
 
 class ListTagsNews(viewletBase):

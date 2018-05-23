@@ -11,5 +11,6 @@
   <element value="plone.app.contenttypes.behaviors.leadimage.ILeadImage"/>
   <element value="plone.app.lockingbehavior.behaviors.ILocking" />
   <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
+  <element value="ulearn5.core.behaviors.thumbimage.IThumbimage"/>
  </property>
 </object>

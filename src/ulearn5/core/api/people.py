@@ -118,11 +118,18 @@ class Sync(REST):
         notfound_errors = []
         properties_errors = []
         max_errors = []
+        users_sync = []
 
         for userid in users:
             username = userid.lower()
+            logger.info('- API REQUEST /api/people/sync: Synchronize user {}'.format(username))
             user_memberdata = api.user.get(username=username)
-            plone_user = user_memberdata.getUser()
+            try:
+                plone_user = user_memberdata.getUser()
+            except:
+                logger.info('- API REQUEST /api/people/sync: ERROR sync user {}'.format(username))
+                notfound_errors.append(username)
+                continue
 
             # Delete user cache
             for prop in plone_user.getOrderedPropertySheets():
@@ -135,6 +142,7 @@ class Sync(REST):
                 except:
                     continue
 
+            response = {}
             try:
                 user_memberdata = api.user.get(username=username)
                 plone_user = user_memberdata.getUser()
@@ -156,7 +164,8 @@ class Sync(REST):
                     # If user hasn't been created right now, update displayName
                     if maxclient.last_response_code == 200:
                         maxclient.people[username].put(displayName=fullname)
-
+                    users_sync.append(username)
+                    logger.info('- API REQUEST /api/people/sync: OK sync user {}'.format(username))
                 except:
                     logger.error('User {} couldn\'t be created or updated on max'.format(username))
                     max_errors.append(username)
@@ -168,6 +177,7 @@ class Sync(REST):
             response['properties_errors'] = properties_errors
         if max_errors:
             response['max_errors'] = max_errors
+        response['synced_users'] = users_sync
 
         return ApiResponse(response)
 
@@ -216,7 +226,7 @@ class Person(REST):
         maxclient.setActor(settings.max_restricted_username)
         maxclient.setToken(settings.max_restricted_token)
 
-        portal_url = api.portal.get().absolute_url()
+        # portal_url = api.portal.get().absolute_url()
         communities_subscription = maxclient.people[username].subscriptions.get()
 
         if communities_subscription != []:
