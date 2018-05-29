@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.3 (unreleased)
+0.3 (2018-05-29)
 ----------------
 
-- Nothing changed yet.
-
+* Added ping view [alberto.duran]
 
 0.2 (2018-05-23)
 ----------------
