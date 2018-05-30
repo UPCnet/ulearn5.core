@@ -57,7 +57,7 @@ class IUlearnControlPanelSettings(model.Schema):
         _(u'General'),
         fields=['campus_url', 'library_url', 'people_literal',
                 'threshold_winwin1', 'threshold_winwin2',
-                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'activate_sharedwithme', 'buttonbar_selected'])
+                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme', 'buttonbar_selected'])
 
     model.fieldset(
         'Specific',
@@ -80,7 +80,7 @@ class IUlearnControlPanelSettings(model.Schema):
 
     model.fieldset('UPCnet only',
                    _(u'UPCnet only'),
-                   fields=['language', 'activity_view', 'url_forget_password', 'show_news_in_app'])
+                   fields=['language', 'activity_view', 'url_forget_password'])
 
     campus_url = schema.TextLine(
         title=_(u'campus_url',
