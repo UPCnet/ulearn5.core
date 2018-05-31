@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-31 07:16+0000\n"
+"POT-Creation-Date: 2018-05-31 10:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,6 +49,11 @@ msgstr ""
 
 #: ../profiles/default/types/privateFolder.xml
 msgid "Add a new private folder"
+msgstr ""
+
+#: ../behaviors.zcml:21
+#: ulearn5/theme/behaviors.zcml:13
+msgid "Add awesome icon"
 msgstr ""
 
 #: ../controlpanel.py:297
@@ -214,6 +219,10 @@ msgstr ""
 msgid "How many items to list."
 msgstr ""
 
+#: ../behaviors/awicon.py:15
+msgid "Icon"
+msgstr ""
+
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
 msgstr ""
@@ -325,6 +334,10 @@ msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "My Tags"
+msgstr ""
+
+#: ../behaviors/awicon.py:22
+msgid "Name of the Font Awesome class to use as an icon. It is only visible in the menu."
 msgstr ""
 
 #: ../controlpanel.py:47
@@ -1521,7 +1534,7 @@ msgid "newdiscussion"
 msgstr ""
 
 #. Default: "Create a new event"
-#: ulearn5/theme/portlets/templates/calendar.pt:129
+#: ulearn5/theme/portlets/templates/calendar.pt:131
 msgid "newevent"
 msgstr ""
 
@@ -1539,7 +1552,7 @@ msgid "no_visibles"
 msgstr ""
 
 #. Default: "There are not events today"
-#: ulearn5/theme/portlets/templates/calendar.pt:26
+#: ulearn5/theme/portlets/templates/calendar.pt:28
 msgid "not_events_for_today"
 msgstr ""
 
@@ -1701,7 +1714,7 @@ msgid "seemorediscussions"
 msgstr ""
 
 #. Default: "See more events"
-#: ulearn5/theme/portlets/templates/calendar.pt:99
+#: ulearn5/theme/portlets/templates/calendar.pt:101
 msgid "seemoreevents"
 msgstr ""
 
@@ -1824,7 +1837,7 @@ msgstr ""
 msgid "title_add_to_ical"
 msgstr ""
 
-#: ulearn5/theme/portlets/templates/calendar.pt:110
+#: ulearn5/theme/portlets/templates/calendar.pt:112
 msgid "to"
 msgstr ""
 

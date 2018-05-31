@@ -245,9 +245,10 @@ class createMenuFolders(grok.View):
             language_folder.reindexObject()
             behavior = ISelectableConstrainTypes(language_folder)
             behavior.setConstrainTypesMode(1)
-            behavior.setLocallyAllowedTypes(('Folder', 'privateFolder', 'Link',))
-            behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder', 'Link',))
+            behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+            behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
 
+        transaction.commit()
         return 'Done'
 
 
@@ -380,6 +381,7 @@ class changeURLCommunities(grok.View):
                     community.maxclient.contexts[community_url].put(**properties_to_update)
                     self.context.plone_log('Comunitat amb url {} actualitzada per {}'.format(community_url, community_url_nova))
 
+
 class deleteUsers(grok.View):
     """ Delete users from the plone & max & communities """
     grok.name('deleteusers')
@@ -494,6 +496,7 @@ class deleteUsersInCommunities(grok.View):
 
                 logger.info('Finished deleted users in communities: {}'.format(users))
 
+
 def getDestinationFolder(stats_folder,create_month=True):
     """
     This function creates if it doesn't exist a folder in <stats_folder>/<year>/<month>.
@@ -577,6 +580,7 @@ class ImportFileToFolder(grok.View):
             )
         self.response.setBody('OK')
 
+
 class updateSharingCommunityElastic(grok.View):
     """ Aquesta vista actualitza tots els objectes de la comunitat al elasticsearch """
     grok.name('updatesharingcommunityelastic')
@@ -631,6 +635,7 @@ class updateSharingCommunityElastic(grok.View):
                         elastic_sharing = queryUtility(IElasticSharing)
                         elastic_sharing.modified(obj)
                         logger.info('Actualitzat el objecte {} de la comunitat {}'.format(obj, id_community))
+
 
 class updateSharingCommunitiesElastic(grok.View):
     """ Aquesta vista actualitza el sharing de tots els objectes de totes les comunitats al elasticsearch """

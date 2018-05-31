@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-05-31 07:16+0000\n"
+"POT-Creation-Date: 2018-05-31 10:11+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Roberto Diaz <roberto.diaz@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -47,6 +47,11 @@ msgstr "Add Subscribed News Portlet"
 #: ../profiles/default/types/privateFolder.xml
 msgid "Add a new private folder"
 msgstr "Add private folder"
+
+#: ../behaviors.zcml:21
+#: ulearn5/theme/behaviors.zcml:13
+msgid "Add awesome icon"
+msgstr "Add awesome icon"
 
 #: ../controlpanel.py:297
 msgid "Add the quick links by language"
@@ -106,7 +111,7 @@ msgstr "Create community"
 
 #: ../behaviors.zcml:14
 msgid "Create thumb of News images for show in app"
-msgstr ""
+msgstr "Create thumb of News images for show in app"
 
 #: ../content/community.py:121
 #: ../controlpanel.py:23
@@ -212,6 +217,10 @@ msgstr "Need a valid ElasticSearch URL"
 #: ulearn5/theme/portlets/importantnews/importantnews.py:24
 msgid "How many items to list."
 msgstr "How many items to list."
+
+#: ../behaviors/awicon.py:15
+msgid "Icon"
+msgstr "Icon"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
@@ -325,6 +334,10 @@ msgstr "My Subjects"
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "My Tags"
 msgstr "My Tags"
+
+#: ../behaviors/awicon.py:22
+msgid "Name of the Font Awesome class to use as an icon. It is only visible in the menu."
+msgstr "Name of the Font Awesome class to use as an icon. It is only visible in the menu."
 
 #: ../controlpanel.py:47
 msgid "New window"
@@ -563,11 +576,11 @@ msgstr "This portlet displays subscribed News Items."
 
 #: ../behaviors.zcml:14
 msgid "Thumb News Images for App"
-msgstr ""
+msgstr "Thumb News Images for App"
 
 #: ../behaviors/thumbimage.py:19
 msgid "Thumbnail Image"
-msgstr ""
+msgstr "Thumbnail Image"
 
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Time of the last transition"
@@ -1288,7 +1301,7 @@ msgstr "News management:"
 #. Default: "App"
 #: ../browser/viewlets_templates/newstoolbar.pt:77
 msgid "label-toogle-app"
-msgstr ""
+msgstr "App"
 
 #. Default: "Flash"
 #: ../browser/viewlets_templates/newstoolbar.pt:29
@@ -1526,7 +1539,7 @@ msgid "newdiscussion"
 msgstr "Create a discussion"
 
 #. Default: "Create a new event"
-#: ulearn5/theme/portlets/templates/calendar.pt:129
+#: ulearn5/theme/portlets/templates/calendar.pt:131
 msgid "newevent"
 msgstr "Create a new event"
 
@@ -1545,7 +1558,7 @@ msgid "no_visibles"
 msgstr "No visible people"
 
 #. Default: "There are not events today"
-#: ulearn5/theme/portlets/templates/calendar.pt:26
+#: ulearn5/theme/portlets/templates/calendar.pt:28
 msgid "not_events_for_today"
 msgstr "There are no events today"
 
@@ -1707,7 +1720,7 @@ msgid "seemorediscussions"
 msgstr "See more events"
 
 #. Default: "See more events"
-#: ulearn5/theme/portlets/templates/calendar.pt:99
+#: ulearn5/theme/portlets/templates/calendar.pt:101
 msgid "seemoreevents"
 msgstr "See more events"
 
@@ -1830,7 +1843,7 @@ msgstr "Thinnkers portlet"
 msgid "title_add_to_ical"
 msgstr "Download this event in iCal format"
 
-#: ulearn5/theme/portlets/templates/calendar.pt:110
+#: ulearn5/theme/portlets/templates/calendar.pt:112
 msgid "to"
 msgstr "to"
 

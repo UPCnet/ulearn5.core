@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-05-31 07:16+0000\n"
+"POT-Creation-Date: 2018-05-31 10:11+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -47,6 +47,11 @@ msgstr "Añadir Portlet Mis notícias"
 #: ../profiles/default/types/privateFolder.xml
 msgid "Add a new private folder"
 msgstr "Añadir una carpeta privada"
+
+#: ../behaviors.zcml:21
+#: ulearn5/theme/behaviors.zcml:13
+msgid "Add awesome icon"
+msgstr "Añadir fontawesome"
 
 #: ../controlpanel.py:297
 msgid "Add the quick links by language"
@@ -212,6 +217,10 @@ msgstr "Has marcado la opción de compartir pero falta la URL del Elasticsearch.
 msgid "How many items to list."
 msgstr "Elementos a mostrar"
 
+#: ../behaviors/awicon.py:15
+msgid "Icon"
+msgstr "Icono"
+
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
 msgstr "Si envió el artículo por error o desea realizar ediciones adicionales, este se lo devolverá."
@@ -326,6 +335,10 @@ msgstr "Mis cursos"
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "My Tags"
 msgstr "Mis etiquetas"
+
+#: ../behaviors/awicon.py:22
+msgid "Name of the Font Awesome class to use as an icon. It is only visible in the menu."
+msgstr "Nombre de la clase Font Awesome para usar como un ícono. Solo es visible en el menú."
 
 #: ../controlpanel.py:47
 msgid "New window"
@@ -1522,7 +1535,7 @@ msgid "newdiscussion"
 msgstr "Nou debat"
 
 #. Default: "Create a new event"
-#: ulearn5/theme/portlets/templates/calendar.pt:129
+#: ulearn5/theme/portlets/templates/calendar.pt:131
 msgid "newevent"
 msgstr "Crear nuevo evento"
 
@@ -1541,7 +1554,7 @@ msgid "no_visibles"
 msgstr "Personas no visibles"
 
 #. Default: "There are not events today"
-#: ulearn5/theme/portlets/templates/calendar.pt:26
+#: ulearn5/theme/portlets/templates/calendar.pt:28
 msgid "not_events_for_today"
 msgstr "Hoy no hay eventos"
 
@@ -1703,7 +1716,7 @@ msgid "seemorediscussions"
 msgstr "Ver más eventos"
 
 #. Default: "See more events"
-#: ulearn5/theme/portlets/templates/calendar.pt:99
+#: ulearn5/theme/portlets/templates/calendar.pt:101
 msgid "seemoreevents"
 msgstr "Ver más eventos"
 
@@ -1826,7 +1839,7 @@ msgstr "Thinnkers portlet"
 msgid "title_add_to_ical"
 msgstr "Descargar este evento en formato iCal"
 
-#: ulearn5/theme/portlets/templates/calendar.pt:110
+#: ulearn5/theme/portlets/templates/calendar.pt:112
 msgid "to"
 msgstr "al"
 

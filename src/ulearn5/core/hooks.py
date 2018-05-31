@@ -7,6 +7,7 @@ from zope.component.hooks import getSite
 from zope.container.interfaces import IObjectAddedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 from ulearn5.core.interfaces import IAppImage
 from ulearn5.core.interfaces import IAppFile
@@ -22,11 +23,11 @@ from zope.component import providedBy
 from plone.app.workflow.interfaces import ILocalrolesModifiedEvent
 from Products.CMFPlone.interfaces import IConfigurationChangedEvent
 from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
+from plone.app.contenttypes.interfaces import IFolder
 from plone.app.contenttypes.interfaces import INewsItem
 from zope.globalrequest import getRequest
 from plone.namedfile.file import NamedBlobImage
 from io import BytesIO as StringIO
-from base64 import b64encode
 import io
 import PIL
 
@@ -34,6 +35,7 @@ from plone.memoize import ram
 from time import time
 
 import logging
+import transaction
 
 logger = logging.getLogger(__name__)
 
@@ -204,6 +206,7 @@ def packages_installed():
     installed = [p['id'] for p in qi_tool.listInstalledProducts()]
     return installed
 
+
 def addActivityPost(content):
     installed = packages_installed()
     if 'ulearn.abacus' in installed:
@@ -271,7 +274,7 @@ def updateCustomLangCookie(event):
     if 'language' in event.data:
         if event.data['language']:
             event.context.request.response.setCookie('I18N_LANGUAGE', event.data['language'], path='/')
-            event.context.request.response.redirect(event.context.context.absolute_url()+'/@@personal-information')
+            event.context.request.response.redirect(event.context.context.absolute_url() + '/@@personal-information')
 
 
 @grok.subscribe(IUserLoggedInEvent)
@@ -314,3 +317,19 @@ def CreateThumbImage(content, event):
         content.thumbnail_image = thumb_image
     else:
         content.thumbnail_image = None
+
+
+@grok.subscribe(IFolder, IObjectAddedEvent)
+def setLocallyAllowedTypesFolder(content, event):
+    menuPath = '/'.join(api.portal.get().getPhysicalPath()) + '/gestion/menu/'
+    en = menuPath + 'en'
+    ca = menuPath + 'ca'
+    es = menuPath + 'es'
+    languagePath = [ca, es, en]
+
+    parentPath = '/'.join(content.aq_parent.getPhysicalPath())
+    if parentPath in languagePath:
+        behavior = ISelectableConstrainTypes(content)
+        behavior.setLocallyAllowedTypes(('Link',))
+        behavior.setImmediatelyAddableTypes(('Link',))
+        transaction.commit()
