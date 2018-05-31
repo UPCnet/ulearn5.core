@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.4 (unreleased)
+0.4 (2018-05-31)
 ----------------
 
-- Nothing changed yet.
-
+* Añadir vista clouseau para eliminar foto de un usuario [Pilar Marinas]
+* Envia solo carpetas de primer nivel y enlaces [Pilar Marinas]
 
 0.3 (2018-05-29)
 ----------------
