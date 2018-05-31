@@ -55,7 +55,7 @@ class IUlearnControlPanelSettings(model.Schema):
     model.fieldset(
         'General',
         _(u'General'),
-        fields=['campus_url', 'library_url', 'people_literal',
+        fields=['language', 'campus_url', 'library_url', 'people_literal',
                 'threshold_winwin1', 'threshold_winwin2',
                 'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme', 'buttonbar_selected'])
 
@@ -78,9 +78,9 @@ class IUlearnControlPanelSettings(model.Schema):
                    _(u'QuickLinks'),
                    fields=['quicklinks_literal', 'quicklinks_icon', 'quicklinks_table'])
 
-    model.fieldset('UPCnet only',
-                   _(u'UPCnet only'),
-                   fields=['language', 'activity_view', 'url_forget_password'])
+    model.fieldset('Communities',
+                   _(u'Communities'),
+                   fields=['activity_view', 'show_literals'])
 
     campus_url = schema.TextLine(
         title=_(u'campus_url',
@@ -277,17 +277,6 @@ class IUlearnControlPanelSettings(model.Schema):
         default=u'#888888',
     )
 
-    dexterity.write_permission(language='zope2.ViewManagementScreens')
-    language = schema.Choice(
-        title=_(u'language',
-                default=_(u'Idioma de l\'espai')),
-        description=_(u'help_site_language',
-                      default=_(u'Aquest és l\'idioma de l\'espai, que es configura quan el paquet es reinstala.')),
-        required=True,
-        values=['ca', 'es', 'en'],
-        default='es',
-    )
-
     form.widget(nonvisibles=Select2MAXUserInputFieldWidget)
     nonvisibles = schema.List(
         title=_(u'no_visibles'),
@@ -330,13 +319,16 @@ class IUlearnControlPanelSettings(model.Schema):
         required=True,
         default=u'Darreres activitats')
 
-    url_forget_password = schema.TextLine(
-        title=_(u'url_forget_password',
-                default=_(u'URL contrasenya oblidada')),
-        description=_(u'help_url_forget_password',
-                      default=_(u'Url per defecte: "/mail_password_form?userid=". Per a dominis externs indiqueu la url completa, "http://www.domini.cat"')),
+    dexterity.write_permission(language='zope2.ViewManagementScreens')
+    language = schema.Choice(
+        title=_(u'language',
+                default=_(u'Idioma de l\'espai')),
+        description=_(u'help_site_language',
+                      default=_(u'Aquest és l\'idioma de l\'espai, que es configura quan el paquet es reinstala.')),
         required=True,
-        default=_(u'/mail_password_form?userid='))
+        values=['ca', 'es', 'en'],
+        default='es',
+    )
 
     show_news_in_app = schema.Bool(
         title=_(u'show_news_in_app',
@@ -346,6 +338,16 @@ class IUlearnControlPanelSettings(model.Schema):
         required=False,
         default=False,
     )
+
+    show_literals = schema.Bool(
+        title=_(u'show_literals',
+                default=_(u"Show literal")),
+        description=_(u'help_show_literals',
+                      default=_(u"Disable or enable the display of community types in the portlet.")),
+        required=False,
+        default=False,
+    )
+
 
 class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
     """ Ulearn settings form """
