@@ -671,3 +671,31 @@ class viewUsersWithNotUpdatedPhoto(grok.View):
                     result[userID] = userInfo
 
         return result
+
+class deletePhotoFromUser(grok.View):
+    """ Delete photo from user, add parameter ?user=nom.cognom """
+    grok.name('deletephotofromuser')
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        # /deleteUserPhoto?user=nom.cognom
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if 'user' in self.request.form and self.request.form['user'] != '':
+            user = api.user.get(username=self.request.form['user'])
+            if user:
+                context = aq_inner(self.context)
+                try:
+                    context.portal_membership.deletePersonalPortrait(self.request.form['user'])
+                    return 'Done, photo has been removed from user ' + self.request.form['user']
+                except:
+                    return 'Error while deleting photo from user ' + self.request.form['user']
+            else:
+                return 'Error, user ' + self.request.form['user'] + ' not exist'
+        else:
+            return 'Add parameter ?user=nom.cognom in url'
