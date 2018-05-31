@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-05-31 05:47+0000\n"
+"POT-Creation-Date: 2018-05-31 07:16+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Roberto Diaz <roberto.diaz@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -438,10 +438,6 @@ msgstr "Publish To Intranet"
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Published"
 msgstr "Published"
-
-#: ulearn5/theme/portlets/templates/calendar.pt:114
-msgid "Published in"
-msgstr "Published in"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -1530,7 +1526,7 @@ msgid "newdiscussion"
 msgstr "Create a discussion"
 
 #. Default: "Create a new event"
-#: ulearn5/theme/portlets/templates/calendar.pt:125
+#: ulearn5/theme/portlets/templates/calendar.pt:129
 msgid "newevent"
 msgstr "Create a new event"
 
@@ -1833,6 +1829,10 @@ msgstr "Thinnkers portlet"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:119
 msgid "title_add_to_ical"
 msgstr "Download this event in iCal format"
+
+#: ulearn5/theme/portlets/templates/calendar.pt:110
+msgid "to"
+msgstr "to"
 
 #. Default: "Tools"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:27

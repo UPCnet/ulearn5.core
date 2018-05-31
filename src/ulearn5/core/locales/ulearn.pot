@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-31 05:47+0000\n"
+"POT-Creation-Date: 2018-05-31 07:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -436,10 +436,6 @@ msgstr ""
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Published"
-msgstr ""
-
-#: ulearn5/theme/portlets/templates/calendar.pt:114
-msgid "Published in"
 msgstr ""
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
@@ -1525,7 +1521,7 @@ msgid "newdiscussion"
 msgstr ""
 
 #. Default: "Create a new event"
-#: ulearn5/theme/portlets/templates/calendar.pt:125
+#: ulearn5/theme/portlets/templates/calendar.pt:129
 msgid "newevent"
 msgstr ""
 
@@ -1826,6 +1822,10 @@ msgstr ""
 #. Default: "Download this event in iCal format"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:119
 msgid "title_add_to_ical"
+msgstr ""
+
+#: ulearn5/theme/portlets/templates/calendar.pt:110
+msgid "to"
 msgstr ""
 
 #. Default: "Tools"
