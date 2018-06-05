@@ -1,44 +1,45 @@
 # -*- coding: utf-8 -*-
+from Acquisition import aq_inner
+from base5.core.utilities import IElasticSearch
+from base5.core.utils import json_response
+from base5.portlets.browser.manager import IColStorage
+from datetime import datetime
 from five import grok
-from zope.component import queryUtility
-from zope.component import getUtility
-from zope.component import getMultiAdapter
-from zope.component.hooks import getSite
-from zope.interface import alsoProvides
-from zope.interface import Interface
-
+from plone import api
+from plone.app.discussion.interfaces import IDiscussionSettings
+from plone.dexterity.utils import createContentInContainer
+from plone.namedfile.file import NamedBlobFile
+from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletManager
+from plone.registry.interfaces import IRegistry
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import ILanguageSchema
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
 from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
-from Products.CMFCore.utils import getToolByName
-
-from plone import api
-from plone.app.discussion.interfaces import IDiscussionSettings
-from plone.portlets.interfaces import IPortletManager
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.dexterity.utils import createContentInContainer
-from plone.namedfile.file import NamedBlobFile
-from plone.registry.interfaces import IRegistry
-
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
-import transaction
-from datetime import datetime
-from Acquisition import aq_inner
-
-from base5.core.utilities import IElasticSearch
-from base5.portlets.browser.manager import IColStorage
-from base5.core.utils import json_response
-from ulearn5.core.gwuuid import IGWUUID
+from ulearn5.core.browser.sharing import ElasticSharing
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
-from ulearn5.core.browser.sharing import ElasticSharing
+from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
-# from ulearn5.core.api.people import Person
+from ulearn5.core.utils import is_activate_owncloud
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.component import queryUtility
+from zope.component.hooks import getSite
+from zope.interface import alsoProvides
+from zope.interface import Interface
 
 import logging
+import requests
+import transaction
+
+
+# from ulearn5.core.api.people import Person
+
 logger = logging.getLogger(__name__)
 
 
@@ -699,3 +700,30 @@ class deletePhotoFromUser(grok.View):
                 return 'Error, user ' + self.request.form['user'] + ' not exist'
         else:
             return 'Add parameter ?user=nom.cognom in url'
+
+
+class syncPlatformsPermissions(grok.View):
+    """ Syncronize permissions in plone site, in hub service and owncloud service for every community """
+    grok.name('syncPlatformsPermissions')
+    grok.context(IPloneSiteRoot)
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        portal = api.portal.get()
+        if is_activate_owncloud(portal):
+            username = api.portal.get_registry_record('ulearn5.owncloud.controlpanel.IOCSettings.connector_username')
+            password = api.portal.get_registry_record('ulearn5.owncloud.controlpanel.IOCSettings.connector_password')
+            pc = api.portal.get_tool('portal_catalog')
+            comunities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
+            for community in comunities:
+                gwuuid = community.gwuuid
+                url = portal.absolute_url() + '/api/communities/' + gwuuid + '/subscriptions'
+                response = requests.get(url, auth=(username, password))
+                payload = response.json()
+                headers = {"Content-Type":"application/json"}
+                r = requests.post(url, auth=(username, password), headers=headers, json=payload)
+
+            return "Done"
+
+        else:
+            return "OwnCloud is not active in this site."
