@@ -88,9 +88,9 @@ class ElasticSharing(object):
             to be inserted on ES
         """
         path = self.relative_path(object)
-
+        elastic_index = self.get_index_name().lower()
         record = dict(
-            index=self.get_index_name(),
+            index=elastic_index,
             doc_type='sharing',
             id=str(uuid.uuid1()),
             body=dict(
@@ -110,10 +110,11 @@ class ElasticSharing(object):
         """
         # path = self.relative_path(object)
         self.elastic = getUtility(IElasticSearch)
+        elastic_index = ElasticSharing().get_index_name().lower()
         if principal is None:
             # Change to query elastic for a register matching principal and path
             # and return a list of items or None if query empty
-            es_results = self.elastic().search(index=ElasticSharing().get_index_name(),
+            es_results = self.elastic().search(index=elastic_index,
                                                doc_type='sharing',
                                                body={'query': {'match': {'uuid': IGWUUID(object).get()}}}
                                                )
@@ -126,7 +127,7 @@ class ElasticSharing(object):
         else:
             # Change to Query elastic for all registers matching path
             # and returm ONE item
-            es_results = self.elastic().search(index=ElasticSharing().get_index_name(),
+            es_results = self.elastic().search(index=elastic_index,
                                                doc_type='sharing',
                                                body={'query': {
                                                      'bool': {
@@ -211,8 +212,8 @@ class ElasticSharing(object):
         # Unused?
         # path = self.relative_path(object)
         self.elastic = getUtility(IElasticSearch)
-
-        result = self.elastic().search(index=ElasticSharing().get_index_name(),
+        elastic_index = ElasticSharing().get_index_name().lower()
+        result = self.elastic().search(index=elastic_index,
                                        doc_type='sharing',
                                        body={'query': {
                                                 'bool': {
@@ -220,7 +221,7 @@ class ElasticSharing(object):
                                                              {'match': {'uuid': IGWUUID(object).get()}}]
                                                 }}})
 
-        self.elastic().update(index=ElasticSharing().get_index_name(),
+        self.elastic().update(index=elastic_index,
                               doc_type='sharing',
                               id=result['hits']['hits'][0]['_id'],
                               body={'doc': { 'roles': attributes}})
@@ -233,8 +234,8 @@ class ElasticSharing(object):
         # path = self.relative_path(object)
         SharedMarker(object).unshare()
         self.elastic = getUtility(IElasticSearch)
-
-        result = self.elastic().search(index=ElasticSharing().get_index_name(),
+        elastic_index = ElasticSharing().get_index_name().lower()
+        result = self.elastic().search(index=elastic_index,
                                        doc_type='sharing',
                                        body={'query': {
                                                 'bool': {
@@ -242,7 +243,7 @@ class ElasticSharing(object):
                                                              {'match': {'uuid': IGWUUID(object).get()}}]
                                                 }}})
 
-        self.elastic().delete(index=ElasticSharing().get_index_name(),
+        self.elastic().delete(index=elastic_index,
                               doc_type='sharing',
                               id=result['hits']['hits'][0]['_id'])
 
@@ -315,7 +316,8 @@ class ElasticSharing(object):
         # principals should return a list of all the principals for the current
         # user
         self.elastic = getUtility(IElasticSearch)
-        shared_items = self.elastic().search(index=ElasticSharing().get_index_name(),
+        elastic_index = ElasticSharing().get_index_name().lower()
+        shared_items = self.elastic().search(index=elastic_index,
                                              doc_type='sharing',
                                              body={'query': {
                                                     'bool': {
