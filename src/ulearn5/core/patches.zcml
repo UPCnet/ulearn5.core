@@ -70,4 +70,75 @@
         replacement=".patches.getPersonalPortrait"
         />
 
+    <monkey:patch
+        description="Override ldap group search in sharing UnicodeEncodeError group"
+        class="plone.app.workflow.browser.sharing.SharingView"
+        original="update_role_settings"
+        replacement=".patches.update_role_settings"
+        />
+
+    <monkey:patch
+        description="Override ldap group getter on PAS"
+        class="Products.LDAPUserFolder.LDAPUserFolder"
+        original="getGroups"
+        replacement=".patches.getGroups"
+        />
+
+    <monkey:patch
+        description="Override ldap group search on PAS"
+        class="Products.LDAPUserFolder.LDAPUserFolder"
+        original="searchGroups"
+        replacement=".patches.searchGroups"
+        />
+
+    <monkey:patch
+        description="Override ldap group search UnicodeEncodeError group"
+        class="Products.CMFPlone.controlpanel.browser.usergroups.UsersGroupsControlPanelView"
+        original="makeQuery"
+        replacement=".patches.makeQuery"
+        />
+
+    <monkey:patch
+        description="Override clear and rebuild catalog UnicodeEncodeError group"
+        class="Products.PluginIndexes.common.UnIndex.UnIndex"
+        original="insertForwardIndexEntry"
+        replacement=".patches.insertForwardIndexEntry"
+        />
+
+    <monkey:patch
+        description="Override clear and rebuild catalog UnicodeEncodeError group"
+        class="Products.PluginIndexes.common.UnIndex.UnIndex"
+        original="removeForwardIndexEntry"
+        replacement=".patches.removeForwardIndexEntry"
+        />
+
+    <monkey:patch
+        description="Parche para que no pete la busqueda de grupos con acento"
+        class="Products.PlonePAS.plugins.role.GroupAwareRoleManager"
+        original="getRolesForPrincipal"
+        replacement=".patches.getRolesForPrincipal"
+        />
+
+    <monkey:patch
+        description="Parche para que te muestre un grupo con acento"
+        class="Products.CMFPlone.controlpanel.browser.usergroups_groupmembership.GroupMembershipControlPanel"
+        original="update"
+        replacement=".patches.update"
+        />
+
+    <monkey:patch
+        description="Parche para que te devuelva los miembros de un grupo con acento"
+        class="Products.CMFPlone.controlpanel.browser.usergroups_groupmembership.GroupMembershipControlPanel"
+        original="getMembers"
+        replacement=".patches.getMembers"
+        />
+
+    <monkey:patch
+        description="Add decode UTF-8 en la busqueda de users del usersgroups y del porlet (encontrado en ASPB)"
+        class="Products.StandardCacheManagers.RAMCacheManager.ObjectCacheEntries"
+        original="aggregateIndex"
+        replacement=".patches.aggregateIndex"
+        />
+
+
 </configure>
