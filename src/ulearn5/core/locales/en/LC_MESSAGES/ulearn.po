@@ -325,11 +325,11 @@ msgstr "Link"
 
 #: ../controlpanel.py:293
 msgid "Literals que identifiquen als usuaris de les comunitats i les seves aportacions."
-msgstr "Verbatim users that identify communities and their contributions."
+msgstr "Literal of the users that identify communities and their contributions."
 
 #: ../controlpanel.py:286
 msgid "Llista amb les persones que no han de sortir a les cerques i que tenen accés restringit per les demés persones."
-msgstr "People with restricted access by other persons. They do not show in searches."
+msgstr "People with restricted access. Not shown in searches."
 
 #. Default: "Lista de correos de los invitados ESPECTADORES, separados por comas."
 #: ../browser/views.py:87
@@ -1633,7 +1633,7 @@ msgstr "There is no content shared with you right now"
 
 #: ../controlpanel.py:285
 msgid "no_visibles"
-msgstr "No visible people"
+msgstr "Hidden users"
 
 #. Default: "There are not events today"
 #: ulearn5/theme/portlets/templates/calendar.pt:26

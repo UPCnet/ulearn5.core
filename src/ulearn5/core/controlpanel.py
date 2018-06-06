@@ -23,7 +23,7 @@ communityActivityView = SimpleVocabulary(
     [SimpleTerm(value=u'Darreres activitats', title=_(u'Darreres activitats')),
      SimpleTerm(value=u'Activitats mes valorades', title=_(u'Activitats mes valorades')),
      SimpleTerm(value=u'Activitats destacades', title=_(u'Activitats destacades'))]
-    )
+)
 
 
 class ILiteralQuickLinks(form.Schema):
@@ -300,7 +300,7 @@ class IUlearnControlPanelSettings(model.Schema):
         title=_(u'people_literal'),
         description=_(u'Literals que identifiquen als usuaris de les comunitats i les seves aportacions.'),
         values=['thinnkers', 'persones', 'participants'],
-        required=False,
+        required=True,
         default='persones')
 
     form.widget(quicklinks_literal=DataGridFieldFactory)
