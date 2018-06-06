@@ -111,7 +111,6 @@ class newsToolBar(viewletBase):
     grok.viewletmanager(IAboveContentTitle)
     grok.require('cmf.ModifyPortalContent')
 
-
     def permisos_important(self):
         # TODO: Comprovar que l'usuari tingui permisos per a marcar com a important
         return not IImportant(self.context).is_important and checkPermission("plone.app.controlpanel.Overview", self.portal())

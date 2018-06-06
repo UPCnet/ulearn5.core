@@ -1,7 +1,6 @@
 from cStringIO import StringIO
 from OFS.Image import Image
 from PIL import ImageOps
-from five import grok
 from Products.CMFCore.utils import getToolByName
 from Products.PlonePAS.interfaces.membership import IMembershipTool
 
@@ -9,7 +8,6 @@ from mrs5.max.utilities import IMAXClient
 from ulearn5.theme.interfaces import IUlearn5ThemeLayer
 from base5.core.adapters.portrait import IPortraitUploadAdapter
 from zope.component import getUtility
-from zope.interface import Interface
 
 import logging
 import PIL

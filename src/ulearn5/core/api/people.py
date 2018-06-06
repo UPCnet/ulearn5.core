@@ -24,7 +24,6 @@ from base5.core.utils import remove_user_from_catalog
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
 from ulearn5.core.gwuuid import IGWUUID
-from ulearn5.core.content.community import ICommunityACL
 
 from Products.CMFCore.interfaces import ISiteRoot
 from zExceptions import Forbidden
@@ -33,8 +32,6 @@ from zope.component import getUtilitiesFor
 
 import logging
 import requests
-
-from Products.CMFCore.interfaces import ISiteRoot
 
 logger = logging.getLogger(__name__)
 
@@ -354,7 +351,6 @@ class Person(REST):
             raise NotImplementedError('The underlying User Folder '
                                       'doesn\'t support deleting members.')
 
-
         # Delete member data in portal_memberdata.
         mdtool = api.portal.get_tool(name='portal_memberdata')
         if mdtool is not None:
@@ -372,7 +368,6 @@ class Person(REST):
                                    member_ids,
                                    reindex,
                                    recursive)
-
 
     # @api_resource(required=['username', 'email'])
     # def PUT(self):
@@ -430,6 +425,7 @@ class Person(REST):
             raise ObjectNotFound('User not found')
 
         return ApiResponse(rendered_properties)
+
 
 class Subscriptions(REST):
     """

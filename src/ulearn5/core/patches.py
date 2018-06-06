@@ -297,8 +297,7 @@ def handle_form(self):
                          type=entry['type'],
                          roles=[r for r in roles if entry.get('role_%s' % r, False)]))
             if settings:
-                reindex = self.update_role_settings(settings, reindex=False) \
-                            or reindex
+                reindex = self.update_role_settings(settings, reindex=False) or reindex
                 notify(LocalrolesModifiedEvent(self.context, self.request))
             if reindex:
                 self.context.reindexObjectSecurity()
@@ -322,6 +321,7 @@ from zope.component import getUtilitiesFor
 from plone.protect.utils import addTokenToUrl
 from ulearn5.core import _
 from zope.component.hooks import getSite
+
 
 def getPortletMenuItems(self, context, request):
         """Return menu item entries in a TAL-friendly form."""
@@ -355,7 +355,6 @@ def getPortletMenuItems(self, context, request):
             'submenu': None,
         })
 
-
         for manager in managers:
             manager_name = manager[0]
             # Don't show items like 'plone.dashboard1' by default
@@ -364,7 +363,7 @@ def getPortletMenuItems(self, context, request):
 
             item = {
                 'title': _(manager_name,
-                           default=u' '.join(manager_name.split(u'.')).title()),
+                           default=u' '.join(manager_name.split('.')).title()),
                 'description': manager_name,
                 'action': addTokenToUrl(
                     '{0}/@@topbar-manage-portlets/{1}'.format(
@@ -394,8 +393,10 @@ def getPortletMenuItems(self, context, request):
 def addable_portlets(self):
     baseUrl = self.baseUrl()
     addviewbase = baseUrl.replace(self.context_url(), '')
+
     def sort_key(v):
         return v.get('title')
+
     def check_permission(p):
         addview = p.addview
         if not addview:
@@ -484,14 +485,15 @@ def getPersonalPortrait(self, id=None, verifyPermission=0):
     imageUrl = foto.uri + '/large'
 
     portrait = urllib.urlretrieve(imageUrl)
+    an_image = getattr(portrait, 'filename', None)
+    if an_image:
+        scaled, mimetype = convertSquareImage(portrait[0])
+        portrait = Image(id=id, file=scaled, title=id)
 
-    scaled, mimetype = convertSquareImage(portrait[0])
-    portrait = Image(id=id, file=scaled, title=id)
-
-    membertool = getToolByName(self, 'portal_memberdata')
-    membertool._setPortrait(portrait, id)
-    import transaction
-    transaction.commit()
+        membertool = getToolByName(self, 'portal_memberdata')
+        membertool._setPortrait(portrait, id)
+        import transaction
+        transaction.commit()
 
     membertool = getToolByName(self, 'portal_memberdata')
     portrait = membertool._getPortrait(id)
@@ -499,6 +501,7 @@ def getPersonalPortrait(self, id=None, verifyPermission=0):
         portrait = None
 
     if portrait is not None:
+        from Products.CMFCore.utils import _checkPermission
         if verifyPermission and not _checkPermission('View', portrait):
             # Don't return the portrait if the user can't get to it
             portrait = None

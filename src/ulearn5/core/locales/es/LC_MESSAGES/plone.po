@@ -380,7 +380,7 @@ msgstr "No existe ningún usuario con ese nombre"
 #. Default: "Thinnkers portlet"
 #: ../../../../ulearn.theme/ulearn/theme/portlets/thinnkers.py:34
 msgid "thinnkers"
-msgstr ""
+msgstr "Personas"
 
 #. Default: "Calendar portlet"
 #: ../../../../ulearn.theme/ulearn/theme/portlets/calendar.py:33

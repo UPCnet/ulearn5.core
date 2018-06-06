@@ -7,10 +7,7 @@
 
 <head>
   <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
-
-  </div>
 </head>
-
 <body>
 
   <metal:block fill-slot="top_slot"
@@ -18,33 +15,32 @@
                                disable_column_two python:request.set('disable_plone.rightcolumn',1);
                                dummy python:request.set('disable_border',1)" />
 
-  <div metal:fill-slot="portlets_one_slot">
-      <tal:comment tal:replace="nothing">get rid of the left hand column portlets to avoid confusion</tal:comment>
-  </div>
+    <div metal:fill-slot="portlets_one_slot">
+        <tal:comment tal:replace="nothing">get rid of the left hand column portlets to avoid confusion</tal:comment>
+    </div>
 
-  <div metal:fill-slot="main" tal:define="helpers view/get_helpers">
+    <div metal:fill-slot="main" tal:define="helpers view/get_helpers">
+      <h1>Plone site related</h1>
+      <div class="lead clearfix" tal:repeat="helper python:helpers[0]">
+        <h4>
+          <a tal:attributes="href helper/url" tal:content="helper/url">The url</a>
+        </h4>
+        <p tal:content="helper/description">The description</p>
+      </div>
 
-  <h1>Plone site related</h1>
-  <div class="lead clearfix" tal:repeat="helper python:helpers[0]">
-    <h4>
-      <a tal:attributes="href helper/url" tal:content="helper/url">The url</a>
-    </h4>
-    <p tal:content="helper/description">The description</p>
-  </div>
+      <h1>Application related (Zope)</h1>
+      <div class="lead clearfix" tal:repeat="helper python:helpers[1]">
+        <h4>
+          <a tal:attributes="href helper/url" tal:content="helper/url">The url</a>
+        </h4>
+        <p tal:content="helper/description">The description</p>
+      </div>
 
-  <h1>Application related (Zope)</h1>
-  <div class="lead clearfix" tal:repeat="helper python:helpers[1]">
-    <h4>
-      <a tal:attributes="href helper/url" tal:content="helper/url">The url</a>
-    </h4>
-    <p tal:content="helper/description">The description</p>
-  </div>
+    </div>
 
-  </div>
-
-        <div metal:fill-slot="portlets_two_slot">
-            <tal:comment tal:replace="nothing">get rid of the left hand column portlets to avoid confusion</tal:comment>
-        </div>
+    <div metal:fill-slot="portlets_two_slot">
+        <tal:comment tal:replace="nothing">get rid of the left hand column portlets to avoid confusion</tal:comment>
+    </div>
 
 </body>
 </html>

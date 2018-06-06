@@ -146,9 +146,9 @@ class IUlearnControlPanelSettings(model.Schema):
 
     activate_news = schema.Bool(
         title=_(u'activate_news',
-            default=_(u"Mostra les noticies a les que estic subscrit")),
+                default=_(u"Mostra les noticies a les que estic subscrit")),
         description=_(u'help_activate_news',
-                default=_(u"Mostra o no el botó de Noticies a la tile central de les comunitats")),
+                      default=_(u"Mostra o no el botó de Noticies a la tile central de les comunitats")),
         required=False,
         default=False,
     )
@@ -299,9 +299,9 @@ class IUlearnControlPanelSettings(model.Schema):
     people_literal = schema.Choice(
         title=_(u'people_literal'),
         description=_(u'Literals que identifiquen als usuaris de les comunitats i les seves aportacions.'),
-        values=['thinnkers', 'persones', 'participants'],
+        values=[_(u'thinnkers'), _(u'persones'), _(u'participants')],
         required=True,
-        default='persones')
+        default=_(u'persones'))
 
     form.widget(quicklinks_literal=DataGridFieldFactory)
     quicklinks_literal = schema.List(title=_(u'Text Quick Links'),
@@ -346,6 +346,7 @@ class IUlearnControlPanelSettings(model.Schema):
         required=False,
         default=False,
     )
+
 
 class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
     """ Ulearn settings form """
@@ -398,8 +399,7 @@ class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
                 transaction.commit()
 
             else:
-                IStatusMessage(self.request).addStatusMessage(_(u'Has marcat el comparteix pero falta la url del elasticsearch'),
-                                                              'info')
+                IStatusMessage(self.request).addStatusMessage(_(u'Has marcat el comparteix pero falta la url del elasticsearch'), 'info')
         else:
             portal = api.portal.get()
             if portal.portal_actions.object.local_roles.visible == False:
@@ -408,9 +408,7 @@ class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
             available_expr = "python:here.portal_type in ['privateFolder']")
             transaction.commit()
 
-
-        IStatusMessage(self.request).addStatusMessage(_(u'Changes saved'),
-                                                      'info')
+        IStatusMessage(self.request).addStatusMessage(_(u'Changes saved'), 'info')
         self.context.REQUEST.RESPONSE.redirect('@@ulearn-controlpanel')
 
     @button.buttonAndHandler(_('Cancel'), name='cancel')

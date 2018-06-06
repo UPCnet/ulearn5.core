@@ -1,28 +1,15 @@
 # -*- coding: utf-8 -*-
 from five import grok
-from zope import schema
 from itertools import chain
-from z3c.form import button
 from zope.interface import Interface
 from zope.component.hooks import getSite
 from zope.component import getMultiAdapter
 from zope.component import queryUtility
 from zope.component import getUtility
-
 from plone import api
-from plone.directives import form
 from plone.registry.interfaces import IRegistry
-
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.statusmessages.interfaces import IStatusMessage
-
-from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.interfaces import IUlearn5CoreLayer
-
-from datetime import datetime
-
 from souper.soup import get_soup
 from souper.soup import Record
 from repoze.catalog.query import Eq
@@ -31,13 +18,10 @@ from PIL import ImageOps
 from mrs5.max.utilities import IMAXClient
 import os
 import PIL
-
+import json
 import logging
 
 logger = logging.getLogger(__name__)
-
-import json
-import requests
 
 
 class monitoringView(grok.View):
@@ -48,6 +32,7 @@ class monitoringView(grok.View):
 
     def render(self):
         return '1'
+
 
 class AjaxUserSearch(grok.View):
     grok.context(Interface)

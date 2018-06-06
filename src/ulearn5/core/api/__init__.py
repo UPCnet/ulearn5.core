@@ -15,11 +15,11 @@ from mrs5.max.browser.controlpanel import IMAXUISettings
 import json
 import sys
 from Acquisition import aq_acquire
+import logging
 
 _marker = object()
 ALLOWED_REST_METHODS = ('GET', 'POST', 'HEAD', 'PUT', 'DELETE')
 
-import logging
 logger = logging.getLogger(__name__)
 
 try:
@@ -264,17 +264,17 @@ class REST(REST_BASE):
             # so we check if we have an array or a string
             if type(self.params['users']) is list:
                 for user in self.params['users']:
-                     try:
+                    try:
                         if user.get('id', None):
                             user['id'] = user['id'].lower()
                         else:
                             user['id'] = user.lower()
-                     except :
+                    except:
                         self.params['users'][cont] = user.lower()
-                     cont = cont + 1
+                    cont = cont + 1
             # transform the string in users into an array containing one string in lowercase
             elif type(self.params['users']) is str:
-                 self.params['users'] = [self.params['users'].lower()]
+                self.params['users'] = [self.params['users'].lower()]
 
     def extract_params(self, required=[]):
         """

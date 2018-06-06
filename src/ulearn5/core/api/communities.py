@@ -24,6 +24,7 @@ from mimetypes import MimeTypes
 from ulearn5.core.utils import is_activate_owncloud
 from ulearn5.owncloud.utils import update_owncloud_permission
 
+
 class CommunityMixin(object):
     """ """
     # Transferred to __init__
@@ -123,7 +124,6 @@ class Communities(REST):
                                       contentType=mime_type[0])
 
         if result:
-            community = result[0].getObject()
             success_response = 'community already exists.'
             status = 200
         else:
@@ -161,6 +161,7 @@ class Communities(REST):
         records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
         if records:
             return self.username in [a['id'] for a in records[0].attrs['acl']['users'] if a['role'] == u'owner']
+
 
 class Community(REST, CommunityMixin):
     """
@@ -259,6 +260,7 @@ class Community(REST, CommunityMixin):
             return True
         else:
             return False
+
 
 class Count(REST, CommunityMixin):
     """
