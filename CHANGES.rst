@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.5 (unreleased)
+0.5 (2018-06-07)
 ----------------
 
-- Nothing changed yet.
-
+* multiple changes based on IE11 [Roberto Diaz]
+* Modify elastic_index [Pilar Marinas]
+* Merge branch 'master' of github.com:UPCnet/ulearn5.core [Pilar Marinas]
+* Solucionar elastic + añadir los patches del ulearn.patches [Pilar Marinas]
+* added persons translations [Roberto Diaz]
+* View for update permissions [alberto.duran]
 
 0.4 (2018-05-31)
 ----------------
