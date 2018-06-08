@@ -27,13 +27,15 @@ class IElasticSharing(Interface):
 
 class ElasticSharing(object):
     """
-    The records that will be stored to represent sharing on ES will
-    represent shared permissions over an object, storing the
-    following attributes:
+        The records that will be stored to represent sharing on ES will
+        represent shared permissions over an object, storing the
+        following attributes:
+
         principal: The id of the user or group
         path: Path to the object relative to portal root
         roles: Roles assigned to the principal on this object
         uuid: Unique ID of the community where this object belongs
+
     """
     grok.implements(IElasticSharing)
 
@@ -49,7 +51,6 @@ class ElasticSharing(object):
         if self._root_path is None:
             site = getSite()
             self._root_path = '/'.join(site.getPhysicalPath())
-
         return self._root_path
 
     def relative_path(self, object):
@@ -57,7 +58,9 @@ class ElasticSharing(object):
         return re.sub(r'^{}'.format(self.site_root_path), r'', absolute_path)
 
     def object_local_roles(self, object):
-        """ Remap local roles to exclude Owner roles """
+        """
+            Remap local roles to exclude Owner roles
+        """
         current_local_roles = {}
         for principal, roles in object.__ac_local_roles__.items():
             effective_roles = [role for role in roles if role not in ['Owner']]
@@ -66,9 +69,9 @@ class ElasticSharing(object):
         return current_local_roles
 
     def get_index_name(self):
-        """
-            We want to have an index name of the form of:
+        """ We want to have an index name of the form of:
             security.<name_of_the_instance>.<epoch_time_of_instance_creation>
+
             e.g
                 security.plone.1448983804
 
@@ -93,10 +96,11 @@ class ElasticSharing(object):
             body=dict(
                 path=path,
                 principal=principal,
-                roles=api.user.get_roles(username=principal, obj=object),
+                roles=api.user.get_roles(username=principal, obj=object, inherit=False),
                 uuid=IGWUUID(object).get(),
-                )
             )
+        )
+
         return record
 
     def get(self, object, principal=None):
@@ -104,7 +108,7 @@ class ElasticSharing(object):
             Returns an existing elastic index for a site object, empty object or list if no register found.
             If principal not specified, will return all records for an object:
         """
-        path = self.relative_path(object)
+        # path = self.relative_path(object)
         self.elastic = getUtility(IElasticSearch)
         elastic_index = ElasticSharing().get_index_name().lower()
         if principal is None:
@@ -126,19 +130,20 @@ class ElasticSharing(object):
             es_results = self.elastic().search(index=elastic_index,
                                                doc_type='sharing',
                                                body={'query': {
-                                                        'bool': {
-                                                            'must': [{
-                                                                'match': {'principal': principal}},
-                                                                {
-                                                                'match': {'uuid': IGWUUID(object).get()}}]
-                                                            }}})
+                                                     'bool': {
+                                                        'must': [{'match': {'principal': principal}},
+                                                                 {'match': {'uuid': IGWUUID(object).get()}}]
+                                                     }}})
             result = []
             if es_results['hits']['total'] > 0:
                 result = [es_results['hits']['hits'][0]['_source']]
+
         return result
 
     def modified(self, object):
-        """ Handler for local roles changed event. Will add or remove a record form elastic """
+        """
+            Handler for local roles changed event. Will add or remove a record form elastic
+        """
         current_local_roles = self.object_local_roles(object)
 
         try:
@@ -159,8 +164,10 @@ class ElasticSharing(object):
             principals_to_delete = set(existing_principals) - set(current_principals_in_groups) - set(current_principals)
             for principal in principals_to_delete:
                 self.remove(object, principal)
+
             # Add new records or modify existing ones
             for principal, roles in current_local_roles.items():
+
                 if api.group.get(groupname=principal):
                     users = api.user.get_users(groupname=principal)
                     owner = object.getOwner()._id
@@ -179,18 +186,20 @@ class ElasticSharing(object):
                 else:
                     es_record = self.get(object, principal)
 
-                if not es_record:
-                    self.add(object, principal)
-                elif es_record[0]['roles'] != roles:
-                    self.modify(object, principal, attributes=roles)
-                else:
-                    pass
-                # No changes to roles, ignore others
+                    if not es_record:
+                        self.add(object, principal)
+                    elif es_record[0]['roles'] != roles:
+                        self.modify(object, principal, attributes=roles)
+                    else:
+                        pass
+                        # No changes to roles, ignore others
         except:
             pass
 
     def add(self, object, principal):
-        """ Adds a shared object index """
+        """
+            Adds a shared object index
+        """
         record = self.make_record(object, principal)
         SharedMarker(object).share()
         self.elastic = getUtility(IElasticSearch)
@@ -210,15 +219,17 @@ class ElasticSharing(object):
                                                 'bool': {
                                                     'must': [{'match': {'principal': principal}},
                                                              {'match': {'uuid': IGWUUID(object).get()}}]
-                                                            }}})
+                                                }}})
 
         self.elastic().update(index=elastic_index,
                               doc_type='sharing',
                               id=result['hits']['hits'][0]['_id'],
-                              body={'doc': {'_source': {'roles': attributes}}})
+                              body={'doc': { 'roles': attributes}})
 
     def remove(self, object, principal):
-        """ Removes a shared object index """
+        """
+            Removes a shared object index
+        """
         # Unused?
         # path = self.relative_path(object)
         SharedMarker(object).unshare()
@@ -230,12 +241,16 @@ class ElasticSharing(object):
                                                 'bool': {
                                                     'must': [{'match': {'principal': principal}},
                                                              {'match': {'uuid': IGWUUID(object).get()}}]
-                                                            }}})
+                                                }}})
 
-        self.elastic().delete(index=elastic_index, doc_type='sharing', id=result['hits']['hits'][0]['_id'])
+        self.elastic().delete(index=elastic_index,
+                              doc_type='sharing',
+                              id=result['hits']['hits'][0]['_id'])
 
     def shared_on(self, object):
-        """ Returns a list of all items shared on a specific community """
+        """
+            Returns a list of all items shared on a specific community
+        """
         base_path = '/'.join(object.getPhysicalPath())
         portal_catalog = getToolByName(getSite(), 'portal_catalog')
         shared_items = portal_catalog.searchResults(is_shared=True)
@@ -249,7 +264,7 @@ class ElasticSharing(object):
         """
         user_groups = []
         principals = user_groups + [username]
-        portal = api.portal.get()
+        # portal = api.portal.get()
         portal_catalog = getToolByName(getSite(), 'portal_catalog')
 
         communities_by_path = {a.getPath(): a for a in portal_catalog.unrestrictedSearchResults(portal_type='ulearn.community')}
@@ -268,7 +283,7 @@ class ElasticSharing(object):
                 community_url=community.getURL(),
                 by=item_catalog.Creator,
                 by_profile='{}/profile/{}'.format(getSite().absolute_url(), item_catalog.Creator)
-                    )
+            )
 
         def is_shared(item):
             item_catalog = portal_catalog.unrestrictedSearchResults(gwuuid=str(item['uuid']))[0]
@@ -306,14 +321,15 @@ class ElasticSharing(object):
                                              doc_type='sharing',
                                              body={'query': {
                                                     'bool': {
-                                                        'must': {'match_all': {}},
-                                                        'filter': {
-                                                            'terms': {
-                                                                'principal': principals
-                                                                }
-                                                            }
-                                                        }},
-                                                    'size': 1000})
+                                                       'must': {'match_all': {}
+                                                       },
+                                                       'filter': {
+                                                           'terms': {
+                                                               'principal': principals
+                                                           }
+                                                       }
+                                                   }},
+                                                   'size': 1000})
 
         shared_items = [a['_source'] for a in shared_items['hits']['hits']]
         # Tha is_shared is still required?
@@ -325,7 +341,9 @@ class ElasticSharing(object):
 
         return results
 
+
 grok.global_utility(ElasticSharing)
+
 
 
 class SharedWithMe(grok.View):

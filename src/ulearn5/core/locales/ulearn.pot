@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-31 10:11+0000\n"
+"POT-Creation-Date: 2018-06-08 11:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
 
-#: ../patches.py:367
+#: ../patches.py:365
 msgid " ."
 msgstr ""
 
@@ -52,7 +52,6 @@ msgid "Add a new private folder"
 msgstr ""
 
 #: ../behaviors.zcml:21
-#: ulearn5/theme/behaviors.zcml:13
 msgid "Add awesome icon"
 msgstr ""
 
@@ -73,16 +72,20 @@ msgstr ""
 msgid "Can only be seen and edited by the owner."
 msgstr ""
 
-#: ../controlpanel.py:418
+#: ../controlpanel.py:415
 #: ../controlportlets.py:349
 msgid "Cancel"
 msgstr ""
 
-#: ../controlpanel.py:414
+#: ../patches.py:917
+msgid "Changes made."
+msgstr ""
+
+#: ../controlpanel.py:412
 msgid "Changes saved"
 msgstr ""
 
-#: ../patches.py:308
+#: ../patches.py:306
 msgid "Changes saved."
 msgstr ""
 
@@ -108,7 +111,7 @@ msgstr ""
 msgid "Comunitat_stats"
 msgstr ""
 
-#: ../content/community.py:1036
+#: ../content/community.py:1037
 msgid "Crea la comunitat"
 msgstr ""
 
@@ -129,7 +132,7 @@ msgstr ""
 msgid "Discussion"
 msgstr ""
 
-#: ../content/community.py:1261
+#: ../content/community.py:1262
 msgid "Documents"
 msgstr ""
 
@@ -154,12 +157,12 @@ msgstr ""
 msgid "Edit Subscribed News Portlet"
 msgstr ""
 
-#: ../controlpanel.py:420
+#: ../controlpanel.py:417
 #: ../controlportlets.py:351
 msgid "Edit cancelled"
 msgstr ""
 
-#: ../content/community.py:1139
+#: ../content/community.py:1140
 msgid "Edita la comunitat"
 msgstr ""
 
@@ -175,7 +178,7 @@ msgstr ""
 msgid "Entrada"
 msgstr ""
 
-#: ../content/community.py:1263
+#: ../content/community.py:1264
 msgid "Esdeveniments"
 msgstr ""
 
@@ -299,7 +302,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr ""
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1262
+#: ../content/community.py:1263
 msgid "Media"
 msgstr ""
 
@@ -336,7 +339,7 @@ msgstr ""
 msgid "My Tags"
 msgstr ""
 
-#: ../behaviors/awicon.py:22
+#: ../behaviors/awicon.py:21
 msgid "Name of the Font Awesome class to use as an icon. It is only visible in the menu."
 msgstr ""
 
@@ -368,11 +371,11 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: ../content/community.py:1264
+#: ../content/community.py:1265
 msgid "Noticies"
 msgstr ""
 
-#: ../content/community.py:1323
+#: ../content/community.py:1324
 msgid "Noticies de la comunitat"
 msgstr ""
 
@@ -812,17 +815,17 @@ msgid "community_type_description"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1086
+#: ../content/community.py:1087
 msgid "comunitat_creada"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1062
+#: ../content/community.py:1063
 msgid "comunitat_existeix"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1192
+#: ../content/community.py:1193
 msgid "comunitat_modificada"
 msgstr ""
 
@@ -901,7 +904,7 @@ msgstr ""
 msgid "find_label"
 msgstr ""
 
-#. Default: "Última Hora"
+#. Default: "Flashes Informativos"
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.pt:11
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:45
 msgid "flashesinformativos"
@@ -1007,7 +1010,7 @@ msgid "help_info_servei"
 msgstr ""
 
 #. Default: "Enter your language"
-#: ../userschema.py:65
+#: ../userschema.py:47
 msgid "help_language"
 msgstr ""
 
@@ -1159,17 +1162,17 @@ msgid "help_stats_button"
 msgstr ""
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:58
+#: ../userschema.py:40
 msgid "help_telefon"
 msgstr ""
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:44
+#: ../userschema.py:26
 msgid "help_twitter"
 msgstr ""
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:51
+#: ../userschema.py:33
 msgid "help_ubicacio"
 msgstr ""
 
@@ -1254,7 +1257,7 @@ msgid "help_ulearn_thinkers"
 msgstr ""
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
-#: ../userschema.py:73
+#: ../userschema.py:55
 msgid "help_userprofile"
 msgstr ""
 
@@ -1340,7 +1343,7 @@ msgid "label_info_tasks"
 msgstr ""
 
 #. Default: "Language"
-#: ../userschema.py:64
+#: ../userschema.py:46
 msgid "label_language"
 msgstr ""
 
@@ -1355,7 +1358,7 @@ msgid "label_not_subjects"
 msgstr ""
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:398
+#: ulearn5/theme/browser/views.py:396
 msgid "label_show_all"
 msgstr ""
 
@@ -1364,22 +1367,22 @@ msgid "label_subscribe_to_community"
 msgstr ""
 
 #. Default: "Telèfon"
-#: ../userschema.py:57
+#: ../userschema.py:39
 msgid "label_telefon"
 msgstr ""
 
 #. Default: "Twitter username"
-#: ../userschema.py:43
+#: ../userschema.py:25
 msgid "label_twitter"
 msgstr ""
 
 #. Default: "Ubicació"
-#: ../userschema.py:50
+#: ../userschema.py:32
 msgid "label_ubicacio"
 msgstr ""
 
 #. Default: "See portlet user profile"
-#: ../userschema.py:72
+#: ../userschema.py:54
 msgid "label_userprofile"
 msgstr ""
 
@@ -1429,32 +1432,32 @@ msgid "main_color"
 msgstr ""
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:346
+#: ../patches.py:345
 msgid "manage_homepage_portlets_description"
 msgstr ""
 
 #. Default: "Homepage"
-#: ../patches.py:345
+#: ../patches.py:344
 msgid "manage_homepage_portlets_title"
 msgstr ""
 
 #. Default: "Manage left portlets"
-#: ../patches.py:385
+#: ../patches.py:383
 msgid "manage_left_portlets_description"
 msgstr ""
 
 #. Default: "Left"
-#: ../patches.py:384
+#: ../patches.py:382
 msgid "manage_left_portlets_title"
 msgstr ""
 
 #. Default: "Manage right portlets"
-#: ../patches.py:388
+#: ../patches.py:386
 msgid "manage_right_portlets_description"
 msgstr ""
 
 #. Default: "Right"
-#: ../patches.py:387
+#: ../patches.py:385
 msgid "manage_right_portlets_title"
 msgstr ""
 
@@ -1496,11 +1499,6 @@ msgstr ""
 #. Default: "Reset Menu"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:86
 msgid "menu-reset-menu"
-msgstr ""
-
-#. Default: "The menu has been successfully reset."
-#: ulearn5/theme/browser/views_templates/reset_menu_bar.pt:18
-msgid "menu-reset-menu-msg"
 msgstr ""
 
 #. Default: "Habilitar portlet mrs_max_widget"
@@ -1560,8 +1558,16 @@ msgstr ""
 msgid "notify_activity_via_push_help"
 msgstr ""
 
+#: ../controlpanel.py:291
+msgid "participants"
+msgstr ""
+
 #: ../controlpanel.py:289
 msgid "people_literal"
+msgstr ""
+
+#: ../controlpanel.py:291
+msgid "persones"
 msgstr ""
 
 #. Default: "Habilitar portlet plone_portlet_collection_Collection"
@@ -1827,9 +1833,12 @@ msgstr ""
 msgid "text_form_resubmit_message"
 msgstr ""
 
-#. Default: "Thinnkers portlet"
-#: ulearn5/theme/portlets/thinnkers.py:27
+#: ../controlpanel.py:291
 msgid "thinnkers"
+msgstr ""
+
+#: ulearn5/theme/portlets/thinnkers.py:27
+msgid "thinnkers portlet"
 msgstr ""
 
 #. Default: "Download this event in iCal format"

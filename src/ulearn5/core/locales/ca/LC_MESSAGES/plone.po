@@ -414,12 +414,12 @@ msgstr "No hi ha cap usuari amb aquest nom."
 #. Default: "Thinnkers portlet"
 #: ../../../../ulearn.theme/ulearn/theme/portlets/thinnkers.py:34
 msgid "thinnkers"
-msgstr ""
+msgstr "Persones"
 
 #. Default: "Calendar portlet"
 #: ../../../../ulearn.theme/ulearn/theme/portlets/calendar.py:33
 msgid "ulearncalendar"
-msgstr ""
+msgstr "Portlet de Calendari"
 
 msgid "Add a new discussion item"
 msgstr "Afegir un debat"

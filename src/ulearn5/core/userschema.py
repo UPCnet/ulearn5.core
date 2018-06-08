@@ -1,30 +1,15 @@
 # -*- coding: utf-8 -*-
 from zope import schema
 from zope.interface import Interface
-from zope.interface import implements
-from plone.namedfile.field import NamedBlobImage
-from plone.app.users.schema import checkEmailAddress
-
-from zope.interface import alsoProvides
-from zope.component import getUtility
-from mrs5.max.utilities import IMAXClient
-from Products.CMFCore.utils import getToolByName
-from ulearn5.core.adapters.portrait import convertSquareImage
-import urllib
-from OFS.Image import Image
-
 from five import grok
-
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.indexes.keyword import CatalogKeywordIndex
 from souper.interfaces import ICatalogFactory
 from souper.soup import NodeAttributeIndexer
 from zope.interface import implementer
-
 from ulearn5.core.interfaces import IUlearn5CoreLayer
-
-from plone.app.users.browser.userdatapanel import UserDataPanel, UserDataPanelAdapter
+from plone.app.users.browser.userdatapanel import UserDataPanel
 
 from plone.supermodel import model
 from plone.z3cform.fieldsets import extensible
@@ -32,10 +17,7 @@ from zope.component import adapts
 from z3c.form import field
 from plone.app.users.browser.account import AccountPanelSchemaAdapter
 from plone.app.users.browser.register import BaseRegistrationForm
-
 from ulearn5.core import _
-
-import cgi
 
 
 class IUlearnUserSchema(model.Schema):
@@ -91,6 +73,7 @@ class UlearnUserDataSchemaAdapter(AccountPanelSchemaAdapter):
 
 class UlearnUserDataPanelExtender(extensible.FormExtender):
     adapts(Interface, IUlearn5CoreLayer, UserDataPanel)
+
     def update(self):
         fields = field.Fields(IUlearnUserSchema)
 
@@ -102,6 +85,7 @@ class UlearnUserDataPanelExtender(extensible.FormExtender):
 
 class UlearnRegistrationPanelExtender(extensible.FormExtender):
     adapts(Interface, IUlearn5CoreLayer, BaseRegistrationForm)
+
     def update(self):
         fields = field.Fields(IUlearnUserSchema)
 
@@ -118,4 +102,6 @@ class UserNewsSearchSoupCatalog(object):
         catalog['searches'] = CatalogKeywordIndex(hashindex)
 
         return catalog
+
+
 grok.global_utility(UserNewsSearchSoupCatalog, name='user_news_searches')

@@ -8,6 +8,6 @@
 
 domain=ulearn
 
-i18ndude rebuild-pot --pot $domain.pot --create $domain ../ \
+/var/plone/ulearn.buildout/bin/i18ndude rebuild-pot --pot $domain.pot --create $domain ../ \
 ../../../../../ulearn5.theme/src/ulearn5/theme/
-i18ndude sync --pot $domain.pot */LC_MESSAGES/$domain.po
+/var/plone/ulearn.buildout/bin/i18ndude sync --pot $domain.pot */LC_MESSAGES/$domain.po

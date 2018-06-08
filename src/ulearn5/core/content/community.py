@@ -133,13 +133,13 @@ class ICommunity(form.Schema):
         title=_(u'Nom'),
         description=_(u'Nom de la comunitat'),
         required=True
-        )
+    )
 
     description = schema.Text(
         title=_(u'Descripció'),
         description=_(u'La descripció de la comunitat'),
         required=False
-        )
+    )
 
     form.mode(community_type='hidden')
     community_type = schema.Choice(
@@ -148,7 +148,7 @@ class ICommunity(form.Schema):
         source=availableCommunityTypes,
         required=True,
         default=u'Closed'
-        )
+    )
 
     activity_view = schema.Choice(
         title=_(u'activity_view'),
@@ -191,25 +191,25 @@ class ICommunity(form.Schema):
         title=_(u'Imatge'),
         description=_(u'Imatge que defineix la comunitat'),
         required=False,
-        )
+    )
 
     twitter_hashtag = schema.TextLine(
         title=_(u'Twitter hashtag'),
         description=_(u'hashtag_help'),
         required=False
-        )
+    )
 
     notify_activity_via_push = schema.Bool(
         title=_(u'Notify activity via push'),
         description=_(u'notify_activity_via_push_help'),
         required=False
-        )
+    )
 
     notify_activity_via_push_comments_too = schema.Bool(
         title=_(u'Notify activity and comments via push'),
         description=_(u'help_notify_activity_via_push_comments_too'),
         required=False
-        )
+    )
 
 
 # INTERFICIES QUE POT IMPLEMENTAR UNA COMUNITAT
@@ -305,13 +305,13 @@ class CommunityAdapterMixin(object):
             permissions=self.max_permissions,
             notifications=self.max_notifications,
             # Include notify=False
-            )
+        )
 
     def set_initial_max_metadata(self):
         # Update twitter hashtag
         self.maxclient.contexts[self.context.absolute_url()].put(
             twitterHashtag=self.context.twitter_hashtag
-            )
+        )
 
         # Update community tag
         self.maxclient.contexts[self.context.absolute_url()].tags.put(data=['[COMMUNITY]'])
@@ -557,6 +557,7 @@ class CommunityAdapterMixin(object):
         if is_activate_owncloud(self.context):
             update_owncloud_permission(self.context, acl)
 
+
 class OrganizativeCommunity(CommunityAdapterMixin):
     """ Named adapter for the organizative communities """
     implements(ICommunityTyped)
@@ -569,16 +570,16 @@ class OrganizativeCommunity(CommunityAdapterMixin):
             reader={
                 'plone': ['Reader'],
                 'max': ['read']
-                },
+            },
             writer={
                 'plone': ['Reader', 'Contributor', 'Editor'],
                 'max': ['read', 'write']
-                },
+            },
             owner={
                 'plone': ['Reader', 'Contributor', 'Editor', 'Owner'],
                 'max': ['read', 'write', 'unsubscribe', 'flag', 'invite', 'kick', 'delete']
-                }
-            )
+            }
+        )
 
     def unsubscribe_user(self, user_id):
         raise CommunityForbiddenAction('Unsubscription from organizative community forbidden.')
@@ -610,16 +611,16 @@ class OpenCommunity(CommunityAdapterMixin):
             reader={
                 'plone': ['Reader'],
                 'max': ['read', 'unsubscribe']
-                },
+            },
             writer={
                 'plone': ['Reader', 'Contributor', 'Editor'],
                 'max': ['read', 'write', 'unsubscribe']
-                },
+            },
             owner={
                 'plone': ['Reader', 'Contributor', 'Editor', 'Owner'],
                 'max': ['read', 'write', 'unsubscribe', 'flag', 'invite', 'kick', 'delete']
-                }
-            )
+            }
+        )
 
     def set_plone_permissions(self, acl, changed=False):
         if not self.context.get_local_roles_for_userid(userid='AuthenticatedUsers'):
@@ -644,16 +645,16 @@ class ClosedCommunity(CommunityAdapterMixin):
             reader={
                 'plone': ['Reader'],
                 'max': ['read', 'unsubscribe']
-                },
+            },
             writer={
                 'plone': ['Reader', 'Contributor', 'Editor'],
                 'max': ['read', 'write', 'unsubscribe']
-                },
+            },
             owner={
                 'plone': ['Reader', 'Contributor', 'Editor', 'Owner'],
                 'max': ['read', 'write', 'unsubscribe', 'flag', 'invite', 'kick', 'delete']
-                }
-            )
+            }
+        )
 
     def set_plone_permissions(self, acl, changed=False):
         if self.context.get_local_roles_for_userid(userid='AuthenticatedUsers'):
@@ -1246,7 +1247,7 @@ class CommunityInitializeAdapter(object):
 
                     # Assign owner permissions
                     current = api.user.get_current()
-                    session.share_file_with_user(domain.lower() + '/' + community.id, current.id , perms=Client.OCS_PERMISSION_ALL) #Propietari
+                    session.share_file_with_user(domain.lower() + '/' + community.id, current.id, perms=Client.OCS_PERMISSION_ALL)  # Propietari
                 else:
                     logger.warning('The community {} not has been created in owncloud due to {}'.format(community.id, err.status_code))
                     raise
@@ -1313,7 +1314,7 @@ class CommunityInitializeAdapter(object):
              'o': u'plone.app.querystring.operation.string.relativePath',
              'v': u'..',
              },
-            ]
+        ]
         # 'v': u'..'}]
         QUERY_SORT_ON = u'effective'
 

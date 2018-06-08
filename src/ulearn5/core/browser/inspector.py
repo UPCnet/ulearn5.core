@@ -16,6 +16,7 @@ MODULES_TO_INSPECT = ['base5.core.setup',
 
 grok.templatedir("inspector_templates")
 
+
 class clouseau(grok.View):
     grok.name('clouseau')
     grok.template('clouseau')

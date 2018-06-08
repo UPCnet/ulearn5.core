@@ -9,6 +9,7 @@ from ulearn5.core.api.root import APIRoot
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from plone.app.contenttypes.interfaces import ILink
 
 
 class Links(REST):
@@ -41,7 +42,7 @@ class Link(REST):
         resultsGestion = {}
         try:
             path = portal['gestion']['menu'][language]  # fixed en code... always in this path
-            folders = api.content.find(context=path, depth=1)
+            folders = api.content.find(context=path, portal_type=('Folder', 'privateFolder'), depth=1)
             found = True
         except:
             # 'Menu Gestion not configured or Language not found.'
@@ -54,10 +55,11 @@ class Link(REST):
                 resultsGestion[folder.Title] = []
                 menufolder = folder.getObject().items()
                 for item in menufolder:
-                    menuLink = dict(url=item[1].remoteUrl,
-                                    title=item[1].title,
-                                    )
-                    resultsGestion[folder.Title].append(menuLink)
+                    if ILink.providedBy(item[1]):
+                        menuLink = dict(url=item[1].remoteUrl,
+                                        title=item[1].title,
+                                        )
+                        resultsGestion[folder.Title].append(menuLink)
 
             if not resultsGestion:
                 # 'No Menu Gestion configured in this Site.'

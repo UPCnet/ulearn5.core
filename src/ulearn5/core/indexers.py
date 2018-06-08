@@ -23,6 +23,7 @@ class MenuQuickLinksCatalogFactory(object):
         catalog['dades'] = CatalogFieldIndex(containerindexer)
         return catalog
 
+
 grok.global_utility(MenuQuickLinksCatalogFactory, name="menu_soup")
 
 
@@ -36,5 +37,6 @@ class UserSubscribedTagsSoupCatalog(object):
         catalog['tags'] = CatalogKeywordIndex(hashindex)
 
         return catalog
+
 
 grok.global_utility(UserSubscribedTagsSoupCatalog, name='user_subscribed_tags')
