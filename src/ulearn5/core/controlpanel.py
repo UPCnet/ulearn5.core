@@ -60,8 +60,8 @@ class IUlearnControlPanelSettings(model.Schema):
                 'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme', 'buttonbar_selected'])
 
     model.fieldset(
-        'Specific',
-        _(u'Specific'),
+        'Design',
+        _(u'Design'),
         fields=['main_color', 'secondary_color', 'background_property',
                 'background_color',
                 'buttons_color_primary', 'buttons_color_secondary',

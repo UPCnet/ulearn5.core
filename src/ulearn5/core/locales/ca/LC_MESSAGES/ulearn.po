@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-08 11:55+0000\n"
+"POT-Creation-Date: 2018-06-13 13:11+0000\n"
 "PO-Revision-Date: 2014-04-14 11:20+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -124,6 +124,10 @@ msgstr "Darreres activitats"
 #: ../content/community.py:139
 msgid "Descripció"
 msgstr "Descripció"
+
+#: ../controlpanel.py:64
+msgid "Design"
+msgstr "Disseny"
 
 #: ulearn5/theme/portlets/templates/discussion.pt:8
 msgid "Discussion"
@@ -524,10 +528,6 @@ msgstr "Selecciona el apartat que voleu que aparegui per defecte actiu en la but
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Send the item back to draft."
 msgstr "Envia l'article a l'esborrany."
-
-#: ../controlpanel.py:64
-msgid "Specific"
-msgstr "Específic"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml

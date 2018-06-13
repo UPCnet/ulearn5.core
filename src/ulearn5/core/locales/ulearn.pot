@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-08 11:55+0000\n"
+"POT-Creation-Date: 2018-06-13 13:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,6 +126,10 @@ msgstr ""
 
 #: ../content/community.py:139
 msgid "Descripció"
+msgstr ""
+
+#: ../controlpanel.py:64
+msgid "Design"
 msgstr ""
 
 #: ulearn5/theme/portlets/templates/discussion.pt:8
@@ -525,10 +529,6 @@ msgstr ""
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Send the item back to draft."
-msgstr ""
-
-#: ../controlpanel.py:64
-msgid "Specific"
 msgstr ""
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
