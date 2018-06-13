@@ -132,6 +132,7 @@ class setupHomePage(grok.View):
         blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
         from zope.container.interfaces import INameChooser
+        from ulearn5.theme.portlets.profile.profile import Assignment as profileAssignment
         from ulearn5.theme.portlets.communities import Assignment as communitiesAssignment
         from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
         from mrs5.max.portlets.maxui import Assignment as maxAssignment
@@ -146,6 +147,7 @@ class setupHomePage(grok.View):
         for portlet in manager:
             del manager[portlet]
         chooser = INameChooser(manager)
+        manager[chooser.chooseName(None, profileAssignment())] = profileAssignment()
         manager[chooser.chooseName(None, communitiesAssignment())] = communitiesAssignment()
         manager[chooser.chooseName(None, chatAssignment())] = chatAssignment()
         manager[chooser.chooseName(None, thinnkersAssignment())] = thinnkersAssignment()
