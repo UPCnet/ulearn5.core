@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-06 10:16+0000\n"
+"POT-Creation-Date: 2018-06-18 11:46+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Roberto Diaz <roberto.diaz@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
 
-#: ../patches.py:366
+#: ../patches.py:365
 msgid " ."
 msgstr " ."
 
@@ -73,11 +73,15 @@ msgstr "Can only be seen and edited by the owner."
 msgid "Cancel"
 msgstr "Cancel"
 
+#: ../patches.py:917
+msgid "Changes made."
+msgstr "Changes made succesfully."
+
 #: ../controlpanel.py:411
 msgid "Changes saved"
 msgstr "Changes saved"
 
-#: ../patches.py:308
+#: ../patches.py:306
 msgid "Changes saved."
 msgstr "Changes saved"
 
@@ -98,13 +102,13 @@ msgstr "Community"
 msgid "Comunitat_stats"
 msgstr "Community <span class=\"formHelp\"></span>"
 
-#: ../content/community.py:1036
+#: ../content/community.py:1038
 msgid "Crea la comunitat"
 msgstr "Create community"
 
 #: ../behaviors.zcml:14
 msgid "Create thumb of News images for show in app"
-msgstr ""
+msgstr "Create thumb of News images for show in app"
 
 #: ../content/community.py:121
 #: ../controlpanel.py:23
@@ -112,14 +116,14 @@ msgid "Darreres activitats"
 msgstr "Latest activity"
 
 #: ../content/community.py:139
-msgid "Descripció"
-msgstr "Description"
+msgid "Descripcio"
+msgstr "Community description"
 
 #: ulearn5/theme/portlets/templates/discussion.pt:8
 msgid "Discussion"
 msgstr "Discussion"
 
-#: ../content/community.py:1261
+#: ../content/community.py:1271
 msgid "Documents"
 msgstr "Documents"
 
@@ -149,7 +153,7 @@ msgstr "Edit Subscribed News Portlet"
 msgid "Edit cancelled"
 msgstr "Editing canceled"
 
-#: ../content/community.py:1139
+#: ../content/community.py:1149
 msgid "Edita la comunitat"
 msgstr "Save"
 
@@ -171,7 +175,7 @@ msgid "Entrada"
 msgstr "Stream"
 
 #. Default: "Eventos"
-#: ../content/community.py:1263
+#: ../content/community.py:1273
 msgid "Esdeveniments"
 msgstr "Events"
 
@@ -251,8 +255,8 @@ msgid "Items in which workflow state to show."
 msgstr "Items in which workflow state to show."
 
 #: ../content/community.py:140
-msgid "La descripció de la comunitat"
-msgstr "The description of the community"
+msgid "La descripcio de la comunitat"
+msgstr "Community description"
 
 #: ../controlpanel.py:31
 msgid "Language"
@@ -267,8 +271,8 @@ msgid "Literals que identifiquen als usuaris de les comunitats i les seves aport
 msgstr "Literal of the users that identify communities and their contributions."
 
 #: ../controlpanel.py:294
-msgid "Llista amb les persones que no han de sortir a les cerques i que tenen accés restringit per les demés persones."
-msgstr "People with restricted access. Not shown in searches."
+msgid "Llista amb les persones que no han de sortir a les cerques i que tenen acces restringit per la resta de persones."
+msgstr "People list that doesn't appear in searches and have restricted access by other people."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -291,7 +295,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr "Making an item published to intranet means that it will be visible to the members (readers)."
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1262
+#: ../content/community.py:1272
 msgid "Media"
 msgstr "Media"
 
@@ -352,15 +356,11 @@ msgstr "Name"
 msgid "Nom de la comunitat"
 msgstr "Community's name"
 
-#: ../profiles/default/actions.xml
-msgid "None"
-msgstr ""
-
-#: ../content/community.py:1264
+#: ../content/community.py:1274
 msgid "Noticies"
 msgstr "News"
 
-#: ../content/community.py:1323
+#: ../content/community.py:1333
 msgid "Noticies de la comunitat"
 msgstr "Community news"
 
@@ -505,7 +505,7 @@ msgstr "Save"
 
 #: ../controlpanel.py:167
 msgid "Select the active button in the button bar."
-msgstr ""
+msgstr "Select the active button in the button bar."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -563,11 +563,11 @@ msgstr "This portlet displays subscribed News Items."
 
 #: ../behaviors.zcml:14
 msgid "Thumb News Images for App"
-msgstr ""
+msgstr "Thumb News Images for App"
 
 #: ../behaviors/thumbimage.py:19
 msgid "Thumbnail Image"
-msgstr ""
+msgstr "Thumbnail Image"
 
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Time of the last transition"
@@ -689,11 +689,6 @@ msgstr "Show items shared with me"
 msgid "activity_view"
 msgstr "Display of community activities"
 
-#. Default: "Notícies"
-#: ulearn5/theme/portlets/importantnews/importantnews.pt:11
-msgid "actualidad"
-msgstr "Important news"
-
 #. Default: "Communities"
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:22
 #: ulearn5/theme/browser/views_templates/communities.pt:25
@@ -752,7 +747,7 @@ msgstr "Button bar"
 
 #: ../controlpanel.py:166
 msgid "buttonbar_selected"
-msgstr ""
+msgstr "Selection available for button bar"
 
 #. Default: "Color primari dels botons"
 #: ../controlpanel.py:236
@@ -817,17 +812,17 @@ msgstr ""
 " Organisational: Only the Social Network Manager can subscribe members and no member can unsubscribe him/hersef."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1086
+#: ../content/community.py:1096
 msgid "comunitat_creada"
 msgstr "Community ${comunitat} has been created."
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1062
+#: ../content/community.py:1072
 msgid "comunitat_existeix"
 msgstr "Community ${comunitat} already exists, please choose a different name."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1192
+#: ../content/community.py:1202
 msgid "comunitat_modificada"
 msgstr "Community ${comunitat} has been modified."
 
@@ -856,11 +851,6 @@ msgstr "Contact Phone"
 msgid "createcommunity"
 msgstr "Create a new community"
 
-#. Default: "Avís legal"
-#: ulearn5/theme/browser/viewlets_templates/footer.pt:10
-msgid "disclaimer"
-msgstr "Disclaimer"
-
 #. Default: "Discussion portlet"
 #: ulearn5/theme/portlets/discussion.py:34
 msgid "discussion"
@@ -875,6 +865,11 @@ msgstr "Edit Community"
 #: ulearn5/theme/portlets/stats.py:69
 msgid "entrades"
 msgstr "posts"
+
+#. Default: "Falta omplir algun camp obligatori."
+#: ../content/community.py:1047
+msgid "error"
+msgstr "Mandatory field incomplete"
 
 #. Default: "Event"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:15
@@ -911,10 +906,15 @@ msgstr "Export"
 msgid "external_website"
 msgstr "Visit external website"
 
-#. Default: "búsqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
-msgid "find_label"
-msgstr "Search..."
+#. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
+#: ../content/community.py:1045
+msgid "falta_condicions"
+msgstr "There is necessary to accept terms and conditions to create communities."
+
+#. Default: "No es pot crear una comunitat sense titol"
+#: ../content/community.py:1043
+msgid "falta_titol"
+msgstr "You can't create a community without a title"
 
 #. Default: "Flashes Informativos"
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.pt:11
@@ -1023,7 +1023,7 @@ msgid "help_info_servei"
 msgstr "Link to the service"
 
 #. Default: "Enter your language"
-#: ../userschema.py:65
+#: ../userschema.py:47
 msgid "help_language"
 msgstr "This is the language of space."
 
@@ -1157,7 +1157,7 @@ msgstr "This is the secondary color of the space."
 #. Default: "If selected, then gives the option to show the News Items in Mobile App."
 #: ../controlpanel.py:344
 msgid "help_show_news_in_app"
-msgstr ""
+msgstr "If selected, then gives the option to show the News Items in Mobile App."
 
 #. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
 #: ../controlpanel.py:284
@@ -1170,17 +1170,17 @@ msgid "help_stats_button"
 msgstr "Show or not the button to access daily statistics stats / stats and activity / chats"
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:58
+#: ../userschema.py:40
 msgid "help_telefon"
 msgstr "Contacte telefònic"
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:44
+#: ../userschema.py:26
 msgid "help_twitter"
 msgstr "Fill in your Twitter username."
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:51
+#: ../userschema.py:33
 msgid "help_ubicacio"
 msgstr "Computer area / Company / Department"
 
@@ -1291,7 +1291,6 @@ msgstr "Important News"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:101
 msgid "info"
 msgstr "Info"
 
@@ -1299,31 +1298,6 @@ msgstr "Info"
 #: ../controlpanel.py:140
 msgid "info_servei"
 msgstr "Service information"
-
-#. Default: "Gestión Noticia:"
-#: ../browser/viewlets_templates/newstoolbar.pt:3
-msgid "label-newstoolbar"
-msgstr "News management:"
-
-#. Default: "App"
-#: ../browser/viewlets_templates/newstoolbar.pt:77
-msgid "label-toogle-app"
-msgstr ""
-
-#. Default: "Flash"
-#: ../browser/viewlets_templates/newstoolbar.pt:29
-msgid "label-toogle-flash"
-msgstr "Flash"
-
-#. Default: "Destacada"
-#: ../browser/viewlets_templates/newstoolbar.pt:51
-msgid "label-toogle-important"
-msgstr "Important"
-
-#. Default: "Lista"
-#: ../browser/viewlets_templates/newstoolbar.pt:7
-msgid "label-toogle-list"
-msgstr "List"
 
 #. Default: "iCal"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:125
@@ -1351,7 +1325,7 @@ msgid "label_info_tasks"
 msgstr "Info tasks"
 
 #. Default: "Language"
-#: ../userschema.py:64
+#: ../userschema.py:46
 msgid "label_language"
 msgstr "Language"
 
@@ -1366,7 +1340,7 @@ msgid "label_not_subjects"
 msgstr "No subjects availables"
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:398
+#: ulearn5/theme/browser/views.py:396
 msgid "label_show_all"
 msgstr "Show all items"
 
@@ -1375,17 +1349,17 @@ msgid "label_subscribe_to_community"
 msgstr "Subscribe to community"
 
 #. Default: "Telèfon"
-#: ../userschema.py:57
+#: ../userschema.py:39
 msgid "label_telefon"
 msgstr "Phone"
 
 #. Default: "Twitter username"
-#: ../userschema.py:43
+#: ../userschema.py:25
 msgid "label_twitter"
 msgstr "Twitter username"
 
 #. Default: "Ubicació"
-#: ../userschema.py:50
+#: ../userschema.py:32
 msgid "label_ubicacio"
 msgstr "Location"
 
@@ -1435,32 +1409,32 @@ msgid "main_color"
 msgstr "Main color"
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:346
+#: ../patches.py:345
 msgid "manage_homepage_portlets_description"
 msgstr "Manage homepage portlets"
 
 #. Default: "Homepage"
-#: ../patches.py:345
+#: ../patches.py:344
 msgid "manage_homepage_portlets_title"
 msgstr "Homepage"
 
 #. Default: "Manage left portlets"
-#: ../patches.py:384
+#: ../patches.py:383
 msgid "manage_left_portlets_description"
 msgstr "Manage left portlets"
 
 #. Default: "Left"
-#: ../patches.py:383
+#: ../patches.py:382
 msgid "manage_left_portlets_title"
 msgstr "Left"
 
 #. Default: "Manage right portlets"
-#: ../patches.py:387
+#: ../patches.py:386
 msgid "manage_right_portlets_description"
 msgstr "Manage right portlets"
 
 #. Default: "Right"
-#: ../patches.py:386
+#: ../patches.py:385
 msgid "manage_right_portlets_title"
 msgstr "Right"
 
@@ -1468,11 +1442,6 @@ msgstr "Right"
 #: ../controlpanel.py:191
 msgid "maxui_form_bg"
 msgstr "Background color widget MAX."
-
-#. Default: "Estadístiques"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:71
-msgid "menu-gestio-estadistiques"
-msgstr "Stats"
 
 #. Default: "Noticies"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:54
@@ -1648,11 +1617,6 @@ msgstr "Publish to intranet"
 msgid "quicklinks_icon"
 msgstr "Icon Font Awesome"
 
-#. Default: "Leer mas.."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:129
-msgid "readmore"
-msgstr "Read more"
-
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "reject"
@@ -1693,11 +1657,6 @@ msgstr "Search users"
 #: ../controlpanel.py:182
 msgid "secondary_color"
 msgstr "Secondary color"
-
-#. Default: "Més notícies"
-#: ulearn5/theme/portlets/importantnews/importantnews.pt:53
-msgid "seemore"
-msgstr "More news"
 
 #. Default: "See more communities"
 #: ulearn5/theme/portlets/templates/communities.pt:52
@@ -1769,7 +1728,7 @@ msgstr "SharedWithMe"
 #. Default: "Show News Items in App"
 #: ../controlpanel.py:342
 msgid "show_news_in_app"
-msgstr ""
+msgstr "Show News Items in App"
 
 #. Default: "Mapa del web"
 #: ulearn5/theme/browser/viewlets_templates/footer.pt:8
@@ -1973,11 +1932,11 @@ msgid "video_url_description"
 msgstr "Add your website youtube video"
 
 #. Default: "Use site default"
-#: ../patches.py:451
+#: ../patches.py:452
 msgid "vocabulary-available-editor-novalue"
 msgstr "Use site default"
 
 #. Default: "Language neutral (site default)"
-#: ../patches.py:446
+#: ../patches.py:447
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Language neutral (site default)"

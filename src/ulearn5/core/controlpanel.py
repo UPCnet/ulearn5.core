@@ -291,7 +291,7 @@ class IUlearnControlPanelSettings(model.Schema):
     form.widget(nonvisibles=Select2MAXUserInputFieldWidget)
     nonvisibles = schema.List(
         title=_(u'no_visibles'),
-        description=_(u'Llista amb les persones que no han de sortir a les cerques i que tenen accés restringit per les demés persones.'),
+        description=_(u'Llista amb les persones que no han de sortir a les cerques i que tenen acces restringit per la resta de persones.'),
         value_type=schema.TextLine(),
         required=False,
         default=[])

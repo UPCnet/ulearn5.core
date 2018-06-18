@@ -296,7 +296,7 @@
   <property name="title">User actions</property>
   <object name="Go to homepage" meta_type="CMF Action" i18n:domain="ulearn" insert-before="preferences">
    <property name="title" i18n:translate="">Go to homepage</property>
-   <property name="description" i18n:translate="">None</property>
+   <property name="description" i18n:translate="">Go to homepage</property>
    <property
       name="url_expr">string:${globals_view/navigationRootUrl}/</property>
    <property name="link_target"></property>
