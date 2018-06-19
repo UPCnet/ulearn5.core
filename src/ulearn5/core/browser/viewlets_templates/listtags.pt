@@ -4,7 +4,7 @@
      tal:define="categories context/Subject|nothing;
                  url_quote  nocall:modules/Products.PythonScripts.standard/url_quote;"
      tal:condition="categories">
-  <tal:filedunder i18n:translate="label_follow_cat">Seguir categoría:</tal:filedunder>
+  <tal:filedunder i18n:translate="label_follow_cat">Follow category:</tal:filedunder>
   <span tal:repeat="category categories">
     <span tal:define="exists python:viewlet.isTagFollowed(category)"
          tal:condition="exists"

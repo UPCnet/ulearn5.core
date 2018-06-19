@@ -6,7 +6,7 @@
       i18n:domain="ulearn.portlets">
 
 <head>
-  <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
+  <div metal:fill-slot="javascript_head_slot" tal:omit-tag=""></div>
 </head>
 <body>
 

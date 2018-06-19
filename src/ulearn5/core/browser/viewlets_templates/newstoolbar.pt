@@ -1,7 +1,7 @@
 <tal:block i18n:domain="ulearn" tal:condition="viewlet/isManagementNewsActivate">
   <div class="toogle-group">
     <div id="newtoolbar-title" i18n:translate="label-newstoolbar">
-      Gestión Noticia:
+      Gestion Noticia:
     </div>
     <div id="toggle-outoflist" tal:condition="viewlet/isPortletListActivate">
         <div class="literal-toggle" i18n:translate="label-toogle-list">Lista</div>

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-18 11:46+0000\n"
+"POT-Creation-Date: 2018-06-19 14:17+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Roberto Diaz <roberto.diaz@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -34,19 +34,19 @@ msgstr "Most valued activity"
 
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:172
 msgid "Add Flashes Informativos Portlet"
-msgstr "Add Flashes Informativos Portlet"
+msgstr ""
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:83
 msgid "Add My Subjects Portlet"
-msgstr "Add My Subjects Portlet"
+msgstr ""
 
 #: ulearn5/theme/portlets/importantnews/importantnews.py:169
 msgid "Add News Portlet"
-msgstr "Add News Portlet"
+msgstr ""
 
 #: ulearn5/theme/portlets/buttonbar/buttonbar.py:221
 msgid "Add Subscribed News Portlet"
-msgstr "Add Subscribed News Portlet"
+msgstr ""
 
 #: ../profiles/default/types/privateFolder.xml
 msgid "Add a new private folder"
@@ -102,7 +102,7 @@ msgstr "Community"
 msgid "Comunitat_stats"
 msgstr "Community <span class=\"formHelp\"></span>"
 
-#: ../content/community.py:1038
+#: ../content/community.py:1037
 msgid "Crea la comunitat"
 msgstr "Create community"
 
@@ -123,7 +123,7 @@ msgstr "Community description"
 msgid "Discussion"
 msgstr "Discussion"
 
-#: ../content/community.py:1271
+#: ../content/community.py:1270
 msgid "Documents"
 msgstr "Documents"
 
@@ -134,7 +134,7 @@ msgstr "Draft"
 
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:181
 msgid "Edit Flashes Informativos portlet"
-msgstr "Edit Flashes Informativos portlet"
+msgstr ""
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:94
 msgid "Edit My Subjects Portlet"
@@ -153,7 +153,7 @@ msgstr "Edit Subscribed News Portlet"
 msgid "Edit cancelled"
 msgstr "Editing canceled"
 
-#: ../content/community.py:1149
+#: ../content/community.py:1148
 msgid "Edita la comunitat"
 msgstr "Save"
 
@@ -169,13 +169,12 @@ msgstr "Tools"
 msgid "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 msgstr "Users can not post objects, exclusively for intranets."
 
-#. Default: "Stream"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:11
 msgid "Entrada"
-msgstr "Stream"
+msgstr "Post"
 
 #. Default: "Eventos"
-#: ../content/community.py:1273
+#: ../content/community.py:1272
 msgid "Esdeveniments"
 msgstr "Events"
 
@@ -217,7 +216,7 @@ msgstr "Need a valid ElasticSearch URL"
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:33
 #: ulearn5/theme/portlets/importantnews/importantnews.py:24
 msgid "How many items to list."
-msgstr "How many items to list."
+msgstr "How many items to list?"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
@@ -238,7 +237,7 @@ msgstr "Start <span class=\"formHelp\">x</span>"
 
 #: ulearn5/theme/configure.zcml:75
 msgid "Installs the Plone theme package ulearn5.theme."
-msgstr "Installs the Plone theme package ulearn5.theme."
+msgstr "Installs the Plone theme package ulearn5.theme"
 
 #: ../configure.zcml:72
 msgid "Installs the ulearn5.core add-on."
@@ -252,7 +251,7 @@ msgstr "Intranet"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.py:29
 #: ulearn5/theme/portlets/importantnews/importantnews.py:29
 msgid "Items in which workflow state to show."
-msgstr "Items in which workflow state to show."
+msgstr ""
 
 #: ../content/community.py:140
 msgid "La descripcio de la comunitat"
@@ -295,7 +294,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr "Making an item published to intranet means that it will be visible to the members (readers)."
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1272
+#: ../content/community.py:1271
 msgid "Media"
 msgstr "Media"
 
@@ -356,11 +355,11 @@ msgstr "Name"
 msgid "Nom de la comunitat"
 msgstr "Community's name"
 
-#: ../content/community.py:1274
+#: ../content/community.py:1273
 msgid "Noticies"
 msgstr "News"
 
-#: ../content/community.py:1333
+#: ../content/community.py:1332
 msgid "Noticies de la comunitat"
 msgstr "Community news"
 
@@ -551,11 +550,11 @@ msgstr "This portlet displays Flashes Informativos."
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:84
 msgid "This portlet displays my subjects on moodle."
-msgstr "This portlet displays my subjects on moodle."
+msgstr ""
 
 #: ulearn5/theme/portlets/importantnews/importantnews.py:170
 msgid "This portlet displays recent News Items."
-msgstr "This portlet displays recent News Items."
+msgstr ""
 
 #: ulearn5/theme/portlets/buttonbar/buttonbar.py:222
 msgid "This portlet displays subscribed News Items."
@@ -592,35 +591,35 @@ msgstr "UPCnet only"
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn AngularRouteView"
-msgstr "Ulearn AngularRouteView"
+msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Button Bar"
-msgstr "Ulearn Button Bar"
+msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Calendar"
-msgstr "Ulearn Calendar"
+msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Communities"
-msgstr "Ulearn Communities"
+msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Profile"
-msgstr "Ulearn Profile"
+msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Profile Community"
-msgstr "Ulearn Profile Community"
+msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Thinnkers"
-msgstr "Ulearn Thinnkers"
+msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn discussion"
-msgstr "Ulearn Discussion"
+msgstr ""
 
 #: ../controlpanel.py:356
 msgid "Ulearn settings"
@@ -667,12 +666,17 @@ msgstr "Waiting to be reviewed, not editable by the owner."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.py:28
 #: ulearn5/theme/portlets/importantnews/importantnews.py:28
 msgid "Workflow state"
-msgstr "Workflow state"
+msgstr ""
+
+#. Default: "* He llegit i accepto les <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">condicions d'us.</a>"
+#: ../content/community_templates/communityadder.pt:12
+msgid "accepto_condicions"
+msgstr "* I agree with <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">conditions of use.</a>"
 
 #. Default: "Accessibilitat"
 #: ulearn5/theme/browser/viewlets_templates/footer.pt:9
 msgid "accessibility"
-msgstr "Accessibilty"
+msgstr "Accessibility"
 
 #. Default: "Mostra les noticies a les que estic subscrit"
 #: ../controlpanel.py:148
@@ -689,11 +693,16 @@ msgstr "Show items shared with me"
 msgid "activity_view"
 msgstr "Display of community activities"
 
+#. Default: "Noticies"
+#: ulearn5/theme/portlets/importantnews/importantnews.pt:11
+msgid "actualidad"
+msgstr ""
+
 #. Default: "Communities"
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:22
 #: ulearn5/theme/browser/views_templates/communities.pt:25
 msgid "allcommunities"
-msgstr "Communities"
+msgstr "All communities"
 
 #. Default: "Color final dels gradients"
 #: ../controlpanel.py:209
@@ -708,7 +717,7 @@ msgstr "Color gradients initial"
 #. Default: "AngularRouteView"
 #: ulearn5/theme/portlets/angularrouteview.py:19
 msgid "angularrouteview"
-msgstr "AngularRouteView"
+msgstr ""
 
 #. Default: "Color de fons global"
 #: ../controlpanel.py:227
@@ -792,12 +801,12 @@ msgstr "Color organizative community"
 #. Default: "Communities portlet"
 #: ulearn5/theme/portlets/communities.py:32
 msgid "communities"
-msgstr "Communities"
+msgstr "Communities portlet"
 
 #. Default: "Comunidades"
 #: ulearn5/theme/portlets/templates/communities.pt:11
 msgid "communities_title"
-msgstr "Communities"
+msgstr "Community"
 
 #. Default: "This is an open community, but you are not currently subscribed."
 #: ../content/community_templates/view.pt:20
@@ -812,17 +821,17 @@ msgstr ""
 " Organisational: Only the Social Network Manager can subscribe members and no member can unsubscribe him/hersef."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1096
+#: ../content/community.py:1095
 msgid "comunitat_creada"
 msgstr "Community ${comunitat} has been created."
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1072
+#: ../content/community.py:1071
 msgid "comunitat_existeix"
 msgstr "Community ${comunitat} already exists, please choose a different name."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1202
+#: ../content/community.py:1201
 msgid "comunitat_modificada"
 msgstr "Community ${comunitat} has been modified."
 
@@ -851,23 +860,28 @@ msgstr "Contact Phone"
 msgid "createcommunity"
 msgstr "Create a new community"
 
+#. Default: "Avis legal"
+#: ulearn5/theme/browser/viewlets_templates/footer.pt:10
+msgid "disclaimer"
+msgstr "Disclaimer"
+
 #. Default: "Discussion portlet"
 #: ulearn5/theme/portlets/discussion.py:34
 msgid "discussion"
-msgstr "Discussion portlet"
+msgstr ""
 
 #. Default: "Edit this community"
 #: ulearn5/theme/portlets/profile/profile.pt:52
 #: ulearn5/theme/portlets/profilecommunity/profilecommunity.pt:63
 msgid "editcommunity"
-msgstr "Edit Community"
+msgstr "Edit this community"
 
 #: ulearn5/theme/portlets/stats.py:69
 msgid "entrades"
-msgstr "posts"
+msgstr ""
 
 #. Default: "Falta omplir algun camp obligatori."
-#: ../content/community.py:1047
+#: ../content/community.py:1046
 msgid "error"
 msgstr "Mandatory field incomplete"
 
@@ -907,21 +921,25 @@ msgid "external_website"
 msgstr "Visit external website"
 
 #. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
-#: ../content/community.py:1045
+#: ../content/community.py:1044
 msgid "falta_condicions"
 msgstr "There is necessary to accept terms and conditions to create communities."
 
 #. Default: "No es pot crear una comunitat sense titol"
-#: ../content/community.py:1043
+#: ../content/community.py:1042
 msgid "falta_titol"
 msgstr "You can't create a community without a title"
+
+#. Default: "busqueda..."
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
+msgid "find_label"
+msgstr "Search..."
 
 #. Default: "Flashes Informativos"
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.pt:11
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:45
-#, fuzzy
 msgid "flashesinformativos"
-msgstr "Last hour"
+msgstr ""
 
 #. Default: "Go to the campus"
 #: ulearn5/theme/portlets/templates/communities.pt:57
@@ -1070,7 +1088,7 @@ msgstr "Enable portlet MAX UI: Chat."
 #. Default: "The title of the navigation tree."
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:27
 msgid "help_navigation_title"
-msgstr "The title of the navigation tree."
+msgstr ""
 
 #: ../content/community.py:210
 msgid "help_notify_activity_via_push_comments_too"
@@ -1272,25 +1290,26 @@ msgstr "Url: \"/mail_password_form?userid=\". For external domains specify the f
 #. Default: "Function on moodle."
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:27
 msgid "help_wsfunction"
-msgstr "Function on moodle."
+msgstr ""
 
 #. Default: "Token to connect to moodle."
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:33
 msgid "help_wstoken"
-msgstr "Token to connect to moodle."
+msgstr ""
 
 #. Default: "Url on moodle."
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:21
 msgid "help_wsurl"
-msgstr "Url on moodle."
+msgstr ""
 
 #. Default: "Important News"
 #: ulearn5/theme/portlets/importantnews/importantnews.py:44
 msgid "importantnews"
-msgstr "Important News"
+msgstr ""
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
+#: ulearn5/theme/browser/viewlets_templates/header.pt:101
 msgid "info"
 msgstr "Info"
 
@@ -1299,6 +1318,31 @@ msgstr "Info"
 msgid "info_servei"
 msgstr "Service information"
 
+#. Default: "Gestion Noticia:"
+#: ../browser/viewlets_templates/newstoolbar.pt:3
+msgid "label-newstoolbar"
+msgstr "Manage news:"
+
+#. Default: "App"
+#: ../browser/viewlets_templates/newstoolbar.pt:77
+msgid "label-toogle-app"
+msgstr ""
+
+#. Default: "Flash"
+#: ../browser/viewlets_templates/newstoolbar.pt:29
+msgid "label-toogle-flash"
+msgstr ""
+
+#. Default: "Destacada"
+#: ../browser/viewlets_templates/newstoolbar.pt:51
+msgid "label-toogle-important"
+msgstr ""
+
+#. Default: "Lista"
+#: ../browser/viewlets_templates/newstoolbar.pt:7
+msgid "label-toogle-list"
+msgstr "List"
+
 #. Default: "iCal"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:125
 msgid "label_add_to_ical"
@@ -1306,7 +1350,7 @@ msgstr "iCal"
 
 #: ulearn5/theme/browser/views_templates/communities.pt:54
 msgid "label_check_favorite"
-msgstr "Check favorite"
+msgstr "Check your favourite communities"
 
 #: ulearn5/theme/browser/views_templates/communities.pt:72
 msgid "label_delete_community"
@@ -1318,11 +1362,11 @@ msgstr "Edit community"
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:53
 msgid "label_go_subject"
-msgstr "Go subject"
+msgstr ""
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:32
 msgid "label_info_tasks"
-msgstr "Info tasks"
+msgstr ""
 
 #. Default: "Language"
 #: ../userschema.py:46
@@ -1332,12 +1376,12 @@ msgstr "Language"
 #. Default: "Title"
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:26
 msgid "label_navigation_title"
-msgstr "Title"
+msgstr ""
 
 #. Default: "No hay asignaturas disponibles"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:19
 msgid "label_not_subjects"
-msgstr "No subjects availables"
+msgstr "There aren't subjects to show"
 
 #. Default: "Show all items"
 #: ulearn5/theme/browser/views.py:396
@@ -1366,17 +1410,17 @@ msgstr "Location"
 #. Default: "Webservice Function"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:26
 msgid "label_wsfunction"
-msgstr "Webservice Function"
+msgstr ""
 
 #. Default: "Webservice Token"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:32
 msgid "label_wstoken"
-msgstr "Webservice Token"
+msgstr ""
 
 #. Default: "Webservice Url"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:20
 msgid "label_wsurl"
-msgstr "Webservice Url"
+msgstr ""
 
 #. Default: "Idioma de l'espai"
 #: ../controlpanel.py:282
@@ -1443,6 +1487,11 @@ msgstr "Right"
 msgid "maxui_form_bg"
 msgstr "Background color widget MAX."
 
+#. Default: "Estadistiques"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:71
+msgid "menu-gestio-estadistiques"
+msgstr ""
+
 #. Default: "Noticies"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:54
 msgid "menu-gestio-noticies"
@@ -1466,7 +1515,7 @@ msgstr "Reset Menu"
 #. Default: "The menu has been successfully reset."
 #: ulearn5/theme/browser/views_templates/reset_menu_bar.pt:18
 msgid "menu-reset-menu-msg"
-msgstr "The menu has been successfully reset."
+msgstr "The menu has been successfully reset"
 
 #. Default: "Habilitar portlet mrs_max_widget"
 #: ../controlportlets.py:57
@@ -1478,33 +1527,31 @@ msgstr "Enable portlet MAX UI"
 msgid "mrs_maxchat_widget"
 msgstr "Enable portlet MAX UI: Chat"
 
-#. Default: "My communities"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:20
 msgid "my_communities"
-msgstr "Communities"
+msgstr "My communities"
 
 #. Default: "mysubjects"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:42
 msgid "mysubjects"
-msgstr "My subjects"
+msgstr "My Subjects"
 
 #. Default: "My Tags"
 #: ulearn5/theme/portlets/mytags/mytags.pt:7
 #: ulearn5/theme/portlets/mytags/mytags.py:26
 msgid "mytags"
-msgstr "My tags"
+msgstr "My Tags"
 
 #. Default: "Create a discussion"
 #: ulearn5/theme/portlets/templates/discussion.pt:52
 msgid "newdiscussion"
-msgstr "Create a discussion"
+msgstr ""
 
 #. Default: "Create a new event"
 #: ulearn5/theme/portlets/templates/calendar.pt:114
 msgid "newevent"
 msgstr "Create a new event"
 
-#. Default: "Noticies"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:29
 msgid "news"
 msgstr "News"
@@ -1512,16 +1559,16 @@ msgstr "News"
 #. Default: "There is no content shared with you right now."
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:35
 msgid "no_content_shared_user"
-msgstr "There is no content shared with you right now"
+msgstr ""
 
 #: ../controlpanel.py:293
 msgid "no_visibles"
 msgstr "Hidden users"
 
-#. Default: "There are not events today"
+#. Default: "There aren't events today"
 #: ulearn5/theme/portlets/templates/calendar.pt:26
 msgid "not_events_for_today"
-msgstr "There are no events today"
+msgstr "There aren't events today"
 
 #: ../content/community.py:204
 msgid "notify_activity_via_push_help"
@@ -1606,7 +1653,7 @@ msgstr "User profile"
 #. Default: "Profile Community"
 #: ulearn5/theme/portlets/profilecommunity/profilecommunity.py:33
 msgid "profilecommunity"
-msgstr "Profile Community"
+msgstr "Community profile"
 
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "publicaalaintranet"
@@ -1616,6 +1663,11 @@ msgstr "Publish to intranet"
 #: ../controlpanel.py:313
 msgid "quicklinks_icon"
 msgstr "Icon Font Awesome"
+
+#. Default: "Leer mas.."
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:129
+msgid "readmore"
+msgstr "Read more..."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -1641,12 +1693,12 @@ msgstr "Search"
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:25
 #: ulearn5/theme/browser/views_templates/communities.pt:29
 msgid "search_communities"
-msgstr "Search communities"
+msgstr "Search"
 
 #. Default: "Search tags"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:42
 msgid "search_tags"
-msgstr "Search by tags"
+msgstr "Search tags"
 
 #. Default: "Cerca"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:32
@@ -1658,6 +1710,11 @@ msgstr "Search users"
 msgid "secondary_color"
 msgstr "Secondary color"
 
+#. Default: "Mes noticies"
+#: ulearn5/theme/portlets/importantnews/importantnews.pt:53
+msgid "seemore"
+msgstr "More news"
+
 #. Default: "See more communities"
 #: ulearn5/theme/portlets/templates/communities.pt:52
 msgid "seemore_communities"
@@ -1666,7 +1723,7 @@ msgstr "See more communities"
 #. Default: "See more"
 #: ulearn5/theme/portlets/templates/stats.pt:140
 msgid "seemore_stats"
-msgstr "See more stats"
+msgstr "See more"
 
 #. Default: "See all tags"
 #: ulearn5/theme/portlets/mytags/mytags.pt:20
@@ -1676,7 +1733,7 @@ msgstr "See all tags"
 #. Default: "See more events"
 #: ulearn5/theme/portlets/templates/discussion.pt:43
 msgid "seemorediscussions"
-msgstr "See more events"
+msgstr "See more discussions"
 
 #. Default: "See more events"
 #: ulearn5/theme/portlets/templates/calendar.pt:97
@@ -1686,7 +1743,7 @@ msgstr "See more events"
 #. Default: "Veure tots els participants"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:44
 msgid "seethinkers"
-msgstr "See all people"
+msgstr "See all attendees"
 
 #. Default: "Send invitation"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:107
@@ -1696,7 +1753,7 @@ msgstr "Send invitation"
 #. Default: "There are not attendees to send the message"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:111
 msgid "send_invitation_not_attendees"
-msgstr "There are no attendees to send the message"
+msgstr "There aren't attendees to send the message"
 
 #. Default: "Shared content"
 #: ../browser/sharing_templates/shared.pt:26
@@ -1712,18 +1769,18 @@ msgstr "All content shared by any member of this community"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:74
 #: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
 msgid "shared_content_title"
-msgstr "Access to shared content"
+msgstr "Shared content"
 
 #. Default: "Shared with me"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 msgid "shared_with_me"
-msgstr "Shared"
+msgstr "Shared with me"
 
 #. Default: "SharedWithMe"
 #: ulearn5/theme/portlets/sharedwithme.py:19
 msgid "sharedwithme"
-msgstr "SharedWithMe"
+msgstr "Shared with me"
 
 #. Default: "Show News Items in App"
 #: ../controlpanel.py:342
@@ -1750,17 +1807,17 @@ msgstr "Display button to access daily statistics"
 #. Default: "Comments"
 #: ulearn5/theme/portlets/templates/stats.pt:29
 msgid "stats_comments"
-msgstr "Comments"
+msgstr ""
 
 #. Default: "Student"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:22
 msgid "student"
-msgstr "Student"
+msgstr ""
 
 #. Default: "Subjects"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:13
 msgid "subjects"
-msgstr "Subjects"
+msgstr ""
 
 #. Default: "Subscribe"
 #: ../content/community_templates/view.pt:25
@@ -1775,22 +1832,22 @@ msgstr "Event details"
 #. Default: "Teacher"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:78
 msgid "teacher"
-msgstr "Teacher"
+msgstr ""
 
 #. Default: "No response from server. Please try again later."
 #: ulearn5/theme/browser/jsvariables.py:26
 msgid "text_ajax_noresponse_message"
-msgstr "No response from server. Please try again later."
+msgstr ""
 
 #. Default: "Your form has not been saved. All changes you have made will be lost."
 #: ulearn5/theme/browser/jsvariables.py:18
 msgid "text_form_modified_message"
-msgstr "Your form has not been saved. All changes you have made will be lost."
+msgstr ""
 
 #. Default: "You already clicked the submit button. Do you really want to submit this form again?"
 #: ulearn5/theme/browser/jsvariables.py:22
 msgid "text_form_resubmit_message"
-msgstr "You already clicked the submit button. Do you really want to submit this form again?"
+msgstr ""
 
 #. Default: "Thinnkers portlet"
 #: ../controlpanel.py:302
@@ -1804,7 +1861,7 @@ msgstr ""
 #. Default: "Download this event in iCal format"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:119
 msgid "title_add_to_ical"
-msgstr "Download this event in iCal format"
+msgstr ""
 
 #: ../configure.zcml:72
 msgid "ulearn5.core"
@@ -1816,7 +1873,7 @@ msgstr "ulearn5.core (uninstall)"
 
 #: ulearn5/theme/configure.zcml:75
 msgid "ulearn5.theme"
-msgstr "ulearn5.theme"
+msgstr ""
 
 #. Default: "Habilitar portlet angularRouteView"
 #: ../controlportlets.py:156
@@ -1846,7 +1903,7 @@ msgstr "Enable portlet Ulearn Discussion"
 #. Default: "Documents"
 #: ulearn5/theme/portlets/templates/stats.pt:42
 msgid "ulearn_documents"
-msgstr "Documents"
+msgstr ""
 
 #. Default: "Habilitar portlet Ulearn eConnect"
 #: ../controlportlets.py:264
@@ -1856,12 +1913,12 @@ msgstr "Enable portlet Ulearn eConnect"
 #. Default: "Links"
 #: ulearn5/theme/portlets/templates/stats.pt:55
 msgid "ulearn_links"
-msgstr "Links"
+msgstr ""
 
 #. Default: "Media"
 #: ulearn5/theme/portlets/templates/stats.pt:68
 msgid "ulearn_media"
-msgstr "Media"
+msgstr ""
 
 #. Default: "Habilitar portlet flashesinformativos"
 #: ../controlportlets.py:237

@@ -8,6 +8,13 @@
         <form action="." method="post"
               tal:attributes="action view/action; enctype view/enctype">
           <metal:use use-macro="context/@@ploneform-macros/fields" />
+          <div>
+            <span class="formHelp" i18n:translate="accepto_condicions" i18n:domain="ulearn">
+              * He llegit i accepto les <a href='https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa' target='_blank'>condicions d'us.</a>
+            </span>
+          </div>
+
+
           <div class="modal-footer">
             <tal:buttons repeat="action view/actions/values|nothing">
               <input type="submit" tal:replace="structure action/render" />
