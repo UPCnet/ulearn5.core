@@ -171,7 +171,7 @@ msgstr "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:11
 msgid "Entrada"
-msgstr ""
+msgstr "Entrada"
 
 #: ../content/community.py:1272
 msgid "Esdeveniments"
@@ -185,7 +185,7 @@ msgstr "Filtrar per paraula clau"
 #. Default: "Fin <span class=\"formHelp\">x</span>"
 #: ../browser/stats_templates/statsview.pt:180
 msgid "Fin_stats"
-msgstr "Fin estadístiques"
+msgstr "Fi <span class=\"formHelp\">x</span>"
 
 #: ../controlpanel.py:46
 msgid "Font Awesome Icon"
@@ -1565,7 +1565,7 @@ msgstr "Persones no visibles"
 #. Default: "There are not events today"
 #: ulearn5/theme/portlets/templates/calendar.pt:26
 msgid "not_events_for_today"
-msgstr ""
+msgstr "No hi ha esdeveniments per mostrar"
 
 #: ../content/community.py:204
 msgid "notify_activity_via_push_help"
@@ -1645,12 +1645,12 @@ msgstr "Carpeta privada"
 #. Default: "User profile"
 #: ulearn5/theme/portlets/profile/profile.py:39
 msgid "profile"
-msgstr ""
+msgstr "Perfil d'usuari"
 
 #. Default: "Profile Community"
 #: ulearn5/theme/portlets/profilecommunity/profilecommunity.py:33
 msgid "profilecommunity"
-msgstr ""
+msgstr "Perfil de la comunitat"
 
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "publicaalaintranet"
@@ -1664,7 +1664,7 @@ msgstr "Icona Font Awesome"
 #. Default: "Leer mas.."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:129
 msgid "readmore"
-msgstr ""
+msgstr "Llegir més..."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -1692,17 +1692,17 @@ msgstr "Cerca"
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:25
 #: ulearn5/theme/browser/views_templates/communities.pt:29
 msgid "search_communities"
-msgstr ""
+msgstr "Cerca comunitats"
 
 #. Default: "Search tags"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:42
 msgid "search_tags"
-msgstr ""
+msgstr "Cerca etiquetes"
 
 #. Default: "Cerca"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:32
 msgid "search_users"
-msgstr ""
+msgstr "Cerca usuaris"
 
 #. Default: "Color secundari"
 #: ../controlpanel.py:182
@@ -1712,17 +1712,17 @@ msgstr "Color secundari"
 #. Default: "Mes noticies"
 #: ulearn5/theme/portlets/importantnews/importantnews.pt:53
 msgid "seemore"
-msgstr ""
+msgstr "Més notícies"
 
 #. Default: "See more communities"
 #: ulearn5/theme/portlets/templates/communities.pt:52
 msgid "seemore_communities"
-msgstr ""
+msgstr "Veure més comunitats"
 
 #. Default: "See more"
 #: ulearn5/theme/portlets/templates/stats.pt:140
 msgid "seemore_stats"
-msgstr ""
+msgstr "Veure més..."
 
 #. Default: "See all tags"
 #: ulearn5/theme/portlets/mytags/mytags.pt:20
@@ -1737,7 +1737,7 @@ msgstr ""
 #. Default: "See more events"
 #: ulearn5/theme/portlets/templates/calendar.pt:97
 msgid "seemoreevents"
-msgstr ""
+msgstr "Veure més esdeveniments"
 
 #. Default: "Veure tots els participants"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:44
@@ -1747,12 +1747,12 @@ msgstr ""
 #. Default: "Send invitation"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:107
 msgid "send_invitation_link"
-msgstr ""
+msgstr "Envia invitació"
 
 #. Default: "There are not attendees to send the message"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:111
 msgid "send_invitation_not_attendees"
-msgstr ""
+msgstr "No hi ha assitents per enviar el missatge."
 
 #. Default: "Shared content"
 #: ../browser/sharing_templates/shared.pt:26
@@ -1768,18 +1768,18 @@ msgstr "Tots el contingut compartit per algun membre d'aquesta comunitat "
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:74
 #: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
 msgid "shared_content_title"
-msgstr ""
+msgstr "Contingut compartit"
 
 #. Default: "Shared with me"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 msgid "shared_with_me"
-msgstr ""
+msgstr "Compartit amb mí"
 
 #. Default: "SharedWithMe"
 #: ulearn5/theme/portlets/sharedwithme.py:19
 msgid "sharedwithme"
-msgstr ""
+msgstr "Compartit amb mí"
 
 #. Default: "Show News Items in App"
 #: ../controlpanel.py:342
@@ -1789,7 +1789,7 @@ msgstr "Mostra les notícies a l'app mòbil"
 #. Default: "Mapa del web"
 #: ulearn5/theme/browser/viewlets_templates/footer.pt:8
 msgid "sitemap"
-msgstr ""
+msgstr "Mapa del web"
 
 #. Default: "Stats"
 #: ../browser/stats_templates/statsview.pt:143
@@ -1826,7 +1826,7 @@ msgstr "Subscriure"
 #. Default: "Event details"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:12
 msgid "summary_event_details"
-msgstr ""
+msgstr "Detalls de l'esdeveniment"
 
 #. Default: "Teacher"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:78
@@ -1860,7 +1860,7 @@ msgstr ""
 #. Default: "Download this event in iCal format"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:119
 msgid "title_add_to_ical"
-msgstr ""
+msgstr "Descarrega aquest esdeveniment en format iCal"
 
 #: ../configure.zcml:72
 msgid "ulearn5.core"
@@ -1872,7 +1872,7 @@ msgstr "ulearn5.core (desinstal·lar)"
 
 #: ulearn5/theme/configure.zcml:75
 msgid "ulearn5.theme"
-msgstr ""
+msgstr "ulearn5.theme"
 
 #. Default: "Habilitar portlet angularRouteView"
 #: ../controlportlets.py:156
@@ -1902,7 +1902,7 @@ msgstr "Habilitar portlet Ulearn Debats"
 #. Default: "Documents"
 #: ulearn5/theme/portlets/templates/stats.pt:42
 msgid "ulearn_documents"
-msgstr ""
+msgstr "Documents"
 
 #. Default: "Habilitar portlet Ulearn eConnect"
 #: ../controlportlets.py:264
@@ -1912,12 +1912,12 @@ msgstr "Habilitar portlet Ulearn eConnect"
 #. Default: "Links"
 #: ulearn5/theme/portlets/templates/stats.pt:55
 msgid "ulearn_links"
-msgstr ""
+msgstr "Enllaços"
 
 #. Default: "Media"
 #: ulearn5/theme/portlets/templates/stats.pt:68
 msgid "ulearn_media"
-msgstr ""
+msgstr "Media"
 
 #. Default: "Habilitar portlet flashesinformativos"
 #: ../controlportlets.py:237
