@@ -37,6 +37,13 @@ import logging
 import requests
 import transaction
 
+import json
+from plone.namedfile.file import NamedBlobImage
+from mimetypes import MimeTypes
+import base64
+from ulearn5.core.gwuuid import ATTRIBUTE_NAME
+ATTRIBUTE_NAME_FAVORITE = '_favoritedBy'
+from ulearn5.owncloud.utils import update_owncloud_permission
 
 # from ulearn5.core.api.people import Person
 
@@ -727,3 +734,176 @@ class syncPlatformsPermissions(grok.View):
 
         else:
             return "OwnCloud is not active in this site."
+
+class migrationCommunities(grok.View):
+    """ Aquesta vista migra comunitats de Plone 4 a la nova versió en Plone 5 """
+    grok.name('migrationcommunities')
+    grok.template('migrationcommunities')
+    grok.context(IPloneSiteRoot)
+
+
+    def update(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            hscope = 'widgetcli'
+            pc = api.portal.get_tool('portal_catalog')
+            communities = pc.searchResults(portal_type='ulearn.community')
+
+            if self.request.form['url_instance_v4'] != '':
+                url_instance_v4 = self.request.form['url_instance_v4']
+                husernamev4 = self.request.form['husernamev4']
+                htokenv4 = self.request.form['htokenv4']
+                comunitats_no_migrar = self.request.form['comunitats_no_migrar']
+
+                json_communities = requests.get(url_instance_v4 + '/api/communitiesmigration', headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                logger.info('Buscant comunitats per migrar')
+                communities = json.loads(json_communities.content)
+
+                for community in communities:
+
+                    if community['id'] not in comunitats_no_migrar:
+
+                        logger.info('Migrant comunitat {}'.format(community['title']))
+                        result = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=str(community['id']))
+
+
+                        if result:
+                            success_response = 'community already exists: ' + community['title']
+                            status = 200
+                        else:
+                            # Creo la comunidad
+                            imageObj = ''
+                            if community['image']:
+                                mime = MimeTypes()
+                                mime_type = mime.guess_type(community['image'])
+                                imgName = (community['image'].split('/')[-1]).decode('utf-8')
+                                imgData = base64.decodestring(str(community['rawimage']))
+                                imageObj = NamedBlobImage(data=imgData,
+                                                          filename=imgName,
+                                                          contentType=mime_type[0])
+
+                            new_community_id = self.context.invokeFactory('ulearn.community', str(community['id']),
+                                                                          title=community['title'],
+                                                                          description=community['description'],
+                                                                          image=imageObj,
+                                                                          community_type=community['type'],
+                                                                          activity_view=community['activity_view'],
+                                                                          twitter_hashtag=community['twitter_hashtag'],
+                                                                          notify_activity_via_push=community['notify_activity_via_push'],
+                                                                          notify_activity_via_push_comments_too=community['notify_activity_via_push_comments_too'],
+                                                                          checkConstraints=False)
+
+                            # Modifico los datos de la comunidad
+                            brain = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=new_community_id)
+                            if brain:
+                                community_new = brain[0].getObject()
+
+                                setattr(community_new, ATTRIBUTE_NAME_FAVORITE, str(community['favoritedBy']))
+                                community_new.reindexObject(idxs=['favoritedBy'])
+
+                                setattr(community_new, ATTRIBUTE_NAME, str(community['gwuuid']))
+                                community_new.reindexObject(idxs=['gwuuid'])
+
+                                community_new.listCreators = community['listCreators']
+                                community_new.ModificationDate = community['ModificationDate']
+                                community_new.created = community['CreationDate']
+                                community_new.CreationDate = community['CreationDate']
+
+                                community_new.is_shared = community['is_shared']
+                                community_new.Creator = community['Creator']
+                                community_new.UID = community['UID']
+
+                                community_new.reindexObject()
+
+                                # Migro los permisos del EDITACL
+
+                                adapter = community_new.adapted()
+
+                                # Ejemplo editacl
+                                #community['editacl'] = {u'users': [{u'role': u'owner', u'displayName': u'Victor Fernandez', u'id': u'alberto.duran'}], u'groups': []}
+
+                                # Change the uLearn part of the community
+
+                                adapter.update_acl(community['editacl'])
+                                acl = adapter.get_acl()
+                                adapter.set_plone_permissions(acl)
+
+                                # Communicate the change in the community subscription to the uLearnHub
+                                # XXX: Until we do not have a proper Hub online
+                                adapter.update_hub_subscriptions()
+
+                                # If is activate owncloud modify permissions owncloud
+                                if is_activate_owncloud(self.context):
+                                    update_owncloud_permission(community_new, acl)
+
+                            success_response = 'Created community: ' + community['title']
+
+                        logger.info(success_response)
+            logger.info('Ha finalitzat la migració de les comunitats.')
+
+
+class migrationEditaclCommunities(grok.View):
+    """ Aquesta vista migra els permisos del editacl de les comunitats de Plone 4 a la nova versió en Plone 5 """
+    grok.name('migrationeditaclcommunities')
+    grok.template('migrationeditaclcommunities')
+    grok.context(IPloneSiteRoot)
+
+
+    def update(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            hscope = 'widgetcli'
+            pc = api.portal.get_tool('portal_catalog')
+            communities = pc.searchResults(portal_type='ulearn.community')
+
+            if self.request.form['url_instance_v4'] != '':
+                url_instance_v4 = self.request.form['url_instance_v4']
+                husernamev4 = self.request.form['husernamev4']
+                htokenv4 = self.request.form['htokenv4']
+                comunitats_no_migrar = self.request.form['comunitats_no_migrar']
+
+                json_communities = requests.get(url_instance_v4 + '/api/communitiesmigration', headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                logger.info('Buscant comunitats per migrar els permisos del editacl')
+                communities = json.loads(json_communities.content)
+
+                for community in communities:
+
+                    if (community['id'] not in comunitats_no_migrar) and (community['id'] == 'comunidad-lectura'):
+
+                        brain = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=str(community['id']))
+                        if brain:
+                            community_new = brain[0].getObject()
+                            adapter = community_new.adapted()
+
+                            # Ejemplo editacl
+                            #community['editacl'] = {u'users': [{u'role': u'owner', u'displayName': u'Victor Fernandez', u'id': u'alberto.duran'}], u'groups': []}
+
+                            # Change the uLearn part of the community
+
+                            adapter.update_acl(community['editacl'])
+                            acl = adapter.get_acl()
+                            adapter.set_plone_permissions(acl)
+
+                            # Communicate the change in the community subscription to the uLearnHub
+                            # XXX: Until we do not have a proper Hub online
+                            adapter.update_hub_subscriptions()
+
+                            # If is activate owncloud modify permissions owncloud
+                            if is_activate_owncloud(self.context):
+                                update_owncloud_permission(community_new, acl)
+
+                            success_response = 'Migrat editacl comunitat: ' + community['title']
+                            logger.info(success_response)
+
+
+            logger.info('Ha finalitzat la migració del editacl de les comunitats.')
