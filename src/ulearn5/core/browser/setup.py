@@ -759,6 +759,7 @@ class migrationCommunities(grok.View):
                 husernamev4 = self.request.form['husernamev4']
                 htokenv4 = self.request.form['htokenv4']
                 comunitats_no_migrar = self.request.form['comunitats_no_migrar']
+                comunitats_a_migrar = self.request.form['comunitats_a_migrar']
 
                 json_communities = requests.get(url_instance_v4 + '/api/communitiesmigration', headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                 logger.info('Buscant comunitats per migrar')
@@ -766,7 +767,7 @@ class migrationCommunities(grok.View):
 
                 for community in communities:
 
-                    if community['id'] not in comunitats_no_migrar:
+                    if (community['id'] not in comunitats_no_migrar) and (community['id'] in comunitats_a_migrar or comunitats_a_migrar == ''):
 
                         logger.info('Migrant comunitat {}'.format(community['title']))
                         result = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=str(community['id']))
@@ -871,6 +872,7 @@ class migrationEditaclCommunities(grok.View):
                 husernamev4 = self.request.form['husernamev4']
                 htokenv4 = self.request.form['htokenv4']
                 comunitats_no_migrar = self.request.form['comunitats_no_migrar']
+                comunitats_a_migrar = self.request.form['comunitats_a_migrar']
 
                 json_communities = requests.get(url_instance_v4 + '/api/communitiesmigration', headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                 logger.info('Buscant comunitats per migrar els permisos del editacl')
@@ -878,7 +880,7 @@ class migrationEditaclCommunities(grok.View):
 
                 for community in communities:
 
-                    if (community['id'] not in comunitats_no_migrar) and (community['id'] == 'comunidad-lectura'):
+                    if (community['id'] not in comunitats_no_migrar) and (community['id'] in comunitats_a_migrar or comunitats_a_migrar == ''):
 
                         brain = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=str(community['id']))
                         if brain:
