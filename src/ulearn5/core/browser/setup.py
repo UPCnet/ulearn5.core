@@ -5,10 +5,12 @@ from base5.core.utils import json_response
 from base5.portlets.browser.manager import IColStorage
 from datetime import datetime
 from five import grok
+from mimetypes import MimeTypes
 from plone import api
 from plone.app.discussion.interfaces import IDiscussionSettings
 from plone.dexterity.utils import createContentInContainer
 from plone.namedfile.file import NamedBlobFile
+from plone.namedfile.file import NamedBlobImage
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
 from plone.registry.interfaces import IRegistry
@@ -23,9 +25,11 @@ from souper.soup import get_soup
 from ulearn5.core.browser.sharing import ElasticSharing
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
+from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
 from ulearn5.core.utils import is_activate_owncloud
+from ulearn5.owncloud.utils import update_owncloud_permission
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -33,17 +37,17 @@ from zope.component.hooks import getSite
 from zope.interface import alsoProvides
 from zope.interface import Interface
 
+import base64
+import json
 import logging
+import os
 import requests
+import shutil
+import time
 import transaction
 
-import json
-from plone.namedfile.file import NamedBlobImage
-from mimetypes import MimeTypes
-import base64
-from ulearn5.core.gwuuid import ATTRIBUTE_NAME
+
 ATTRIBUTE_NAME_FAVORITE = '_favoritedBy'
-from ulearn5.owncloud.utils import update_owncloud_permission
 
 # from ulearn5.core.api.people import Person
 
@@ -845,7 +849,59 @@ class migrationCommunities(grok.View):
                             success_response = 'Created community: ' + community['title']
 
                         logger.info(success_response)
+
             logger.info('Ha finalitzat la migració de les comunitats.')
+
+
+class migrationDocumentsCommunities(grok.View):
+    """ Aquesta vista migra la carpeta Documents de les comunitats de Plone 4 a la nova versió en Plone 5 """
+    grok.name('migrationdocumentscommunities')
+    grok.template('migrationdocumentscommunities')
+    grok.context(IPloneSiteRoot)
+
+
+    def update(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            hscope = 'widgetcli'
+            pc = api.portal.get_tool('portal_catalog')
+            communities = pc.searchResults(portal_type='ulearn.community')
+
+            if self.request.form['url_instance_v4'] != '':
+                url_instance_v4 = self.request.form['url_instance_v4']
+                husernamev4 = self.request.form['husernamev4']
+                htokenv4 = self.request.form['htokenv4']
+                url_instance_v5 = self.request.form['url_instance_v5']
+                remote_username = self.request.form['remote_username']
+                remote_password = self.request.form['remote_password']
+                comunitats_no_migrar = self.request.form['comunitats_no_migrar']
+                comunitats_a_migrar = self.request.form['comunitats_a_migrar']
+
+                json_communities = requests.get(url_instance_v4 + '/api/communitiesmigration', headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                logger.info('Buscant comunitats per migrar')
+                communities = json.loads(json_communities.content)
+                for community in communities:
+                    if os.path.exists('/tmp/content_documents'):
+                        shutil.rmtree('/tmp/content_documents')
+                    if (community['id'] not in comunitats_no_migrar) and (community['id'] in comunitats_a_migrar or comunitats_a_migrar == ''):
+                        logger.info('Migrant comunitat {}'.format(community['title']))
+                        result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=/tmp',
+                                                headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                        if result.ok == False:
+                            logger.info('Ha fallat export_dexterity')
+                            time.sleep(10)
+                            result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=/tmp',
+                                                    headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+
+                        if result.ok == True:
+                            requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
+                            logger.info('He migrat la carpeta documents de: ' + community['title'])
+                logger.info('Ha finalitzat la migració de les comunitats.')
 
 
 class migrationEditaclCommunities(grok.View):
