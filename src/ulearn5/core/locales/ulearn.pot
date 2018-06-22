@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-13 13:11+0000\n"
+"POT-Creation-Date: 2018-06-22 08:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,6 +184,10 @@ msgstr ""
 
 #: ../content/community.py:1264
 msgid "Esdeveniments"
+msgstr ""
+
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:46
+msgid "Events"
 msgstr ""
 
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
@@ -899,8 +903,12 @@ msgstr ""
 msgid "external_website"
 msgstr ""
 
+#: ../userschema.py:48
+msgid "fieldset_preferences"
+msgstr ""
+
 #. Default: "búsqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:99
 msgid "find_label"
 msgstr ""
 
@@ -1004,13 +1012,17 @@ msgstr ""
 msgid "help_color_community_organizative"
 msgstr ""
 
+#: ../userschema.py:49
+msgid "help_fieldset_preferences"
+msgstr ""
+
 #. Default: "Aquest és l'enllaç al servei."
 #: ../controlpanel.py:142
 msgid "help_info_servei"
 msgstr ""
 
 #. Default: "Enter your language"
-#: ../userschema.py:47
+#: ../userschema.py:56
 msgid "help_language"
 msgstr ""
 
@@ -1162,17 +1174,17 @@ msgid "help_stats_button"
 msgstr ""
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:40
+#: ../userschema.py:42
 msgid "help_telefon"
 msgstr ""
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:26
+#: ../userschema.py:28
 msgid "help_twitter"
 msgstr ""
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:33
+#: ../userschema.py:35
 msgid "help_ubicacio"
 msgstr ""
 
@@ -1257,7 +1269,7 @@ msgid "help_ulearn_thinkers"
 msgstr ""
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
-#: ../userschema.py:55
+#: ../userschema.py:64
 msgid "help_userprofile"
 msgstr ""
 
@@ -1343,7 +1355,7 @@ msgid "label_info_tasks"
 msgstr ""
 
 #. Default: "Language"
-#: ../userschema.py:46
+#: ../userschema.py:55
 msgid "label_language"
 msgstr ""
 
@@ -1367,22 +1379,22 @@ msgid "label_subscribe_to_community"
 msgstr ""
 
 #. Default: "Telèfon"
-#: ../userschema.py:39
+#: ../userschema.py:41
 msgid "label_telefon"
 msgstr ""
 
 #. Default: "Twitter username"
-#: ../userschema.py:25
+#: ../userschema.py:27
 msgid "label_twitter"
 msgstr ""
 
 #. Default: "Ubicació"
-#: ../userschema.py:32
+#: ../userschema.py:34
 msgid "label_ubicacio"
 msgstr ""
 
 #. Default: "See portlet user profile"
-#: ../userschema.py:54
+#: ../userschema.py:63
 msgid "label_userprofile"
 msgstr ""
 
@@ -1649,7 +1661,7 @@ msgid "quicklinks_icon"
 msgstr ""
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:129
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:132
 msgid "readmore"
 msgstr ""
 
@@ -1867,6 +1879,10 @@ msgstr ""
 msgid "ulearn5.theme"
 msgstr ""
 
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:11
+msgid "ulearn_activity"
+msgstr ""
+
 #. Default: "Habilitar portlet angularRouteView"
 #: ../controlportlets.py:156
 msgid "ulearn_angularRouteView"
@@ -1893,6 +1909,7 @@ msgid "ulearn_discussion"
 msgstr ""
 
 #. Default: "Documents"
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:22
 #: ulearn5/theme/portlets/templates/stats.pt:42
 msgid "ulearn_documents"
 msgstr ""
@@ -1910,6 +1927,11 @@ msgstr ""
 #. Default: "Media"
 #: ulearn5/theme/portlets/templates/stats.pt:68
 msgid "ulearn_media"
+msgstr ""
+
+#. Default: "Noticies"
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:34
+msgid "ulearn_news"
 msgstr ""
 
 #. Default: "Habilitar portlet flashesinformativos"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-13 13:11+0000\n"
+"POT-Creation-Date: 2018-06-22 08:57+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Roberto Diaz <roberto.diaz@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -76,7 +76,7 @@ msgstr "Cancel"
 
 #: ../patches.py:917
 msgid "Changes made."
-msgstr ""
+msgstr "Changes made."
 
 #: ../controlpanel.py:412
 msgid "Changes saved"
@@ -183,6 +183,10 @@ msgstr "Stream"
 #. Default: "Eventos"
 #: ../content/community.py:1264
 msgid "Esdeveniments"
+msgstr "Events"
+
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:46
+msgid "Events"
 msgstr "Events"
 
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
@@ -583,7 +587,7 @@ msgstr "Thumb News Images for App"
 
 #: ../behaviors/thumbimage.py:19
 msgid "Thumbnail Image"
-msgstr ""
+msgstr "Thumbnail Image"
 
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Time of the last transition"
@@ -903,8 +907,12 @@ msgstr "Export"
 msgid "external_website"
 msgstr "Visit external website"
 
+#: ../userschema.py:48
+msgid "fieldset_preferences"
+msgstr "Preferences"
+
 #. Default: "búsqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:99
 msgid "find_label"
 msgstr "Search..."
 
@@ -1009,13 +1017,17 @@ msgstr "This is the color of open communities."
 msgid "help_color_community_organizative"
 msgstr "This is the color of organizatives communities."
 
+#: ../userschema.py:49
+msgid "help_fieldset_preferences"
+msgstr ""
+
 #. Default: "Aquest és l'enllaç al servei."
 #: ../controlpanel.py:142
 msgid "help_info_servei"
 msgstr "Link to the service"
 
 #. Default: "Enter your language"
-#: ../userschema.py:47
+#: ../userschema.py:56
 msgid "help_language"
 msgstr "This is the language of space."
 
@@ -1154,7 +1166,7 @@ msgstr "Disable or enable the display of community types in the portlet."
 #. Default: "If selected, then gives the option to show the News Items in Mobile App."
 #: ../controlpanel.py:336
 msgid "help_show_news_in_app"
-msgstr ""
+msgstr "If selected, then gives the option to show the News Items in Mobile App."
 
 #. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
 #: ../controlpanel.py:326
@@ -1167,17 +1179,17 @@ msgid "help_stats_button"
 msgstr "Show or not the button to access daily statistics stats / stats and activity / chats"
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:40
+#: ../userschema.py:42
 msgid "help_telefon"
 msgstr "Contacte telefònic"
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:26
+#: ../userschema.py:28
 msgid "help_twitter"
 msgstr "Fill in your Twitter username."
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:33
+#: ../userschema.py:35
 msgid "help_ubicacio"
 msgstr "Computer area / Company / Department"
 
@@ -1262,7 +1274,7 @@ msgid "help_ulearn_thinkers"
 msgstr "Enable portlet showing users with the search."
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
-#: ../userschema.py:55
+#: ../userschema.py:64
 msgid "help_userprofile"
 msgstr "Show or hide the portlet that shows your profile picture and badges."
 
@@ -1348,7 +1360,7 @@ msgid "label_info_tasks"
 msgstr "Info tasks"
 
 #. Default: "Language"
-#: ../userschema.py:46
+#: ../userschema.py:55
 msgid "label_language"
 msgstr "Language"
 
@@ -1372,22 +1384,22 @@ msgid "label_subscribe_to_community"
 msgstr "Subscribe to community"
 
 #. Default: "Telèfon"
-#: ../userschema.py:39
+#: ../userschema.py:41
 msgid "label_telefon"
 msgstr "Phone"
 
 #. Default: "Twitter username"
-#: ../userschema.py:25
+#: ../userschema.py:27
 msgid "label_twitter"
 msgstr "Twitter username"
 
 #. Default: "Ubicació"
-#: ../userschema.py:32
+#: ../userschema.py:34
 msgid "label_ubicacio"
 msgstr "Location"
 
 #. Default: "See portlet user profile"
-#: ../userschema.py:54
+#: ../userschema.py:63
 msgid "label_userprofile"
 msgstr "See portlet user profile"
 
@@ -1656,7 +1668,7 @@ msgid "quicklinks_icon"
 msgstr "Icon Font Awesome"
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:129
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:132
 msgid "readmore"
 msgstr "Read more"
 
@@ -1781,7 +1793,7 @@ msgstr "Show type of communities"
 #. Default: "Show News Items in App"
 #: ../controlpanel.py:334
 msgid "show_news_in_app"
-msgstr ""
+msgstr "Show News Items in App"
 
 #. Default: "Stats"
 #: ../browser/stats_templates/statsview.pt:143
@@ -1847,7 +1859,7 @@ msgstr "Thinnkers"
 
 #: ulearn5/theme/portlets/thinnkers.py:27
 msgid "thinnkers portlet"
-msgstr ""
+msgstr "Thinnkers portlet"
 
 #. Default: "Download this event in iCal format"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:119
@@ -1875,6 +1887,10 @@ msgstr "ulearn5.core (uninstall)"
 msgid "ulearn5.theme"
 msgstr "ulearn5.theme"
 
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:11
+msgid "ulearn_activity"
+msgstr ""
+
 #. Default: "Habilitar portlet angularRouteView"
 #: ../controlportlets.py:156
 msgid "ulearn_angularRouteView"
@@ -1901,6 +1917,7 @@ msgid "ulearn_discussion"
 msgstr "Enable portlet Ulearn Discussion"
 
 #. Default: "Documents"
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:22
 #: ulearn5/theme/portlets/templates/stats.pt:42
 msgid "ulearn_documents"
 msgstr "Documents"
@@ -1919,6 +1936,11 @@ msgstr "Links"
 #: ulearn5/theme/portlets/templates/stats.pt:68
 msgid "ulearn_media"
 msgstr "Media"
+
+#. Default: "Noticies"
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:34
+msgid "ulearn_news"
+msgstr "News"
 
 #. Default: "Habilitar portlet flashesinformativos"
 #: ../controlportlets.py:237

@@ -11,3 +11,7 @@ class IAjaxSelectWidget(interfaces.ITextWidget):
 
 class ITagsSelectWidget(interfaces.ITextWidget):
     """Marker interface for the tags Select2Widget."""
+
+
+class IFieldsetWidget(interfaces.ITextLinesWidget):
+    """Fieldset widget."""

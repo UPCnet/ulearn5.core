@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-13 13:11+0000\n"
+"POT-Creation-Date: 2018-06-22 08:57+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -76,7 +76,7 @@ msgstr "Cancelar"
 
 #: ../patches.py:917
 msgid "Changes made."
-msgstr ""
+msgstr "Cambios realizados."
 
 #: ../controlpanel.py:412
 msgid "Changes saved"
@@ -182,6 +182,10 @@ msgstr "Actividad"
 
 #: ../content/community.py:1264
 msgid "Esdeveniments"
+msgstr "Eventos"
+
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:46
+msgid "Events"
 msgstr "Eventos"
 
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
@@ -897,8 +901,12 @@ msgstr "Exporta"
 msgid "external_website"
 msgstr "Página web externa"
 
+#: ../userschema.py:48
+msgid "fieldset_preferences"
+msgstr "Preferencias"
+
 #. Default: "búsqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:99
 msgid "find_label"
 msgstr "Búsqueda..."
 
@@ -1003,13 +1011,17 @@ msgstr "Color para las comunidades abiertas."
 msgid "help_color_community_organizative"
 msgstr "Color para las comunidades organizativas."
 
+#: ../userschema.py:49
+msgid "help_fieldset_preferences"
+msgstr ""
+
 #. Default: "Aquest és l'enllaç al servei."
 #: ../controlpanel.py:142
 msgid "help_info_servei"
 msgstr "Enlace del servicio que aparece en la parte superior de la cabecera."
 
 #. Default: "Enter your language"
-#: ../userschema.py:47
+#: ../userschema.py:56
 msgid "help_language"
 msgstr "Este es el idioma del espacio."
 
@@ -1161,17 +1173,17 @@ msgid "help_stats_button"
 msgstr "Mostar o no el botón de acceso a estadísticas diarias a stats/activity y stats/chats"
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:40
+#: ../userschema.py:42
 msgid "help_telefon"
 msgstr "Indique un número de teléfono de contacto."
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:26
+#: ../userschema.py:28
 msgid "help_twitter"
 msgstr "Indique su nombre de usuario de Twitter."
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:33
+#: ../userschema.py:35
 msgid "help_ubicacio"
 msgstr "Indique su ubicación dentro de la compañía y/o ubicación geográfica."
 
@@ -1256,7 +1268,7 @@ msgid "help_ulearn_thinkers"
 msgstr "Habilitar el portlet donde mostrar los usuarios, con la búsqueda."
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
-#: ../userschema.py:55
+#: ../userschema.py:64
 msgid "help_userprofile"
 msgstr "Muestra o oculta el portlet que muestra tu foto y las insignias."
 
@@ -1342,7 +1354,7 @@ msgid "label_info_tasks"
 msgstr "Info tareas"
 
 #. Default: "Language"
-#: ../userschema.py:46
+#: ../userschema.py:55
 msgid "label_language"
 msgstr "Idioma"
 
@@ -1366,22 +1378,22 @@ msgid "label_subscribe_to_community"
 msgstr "Subscribete a la comunidad"
 
 #. Default: "Telèfon"
-#: ../userschema.py:39
+#: ../userschema.py:41
 msgid "label_telefon"
 msgstr "Teléfono"
 
 #. Default: "Twitter username"
-#: ../userschema.py:25
+#: ../userschema.py:27
 msgid "label_twitter"
 msgstr "Usuario de Twitter"
 
 #. Default: "Ubicació"
-#: ../userschema.py:32
+#: ../userschema.py:34
 msgid "label_ubicacio"
 msgstr "Ubicación"
 
 #. Default: "See portlet user profile"
-#: ../userschema.py:54
+#: ../userschema.py:63
 msgid "label_userprofile"
 msgstr "Mostrar portlet del perfil de usuario"
 
@@ -1561,7 +1573,7 @@ msgstr "Si se activa esta casilla, se notificará la actividad de esta comunidad
 
 #: ../controlpanel.py:291
 msgid "participants"
-msgstr ""
+msgstr "participantes"
 
 #: ../controlpanel.py:289
 msgid "people_literal"
@@ -1569,7 +1581,7 @@ msgstr "Literales de identificación de personas"
 
 #: ../controlpanel.py:291
 msgid "persones"
-msgstr ""
+msgstr "personas"
 
 #. Default: "Habilitar portlet plone_portlet_collection_Collection"
 #: ../controlportlets.py:93
@@ -1650,7 +1662,7 @@ msgid "quicklinks_icon"
 msgstr "Icono Font Awesome"
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:129
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:132
 msgid "readmore"
 msgstr "Leer más"
 
@@ -1775,7 +1787,7 @@ msgstr "Muestra el tipo de comunidad"
 #. Default: "Show News Items in App"
 #: ../controlpanel.py:334
 msgid "show_news_in_app"
-msgstr ""
+msgstr "Mostrar noticias en la app"
 
 #. Default: "Stats"
 #: ../browser/stats_templates/statsview.pt:143
@@ -1841,7 +1853,7 @@ msgstr "Personas"
 
 #: ulearn5/theme/portlets/thinnkers.py:27
 msgid "thinnkers portlet"
-msgstr ""
+msgstr "Thinnkers portlet"
 
 #. Default: "Download this event in iCal format"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:119
@@ -1869,6 +1881,10 @@ msgstr "ulearn5.core (desinstalar)"
 msgid "ulearn5.theme"
 msgstr "ulearn5.theme"
 
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:11
+msgid "ulearn_activity"
+msgstr ""
+
 #. Default: "Habilitar portlet angularRouteView"
 #: ../controlportlets.py:156
 msgid "ulearn_angularRouteView"
@@ -1895,6 +1911,7 @@ msgid "ulearn_discussion"
 msgstr "Habilitar portlet Ulearn Debates"
 
 #. Default: "Documents"
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:22
 #: ulearn5/theme/portlets/templates/stats.pt:42
 msgid "ulearn_documents"
 msgstr "Documentos"
@@ -1913,6 +1930,11 @@ msgstr "Enlaces"
 #: ulearn5/theme/portlets/templates/stats.pt:68
 msgid "ulearn_media"
 msgstr "Media"
+
+#. Default: "Noticies"
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:34
+msgid "ulearn_news"
+msgstr "Noticias"
 
 #. Default: "Habilitar portlet flashesinformativos"
 #: ../controlportlets.py:237

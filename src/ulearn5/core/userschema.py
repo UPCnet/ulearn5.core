@@ -8,7 +8,6 @@ from repoze.catalog.indexes.keyword import CatalogKeywordIndex
 from souper.interfaces import ICatalogFactory
 from souper.soup import NodeAttributeIndexer
 from zope.interface import implementer
-from ulearn5.core.interfaces import IUlearn5CoreLayer
 from plone.app.users.browser.userdatapanel import UserDataPanel
 
 from plone.supermodel import model
@@ -17,7 +16,10 @@ from zope.component import adapts
 from z3c.form import field
 from plone.app.users.browser.account import AccountPanelSchemaAdapter
 from plone.app.users.browser.register import BaseRegistrationForm
+
 from ulearn5.core import _
+from ulearn5.core.interfaces import IUlearn5CoreLayer
+from ulearn5.core.widgets.fieldset_widget import FieldsetFieldWidget
 
 
 class IUlearnUserSchema(model.Schema):
@@ -40,6 +42,13 @@ class IUlearnUserSchema(model.Schema):
         description=_(u'help_telefon',
                       default=u'Contacte telefònic'),
         required=False,
+    )
+
+    fieldset_preferences = schema.TextLine(
+        title=_(u'fieldset_preferences'),
+        # description=_(u'help_fieldset_preferences'),
+        required=False,
+        readonly=True,
     )
 
     language = schema.Choice(
@@ -76,7 +85,7 @@ class UlearnUserDataPanelExtender(extensible.FormExtender):
 
     def update(self):
         fields = field.Fields(IUlearnUserSchema)
-
+        fields['fieldset_preferences'].widgetFactory = FieldsetFieldWidget
         # fields = fields.omit('telefon') # Si queremos quitar alguno de los que hemos añadido
         # self.remove('home_page') # Si queremos quitar los de la base (plone.app.users)
 
