@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-25 10:15+0000\n"
+"POT-Creation-Date: 2018-06-25 10:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1309,6 +1309,21 @@ msgstr ""
 #: ../content/community_templates/view.pt:17
 #: ulearn5/theme/browser/viewlets_templates/header.pt:121
 msgid "info"
+msgstr ""
+
+#. Default: "Internal information"
+#: ulearn5/theme/browser/views_templates/user_profile.pt:115
+msgid "info_private"
+msgstr ""
+
+#. Default: "These fields are only visible by administrators if necessary."
+#: ulearn5/theme/browser/views_templates/user_profile.pt:116
+msgid "info_private_help"
+msgstr ""
+
+#. Default: "Public information (directory)"
+#: ulearn5/theme/browser/views_templates/user_profile.pt:105
+msgid "info_public"
 msgstr ""
 
 #. Default: "Informació del servei"

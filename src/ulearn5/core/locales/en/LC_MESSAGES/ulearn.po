@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-25 10:15+0000\n"
+"POT-Creation-Date: 2018-06-25 10:57+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -1315,6 +1315,21 @@ msgstr "Important News"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:121
 msgid "info"
 msgstr "Info"
+
+#. Default: "Internal information"
+#: ulearn5/theme/browser/views_templates/user_profile.pt:115
+msgid "info_private"
+msgstr "Internal information"
+
+#. Default: "These fields are only visible by administrators if necessary."
+#: ulearn5/theme/browser/views_templates/user_profile.pt:116
+msgid "info_private_help"
+msgstr "These fields are only visible by administrators if necessary."
+
+#. Default: "Public information (directory)"
+#: ulearn5/theme/browser/views_templates/user_profile.pt:105
+msgid "info_public"
+msgstr "Public information (directory)"
 
 #. Default: "Informació del servei"
 #: ../controlpanel.py:140
