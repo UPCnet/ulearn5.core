@@ -136,8 +136,8 @@ class ICommunity(form.Schema):
     )
 
     description = schema.Text(
-        title=_(u'Descripció'),
-        description=_(u'La descripció de la comunitat'),
+        title=_(u'Descripcio'),
+        description=_(u'La descripcio de la comunitat'),
         required=False
     )
 
@@ -1038,8 +1038,16 @@ class communityAdder(form.SchemaForm):
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
-            self.status = self.formErrorsMessage
-            return
+            if not 'title' in data:
+                msgid = _(u'falta_titol', default=u'No es pot crear una comunitat sense titol')
+            elif not 'terms' in data:
+                msgid = _(u'falta_condicions', default=u"Es necessari acceptar les condicions d'us i privacitat per crear una comunitat.")
+            else:
+                msgid = _(u'error', default=u"Falta omplir algun camp obligatori.")
+            translated = self.context.translate(msgid)
+            messages = IStatusMessage(self.request)
+            messages.addStatusMessage(translated, type='error')
+            return self.request.response.redirect(self.context.absolute_url())
 
         nom = data['title']
         description = data['description']

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-22 08:57+0000\n"
+"POT-Creation-Date: 2018-06-25 10:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,7 +125,7 @@ msgid "Darreres activitats"
 msgstr ""
 
 #: ../content/community.py:139
-msgid "Descripció"
+msgid "Descripcio"
 msgstr ""
 
 #: ../controlpanel.py:64
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Discussion"
 msgstr ""
 
-#: ../content/community.py:1262
+#: ../content/community.py:1270
 msgid "Documents"
 msgstr ""
 
@@ -166,7 +166,7 @@ msgstr ""
 msgid "Edit cancelled"
 msgstr ""
 
-#: ../content/community.py:1140
+#: ../content/community.py:1148
 msgid "Edita la comunitat"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Entrada"
 msgstr ""
 
-#: ../content/community.py:1264
+#: ../content/community.py:1272
 msgid "Esdeveniments"
 msgstr ""
 
@@ -270,7 +270,7 @@ msgid "Items in which workflow state to show."
 msgstr ""
 
 #: ../content/community.py:140
-msgid "La descripció de la comunitat"
+msgid "La descripcio de la comunitat"
 msgstr ""
 
 #: ../controlpanel.py:31
@@ -286,7 +286,7 @@ msgid "Literals que identifiquen als usuaris de les comunitats i les seves aport
 msgstr ""
 
 #: ../controlpanel.py:283
-msgid "Llista amb les persones que no han de sortir a les cerques i que tenen accés restringit per les demés persones."
+msgid "Llista amb les persones que no han de sortir a les cerques i que tenen acces restringit per la resta de persones."
 msgstr ""
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
@@ -310,7 +310,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr ""
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1263
+#: ../content/community.py:1271
 msgid "Media"
 msgstr ""
 
@@ -375,15 +375,11 @@ msgstr ""
 msgid "Nom de la comunitat"
 msgstr ""
 
-#: ../profiles/default/actions.xml
-msgid "None"
-msgstr ""
-
-#: ../content/community.py:1265
+#: ../content/community.py:1273
 msgid "Noticies"
 msgstr ""
 
-#: ../content/community.py:1324
+#: ../content/community.py:1332
 msgid "Noticies de la comunitat"
 msgstr ""
 
@@ -684,6 +680,11 @@ msgstr ""
 msgid "Workflow state"
 msgstr ""
 
+#. Default: "* He llegit i accepto les <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">condicions d'us.</a>"
+#: ../content/community_templates/communityadder.pt:12
+msgid "accepto_condicions"
+msgstr ""
+
 #. Default: "Mostra les noticies a les que estic subscrit"
 #: ../controlpanel.py:148
 msgid "activate_news"
@@ -699,7 +700,7 @@ msgstr ""
 msgid "activity_view"
 msgstr ""
 
-#. Default: "Notícies"
+#. Default: "Noticies"
 #: ulearn5/theme/portlets/importantnews/importantnews.pt:11
 msgid "actualidad"
 msgstr ""
@@ -819,17 +820,17 @@ msgid "community_type_description"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1087
+#: ../content/community.py:1095
 msgid "comunitat_creada"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1063
+#: ../content/community.py:1071
 msgid "comunitat_existeix"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1193
+#: ../content/community.py:1201
 msgid "comunitat_modificada"
 msgstr ""
 
@@ -868,6 +869,11 @@ msgstr ""
 msgid "entrades"
 msgstr ""
 
+#. Default: "Falta omplir algun camp obligatori."
+#: ../content/community.py:1046
+msgid "error"
+msgstr ""
+
 #. Default: "Event"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:15
 msgid "event_event"
@@ -903,11 +909,21 @@ msgstr ""
 msgid "external_website"
 msgstr ""
 
+#. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
+#: ../content/community.py:1044
+msgid "falta_condicions"
+msgstr ""
+
+#. Default: "No es pot crear una comunitat sense titol"
+#: ../content/community.py:1042
+msgid "falta_titol"
+msgstr ""
+
 #: ../userschema.py:48
 msgid "fieldset_preferences"
 msgstr ""
 
-#. Default: "búsqueda..."
+#. Default: "busqueda..."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:99
 msgid "find_label"
 msgstr ""
@@ -1010,10 +1026,6 @@ msgstr ""
 #. Default: "Aquest és el color per les comunitats organitzatives."
 #: ../controlpanel.py:265
 msgid "help_color_community_organizative"
-msgstr ""
-
-#: ../userschema.py:49
-msgid "help_fieldset_preferences"
 msgstr ""
 
 #. Default: "Aquest és l'enllaç al servei."
@@ -1304,7 +1316,7 @@ msgstr ""
 msgid "info_servei"
 msgstr ""
 
-#. Default: "Gestión Noticia:"
+#. Default: "Gestion Noticia:"
 #: ../browser/viewlets_templates/newstoolbar.pt:3
 msgid "label-newstoolbar"
 msgstr ""
@@ -1478,7 +1490,7 @@ msgstr ""
 msgid "maxui_form_bg"
 msgstr ""
 
-#. Default: "Estadístiques"
+#. Default: "Estadistiques"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:91
 msgid "menu-gestio-estadistiques"
 msgstr ""
@@ -1706,7 +1718,7 @@ msgstr ""
 msgid "secondary_color"
 msgstr ""
 
-#. Default: "Més notícies"
+#. Default: "Mes noticies"
 #: ulearn5/theme/portlets/importantnews/importantnews.pt:53
 msgid "seemore"
 msgstr ""
