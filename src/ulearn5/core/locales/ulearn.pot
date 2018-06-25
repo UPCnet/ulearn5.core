@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-19 14:17+0000\n"
+"POT-Creation-Date: 2018-06-25 07:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,6 +178,10 @@ msgstr ""
 
 #: ../content/community.py:1272
 msgid "Esdeveniments"
+msgstr ""
+
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:46
+msgid "Events"
 msgstr ""
 
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
@@ -1871,6 +1875,10 @@ msgstr ""
 msgid "ulearn5.theme"
 msgstr ""
 
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:11
+msgid "ulearn_activity"
+msgstr ""
+
 #. Default: "Habilitar portlet angularRouteView"
 #: ../controlportlets.py:156
 msgid "ulearn_angularRouteView"
@@ -1897,6 +1905,7 @@ msgid "ulearn_discussion"
 msgstr ""
 
 #. Default: "Documents"
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:22
 #: ulearn5/theme/portlets/templates/stats.pt:42
 msgid "ulearn_documents"
 msgstr ""
@@ -1914,6 +1923,11 @@ msgstr ""
 #. Default: "Media"
 #: ulearn5/theme/portlets/templates/stats.pt:68
 msgid "ulearn_media"
+msgstr ""
+
+#. Default: "Noticies"
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:34
+msgid "ulearn_news"
 msgstr ""
 
 #. Default: "Habilitar portlet flashesinformativos"
