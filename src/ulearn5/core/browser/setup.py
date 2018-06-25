@@ -87,6 +87,7 @@ class debug(grok.View):
 
 
 class setupHomePage(grok.View):
+    """ Add the portlets and add the values of settings """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
@@ -230,6 +231,7 @@ class setupHomePage(grok.View):
 
 
 class createMenuFolders(grok.View):
+    """ Create the directory structure of the menu """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
@@ -267,6 +269,7 @@ class createMenuFolders(grok.View):
 
 
 class createCustomizedHeaderFolder(grok.View):
+    """ Create the directory structure of the customized header """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
@@ -302,6 +305,7 @@ class createCustomizedHeaderFolder(grok.View):
 
 
 class createCustomizedFooterFolder(grok.View):
+    """ Create the directory structure of the customized footer """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
@@ -742,6 +746,7 @@ class createElasticSharing(grok.View):
 
 
 class viewUsersWithNotUpdatedPhoto(grok.View):
+    """ Shows the user list that the photo has not been changed """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
