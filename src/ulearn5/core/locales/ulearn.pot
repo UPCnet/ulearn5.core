@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-25 10:57+0000\n"
+"POT-Creation-Date: 2018-06-26 09:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
 
-#: ../patches.py:365
+#: ../patches.py:366
 msgid " ."
 msgstr ""
 
@@ -77,7 +77,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ../patches.py:917
+#: ../patches.py:918
 msgid "Changes made."
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Changes saved"
 msgstr ""
 
-#: ../patches.py:306
+#: ../patches.py:307
 msgid "Changes saved."
 msgstr ""
 
@@ -421,8 +421,16 @@ msgstr ""
 msgid "Pending reviewer queue"
 msgstr ""
 
+#: ../patches.py:1018
+msgid "Personal Preferences"
+msgstr ""
+
 #: ../controlportlets.py:288
 msgid "Portlets settings"
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Preferences"
 msgstr ""
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
@@ -919,10 +927,6 @@ msgstr ""
 msgid "falta_titol"
 msgstr ""
 
-#: ../userschema.py:48
-msgid "fieldset_preferences"
-msgstr ""
-
 #. Default: "busqueda..."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:99
 msgid "find_label"
@@ -1034,7 +1038,7 @@ msgid "help_info_servei"
 msgstr ""
 
 #. Default: "Enter your language"
-#: ../userschema.py:56
+#: ../personalpreferences.py:16
 msgid "help_language"
 msgstr ""
 
@@ -1281,7 +1285,7 @@ msgid "help_ulearn_thinkers"
 msgstr ""
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
-#: ../userschema.py:64
+#: ../personalpreferences.py:34
 msgid "help_userprofile"
 msgstr ""
 
@@ -1382,7 +1386,7 @@ msgid "label_info_tasks"
 msgstr ""
 
 #. Default: "Language"
-#: ../userschema.py:55
+#: ../personalpreferences.py:15
 msgid "label_language"
 msgstr ""
 
@@ -1394,6 +1398,11 @@ msgstr ""
 #. Default: "No hay asignaturas disponibles"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:19
 msgid "label_not_subjects"
+msgstr ""
+
+#. Default: "Password"
+#: ../patches.py:1027
+msgid "label_password"
 msgstr ""
 
 #. Default: "Show all items"
@@ -1421,7 +1430,7 @@ msgid "label_ubicacio"
 msgstr ""
 
 #. Default: "See portlet user profile"
-#: ../userschema.py:63
+#: ../personalpreferences.py:33
 msgid "label_userprofile"
 msgstr ""
 
@@ -1471,32 +1480,32 @@ msgid "main_color"
 msgstr ""
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:345
+#: ../patches.py:346
 msgid "manage_homepage_portlets_description"
 msgstr ""
 
 #. Default: "Homepage"
-#: ../patches.py:344
+#: ../patches.py:345
 msgid "manage_homepage_portlets_title"
 msgstr ""
 
 #. Default: "Manage left portlets"
-#: ../patches.py:383
+#: ../patches.py:384
 msgid "manage_left_portlets_description"
 msgstr ""
 
 #. Default: "Left"
-#: ../patches.py:382
+#: ../patches.py:383
 msgid "manage_left_portlets_title"
 msgstr ""
 
 #. Default: "Manage right portlets"
-#: ../patches.py:386
+#: ../patches.py:387
 msgid "manage_right_portlets_description"
 msgstr ""
 
 #. Default: "Right"
-#: ../patches.py:385
+#: ../patches.py:386
 msgid "manage_right_portlets_title"
 msgstr ""
 
@@ -1885,6 +1894,11 @@ msgstr ""
 msgid "title_add_to_ical"
 msgstr ""
 
+#. Default: "Personal Information"
+#: ../patches.py:1009
+msgid "title_personal_information_form"
+msgstr ""
+
 #: ulearn5/theme/portlets/templates/calendar.pt:112
 msgid "to"
 msgstr ""
@@ -2025,11 +2039,12 @@ msgid "video_url_description"
 msgstr ""
 
 #. Default: "Use site default"
-#: ../patches.py:452
+#: ../patches.py:453
+#: ../personalpreferences.py:75
 msgid "vocabulary-available-editor-novalue"
 msgstr ""
 
 #. Default: "Language neutral (site default)"
-#: ../patches.py:447
+#: ../patches.py:448
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr ""

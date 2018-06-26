@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-25 10:57+0000\n"
+"POT-Creation-Date: 2018-06-26 09:27+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../patches.py:365
+#: ../patches.py:366
 msgid " ."
 msgstr " ."
 
@@ -76,7 +76,7 @@ msgstr "Can only be seen and edited by the owner."
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ../patches.py:917
+#: ../patches.py:918
 msgid "Changes made."
 msgstr "Changes made succesfully."
 
@@ -84,7 +84,7 @@ msgstr "Changes made succesfully."
 msgid "Changes saved"
 msgstr "Changes saved"
 
-#: ../patches.py:306
+#: ../patches.py:307
 msgid "Changes saved."
 msgstr "Changes saved"
 
@@ -423,9 +423,17 @@ msgstr "Pending review"
 msgid "Pending reviewer queue"
 msgstr "Pending reviewer queue"
 
+#: ../patches.py:1018
+msgid "Personal Preferences"
+msgstr "Personal Preferences"
+
 #: ../controlportlets.py:288
 msgid "Portlets settings"
 msgstr "Portlets settings"
+
+#: ../profiles/default/actions.xml
+msgid "Preferences"
+msgstr "Profile"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -924,10 +932,6 @@ msgstr "There is necessary to accept terms and conditions to create communities.
 msgid "falta_titol"
 msgstr "You can't create a community without a title"
 
-#: ../userschema.py:48
-msgid "fieldset_preferences"
-msgstr "Preferences"
-
 #. Default: "busqueda..."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:99
 msgid "find_label"
@@ -1039,7 +1043,7 @@ msgid "help_info_servei"
 msgstr "Link to the service"
 
 #. Default: "Enter your language"
-#: ../userschema.py:56
+#: ../personalpreferences.py:16
 msgid "help_language"
 msgstr "This is the language of space."
 
@@ -1286,7 +1290,7 @@ msgid "help_ulearn_thinkers"
 msgstr "Enable portlet showing users with the search."
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
-#: ../userschema.py:64
+#: ../personalpreferences.py:34
 msgid "help_userprofile"
 msgstr "Show or hide the portlet that shows your profile picture and badges."
 
@@ -1387,7 +1391,7 @@ msgid "label_info_tasks"
 msgstr "Info tasks"
 
 #. Default: "Language"
-#: ../userschema.py:55
+#: ../personalpreferences.py:15
 msgid "label_language"
 msgstr "Language"
 
@@ -1400,6 +1404,11 @@ msgstr "Title"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:19
 msgid "label_not_subjects"
 msgstr "There aren't subjects to show"
+
+#. Default: "Password"
+#: ../patches.py:1027
+msgid "label_password"
+msgstr "Password"
 
 #. Default: "Show all items"
 #: ulearn5/theme/browser/views.py:396
@@ -1426,7 +1435,7 @@ msgid "label_ubicacio"
 msgstr "Location"
 
 #. Default: "See portlet user profile"
-#: ../userschema.py:63
+#: ../personalpreferences.py:33
 msgid "label_userprofile"
 msgstr "See portlet user profile"
 
@@ -1476,32 +1485,32 @@ msgid "main_color"
 msgstr "Main color"
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:345
+#: ../patches.py:346
 msgid "manage_homepage_portlets_description"
 msgstr "Manage homepage portlets"
 
 #. Default: "Homepage"
-#: ../patches.py:344
+#: ../patches.py:345
 msgid "manage_homepage_portlets_title"
 msgstr "Homepage"
 
 #. Default: "Manage left portlets"
-#: ../patches.py:383
+#: ../patches.py:384
 msgid "manage_left_portlets_description"
 msgstr "Manage left portlets"
 
 #. Default: "Left"
-#: ../patches.py:382
+#: ../patches.py:383
 msgid "manage_left_portlets_title"
 msgstr "Left"
 
 #. Default: "Manage right portlets"
-#: ../patches.py:386
+#: ../patches.py:387
 msgid "manage_right_portlets_description"
 msgstr "Manage right portlets"
 
 #. Default: "Right"
-#: ../patches.py:385
+#: ../patches.py:386
 msgid "manage_right_portlets_title"
 msgstr "Right"
 
@@ -1891,6 +1900,11 @@ msgstr "Thinnkers portlet"
 msgid "title_add_to_ical"
 msgstr "Download this event in iCal format"
 
+#. Default: "Personal Information"
+#: ../patches.py:1009
+msgid "title_personal_information_form"
+msgstr "Personal Information"
+
 #: ulearn5/theme/portlets/templates/calendar.pt:112
 msgid "to"
 msgstr "to"
@@ -2031,11 +2045,12 @@ msgid "video_url_description"
 msgstr "Add your website youtube video"
 
 #. Default: "Use site default"
-#: ../patches.py:452
+#: ../patches.py:453
+#: ../personalpreferences.py:75
 msgid "vocabulary-available-editor-novalue"
 msgstr "Use site default"
 
 #. Default: "Language neutral (site default)"
-#: ../patches.py:447
+#: ../patches.py:448
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Language neutral (site default)"

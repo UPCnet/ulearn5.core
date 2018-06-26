@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
-from zope import schema
-from zope.interface import Interface
 from five import grok
+from plone.app.users.browser.userdatapanel import UserDataPanel
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.indexes.keyword import CatalogKeywordIndex
 from souper.interfaces import ICatalogFactory
 from souper.soup import NodeAttributeIndexer
+from zope import schema
+from zope.interface import Interface
 from zope.interface import implementer
-from plone.app.users.browser.userdatapanel import UserDataPanel
 
-from plone.supermodel import model
-from plone.z3cform.fieldsets import extensible
-from zope.component import adapts
-from z3c.form import field
 from plone.app.users.browser.account import AccountPanelSchemaAdapter
 from plone.app.users.browser.register import BaseRegistrationForm
+from plone.supermodel import model
+from plone.z3cform.fieldsets import extensible
+from z3c.form import field
+from zope.component import adapts
 
 from ulearn5.core import _
 from ulearn5.core.interfaces import IUlearn5CoreLayer
@@ -44,27 +44,12 @@ class IUlearnUserSchema(model.Schema):
         required=False,
     )
 
-    fieldset_preferences = schema.TextLine(
-        title=_(u'fieldset_preferences'),
-        # description=_(u'help_fieldset_preferences'),
-        required=False,
-        readonly=True,
-    )
-
-    language = schema.Choice(
-        title=_(u'label_language', default=u'Language'),
-        description=_(u'help_language',
-                      default=u"Enter your language"),
-        required=False,
-        vocabulary=u"plone.app.vocabularies.SupportedContentLanguages",
-    )
-
-    visible_userprofile_portlet = schema.Bool(
-        title=_(u'label_userprofile', default=u'See portlet user profile'),
-        description=_(u'help_userprofile', default=u'Show or hide the portlet that shows your profile picture and badges.'),
-        required=False,
-        default=True,
-    )
+    # fieldset_private = schema.TextLine(
+        # title=_(u'fieldset_private'),
+        # description=_(u'help_fieldset_private'),
+        # required=False,
+        # readonly=True,
+    # )
 
 
 class UlearnUserDataSchemaAdapter(AccountPanelSchemaAdapter):
@@ -85,7 +70,7 @@ class UlearnUserDataPanelExtender(extensible.FormExtender):
 
     def update(self):
         fields = field.Fields(IUlearnUserSchema)
-        fields['fieldset_preferences'].widgetFactory = FieldsetFieldWidget
+        # fields['fieldset_private'].widgetFactory = FieldsetFieldWidget
         # fields = fields.omit('telefon') # Si queremos quitar alguno de los que hemos añadido
         # self.remove('home_page') # Si queremos quitar los de la base (plone.app.users)
 

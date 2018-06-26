@@ -307,7 +307,7 @@
    </property>
    <property name="visible">True</property>
   </object>
-  <object name="preferences" meta_type="CMF Action" i18n:domain="plone">
+  <object name="preferences" meta_type="CMF Action" i18n:domain="ulearn">
    <property name="title" i18n:translate="">Preferences</property>
    <property name="description" i18n:translate=""></property>
    <property
