@@ -297,8 +297,8 @@ class createCustomizedHeaderFolder(grok.View):
         header.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(header)
         behavior.setConstrainTypesMode(1)
-        behavior.setLocallyAllowedTypes(('Image', 'Folder', 'privateFolder',))
-        behavior.setImmediatelyAddableTypes(('Image', 'Folder', 'privateFolder',))
+        behavior.setLocallyAllowedTypes(('Image',))
+        behavior.setImmediatelyAddableTypes(('Image',))
 
         header.reindexObject()
         return 'Done'
@@ -316,6 +316,8 @@ class createCustomizedFooterFolder(grok.View):
         except:
             pass
 
+        description = u'El peu de pàgina utilizarà el primer document del directori.\nEl pie de página utilizará el primer documento del directorio.\nThe footer will use the first document in the directory.'
+
         portal = getSite()
         gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
         gestion.exclude_from_nav = False
@@ -325,16 +327,24 @@ class createCustomizedFooterFolder(grok.View):
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
 
-        description = u'El peu de pàgina utilizarà el primer document del directori.\nEl pie de página utilizará el primer documento del directorio.\nThe footer will use the first document in the directory.'
-
         footer = newPrivateFolder(gestion, 'footer', u'Footer')
         footer.exclude_from_nav = False
         footer.setLayout('folder_listing')
-        footer.description = description
         behavior = ISelectableConstrainTypes(footer)
         behavior.setConstrainTypesMode(1)
-        behavior.setLocallyAllowedTypes(('Document', 'Folder', 'privateFolder',))
-        behavior.setImmediatelyAddableTypes(('Document', 'Folder', 'privateFolder',))
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
+            language_folder = newPrivateFolder(footer, language, language)
+            language_folder.exclude_from_nav = False
+            language_folder.setLayout('folder_listing')
+            language_folder.description = description
+            language_folder.reindexObject()
+            behavior = ISelectableConstrainTypes(language_folder)
+            behavior.setConstrainTypesMode(1)
+            behavior.setLocallyAllowedTypes(('Document',))
+            behavior.setImmediatelyAddableTypes(('Document',))
 
         footer.reindexObject()
         return 'Done'
