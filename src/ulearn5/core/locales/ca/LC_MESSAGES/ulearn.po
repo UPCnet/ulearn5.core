@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-25 07:57+0000\n"
+"POT-Creation-Date: 2018-06-27 14:35+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -24,11 +24,13 @@ msgstr " ."
 msgid "/mail_password_form?userid="
 msgstr "/mail_password_form?userid="
 
-#: ../content/community.py:123 ../controlpanel.py:25
+#: ../content/community.py:123
+#: ../controlpanel.py:25
 msgid "Activitats destacades"
 msgstr "Activitats destacades"
 
-#: ../content/community.py:122 ../controlpanel.py:24
+#: ../content/community.py:122
+#: ../controlpanel.py:24
 msgid "Activitats mes valorades"
 msgstr "Activitats més valorades"
 
@@ -68,7 +70,8 @@ msgstr "Calendari"
 msgid "Can only be seen and edited by the owner."
 msgstr "Només pot ser vist i editat pel propietari."
 
-#: ../controlpanel.py:414 ../controlportlets.py:349
+#: ../controlpanel.py:414
+#: ../controlportlets.py:349
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -109,7 +112,8 @@ msgstr "Crea la comunitat"
 msgid "Create thumb of News images for show in app"
 msgstr "Crea una imatge de tipus thumb per mostrar al l'app."
 
-#: ../content/community.py:121 ../controlpanel.py:23
+#: ../content/community.py:121
+#: ../controlpanel.py:23
 msgid "Darreres activitats"
 msgstr "Darreres activitats"
 
@@ -146,7 +150,8 @@ msgstr "Edita portlet de notícies"
 msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícies destacades"
 
-#: ../controlpanel.py:416 ../controlportlets.py:351
+#: ../controlpanel.py:416
+#: ../controlportlets.py:351
 msgid "Edit cancelled"
 msgstr "Edició cancel·lada"
 
@@ -219,12 +224,8 @@ msgid "How many items to list."
 msgstr "Quants elements vols llistar?"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
-msgid ""
-"If you submitted the item by mistake or want to perform additional edits, "
-"this will take it back."
-msgstr ""
-"Si heu enviat l'element per error o voleu fer edicions addicionals, això us "
-"tornarà a portar."
+msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
+msgstr "Si heu enviat l'element per error o voleu fer edicions addicionals, això us tornarà a portar."
 
 #: ../content/community.py:191
 msgid "Imatge"
@@ -270,20 +271,12 @@ msgid "Link"
 msgstr "Enllaç"
 
 #: ../controlpanel.py:301
-msgid ""
-"Literals que identifiquen als usuaris de les comunitats i les seves "
-"aportacions."
-msgstr ""
-"Literals que identifiquen als usuaris de les comunitats i les seves "
-"aportacions."
+msgid "Literals que identifiquen als usuaris de les comunitats i les seves aportacions."
+msgstr "Literals que identifiquen als usuaris de les comunitats i les seves aportacions."
 
 #: ../controlpanel.py:294
-msgid ""
-"Llista amb les persones que no han de sortir a les cerques i que tenen acces "
-"restringit per la resta de persones."
-msgstr ""
-"Llista amb les persones que no han de sortir a les cerques i que tenen accés "
-"restringit per la resta de persones."
+msgid "Llista amb les persones que no han de sortir a les cerques i que tenen acces restringit per la resta de persones."
+msgstr "Llista amb les persones que no han de sortir a les cerques i que tenen accés restringit per la resta de persones."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -297,23 +290,16 @@ msgstr "Fes-ho privat"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
-msgid ""
-"Making an item private means that it will not be visible to anyone but the "
-"owner and the site administrator."
-msgstr ""
-"Fer un element privat significa que no serà visible per ningú, sinó per al "
-"propietari i l'administrador del lloc."
+msgid "Making an item private means that it will not be visible to anyone but the owner and the site administrator."
+msgstr "Fer un element privat significa que no serà visible per ningú, sinó per al propietari i l'administrador del lloc."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
-msgid ""
-"Making an item published to intranet means that it will be visible to the "
-"members (readers)."
-msgstr ""
-"Fer un article públic a la intranet vol dir que serà visible per als membres "
-"(lectors)."
+msgid "Making an item published to intranet means that it will be visible to the members (readers)."
+msgstr "Fer un article públic a la intranet vol dir que serà visible per als membres (lectors)."
 
-#: ../browser/migrations.py:179 ../content/community.py:1271
+#: ../browser/migrations.py:179
+#: ../content/community.py:1271
 msgid "Media"
 msgstr "Media"
 
@@ -463,9 +449,7 @@ msgstr "La publicació de l'element fa que sigui visible per a altres usuaris."
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Puts your item in a review queue, so it can be published on the site."
-msgstr ""
-"Publica el teu article en una cua de revisió, de manera que es pot publicar "
-"al lloc."
+msgstr "Publica el teu article en una cua de revisió, de manera que es pot publicar al lloc."
 
 #: ../controlpanel.py:78
 msgid "QuickLinks"
@@ -512,15 +496,12 @@ msgid "Reviewer tasks"
 msgstr "Tasques dels revisors"
 
 #: ../profiles/default/workflows/news_intranet/definition.xml
-msgid ""
-"Rol per a les notícies a dintre de la intranet (Permet el esborrany i la "
-"revisió)."
-msgstr ""
-"Rol per a les notícies a dintre de la intranet (Permet el esborrany i la "
-"revisió)."
+msgid "Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)."
+msgstr "Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)."
 
 #: ../browser/sharing_templates/sharing.pt:124
-#: ../content/community_templates/editacl.pt:93 ../controlpanel.py:366
+#: ../content/community_templates/editacl.pt:93
+#: ../controlpanel.py:366
 msgid "Save"
 msgstr "Desa"
 
@@ -598,7 +579,8 @@ msgstr "Temps de l'última transició"
 msgid "Tipus de comunitat"
 msgstr "Tipus de comunitat"
 
-#: ../browser/stats.py:69 ../browser/viewlets.py:63
+#: ../browser/stats.py:69
+#: ../browser/viewlets.py:63
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
 
@@ -692,9 +674,7 @@ msgstr "Estat del flux de treball"
 #. Default: "* He llegit i accepto les <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">condicions d'us.</a>"
 #: ../content/community_templates/communityadder.pt:12
 msgid "accepto_condicions"
-msgstr ""
-"* He llegit i accepto les <a href=\"https://serveistic.upc.edu/ca/comunitats-"
-"upc/el-servei/normativa\" target=\"_blank\">condicions d'ús.</a>"
+msgstr "* He llegit i accepto les <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">condicions d'ús.</a>"
 
 #. Default: "Accessibilitat"
 #: ulearn5/theme/browser/viewlets_templates/footer.pt:9
@@ -711,7 +691,8 @@ msgstr "Mostra les noticies a les que estic subscrit"
 msgid "activate_sharedwithme"
 msgstr "Mostra el que hi ha compartit amb mi"
 
-#: ../content/community.py:154 ../controlpanel.py:327
+#: ../content/community.py:154
+#: ../controlpanel.py:327
 msgid "activity_view"
 msgstr "Visualització Activitats Comunitat"
 
@@ -840,8 +821,7 @@ msgid "community_type_description"
 msgstr ""
 "Oberta: Pública (la veu tothom) i et pots subscriure i desubscriure't. \n"
 " Tancada: Només et pot subscriure algú i et pots desubscriure't. \n"
-" Organitzativa: Només et pot subscriure un administrador i no et pots "
-"desubscriure't."
+" Organitzativa: Només et pot subscriure un administrador i no et pots desubscriure't."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
 #: ../content/community.py:1095
@@ -851,8 +831,7 @@ msgstr "La comunitat ${comunitat} ha estat creada."
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 #: ../content/community.py:1071
 msgid "comunitat_existeix"
-msgstr ""
-"La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
+msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
 #: ../content/community.py:1201
@@ -947,9 +926,7 @@ msgstr "Visita un lloc web extern"
 #. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
 #: ../content/community.py:1044
 msgid "falta_condicions"
-msgstr ""
-"Es necessari acceptar les condicions d'ús i privacitat per crear una "
-"comunitat."
+msgstr "Es necessari acceptar les condicions d'ús i privacitat per crear una comunitat."
 
 #. Default: "No es pot crear una comunitat sense titol"
 #: ../content/community.py:1042
@@ -979,9 +956,7 @@ msgstr "Ves a la biblioteca"
 
 #: ../content/community.py:198
 msgid "hashtag_help"
-msgstr ""
-"El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal "
-"afegir el '#'."
+msgstr "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el '#'."
 
 #. Default: "Add event to calendar"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:116
@@ -1001,11 +976,10 @@ msgstr "Mostra o no el botó de Noticies a la tile central de les comunitats"
 #. Default: "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 #: ../controlpanel.py:159
 msgid "help_activate_sharedwithme"
-msgstr ""
-"Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit "
-"a les comunitats"
+msgstr "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 
-#: ../content/community.py:155 ../controlpanel.py:328
+#: ../content/community.py:155
+#: ../controlpanel.py:328
 msgid "help_activity_view"
 msgstr "Selecciona el mode de visualització de les activitats de la comunitat"
 
@@ -1121,11 +1095,7 @@ msgstr "Títol de l'arbre de navegació"
 
 #: ../content/community.py:210
 msgid "help_notify_activity_via_push_comments_too"
-msgstr ""
-"Si s'activa aquesta opció, es notificarà l'activitat i els comentaris "
-"d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus "
-"dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet "
-"uTalk."
+msgstr "Si s'activa aquesta opció, es notificarà l'activitat i els comentaris d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
 #. Default: "Habilita el portlet plone_portlet_collection_Collection."
 #: ../controlportlets.py:95
@@ -1190,8 +1160,7 @@ msgstr "Configuració de portlets. Configura els portlets permesos."
 #. Default: "Afegiu la icona del Font Awesome que voleu que es mostri"
 #: ../controlpanel.py:315
 msgid "help_quicklinks_icon"
-msgstr ""
-"Icona del Font Awesome que apareix al costat del títol dels enllaços directes"
+msgstr "Icona del Font Awesome que apareix al costat del títol dels enllaços directes"
 
 #: ../controlpanel.py:309
 msgid "help_quicklinks_literal"
@@ -1199,8 +1168,7 @@ msgstr "Text que sortirà com a títol dels enllaços directes"
 
 #: ../controlpanel.py:324
 msgid "help_quicklinks_table"
-msgstr ""
-"En aquesta taula s'han d'afegir tots els enllaços directes que volem mostrar"
+msgstr "En aquesta taula s'han d'afegir tots els enllaços directes que volem mostrar"
 
 #. Default: "Aquest és el color secundari de l'espai."
 #: ../controlpanel.py:184
@@ -1210,9 +1178,7 @@ msgstr "Aquest és el color secundari de l'espai."
 #. Default: "If selected, then gives the option to show the News Items in Mobile App."
 #: ../controlpanel.py:344
 msgid "help_show_news_in_app"
-msgstr ""
-"Si es marca aquesta casella, les notícies del lloc es mostraran a l'app "
-"mòbil."
+msgstr "Si es marca aquesta casella, les notícies del lloc es mostraran a l'app mòbil."
 
 #. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
 #: ../controlpanel.py:284
@@ -1222,9 +1188,7 @@ msgstr "Aquest és l'idioma de l'espai."
 #. Default: "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 #: ../controlpanel.py:133
 msgid "help_stats_button"
-msgstr ""
-"Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/"
-"chats"
+msgstr "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 
 #. Default: "Contacte telefònic"
 #: ../userschema.py:40
@@ -1279,8 +1243,7 @@ msgstr "Habilita el portlet para mostrar las notícias en el flash informativo."
 #. Default: "Habilita el portlet para mostrar las notícias marcadas como destacadas."
 #: ../controlportlets.py:248
 msgid "help_ulearn_portlets_importantnews"
-msgstr ""
-"Habilita el portlet para mostrar las notícias marcadas como destacadas."
+msgstr "Habilita el portlet para mostrar las notícias marcadas como destacadas."
 
 #. Default: "Habilita el portlet per a poder veure els meus cursos del EVA."
 #: ../controlportlets.py:230
@@ -1295,8 +1258,7 @@ msgstr "Habilita portlet amb el núvol de tags."
 #. Default: "Habilita el portlet on mostra el perfil usuari, o la comunitat on estem."
 #: ../controlportlets.py:185
 msgid "help_ulearn_profile"
-msgstr ""
-"Habilita el portlet on mostra el perfil d'usuari, o de la comunitat on estem."
+msgstr "Habilita el portlet on mostra el perfil d'usuari, o de la comunitat on estem."
 
 #. Default: "Habilita el portlet on mostra el perfil de la comunitat on estem."
 #: ../controlportlets.py:194
@@ -1326,9 +1288,7 @@ msgstr "Habilita el portlet on es mostren els usuaris, amb la cerca."
 #. Default: "Url per defecte: \"/mail_password_form?userid=\". Per a dominis externs indiqueu la url completa, \"http://www.domini.cat\""
 #: ../controlpanel.py:336
 msgid "help_url_forget_password"
-msgstr ""
-"Url per defecte: \"/mail_password_form?userid=\". Per a dominis externs "
-"indiqueu la url completa, \"http://www.domini.cat\""
+msgstr "Url per defecte: \"/mail_password_form?userid=\". Per a dominis externs indiqueu la url completa, \"http://www.domini.cat\""
 
 #. Default: "Function on moodle."
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:27
@@ -1615,10 +1575,7 @@ msgstr "No hi ha esdeveniments per mostrar"
 
 #: ../content/community.py:204
 msgid "notify_activity_via_push_help"
-msgstr ""
-"Si s'activa aquesta opció, es notificarà l'activitat d'aquesta comunitat a "
-"tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a "
-"través de notificacions 'push' de l'aplicació UPCnet uTalk."
+msgstr "Si s'activa aquesta opció, es notificarà l'activitat d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
 #: ../controlpanel.py:302
 msgid "participants"
@@ -1732,7 +1689,6 @@ msgstr "Retira a la intranet"
 # msgstr "Registre de configuració d'uLearn."
 #. Default: "Cerca"
 #: ../browser/stats_templates/statsview.pt:277
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:35
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:25
 msgid "search"
 msgstr "Cerca"
@@ -1743,10 +1699,15 @@ msgstr "Cerca"
 msgid "search_communities"
 msgstr "Cerca comunitats"
 
+#. Default: "Search documents"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:34
+msgid "search_doc"
+msgstr "Cerca als documents"
+
 #. Default: "Search tags"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:42
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:44
 msgid "search_tags"
-msgstr "Cerca etiquetes"
+msgstr "Cerca avançada: per etiquetes"
 
 #. Default: "Cerca"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:32
@@ -1811,13 +1772,13 @@ msgstr "Contingut compartit"
 #. Default: "Elements shared on this community"
 #: ../browser/sharing_templates/shared.pt:27
 msgid "shared_content_description"
-msgstr "Tots el contingut compartit per algun membre d'aquesta comunitat "
+msgstr "Tots els continguts compartits per algun membre d'aquesta comunitat "
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:74
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:64
 #: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
 msgid "shared_content_title"
-msgstr "Contingut compartit"
+msgstr "Accés a tots els continguts compartits en aquesta comunitat"
 
 #. Default: "Shared with me"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
@@ -1895,9 +1856,7 @@ msgstr "El formulari no s'ha desat. Tots els canvis que hàgiu fet es perdran."
 #. Default: "You already clicked the submit button. Do you really want to submit this form again?"
 #: ulearn5/theme/browser/jsvariables.py:22
 msgid "text_form_resubmit_message"
-msgstr ""
-"Ja heu fet clic al botó de enviar. Segur que voleu enviar aquest formulari "
-"de nou?"
+msgstr "Ja heu fet clic al botó de enviar. Segur que voleu enviar aquest formulari de nou?"
 
 #. Default: "Thinnkers portlet"
 #: ../controlpanel.py:302
@@ -2057,3 +2016,13 @@ msgstr "Utilitza el lloc predeterminat"
 #: ../patches.py:447
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Idioma neutral (predeterminat del lloc)"
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:37
+msgid "write_doc"
+msgstr "Filtra per nom"
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:46
+msgid "write_tag"
+msgstr "Filtra per etiquetes"

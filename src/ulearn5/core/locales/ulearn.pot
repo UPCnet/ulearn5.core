@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-25 07:57+0000\n"
+"POT-Creation-Date: 2018-06-27 14:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1685,7 +1685,6 @@ msgstr ""
 
 #. Default: "Cerca"
 #: ../browser/stats_templates/statsview.pt:277
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:35
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:25
 msgid "search"
 msgstr ""
@@ -1696,8 +1695,13 @@ msgstr ""
 msgid "search_communities"
 msgstr ""
 
+#. Default: "Search documents"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:34
+msgid "search_doc"
+msgstr ""
+
 #. Default: "Search tags"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:42
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:44
 msgid "search_tags"
 msgstr ""
 
@@ -1767,7 +1771,7 @@ msgid "shared_content_description"
 msgstr ""
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:74
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:64
 #: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
 msgid "shared_content_title"
 msgstr ""
@@ -2006,4 +2010,14 @@ msgstr ""
 #. Default: "Language neutral (site default)"
 #: ../patches.py:447
 msgid "vocabulary-missing-single-value-for-edit"
+msgstr ""
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:37
+msgid "write_doc"
+msgstr ""
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:46
+msgid "write_tag"
 msgstr ""

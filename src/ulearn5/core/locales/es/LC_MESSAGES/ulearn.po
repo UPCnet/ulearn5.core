@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-25 07:57+0000\n"
+"POT-Creation-Date: 2018-06-27 14:35+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -24,11 +24,13 @@ msgstr " ."
 msgid "/mail_password_form?userid="
 msgstr "/mail_password_form?userid="
 
-#: ../content/community.py:123 ../controlpanel.py:25
+#: ../content/community.py:123
+#: ../controlpanel.py:25
 msgid "Activitats destacades"
 msgstr "Actividades destacadas"
 
-#: ../content/community.py:122 ../controlpanel.py:24
+#: ../content/community.py:122
+#: ../controlpanel.py:24
 msgid "Activitats mes valorades"
 msgstr "Actividades más valoradas"
 
@@ -68,7 +70,8 @@ msgstr "Calendario"
 msgid "Can only be seen and edited by the owner."
 msgstr "Solo puede ser visto y editado por el propietario."
 
-#: ../controlpanel.py:414 ../controlportlets.py:349
+#: ../controlpanel.py:414
+#: ../controlportlets.py:349
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -109,7 +112,8 @@ msgstr "Crear la comunidad"
 msgid "Create thumb of News images for show in app"
 msgstr "Crea imágenes de tamaño 'thumb' para mostrar en la app móvil."
 
-#: ../content/community.py:121 ../controlpanel.py:23
+#: ../content/community.py:121
+#: ../controlpanel.py:23
 msgid "Darreres activitats"
 msgstr "Últimas actividades"
 
@@ -146,7 +150,8 @@ msgstr "Editar portlet notícias destacadas"
 msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícias suscritas"
 
-#: ../controlpanel.py:416 ../controlportlets.py:351
+#: ../controlpanel.py:416
+#: ../controlportlets.py:351
 msgid "Edit cancelled"
 msgstr "Edición cancelada"
 
@@ -210,8 +215,7 @@ msgstr "Inicio"
 
 #: ../controlpanel.py:402
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
-msgstr ""
-"Has marcado la opción de compartir pero falta la URL del Elasticsearch."
+msgstr "Has marcado la opción de compartir pero falta la URL del Elasticsearch."
 
 #: ulearn5/theme/portlets/buttonbar/buttonbar.py:24
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:33
@@ -220,12 +224,8 @@ msgid "How many items to list."
 msgstr "Cuántos elementos quiere mostrar?"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
-msgid ""
-"If you submitted the item by mistake or want to perform additional edits, "
-"this will take it back."
-msgstr ""
-"Si envió el artículo por error o desea realizar ediciones adicionales, este "
-"se lo devolverá."
+msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
+msgstr "Si envió el artículo por error o desea realizar ediciones adicionales, este se lo devolverá."
 
 #: ../content/community.py:191
 msgid "Imatge"
@@ -273,20 +273,12 @@ msgstr "Enlace"
 # msgid "help_ulearn_settings_editform"
 # msgstr "Registro de configuración de uLearn."
 #: ../controlpanel.py:301
-msgid ""
-"Literals que identifiquen als usuaris de les comunitats i les seves "
-"aportacions."
-msgstr ""
-"Literales que identifican a los usuarios de las comunidades y sus "
-"aportaciones."
+msgid "Literals que identifiquen als usuaris de les comunitats i les seves aportacions."
+msgstr "Literales que identifican a los usuarios de las comunidades y sus aportaciones."
 
 #: ../controlpanel.py:294
-msgid ""
-"Llista amb les persones que no han de sortir a les cerques i que tenen acces "
-"restringit per la resta de persones."
-msgstr ""
-"Lista con las personas que no han de salir en los resultados de las "
-"búsquedas y tienen acceso restringido para el resto de personas."
+msgid "Llista amb les persones que no han de sortir a les cerques i que tenen acces restringit per la resta de persones."
+msgstr "Lista con las personas que no han de salir en los resultados de las búsquedas y tienen acceso restringido para el resto de personas."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -300,23 +292,16 @@ msgstr "Hacerlo privado"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
-msgid ""
-"Making an item private means that it will not be visible to anyone but the "
-"owner and the site administrator."
-msgstr ""
-"Hacer que un elemento sea privado significa que no será visible para nadie "
-"más que para el propietario y el administrador del sitio."
+msgid "Making an item private means that it will not be visible to anyone but the owner and the site administrator."
+msgstr "Hacer que un elemento sea privado significa que no será visible para nadie más que para el propietario y el administrador del sitio."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
-msgid ""
-"Making an item published to intranet means that it will be visible to the "
-"members (readers)."
-msgstr ""
-"Hacer que un elemento se publique en la intranet significa que será visible "
-"para los miembros (lectores)."
+msgid "Making an item published to intranet means that it will be visible to the members (readers)."
+msgstr "Hacer que un elemento se publique en la intranet significa que será visible para los miembros (lectores)."
 
-#: ../browser/migrations.py:179 ../content/community.py:1271
+#: ../browser/migrations.py:179
+#: ../content/community.py:1271
 msgid "Media"
 msgstr "Media"
 
@@ -466,9 +451,7 @@ msgstr "Publicar el elemento lo hace visible para otros usuarios."
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Puts your item in a review queue, so it can be published on the site."
-msgstr ""
-"Pone su artículo en una cola de revisión, por lo que se puede publicar en el "
-"sitio."
+msgstr "Pone su artículo en una cola de revisión, por lo que se puede publicar en el sitio."
 
 #: ../controlpanel.py:78
 msgid "QuickLinks"
@@ -515,15 +498,12 @@ msgid "Reviewer tasks"
 msgstr "Tareas del revisor"
 
 #: ../profiles/default/workflows/news_intranet/definition.xml
-msgid ""
-"Rol per a les notícies a dintre de la intranet (Permet el esborrany i la "
-"revisió)."
-msgstr ""
-"Rol para las noticias dentro de la intranet (Permite el borrador y la "
-"revisión)."
+msgid "Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)."
+msgstr "Rol para las noticias dentro de la intranet (Permite el borrador y la revisión)."
 
 #: ../browser/sharing_templates/sharing.pt:124
-#: ../content/community_templates/editacl.pt:93 ../controlpanel.py:366
+#: ../content/community_templates/editacl.pt:93
+#: ../controlpanel.py:366
 msgid "Save"
 msgstr "Guardar"
 
@@ -601,7 +581,8 @@ msgstr "Hora de la última transición"
 msgid "Tipus de comunitat"
 msgstr "Tipo de comunidad"
 
-#: ../browser/stats.py:69 ../browser/viewlets.py:63
+#: ../browser/stats.py:69
+#: ../browser/viewlets.py:63
 msgid "Todas las comunidades"
 msgstr "Todas las comunidades"
 
@@ -695,9 +676,7 @@ msgstr "Estado workflow"
 #. Default: "* He llegit i accepto les <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">condicions d'us.</a>"
 #: ../content/community_templates/communityadder.pt:12
 msgid "accepto_condicions"
-msgstr ""
-"* He leído y acepto las <a href=\"https://serveistic.upc.edu/ca/comunitats-"
-"upc/el-servei/normativa\" target=\"_blank\">condiciones de uso.</a>"
+msgstr "* He leído y acepto las <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">condiciones de uso.</a>"
 
 #. Default: "Accessibilitat"
 #: ulearn5/theme/browser/viewlets_templates/footer.pt:9
@@ -714,7 +693,8 @@ msgstr "Muestra las notícias a las que estás suscrito"
 msgid "activate_sharedwithme"
 msgstr "Muestra lo que hay compartido conmigo"
 
-#: ../content/community.py:154 ../controlpanel.py:327
+#: ../content/community.py:154
+#: ../controlpanel.py:327
 msgid "activity_view"
 msgstr "Visualización Actividades Comunidad"
 
@@ -840,10 +820,7 @@ msgstr "Esta comunidad es abierta, pero actualmente no estás suscrito"
 
 #: ../content/community.py:147
 msgid "community_type_description"
-msgstr ""
-"Abierta: pública (la ve todo el mundo) y te puedes suscribir y desuscribirte."
-"<br/>Cerrada: solo puede suscribirte el propietario de la comunidad, pero "
-"puedes desuscribirte.<br/>"
+msgstr "Abierta: pública (la ve todo el mundo) y te puedes suscribir y desuscribirte.<br/>Cerrada: solo puede suscribirte el propietario de la comunidad, pero puedes desuscribirte.<br/>"
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
 #: ../content/community.py:1095
@@ -948,9 +925,7 @@ msgstr "Visita la web externa"
 #. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
 #: ../content/community.py:1044
 msgid "falta_condicions"
-msgstr ""
-"Es necesario aceptar las condiciones de uso y privacidad para crear una "
-"comunidad."
+msgstr "Es necesario aceptar las condiciones de uso y privacidad para crear una comunidad."
 
 #. Default: "No es pot crear una comunitat sense titol"
 #: ../content/community.py:1042
@@ -980,9 +955,7 @@ msgstr "Ve a la biblioteca"
 
 #: ../content/community.py:198
 msgid "hashtag_help"
-msgstr ""
-"El hashtag (por ejemplo: ulearn) que utilizará esta comunidad. No hace falta "
-"añadir el '#'."
+msgstr "El hashtag (por ejemplo: ulearn) que utilizará esta comunidad. No hace falta añadir el '#'."
 
 #. Default: "Add event to calendar"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:116
@@ -997,17 +970,15 @@ msgstr "Envía el evento a los asistentes"
 #. Default: "Mostra o no el botó de Noticies a la tile central de les comunitats"
 #: ../controlpanel.py:150
 msgid "help_activate_news"
-msgstr ""
-"Mostrar o no el botón de Noticias en la tile central de las comunidades"
+msgstr "Mostrar o no el botón de Noticias en la tile central de las comunidades"
 
 #. Default: "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 #: ../controlpanel.py:159
 msgid "help_activate_sharedwithme"
-msgstr ""
-"Mostrar o no el botón del que ha compartido conmigo y el que ha compartido "
-"en las comunidades"
+msgstr "Mostrar o no el botón del que ha compartido conmigo y el que ha compartido en las comunidades"
 
-#: ../content/community.py:155 ../controlpanel.py:328
+#: ../content/community.py:155
+#: ../controlpanel.py:328
 msgid "help_activity_view"
 msgstr "Elige la visualización de las actividades de la comunidad"
 
@@ -1123,10 +1094,7 @@ msgstr "Título del árbol de navegación."
 
 #: ../content/community.py:210
 msgid "help_notify_activity_via_push_comments_too"
-msgstr ""
-"Si se activa esta casilla, se notificará la actividad y los comentarios de "
-"esta comunidad a todos los usuarios subscritos a ella en sus dispositivos "
-"móviles a través de notificaciones 'push' de la aplicación UPCnet uTalk."
+msgstr "Si se activa esta casilla, se notificará la actividad y los comentarios de esta comunidad a todos los usuarios subscritos a ella en sus dispositivos móviles a través de notificaciones 'push' de la aplicación UPCnet uTalk."
 
 #. Default: "Habilita el portlet plone_portlet_collection_Collection."
 #: ../controlportlets.py:95
@@ -1191,8 +1159,7 @@ msgstr "Configuraciones de los portlets. Configure los portlets permitidos."
 #. Default: "Afegiu la icona del Font Awesome que voleu que es mostri"
 #: ../controlpanel.py:315
 msgid "help_quicklinks_icon"
-msgstr ""
-"Icono del Font Awesome que aparece al lado del título de enlaces directos"
+msgstr "Icono del Font Awesome que aparece al lado del título de enlaces directos"
 
 #: ../controlpanel.py:309
 msgid "help_quicklinks_literal"
@@ -1200,9 +1167,7 @@ msgstr "Texto que saldrá como título de los enlaces directos"
 
 #: ../controlpanel.py:324
 msgid "help_quicklinks_table"
-msgstr ""
-"En esta tabla se han de añadir todos los enlaces directos que queramos "
-"mostrar"
+msgstr "En esta tabla se han de añadir todos los enlaces directos que queramos mostrar"
 
 #. Default: "Aquest és el color secundari de l'espai."
 #: ../controlpanel.py:184
@@ -1212,8 +1177,7 @@ msgstr "Color secundario del espacio"
 #. Default: "If selected, then gives the option to show the News Items in Mobile App."
 #: ../controlpanel.py:344
 msgid "help_show_news_in_app"
-msgstr ""
-"Si está seleccionado, se mostraran las imágenes del sitio en la app móvil."
+msgstr "Si está seleccionado, se mostraran las imágenes del sitio en la app móvil."
 
 #. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
 #: ../controlpanel.py:284
@@ -1223,9 +1187,7 @@ msgstr "Este es el idioma del sitio."
 #. Default: "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 #: ../controlpanel.py:133
 msgid "help_stats_button"
-msgstr ""
-"Mostar o no el botón de acceso a estadísticas diarias a stats/activity y "
-"stats/chats"
+msgstr "Mostar o no el botón de acceso a estadísticas diarias a stats/activity y stats/chats"
 
 #. Default: "Contacte telefònic"
 #: ../userschema.py:40
@@ -1245,9 +1207,7 @@ msgstr "Indique su ubicación dentro de la compañía y/o ubicación geográfica
 #. Default: "Habilita el portlet angular per a poder fer ús de les rutes angularjs."
 #: ../controlportlets.py:158
 msgid "help_ulearn_angularRouteView"
-msgstr ""
-"Habilitar el portlet de angular para poder hacer uso de las rutas de "
-"angularjs."
+msgstr "Habilitar el portlet de angular para poder hacer uso de las rutas de angularjs."
 
 #. Default: "Habilita el portlet botonera central."
 #: ../controlportlets.py:167
@@ -1282,8 +1242,7 @@ msgstr "Habilitar el portlet para mostrar las noticias en el flash informativo"
 #. Default: "Habilita el portlet para mostrar las notícias marcadas como destacadas."
 #: ../controlportlets.py:248
 msgid "help_ulearn_portlets_importantnews"
-msgstr ""
-"Habilitar el portlet para mostrar las noticias marcadas como destacadas"
+msgstr "Habilitar el portlet para mostrar las noticias marcadas como destacadas"
 
 #. Default: "Habilita el portlet per a poder veure els meus cursos del EVA."
 #: ../controlportlets.py:230
@@ -1298,15 +1257,12 @@ msgstr "Habilitar el portlet con la nube de tags."
 #. Default: "Habilita el portlet on mostra el perfil usuari, o la comunitat on estem."
 #: ../controlportlets.py:185
 msgid "help_ulearn_profile"
-msgstr ""
-"Habilitar el portlet donde muestra el perfil de usuario, o la comunidad "
-"donde estamos."
+msgstr "Habilitar el portlet donde muestra el perfil de usuario, o la comunidad donde estamos."
 
 #. Default: "Habilita el portlet on mostra el perfil de la comunitat on estem."
 #: ../controlportlets.py:194
 msgid "help_ulearn_profilecommunity"
-msgstr ""
-"Habilitar el portlet donde muestra el perfil de la comunidad donde estamos."
+msgstr "Habilitar el portlet donde muestra el perfil de la comunidad donde estamos."
 
 #. Default: "uLearn configuration registry."
 #: ../controlpanel.py:357
@@ -1331,9 +1287,7 @@ msgstr "Habilitar el portlet donde mostrar los usuarios, con la búsqueda."
 #. Default: "Url per defecte: \"/mail_password_form?userid=\". Per a dominis externs indiqueu la url completa, \"http://www.domini.cat\""
 #: ../controlpanel.py:336
 msgid "help_url_forget_password"
-msgstr ""
-"Url por defecto: \"/mail_password_form?userid=\". Para dominios externos "
-"indicar la url completa, \"http://www.domini.cat\""
+msgstr "Url por defecto: \"/mail_password_form?userid=\". Para dominios externos indicar la url completa, \"http://www.domini.cat\""
 
 #. Default: "Function on moodle."
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:27
@@ -1620,10 +1574,7 @@ msgstr "No hay eventos hoy"
 
 #: ../content/community.py:204
 msgid "notify_activity_via_push_help"
-msgstr ""
-"Si se activa esta casilla, se notificará la actividad de esta comunidad a "
-"todos los usuarios subscritos a ella en sus dispositivos móviles a través de "
-"notificaciones 'push' de la aplicación UPCnet uTalk."
+msgstr "Si se activa esta casilla, se notificará la actividad de esta comunidad a todos los usuarios subscritos a ella en sus dispositivos móviles a través de notificaciones 'push' de la aplicación UPCnet uTalk."
 
 #: ../controlpanel.py:302
 msgid "participants"
@@ -1735,7 +1686,6 @@ msgstr "Retira a la intranet"
 
 #. Default: "Cerca"
 #: ../browser/stats_templates/statsview.pt:277
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:35
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:25
 msgid "search"
 msgstr "Busca"
@@ -1746,10 +1696,16 @@ msgstr "Busca"
 msgid "search_communities"
 msgstr "Busca comunidades"
 
+#. Default: "Search documents"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:34
+#, fuzzy
+msgid "search_doc"
+msgstr "Busca en los documentos"
+
 #. Default: "Search tags"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:42
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:44
 msgid "search_tags"
-msgstr "Filtra por etiquetas"
+msgstr "Búsqueda avanzada: por etiquetas"
 
 #. Default: "Cerca"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:32
@@ -1817,10 +1773,10 @@ msgid "shared_content_description"
 msgstr "Todo el contenido compartido por algun miembro de esta comunidad"
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:74
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:64
 #: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
 msgid "shared_content_title"
-msgstr "Acceso a todo el contenido compartido"
+msgstr "Acceso a todos los contenidos compartidos en esta comunidad"
 
 #. Default: "Shared with me"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
@@ -1893,16 +1849,12 @@ msgstr "Sin respuesta del servidor. Por favor, inténtelo de nuevo más tarde."
 #. Default: "Your form has not been saved. All changes you have made will be lost."
 #: ulearn5/theme/browser/jsvariables.py:18
 msgid "text_form_modified_message"
-msgstr ""
-"Tu formulario no ha sido guardado. Todos los cambios que haya hecho se "
-"perderán."
+msgstr "Tu formulario no ha sido guardado. Todos los cambios que haya hecho se perderán."
 
 #. Default: "You already clicked the submit button. Do you really want to submit this form again?"
 #: ulearn5/theme/browser/jsvariables.py:22
 msgid "text_form_resubmit_message"
-msgstr ""
-"Ya hiciste clic en el botón Enviar. ¿De verdad quieres enviar este "
-"formulario nuevamente?"
+msgstr "Ya hiciste clic en el botón Enviar. ¿De verdad quieres enviar este formulario nuevamente?"
 
 #. Default: "Thinnkers portlet"
 #: ../controlpanel.py:302
@@ -2062,3 +2014,13 @@ msgstr "Usar el sitio predeterminado"
 #: ../patches.py:447
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Idioma neutral (sitio predeterminado)"
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:37
+msgid "write_doc"
+msgstr "Filtra por nombre"
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:46
+msgid "write_tag"
+msgstr "Filtra por etiquetas"
