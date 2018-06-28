@@ -1289,8 +1289,8 @@ class CommunityInitializeAdapter(object):
         behavior.setConstrainTypesMode(1)
 
         if is_activate_owncloud(self.context):
-            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ulearn5.owncloud.file_owncloud'))
-            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ulearn5.owncloud.file_owncloud'))
+            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
+            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
 
         else:
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder'))

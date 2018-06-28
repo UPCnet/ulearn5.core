@@ -970,3 +970,29 @@ class migrationEditaclCommunities(grok.View):
 
 
             logger.info('Ha finalitzat la migració del editacl de les comunitats.')
+
+
+class changePortalType(grok.View):
+    """ Change Portal Type ulearn5.owncloud.file_owncloud by  CloudFile """
+    grok.name('changeportaltype')
+    grok.context(IPloneSiteRoot)
+
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        pc = api.portal.get_tool('portal_catalog')
+        filesowncloud_old = pc.unrestrictedSearchResults(portal_type='ulearn5.owncloud.file_owncloud')
+
+        for file in filesowncloud_old:
+            obj = file.getObject()
+            obj.portal_type = 'CloudFile'
+            obj.reindexObject()
+
+        transaction.commit()
+
+        return 'Done'
