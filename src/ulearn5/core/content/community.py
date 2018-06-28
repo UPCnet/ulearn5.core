@@ -1328,7 +1328,7 @@ class CommunityInitializeAdapter(object):
 
         # Create the aggregator with new criteria
         col_news = createContentInContainer(news, 'Collection', title='aggregator', checkConstraints=False)
-        col_news.setTitle(news.translate(_(u'Noticies')))
+        col_news.setTitle(news.translate(_(u'Blog')))
         col_news.setDescription(news.translate(_(u'Noticies de la comunitat')))
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON

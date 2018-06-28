@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-27 14:35+0000\n"
+"POT-Creation-Date: 2018-06-28 07:09+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -61,6 +61,10 @@ msgstr "Add the quick links by language"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:43
 msgid "All dates"
 msgstr "All dates"
+
+#: ../content/community.py:1331
+msgid "Blog"
+msgstr ""
 
 #: ulearn5/theme/portlets/legacycalendar.py:34
 msgid "Calendar"
@@ -1777,14 +1781,16 @@ msgid "shared_content_description"
 msgstr "All content shared by any member of this community"
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:64
-#: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:67
+#: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:9
 msgid "shared_content_title"
 msgstr "Access to all contents shared in this community"
 
 #. Default: "Shared with me"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:80
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
+#, fuzzy
 msgid "shared_with_me"
 msgstr "Shared with me"
 
@@ -2025,6 +2031,6 @@ msgid "write_doc"
 msgstr "Filter by name"
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:46
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:48
 msgid "write_tag"
 msgstr "Filter by tags"

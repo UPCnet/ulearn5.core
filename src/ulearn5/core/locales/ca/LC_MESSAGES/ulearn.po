@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-27 14:35+0000\n"
+"POT-Creation-Date: 2018-06-28 07:09+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -61,6 +61,10 @@ msgstr "Text que es mostrarà com a títol dels enllaços directes."
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:43
 msgid "All dates"
 msgstr "Totes les dates"
+
+#: ../content/community.py:1331
+msgid "Blog"
+msgstr "Blog"
 
 #: ulearn5/theme/portlets/legacycalendar.py:34
 msgid "Calendar"
@@ -366,7 +370,7 @@ msgstr "Notícies"
 
 #: ../content/community.py:1332
 msgid "Noticies de la comunitat"
-msgstr "Notícies de la comunitat"
+msgstr "Blog de notícies de la comunitat"
 
 #: ../content/community.py:209
 msgid "Notify activity and comments via push"
@@ -1775,16 +1779,18 @@ msgid "shared_content_description"
 msgstr "Tots els continguts compartits per algun membre d'aquesta comunitat "
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:64
-#: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:67
+#: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:9
 msgid "shared_content_title"
 msgstr "Accés a tots els continguts compartits en aquesta comunitat"
 
 #. Default: "Shared with me"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:80
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
+#, fuzzy
 msgid "shared_with_me"
-msgstr "Compartit amb mí"
+msgstr "Compartit amb mi"
 
 #. Default: "SharedWithMe"
 #: ulearn5/theme/portlets/sharedwithme.py:19
@@ -2023,6 +2029,6 @@ msgid "write_doc"
 msgstr "Filtra per nom"
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:46
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:48
 msgid "write_tag"
 msgstr "Filtra per etiquetes"
