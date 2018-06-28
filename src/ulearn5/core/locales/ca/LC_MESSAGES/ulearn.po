@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-28 07:09+0000\n"
+"POT-Creation-Date: 2018-06-28 10:32+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -937,6 +937,11 @@ msgstr "Es necessari acceptar les condicions d'ús i privacitat per crear una co
 msgid "falta_titol"
 msgstr "No es pot crear una comunitat sense títol"
 
+#. Default: "Filtra per nom i/o per etiquetes:"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:33
+msgid "filter"
+msgstr "Filtra per títol i/o per etiquetes"
+
 #. Default: "busqueda..."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
 msgid "find_label"
@@ -1703,16 +1708,6 @@ msgstr "Cerca"
 msgid "search_communities"
 msgstr "Cerca comunitats"
 
-#. Default: "Search documents"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:34
-msgid "search_doc"
-msgstr "Cerca als documents"
-
-#. Default: "Search tags"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:44
-msgid "search_tags"
-msgstr "Cerca avançada: per etiquetes"
-
 #. Default: "Cerca"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:32
 msgid "search_users"
@@ -1779,13 +1774,13 @@ msgid "shared_content_description"
 msgstr "Tots els continguts compartits per algun membre d'aquesta comunitat "
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:67
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:62
 #: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:9
 msgid "shared_content_title"
-msgstr "Accés a tots els continguts compartits en aquesta comunitat"
+msgstr "Accés a tots els elements compartits amb usuaris que no pertanyen a aquesta comunitat"
 
 #. Default: "Shared with me"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:80
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:75
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 #, fuzzy
@@ -2026,9 +2021,9 @@ msgstr "Idioma neutral (predeterminat del lloc)"
 #. Default: "Cerca"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:37
 msgid "write_doc"
-msgstr "Filtra per nom"
+msgstr "Introdueix un títol"
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:48
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:45
 msgid "write_tag"
-msgstr "Filtra per etiquetes"
+msgstr "Introdueix etiquetes"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-28 07:09+0000\n"
+"POT-Creation-Date: 2018-06-28 10:32+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -940,6 +940,11 @@ msgstr "There is necessary to accept terms and conditions to create communities.
 msgid "falta_titol"
 msgstr "You can't create a community without a title"
 
+#. Default: "Filtra per nom i/o per etiquetes:"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:33
+msgid "filter"
+msgstr "Filter by title and/or by tags:"
+
 #. Default: "busqueda..."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
 msgid "find_label"
@@ -1704,17 +1709,6 @@ msgstr "Search"
 msgid "search_communities"
 msgstr "Search"
 
-#. Default: "Search documents"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:34
-#, fuzzy
-msgid "search_doc"
-msgstr "Search in documents folder"
-
-#. Default: "Search tags"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:44
-msgid "search_tags"
-msgstr "Advanced search: by tags"
-
 #. Default: "Cerca"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:32
 msgid "search_users"
@@ -1781,13 +1775,13 @@ msgid "shared_content_description"
 msgstr "All content shared by any member of this community"
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:67
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:62
 #: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:9
 msgid "shared_content_title"
-msgstr "Access to all contents shared in this community"
+msgstr "Access to all elements shared with foreign users from this community"
 
 #. Default: "Shared with me"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:80
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:75
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 #, fuzzy
@@ -2028,9 +2022,9 @@ msgstr "Language neutral (site default)"
 #. Default: "Cerca"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:37
 msgid "write_doc"
-msgstr "Filter by name"
+msgstr "Enter a title"
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:48
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:45
 msgid "write_tag"
-msgstr "Filter by tags"
+msgstr "Enter tags"

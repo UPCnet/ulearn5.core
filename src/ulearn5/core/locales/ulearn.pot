@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-28 07:09+0000\n"
+"POT-Creation-Date: 2018-06-28 10:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -935,6 +935,11 @@ msgstr ""
 msgid "falta_titol"
 msgstr ""
 
+#. Default: "Filtra per nom i/o per etiquetes:"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:33
+msgid "filter"
+msgstr ""
+
 #. Default: "busqueda..."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
 msgid "find_label"
@@ -1699,16 +1704,6 @@ msgstr ""
 msgid "search_communities"
 msgstr ""
 
-#. Default: "Search documents"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:34
-msgid "search_doc"
-msgstr ""
-
-#. Default: "Search tags"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:44
-msgid "search_tags"
-msgstr ""
-
 #. Default: "Cerca"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:32
 msgid "search_users"
@@ -1775,13 +1770,13 @@ msgid "shared_content_description"
 msgstr ""
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:67
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:62
 #: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:9
 msgid "shared_content_title"
 msgstr ""
 
 #. Default: "Shared with me"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:80
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:75
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 msgid "shared_with_me"
@@ -2023,6 +2018,6 @@ msgid "write_doc"
 msgstr ""
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:48
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:45
 msgid "write_tag"
 msgstr ""
