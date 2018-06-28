@@ -2,8 +2,7 @@
 <object name="Event" meta_type="Dexterity FTI" i18n:domain="plone"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Event</property>
- <property name="description"
-    i18n:translate="">Events can be shown in calendars.</property>
+ <property name="description" i18n:translate="">Add a new event</property>
  <property name="icon_expr"></property>
  <property name="factory">Event</property>
  <property name="add_view_expr">string:${folder_url}/++add++Event</property>
@@ -34,7 +33,7 @@
   <element value="plone.app.dexterity.behaviors.id.IShortName"/>
   <element value="plone.app.relationfield.behavior.IRelatedItems"/>
   <element value="plone.app.lockingbehavior.behaviors.ILocking" />
-  <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />  
+  <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
  </property>
  <property name="schema"></property>
  <property name="model_source"></property>
