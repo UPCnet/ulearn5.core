@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-28 10:32+0000\n"
+"POT-Creation-Date: 2018-06-28 14:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -906,11 +906,13 @@ msgid "event_what"
 msgstr ""
 
 #. Default: "When"
+#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:37
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:27
 msgid "event_when"
 msgstr ""
 
 #. Default: "Where"
+#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:42
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:66
 msgid "event_where"
 msgstr ""
@@ -1776,7 +1778,6 @@ msgid "shared_content_title"
 msgstr ""
 
 #. Default: "Shared with me"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:75
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 msgid "shared_with_me"
