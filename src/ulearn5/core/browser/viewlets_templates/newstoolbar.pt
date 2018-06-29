@@ -9,8 +9,7 @@
             <label class="switch">
               <input type="checkbox">
               <div class="sliderbutton round"
-                   tal:attributes="data-dextobject context/absolute_url"
-                   >
+                   tal:attributes="data-dextobject context/absolute_url">
               </div>
             </label>
         </div>
@@ -18,8 +17,7 @@
             <label class="switch">
               <input type="checkbox" checked>
               <div class="sliderbutton round"
-                   tal:attributes="data-dextobject context/absolute_url"
-                   >
+                   tal:attributes="data-dextobject context/absolute_url">
               </div>
             </label>
         </div>
@@ -31,8 +29,7 @@
            <label class="switch">
              <input type="checkbox">
              <div class="sliderbutton round"
-                  tal:attributes="data-dextobject context/absolute_url"
-                  >
+                  tal:attributes="data-dextobject context/absolute_url">
              </div>
            </label>
        </div>
@@ -40,8 +37,7 @@
            <label class="switch">
              <input type="checkbox" checked>
              <div class="sliderbutton round"
-                  tal:attributes="data-dextobject context/absolute_url"
-                  >
+                  tal:attributes="data-dextobject context/absolute_url">
              </div>
            </label>
        </div>
@@ -54,8 +50,7 @@
                  <label class="switch">
                    <input type="checkbox">
                    <div class="sliderbutton round"
-                        tal:attributes="data-dextobject context/absolute_url"
-                        >
+                        tal:attributes="data-dextobject context/absolute_url">
                    </div>
                  </label>
              </div>
@@ -65,8 +60,7 @@
                  <label class="switch">
                    <input type="checkbox" checked>
                    <div class="sliderbutton round"
-                        tal:attributes="data-dextobject context/absolute_url"
-                        >
+                        tal:attributes="data-dextobject context/absolute_url">
                    </div>
                  </label>
              </div>

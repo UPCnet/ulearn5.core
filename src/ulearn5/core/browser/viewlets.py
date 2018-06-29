@@ -183,7 +183,7 @@ class newsToolBar(viewletBase):
         active_portlets = self.autoCheckPortletsSetted()
         show_news = api.portal.get_registry_record(
             name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.activate_news')
-        return True if ('my-subscribed-news' in active_portlets) or show_news else False
+        return True if ('buttonbar' in active_portlets) or show_news else False
 
     def isPortletFlashActivate(self):
         active_portlets = self.autoCheckPortletsSetted()
@@ -200,7 +200,7 @@ class newsToolBar(viewletBase):
 
     def isManagementNewsActivate(self):
         active_portlets = self.autoCheckPortletsSetted()
-        if 'my-subscribed-news' in active_portlets or 'flashesinformativos' in active_portlets or 'importantnews' in active_portlets or self.isViewInAppChecked():
+        if 'buttonbar' in active_portlets or 'flashesinformativos' in active_portlets or 'importantnews' in active_portlets or self.isViewInAppChecked():
             return True
         else:
             return False
