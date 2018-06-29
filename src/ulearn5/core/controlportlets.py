@@ -277,6 +277,15 @@ class IPortletsSettings(Interface):
         required=False,
         default=False,
     )
+
+    ulearn_portlets_recentchanges = schema.Bool(
+        title=_(u'ulearn_recentchanges',
+                default=_(u"Habilitar portlet Ulearn Recent Changes")),
+        description=_(u'help_ulearn_recentchanges',
+                      default=_(u"Habilita el portlet per veure els canvis recents.")),
+        required=False,
+        default=False,
+    )
     # ==== FIN Portlets ====
 
 

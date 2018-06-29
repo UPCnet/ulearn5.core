@@ -103,3 +103,6 @@ msgstr "Portlet Ulearn eConnect"
 
 msgid "ulearn_portlets_stats"
 msgstr "Portlet Ulearn Estadístiques"
+
+msgid "ulearn_portlets_recentchanges"
+msgstr "Portlet Ulearn Canvis recents"

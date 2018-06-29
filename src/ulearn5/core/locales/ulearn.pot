@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-06-26 09:27+0000\n"
+"POT-Creation-Date: 2018-06-29 08:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,11 @@ msgstr ""
 msgid "Add News Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:221
+#: ulearn5/theme/portlets/recentchanges/recentchanges.py:133
+msgid "Add Recent Changes Portlet"
+msgstr ""
+
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:222
 msgid "Add Subscribed News Portlet"
 msgstr ""
 
@@ -63,6 +67,10 @@ msgstr ""
 msgid "All dates"
 msgstr ""
 
+#: ulearn5/theme/browser/viewlets_templates/header.pt:126
+msgid "Buscar"
+msgstr ""
+
 #: ulearn5/theme/portlets/calendar.py:44
 #: ulearn5/theme/portlets/legacycalendar.py:34
 msgid "Calendar"
@@ -73,8 +81,12 @@ msgid "Can only be seen and edited by the owner."
 msgstr ""
 
 #: ../controlpanel.py:415
-#: ../controlportlets.py:349
+#: ../controlportlets.py:358
 msgid "Cancel"
+msgstr ""
+
+#: ulearn5/theme/browser/viewlets_templates/header.pt:130
+msgid "Cerca"
 msgstr ""
 
 #: ../patches.py:918
@@ -157,12 +169,16 @@ msgstr ""
 msgid "Edit News Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:231
+#: ulearn5/theme/portlets/recentchanges/recentchanges.py:142
+msgid "Edit Recent Changes Portlet"
+msgstr ""
+
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:232
 msgid "Edit Subscribed News Portlet"
 msgstr ""
 
 #: ../controlpanel.py:417
-#: ../controlportlets.py:351
+#: ../controlportlets.py:360
 msgid "Edit cancelled"
 msgstr ""
 
@@ -398,12 +414,12 @@ msgid "Number of items to display"
 msgstr ""
 
 #: ../content/community.py:102
-#: ulearn5/theme/portlets/templates/communities.pt:22
+#: ulearn5/theme/portlets/templates/communities.pt:108
 msgid "Open"
 msgstr ""
 
 #: ../content/community.py:112
-#: ulearn5/theme/portlets/templates/communities.pt:108
+#: ulearn5/theme/portlets/templates/communities.pt:22
 msgid "Organizative"
 msgstr ""
 
@@ -425,7 +441,7 @@ msgstr ""
 msgid "Personal Preferences"
 msgstr ""
 
-#: ../controlportlets.py:288
+#: ../controlportlets.py:297
 msgid "Portlets settings"
 msgstr ""
 
@@ -482,6 +498,10 @@ msgstr ""
 
 #: ../content/community.py:163
 msgid "Readers"
+msgstr ""
+
+#: ulearn5/theme/portlets/recentchanges/recentchanges.py:25
+msgid "Recent changes"
 msgstr ""
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
@@ -580,7 +600,11 @@ msgstr ""
 msgid "This portlet displays recent News Items."
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:222
+#: ulearn5/theme/portlets/recentchanges/recentchanges.py:134
+msgid "This portlet displays recently modified content."
+msgstr ""
+
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:223
 msgid "This portlet displays subscribed News Items."
 msgstr ""
 
@@ -598,6 +622,10 @@ msgstr ""
 
 #: ../content/community.py:146
 msgid "Tipus de comunitat"
+msgstr ""
+
+#: ulearn5/theme/portlets/recentchanges/recentchanges.py:24
+msgid "Title"
 msgstr ""
 
 #: ../browser/stats.py:69
@@ -1147,7 +1175,7 @@ msgid "help_portlets_rss"
 msgstr ""
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:289
+#: ../controlportlets.py:298
 msgid "help_portlets_settings_editform"
 msgstr ""
 
@@ -1262,6 +1290,11 @@ msgstr ""
 #. Default: "Habilita el portlet on mostra el perfil de la comunitat on estem."
 #: ../controlportlets.py:194
 msgid "help_ulearn_profilecommunity"
+msgstr ""
+
+#. Default: "Habilita el portlet per veure els canvis recents."
+#: ../controlportlets.py:284
+msgid "help_ulearn_recentchanges"
 msgstr ""
 
 #. Default: "uLearn configuration registry."
@@ -1727,6 +1760,10 @@ msgstr ""
 msgid "search_communities"
 msgstr ""
 
+#: ulearn5/theme/browser/viewlets_templates/header.pt:129
+msgid "search_site"
+msgstr ""
+
 #. Default: "Search tags"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:42
 msgid "search_tags"
@@ -2003,6 +2040,11 @@ msgstr ""
 #. Default: "Habilitar portlet Ulearn Profile Community"
 #: ../controlportlets.py:192
 msgid "ulearn_profilecommunity"
+msgstr ""
+
+#. Default: "Habilitar portlet Ulearn Recent Changes"
+#: ../controlportlets.py:282
+msgid "ulearn_recentchanges"
 msgstr ""
 
 #. Default: "Habilitar portlet compartit amb mi"
