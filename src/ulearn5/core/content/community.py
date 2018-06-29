@@ -1101,6 +1101,9 @@ class communityAdder(form.SchemaForm):
 
             self.request.response.redirect(new_comunitat.absolute_url())
 
+    def terms(self):
+        return 'terms' in self.fields.keys()
+
 
 class communityEdit(form.SchemaForm):
     grok.name('editCommunity')
