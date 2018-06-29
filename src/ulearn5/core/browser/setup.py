@@ -56,7 +56,7 @@ logger = logging.getLogger(__name__)
 
 grok.templatedir("views_templates")
 NEWS_QUERY = [{'i': u'portal_type', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'News Item']},
-              {'i': u'review_state', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'published', u'intranet']},
+              {'i': u'review_state', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'published', u'intranet', u'esborrany']},
               {'i': u'path', 'o': u'plone.app.querystring.operation.string.relativePath', 'v': u'..'}]
 QUERY_SORT_ON = u'effective'
 

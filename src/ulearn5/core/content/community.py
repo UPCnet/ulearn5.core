@@ -1316,7 +1316,7 @@ class CommunityInitializeAdapter(object):
              },
             {'i': u'review_state',
              'o': u'plone.app.querystring.operation.selection.any',
-             'v': [u'published', u'intranet'],
+             'v': [u'published', u'intranet', u'esborrany'],
              },
             {'i': u'path',
              'o': u'plone.app.querystring.operation.string.relativePath',
