@@ -944,7 +944,7 @@ msgstr "No es pot crear una comunitat sense títol"
 #. Default: "Filtra per nom i/o per etiquetes:"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:33
 msgid "filter"
-msgstr "Filtra per títol i/o per etiquetes"
+msgstr "Filtra per text i/o per etiquetes:"
 
 #. Default: "busqueda..."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:96
@@ -2024,7 +2024,7 @@ msgstr "Idioma neutral (predeterminat del lloc)"
 #. Default: "Cerca"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:37
 msgid "write_doc"
-msgstr "Introdueix un títol"
+msgstr "Escull entre títol, descripció o contingut"
 
 #. Default: "Cerca"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:45
