@@ -56,7 +56,7 @@ logger = logging.getLogger(__name__)
 
 grok.templatedir("views_templates")
 NEWS_QUERY = [{'i': u'portal_type', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'News Item']},
-              {'i': u'review_state', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'published', u'intranet']},
+              {'i': u'review_state', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'published', u'intranet', u'esborrany']},
               {'i': u'path', 'o': u'plone.app.querystring.operation.string.relativePath', 'v': u'..'}]
 QUERY_SORT_ON = u'effective'
 
@@ -869,7 +869,7 @@ class migrationCommunities(grok.View):
 
                     if (community['id'] not in comunitats_no_migrar) and (community['id'] in comunitats_a_migrar or comunitats_a_migrar == ''):
 
-                        logger.info('Migrant comunitat {}'.format(community['title']))
+                        logger.info('Migrant comunitat {}'.format(community['title'].encode('utf-8')))
                         result = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=str(community['id']))
 
 
@@ -932,7 +932,12 @@ class migrationCommunities(grok.View):
 
                                 adapter.update_acl(community['editacl'])
                                 acl = adapter.get_acl()
-                                adapter.set_plone_permissions(acl)
+                                try:
+                                    adapter.set_plone_permissions(acl)
+                                except:
+                                    if acl['groups'] == u'':
+                                        acl['groups'] = []
+                                        adapter.set_plone_permissions(acl)
 
                                 # Communicate the change in the community subscription to the uLearnHub
                                 # XXX: Until we do not have a proper Hub online
@@ -985,7 +990,7 @@ class migrationDocumentsCommunities(grok.View):
                     if os.path.exists('/tmp/content_documents'):
                         shutil.rmtree('/tmp/content_documents')
                     if (community['id'] not in comunitats_no_migrar) and (community['id'] in comunitats_a_migrar or comunitats_a_migrar == ''):
-                        logger.info('Migrant comunitat {}'.format(community['title']))
+                        logger.info('Migrant comunitat {}'.format(community['title'].encode('utf-8')))
                         result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=/tmp',
                                                 headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                         if result.ok == False:
@@ -996,7 +1001,7 @@ class migrationDocumentsCommunities(grok.View):
 
                         if result.ok == True:
                             requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
-                            logger.info('He migrat la carpeta documents de: ' + community['title'])
+                            logger.info('He migrat la carpeta documents de: ' + community['title'].encode('utf-8'))
                 logger.info('Ha finalitzat la migració de les comunitats.')
 
 
@@ -1061,3 +1066,29 @@ class migrationEditaclCommunities(grok.View):
 
 
             logger.info('Ha finalitzat la migració del editacl de les comunitats.')
+
+
+class changePortalType(grok.View):
+    """ Change Portal Type ulearn5.owncloud.file_owncloud by  CloudFile """
+    grok.name('changeportaltype')
+    grok.context(IPloneSiteRoot)
+
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        pc = api.portal.get_tool('portal_catalog')
+        filesowncloud_old = pc.unrestrictedSearchResults(portal_type='ulearn5.owncloud.file_owncloud')
+
+        for file in filesowncloud_old:
+            obj = file.getObject()
+            obj.portal_type = 'CloudFile'
+            obj.reindexObject()
+
+        transaction.commit()
+
+        return 'Done'

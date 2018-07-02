@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-29 08:21+0000\n"
+"POT-Creation-Date: 2018-07-02 09:32+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -65,6 +65,10 @@ msgstr "Text que es mostrarà com a títol dels enllaços directes."
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:43
 msgid "All dates"
 msgstr "Totes les dates"
+
+#: ../content/community.py:1334
+msgid "Blog"
+msgstr "Blog"
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:126
 msgid "Buscar"
@@ -147,7 +151,7 @@ msgstr "Disseny"
 msgid "Discussion"
 msgstr "Debats"
 
-#: ../content/community.py:1270
+#: ../content/community.py:1273
 msgid "Documents"
 msgstr "Documents"
 
@@ -181,7 +185,7 @@ msgstr "Editar portlet Notícies destacades"
 msgid "Edit cancelled"
 msgstr "Edició cancel·lada"
 
-#: ../content/community.py:1148
+#: ../content/community.py:1151
 msgid "Edita la comunitat"
 msgstr "Desa"
 
@@ -197,7 +201,7 @@ msgstr "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 msgid "Entrada"
 msgstr "Entrada"
 
-#: ../content/community.py:1272
+#: ../content/community.py:1275
 msgid "Esdeveniments"
 msgstr "Esdeveniments"
 
@@ -325,7 +329,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr "Fer un article públic a la intranet vol dir que serà visible per als membres (lectors)."
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1271
+#: ../content/community.py:1274
 msgid "Media"
 msgstr "Media"
 
@@ -390,13 +394,13 @@ msgstr "Nom"
 msgid "Nom de la comunitat"
 msgstr "Nom de la comunitat"
 
-#: ../content/community.py:1273
+#: ../content/community.py:1276
 msgid "Noticies"
 msgstr "Notícies"
 
-#: ../content/community.py:1332
+#: ../content/community.py:1335
 msgid "Noticies de la comunitat"
-msgstr "Notícies de la comunitat"
+msgstr "Blog de notícies de la comunitat"
 
 #: ../content/community.py:209
 msgid "Notify activity and comments via push"
@@ -868,7 +872,7 @@ msgid "comunitat_existeix"
 msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1201
+#: ../content/community.py:1204
 msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
@@ -928,11 +932,13 @@ msgid "event_what"
 msgstr "Què"
 
 #. Default: "When"
+#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:38
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:27
 msgid "event_when"
 msgstr "Quan"
 
 #. Default: "Where"
+#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:43
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:66
 msgid "event_where"
 msgstr "On"
@@ -956,6 +962,11 @@ msgstr "Es necessari acceptar les condicions d'ús i privacitat per crear una co
 #: ../content/community.py:1042
 msgid "falta_titol"
 msgstr "No es pot crear una comunitat sense títol"
+
+#. Default: "Filtra per nom i/o per etiquetes:"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:33
+msgid "filter"
+msgstr "Filtra per text i/o per etiquetes:"
 
 #. Default: "busqueda..."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:99
@@ -1220,17 +1231,17 @@ msgid "help_stats_button"
 msgstr "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:42
+#: ../userschema.py:43
 msgid "help_telefon"
 msgstr "Contacte telefònic"
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:28
+#: ../userschema.py:29
 msgid "help_twitter"
 msgstr "Introdueix el teu nom d'usuari de Twitter"
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:35
+#: ../userschema.py:36
 msgid "help_ubicacio"
 msgstr "Equip, Àrea / Companyia / Departament"
 
@@ -1376,17 +1387,17 @@ msgid "label-newstoolbar"
 msgstr "Gestió Notícia"
 
 #. Default: "App"
-#: ../browser/viewlets_templates/newstoolbar.pt:77
+#: ../browser/viewlets_templates/newstoolbar.pt:71
 msgid "label-toogle-app"
 msgstr "App"
 
 #. Default: "Flash"
-#: ../browser/viewlets_templates/newstoolbar.pt:29
+#: ../browser/viewlets_templates/newstoolbar.pt:27
 msgid "label-toogle-flash"
 msgstr "Flash"
 
 #. Default: "Destacada"
-#: ../browser/viewlets_templates/newstoolbar.pt:51
+#: ../browser/viewlets_templates/newstoolbar.pt:47
 msgid "label-toogle-important"
 msgstr "Destacada"
 
@@ -1450,17 +1461,17 @@ msgid "label_subscribe_to_community"
 msgstr "Subscriure's a la comunitat"
 
 #. Default: "Telèfon"
-#: ../userschema.py:41
+#: ../userschema.py:42
 msgid "label_telefon"
 msgstr "Telèfon"
 
 #. Default: "Twitter username"
-#: ../userschema.py:27
+#: ../userschema.py:28
 msgid "label_twitter"
 msgstr "Twitter"
 
 #. Default: "Ubicació"
-#: ../userschema.py:34
+#: ../userschema.py:35
 msgid "label_ubicacio"
 msgstr "Ubicació"
 
@@ -1753,7 +1764,6 @@ msgstr "Retira a la intranet"
 # msgstr "Registre de configuració d'uLearn."
 #. Default: "Cerca"
 #: ../browser/stats_templates/statsview.pt:277
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:35
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:25
 msgid "search"
 msgstr "Cerca"
@@ -1767,11 +1777,6 @@ msgstr "Cerca comunitats"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:129
 msgid "search_site"
 msgstr "Cerca en el Lloc"
-
-#. Default: "Search tags"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:42
-msgid "search_tags"
-msgstr "Cerca etiquetes"
 
 #. Default: "Cerca"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:32
@@ -1836,19 +1841,19 @@ msgstr "Contingut compartit"
 #. Default: "Elements shared on this community"
 #: ../browser/sharing_templates/shared.pt:27
 msgid "shared_content_description"
-msgstr "Tots el contingut compartit per algun membre d'aquesta comunitat "
+msgstr "Tots els continguts compartits per algun membre d'aquesta comunitat "
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:74
-#: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:62
+#: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:9
 msgid "shared_content_title"
-msgstr "Contingut compartit"
+msgstr "Accés a tots els elements compartits amb usuaris que no pertanyen a aquesta comunitat"
 
 #. Default: "Shared with me"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
 #: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 msgid "shared_with_me"
-msgstr "Compartit amb mí"
+msgstr "Compartit amb mi"
 
 #. Default: "SharedWithMe"
 #: ulearn5/theme/portlets/sharedwithme.py:19
@@ -2095,3 +2100,13 @@ msgstr "Utilitza el lloc predeterminat"
 #: ../patches.py:448
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Idioma neutral (predeterminat del lloc)"
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:37
+msgid "write_doc"
+msgstr "Escull entre títol, descripció o contingut"
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:45
+msgid "write_tag"
+msgstr "Introdueix etiquetes"

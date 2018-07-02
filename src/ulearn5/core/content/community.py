@@ -1101,6 +1101,9 @@ class communityAdder(form.SchemaForm):
 
             self.request.response.redirect(new_comunitat.absolute_url())
 
+    def terms(self):
+        return 'terms' in self.fields.keys()
+
 
 class communityEdit(form.SchemaForm):
     grok.name('editCommunity')
@@ -1289,8 +1292,8 @@ class CommunityInitializeAdapter(object):
         behavior.setConstrainTypesMode(1)
 
         if is_activate_owncloud(self.context):
-            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ulearn5.owncloud.file_owncloud'))
-            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ulearn5.owncloud.file_owncloud'))
+            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
+            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
 
         else:
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder'))
@@ -1316,7 +1319,7 @@ class CommunityInitializeAdapter(object):
              },
             {'i': u'review_state',
              'o': u'plone.app.querystring.operation.selection.any',
-             'v': [u'published', u'intranet'],
+             'v': [u'published', u'intranet', u'esborrany'],
              },
             {'i': u'path',
              'o': u'plone.app.querystring.operation.string.relativePath',
@@ -1328,7 +1331,7 @@ class CommunityInitializeAdapter(object):
 
         # Create the aggregator with new criteria
         col_news = createContentInContainer(news, 'Collection', title='aggregator', checkConstraints=False)
-        col_news.setTitle(news.translate(_(u'Noticies')))
+        col_news.setTitle(news.translate(_(u'Blog')))
         col_news.setDescription(news.translate(_(u'Noticies de la comunitat')))
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON

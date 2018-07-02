@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-06-29 08:21+0000\n"
+"POT-Creation-Date: 2018-07-02 09:32+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -65,6 +65,10 @@ msgstr "Add the quick links by language"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:43
 msgid "All dates"
 msgstr "All dates"
+
+#: ../content/community.py:1334
+msgid "Blog"
+msgstr "Blog"
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:126
 msgid "Buscar"
@@ -147,7 +151,7 @@ msgstr "Design"
 msgid "Discussion"
 msgstr "Discussion"
 
-#: ../content/community.py:1270
+#: ../content/community.py:1273
 msgid "Documents"
 msgstr "Documents"
 
@@ -181,7 +185,7 @@ msgstr "Edit Subscribed News Portlet"
 msgid "Edit cancelled"
 msgstr "Editing canceled"
 
-#: ../content/community.py:1148
+#: ../content/community.py:1151
 msgid "Edita la comunitat"
 msgstr "Save"
 
@@ -198,7 +202,7 @@ msgid "Entrada"
 msgstr "Post"
 
 #. Default: "Eventos"
-#: ../content/community.py:1272
+#: ../content/community.py:1275
 msgid "Esdeveniments"
 msgstr "Events"
 
@@ -326,7 +330,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr "Making an item published to intranet means that it will be visible to the members (readers)."
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1271
+#: ../content/community.py:1274
 msgid "Media"
 msgstr "Media"
 
@@ -391,11 +395,11 @@ msgstr "Name"
 msgid "Nom de la comunitat"
 msgstr "Community's name"
 
-#: ../content/community.py:1273
+#: ../content/community.py:1276
 msgid "Noticies"
 msgstr "News"
 
-#: ../content/community.py:1332
+#: ../content/community.py:1335
 msgid "Noticies de la comunitat"
 msgstr "Community news"
 
@@ -871,7 +875,7 @@ msgid "comunitat_existeix"
 msgstr "Community ${comunitat} already exists, please choose a different name."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1201
+#: ../content/community.py:1204
 msgid "comunitat_modificada"
 msgstr "Community ${comunitat} has been modified."
 
@@ -931,11 +935,13 @@ msgid "event_what"
 msgstr "What"
 
 #. Default: "When"
+#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:38
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:27
 msgid "event_when"
 msgstr "When"
 
 #. Default: "Where"
+#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:43
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:66
 msgid "event_where"
 msgstr "Where"
@@ -959,6 +965,11 @@ msgstr "There is necessary to accept terms and conditions to create communities.
 #: ../content/community.py:1042
 msgid "falta_titol"
 msgstr "You can't create a community without a title"
+
+#. Default: "Filtra per nom i/o per etiquetes:"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:33
+msgid "filter"
+msgstr "Filter by text and/or by tags:"
 
 #. Default: "busqueda..."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:99
@@ -1223,17 +1234,17 @@ msgid "help_stats_button"
 msgstr "Show or not the button to access daily statistics stats / stats and activity / chats"
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:42
+#: ../userschema.py:43
 msgid "help_telefon"
 msgstr "Contacte telefònic"
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:28
+#: ../userschema.py:29
 msgid "help_twitter"
 msgstr "Fill in your Twitter username."
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:35
+#: ../userschema.py:36
 msgid "help_ubicacio"
 msgstr "Computer area / Company / Department"
 
@@ -1379,17 +1390,17 @@ msgid "label-newstoolbar"
 msgstr "Manage news:"
 
 #. Default: "App"
-#: ../browser/viewlets_templates/newstoolbar.pt:77
+#: ../browser/viewlets_templates/newstoolbar.pt:71
 msgid "label-toogle-app"
 msgstr "App"
 
 #. Default: "Flash"
-#: ../browser/viewlets_templates/newstoolbar.pt:29
+#: ../browser/viewlets_templates/newstoolbar.pt:27
 msgid "label-toogle-flash"
 msgstr "Flash"
 
 #. Default: "Destacada"
-#: ../browser/viewlets_templates/newstoolbar.pt:51
+#: ../browser/viewlets_templates/newstoolbar.pt:47
 msgid "label-toogle-important"
 msgstr "Important"
 
@@ -1453,17 +1464,17 @@ msgid "label_subscribe_to_community"
 msgstr "Subscribe to community"
 
 #. Default: "Telèfon"
-#: ../userschema.py:41
+#: ../userschema.py:42
 msgid "label_telefon"
 msgstr "Phone"
 
 #. Default: "Twitter username"
-#: ../userschema.py:27
+#: ../userschema.py:28
 msgid "label_twitter"
 msgstr "Twitter username"
 
 #. Default: "Ubicació"
-#: ../userschema.py:34
+#: ../userschema.py:35
 msgid "label_ubicacio"
 msgstr "Location"
 
@@ -1754,7 +1765,6 @@ msgstr "Withdraw to intranet"
 
 #. Default: "Cerca"
 #: ../browser/stats_templates/statsview.pt:277
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:35
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:25
 msgid "search"
 msgstr "Search"
@@ -1768,11 +1778,6 @@ msgstr "Search"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:129
 msgid "search_site"
 msgstr "Search on the Site"
-
-#. Default: "Search tags"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:42
-msgid "search_tags"
-msgstr "Search tags"
 
 #. Default: "Cerca"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:32
@@ -1840,10 +1845,10 @@ msgid "shared_content_description"
 msgstr "All content shared by any member of this community"
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:74
-#: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:21
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:62
+#: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:9
 msgid "shared_content_title"
-msgstr "Shared content"
+msgstr "Access to all elements shared with foreign users from this community"
 
 #. Default: "Shared with me"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:38
@@ -2096,3 +2101,13 @@ msgstr "Use site default"
 #: ../patches.py:448
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Language neutral (site default)"
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:37
+msgid "write_doc"
+msgstr "Choose between title, description or content"
+
+#. Default: "Cerca"
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:45
+msgid "write_tag"
+msgstr "Enter tags"
