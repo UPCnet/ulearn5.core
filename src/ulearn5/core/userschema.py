@@ -20,6 +20,7 @@ from zope.component import adapts
 from ulearn5.core import _
 from ulearn5.core.interfaces import IUlearn5CoreLayer
 from ulearn5.core.widgets.fieldset_widget import FieldsetFieldWidget
+from ulearn5.core.widgets.max_portrait_widget import MaxPortraitFieldWidget
 
 
 class IUlearnUserSchema(model.Schema):
@@ -73,6 +74,7 @@ class UlearnUserDataPanelExtender(extensible.FormExtender):
         # fields['fieldset_private'].widgetFactory = FieldsetFieldWidget
         # fields = fields.omit('telefon') # Si queremos quitar alguno de los que hemos añadido
         # self.remove('home_page') # Si queremos quitar los de la base (plone.app.users)
+        self.form.fields['portrait'].widgetFactory = MaxPortraitFieldWidget
 
         self.add(fields)
 
