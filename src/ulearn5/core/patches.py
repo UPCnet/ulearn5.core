@@ -320,7 +320,7 @@ from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtilitiesFor
 from plone.protect.utils import addTokenToUrl
-from ulearn5.core import _
+from ulearn5.core import _ as _UMF
 from zope.component.hooks import getSite
 
 
@@ -342,8 +342,8 @@ def getPortletMenuItems(self, context, request):
         portal_url = getSite().absolute_url()
 
         items.append({
-            'title': _(u'manage_homepage_portlets_title', default=u'Homepage'),
-            'description': _(u'manage_homepage_portlets_description', default=u'Manage homepage portlets'),
+            'title': _UMF(u'manage_homepage_portlets_title', default=u'Homepage'),
+            'description': _UMF(u'manage_homepage_portlets_description', default=u'Manage homepage portlets'),
             'action': addTokenToUrl(
                 '{0}/front-page/@@manage-portletsbelowtitlecontent'.format(
                     portal_url),
@@ -380,11 +380,11 @@ def getPortletMenuItems(self, context, request):
             }
 
             if manager_name == 'plone.leftcolumn':
-                item['title'] = _(u'manage_left_portlets_title', default=u'Left')
-                item['description'] = _(u'manage_left_portlets_description', default=u'Manage left portlets')
+                item['title'] = _UMF(u'manage_left_portlets_title', default=u'Left')
+                item['description'] = _UMF(u'manage_left_portlets_description', default=u'Manage left portlets')
             elif manager_name == 'plone.rightcolumn':
-                item['title'] = _(u'manage_right_portlets_title', default=u'Right')
-                item['description'] = _(u'manage_right_portlets_description', default=u'Manage right portlets')
+                item['title'] = _UMF(u'manage_right_portlets_title', default=u'Right')
+                item['description'] = _UMF(u'manage_right_portlets_description', default=u'Manage right portlets')
 
             items.append(item)
 
