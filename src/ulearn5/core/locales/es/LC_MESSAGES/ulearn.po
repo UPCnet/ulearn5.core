@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-07-02 09:32+0000\n"
+"POT-Creation-Date: 2018-07-03 09:56+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -58,6 +58,10 @@ msgstr "Añadir una carpeta privada"
 msgid "Add awesome icon"
 msgstr "Añadir fontawesome"
 
+#: ../behaviors.zcml:29
+msgid "Add field terms"
+msgstr "Añadir campo de términos de uso"
+
 #: ../controlpanel.py:297
 msgid "Add the quick links by language"
 msgstr "Texto que mostrará como título de los enlaces directos"
@@ -83,7 +87,7 @@ msgstr "Calendario"
 msgid "Can only be seen and edited by the owner."
 msgstr "Solo puede ser visto y editado por el propietario."
 
-#: ../controlpanel.py:415
+#: ../controlpanel.py:427
 #: ../controlportlets.py:358
 msgid "Cancel"
 msgstr "Cancelar"
@@ -96,7 +100,7 @@ msgstr "Buscar"
 msgid "Changes made."
 msgstr "Cambios realizados correctamente."
 
-#: ../controlpanel.py:412
+#: ../controlpanel.py:424
 msgid "Changes saved"
 msgstr "Cambios guardados"
 
@@ -180,7 +184,7 @@ msgstr "Editar portlet cambios recientes"
 msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícias suscritas"
 
-#: ../controlpanel.py:417
+#: ../controlpanel.py:429
 #: ../controlportlets.py:360
 msgid "Edit cancelled"
 msgstr "Edición cancelada"
@@ -239,7 +243,7 @@ msgstr "Genweb intranet workflow"
 msgid "Go to homepage"
 msgstr "Inicio"
 
-#: ../controlpanel.py:403
+#: ../controlpanel.py:415
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr "Has marcado la opción de compartir pero falta la URL del Elasticsearch."
 
@@ -549,7 +553,7 @@ msgstr "Rol para las noticias dentro de la intranet (Permite el borrador y la re
 
 #: ../browser/sharing_templates/sharing.pt:124
 #: ../content/community_templates/editacl.pt:93
-#: ../controlpanel.py:367
+#: ../controlpanel.py:379
 msgid "Save"
 msgstr "Guardar"
 
@@ -578,6 +582,10 @@ msgstr "Lista de las personas propietarias de la comunidad"
 #: ../content/community.py:164
 msgid "Subscribed people with read-only permissions"
 msgstr "Lista de las personas suscritas con permiso de lectura"
+
+#: ../behaviors.zcml:29
+msgid "Terms"
+msgstr "Términos de uso"
 
 #: ../controlpanel.py:35
 msgid "Text"
@@ -672,7 +680,7 @@ msgstr "Ulearn Participantes"
 msgid "Ulearn discussion"
 msgstr "Ulearn Debates"
 
-#: ../controlpanel.py:357
+#: ../controlpanel.py:366
 msgid "Ulearn settings"
 msgstr "Configuración de uLearn"
 
@@ -719,10 +727,15 @@ msgstr "En espera de ser revisado, no editable por el propietario."
 msgid "Workflow state"
 msgstr "Estado workflow"
 
-#. Default: "* He llegit i accepto les <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">condicions d'us.</a>"
-#: ../content/community_templates/communityadder.pt:12
-msgid "accepto_condicions"
-msgstr "* He leído y acepto las <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">condiciones de uso.</a>"
+#. Default: "He llegit i accepto les"
+#: ../widgets/templates/terms.pt:38
+msgid "accepto_condicions_1"
+msgstr "He leido y acepto las"
+
+#. Default: "condicions d'us"
+#: ../widgets/templates/terms.pt:40
+msgid "accepto_condicions_2"
+msgstr "condiciones de uso"
 
 #. Default: "Mostra les noticies a les que estic subscrit"
 #: ../controlpanel.py:148
@@ -892,6 +905,10 @@ msgstr "Teléfono"
 #: ulearn5/theme/portlets/templates/communities.pt:169
 msgid "createcommunity"
 msgstr "Crea una nueva comunidad"
+
+#: ../behaviors/terms.py:25
+msgid "description_terms_of_user"
+msgstr "Es necesario aceptar las condiciones de uso y privacidad para crear una comunidad."
 
 #. Default: "Discussion portlet"
 #: ulearn5/theme/portlets/discussion.py:34
@@ -1308,7 +1325,7 @@ msgid "help_ulearn_recentchanges"
 msgstr "Habilitar el portlet que muestra los cambios recientes en el contenido."
 
 #. Default: "uLearn configuration registry."
-#: ../controlpanel.py:358
+#: ../controlpanel.py:367
 msgid "help_ulearn_settings_editform"
 msgstr "Configuración de uLearn"
 
@@ -1326,6 +1343,11 @@ msgstr "Habilitar el portlet para ver las estadísticas."
 #: ../controlportlets.py:203
 msgid "help_ulearn_thinkers"
 msgstr "Habilitar el portlet donde mostrar los usuarios, con la búsqueda."
+
+#. Default: "Url of the terms of use."
+#: ../controlpanel.py:354
+msgid "help_url_terms"
+msgstr "URL de los términos de uso"
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
 #: ../personalpreferences.py:34
@@ -1941,6 +1963,10 @@ msgstr "Descarga este evento en formato iCal"
 msgid "title_personal_information_form"
 msgstr "Información personal"
 
+#: ../behaviors/terms.py:24
+msgid "title_terms_of_user"
+msgstr "Términos de uso"
+
 #: ulearn5/theme/portlets/templates/calendar.pt:112
 msgid "to"
 msgstr "al"
@@ -2066,6 +2092,11 @@ msgstr "Habilitar portlet Ulearn Estadísticas"
 #: ../controlportlets.py:201
 msgid "ulearn_thinkers"
 msgstr "Habilitar portlet Ulearn Personas"
+
+#. Default: "Url terms of use"
+#: ../controlpanel.py:352
+msgid "url_terms"
+msgstr "URL de los términos de uso"
 
 #. Default: "video_embed"
 #: ../profiles/default/types/ulearn.video_embed.xml

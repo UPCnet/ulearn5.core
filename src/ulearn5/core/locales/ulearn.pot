@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-02 09:32+0000\n"
+"POT-Creation-Date: 2018-07-03 09:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,6 +59,10 @@ msgstr ""
 msgid "Add awesome icon"
 msgstr ""
 
+#: ../behaviors.zcml:29
+msgid "Add field terms"
+msgstr ""
+
 #: ../controlpanel.py:297
 msgid "Add the quick links by language"
 msgstr ""
@@ -84,7 +88,7 @@ msgstr ""
 msgid "Can only be seen and edited by the owner."
 msgstr ""
 
-#: ../controlpanel.py:415
+#: ../controlpanel.py:427
 #: ../controlportlets.py:358
 msgid "Cancel"
 msgstr ""
@@ -97,7 +101,7 @@ msgstr ""
 msgid "Changes made."
 msgstr ""
 
-#: ../controlpanel.py:412
+#: ../controlpanel.py:424
 msgid "Changes saved"
 msgstr ""
 
@@ -181,7 +185,7 @@ msgstr ""
 msgid "Edit Subscribed News Portlet"
 msgstr ""
 
-#: ../controlpanel.py:417
+#: ../controlpanel.py:429
 #: ../controlportlets.py:360
 msgid "Edit cancelled"
 msgstr ""
@@ -240,7 +244,7 @@ msgstr ""
 msgid "Go to homepage"
 msgstr ""
 
-#: ../controlpanel.py:403
+#: ../controlpanel.py:415
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr ""
 
@@ -550,7 +554,7 @@ msgstr ""
 
 #: ../browser/sharing_templates/sharing.pt:124
 #: ../content/community_templates/editacl.pt:93
-#: ../controlpanel.py:367
+#: ../controlpanel.py:379
 msgid "Save"
 msgstr ""
 
@@ -578,6 +582,10 @@ msgstr ""
 
 #: ../content/community.py:164
 msgid "Subscribed people with read-only permissions"
+msgstr ""
+
+#: ../behaviors.zcml:29
+msgid "Terms"
 msgstr ""
 
 #: ../controlpanel.py:35
@@ -673,7 +681,7 @@ msgstr ""
 msgid "Ulearn discussion"
 msgstr ""
 
-#: ../controlpanel.py:357
+#: ../controlpanel.py:366
 msgid "Ulearn settings"
 msgstr ""
 
@@ -720,9 +728,14 @@ msgstr ""
 msgid "Workflow state"
 msgstr ""
 
-#. Default: "* He llegit i accepto les <a href=\"https://serveistic.upc.edu/ca/comunitats-upc/el-servei/normativa\" target=\"_blank\">condicions d'us.</a>"
-#: ../content/community_templates/communityadder.pt:12
-msgid "accepto_condicions"
+#. Default: "He llegit i accepto les"
+#: ../widgets/templates/terms.pt:38
+msgid "accepto_condicions_1"
+msgstr ""
+
+#. Default: "condicions d'us"
+#: ../widgets/templates/terms.pt:40
+msgid "accepto_condicions_2"
 msgstr ""
 
 #. Default: "Mostra les noticies a les que estic subscrit"
@@ -892,6 +905,10 @@ msgstr ""
 #. Default: "Create a new community"
 #: ulearn5/theme/portlets/templates/communities.pt:169
 msgid "createcommunity"
+msgstr ""
+
+#: ../behaviors/terms.py:25
+msgid "description_terms_of_user"
 msgstr ""
 
 #. Default: "Discussion portlet"
@@ -1309,7 +1326,7 @@ msgid "help_ulearn_recentchanges"
 msgstr ""
 
 #. Default: "uLearn configuration registry."
-#: ../controlpanel.py:358
+#: ../controlpanel.py:367
 msgid "help_ulearn_settings_editform"
 msgstr ""
 
@@ -1326,6 +1343,11 @@ msgstr ""
 #. Default: "Habilita el portlet on es mostren els usuaris, amb la cerca ."
 #: ../controlportlets.py:203
 msgid "help_ulearn_thinkers"
+msgstr ""
+
+#. Default: "Url of the terms of use."
+#: ../controlpanel.py:354
+msgid "help_url_terms"
 msgstr ""
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
@@ -1941,6 +1963,10 @@ msgstr ""
 msgid "title_personal_information_form"
 msgstr ""
 
+#: ../behaviors/terms.py:24
+msgid "title_terms_of_user"
+msgstr ""
+
 #: ulearn5/theme/portlets/templates/calendar.pt:112
 msgid "to"
 msgstr ""
@@ -2065,6 +2091,11 @@ msgstr ""
 #. Default: "Habilitar portlet Ulearn Thinkers"
 #: ../controlportlets.py:201
 msgid "ulearn_thinkers"
+msgstr ""
+
+#. Default: "Url terms of use"
+#: ../controlpanel.py:352
+msgid "url_terms"
 msgstr ""
 
 #. Default: "video_embed"

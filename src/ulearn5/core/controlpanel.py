@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
-from zope import schema
-from zope.component import getUtility
-from z3c.form import button
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-
-from plone.supermodel import model
-from plone.directives import dexterity, form
-from plone.app.registry.browser import controlpanel
-
-from Products.statusmessages.interfaces import IStatusMessage
-
-from ulearn5.core import _
-from mrs5.max.utilities import IMAXClient
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
+from plone.app.registry.browser import controlpanel
+from plone.directives import dexterity, form
+from plone.supermodel import model
 from plone import api
-import transaction
+from Products.statusmessages.interfaces import IStatusMessage
+from z3c.form import button
+from zope import schema
+from zope.component import getUtility
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+
+from mrs5.max.utilities import IMAXClient
+
+from ulearn5.core import _
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
+
+import transaction
 
 
 communityActivityView = SimpleVocabulary(
@@ -80,7 +80,7 @@ class IUlearnControlPanelSettings(model.Schema):
 
     model.fieldset('Communities',
                    _(u'Communities'),
-                   fields=['activity_view', 'show_literals'])
+                   fields=['activity_view', 'show_literals', 'url_terms'])
 
     campus_url = schema.TextLine(
         title=_(u'campus_url',
@@ -348,6 +348,15 @@ class IUlearnControlPanelSettings(model.Schema):
         default=False,
     )
 
+    url_terms = schema.TextLine(
+        title=_(u'url_terms',
+                default=_(u"Url terms of use")),
+        description=_(u'help_url_terms',
+                      default=_(u"Url of the terms of use.")),
+        required=False,
+        default=u'',
+    )
+
 
 class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
     """ Ulearn settings form """
@@ -363,6 +372,9 @@ class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
 
     def updateWidgets(self):
         super(UlearnControlPanelSettingsForm, self).updateWidgets()
+        # registry = queryUtility(IRegistry)
+        # ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
+        # self.widgets['url_terms'].mode = 'hidden'
 
     @button.buttonAndHandler(_('Save'), name=None)
     def handleSave(self, action):
