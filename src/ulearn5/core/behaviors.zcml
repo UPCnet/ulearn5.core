@@ -23,8 +23,8 @@
   <plone:behavior
       title="Terms"
       description="Add field terms"
-      provides=".behaviors.terms_of_user.ITerms"
-      factory=".behaviors.terms_of_user.Terms"
+      provides=".behaviors.terms.ITerms"
+      factory=".behaviors.terms.Terms"
       for="plone.dexterity.interfaces.IDexterityContent"
       />
 
