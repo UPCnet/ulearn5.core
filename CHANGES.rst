@@ -2,11 +2,28 @@ Changelog
 =========
 
 
-0.6 (unreleased)
+0.6 (2018-07-03)
 ----------------
 
-- Nothing changed yet.
-
+* Terminos de uso [iago.lopez]
+* update viewlets for news item [root@comunitatsdevel]
+* update colection criteria with draft state [alberto.duran]
+* traduccions [alberto.duran]
+* traduccions [alberto.duran]
+* add description for addable types [alberto.duran]
+* traduccions [alberto.duran]
+* traduccions [alberto.duran]
+* Modify portal_type ulearn5.owncloud.file_owncloud by CloudFile [Pilar Marinas]
+* traduccions [alberto.duran]
+* update migrator communities [alberto.duran]
+* Traduucciones [iago.lopez]
+* add missing template for migration [alberto.duran]
+* migrationDocumentsCommunity [alberto.duran]
+* Posibilitat de migrar nomes una o varies comunitats [Pilar Marinas]
+* Vista migracion comunidades de plone 4 a 5 [Pilar Marinas]
+* Traduccions [alberto.duran]
+* Traduccions [alberto.duran]
+* Checkbox comunitat obligatori amb missatge plone [alberto.duran]
 
 0.5 (2018-06-07)
 ----------------
