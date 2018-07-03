@@ -293,15 +293,26 @@ class createCustomizedHeaderFolder(grok.View):
 
         header = newPrivateFolder(gestion, 'header', u'Header')
         header.exclude_from_nav = False
-        header.description = description
         header.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(header)
         behavior.setConstrainTypesMode(1)
-        behavior.setLocallyAllowedTypes(('Image',))
-        behavior.setImmediatelyAddableTypes(('Image',))
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
+            language_folder = newPrivateFolder(header, language, language)
+            language_folder.exclude_from_nav = False
+            language_folder.setLayout('folder_listing')
+            language_folder.description = description
+            language_folder.reindexObject()
+            behavior = ISelectableConstrainTypes(language_folder)
+            behavior.setConstrainTypesMode(1)
+            behavior.setLocallyAllowedTypes(('Image',))
+            behavior.setImmediatelyAddableTypes(('Image',))
 
         header.reindexObject()
         return 'Done'
+
 
 
 class createCustomizedFooterFolder(grok.View):
