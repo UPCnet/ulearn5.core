@@ -997,7 +997,7 @@ msgstr "Search..."
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.pt:11
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:45
 msgid "flashesinformativos"
-msgstr "Informational flashes"
+msgstr "Last hour"
 
 #. Default: "Go to the campus"
 #: ulearn5/theme/portlets/templates/communities.pt:157

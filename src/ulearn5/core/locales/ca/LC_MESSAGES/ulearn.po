@@ -994,7 +994,7 @@ msgstr "Cerca..."
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.pt:11
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:45
 msgid "flashesinformativos"
-msgstr "Flashes informatius"
+msgstr "Última hora"
 
 #. Default: "Go to the campus"
 #: ulearn5/theme/portlets/templates/communities.pt:157
