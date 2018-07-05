@@ -58,6 +58,8 @@ from ulearn5.owncloud.utils import update_owncloud_permission
 from ulearn5.owncloud.utilities import IOwncloudClient
 from ulearn5.owncloud.api.owncloud import Client, HTTPResponseError, OCSResponseError
 from DateTime.DateTime import DateTime
+from plone.app.layout.navigation.root import getNavigationRootObject
+from ulearn5.owncloud.utils import get_domain
 
 import json
 import logging
@@ -1376,6 +1378,25 @@ def delete_community(community, event):
     try:
         adapter = community.adapted()
         adapter.delete_community_all()
+        portal = api.portal.get()
+        if is_activate_owncloud(portal):
+            portal_state = community.unrestrictedTraverse('@@plone_portal_state')
+            root = getNavigationRootObject(community, portal_state.portal())
+            ppath = community.getPhysicalPath()
+            relative = ppath[len(root.getPhysicalPath()):]
+            path = "/".join(relative)
+            client = getUtility(IOwncloudClient)
+            session = client.admin_connection()
+            try:
+                domain = get_domain()
+                session.file_info(domain + '/' + path)
+                session.delete(domain + '/' + path)
+            except OCSResponseError:
+                pass
+            except HTTPResponseError as err:
+                if err.status_code == 404:
+                    logger.warning('The object {} has not been removed in owncloud'.format(path))
+
     except:
         logger.error('There was an error deleting the community {}'.format(community.absolute_url()))
 
