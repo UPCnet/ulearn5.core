@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.7 (unreleased)
+0.7 (2018-07-05)
 ----------------
 
-- Nothing changed yet.
-
+* Modify hooks community remove [Pilar Marinas]
 
 0.6 (2018-07-03)
 ----------------
