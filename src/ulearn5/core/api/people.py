@@ -369,6 +369,44 @@ class Person(REST):
                                    reindex,
                                    recursive)
 
+    @api_resource(required=['username'])
+    def PUT(self):
+        """
+            Modify displayName user
+
+            /api/people/{username}
+
+            data = {'displayName':'Nom Cognom'}
+
+        """
+        existing_user = api.user.get(username=self.params['username'].lower())
+        maxclient, settings = getUtility(IMAXClient)()
+        maxclient.setActor(settings.max_restricted_username)
+        maxclient.setToken(settings.max_restricted_token)
+
+        if existing_user:
+            if 'displayName' in self.params:
+                # Update portal membership user properties
+                existing_user.setMemberProperties({'fullname': self.params['displayName']})
+                properties = get_all_user_properties(existing_user)
+                add_user_to_catalog(existing_user, properties, overwrite=True)
+                username=self.params['username'].lower()
+                # Update max
+                maxclient.people[username].put(displayName=properties['fullname'])
+                status = maxclient.last_response_code
+            else:
+                status = 500
+        else:
+            status = 404
+
+        if status == 404:
+            return ApiResponse.from_string('User {} not found'.format(self.params['username'].lower()), code=status)
+        elif status == 200:
+            return ApiResponse.from_string('User {} updated'.format(self.params['username'].lower()), code=status)
+        elif status == 500:
+            return ApiResponse.from_string('User {} not updated. Not displayName.'.format(self.params['username'].lower()), code=status)
+
+
     # @api_resource(required=['username', 'email'])
     # def PUT(self):
     #     """
