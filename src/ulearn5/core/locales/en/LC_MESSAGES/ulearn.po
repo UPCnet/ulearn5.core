@@ -1,7 +1,8 @@
+
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-07-03 09:56+0000\n"
+"POT-Creation-Date: 2018-07-16 06:32+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -88,7 +89,7 @@ msgid "Can only be seen and edited by the owner."
 msgstr "Can only be seen and edited by the owner."
 
 #: ../controlpanel.py:427
-#: ../controlportlets.py:358
+#: ../controlportlets.py:367
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -109,7 +110,8 @@ msgid "Changes saved."
 msgstr "Changes saved"
 
 #: ../content/community.py:107
-#: ulearn5/theme/portlets/templates/communities.pt:65
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:35
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:63
 msgid "Closed"
 msgstr "Closed"
 
@@ -185,7 +187,7 @@ msgid "Edit Subscribed News Portlet"
 msgstr "Edit Subscribed News Portlet"
 
 #: ../controlpanel.py:429
-#: ../controlportlets.py:360
+#: ../controlportlets.py:369
 msgid "Edit cancelled"
 msgstr "Editing canceled"
 
@@ -424,12 +426,14 @@ msgid "Number of items to display"
 msgstr "Number of items to display"
 
 #: ../content/community.py:102
-#: ulearn5/theme/portlets/templates/communities.pt:108
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:36
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:64
 msgid "Open"
 msgstr "Open"
 
 #: ../content/community.py:112
-#: ulearn5/theme/portlets/templates/communities.pt:22
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:37
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:65
 msgid "Organizative"
 msgstr "Organisational"
 
@@ -451,7 +455,7 @@ msgstr "Pending reviewer queue"
 msgid "Personal Preferences"
 msgstr "Personal Preferences"
 
-#: ../controlportlets.py:297
+#: ../controlportlets.py:306
 msgid "Portlets settings"
 msgstr "Portlets settings"
 
@@ -510,7 +514,7 @@ msgstr "Quick Links"
 msgid "Readers"
 msgstr "Readers"
 
-#: ulearn5/theme/portlets/recentchanges/recentchanges.py:25
+#: ulearn5/theme/portlets/recentchanges/recentchanges.py:45
 msgid "Recent changes"
 msgstr "Recent changes"
 
@@ -638,12 +642,9 @@ msgstr "Time of the last transition"
 msgid "Tipus de comunitat"
 msgstr "Type of community"
 
-#: ulearn5/theme/portlets/recentchanges/recentchanges.py:24
-msgid "Title"
-msgstr "Title"
-
 #: ../browser/stats.py:69
 #: ../browser/viewlets.py:63
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:34
 msgid "Todas las comunidades"
 msgstr "All communities"
 
@@ -989,13 +990,14 @@ msgid "filter"
 msgstr "Filter by text and/or by tags:"
 
 #. Default: "busqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:99
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:120
 msgid "find_label"
 msgstr "Search..."
 
-#. Default: "Flashes Informativos"
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.pt:11
+#. Default: "Last hour"
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.pt:12
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:45
+#, fuzzy
 msgid "flashesinformativos"
 msgstr "Last hour"
 
@@ -1208,7 +1210,7 @@ msgid "help_portlets_rss"
 msgstr "Enable portlet RSS."
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:298
+#: ../controlportlets.py:307
 msgid "help_portlets_settings_editform"
 msgstr "Settings Portlets. Configure allowed Portlets."
 
@@ -1339,6 +1341,11 @@ msgstr "Ulearn settings"
 #: ../controlportlets.py:221
 msgid "help_ulearn_sharedwithme"
 msgstr "Enable Shared With Me Portlet."
+
+#. Default: "Habilita el portlet del carrousel multimedia."
+#: ../controlportlets.py:293
+msgid "help_ulearn_smart"
+msgstr "Enable the portlet of the multimedia carrousel."
 
 #. Default: "Habilita el portlet per a veure les estadístiques."
 #: ../controlportlets.py:275
@@ -1768,7 +1775,7 @@ msgid "quicklinks_icon"
 msgstr "Icon Font Awesome"
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:132
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:153
 msgid "readmore"
 msgstr "Read more..."
 
@@ -1792,7 +1799,7 @@ msgid "search"
 msgstr "Search"
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:25
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:26
 #: ulearn5/theme/browser/views_templates/communities.pt:29
 msgid "search_communities"
 msgstr "Search"
@@ -2088,6 +2095,11 @@ msgstr "Enable portlet Ulearn Recent Changes"
 #: ../controlportlets.py:219
 msgid "ulearn_sharedwithme"
 msgstr "Enable portlet Ulearn Shared With Me portlet"
+
+#. Default: "Habilitar portlet Ulearn Smartportlet"
+#: ../controlportlets.py:291
+msgid "ulearn_smart"
+msgstr "Enable portlet Smart"
 
 #. Default: "Habilitar portlet Ulearn Stats"
 #: ../controlportlets.py:273

@@ -286,6 +286,15 @@ class IPortletsSettings(Interface):
         required=False,
         default=False,
     )
+
+    ulearn_portlets_smartportlet = schema.Bool(
+        title=_(u'ulearn_smart',
+                default=_(u"Habilitar portlet Ulearn Smartportlet")),
+        description=_(u'help_ulearn_smart',
+                      default=_(u"Habilita el portlet del carrousel multimedia.")),
+        required=False,
+        default=False,
+    )
     # ==== FIN Portlets ====
 
 
