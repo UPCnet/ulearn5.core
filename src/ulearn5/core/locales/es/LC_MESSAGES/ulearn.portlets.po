@@ -59,6 +59,9 @@ msgstr "Portlet Static"
 msgid "collective_polls_VotePortlet"
 msgstr "Portlet Encuestas"
 
+msgid "base_portlets_recentchanges"
+msgstr "Portlet Ulearn Cambios recientes"
+
 msgid "ulearn_portlets_mytags"
 msgstr "Portlet Ulearn Mis etiquetas"
 
@@ -103,6 +106,3 @@ msgstr "Portlet Ulearn eConnect"
 
 msgid "ulearn_portlets_stats"
 msgstr "Portlet Ulearn Estadísticas"
-
-msgid "ulearn_portlets_recentchanges"
-msgstr "Portlet Ulearn Cambios recientes"

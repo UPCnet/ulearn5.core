@@ -2088,7 +2088,7 @@ msgstr ""
 msgid "ulearn_sharedwithme"
 msgstr ""
 
-#. Default: "Habilitar portlet Ulearn Smartportlet"
+#. Default: "Habilitar portlet Smart"
 #: ../controlportlets.py:291
 msgid "ulearn_smart"
 msgstr ""

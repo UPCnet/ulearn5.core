@@ -2096,7 +2096,7 @@ msgstr "Enable portlet Ulearn Recent Changes"
 msgid "ulearn_sharedwithme"
 msgstr "Enable portlet Ulearn Shared With Me portlet"
 
-#. Default: "Habilitar portlet Ulearn Smartportlet"
+#. Default: "Habilitar portlet Smart"
 #: ../controlportlets.py:291
 msgid "ulearn_smart"
 msgstr "Enable portlet Smart"

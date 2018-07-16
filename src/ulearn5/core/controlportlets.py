@@ -143,6 +143,15 @@ class IPortletsSettings(Interface):
         default=False,
     )
 
+    base_portlets_smart = schema.Bool(
+        title=_(u'ulearn_smart',
+                default=_(u"Habilitar portlet Smart")),
+        description=_(u'help_ulearn_smart',
+                      default=_(u"Habilita el portlet del carrousel multimedia.")),
+        required=False,
+        default=False,
+    )
+
     ulearn_portlets_mytags = schema.Bool(
         title=_(u'ulearn_portlets_mytags',
                 default=_(u"Habilitar portlet ulearn_portlets_mytags")),
@@ -283,15 +292,6 @@ class IPortletsSettings(Interface):
                 default=_(u"Habilitar portlet Ulearn Recent Changes")),
         description=_(u'help_ulearn_recentchanges',
                       default=_(u"Habilita el portlet per veure els canvis recents.")),
-        required=False,
-        default=False,
-    )
-
-    ulearn_portlets_smartportlet = schema.Bool(
-        title=_(u'ulearn_smart',
-                default=_(u"Habilitar portlet Ulearn Smartportlet")),
-        description=_(u'help_ulearn_smart',
-                      default=_(u"Habilita el portlet del carrousel multimedia.")),
         required=False,
         default=False,
     )

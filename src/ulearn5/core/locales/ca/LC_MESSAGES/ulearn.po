@@ -2094,10 +2094,10 @@ msgstr "Habilitar portlet Ulearn Canvis recents"
 msgid "ulearn_sharedwithme"
 msgstr "Habilitar portlet Ulearn Compartit amb mi"
 
-#. Default: "Habilitar portlet Ulearn Smartportlet"
+#. Default: "Habilitar portlet Smart"
 #: ../controlportlets.py:291
 msgid "ulearn_smart"
-msgstr "Habilitar portlet Ulearn Smartportlet"
+msgstr "Habilitar portlet Smart"
 
 #. Default: "Habilitar portlet Ulearn Stats"
 #: ../controlportlets.py:273
