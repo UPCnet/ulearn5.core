@@ -993,7 +993,6 @@ msgstr "Cerca..."
 #. Default: "Last hour"
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.pt:12
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:45
-#, fuzzy
 msgid "flashesinformativos"
 msgstr "Última hora"
 
