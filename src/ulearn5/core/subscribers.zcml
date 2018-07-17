@@ -35,6 +35,12 @@
              zope.container.interfaces.IObjectAddedEvent"
         />
 
+    <subscriber
+        handler=".hooks.Added"
+        for="plone.app.contenttypes.interfaces.INewsItem
+             zope.container.interfaces.IObjectAddedEvent"
+        />
+
     <!-- Modified Event Subscriber -->
     <subscriber
         handler=".hooks.Modified"

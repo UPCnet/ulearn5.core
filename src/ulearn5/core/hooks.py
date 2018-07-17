@@ -40,15 +40,15 @@ import transaction
 logger = logging.getLogger(__name__)
 
 articles = {
-    'ca': dict(File=u'un', Image=u'una', Link=u'un', Event=u'un'),
-    'es': dict(File=u'un', Image=u'una', Link=u'un', Event=u'un'),
-    'en': dict(File=u'a', Image=u'an', Link=u'a', Event=u'an'),
+    'ca': dict(File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una'),
+    'es': dict(File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una'),
+    'en': dict(File=u'a', Image=u'an', Link=u'a', Event=u'an', NewsItem=u'a'),
 }
 
 tipus = {
-    'ca': dict(Document=u'document', File=u'document', Image=u'foto', Link=u'enllaç', Event=u'esdeveniment'),
-    'es': dict(Document=u'documento', File=u'documento', Image=u'foto', Link=u'enlace', Event=u'evento'),
-    'en': dict(Document=u'document', File=u'document', Image=u'photo', Link=u'link', Event=u'event'),
+    'ca': dict(Document=u'document', File=u'document', Image=u'foto', Link=u'enllaç', Event=u'esdeveniment', NewsItem=u'notícia'),
+    'es': dict(Document=u'documento', File=u'documento', Image=u'foto', Link=u'enlace', Event=u'evento', NewsItem=u'noticia'),
+    'en': dict(Document=u'document', File=u'document', Image=u'photo', Link=u'link', Event=u'event', NewsItem=u'news item'),
 }
 
 
@@ -107,10 +107,10 @@ def Added(content, event):
     username, oauth_token = getUserOauthToken(pm)
     maxclient = connectMaxclient(username, oauth_token)
 
-    parts = dict(type=tipus[default_lang].get(content.portal_type, ''),
+    parts = dict(type=tipus[default_lang].get(content.portal_type.replace(" ", ""), ''),
                  name=content.Title().decode('utf-8') or getattr(getattr(content, 'file', u''), 'filename', u'').decode('utf-8') or getattr(getattr(content, 'image', u''), 'filename', u'').decode('utf-8'),
                  link='{}/view'.format(content.absolute_url()),
-                 un=articles[default_lang].get(content.portal_type, 'un'))
+                 un=articles[default_lang].get(content.portal_type.replace(" ", ""), 'un'))
 
     activity_text = {
         'ca': u'He afegit {un} {type} "{name}" a {link}',
