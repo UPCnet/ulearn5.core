@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-07-18 07:11+0000\n"
+"POT-Creation-Date: 2018-07-18 09:51+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -20,12 +20,12 @@ msgstr ""
 msgid " ."
 msgstr " ."
 
-#: ../content/community.py:123
+#: ../content/community.py:142
 #: ../controlpanel.py:25
 msgid "Activitats destacades"
 msgstr "Activitats destacades"
 
-#: ../content/community.py:122
+#: ../content/community.py:141
 #: ../controlpanel.py:24
 msgid "Activitats mes valorades"
 msgstr "Activitats més valorades"
@@ -70,7 +70,7 @@ msgstr "Text que es mostrarà com a títol dels enllaços directes."
 msgid "All dates"
 msgstr "Totes les dates"
 
-#: ../content/community.py:1334
+#: ../content/community.py:1367
 msgid "Blog"
 msgstr "Blog"
 
@@ -108,7 +108,7 @@ msgstr "Canvis desats"
 msgid "Changes saved."
 msgstr "Canvis desats"
 
-#: ../content/community.py:107
+#: ../content/community.py:126
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:35
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:63
 msgid "Closed"
@@ -131,7 +131,7 @@ msgstr "Comunitat"
 msgid "Comunitat_stats"
 msgstr "Estadístiques"
 
-#: ../content/community.py:1037
+#: ../content/community.py:1070
 msgid "Crea la comunitat"
 msgstr "Crea la comunitat"
 
@@ -139,12 +139,12 @@ msgstr "Crea la comunitat"
 msgid "Create thumb of News images for show in app"
 msgstr "Crea una imatge de tipus thumb per mostrar al l'app."
 
-#: ../content/community.py:121
+#: ../content/community.py:140
 #: ../controlpanel.py:23
 msgid "Darreres activitats"
 msgstr "Darreres activitats"
 
-#: ../content/community.py:139
+#: ../content/community.py:158
 msgid "Descripcio"
 msgstr "Descripció"
 
@@ -156,7 +156,7 @@ msgstr "Disseny"
 msgid "Discussion"
 msgstr "Debats"
 
-#: ../content/community.py:1273
+#: ../content/community.py:100
 msgid "Documents"
 msgstr "Documents"
 
@@ -190,11 +190,11 @@ msgstr "Editar portlet Notícies destacades"
 msgid "Edit cancelled"
 msgstr "Edició cancel·lada"
 
-#: ../content/community.py:1151
+#: ../content/community.py:1184
 msgid "Edita la comunitat"
 msgstr "Desa"
 
-#: ../content/community.py:174
+#: ../content/community.py:193
 msgid "Editors"
 msgstr "Editores"
 
@@ -202,15 +202,12 @@ msgstr "Editores"
 msgid "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 msgstr "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:11
-msgid "Entrada"
-msgstr "Entrada"
-
-#: ../content/community.py:1275
+#: ../content/community.py:1308
 msgid "Esdeveniments"
 msgstr "Esdeveniments"
 
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:46
+#: ../content/community.py:102
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:48
 msgid "Events"
 msgstr "Agenda"
 
@@ -262,11 +259,11 @@ msgstr "Icona"
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
 msgstr "Si heu enviat l'element per error o voleu fer edicions addicionals, això us tornarà a portar."
 
-#: ../content/community.py:191
+#: ../content/community.py:210
 msgid "Imatge"
 msgstr "Imatge"
 
-#: ../content/community.py:192
+#: ../content/community.py:211
 msgid "Imatge que defineix la comunitat"
 msgstr "Imatge que defineix la comunitat"
 
@@ -293,7 +290,7 @@ msgstr "Intranet"
 msgid "Items in which workflow state to show."
 msgstr "Elements als que s'ha de mostra l'estat del Flux de treball."
 
-#: ../content/community.py:140
+#: ../content/community.py:159
 msgid "La descripcio de la comunitat"
 msgstr "La descripció de la comunitat"
 
@@ -334,7 +331,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr "Fer un article públic a la intranet vol dir que serà visible per als membres (lectors)."
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1274
+#: ../content/community.py:1307
 msgid "Media"
 msgstr "Media"
 
@@ -363,7 +360,7 @@ msgstr "Mes final"
 msgid "Mes_inicial"
 msgstr "Mes inicial"
 
-#: ../controlpanel.py:31
+#: ../controlpanel.py:30
 msgid "My Communities"
 msgstr "Les meves comunitats"
 
@@ -383,7 +380,8 @@ msgstr "Nom de la classe Font Awesome per utilitzar-la com a icona. Només es po
 msgid "New window"
 msgstr "Obrir finestra nova?"
 
-#: ../controlpanel.py:30
+#: ../content/community.py:101
+#: ../controlpanel.py:31
 msgid "News"
 msgstr "Notícies"
 
@@ -399,27 +397,27 @@ msgstr "Notícies importants"
 msgid "News intranet workflow"
 msgstr "News intranet workflow"
 
-#: ../content/community.py:133
+#: ../content/community.py:152
 msgid "Nom"
 msgstr "Nom"
 
-#: ../content/community.py:134
+#: ../content/community.py:153
 msgid "Nom de la comunitat"
 msgstr "Nom de la comunitat"
 
-#: ../content/community.py:1276
+#: ../content/community.py:1309
 msgid "Noticies"
 msgstr "Notícies"
 
-#: ../content/community.py:1335
+#: ../content/community.py:1368
 msgid "Noticies de la comunitat"
 msgstr "Blog de notícies de la comunitat"
 
-#: ../content/community.py:209
+#: ../content/community.py:242
 msgid "Notify activity and comments via push"
 msgstr "Notificar activitat i comentaris via 'push'"
 
-#: ../content/community.py:203
+#: ../content/community.py:236
 msgid "Notify activity via push"
 msgstr "Notificar activitat via 'push'"
 
@@ -429,19 +427,19 @@ msgstr "Notificar activitat via 'push'"
 msgid "Number of items to display"
 msgstr "Nombre d'elements a mostrar"
 
-#: ../content/community.py:102
+#: ../content/community.py:121
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:36
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:64
 msgid "Open"
 msgstr "Oberta"
 
-#: ../content/community.py:112
+#: ../content/community.py:131
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:37
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:65
 msgid "Organizative"
 msgstr "Organitzativa"
 
-#: ../content/community.py:183
+#: ../content/community.py:202
 msgid "Owners"
 msgstr "Propietarios"
 
@@ -514,7 +512,7 @@ msgstr "Publica el teu article en una cua de revisió, de manera que es pot publ
 msgid "QuickLinks"
 msgstr "Enllaços directes"
 
-#: ../content/community.py:163
+#: ../content/community.py:182
 msgid "Readers"
 msgstr "Lectors"
 
@@ -581,7 +579,25 @@ msgstr "Envia l'article a l'esborrany."
 msgid "Shared With Me"
 msgstr "Compartit amb mi"
 
+#: ../content/community.py:229
+msgid "Show events"
+msgstr "Mostrar els esdeveniments"
+
+#: ../content/community.py:230
+msgid "Show events in the central area of the main community page."
+msgstr "Mostra els esdeveniments en la zona centra de la pàgina principal de la comunitat."
+
+#: ../content/community.py:222
+msgid "Show news"
+msgstr "Mostrar les notícies"
+
+#: ../content/community.py:223
+msgid "Show news in the central area of the main community page"
+msgstr "Mostra les notícies en la zona centra de la pàgina principal de la comunitat."
+
+#: ../content/community.py:99
 #: ../controlpanel.py:29
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:11
 msgid "Stream"
 msgstr "Activitat"
 
@@ -590,15 +606,15 @@ msgstr "Activitat"
 msgid "Submit for publication"
 msgstr "Enviar per a la publicació"
 
-#: ../content/community.py:175
+#: ../content/community.py:194
 msgid "Subscribed people with editor permissions"
 msgstr "Llista amb les persones subscrites amb permís d'edició"
 
-#: ../content/community.py:184
+#: ../content/community.py:203
 msgid "Subscribed people with owner permissions"
 msgstr "Llista amb les persones propietàries de la comunitat"
 
-#: ../content/community.py:164
+#: ../content/community.py:183
 msgid "Subscribed people with read-only permissions"
 msgstr "Llista amb les persones subscrites amb permís de lectura"
 
@@ -650,7 +666,7 @@ msgstr "Imatge thumbnail"
 msgid "Time of the last transition"
 msgstr "Temps de l'última transició"
 
-#: ../content/community.py:146
+#: ../content/community.py:165
 msgid "Tipus de comunitat"
 msgstr "Tipus de comunitat"
 
@@ -660,7 +676,7 @@ msgstr "Tipus de comunitat"
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
 
-#: ../content/community.py:197
+#: ../content/community.py:216
 msgid "Twitter hashtag"
 msgstr "Twitter hashtag"
 
@@ -763,7 +779,7 @@ msgstr "Mostra les noticies a les que estic subscrit"
 msgid "activate_sharedwithme"
 msgstr "Mostra el que hi ha compartit amb mi"
 
-#: ../content/community.py:154
+#: ../content/community.py:173
 #: ../controlpanel.py:322
 msgid "activity_view"
 msgstr "Visualització Activitats Comunitat"
@@ -883,7 +899,7 @@ msgstr "Comunitats"
 msgid "community_open_and_no_subscribed"
 msgstr "Aquesta comunitat és oberta, però actualment no hi estàs subscrit"
 
-#: ../content/community.py:147
+#: ../content/community.py:166
 msgid "community_type_description"
 msgstr ""
 "Oberta: Pública (la veu tothom) i et pots subscriure i desubscriure't. \n"
@@ -891,17 +907,17 @@ msgstr ""
 " Organitzativa: Només et pot subscriure un administrador i no et pots desubscriure't."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1095
+#: ../content/community.py:1128
 msgid "comunitat_creada"
 msgstr "La comunitat ${comunitat} ha estat creada."
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1071
+#: ../content/community.py:1104
 msgid "comunitat_existeix"
 msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1204
+#: ../content/community.py:1237
 msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
@@ -945,7 +961,7 @@ msgid "entrades"
 msgstr "entrades"
 
 #. Default: "Falta omplir algun camp obligatori."
-#: ../content/community.py:1046
+#: ../content/community.py:1079
 msgid "error"
 msgstr "Falta omplir algun camp obligatori."
 
@@ -987,12 +1003,12 @@ msgid "external_website"
 msgstr "Visita un lloc web extern"
 
 #. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
-#: ../content/community.py:1044
+#: ../content/community.py:1077
 msgid "falta_condicions"
 msgstr "Es necessari acceptar les condicions d'ús i privacitat per crear una comunitat."
 
 #. Default: "No es pot crear una comunitat sense titol"
-#: ../content/community.py:1042
+#: ../content/community.py:1075
 msgid "falta_titol"
 msgstr "No es pot crear una comunitat sense títol"
 
@@ -1022,7 +1038,7 @@ msgstr "Vés al campus"
 msgid "gotolibrary"
 msgstr "Ves a la biblioteca"
 
-#: ../content/community.py:198
+#: ../content/community.py:217
 msgid "hashtag_help"
 msgstr "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el '#'."
 
@@ -1046,7 +1062,7 @@ msgstr "Mostra o no el botó de Noticies a la tile central de les comunitats"
 msgid "help_activate_sharedwithme"
 msgstr "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 
-#: ../content/community.py:155
+#: ../content/community.py:174
 #: ../controlpanel.py:323
 msgid "help_activity_view"
 msgstr "Selecciona el mode de visualització de les activitats de la comunitat"
@@ -1161,7 +1177,7 @@ msgstr "Habilita el portlet MAX UI: Xat."
 msgid "help_navigation_title"
 msgstr "Títol de l'arbre de navegació"
 
-#: ../content/community.py:210
+#: ../content/community.py:243
 msgid "help_notify_activity_via_push_comments_too"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat i els comentaris d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
@@ -1691,7 +1707,7 @@ msgstr "Persones no visibles"
 msgid "not_events_for_today"
 msgstr "No hi ha esdeveniments per mostrar"
 
-#: ../content/community.py:204
+#: ../content/community.py:237
 msgid "notify_activity_via_push_help"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
@@ -2065,7 +2081,7 @@ msgid "ulearn_media"
 msgstr "Media"
 
 #. Default: "Noticies"
-#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:34
+#: ulearn5/theme/browser/viewlets_templates/folderbar.pt:35
 msgid "ulearn_news"
 msgstr "Notícies"
 

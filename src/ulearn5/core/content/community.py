@@ -1,63 +1,76 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
+from DateTime.DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.CMFPlone.utils import safe_unicode
+from Products.statusmessages.interfaces import IStatusMessage
+from ZPublisher.HTTPRequest import FileUpload
+
 from five import grok
-from plone import api
 from hashlib import sha1
-from z3c.form import button
-from zope import schema
-from zope.container.interfaces import IObjectAddedEvent
-from zope.component import getMultiAdapter, getUtility, adapts
-from zope.component.hooks import getSite
-from zope.container.interfaces import INameChooser
-from zope.event import notify
-from zope.interface import implements
-from zope.interface import Interface
-from zope.interface import alsoProvides
-from zope.lifecycleevent import ObjectModifiedEvent
-from zope.lifecycleevent.interfaces import IObjectModifiedEvent
-from zope.lifecycleevent.interfaces import IObjectRemovedEvent
-from zope.schema.interfaces import IContextSourceBinder
-from zope.schema.vocabulary import SimpleVocabulary
-from zope.security import checkPermission
-from zope.interface import implementer
-from zope.globalrequest import getRequest
+from plone import api
 from plone.dexterity.content import Container
+from plone.dexterity.interfaces import IDexterityContent
 from plone.dexterity.utils import createContentInContainer
 from plone.directives import form
 from plone.indexer import indexer
 from plone.memoize.view import memoize_contextless
 from plone.namedfile.field import NamedBlobImage
-from plone.dexterity.interfaces import IDexterityContent
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletRetriever
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import safe_unicode
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-from Products.statusmessages.interfaces import IStatusMessage
-from ZPublisher.HTTPRequest import FileUpload
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.indexes.keyword import CatalogKeywordIndex
 from repoze.catalog.indexes.text import CatalogTextIndex
+from repoze.catalog.query import Eq
+from repoze.catalog.query import Or
 from souper.interfaces import ICatalogFactory
 from souper.soup import NodeAttributeIndexer
-from repoze.catalog.query import Eq, Or
-from souper.soup import get_soup
 from souper.soup import Record
-from base5.core.utils import json_response
+from souper.soup import get_soup
+from z3c.form import button
+from zope import schema
+from zope.component import adapts
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.component.hooks import getSite
+from zope.container.interfaces import INameChooser
+from zope.container.interfaces import IObjectAddedEvent
+from zope.event import notify
+from zope.globalrequest import getRequest
+from zope.interface import Interface
+from zope.interface import alsoProvides
+from zope.interface import implementer
+from zope.interface import implements
+from zope.lifecycleevent import ObjectModifiedEvent
+from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+from zope.lifecycleevent.interfaces import IObjectRemovedEvent
+from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
+from zope.security import checkPermission
+
 from base5.core.adapters.favorites import IFavorite
+from base5.core.utils import json_response
+from mrs5.max.utilities import IHubClient
+from mrs5.max.utilities import IMAXClient
+from ulearn5.core import _
 from ulearn5.core.gwuuid import IGWUUID
+from ulearn5.core.interfaces import IDXFileFactory
+from ulearn5.core.interfaces import IDocumentFolder
+from ulearn5.core.interfaces import IEventsFolder
+from ulearn5.core.interfaces import INewsItemFolder
+from ulearn5.core.interfaces import IPhotosFolder
+from ulearn5.core.utils import is_activate_owncloud
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
-from mrs5.max.utilities import IMAXClient, IHubClient
-from ulearn5.core import _
-from ulearn5.core.interfaces import IDXFileFactory, IDocumentFolder, IEventsFolder, INewsItemFolder, IPhotosFolder
-from ulearn5.core.utils import is_activate_owncloud
-from ulearn5.owncloud.utils import update_owncloud_permission
+from ulearn5.owncloud.api.owncloud import Client
+from ulearn5.owncloud.api.owncloud import HTTPResponseError
+from ulearn5.owncloud.api.owncloud import OCSResponseError
 from ulearn5.owncloud.utilities import IOwncloudClient
-from ulearn5.owncloud.api.owncloud import Client, HTTPResponseError, OCSResponseError
-from DateTime.DateTime import DateTime
+from ulearn5.owncloud.utils import update_owncloud_permission
 
 import json
 import logging
@@ -197,6 +210,20 @@ class ICommunity(form.Schema):
         title=_(u'Twitter hashtag'),
         description=_(u'hashtag_help'),
         required=False
+    )
+
+    show_news = schema.Bool(
+        title=_(u'Show news'),
+        description=_(u'Show news in the central area of the main community page'),
+        required=False,
+        default=True
+    )
+
+    show_events = schema.Bool(
+        title=_(u'Show events'),
+        description=_(u'Show events in the central area of the main community page.'),
+        required=False,
+        default=True
     )
 
     notify_activity_via_push = schema.Bool(
@@ -1054,6 +1081,8 @@ class communityAdder(form.SchemaForm):
         image = data['image']
         community_type = data['community_type']
         activity_view = data['activity_view']
+        show_news = data['show_news']
+        show_events = data['show_events']
         twitter_hashtag = data['twitter_hashtag']
         notify_activity_via_push = data['notify_activity_via_push']
         notify_activity_via_push_comments_too = data['notify_activity_via_push_comments_too']
@@ -1085,6 +1114,8 @@ class communityAdder(form.SchemaForm):
                 image=image,
                 community_type=community_type,
                 activity_view=activity_view,
+                show_news=show_news,
+                show_events=show_events,
                 twitter_hashtag=twitter_hashtag,
                 notify_activity_via_push=notify_activity_via_push,
                 notify_activity_via_push_comments_too=notify_activity_via_push_comments_too,
@@ -1127,6 +1158,8 @@ class communityEdit(form.SchemaForm):
         self.widgets['description'].value = self.context.description
         self.widgets['community_type'].value = [self.ctype_map[self.context.community_type]]
         self.widgets['activity_view'].value = [self.cview_map[self.context.activity_view]]
+        self.widgets['show_news'].value = self.context.show_news
+        self.widgets['show_events'].value = self.context.show_events
         self.widgets['twitter_hashtag'].value = self.context.twitter_hashtag
 
         if self.context.notify_activity_via_push:
@@ -1163,6 +1196,8 @@ class communityEdit(form.SchemaForm):
         image = data['image']
         community_type = data['community_type']
         activity_view = data['activity_view']
+        show_news = data['show_news']
+        show_events = data['show_events']
         twitter_hashtag = data['twitter_hashtag']
         notify_activity_via_push = data['notify_activity_via_push']
         notify_activity_via_push_comments_too = data['notify_activity_via_push_comments_too']
@@ -1190,6 +1225,8 @@ class communityEdit(form.SchemaForm):
             self.context.owners = owners
             self.context.community_type = community_type
             self.context.activity_view = activity_view
+            self.context.show_news = show_news
+            self.context.show_events = show_events
             self.context.twitter_hashtag = twitter_hashtag
             self.context.notify_activity_via_push = notify_activity_via_push
             self.context.notify_activity_via_push_comments_too = notify_activity_via_push_comments_too
