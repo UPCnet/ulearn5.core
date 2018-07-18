@@ -378,9 +378,6 @@ class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
 
     def updateWidgets(self):
         super(UlearnControlPanelSettingsForm, self).updateWidgets()
-        # registry = queryUtility(IRegistry)
-        # ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
-        # self.widgets['url_terms'].mode = 'hidden'
 
     @button.buttonAndHandler(_('Save'), name=None)
     def handleSave(self, action):
