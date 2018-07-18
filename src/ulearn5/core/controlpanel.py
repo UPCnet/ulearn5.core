@@ -25,6 +25,12 @@ communityActivityView = SimpleVocabulary(
      SimpleTerm(value=u'Activitats destacades', title=_(u'Activitats destacades'))]
 )
 
+buttonbarView = SimpleVocabulary(
+    [SimpleTerm(value=u'stream', title=_(u'Stream')),
+     SimpleTerm(value=u'mycommunities', title=_(u'My Communities')),
+     SimpleTerm(value=u'news', title=_(u'News')),
+     SimpleTerm(value=u'sharedwithme', title=_(u'Shared With Me'))]
+)
 
 class ILiteralQuickLinks(form.Schema):
     language = schema.Choice(
@@ -165,7 +171,7 @@ class IUlearnControlPanelSettings(model.Schema):
     buttonbar_selected = schema.Choice(
         title=_(u'buttonbar_selected'),
         description=_(u'Select the active button in the button bar.'),
-        values=['stream', 'news', 'mycommunities', 'sharedwithme'],
+        vocabulary=buttonbarView,
         required=True,
         default='stream')
 

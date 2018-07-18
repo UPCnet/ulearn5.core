@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-07-16 06:32+0000\n"
+"POT-Creation-Date: 2018-07-18 07:11+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -62,7 +62,7 @@ msgstr "Afegir fontawesome"
 msgid "Add field terms"
 msgstr "Afegir camp de condicions d'us"
 
-#: ../controlpanel.py:297
+#: ../controlpanel.py:303
 msgid "Add the quick links by language"
 msgstr "Text que es mostrarà com a títol dels enllaços directes."
 
@@ -87,7 +87,7 @@ msgstr "Calendari"
 msgid "Can only be seen and edited by the owner."
 msgstr "Només pot ser vist i editat pel propietari."
 
-#: ../controlpanel.py:427
+#: ../controlpanel.py:433
 #: ../controlportlets.py:367
 msgid "Cancel"
 msgstr "Cancel·la"
@@ -100,7 +100,7 @@ msgstr "Cerca"
 msgid "Changes made."
 msgstr "Canvis realitzats."
 
-#: ../controlpanel.py:424
+#: ../controlpanel.py:430
 msgid "Changes saved"
 msgstr "Canvis desats"
 
@@ -118,7 +118,7 @@ msgstr "Tancada"
 msgid "Comments about the last transition"
 msgstr "Comentaris sobre l'última transició"
 
-#: ../controlpanel.py:82
+#: ../controlpanel.py:88
 msgid "Communities"
 msgstr "Comunitats"
 
@@ -148,7 +148,7 @@ msgstr "Darreres activitats"
 msgid "Descripcio"
 msgstr "Descripció"
 
-#: ../controlpanel.py:64
+#: ../controlpanel.py:70
 msgid "Design"
 msgstr "Disseny"
 
@@ -185,7 +185,7 @@ msgstr "Edita portlet Canvis recents"
 msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícies destacades"
 
-#: ../controlpanel.py:429
+#: ../controlpanel.py:435
 #: ../controlportlets.py:369
 msgid "Edit cancelled"
 msgstr "Edició cancel·lada"
@@ -224,7 +224,7 @@ msgstr "Filtrar per paraula clau"
 msgid "Fin_stats"
 msgstr "Fi <span class=\"formHelp\">x</span>"
 
-#: ../controlpanel.py:46
+#: ../controlpanel.py:52
 msgid "Font Awesome Icon"
 msgstr "Icona Font Awesome"
 
@@ -232,7 +232,7 @@ msgstr "Icona Font Awesome"
 msgid "Front page"
 msgstr "Pàgina principal"
 
-#: ../controlpanel.py:57
+#: ../controlpanel.py:63
 msgid "General"
 msgstr "General"
 
@@ -244,7 +244,7 @@ msgstr "Genweb intranet workflow"
 msgid "Go to homepage"
 msgstr "Inici"
 
-#: ../controlpanel.py:415
+#: ../controlpanel.py:421
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr "Has marcat el comparteix pero falta la url del elasticsearch"
 
@@ -297,19 +297,19 @@ msgstr "Elements als que s'ha de mostra l'estat del Flux de treball."
 msgid "La descripcio de la comunitat"
 msgstr "La descripció de la comunitat"
 
-#: ../controlpanel.py:31
+#: ../controlpanel.py:37
 msgid "Language"
 msgstr "Idioma"
 
-#: ../controlpanel.py:45
+#: ../controlpanel.py:51
 msgid "Link"
 msgstr "Enllaç"
 
-#: ../controlpanel.py:290
+#: ../controlpanel.py:296
 msgid "Literals que identifiquen als usuaris de les comunitats i les seves aportacions."
 msgstr "Literals que identifiquen als usuaris de les comunitats i les seves aportacions."
 
-#: ../controlpanel.py:283
+#: ../controlpanel.py:289
 msgid "Llista amb les persones que no han de sortir a les cerques i que tenen acces restringit per la resta de persones."
 msgstr "Llista amb les persones que no han de sortir a les cerques i que tenen accés restringit per la resta de persones."
 
@@ -363,6 +363,10 @@ msgstr "Mes final"
 msgid "Mes_inicial"
 msgstr "Mes inicial"
 
+#: ../controlpanel.py:31
+msgid "My Communities"
+msgstr "Les meves comunitats"
+
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "My Subjects"
 msgstr "Les meves assignatures"
@@ -375,9 +379,13 @@ msgstr "Filtra per etiquetes"
 msgid "Name of the Font Awesome class to use as an icon. It is only visible in the menu."
 msgstr "Nom de la classe Font Awesome per utilitzar-la com a icona. Només es pot veure al menú."
 
-#: ../controlpanel.py:47
+#: ../controlpanel.py:53
 msgid "New window"
 msgstr "Obrir finestra nova?"
+
+#: ../controlpanel.py:30
+msgid "News"
+msgstr "Notícies"
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "News Flash"
@@ -502,7 +510,7 @@ msgstr "La publicació de l'element fa que sigui visible per a altres usuaris."
 msgid "Puts your item in a review queue, so it can be published on the site."
 msgstr "Publica el teu article en una cua de revisió, de manera que es pot publicar al lloc."
 
-#: ../controlpanel.py:78
+#: ../controlpanel.py:84
 msgid "QuickLinks"
 msgstr "Enllaços directes"
 
@@ -556,11 +564,11 @@ msgstr "Rol per a les notícies a dintre de la intranet (Permet el esborrany i l
 
 #: ../browser/sharing_templates/sharing.pt:124
 #: ../content/community_templates/editacl.pt:93
-#: ../controlpanel.py:379
+#: ../controlpanel.py:385
 msgid "Save"
 msgstr "Desa"
 
-#: ../controlpanel.py:167
+#: ../controlpanel.py:173
 msgid "Select the active button in the button bar."
 msgstr "Selecciona el apartat que voleu que aparegui per defecte actiu en la button bar."
 
@@ -568,6 +576,14 @@ msgstr "Selecciona el apartat que voleu que aparegui per defecte actiu en la but
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Send the item back to draft."
 msgstr "Envia l'article a l'esborrany."
+
+#: ../controlpanel.py:32
+msgid "Shared With Me"
+msgstr "Compartit amb mi"
+
+#: ../controlpanel.py:29
+msgid "Stream"
+msgstr "Activitat"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -590,11 +606,11 @@ msgstr "Llista amb les persones subscrites amb permís de lectura"
 msgid "Terms"
 msgstr "Condicion d'ús"
 
-#: ../controlpanel.py:35
+#: ../controlpanel.py:41
 msgid "Text"
 msgstr "Text"
 
-#: ../controlpanel.py:296
+#: ../controlpanel.py:302
 msgid "Text Quick Links"
 msgstr "Títol dels enllaços directes"
 
@@ -680,7 +696,7 @@ msgstr "Ulearn Participants"
 msgid "Ulearn discussion"
 msgstr "Ulearn Debats"
 
-#: ../controlpanel.py:366
+#: ../controlpanel.py:372
 msgid "Ulearn settings"
 msgstr "Configuració de uLearn"
 
@@ -705,7 +721,7 @@ msgstr "Desinstal·la el complement ulearn5.core."
 msgid "Usuario_stats"
 msgstr "Usuari"
 
-#: ../controlpanel.py:74
+#: ../controlpanel.py:80
 msgid "Visibility"
 msgstr "Visibilitat"
 
@@ -738,17 +754,17 @@ msgid "accepto_condicions_2"
 msgstr "condicions d'us"
 
 #. Default: "Mostra les noticies a les que estic subscrit"
-#: ../controlpanel.py:148
+#: ../controlpanel.py:154
 msgid "activate_news"
 msgstr "Mostra les noticies a les que estic subscrit"
 
 #. Default: "Mostra el que hi ha compartit amb mi"
-#: ../controlpanel.py:157
+#: ../controlpanel.py:163
 msgid "activate_sharedwithme"
 msgstr "Mostra el que hi ha compartit amb mi"
 
 #: ../content/community.py:154
-#: ../controlpanel.py:316
+#: ../controlpanel.py:322
 msgid "activity_view"
 msgstr "Visualització Activitats Comunitat"
 
@@ -764,12 +780,12 @@ msgid "allcommunities"
 msgstr "Comunitats"
 
 #. Default: "Color final dels gradients"
-#: ../controlpanel.py:209
+#: ../controlpanel.py:215
 msgid "alt_gradient_end_color"
 msgstr "Color final dels gradients"
 
 #. Default: "Color inicial dels gradients."
-#: ../controlpanel.py:200
+#: ../controlpanel.py:206
 msgid "alt_gradient_start_color"
 msgstr "Color inicial dels gradients."
 
@@ -779,12 +795,12 @@ msgid "angularrouteview"
 msgstr "AngularRouteView"
 
 #. Default: "Color de fons global"
-#: ../controlpanel.py:227
+#: ../controlpanel.py:233
 msgid "background_color"
 msgstr "Color de fons global"
 
 #. Default: "Propietat de fons global"
-#: ../controlpanel.py:218
+#: ../controlpanel.py:224
 msgid "background_property"
 msgstr "Propietat de fons global"
 
@@ -813,22 +829,22 @@ msgstr "Edita comunitat"
 msgid "buttonbar"
 msgstr "Button bar"
 
-#: ../controlpanel.py:166
+#: ../controlpanel.py:172
 msgid "buttonbar_selected"
 msgstr "Selecció per la botonera de portlets"
 
 #. Default: "Color primari dels botons"
-#: ../controlpanel.py:236
+#: ../controlpanel.py:242
 msgid "buttons_color_primary"
 msgstr "Color primari dels botons"
 
 #. Default: "Color secundari dels botons"
-#: ../controlpanel.py:245
+#: ../controlpanel.py:251
 msgid "buttons_color_secondary"
 msgstr "Color secundari dels botons"
 
 #. Default: "URL del campus"
-#: ../controlpanel.py:86
+#: ../controlpanel.py:92
 msgid "campus_url"
 msgstr "Adreça web del Campus"
 
@@ -838,17 +854,17 @@ msgid "collective_polls_VotePortlet"
 msgstr "Habilitar portlet Enquestes"
 
 #. Default: "Color comunitat tancada"
-#: ../controlpanel.py:254
+#: ../controlpanel.py:260
 msgid "color_community_closed"
 msgstr "Color comunitat tancada"
 
 #. Default: "Color comunitat oberta"
-#: ../controlpanel.py:272
+#: ../controlpanel.py:278
 msgid "color_community_open"
 msgstr "Color comunitat oberta"
 
 #. Default: "Color comunitat organitzativa"
-#: ../controlpanel.py:263
+#: ../controlpanel.py:269
 msgid "color_community_organizative"
 msgstr "Color comunitat organitzativa"
 
@@ -1021,52 +1037,52 @@ msgid "heading_send_event"
 msgstr "Envia la convocatòria als assitents"
 
 #. Default: "Mostra o no el botó de Noticies a la tile central de les comunitats"
-#: ../controlpanel.py:150
+#: ../controlpanel.py:156
 msgid "help_activate_news"
 msgstr "Mostra o no el botó de Noticies a la tile central de les comunitats"
 
 #. Default: "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
-#: ../controlpanel.py:159
+#: ../controlpanel.py:165
 msgid "help_activate_sharedwithme"
 msgstr "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 
 #: ../content/community.py:155
-#: ../controlpanel.py:317
+#: ../controlpanel.py:323
 msgid "help_activity_view"
 msgstr "Selecciona el mode de visualització de les activitats de la comunitat"
 
 #. Default: "Aquest és el color final dels gradients."
-#: ../controlpanel.py:211
+#: ../controlpanel.py:217
 msgid "help_alt_gradient_end_color"
 msgstr "Aquest és el color final dels gradients."
 
 #. Default: "Aquest és el color inicial dels gradients."
-#: ../controlpanel.py:202
+#: ../controlpanel.py:208
 msgid "help_alt_gradient_start_color"
 msgstr "Aquest és el color inicial dels gradients."
 
 #. Default: "Aquest és el color de fons global o la propietat corresponent."
-#: ../controlpanel.py:229
+#: ../controlpanel.py:235
 msgid "help_background_color"
 msgstr "Aquest és el color de fons global."
 
 #. Default: "Aquest és la propietat de CSS de background."
-#: ../controlpanel.py:220
+#: ../controlpanel.py:226
 msgid "help_background_property"
 msgstr "Aquest és la propietat de CSS de background."
 
 #. Default: "Aquest és el color primari dels botons."
-#: ../controlpanel.py:238
+#: ../controlpanel.py:244
 msgid "help_buttons_color_primary"
 msgstr "Aquest és el color primari dels botons."
 
 #. Default: "Aquest és el color secundari dels botons."
-#: ../controlpanel.py:247
+#: ../controlpanel.py:253
 msgid "help_buttons_color_secondary"
 msgstr "Aquest és el color secundari dels botons."
 
 #. Default: "Afegiu la URL del campus associat a aquestes comunitats."
-#: ../controlpanel.py:88
+#: ../controlpanel.py:94
 msgid "help_campus_url"
 msgstr "Afegiu la URL del Campus associat a aquestes comunitats."
 
@@ -1076,22 +1092,22 @@ msgid "help_collective_polls_VotePortlet"
 msgstr "Habilita el portlet Enquestes."
 
 #. Default: "Aquest és el color per les comunitats tancades."
-#: ../controlpanel.py:256
+#: ../controlpanel.py:262
 msgid "help_color_community_closed"
 msgstr "Aquest és el color per les comunitats tancades."
 
 #. Default: "Aquest és el color per les comunitats obertes."
-#: ../controlpanel.py:274
+#: ../controlpanel.py:280
 msgid "help_color_community_open"
 msgstr "Aquest és el color per les comunitats obertes."
 
 #. Default: "Aquest és el color per les comunitats organitzatives."
-#: ../controlpanel.py:265
+#: ../controlpanel.py:271
 msgid "help_color_community_organizative"
 msgstr "Aquest és el color per les comunitats organitzatives."
 
 #. Default: "Aquest és l'enllaç al servei."
-#: ../controlpanel.py:142
+#: ../controlpanel.py:148
 msgid "help_info_servei"
 msgstr "Enllaç al servei."
 
@@ -1101,32 +1117,32 @@ msgid "help_language"
 msgstr "Idioma de l'espai."
 
 #. Default: "Afegiu la URL de la biblioteca associada a aquestes comunitats."
-#: ../controlpanel.py:97
+#: ../controlpanel.py:103
 msgid "help_library_url"
 msgstr "Afegiu la URL de la biblioteca associada a aquestes comunitats."
 
 #. Default: "Aquest és el llindar del winwin #1."
-#: ../controlpanel.py:106
+#: ../controlpanel.py:112
 msgid "help_llindar_winwin1"
 msgstr "Aquest és el llindar del Winwinn #1."
 
 #. Default: "Aquest és el llindar del winwin #2."
-#: ../controlpanel.py:115
+#: ../controlpanel.py:121
 msgid "help_llindar_winwin2"
 msgstr "Aquest és el llindar del Winwinn #2."
 
 #. Default: "Aquest és el llindar del winwin #3."
-#: ../controlpanel.py:124
+#: ../controlpanel.py:130
 msgid "help_llindar_winwin3"
 msgstr "Aquest és el llindar del Winwinn #3."
 
 #. Default: "Aquest és el color principal de l'espai."
-#: ../controlpanel.py:175
+#: ../controlpanel.py:181
 msgid "help_main_color"
 msgstr "Aquest és el color principal de l'espai."
 
 #. Default: "Aquest és el color del fons del widget de MAX."
-#: ../controlpanel.py:193
+#: ../controlpanel.py:199
 msgid "help_maxui_form_bg"
 msgstr "Aquest és el color del fons del widget de MAX."
 
@@ -1210,40 +1226,40 @@ msgid "help_portlets_settings_editform"
 msgstr "Configuració de portlets. Configura els portlets permesos."
 
 #. Default: "Afegiu la icona del Font Awesome que voleu que es mostri"
-#: ../controlpanel.py:304
+#: ../controlpanel.py:310
 msgid "help_quicklinks_icon"
 msgstr "Icona del Font Awesome que apareix al costat del títol dels enllaços directes"
 
-#: ../controlpanel.py:298
+#: ../controlpanel.py:304
 msgid "help_quicklinks_literal"
 msgstr "Text que sortirà com a títol dels enllaços directes"
 
-#: ../controlpanel.py:313
+#: ../controlpanel.py:319
 msgid "help_quicklinks_table"
 msgstr "En aquesta taula s'han d'afegir tots els enllaços directes que volem mostrar"
 
 #. Default: "Aquest és el color secundari de l'espai."
-#: ../controlpanel.py:184
+#: ../controlpanel.py:190
 msgid "help_secondary_color"
 msgstr "Aquest és el color secundari de l'espai."
 
 #. Default: "Disable or enable the display of community types in the portlet."
-#: ../controlpanel.py:345
+#: ../controlpanel.py:351
 msgid "help_show_literals"
 msgstr "Desactivar o activar la visualització dels tipus de comunitat en el portlet."
 
 #. Default: "If selected, then gives the option to show the News Items in Mobile App."
-#: ../controlpanel.py:336
+#: ../controlpanel.py:342
 msgid "help_show_news_in_app"
 msgstr "Si es marca aquesta casella, les notícies del lloc es mostraran a l'app mòbil."
 
 #. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
-#: ../controlpanel.py:326
+#: ../controlpanel.py:332
 msgid "help_site_language"
 msgstr "Aquest és l'idioma de l'espai."
 
 #. Default: "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
-#: ../controlpanel.py:133
+#: ../controlpanel.py:139
 msgid "help_stats_button"
 msgstr "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 
@@ -1263,97 +1279,97 @@ msgid "help_ubicacio"
 msgstr "Equip, Àrea / Companyia / Departament"
 
 #. Default: "Habilita el portlet angular per a poder fer ús de les rutes angularjs."
-#: ../controlportlets.py:158
+#: ../controlportlets.py:167
 msgid "help_ulearn_angularRouteView"
 msgstr "Habilita el portlet angular per a poder fer ús de les rutes angularjs."
 
 #. Default: "Habilita el portlet botonera central."
-#: ../controlportlets.py:167
+#: ../controlportlets.py:176
 msgid "help_ulearn_button_bar"
 msgstr "Habilita el portlet botonera central."
 
 #. Default: "Habilita el portlet per a mostrar el calendari amb els events."
-#: ../controlportlets.py:212
+#: ../controlportlets.py:221
 msgid "help_ulearn_calendar"
 msgstr "Habilita el portlet per a mostrar el calendari amb els esdeveniments."
 
 #. Default: "Habilita el portlet lateral on mostra les comunitats favorites."
-#: ../controlportlets.py:176
+#: ../controlportlets.py:185
 msgid "help_ulearn_communities"
 msgstr "Habilita el portlet lateral on mostra les comunitats favorites."
 
 #. Default: "Habilita el portlet."
-#: ../controlportlets.py:257
+#: ../controlportlets.py:266
 msgid "help_ulearn_discussion"
 msgstr "Habilita el portlet Debats."
 
 #. Default: "Habilita el portlet eConnect."
-#: ../controlportlets.py:266
+#: ../controlportlets.py:275
 msgid "help_ulearn_econnect"
 msgstr "Habilita el portlet eConnect."
 
 #. Default: "Habilita el portlet para mostrar las notícias en el flash informativo."
-#: ../controlportlets.py:239
+#: ../controlportlets.py:248
 msgid "help_ulearn_portlets_flashesinformativos"
 msgstr "Habilita el portlet para mostrar las notícias en el flash informativo."
 
 #. Default: "Habilita el portlet para mostrar las notícias marcadas como destacadas."
-#: ../controlportlets.py:248
+#: ../controlportlets.py:257
 msgid "help_ulearn_portlets_importantnews"
 msgstr "Habilita el portlet para mostrar las notícias marcadas como destacadas."
 
 #. Default: "Habilita el portlet per a poder veure els meus cursos del EVA."
-#: ../controlportlets.py:230
+#: ../controlportlets.py:239
 msgid "help_ulearn_portlets_mysubjects"
 msgstr "Habilita el portlet per a poder veure els meus cursos del EVA."
 
 #. Default: "Habilita portlet amb el núvol de tags."
-#: ../controlportlets.py:149
+#: ../controlportlets.py:158
 msgid "help_ulearn_portlets_mytags"
 msgstr "Habilita portlet amb el núvol de tags."
 
 #. Default: "Habilita el portlet on mostra el perfil usuari, o la comunitat on estem."
-#: ../controlportlets.py:185
+#: ../controlportlets.py:194
 msgid "help_ulearn_profile"
 msgstr "Habilita el portlet on mostra el perfil d'usuari, o de la comunitat on estem."
 
 #. Default: "Habilita el portlet on mostra el perfil de la comunitat on estem."
-#: ../controlportlets.py:194
+#: ../controlportlets.py:203
 msgid "help_ulearn_profilecommunity"
 msgstr "Habilita el portlet on mostra el perfil de la comunitat on estem."
 
 #. Default: "Habilita el portlet per veure els canvis recents."
-#: ../controlportlets.py:284
+#: ../controlportlets.py:293
 msgid "help_ulearn_recentchanges"
 msgstr "Habilita el portlet per veure els canvis recents."
 
 #. Default: "uLearn configuration registry."
-#: ../controlpanel.py:367
+#: ../controlpanel.py:373
 msgid "help_ulearn_settings_editform"
 msgstr "Configuració de uLearn"
 
 #. Default: "Habilita el portlet per a veure el compartit amb mi."
-#: ../controlportlets.py:221
+#: ../controlportlets.py:230
 msgid "help_ulearn_sharedwithme"
 msgstr "Habilita el portlet per a veure el compartit amb mi."
 
 #. Default: "Habilita el portlet del carrousel multimedia."
-#: ../controlportlets.py:293
+#: ../controlportlets.py:149
 msgid "help_ulearn_smart"
 msgstr "Habilita el portlet del carrousel multimedia."
 
 #. Default: "Habilita el portlet per a veure les estadístiques."
-#: ../controlportlets.py:275
+#: ../controlportlets.py:284
 msgid "help_ulearn_stats"
 msgstr "Habilita el portlet per a veure les estadístiques."
 
 #. Default: "Habilita el portlet on es mostren els usuaris, amb la cerca ."
-#: ../controlportlets.py:203
+#: ../controlportlets.py:212
 msgid "help_ulearn_thinkers"
 msgstr "Habilita el portlet on es mostren els usuaris, amb la cerca."
 
 #. Default: "Url of the terms of use."
-#: ../controlpanel.py:354
+#: ../controlpanel.py:360
 msgid "help_url_terms"
 msgstr "URL per als termes d'ús"
 
@@ -1404,7 +1420,7 @@ msgid "info_public"
 msgstr "Informació pública (directori)"
 
 #. Default: "Informació del servei"
-#: ../controlpanel.py:140
+#: ../controlpanel.py:146
 msgid "info_servei"
 msgstr "Informació del servei"
 
@@ -1523,32 +1539,32 @@ msgid "label_wsurl"
 msgstr "Url del  Webservice"
 
 #. Default: "Idioma de l'espai"
-#: ../controlpanel.py:324
+#: ../controlpanel.py:330
 msgid "language"
 msgstr "Idioma"
 
 #. Default: "URL de la biblioteca"
-#: ../controlpanel.py:95
+#: ../controlpanel.py:101
 msgid "library_url"
 msgstr "URL de la biblioteca"
 
 #. Default: "Llindar del winwin 1"
-#: ../controlpanel.py:104
+#: ../controlpanel.py:110
 msgid "llindar_winwin1"
 msgstr "Llindar del Winwinn 1"
 
 #. Default: "Llindar del winwin 2"
-#: ../controlpanel.py:113
+#: ../controlpanel.py:119
 msgid "llindar_winwin2"
 msgstr "Llindar del Winwinn 2"
 
 #. Default: "Llindar del winwin 3"
-#: ../controlpanel.py:122
+#: ../controlpanel.py:128
 msgid "llindar_winwin3"
 msgstr "Llindar del Winwinn 3"
 
 #. Default: "Color principal"
-#: ../controlpanel.py:173
+#: ../controlpanel.py:179
 msgid "main_color"
 msgstr "Color principal"
 
@@ -1583,7 +1599,7 @@ msgid "manage_right_portlets_title"
 msgstr "Dreta"
 
 #. Default: "Color del fons del widget de MAX."
-#: ../controlpanel.py:191
+#: ../controlpanel.py:197
 msgid "maxui_form_bg"
 msgstr "Color del fons del widget de MAX."
 
@@ -1666,7 +1682,7 @@ msgstr "Notícies"
 msgid "no_content_shared_user"
 msgstr "No hi ha contingut compartit amb tu ara mateix"
 
-#: ../controlpanel.py:282
+#: ../controlpanel.py:288
 msgid "no_visibles"
 msgstr "Persones no visibles"
 
@@ -1679,15 +1695,15 @@ msgstr "No hi ha esdeveniments per mostrar"
 msgid "notify_activity_via_push_help"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
-#: ../controlpanel.py:291
+#: ../controlpanel.py:297
 msgid "participants"
 msgstr "participants"
 
-#: ../controlpanel.py:289
+#: ../controlpanel.py:295
 msgid "people_literal"
 msgstr "Literals d'identificació de persones"
 
-#: ../controlpanel.py:291
+#: ../controlpanel.py:297
 msgid "persones"
 msgstr "persones"
 
@@ -1765,7 +1781,7 @@ msgid "publicaalaintranet"
 msgstr "Publica a la intranet"
 
 #. Default: "icon-link"
-#: ../controlpanel.py:302
+#: ../controlpanel.py:308
 msgid "quicklinks_icon"
 msgstr "Icona Font Awesome"
 
@@ -1811,7 +1827,7 @@ msgid "search_users"
 msgstr "Cerca usuaris"
 
 #. Default: "Color secundari"
-#: ../controlpanel.py:182
+#: ../controlpanel.py:188
 msgid "secondary_color"
 msgstr "Color secundari"
 
@@ -1888,12 +1904,12 @@ msgid "sharedwithme"
 msgstr "Compartit amb mí"
 
 #. Default: "Show literal"
-#: ../controlpanel.py:343
+#: ../controlpanel.py:349
 msgid "show_literals"
 msgstr "Veure els tipus de comunitat"
 
 #. Default: "Show News Items in App"
-#: ../controlpanel.py:334
+#: ../controlpanel.py:340
 msgid "show_news_in_app"
 msgstr "Mostra les notícies a l'app mòbil"
 
@@ -1905,7 +1921,7 @@ msgid "stats"
 msgstr "Estadístiques"
 
 #. Default: "Mostrar botó d'accés a estadístiques diàries"
-#: ../controlpanel.py:131
+#: ../controlpanel.py:137
 msgid "stats_button"
 msgstr "Mostrar botó d'accés a estadístiques diàries"
 
@@ -1955,7 +1971,7 @@ msgid "text_form_resubmit_message"
 msgstr "Ja heu fet clic al botó de enviar. Segur que voleu enviar aquest formulari de nou?"
 
 #. Default: "Thinnkers portlet"
-#: ../controlpanel.py:291
+#: ../controlpanel.py:297
 msgid "thinnkers"
 msgstr "Persones"
 
@@ -2003,27 +2019,27 @@ msgid "ulearn_activity"
 msgstr "Activitat"
 
 #. Default: "Habilitar portlet angularRouteView"
-#: ../controlportlets.py:156
+#: ../controlportlets.py:165
 msgid "ulearn_angularRouteView"
 msgstr "Habilitar portlet Ulearn AngularRouteView"
 
 #. Default: "Habilitar portlet Ulearn Button Bar"
-#: ../controlportlets.py:165
+#: ../controlportlets.py:174
 msgid "ulearn_button_bar"
 msgstr "Habilitar portlet Ulearn Button Bar"
 
 #. Default: "Habilitar portlet ulearn Calendar"
-#: ../controlportlets.py:210
+#: ../controlportlets.py:219
 msgid "ulearn_calendar"
 msgstr "Habilitar portlet Ulearn Calendari"
 
 #. Default: "Habilitar portlet Ulearn Comunnities"
-#: ../controlportlets.py:174
+#: ../controlportlets.py:183
 msgid "ulearn_communities"
 msgstr "Habilitar portlet Ulearn Comunitats"
 
 #. Default: "Habilitar portlet Ulearn Discussion"
-#: ../controlportlets.py:255
+#: ../controlportlets.py:264
 msgid "ulearn_discussion"
 msgstr "Habilitar portlet Ulearn Debats"
 
@@ -2034,7 +2050,7 @@ msgid "ulearn_documents"
 msgstr "Documents"
 
 #. Default: "Habilitar portlet Ulearn eConnect"
-#: ../controlportlets.py:264
+#: ../controlportlets.py:273
 msgid "ulearn_econnect"
 msgstr "Habilitar portlet Ulearn eConnect"
 
@@ -2054,62 +2070,62 @@ msgid "ulearn_news"
 msgstr "Notícies"
 
 #. Default: "Habilitar portlet flashesinformativos"
-#: ../controlportlets.py:237
+#: ../controlportlets.py:246
 msgid "ulearn_portlets_flashesinformativos"
 msgstr "Habilitar portlet Ulearn Flashes Informatius"
 
 #. Default: "Habilitar portlet importantnews"
-#: ../controlportlets.py:246
+#: ../controlportlets.py:255
 msgid "ulearn_portlets_importantnews"
 msgstr "Habilitar portlet Ulearn Notícies destacades"
 
 #. Default: "Habilitar portlet ulearn_portlets_mysubjects"
-#: ../controlportlets.py:228
+#: ../controlportlets.py:237
 msgid "ulearn_portlets_mysubjects"
 msgstr "Habilitar portlet Ulearn Els meus cursos"
 
 #. Default: "Habilitar portlet ulearn_portlets_mytags"
-#: ../controlportlets.py:147
+#: ../controlportlets.py:156
 msgid "ulearn_portlets_mytags"
 msgstr "Habilitar portlet Ulearn Les meves etiquetes"
 
 #. Default: "Habilitar portlet Ulearn Profile"
-#: ../controlportlets.py:183
+#: ../controlportlets.py:192
 msgid "ulearn_profile"
 msgstr "Habilitar portlet Ulearn Perfil"
 
 #. Default: "Habilitar portlet Ulearn Profile Community"
-#: ../controlportlets.py:192
+#: ../controlportlets.py:201
 msgid "ulearn_profilecommunity"
 msgstr "Habilitar portlet Ulearn Perfil comunitat"
 
 #. Default: "Habilitar portlet Ulearn Recent Changes"
-#: ../controlportlets.py:282
+#: ../controlportlets.py:291
 msgid "ulearn_recentchanges"
 msgstr "Habilitar portlet Ulearn Canvis recents"
 
 #. Default: "Habilitar portlet compartit amb mi"
-#: ../controlportlets.py:219
+#: ../controlportlets.py:228
 msgid "ulearn_sharedwithme"
 msgstr "Habilitar portlet Ulearn Compartit amb mi"
 
 #. Default: "Habilitar portlet Smart"
-#: ../controlportlets.py:291
+#: ../controlportlets.py:147
 msgid "ulearn_smart"
 msgstr "Habilitar portlet Smart"
 
 #. Default: "Habilitar portlet Ulearn Stats"
-#: ../controlportlets.py:273
+#: ../controlportlets.py:282
 msgid "ulearn_stats"
 msgstr "Habilitar portlet Ulearn Estadístiques"
 
 #. Default: "Habilitar portlet Ulearn Thinkers"
-#: ../controlportlets.py:201
+#: ../controlportlets.py:210
 msgid "ulearn_thinkers"
 msgstr "Habilitar portlet Ulearn Persones"
 
 #. Default: "Url terms of use"
-#: ../controlpanel.py:352
+#: ../controlpanel.py:358
 msgid "url_terms"
 msgstr "URL dels termes d'ús"
 
