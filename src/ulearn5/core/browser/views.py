@@ -224,16 +224,22 @@ class MigrateAvatars(grok.View):
 
     def convertSquareImage(self, image_file):
         CONVERT_SIZE = (250, 250)
-        image = PIL.Image.open(image_file)
+        try:
+            image = PIL.Image.open(image_file)
+        except:
+            new_file = None
+            mimetype = 'image/jpg'
+            return new_file, mimetype
+
         format = image.format
         mimetype = 'image/%s' % format.lower()
 
-        # Old way
-        # if image.size[0] > 250 or image.size[1] > 250:
-        #     image.thumbnail((250, 9800), PIL.Image.ANTIALIAS)
-        #     image = image.transform((250, 250), PILImage.EXTENT, (0, 0, 250, 250), PILImage.BICUBIC)
-
         result = ImageOps.fit(image, CONVERT_SIZE, method=PIL.Image.ANTIALIAS, centering=(0.5, 0.5))
+
+        # Bypass CMYK problem in conversion
+        if result.mode not in ["1", "L", "P", "RGB", "RGBA"]:
+            result = result.convert("RGB")
+
         new_file = StringIO()
         result.save(new_file, format, quality=88)
         new_file.seek(0)
