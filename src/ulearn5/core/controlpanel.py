@@ -181,7 +181,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_main_color',
                       default=_(u'Aquest és el color principal de l\'espai.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#003556',
     )
 
     secondary_color = schema.TextLine(
@@ -190,7 +190,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_secondary_color',
                       default=_(u'Aquest és el color secundari de l\'espai.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#003556',
     )
 
     maxui_form_bg = schema.TextLine(
@@ -199,7 +199,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_maxui_form_bg',
                       default=_(u'Aquest és el color del fons del widget de MAX.')),
         required=True,
-        default=u'#34495c',
+        default=u'#E8E8E8',
     )
 
     alt_gradient_start_color = schema.TextLine(
@@ -208,7 +208,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_alt_gradient_start_color',
                       default=_(u'Aquest és el color inicial dels gradients.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#FFFFFF',
     )
 
     alt_gradient_end_color = schema.TextLine(
@@ -217,7 +217,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_alt_gradient_end_color',
                       default=_(u'Aquest és el color final dels gradients.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#FFFFFF',
     )
 
     background_property = schema.TextLine(
@@ -235,7 +235,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_background_color',
                       default=_(u'Aquest és el color de fons global o la propietat corresponent.')),
         required=True,
-        default=u'#eae9e4',
+        default=u'#EAE9E4',
     )
 
     buttons_color_primary = schema.TextLine(
@@ -244,7 +244,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_buttons_color_primary',
                       default=_(u'Aquest és el color primari dels botons.')),
         required=True,
-        default=u'#34495E',
+        default=u'#003556',
     )
 
     buttons_color_secondary = schema.TextLine(
@@ -253,7 +253,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_buttons_color_secondary',
                       default=_(u'Aquest és el color secundari dels botons.')),
         required=True,
-        default=u'#34495E',
+        default=u'#003556',
     )
 
     color_community_closed = schema.TextLine(
@@ -262,7 +262,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_color_community_closed',
                       default=_(u'Aquest és el color per les comunitats tancades.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#08C2B1',
     )
 
     color_community_organizative = schema.TextLine(
@@ -271,7 +271,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_color_community_organizative',
                       default=_(u'Aquest és el color per les comunitats organitzatives.')),
         required=True,
-        default=u'#b5c035',
+        default=u'#C4B408',
     )
 
     color_community_open = schema.TextLine(
@@ -280,7 +280,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_color_community_open',
                       default=_(u'Aquest és el color per les comunitats obertes.')),
         required=True,
-        default=u'#888888',
+        default=u'#556B2F',
     )
 
     form.widget(nonvisibles=Select2MAXUserInputFieldWidget)

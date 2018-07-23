@@ -228,21 +228,5 @@ def setupVarious(context):
     except:
         print "La propietat 'ulearn.video' ja estava afegida al portal site_properties"
 
-    # Define colors of site
-    registry = queryUtility(IRegistry)
-    context.settings = registry.forInterface(IUlearnControlPanelSettings)
-    context.settings.main_color = u'#003556'
-    context.settings.secondary_color = u'#003556'
-    context.settings.background_property = u'transparent'
-    context.settings.background_color = u'#EAE9E4'
-    context.settings.buttons_color_primary = u'#003556'
-    context.settings.buttons_color_secondary = u'#003556'
-    context.settings.maxui_form_bg = u'#E8E8E8'
-    context.settings.alt_gradient_start_color = u'#FFFFFF'
-    context.settings.alt_gradient_end_color = u'#FFFFFF'
-    context.settings.color_community_closed = u'#08C2B1'
-    context.settings.color_community_organizative = u'#C4B408'
-    context.settings.color_community_open = u'#556B2F'
-
     import transaction
     transaction.commit()
