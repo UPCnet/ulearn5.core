@@ -20,12 +20,4 @@
       for="plone.dexterity.interfaces.IDexterityContent"
       />
 
-  <plone:behavior
-      title="Terms"
-      description="Add field terms"
-      provides=".behaviors.terms.ITerms"
-      factory=".behaviors.terms.Terms"
-      for="plone.dexterity.interfaces.IDexterityContent"
-      />
-
 </configure>

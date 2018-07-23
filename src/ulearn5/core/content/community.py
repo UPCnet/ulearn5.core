@@ -20,6 +20,7 @@ from plone.memoize.view import memoize_contextless
 from plone.namedfile.field import NamedBlobImage
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletRetriever
+from plone.registry.interfaces import IRegistry
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.indexes.keyword import CatalogKeywordIndex
@@ -35,12 +36,14 @@ from zope import schema
 from zope.component import adapts
 from zope.component import getMultiAdapter
 from zope.component import getUtility
+from zope.component import queryUtility
 from zope.component.hooks import getSite
 from zope.container.interfaces import INameChooser
 from zope.container.interfaces import IObjectAddedEvent
 from zope.event import notify
 from zope.globalrequest import getRequest
 from zope.interface import Interface
+from zope.interface import Invalid
 from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.interface import implements
@@ -48,7 +51,6 @@ from zope.lifecycleevent import ObjectModifiedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
 from zope.schema.interfaces import IContextSourceBinder
-from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
 
@@ -57,6 +59,7 @@ from base5.core.utils import json_response
 from mrs5.max.utilities import IHubClient
 from mrs5.max.utilities import IMAXClient
 from ulearn5.core import _
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.interfaces import IDXFileFactory
 from ulearn5.core.interfaces import IDocumentFolder
@@ -66,6 +69,7 @@ from ulearn5.core.interfaces import IPhotosFolder
 from ulearn5.core.utils import is_activate_owncloud
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
+from ulearn5.core.widgets.terms_widget import TermsFieldWidget
 from ulearn5.owncloud.api.owncloud import Client
 from ulearn5.owncloud.api.owncloud import HTTPResponseError
 from ulearn5.owncloud.api.owncloud import OCSResponseError
@@ -136,6 +140,12 @@ def communityActivityViews(context):
     terms.append(SimpleVocabulary.createTerm(u'Activitats destacades', 'activitats_destacades', _(u'Activitats destacades')))
 
     return SimpleVocabulary(terms)
+
+
+def isChecked(value):
+    if not value:
+        raise Invalid(_(u'falta_condicions'))
+    return True
 
 
 class ICommunity(form.Schema):
@@ -236,6 +246,14 @@ class ICommunity(form.Schema):
         title=_(u'Notify activity and comments via push'),
         description=_(u'help_notify_activity_via_push_comments_too'),
         required=False
+    )
+
+    form.mode(terms='hidden')
+    form.widget(terms=TermsFieldWidget)
+    terms = schema.Bool(
+        title=_(u'title_terms_of_user'),
+        description=_(u'description_terms_of_user'),
+        constraint=isChecked
     )
 
 
@@ -1060,14 +1078,18 @@ class communityAdder(form.SchemaForm):
         super(communityAdder, self).updateWidgets()
         # Override the interface forced 'hidden' to 'input' for add form only
         self.widgets['community_type'].mode = 'input'
+        registry = queryUtility(IRegistry)
+        ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
+        if ulearn_tool.url_terms:
+            self.widgets['terms'].mode = 'input'
 
     @button.buttonAndHandler(_(u'Crea la comunitat'), name='save')
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
-            if not 'title' in data:
+            if 'title' not in data:
                 msgid = _(u'falta_titol', default=u'No es pot crear una comunitat sense titol')
-            elif not 'terms' in data:
+            elif 'terms' not in data:
                 msgid = _(u'falta_condicions', default=u"Es necessari acceptar les condicions d'us i privacitat per crear una comunitat.")
             else:
                 msgid = _(u'error', default=u"Falta omplir algun camp obligatori.")
@@ -1086,6 +1108,7 @@ class communityAdder(form.SchemaForm):
         twitter_hashtag = data['twitter_hashtag']
         notify_activity_via_push = data['notify_activity_via_push']
         notify_activity_via_push_comments_too = data['notify_activity_via_push_comments_too']
+        terms = data['terms']
 
         portal = api.portal.get()
         pc = api.portal.get_tool('portal_catalog')
@@ -1119,6 +1142,7 @@ class communityAdder(form.SchemaForm):
                 twitter_hashtag=twitter_hashtag,
                 notify_activity_via_push=notify_activity_via_push,
                 notify_activity_via_push_comments_too=notify_activity_via_push_comments_too,
+                terms=terms,
                 checkConstraints=False)
 
             new_comunitat = self.context[new_comunitat_id]
@@ -1161,6 +1185,7 @@ class communityEdit(form.SchemaForm):
         self.widgets['show_news'].value = self.context.show_news
         self.widgets['show_events'].value = self.context.show_events
         self.widgets['twitter_hashtag'].value = self.context.twitter_hashtag
+        self.widgets['terms'].value = ['true']
 
         if self.context.notify_activity_via_push:
             self.widgets['notify_activity_via_push'].value = ['selected']
@@ -1230,6 +1255,7 @@ class communityEdit(form.SchemaForm):
             self.context.twitter_hashtag = twitter_hashtag
             self.context.notify_activity_via_push = notify_activity_via_push
             self.context.notify_activity_via_push_comments_too = notify_activity_via_push_comments_too
+            self.context.terms = True
 
             if image:
                 self.context.image = image
