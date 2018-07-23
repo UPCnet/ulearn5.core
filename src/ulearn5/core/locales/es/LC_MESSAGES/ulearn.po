@@ -1801,7 +1801,7 @@ msgstr "Icono Font Awesome"
 #. Default: "Leer mas.."
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:153
 msgid "readmore"
-msgstr "Leer mas..."
+msgstr "Leer más..."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml

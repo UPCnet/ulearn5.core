@@ -431,3 +431,11 @@ msgstr "Añadir un archivo"
 #: ../../../../ulearn5.core/ulearn/core/profiles/default/types/Image.xml:4
 msgid "Add a new image"
 msgstr "Añadir una imagen"
+
+#: ../../../../ulearn5.core/ulearn/core/profiles/default/types/News_Item.xml:4
+msgid "Add news"
+msgstr "Añadir una noticia"
+
+#: ../../../../ulearn5.core/ulearn/core/profiles/default/types/Event.xml:5
+msgid "Add a new event"
+msgstr "Añadir un evento"
