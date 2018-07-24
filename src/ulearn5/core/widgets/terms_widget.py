@@ -10,18 +10,27 @@ from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
 import z3c.form.interfaces
 import z3c.form.widget
+from z3c.form.browser.checkbox import CheckBoxWidget
 
 
-class TermsWidget(z3c.form.browser.checkbox.CheckBoxWidget):
+class TermsWidget(CheckBoxWidget):
     klass = u'terms-widget'
     input_template = ViewPageTemplateFile('templates/terms.pt')
     hidden_template = ViewPageTemplateFile('templates/terms_hidden.pt')
 
     def render(self):
-        if self.mode == z3c.form.interfaces.INPUT_MODE:
-            return self.input_template(self)
+        registry = queryUtility(IRegistry)
+        ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
+        if ulearn_tool.url_terms == None:
+            self.mode = 'hidden'
+            template = self.hidden_template(self)
+        elif '@@edit' in self.request.getURL():
+            template = self.hidden_template(self)
         else:
-            return self.hidden_template(self)
+            template = self.input_template(self)
+
+        return template
+      
 
     def url(self):
         registry = queryUtility(IRegistry)

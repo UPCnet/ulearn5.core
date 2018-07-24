@@ -75,6 +75,7 @@ from ulearn5.owncloud.api.owncloud import HTTPResponseError
 from ulearn5.owncloud.api.owncloud import OCSResponseError
 from ulearn5.owncloud.utilities import IOwncloudClient
 from ulearn5.owncloud.utils import update_owncloud_permission
+from z3c.form.interfaces import IAddForm, IEditForm
 
 import json
 import logging
@@ -163,8 +164,8 @@ class ICommunity(form.Schema):
         description=_(u'La descripcio de la comunitat'),
         required=False
     )
-
-    form.mode(community_type='hidden')
+   
+    form.mode(IEditForm, community_type='hidden')
     community_type = schema.Choice(
         title=_(u'Tipus de comunitat'),
         description=_(u'community_type_description'),
@@ -247,14 +248,16 @@ class ICommunity(form.Schema):
         description=_(u'help_notify_activity_via_push_comments_too'),
         required=False
     )
-
-    form.mode(terms='hidden')
+    
+    form.mode(IAddForm, terms='hidden')
+    form.mode(IEditForm, terms='hidden')
     form.widget(terms=TermsFieldWidget)
     terms = schema.Bool(
         title=_(u'title_terms_of_user'),
         description=_(u'description_terms_of_user'),
         constraint=isChecked
     )
+
 
 
 # INTERFICIES QUE POT IMPLEMENTAR UNA COMUNITAT
@@ -1076,12 +1079,14 @@ class communityAdder(form.SchemaForm):
 
     def updateWidgets(self):
         super(communityAdder, self).updateWidgets()
-        # Override the interface forced 'hidden' to 'input' for add form only
-        self.widgets['community_type'].mode = 'input'
         registry = queryUtility(IRegistry)
         ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
-        if ulearn_tool.url_terms:
-            self.widgets['terms'].mode = 'input'
+        if ulearn_tool.url_terms == None:
+           self.widgets['terms'].mode = 'hidden'
+           self.fields['terms'].mode = 'hidden'
+        else:
+           self.widgets['terms'].mode = 'input'
+           self.fields['terms'].mode = 'input'
 
     @button.buttonAndHandler(_(u'Crea la comunitat'), name='save')
     def handleApply(self, action):
@@ -1429,7 +1434,6 @@ def edit_community(community, event):
     # Skip community modification if community is in creation state
     if not IInitializedCommunity.providedBy(community):
         return
-
     adapter = community.adapted()
     adapter.update_max_context()
 
