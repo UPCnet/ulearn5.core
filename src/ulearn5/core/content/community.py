@@ -145,7 +145,7 @@ def communityActivityViews(context):
 
 def isChecked(value):
     if not value:
-        raise Invalid(_(u'falta_condicions'))
+        raise Invalid(_(u'falta_condicions', default=u"Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."))
     return True
 
 
