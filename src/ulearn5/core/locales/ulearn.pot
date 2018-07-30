@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-30 06:56+0000\n"
+"POT-Creation-Date: 2018-07-30 14:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,11 +67,11 @@ msgstr ""
 msgid "All dates"
 msgstr ""
 
-#: ../content/community.py:1402
+#: ../content/community.py:1403
 msgid "Blog"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:126
+#: ulearn5/theme/browser/viewlets_templates/header.pt:127
 msgid "Buscar"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:130
+#: ulearn5/theme/browser/viewlets_templates/header.pt:131
 msgid "Cerca"
 msgstr ""
 
@@ -103,6 +103,14 @@ msgstr ""
 
 #: ../patches.py:307
 msgid "Changes saved."
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Click to disable the icalendar import feature on this context."
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Click to enable the icalendar import feature on this context."
 msgstr ""
 
 #: ../content/community.py:125
@@ -149,6 +157,10 @@ msgstr ""
 msgid "Design"
 msgstr ""
 
+#: ../profiles/default/actions.xml
+msgid "Disable icalendar import"
+msgstr ""
+
 #: ulearn5/theme/portlets/templates/discussion.pt:9
 msgid "Discussion"
 msgstr ""
@@ -165,7 +177,7 @@ msgstr ""
 msgid "Display images"
 msgstr ""
 
-#: ../content/community.py:1341
+#: ../content/community.py:1342
 msgid "Documents"
 msgstr ""
 
@@ -211,7 +223,11 @@ msgstr ""
 msgid "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 msgstr ""
 
-#: ../content/community.py:1343
+#: ../profiles/default/actions.xml
+msgid "Enable icalendar import"
+msgstr ""
+
+#: ../content/community.py:1344
 msgid "Esdeveniments"
 msgstr ""
 
@@ -339,7 +355,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr ""
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1342
+#: ../content/community.py:1343
 msgid "Media"
 msgstr ""
 
@@ -420,11 +436,11 @@ msgstr ""
 msgid "Nom de la comunitat"
 msgstr ""
 
-#: ../content/community.py:1344
+#: ../content/community.py:1345
 msgid "Noticies"
 msgstr ""
 
-#: ../content/community.py:1403
+#: ../content/community.py:1404
 msgid "Noticies de la comunitat"
 msgstr ""
 
@@ -1447,7 +1463,7 @@ msgstr ""
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:121
+#: ulearn5/theme/browser/viewlets_templates/header.pt:122
 msgid "info"
 msgstr ""
 
@@ -1857,7 +1873,7 @@ msgstr ""
 msgid "search_communities"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:129
+#: ulearn5/theme/browser/viewlets_templates/header.pt:130
 msgid "search_site"
 msgstr ""
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-07-30 06:56+0000\n"
+"POT-Creation-Date: 2018-07-30 14:09+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -66,11 +66,11 @@ msgstr "Add the quick links by language"
 msgid "All dates"
 msgstr "All dates"
 
-#: ../content/community.py:1402
+#: ../content/community.py:1403
 msgid "Blog"
 msgstr "Blog"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:126
+#: ulearn5/theme/browser/viewlets_templates/header.pt:127
 msgid "Buscar"
 msgstr "Search"
 
@@ -88,7 +88,7 @@ msgstr "Can only be seen and edited by the owner."
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:130
+#: ulearn5/theme/browser/viewlets_templates/header.pt:131
 msgid "Cerca"
 msgstr "Search"
 
@@ -103,6 +103,14 @@ msgstr "Changes saved"
 #: ../patches.py:307
 msgid "Changes saved."
 msgstr "Changes saved"
+
+#: ../profiles/default/actions.xml
+msgid "Click to disable the icalendar import feature on this context."
+msgstr "Click to disable the icalendar import feature on this context."
+
+#: ../profiles/default/actions.xml
+msgid "Click to enable the icalendar import feature on this context."
+msgstr "Click to enable the icalendar import feature on this context."
 
 #: ../content/community.py:125
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:35
@@ -148,6 +156,10 @@ msgstr "Community description"
 msgid "Design"
 msgstr "Design"
 
+#: ../profiles/default/actions.xml
+msgid "Disable icalendar import"
+msgstr "Disable icalendar import"
+
 #: ulearn5/theme/portlets/templates/discussion.pt:9
 msgid "Discussion"
 msgstr "Discussion"
@@ -164,7 +176,7 @@ msgstr "Display descriptions"
 msgid "Display images"
 msgstr "Display images"
 
-#: ../content/community.py:1341
+#: ../content/community.py:1342
 msgid "Documents"
 msgstr "Documents"
 
@@ -210,8 +222,12 @@ msgstr "Editors"
 msgid "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 msgstr "Users can not post objects, exclusively for intranets."
 
+#: ../profiles/default/actions.xml
+msgid "Enable icalendar import"
+msgstr "Enable icalendar import"
+
 #. Default: "Eventos"
-#: ../content/community.py:1343
+#: ../content/community.py:1344
 msgid "Esdeveniments"
 msgstr "Events"
 
@@ -339,7 +355,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr "Making an item published to intranet means that it will be visible to the members (readers)."
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1342
+#: ../content/community.py:1343
 msgid "Media"
 msgstr "Media"
 
@@ -420,11 +436,11 @@ msgstr "Name"
 msgid "Nom de la comunitat"
 msgstr "Community's name"
 
-#: ../content/community.py:1344
+#: ../content/community.py:1345
 msgid "Noticies"
 msgstr "News"
 
-#: ../content/community.py:1403
+#: ../content/community.py:1404
 msgid "Noticies de la comunitat"
 msgstr "Community news"
 
@@ -1452,7 +1468,7 @@ msgstr "Important News"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:121
+#: ulearn5/theme/browser/viewlets_templates/header.pt:122
 msgid "info"
 msgstr "Info"
 
@@ -1862,7 +1878,7 @@ msgstr "Search"
 msgid "search_communities"
 msgstr "Search"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:129
+#: ulearn5/theme/browser/viewlets_templates/header.pt:130
 msgid "search_site"
 msgstr "Search on the Site"
 

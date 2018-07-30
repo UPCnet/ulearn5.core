@@ -243,7 +243,7 @@
    <property name="modal" type="text">{}</property>
   </object>
   <object name="ical_import_enable" meta_type="CMF Action"
-     i18n:domain="plone.app.event">
+     i18n:domain="ulearn">
    <property name="title" i18n:translate="">Enable icalendar import</property>
    <property name="description"
       i18n:translate="">Click to enable the icalendar import feature on this context.</property>
@@ -259,7 +259,7 @@
    <property name="visible">True</property>
   </object>
   <object name="ical_import_disable" meta_type="CMF Action"
-     i18n:domain="plone.app.event">
+     i18n:domain="ulearn">
    <property name="title"
       i18n:translate="">Disable icalendar import</property>
    <property name="description"
