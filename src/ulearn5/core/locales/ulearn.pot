@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-26 08:43+0000\n"
+"POT-Creation-Date: 2018-07-30 06:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,16 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
 
-#: ../patches.py:365
+#: ../patches.py:366
 msgid " ."
 msgstr ""
 
-#: ../content/community.py:140
+#: ../content/community.py:141
 #: ../controlpanel.py:25
 msgid "Activitats destacades"
 msgstr ""
 
-#: ../content/community.py:139
+#: ../content/community.py:140
 #: ../controlpanel.py:24
 msgid "Activitats mes valorades"
 msgstr ""
@@ -67,7 +67,7 @@ msgstr ""
 msgid "All dates"
 msgstr ""
 
-#: ../content/community.py:1397
+#: ../content/community.py:1402
 msgid "Blog"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgid "Can only be seen and edited by the owner."
 msgstr ""
 
 #: ../controlpanel.py:430
-#: ../controlportlets.py:367
+#: ../controlportlets.py:376
 msgid "Cancel"
 msgstr ""
 
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Cerca"
 msgstr ""
 
-#: ../patches.py:915
+#: ../patches.py:916
 msgid "Changes made."
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Changes saved."
 msgstr ""
 
-#: ../content/community.py:124
+#: ../content/community.py:125
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:35
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:64
 msgid "Closed"
@@ -128,7 +128,7 @@ msgstr ""
 msgid "Comunitat_stats"
 msgstr ""
 
-#: ../content/community.py:1086
+#: ../content/community.py:1091
 msgid "Crea la comunitat"
 msgstr ""
 
@@ -136,12 +136,12 @@ msgstr ""
 msgid "Create thumb of News images for show in app"
 msgstr ""
 
-#: ../content/community.py:138
+#: ../content/community.py:139
 #: ../controlpanel.py:23
 msgid "Darreres activitats"
 msgstr ""
 
-#: ../content/community.py:162
+#: ../content/community.py:163
 msgid "Descripcio"
 msgstr ""
 
@@ -153,7 +153,19 @@ msgstr ""
 msgid "Discussion"
 msgstr ""
 
-#: ../content/community.py:1336
+#: ulearn5/theme/portlets/rss/rss.py:232
+msgid "Display dates"
+msgstr ""
+
+#: ulearn5/theme/portlets/rss/rss.py:236
+msgid "Display descriptions"
+msgstr ""
+
+#: ulearn5/theme/portlets/rss/rss.py:240
+msgid "Display images"
+msgstr ""
+
+#: ../content/community.py:1341
 msgid "Documents"
 msgstr ""
 
@@ -183,15 +195,15 @@ msgid "Edit Subscribed News Portlet"
 msgstr ""
 
 #: ../controlpanel.py:432
-#: ../controlportlets.py:369
+#: ../controlportlets.py:378
 msgid "Edit cancelled"
 msgstr ""
 
-#: ../content/community.py:1209
+#: ../content/community.py:1214
 msgid "Edita la comunitat"
 msgstr ""
 
-#: ../content/community.py:197
+#: ../content/community.py:198
 msgid "Editors"
 msgstr ""
 
@@ -199,7 +211,7 @@ msgstr ""
 msgid "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 msgstr ""
 
-#: ../content/community.py:1338
+#: ../content/community.py:1343
 msgid "Esdeveniments"
 msgstr ""
 
@@ -255,11 +267,11 @@ msgstr ""
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
 msgstr ""
 
-#: ../content/community.py:214
+#: ../content/community.py:215
 msgid "Imatge"
 msgstr ""
 
-#: ../content/community.py:215
+#: ../content/community.py:216
 msgid "Imatge que defineix la comunitat"
 msgstr ""
 
@@ -286,7 +298,7 @@ msgstr ""
 msgid "Items in which workflow state to show."
 msgstr ""
 
-#: ../content/community.py:163
+#: ../content/community.py:164
 msgid "La descripcio de la comunitat"
 msgstr ""
 
@@ -327,7 +339,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr ""
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1337
+#: ../content/community.py:1342
 msgid "Media"
 msgstr ""
 
@@ -354,6 +366,14 @@ msgstr ""
 #. Default: "Mes inicialsds"
 #: ../browser/stats_templates/statsview.pt:156
 msgid "Mes_inicial"
+msgstr ""
+
+#: ulearn5/theme/portlets/rss/rss.py:244
+msgid "More link"
+msgstr ""
+
+#: ulearn5/theme/portlets/rss/rss.py:249
+msgid "More text"
 msgstr ""
 
 #: ../controlpanel.py:30
@@ -392,27 +412,27 @@ msgstr ""
 msgid "News intranet workflow"
 msgstr ""
 
-#: ../content/community.py:156
+#: ../content/community.py:157
 msgid "Nom"
 msgstr ""
 
-#: ../content/community.py:157
+#: ../content/community.py:158
 msgid "Nom de la comunitat"
 msgstr ""
 
-#: ../content/community.py:1339
+#: ../content/community.py:1344
 msgid "Noticies"
 msgstr ""
 
-#: ../content/community.py:1398
+#: ../content/community.py:1403
 msgid "Noticies de la comunitat"
 msgstr ""
 
-#: ../content/community.py:246
+#: ../content/community.py:247
 msgid "Notify activity and comments via push"
 msgstr ""
 
-#: ../content/community.py:240
+#: ../content/community.py:241
 msgid "Notify activity via push"
 msgstr ""
 
@@ -422,19 +442,19 @@ msgstr ""
 msgid "Number of items to display"
 msgstr ""
 
-#: ../content/community.py:119
+#: ../content/community.py:120
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:36
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:65
 msgid "Open"
 msgstr ""
 
-#: ../content/community.py:129
+#: ../content/community.py:130
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:37
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:66
 msgid "Organizative"
 msgstr ""
 
-#: ../content/community.py:206
+#: ../content/community.py:207
 msgid "Owners"
 msgstr ""
 
@@ -448,11 +468,11 @@ msgstr ""
 msgid "Pending reviewer queue"
 msgstr ""
 
-#: ../patches.py:1015
+#: ../patches.py:1016
 msgid "Personal Preferences"
 msgstr ""
 
-#: ../controlportlets.py:306
+#: ../controlportlets.py:315
 msgid "Portlets settings"
 msgstr ""
 
@@ -507,7 +527,7 @@ msgstr ""
 msgid "QuickLinks"
 msgstr ""
 
-#: ../content/community.py:186
+#: ../content/community.py:187
 msgid "Readers"
 msgstr ""
 
@@ -574,19 +594,19 @@ msgstr ""
 msgid "Shared With Me"
 msgstr ""
 
-#: ../content/community.py:233
+#: ../content/community.py:234
 msgid "Show events"
 msgstr ""
 
-#: ../content/community.py:234
+#: ../content/community.py:235
 msgid "Show events in the central area of the main community page."
 msgstr ""
 
-#: ../content/community.py:226
+#: ../content/community.py:227
 msgid "Show news"
 msgstr ""
 
-#: ../content/community.py:227
+#: ../content/community.py:228
 msgid "Show news in the central area of the main community page"
 msgstr ""
 
@@ -600,15 +620,15 @@ msgstr ""
 msgid "Submit for publication"
 msgstr ""
 
-#: ../content/community.py:198
+#: ../content/community.py:199
 msgid "Subscribed people with editor permissions"
 msgstr ""
 
-#: ../content/community.py:207
+#: ../content/community.py:208
 msgid "Subscribed people with owner permissions"
 msgstr ""
 
-#: ../content/community.py:187
+#: ../content/community.py:188
 msgid "Subscribed people with read-only permissions"
 msgstr ""
 
@@ -618,6 +638,10 @@ msgstr ""
 
 #: ../controlpanel.py:302
 msgid "Text Quick Links"
+msgstr ""
+
+#: ulearn5/theme/portlets/rss/rss.py:250
+msgid "Text to show more content."
 msgstr ""
 
 #: ../profiles/default/workflows/news_intranet/definition.xml
@@ -656,7 +680,7 @@ msgstr ""
 msgid "Time of the last transition"
 msgstr ""
 
-#: ../content/community.py:169
+#: ../content/community.py:170
 msgid "Tipus de comunitat"
 msgstr ""
 
@@ -666,7 +690,7 @@ msgstr ""
 msgid "Todas las comunidades"
 msgstr ""
 
-#: ../content/community.py:220
+#: ../content/community.py:221
 msgid "Twitter hashtag"
 msgstr ""
 
@@ -695,6 +719,10 @@ msgid "Ulearn Profile Community"
 msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn RSS"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Thinnkers"
 msgstr ""
 
@@ -720,6 +748,10 @@ msgstr ""
 
 #: ../configure.zcml:81
 msgid "Uninstalls the ulearn5.core add-on."
+msgstr ""
+
+#: ulearn5/theme/portlets/rss/rss.py:245
+msgid "Url that links to more content."
 msgstr ""
 
 #. Default: "Usuario <span class=\"formHelp\"></span>"
@@ -769,7 +801,7 @@ msgstr ""
 msgid "activate_sharedwithme"
 msgstr ""
 
-#: ../content/community.py:177
+#: ../content/community.py:178
 #: ../controlpanel.py:322
 msgid "activity_view"
 msgstr ""
@@ -892,22 +924,22 @@ msgstr ""
 msgid "community_open_and_no_subscribed"
 msgstr ""
 
-#: ../content/community.py:170
+#: ../content/community.py:171
 msgid "community_type_description"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1150
+#: ../content/community.py:1155
 msgid "comunitat_creada"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1123
+#: ../content/community.py:1128
 msgid "comunitat_existeix"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1267
+#: ../content/community.py:1272
 msgid "comunitat_modificada"
 msgstr ""
 
@@ -931,7 +963,7 @@ msgstr ""
 msgid "createcommunity"
 msgstr ""
 
-#: ../content/community.py:255
+#: ../content/community.py:257
 msgid "description_terms_of_user"
 msgstr ""
 
@@ -951,7 +983,7 @@ msgid "entrades"
 msgstr ""
 
 #. Default: "Falta omplir algun camp obligatori."
-#: ../content/community.py:1095
+#: ../content/community.py:1100
 msgid "error"
 msgstr ""
 
@@ -993,12 +1025,12 @@ msgid "external_website"
 msgstr ""
 
 #. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
-#: ../content/community.py:147
+#: ../content/community.py:148
 msgid "falta_condicions"
 msgstr ""
 
 #. Default: "No es pot crear una comunitat sense titol"
-#: ../content/community.py:1091
+#: ../content/community.py:1096
 msgid "falta_titol"
 msgstr ""
 
@@ -1032,7 +1064,7 @@ msgstr ""
 msgid "gotolibrary"
 msgstr ""
 
-#: ../content/community.py:221
+#: ../content/community.py:222
 msgid "hashtag_help"
 msgstr ""
 
@@ -1056,7 +1088,7 @@ msgstr ""
 msgid "help_activate_sharedwithme"
 msgstr ""
 
-#: ../content/community.py:178
+#: ../content/community.py:179
 #: ../controlpanel.py:323
 msgid "help_activity_view"
 msgstr ""
@@ -1171,7 +1203,7 @@ msgstr ""
 msgid "help_navigation_title"
 msgstr ""
 
-#: ../content/community.py:247
+#: ../content/community.py:248
 msgid "help_notify_activity_via_push_comments_too"
 msgstr ""
 
@@ -1231,7 +1263,7 @@ msgid "help_portlets_rss"
 msgstr ""
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:307
+#: ../controlportlets.py:316
 msgid "help_portlets_settings_editform"
 msgstr ""
 
@@ -1309,12 +1341,12 @@ msgid "help_ulearn_communities"
 msgstr ""
 
 #. Default: "Habilita el portlet."
-#: ../controlportlets.py:266
+#: ../controlportlets.py:275
 msgid "help_ulearn_discussion"
 msgstr ""
 
 #. Default: "Habilita el portlet eConnect."
-#: ../controlportlets.py:275
+#: ../controlportlets.py:284
 msgid "help_ulearn_econnect"
 msgstr ""
 
@@ -1338,6 +1370,11 @@ msgstr ""
 msgid "help_ulearn_portlets_mytags"
 msgstr ""
 
+#. Default: "Habilita el portlet para mostrar contenido a partir de un enllace rss."
+#: ../controlportlets.py:266
+msgid "help_ulearn_portlets_rss"
+msgstr ""
+
 #. Default: "Habilita el portlet on mostra el perfil usuari, o la comunitat on estem."
 #: ../controlportlets.py:194
 msgid "help_ulearn_profile"
@@ -1349,7 +1386,7 @@ msgid "help_ulearn_profilecommunity"
 msgstr ""
 
 #. Default: "Habilita el portlet per veure els canvis recents."
-#: ../controlportlets.py:293
+#: ../controlportlets.py:302
 msgid "help_ulearn_recentchanges"
 msgstr ""
 
@@ -1369,7 +1406,7 @@ msgid "help_ulearn_smart"
 msgstr ""
 
 #. Default: "Habilita el portlet per a veure les estadístiques."
-#: ../controlportlets.py:284
+#: ../controlportlets.py:293
 msgid "help_ulearn_stats"
 msgstr ""
 
@@ -1500,7 +1537,7 @@ msgid "label_not_subjects"
 msgstr ""
 
 #. Default: "Password"
-#: ../patches.py:1024
+#: ../patches.py:1025
 msgid "label_password"
 msgstr ""
 
@@ -1579,32 +1616,32 @@ msgid "main_color"
 msgstr ""
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:345
+#: ../patches.py:346
 msgid "manage_homepage_portlets_description"
 msgstr ""
 
 #. Default: "Homepage"
-#: ../patches.py:344
+#: ../patches.py:345
 msgid "manage_homepage_portlets_title"
 msgstr ""
 
 #. Default: "Manage left portlets"
-#: ../patches.py:383
+#: ../patches.py:384
 msgid "manage_left_portlets_description"
 msgstr ""
 
 #. Default: "Left"
-#: ../patches.py:382
+#: ../patches.py:383
 msgid "manage_left_portlets_title"
 msgstr ""
 
 #. Default: "Manage right portlets"
-#: ../patches.py:386
+#: ../patches.py:387
 msgid "manage_right_portlets_description"
 msgstr ""
 
 #. Default: "Right"
-#: ../patches.py:385
+#: ../patches.py:386
 msgid "manage_right_portlets_title"
 msgstr ""
 
@@ -1696,7 +1733,7 @@ msgstr ""
 msgid "no_visibles"
 msgstr ""
 
-#: ../content/community.py:241
+#: ../content/community.py:242
 msgid "notify_activity_via_push_help"
 msgstr ""
 
@@ -1987,11 +2024,11 @@ msgid "title_add_to_ical"
 msgstr ""
 
 #. Default: "Personal Information"
-#: ../patches.py:1006
+#: ../patches.py:1007
 msgid "title_personal_information_form"
 msgstr ""
 
-#: ../content/community.py:254
+#: ../content/community.py:256
 msgid "title_terms_of_user"
 msgstr ""
 
@@ -2041,7 +2078,7 @@ msgid "ulearn_communities"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn Discussion"
-#: ../controlportlets.py:264
+#: ../controlportlets.py:273
 msgid "ulearn_discussion"
 msgstr ""
 
@@ -2052,7 +2089,7 @@ msgid "ulearn_documents"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn eConnect"
-#: ../controlportlets.py:273
+#: ../controlportlets.py:282
 msgid "ulearn_econnect"
 msgstr ""
 
@@ -2091,6 +2128,11 @@ msgstr ""
 msgid "ulearn_portlets_mytags"
 msgstr ""
 
+#. Default: "Habilitar portlet Ulearn RSS"
+#: ../controlportlets.py:264
+msgid "ulearn_portlets_rss"
+msgstr ""
+
 #. Default: "Habilitar portlet Ulearn Profile"
 #: ../controlportlets.py:192
 msgid "ulearn_profile"
@@ -2102,7 +2144,7 @@ msgid "ulearn_profilecommunity"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn Recent Changes"
-#: ../controlportlets.py:291
+#: ../controlportlets.py:300
 msgid "ulearn_recentchanges"
 msgstr ""
 
@@ -2117,7 +2159,7 @@ msgid "ulearn_smart"
 msgstr ""
 
 #. Default: "Habilitar portlet Ulearn Stats"
-#: ../controlportlets.py:282
+#: ../controlportlets.py:291
 msgid "ulearn_stats"
 msgstr ""
 
@@ -2150,13 +2192,13 @@ msgid "video_url_description"
 msgstr ""
 
 #. Default: "Use site default"
-#: ../patches.py:452
+#: ../patches.py:453
 #: ../personalpreferences.py:75
 msgid "vocabulary-available-editor-novalue"
 msgstr ""
 
 #. Default: "Language neutral (site default)"
-#: ../patches.py:447
+#: ../patches.py:448
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr ""
 

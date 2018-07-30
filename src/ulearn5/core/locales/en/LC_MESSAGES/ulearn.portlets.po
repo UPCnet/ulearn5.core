@@ -59,7 +59,10 @@ msgstr "Portlet Static"
 msgid "collective_polls_VotePortlet"
 msgstr "Portlet Polls"
 
-msgid "base_portlets_recentchanges"
+msgid "base_portlets_smart"
+msgstr "Portlet Smart"
+
+msgid "ulearn_portlets_recentchanges"
 msgstr "Portlet Ulearn Recent changes"
 
 msgid "ulearn_portlets_mytags"
@@ -106,3 +109,6 @@ msgstr "Portlet Ulearn eConnect"
 
 msgid "ulearn_portlets_stats"
 msgstr "Portlet Ulearn Stats"
+
+msgid "ulearn_portlets_rss"
+msgstr "Portlet Ulearn RSS"

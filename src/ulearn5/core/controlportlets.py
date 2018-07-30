@@ -260,6 +260,15 @@ class IPortletsSettings(Interface):
         default=False,
     )
 
+    ulearn_portlets_rss = schema.Bool(
+        title=_(u'ulearn_portlets_rss',
+                default=_(u"Habilitar portlet Ulearn RSS")),
+        description=_(u'help_ulearn_portlets_rss',
+                      default=_(u"Habilita el portlet para mostrar contenido a partir de un enllace rss.")),
+        required=False,
+        default=False,
+    )
+
     ulearn_portlets_discussion = schema.Bool(
         title=_(u'ulearn_discussion',
                 default=_(u"Habilitar portlet Ulearn Discussion")),
