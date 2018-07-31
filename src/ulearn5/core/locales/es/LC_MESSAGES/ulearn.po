@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-07-30 14:09+0000\n"
+"POT-Creation-Date: 2018-07-31 11:48+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -29,6 +29,10 @@ msgstr "Actividades destacadas"
 #: ../controlpanel.py:24
 msgid "Activitats mes valorades"
 msgstr "Actividades más valoradas"
+
+#: ulearn5/theme/portlets/banners/banners.py:126
+msgid "Add Banners Portlet"
+msgstr "Añadir Portlet Banners"
 
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:178
 msgid "Add Flashes Informativos Portlet"
@@ -66,11 +70,16 @@ msgstr "Texto que mostrará como título de los enlaces directos"
 msgid "All dates"
 msgstr "Todas las fechas"
 
-#: ../content/community.py:1403
+#: ../content/banner.py:17
+#: ../profiles/default/types/ulearn.banner.xml
+msgid "Banner"
+msgstr "Banner"
+
+#: ../content/community.py:1402
 msgid "Blog"
 msgstr "Blog"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:127
+#: ulearn5/theme/browser/viewlets_templates/header.pt:139
 msgid "Buscar"
 msgstr "Buscar"
 
@@ -84,11 +93,11 @@ msgid "Can only be seen and edited by the owner."
 msgstr "Solo puede ser visto y editado por el propietario."
 
 #: ../controlpanel.py:430
-#: ../controlportlets.py:376
+#: ../controlportlets.py:385
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:131
+#: ulearn5/theme/browser/viewlets_templates/header.pt:143
 msgid "Cerca"
 msgstr "Buscar"
 
@@ -176,7 +185,7 @@ msgstr "Mostrar descripciones"
 msgid "Display images"
 msgstr "Mostrar imágenes"
 
-#: ../content/community.py:1342
+#: ../content/community.py:1341
 msgid "Documents"
 msgstr "Documentos"
 
@@ -184,6 +193,10 @@ msgstr "Documentos"
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Draft"
 msgstr "Borrador"
+
+#: ulearn5/theme/portlets/banners/banners.py:135
+msgid "Edit Banners Portlet"
+msgstr "Editar portlet Banner"
 
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:187
 msgid "Edit Flashes Informativos portlet"
@@ -206,7 +219,7 @@ msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícias suscritas"
 
 #: ../controlpanel.py:432
-#: ../controlportlets.py:378
+#: ../controlportlets.py:387
 msgid "Edit cancelled"
 msgstr "Edición cancelada"
 
@@ -226,7 +239,7 @@ msgstr "Los usuarios no pueden publicar los objetos, exclusivo para intranets."
 msgid "Enable icalendar import"
 msgstr "Activar importación icalendar"
 
-#: ../content/community.py:1344
+#: ../content/community.py:1343
 msgid "Esdeveniments"
 msgstr "Eventos"
 
@@ -248,6 +261,10 @@ msgstr "Fin estadísticas"
 msgid "Font Awesome Icon"
 msgstr "Icono Font Awesome"
 
+#: ../content/banner.py:24
+msgid "For external links use https:// or http://"
+msgstr "Para enlace externos utilizar https:// o http://"
+
 #: ../setuphandlers.py:183
 msgid "Front page"
 msgstr "Página principal"
@@ -259,6 +276,10 @@ msgstr "General"
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 msgid "Genweb intranet workflow"
 msgstr "Genweb intranet workflow"
+
+#: ulearn5/theme/portlets/banners/banners.py:26
+msgid "Global"
+msgstr "Global"
 
 #: ../profiles/default/actions.xml
 msgid "Go to homepage"
@@ -277,6 +298,10 @@ msgstr "Cuántos elementos quiere mostrar?"
 #: ../behaviors/awicon.py:15
 msgid "Icon"
 msgstr "Icono"
+
+#: ../content/banner.py:18
+msgid "If you do not add an image, a default banner will be created using the title."
+msgstr "Si no se agrega una imagen, se creará un banner predeterminado con el título."
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
@@ -354,7 +379,7 @@ msgid "Making an item published to intranet means that it will be visible to the
 msgstr "Hacer que un elemento se publique en la intranet significa que será visible para los miembros (lectores)."
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1343
+#: ../content/community.py:1342
 msgid "Media"
 msgstr "Media"
 
@@ -435,11 +460,11 @@ msgstr "Nombre"
 msgid "Nom de la comunitat"
 msgstr "Nombre de la comunidad"
 
-#: ../content/community.py:1345
+#: ../content/community.py:1344
 msgid "Noticies"
 msgstr "Noticias"
 
-#: ../content/community.py:1404
+#: ../content/community.py:1403
 msgid "Noticies de la comunitat"
 msgstr "Noticias de la comunidad"
 
@@ -463,6 +488,10 @@ msgstr "Número de elementos a mostrar"
 msgid "Open"
 msgstr "Abierta"
 
+#: ../content/banner.py:29
+msgid "Open in new tab"
+msgstr "Abrir en una ventana nueva"
+
 #: ../content/community.py:130
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:37
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:66
@@ -483,11 +512,15 @@ msgstr "Revisión pendiente"
 msgid "Pending reviewer queue"
 msgstr "En la cola pendiente del revisor"
 
+#: ulearn5/theme/portlets/banners/banners.py:27
+msgid "Personal"
+msgstr "Personal"
+
 #: ../patches.py:1016
 msgid "Personal Preferences"
 msgstr "Preferencial personales"
 
-#: ../controlportlets.py:315
+#: ../controlportlets.py:324
 msgid "Portlets settings"
 msgstr "Configuración de los portlets"
 
@@ -667,6 +700,10 @@ msgstr "El ID del usuario que realizó la última transición"
 msgid "This portlet displays Flashes Informativos."
 msgstr "Este portlet muestra Flashes Informativos"
 
+#: ulearn5/theme/portlets/banners/banners.py:127
+msgid "This portlet displays banners."
+msgstr "Este portlet muestra banners."
+
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:91
 msgid "This portlet displays my subjects on moodle."
 msgstr "Este portlet muestra mis asignaturas en moodle"
@@ -709,9 +746,17 @@ msgstr "Todas las comunidades"
 msgid "Twitter hashtag"
 msgstr "Twitter hashtag"
 
+#: ulearn5/theme/portlets/banners/banners.py:38
+msgid "Type"
+msgstr "Tipo"
+
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn AngularRouteView"
 msgstr "Ulearn AngularRouteView"
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn Banners"
+msgstr "Ulearn Banners"
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Button Bar"
@@ -764,6 +809,10 @@ msgstr "Desinstala el paquete de tema Plone ulearn5.theme."
 #: ../configure.zcml:81
 msgid "Uninstalls the ulearn5.core add-on."
 msgstr "Desinstala el complemento ulearn5.core."
+
+#: ../content/banner.py:23
+msgid "Url"
+msgstr "Url"
 
 #: ulearn5/theme/portlets/rss/rss.py:245
 msgid "Url that links to more content."
@@ -856,6 +905,11 @@ msgstr "Color global de fondo"
 #: ../controlpanel.py:224
 msgid "background_property"
 msgstr "Propiedades globales de fondo"
+
+#. Default: "Banners"
+#: ulearn5/theme/portlets/banners/banners.py:51
+msgid "banners"
+msgstr "Banners"
 
 #. Default: "Manage members"
 #: ulearn5/theme/portlets/profile/profile.pt:78
@@ -1278,7 +1332,7 @@ msgid "help_portlets_rss"
 msgstr "Habilitar el portlet RSS."
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:316
+#: ../controlportlets.py:325
 msgid "help_portlets_settings_editform"
 msgstr "Configuraciones de los portlets. Configure los portlets permitidos."
 
@@ -1365,15 +1419,20 @@ msgstr "Habilitar el portlet Colección."
 msgid "help_ulearn_econnect"
 msgstr "Habilitar el portlet eConnect."
 
+#. Default: "Habilita el portlet banners."
+#: ../controlportlets.py:311
+msgid "help_ulearn_portlets_banners"
+msgstr "Habilitar el portlet de banners."
+
 #. Default: "Habilita el portlet para mostrar las notícias en el flash informativo."
 #: ../controlportlets.py:248
 msgid "help_ulearn_portlets_flashesinformativos"
-msgstr "Habilitar el portlet para mostrar las noticias en el flash informativo"
+msgstr "Habilitar el portlet para mostrar las noticias en el flash informativo."
 
 #. Default: "Habilita el portlet para mostrar las notícias marcadas como destacadas."
 #: ../controlportlets.py:257
 msgid "help_ulearn_portlets_importantnews"
-msgstr "Habilitar el portlet para mostrar las noticias marcadas como destacadas"
+msgstr "Habilitar el portlet para mostrar las noticias marcadas como destacadas."
 
 #. Default: "Habilita el portlet per a poder veure els meus cursos del EVA."
 #: ../controlportlets.py:239
@@ -1462,7 +1521,7 @@ msgstr "Notícias importantes"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:122
+#: ulearn5/theme/browser/viewlets_templates/header.pt:134
 msgid "info"
 msgstr "Info"
 
@@ -1666,7 +1725,7 @@ msgid "maxui_form_bg"
 msgstr "Color de fondo del widget de MAX."
 
 #. Default: "Estadistiques"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:91
+#: ulearn5/theme/browser/viewlets_templates/header.pt:103
 msgid "menu-gestio-estadistiques"
 msgstr "Estadísticas"
 
@@ -1681,22 +1740,32 @@ msgid "menu-gestion"
 msgstr "Gestión"
 
 #. Default: "Management footer"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:74
+#: ulearn5/theme/browser/viewlets_templates/header.pt:86
 msgid "menu-gestion-footer"
 msgstr "Gestionar pie"
 
+#. Default: "Global banners"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:74
+msgid "menu-gestion-global-banners"
+msgstr "Banners globales"
+
 #. Default: "Management header"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:68
+#: ulearn5/theme/browser/viewlets_templates/header.pt:80
 msgid "menu-gestion-header"
 msgstr "Gestionar cabecera"
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:80
+#: ulearn5/theme/browser/viewlets_templates/header.pt:92
 msgid "menu-gestion-menu"
 msgstr "Menú de gestión"
 
+#. Default: "Personal banners"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:68
+msgid "menu-gestion-personal-banners"
+msgstr "Banners personales"
+
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:86
+#: ulearn5/theme/browser/viewlets_templates/header.pt:98
 msgid "menu-reset-menu"
 msgstr "Reinicia el menú"
 
@@ -1872,7 +1941,7 @@ msgstr "Busca"
 msgid "search_communities"
 msgstr "Busca comunidades"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:130
+#: ulearn5/theme/browser/viewlets_templates/header.pt:142
 msgid "search_site"
 msgstr "Busca en el Sitio"
 
@@ -2124,6 +2193,11 @@ msgstr "Media"
 msgid "ulearn_news"
 msgstr "Notícias"
 
+#. Default: "Habilitar portlet Ulearn Banners"
+#: ../controlportlets.py:309
+msgid "ulearn_portlets_banners"
+msgstr "Habilitar portlet Ulearn Banners"
+
 #. Default: "Habilitar portlet flashesinformativos"
 #: ../controlportlets.py:246
 msgid "ulearn_portlets_flashesinformativos"
@@ -2147,7 +2221,7 @@ msgstr "Habilitar portlet Ulearn Mis etiquetas"
 #. Default: "Habilitar portlet Ulearn RSS"
 #: ../controlportlets.py:264
 msgid "ulearn_portlets_rss"
-msgstr ""
+msgstr "Habilitar portlet Ulearn RSS"
 
 #. Default: "Habilitar portlet Ulearn Profile"
 #: ../controlportlets.py:192

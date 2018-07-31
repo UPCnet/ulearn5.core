@@ -18,8 +18,9 @@
     <element value="File"/>
     <element value="Folder"/>
     <element value="Image"/>
-    <element value="Link"/><element value="contents_pretty_view"/>
+    <element value="Link"/>
     <element value="privateFolder"/>
+        <element value="ulearn.banner"/>
  </property>
  <property name="allow_discussion">False</property>
 

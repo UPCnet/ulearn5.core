@@ -112,3 +112,6 @@ msgstr "Portlet Ulearn Estadísticas"
 
 msgid "ulearn_portlets_rss"
 msgstr "Portlet Ulearn RSS"
+
+msgid "ulearn_portlets_banners"
+msgstr "Portlet Ulearn Banners"

@@ -193,10 +193,6 @@ def setupVarious(context):
     if getattr(portal, 'events', False):
         portal.manage_delObjects('events')
 
-    # Delete 'Members' folder
-    if getattr(portal, 'Members', False):
-        portal.manage_delObjects('Members')
-
     # Recall the last language set for this instance in case of reinstall
     registry = queryUtility(IRegistry)
     settings = registry.forInterface(IUlearnControlPanelSettings, check=False)

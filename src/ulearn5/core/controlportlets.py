@@ -304,6 +304,15 @@ class IPortletsSettings(Interface):
         required=False,
         default=False,
     )
+
+    ulearn_portlets_banners = schema.Bool(
+        title=_(u'ulearn_portlets_banners',
+                default=_(u"Habilitar portlet Ulearn Banners")),
+        description=_(u'help_ulearn_portlets_banners',
+                      default=_(u"Habilita el portlet banners.")),
+        required=False,
+        default=False,
+    )
     # ==== FIN Portlets ====
 
 

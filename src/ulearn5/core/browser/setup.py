@@ -361,6 +361,97 @@ class createCustomizedFooterFolder(grok.View):
         return 'Done'
 
 
+class createBannersFolder(grok.View):
+    """ Create the directory banners in gestion """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = getSite()
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion.exclude_from_nav = False
+        gestion.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(gestion)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        banners = newPrivateFolder(gestion, 'banners', u'Banners')
+        banners.exclude_from_nav = False
+        banners.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(banners)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('ulearn.banner',))
+        behavior.setImmediatelyAddableTypes(('ulearn.banner',))
+
+        transaction.commit()
+        return 'Done'
+
+
+class createPersonalBannerFolder(grok.View):
+    """ Create the directory banners in personal folder """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def createOrGetObject(self, context, newid, title, type_name):
+        if newid in context.contentIds():
+            obj = context[newid]
+        else:
+            obj = createContentInContainer(context, type_name, title=title, checkConstrains=False)
+            transaction.savepoint()
+            if obj.id != newid:
+                context.manage_renameObject(obj.id, newid)
+            obj.reindexObject()
+        return obj
+
+    def render(self):
+        # /createPersonalBannerFolder?user=nom.cognom
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if 'user' in self.request.form:
+            userid = self.request.form['user']
+            user = api.user.get(username=userid)
+            if user:
+                portal = getSite()
+                perFolder = self.createOrGetObject(portal['Members'], userid, userid, u'privateFolder')
+                perFolder.exclude_from_nav = False
+                perFolder.setLayout('folder_listing')
+                behavior = ISelectableConstrainTypes(perFolder)
+                behavior.setConstrainTypesMode(1)
+                behavior.setLocallyAllowedTypes(('Folder',))
+                behavior.setImmediatelyAddableTypes(('Folder',))
+
+                api.content.disable_roles_acquisition(perFolder)
+                for username, roles in perFolder.get_local_roles():
+                    perFolder.manage_delLocalRoles([username])
+                perFolder.manage_setLocalRoles(userid, ['Contributor', 'Editor', 'Reader'])
+
+                banFolder = self.createOrGetObject(perFolder, 'banners', 'Banners', u'Folder')
+                banFolder.exclude_from_nav = False
+                banFolder.setLayout('folder_listing')
+                behavior = ISelectableConstrainTypes(banFolder)
+                behavior.setConstrainTypesMode(1)
+                behavior.setLocallyAllowedTypes(('ulearn.banner',))
+                behavior.setImmediatelyAddableTypes(('ulearn.banner',))
+
+                transaction.commit()
+                return 'Done' + ', ' + userid + '.'
+            else:
+                return 'Error, user ' + userid + ' not exist.'
+        else:
+            return 'Error add user parameter - /createPersonalBannerFolder?user=user.name'
+
+
 class ldapkillah(grok.View):
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
