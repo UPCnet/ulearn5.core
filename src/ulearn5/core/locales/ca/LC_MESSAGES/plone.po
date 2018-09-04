@@ -82,7 +82,7 @@ msgstr ""
 
 #. Default: "El hashtag (por ejemplo: ulearn) que utilizará esta comunidad. No hace falta añadir el \"#\"."
 #: ../../../../ulearn5.core/ulearn/core/content/community.py:106
-msgid "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el "#"."
+msgid "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el \"#\"."
 msgstr ""
 
 #: ../../../../ulearn5.core/ulearn/core/content/community.py:372

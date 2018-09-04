@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-07-31 11:48+0000\n"
+"POT-Creation-Date: 2018-09-04 07:15+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -30,7 +30,7 @@ msgstr "Actividades destacadas"
 msgid "Activitats mes valorades"
 msgstr "Actividades más valoradas"
 
-#: ulearn5/theme/portlets/banners/banners.py:126
+#: ulearn5/theme/portlets/banners/banners.py:131
 msgid "Add Banners Portlet"
 msgstr "Añadir Portlet Banners"
 
@@ -173,15 +173,15 @@ msgstr "Desactivar importación del icalendar"
 msgid "Discussion"
 msgstr "Debates"
 
-#: ulearn5/theme/portlets/rss/rss.py:232
+#: ulearn5/theme/portlets/rss/rss.py:260
 msgid "Display dates"
 msgstr "Mostrar fechas"
 
-#: ulearn5/theme/portlets/rss/rss.py:236
+#: ulearn5/theme/portlets/rss/rss.py:264
 msgid "Display descriptions"
 msgstr "Mostrar descripciones"
 
-#: ulearn5/theme/portlets/rss/rss.py:240
+#: ulearn5/theme/portlets/rss/rss.py:268
 msgid "Display images"
 msgstr "Mostrar imágenes"
 
@@ -194,7 +194,7 @@ msgstr "Documentos"
 msgid "Draft"
 msgstr "Borrador"
 
-#: ulearn5/theme/portlets/banners/banners.py:135
+#: ulearn5/theme/portlets/banners/banners.py:140
 msgid "Edit Banners Portlet"
 msgstr "Editar portlet Banner"
 
@@ -408,11 +408,11 @@ msgstr "Mes final"
 msgid "Mes_inicial"
 msgstr "Mes inicial"
 
-#: ulearn5/theme/portlets/rss/rss.py:244
+#: ulearn5/theme/portlets/rss/rss.py:272
 msgid "More link"
 msgstr "Enlace a más contenido."
 
-#: ulearn5/theme/portlets/rss/rss.py:249
+#: ulearn5/theme/portlets/rss/rss.py:277
 msgid "More text"
 msgstr "Texto del enlace a más contenido."
 
@@ -688,7 +688,7 @@ msgstr "Texto"
 msgid "Text Quick Links"
 msgstr "Título enlaces directos"
 
-#: ulearn5/theme/portlets/rss/rss.py:250
+#: ulearn5/theme/portlets/rss/rss.py:278
 msgid "Text to show more content."
 msgstr "Texto que se mostrará en el enlace de más contenido."
 
@@ -700,7 +700,7 @@ msgstr "El ID del usuario que realizó la última transición"
 msgid "This portlet displays Flashes Informativos."
 msgstr "Este portlet muestra Flashes Informativos"
 
-#: ulearn5/theme/portlets/banners/banners.py:127
+#: ulearn5/theme/portlets/banners/banners.py:132
 msgid "This portlet displays banners."
 msgstr "Este portlet muestra banners."
 
@@ -814,7 +814,7 @@ msgstr "Desinstala el complemento ulearn5.core."
 msgid "Url"
 msgstr "Url"
 
-#: ulearn5/theme/portlets/rss/rss.py:245
+#: ulearn5/theme/portlets/rss/rss.py:273
 msgid "Url that links to more content."
 msgstr "Url a más contenido."
 
@@ -906,10 +906,15 @@ msgstr "Color global de fondo"
 msgid "background_property"
 msgstr "Propiedades globales de fondo"
 
-#. Default: "Banners"
-#: ulearn5/theme/portlets/banners/banners.py:51
-msgid "banners"
-msgstr "Banners"
+#. Default: "Banners (Global)"
+#: ulearn5/theme/portlets/banners/banners.py:54
+msgid "banners_global"
+msgstr "Banners (Global)"
+
+#. Default: "Banners (Personal)"
+#: ulearn5/theme/portlets/banners/banners.py:56
+msgid "banners_personal"
+msgstr "Banners (Personal)"
 
 #. Default: "Manage members"
 #: ulearn5/theme/portlets/profile/profile.pt:78
@@ -1912,7 +1917,7 @@ msgid "quicklinks_icon"
 msgstr "Icono Font Awesome"
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:154
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:156
 msgid "readmore"
 msgstr "Leer más..."
 

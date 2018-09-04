@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-31 11:48+0000\n"
+"POT-Creation-Date: 2018-09-04 07:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Activitats mes valorades"
 msgstr ""
 
-#: ulearn5/theme/portlets/banners/banners.py:126
+#: ulearn5/theme/portlets/banners/banners.py:131
 msgid "Add Banners Portlet"
 msgstr ""
 
@@ -174,15 +174,15 @@ msgstr ""
 msgid "Discussion"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:232
+#: ulearn5/theme/portlets/rss/rss.py:260
 msgid "Display dates"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:236
+#: ulearn5/theme/portlets/rss/rss.py:264
 msgid "Display descriptions"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:240
+#: ulearn5/theme/portlets/rss/rss.py:268
 msgid "Display images"
 msgstr ""
 
@@ -195,7 +195,7 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
-#: ulearn5/theme/portlets/banners/banners.py:135
+#: ulearn5/theme/portlets/banners/banners.py:140
 msgid "Edit Banners Portlet"
 msgstr ""
 
@@ -409,11 +409,11 @@ msgstr ""
 msgid "Mes_inicial"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:244
+#: ulearn5/theme/portlets/rss/rss.py:272
 msgid "More link"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:249
+#: ulearn5/theme/portlets/rss/rss.py:277
 msgid "More text"
 msgstr ""
 
@@ -689,7 +689,7 @@ msgstr ""
 msgid "Text Quick Links"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:250
+#: ulearn5/theme/portlets/rss/rss.py:278
 msgid "Text to show more content."
 msgstr ""
 
@@ -701,7 +701,7 @@ msgstr ""
 msgid "This portlet displays Flashes Informativos."
 msgstr ""
 
-#: ulearn5/theme/portlets/banners/banners.py:127
+#: ulearn5/theme/portlets/banners/banners.py:132
 msgid "This portlet displays banners."
 msgstr ""
 
@@ -815,7 +815,7 @@ msgstr ""
 msgid "Url"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:245
+#: ulearn5/theme/portlets/rss/rss.py:273
 msgid "Url that links to more content."
 msgstr ""
 
@@ -907,9 +907,14 @@ msgstr ""
 msgid "background_property"
 msgstr ""
 
-#. Default: "Banners"
-#: ulearn5/theme/portlets/banners/banners.py:51
-msgid "banners"
+#. Default: "Banners (Global)"
+#: ulearn5/theme/portlets/banners/banners.py:54
+msgid "banners_global"
+msgstr ""
+
+#. Default: "Banners (Personal)"
+#: ulearn5/theme/portlets/banners/banners.py:56
+msgid "banners_personal"
 msgstr ""
 
 #. Default: "Manage members"
@@ -1913,7 +1918,7 @@ msgid "quicklinks_icon"
 msgstr ""
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:154
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:156
 msgid "readmore"
 msgstr ""
 
