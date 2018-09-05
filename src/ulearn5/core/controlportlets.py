@@ -278,15 +278,6 @@ class IPortletsSettings(Interface):
         default=False,
     )
 
-    ulearn_portlets_econnect = schema.Bool(
-        title=_(u'ulearn_econnect',
-                default=_(u"Habilitar portlet Ulearn eConnect")),
-        description=_(u'help_ulearn_econnect',
-                      default=_(u"Habilita el portlet eConnect.")),
-        required=False,
-        default=False,
-    )
-
     ulearn_portlets_stats = schema.Bool(
         title=_(u'ulearn_stats',
                 default=_(u"Habilitar portlet Ulearn Stats")),

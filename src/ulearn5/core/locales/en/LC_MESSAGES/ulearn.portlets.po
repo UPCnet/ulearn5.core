@@ -104,9 +104,6 @@ msgstr "Portlet Ulearn Important news"
 msgid "ulearn_portlets_discussion"
 msgstr "Portlet Ulearn Discussions"
 
-msgid "ulearn_portlets_econnect"
-msgstr "Portlet Ulearn eConnect"
-
 msgid "ulearn_portlets_stats"
 msgstr "Portlet Ulearn Stats"
 
