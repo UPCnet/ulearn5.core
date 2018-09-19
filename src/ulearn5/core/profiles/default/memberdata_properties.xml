@@ -3,6 +3,9 @@
  <property name="twitter_username" type="string"></property>
  <property name="ubicacio" type="string"></property>
  <property name="telefon" type="string"></property>
+ <property name="check_twitter_username" type="boolean"></property>
+ <property name="check_ubicacio" type="boolean"></property>
+ <property name="check_telefon" type="boolean"></property>
  <property name="language" type="string"></property>
  <property name="visible_userprofile_portlet" type="boolean"></property>
 </object>

@@ -34,14 +34,21 @@
     <class class=".max_portrait_widget.MaxPortraitWidget">
         <require
             permission="zope.Public"
-            interface=".interfaces.IFieldsetWidget"
+            interface=".interfaces.IMaxPortraitWidget"
         />
     </class>
 
     <class class=".terms_widget.TermsWidget">
         <require
             permission="zope.Public"
-            interface=".interfaces.IFieldsetWidget"
+            interface=".interfaces.ITermsWidget"
+        />
+    </class>
+
+    <class class=".visibility_widget.VisibilityWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.IVisbilityWidget"
         />
     </class>
 

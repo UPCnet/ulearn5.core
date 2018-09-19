@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone.registry.interfaces import IRegistry
+from z3c.form.browser.checkbox import CheckBoxWidget
 from z3c.form.interfaces import IFieldWidget
 from z3c.form.widget import FieldWidget
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
@@ -7,10 +8,6 @@ from zope.component import queryUtility
 from zope.interface import implementer
 
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-
-import z3c.form.interfaces
-import z3c.form.widget
-from z3c.form.browser.checkbox import CheckBoxWidget
 
 
 class TermsWidget(CheckBoxWidget):
@@ -30,7 +27,6 @@ class TermsWidget(CheckBoxWidget):
             template = self.input_template(self)
 
         return template
-      
 
     def url(self):
         registry = queryUtility(IRegistry)

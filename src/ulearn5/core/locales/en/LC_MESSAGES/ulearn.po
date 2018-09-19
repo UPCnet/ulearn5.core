@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GenWebUPC\n"
-"POT-Creation-Date: 2018-09-04 07:15+0000\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -42,7 +42,7 @@ msgstr "Add Flashes Informativos Portlet"
 msgid "Add My Subjects Portlet"
 msgstr "Add My Subjects Portlet"
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:174
+#: ulearn5/theme/portlets/importantnews/importantnews.py:175
 msgid "Add News Portlet"
 msgstr "Add News Portlet"
 
@@ -50,7 +50,7 @@ msgstr "Add News Portlet"
 msgid "Add Recent Changes Portlet"
 msgstr "Add Recent Changes Portle"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:230
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:232
 msgid "Add Subscribed News Portlet"
 msgstr "Add Subscribed News Portlet"
 
@@ -84,7 +84,7 @@ msgid "Buscar"
 msgstr "Search"
 
 #: ulearn5/theme/portlets/calendar.py:44
-#: ulearn5/theme/portlets/legacycalendar.py:34
+#: ulearn5/theme/portlets/legacycalendar.py:33
 msgid "Calendar"
 msgstr "Calendar"
 
@@ -93,7 +93,7 @@ msgid "Can only be seen and edited by the owner."
 msgstr "Can only be seen and edited by the owner."
 
 #: ../controlpanel.py:430
-#: ../controlportlets.py:385
+#: ../controlportlets.py:376
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -206,7 +206,7 @@ msgstr "Edit Flashes Informativos Portlet"
 msgid "Edit My Subjects Portlet"
 msgstr "Edit My Subjects Portlet"
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:184
+#: ulearn5/theme/portlets/importantnews/importantnews.py:185
 msgid "Edit News Portlet"
 msgstr "Edit News Portlet"
 
@@ -214,12 +214,12 @@ msgstr "Edit News Portlet"
 msgid "Edit Recent Changes Portlet"
 msgstr "Edit Recent Changes Portlet"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:240
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:242
 msgid "Edit Subscribed News Portlet"
 msgstr "Edit Subscribed News Portlet"
 
 #: ../controlpanel.py:432
-#: ../controlportlets.py:387
+#: ../controlportlets.py:378
 msgid "Edit cancelled"
 msgstr "Editing canceled"
 
@@ -290,9 +290,8 @@ msgstr "Go to homepage"
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr "Need a valid ElasticSearch URL"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:27
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:33
-#: ulearn5/theme/portlets/importantnews/importantnews.py:23
+#: ulearn5/theme/portlets/importantnews/importantnews.py:24
 msgid "How many items to list."
 msgstr "How many items to list?"
 
@@ -334,8 +333,7 @@ msgstr "Installs the ulearn5.core add-on."
 msgid "Intranet"
 msgstr "Intranet"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:32
-#: ulearn5/theme/portlets/importantnews/importantnews.py:28
+#: ulearn5/theme/portlets/importantnews/importantnews.py:29
 msgid "Items in which workflow state to show."
 msgstr "Items in which workflow state to show."
 
@@ -479,9 +477,8 @@ msgstr "Notify activity and comments via push"
 msgid "Notify activity via push"
 msgstr "Activate Push notification"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:26
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:32
-#: ulearn5/theme/portlets/importantnews/importantnews.py:22
+#: ulearn5/theme/portlets/importantnews/importantnews.py:23
 msgid "Number of items to display"
 msgstr "Number of items to display"
 
@@ -523,7 +520,7 @@ msgstr "Personal"
 msgid "Personal Preferences"
 msgstr "Personal Preferences"
 
-#: ../controlportlets.py:324
+#: ../controlportlets.py:315
 msgid "Portlets settings"
 msgstr "Portlets settings"
 
@@ -711,7 +708,7 @@ msgstr "This portlet displays banners."
 msgid "This portlet displays my subjects on moodle."
 msgstr "This portlet displays my subjects on moodle."
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:175
+#: ulearn5/theme/portlets/importantnews/importantnews.py:176
 msgid "This portlet displays recent News Items."
 msgstr "This portlet displays recent News Items."
 
@@ -719,7 +716,7 @@ msgstr "This portlet displays recent News Items."
 msgid "This portlet displays recently modified content."
 msgstr "This portlet displays recently modified content."
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:231
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:233
 msgid "This portlet displays subscribed News Items."
 msgstr "This portlet displays subscribed News Items."
 
@@ -843,8 +840,7 @@ msgstr "Visible to everyone, not editable by the owner."
 msgid "Waiting to be reviewed, not editable by the owner."
 msgstr "Waiting to be reviewed, not editable by the owner."
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:31
-#: ulearn5/theme/portlets/importantnews/importantnews.py:27
+#: ulearn5/theme/portlets/importantnews/importantnews.py:28
 msgid "Workflow state"
 msgstr "Workflow state"
 
@@ -895,7 +891,7 @@ msgid "alt_gradient_start_color"
 msgstr "Color gradients initial"
 
 #. Default: "AngularRouteView"
-#: ulearn5/theme/portlets/angularrouteview.py:19
+#: ulearn5/theme/portlets/angularrouteview.py:20
 msgid "angularrouteview"
 msgstr "AngularRouteView"
 
@@ -943,7 +939,7 @@ msgid "btnEditCommunity"
 msgstr "Edit community"
 
 #. Default: "Button bar"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:47
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:49
 msgid "buttonbar"
 msgstr "Button bar"
 
@@ -1343,7 +1339,7 @@ msgid "help_portlets_rss"
 msgstr "Enable portlet RSS."
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:325
+#: ../controlportlets.py:316
 msgid "help_portlets_settings_editform"
 msgstr "Settings Portlets. Configure allowed Portlets."
 
@@ -1386,17 +1382,17 @@ msgid "help_stats_button"
 msgstr "Show or not the button to access daily statistics stats / stats and activity / chats"
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:43
+#: ../userschema.py:63
 msgid "help_telefon"
 msgstr "Contacte telefònic"
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:29
+#: ../userschema.py:37
 msgid "help_twitter"
 msgstr "Fill in your Twitter username."
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:36
+#: ../userschema.py:50
 msgid "help_ubicacio"
 msgstr "Computer area / Company / Department"
 
@@ -1425,13 +1421,8 @@ msgstr "Enable side portlet displays the communities where favorites."
 msgid "help_ulearn_discussion"
 msgstr "Enable portlet Discussion."
 
-#. Default: "Habilita el portlet eConnect."
-#: ../controlportlets.py:284
-msgid "help_ulearn_econnect"
-msgstr "Enable portlet eConnect."
-
 #. Default: "Habilita el portlet banners."
-#: ../controlportlets.py:311
+#: ../controlportlets.py:302
 msgid "help_ulearn_portlets_banners"
 msgstr "Enable portlet Banners."
 
@@ -1471,7 +1462,7 @@ msgid "help_ulearn_profilecommunity"
 msgstr "Enable portlet which displays the community profile where we are."
 
 #. Default: "Habilita el portlet per veure els canvis recents."
-#: ../controlportlets.py:302
+#: ../controlportlets.py:293
 msgid "help_ulearn_recentchanges"
 msgstr "Enable portlet which displays the recent changes in content."
 
@@ -1491,7 +1482,7 @@ msgid "help_ulearn_smart"
 msgstr "Enable the portlet of the multimedia carrousel."
 
 #. Default: "Habilita el portlet per a veure les estadístiques."
-#: ../controlportlets.py:293
+#: ../controlportlets.py:284
 msgid "help_ulearn_stats"
 msgstr "Enable the portlet to view statistics."
 
@@ -1526,7 +1517,7 @@ msgid "help_wsurl"
 msgstr "Url on moodle."
 
 #. Default: "Important News"
-#: ulearn5/theme/portlets/importantnews/importantnews.py:43
+#: ulearn5/theme/portlets/importantnews/importantnews.py:44
 msgid "importantnews"
 msgstr "Important News"
 
@@ -1636,17 +1627,17 @@ msgid "label_subscribe_to_community"
 msgstr "Subscribe to community"
 
 #. Default: "Telèfon"
-#: ../userschema.py:42
+#: ../userschema.py:62
 msgid "label_telefon"
 msgstr "Phone"
 
 #. Default: "Twitter username"
-#: ../userschema.py:28
+#: ../userschema.py:36
 msgid "label_twitter"
 msgstr "Twitter username"
 
 #. Default: "Ubicació"
-#: ../userschema.py:35
+#: ../userschema.py:49
 msgid "label_ubicacio"
 msgstr "Location"
 
@@ -1827,6 +1818,10 @@ msgstr "There is no content shared with you right now"
 #: ../controlpanel.py:288
 msgid "no_visibles"
 msgstr "Hidden users"
+
+#: ../widgets/templates/visibility.pt:78
+msgid "not_visibility_widget_title"
+msgstr "ctivate visualization of this field for all users."
 
 #: ../content/community.py:242
 msgid "notify_activity_via_push_help"
@@ -2034,7 +2029,7 @@ msgid "shared_with_me"
 msgstr "Shared with me"
 
 #. Default: "SharedWithMe"
-#: ulearn5/theme/portlets/sharedwithme.py:19
+#: ulearn5/theme/portlets/sharedwithme.py:20
 msgid "sharedwithme"
 msgstr "Shared with me"
 
@@ -2184,11 +2179,6 @@ msgstr "Enable portlet Ulearn Discussion"
 msgid "ulearn_documents"
 msgstr "Documents"
 
-#. Default: "Habilitar portlet Ulearn eConnect"
-#: ../controlportlets.py:282
-msgid "ulearn_econnect"
-msgstr "Enable portlet Ulearn eConnect"
-
 #. Default: "Links"
 #: ulearn5/theme/portlets/templates/stats.pt:55
 msgid "ulearn_links"
@@ -2205,7 +2195,7 @@ msgid "ulearn_news"
 msgstr "News"
 
 #. Default: "Habilitar portlet Ulearn Banners"
-#: ../controlportlets.py:309
+#: ../controlportlets.py:300
 msgid "ulearn_portlets_banners"
 msgstr "Enable portlet Ulearn Banners"
 
@@ -2245,7 +2235,7 @@ msgid "ulearn_profilecommunity"
 msgstr "Enable portlet Ulearn Profile Community"
 
 #. Default: "Habilitar portlet Ulearn Recent Changes"
-#: ../controlportlets.py:300
+#: ../controlportlets.py:291
 msgid "ulearn_recentchanges"
 msgstr "Enable portlet Ulearn Recent Changes"
 
@@ -2260,7 +2250,7 @@ msgid "ulearn_smart"
 msgstr "Enable portlet Smart"
 
 #. Default: "Habilitar portlet Ulearn Stats"
-#: ../controlportlets.py:291
+#: ../controlportlets.py:282
 msgid "ulearn_stats"
 msgstr "Enable portlet Ulearn Stats"
 
@@ -2291,6 +2281,10 @@ msgstr "Video URL"
 #: ../content/video_embed.py:20
 msgid "video_url_description"
 msgstr "Add your website youtube video"
+
+#: ../widgets/templates/visibility.pt:77
+msgid "visibility_widget_title"
+msgstr "Disable viewing of this field for users who are not managers."
 
 #. Default: "Use site default"
 #: ../patches.py:453

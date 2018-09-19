@@ -15,3 +15,15 @@ class ITagsSelectWidget(interfaces.ITextWidget):
 
 class IFieldsetWidget(interfaces.ITextLinesWidget):
     """Fieldset widget."""
+
+
+class IMaxPortraitWidget(interfaces.ITextLinesWidget):
+    """Max Portrait widget."""
+
+
+class ITermsWidget(interfaces.ITextLinesWidget):
+    """Terms widget."""
+
+
+class IVisbilityWidget(interfaces.ISingleCheckBoxWidget):
+    """Visibility widget."""
