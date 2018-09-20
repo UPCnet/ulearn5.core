@@ -386,7 +386,7 @@
    <property name="permissions">
     <element value="Plone Site Setup: Overview"/>
    </property>
-   <property name="visible">True</property>
+   <property name="visible">False</property>
   </object>
   <object name="logout" meta_type="CMF Action" i18n:domain="plone">
    <property name="title" i18n:translate="">Log out</property>

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-09-18 12:27+0000\n"
+"POT-Creation-Date: 2018-09-20 13:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
 
-#: ../userschema.py:30
+#: ../userschema.py:28
 msgid ""
 msgstr ""
 
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Activitats mes valorades"
 msgstr ""
 
-#: ulearn5/theme/portlets/banners/banners.py:131
+#: ulearn5/theme/portlets/banners/banners.py:134
 msgid "Add Banners Portlet"
 msgstr ""
 
@@ -84,7 +84,7 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:139
+#: ulearn5/theme/browser/viewlets_templates/header.pt:151
 msgid "Buscar"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:143
+#: ulearn5/theme/browser/viewlets_templates/header.pt:155
 msgid "Cerca"
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
-#: ulearn5/theme/portlets/banners/banners.py:140
+#: ulearn5/theme/portlets/banners/banners.py:143
 msgid "Edit Banners Portlet"
 msgstr ""
 
@@ -282,7 +282,7 @@ msgstr ""
 msgid "Genweb intranet workflow"
 msgstr ""
 
-#: ulearn5/theme/portlets/banners/banners.py:26
+#: ulearn5/theme/portlets/banners/banners.py:27
 msgid "Global"
 msgstr ""
 
@@ -514,7 +514,7 @@ msgstr ""
 msgid "Pending reviewer queue"
 msgstr ""
 
-#: ulearn5/theme/portlets/banners/banners.py:27
+#: ulearn5/theme/portlets/banners/banners.py:28
 msgid "Personal"
 msgstr ""
 
@@ -702,7 +702,7 @@ msgstr ""
 msgid "This portlet displays Flashes Informativos."
 msgstr ""
 
-#: ulearn5/theme/portlets/banners/banners.py:132
+#: ulearn5/theme/portlets/banners/banners.py:135
 msgid "This portlet displays banners."
 msgstr ""
 
@@ -748,7 +748,7 @@ msgstr ""
 msgid "Twitter hashtag"
 msgstr ""
 
-#: ulearn5/theme/portlets/banners/banners.py:38
+#: ulearn5/theme/portlets/banners/banners.py:39
 msgid "Type"
 msgstr ""
 
@@ -908,12 +908,12 @@ msgid "background_property"
 msgstr ""
 
 #. Default: "Banners (Global)"
-#: ulearn5/theme/portlets/banners/banners.py:54
+#: ulearn5/theme/portlets/banners/banners.py:55
 msgid "banners_global"
 msgstr ""
 
 #. Default: "Banners (Personal)"
-#: ulearn5/theme/portlets/banners/banners.py:56
+#: ulearn5/theme/portlets/banners/banners.py:57
 msgid "banners_personal"
 msgstr ""
 
@@ -1381,17 +1381,17 @@ msgid "help_stats_button"
 msgstr ""
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:63
+#: ../userschema.py:61
 msgid "help_telefon"
 msgstr ""
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:37
+#: ../userschema.py:35
 msgid "help_twitter"
 msgstr ""
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:50
+#: ../userschema.py:48
 msgid "help_ubicacio"
 msgstr ""
 
@@ -1522,7 +1522,7 @@ msgstr ""
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:134
+#: ulearn5/theme/browser/viewlets_templates/header.pt:146
 msgid "info"
 msgstr ""
 
@@ -1626,17 +1626,17 @@ msgid "label_subscribe_to_community"
 msgstr ""
 
 #. Default: "Telèfon"
-#: ../userschema.py:62
+#: ../userschema.py:60
 msgid "label_telefon"
 msgstr ""
 
 #. Default: "Twitter username"
-#: ../userschema.py:36
+#: ../userschema.py:34
 msgid "label_twitter"
 msgstr ""
 
 #. Default: "Ubicació"
-#: ../userschema.py:49
+#: ../userschema.py:47
 msgid "label_ubicacio"
 msgstr ""
 
@@ -1735,6 +1735,11 @@ msgstr ""
 msgid "menu-gestio-noticies"
 msgstr ""
 
+#. Default: "Create users"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:109
+msgid "menu-gestio-usuaris"
+msgstr ""
+
 #. Default: "Management"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:54
 msgid "menu-gestion"
@@ -1818,7 +1823,7 @@ msgstr ""
 msgid "no_visibles"
 msgstr ""
 
-#: ../widgets/templates/visibility.pt:78
+#: ../widgets/templates/visibility.pt:79
 msgid "not_visibility_widget_title"
 msgstr ""
 
@@ -1946,7 +1951,7 @@ msgstr ""
 msgid "search_communities"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:142
+#: ulearn5/theme/browser/viewlets_templates/header.pt:154
 msgid "search_site"
 msgstr ""
 
@@ -2280,7 +2285,7 @@ msgstr ""
 msgid "video_url_description"
 msgstr ""
 
-#: ../widgets/templates/visibility.pt:77
+#: ../widgets/templates/visibility.pt:78
 msgid "visibility_widget_title"
 msgstr ""
 

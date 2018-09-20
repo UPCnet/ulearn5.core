@@ -30,7 +30,7 @@ msgstr "Activitats destacades"
 msgid "Activitats mes valorades"
 msgstr "Activitats més valorades"
 
-#: ulearn5/theme/portlets/banners/banners.py:131
+#: ulearn5/theme/portlets/banners/banners.py:134
 msgid "Add Banners Portlet"
 msgstr "Afegir portlet Bàners"
 
@@ -79,7 +79,7 @@ msgstr "Bàner"
 msgid "Blog"
 msgstr "Blog"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:139
+#: ulearn5/theme/browser/viewlets_templates/header.pt:151
 msgid "Buscar"
 msgstr "Cerca"
 
@@ -97,7 +97,7 @@ msgstr "Només pot ser vist i editat pel propietari."
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:143
+#: ulearn5/theme/browser/viewlets_templates/header.pt:155
 msgid "Cerca"
 msgstr "Cerca"
 
@@ -194,7 +194,7 @@ msgstr "Documents"
 msgid "Draft"
 msgstr "Esborrany"
 
-#: ulearn5/theme/portlets/banners/banners.py:140
+#: ulearn5/theme/portlets/banners/banners.py:143
 msgid "Edit Banners Portlet"
 msgstr "Editar portlet bàners"
 
@@ -277,7 +277,7 @@ msgstr "General"
 msgid "Genweb intranet workflow"
 msgstr "Genweb intranet workflow"
 
-#: ulearn5/theme/portlets/banners/banners.py:26
+#: ulearn5/theme/portlets/banners/banners.py:27
 msgid "Global"
 msgstr "Global"
 
@@ -509,7 +509,7 @@ msgstr "Pendent de revisió"
 msgid "Pending reviewer queue"
 msgstr "Pendent en la cua del revisor"
 
-#: ulearn5/theme/portlets/banners/banners.py:27
+#: ulearn5/theme/portlets/banners/banners.py:28
 msgid "Personal"
 msgstr "Personal"
 
@@ -697,7 +697,7 @@ msgstr "La identificació de l'usuari que va realitzar l'última transició"
 msgid "This portlet displays Flashes Informativos."
 msgstr "Aquest portlet mostra Flashes informatius."
 
-#: ulearn5/theme/portlets/banners/banners.py:132
+#: ulearn5/theme/portlets/banners/banners.py:135
 msgid "This portlet displays banners."
 msgstr "Aquest portlet mostra els bàners."
 
@@ -743,7 +743,7 @@ msgstr "Totes les comunitats"
 msgid "Twitter hashtag"
 msgstr "Twitter hashtag"
 
-#: ulearn5/theme/portlets/banners/banners.py:38
+#: ulearn5/theme/portlets/banners/banners.py:39
 msgid "Type"
 msgstr "Tipus"
 
@@ -903,12 +903,12 @@ msgid "background_property"
 msgstr "Propietat de fons global"
 
 #. Default: "Banners (Global)"
-#: ulearn5/theme/portlets/banners/banners.py:54
+#: ulearn5/theme/portlets/banners/banners.py:55
 msgid "banners_global"
 msgstr "Bàners (Global)"
 
 #. Default: "Banners (Personal)"
-#: ulearn5/theme/portlets/banners/banners.py:56
+#: ulearn5/theme/portlets/banners/banners.py:57
 msgid "banners_personal"
 msgstr "Bàners (Personal)"
 
@@ -1379,17 +1379,17 @@ msgid "help_stats_button"
 msgstr "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:63
+#: ../userschema.py:61
 msgid "help_telefon"
 msgstr "Contacte telefònic"
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:37
+#: ../userschema.py:35
 msgid "help_twitter"
 msgstr "Introdueix el teu nom d'usuari de Twitter"
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:50
+#: ../userschema.py:48
 msgid "help_ubicacio"
 msgstr "Equip, Àrea / Companyia / Departament"
 
@@ -1520,7 +1520,7 @@ msgstr "Notícies importants"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:134
+#: ulearn5/theme/browser/viewlets_templates/header.pt:146
 msgid "info"
 msgstr "Informació"
 
@@ -1624,17 +1624,17 @@ msgid "label_subscribe_to_community"
 msgstr "Subscriure's a la comunitat"
 
 #. Default: "Telèfon"
-#: ../userschema.py:62
+#: ../userschema.py:60
 msgid "label_telefon"
 msgstr "Telèfon"
 
 #. Default: "Twitter username"
-#: ../userschema.py:36
+#: ../userschema.py:34
 msgid "label_twitter"
 msgstr "Twitter"
 
 #. Default: "Ubicació"
-#: ../userschema.py:49
+#: ../userschema.py:47
 msgid "label_ubicacio"
 msgstr "Ubicació"
 
@@ -1733,6 +1733,11 @@ msgstr "Estadístiques"
 msgid "menu-gestio-noticies"
 msgstr "Notícies"
 
+#. Default: "Create users"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:109
+msgid "menu-gestio-usuaris"
+msgstr "Crear usuaris"
+
 #. Default: "Management"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:54
 msgid "menu-gestion"
@@ -1816,7 +1821,7 @@ msgstr "No hi ha contingut compartit amb tu ara mateix"
 msgid "no_visibles"
 msgstr "Persones no visibles"
 
-#: ../widgets/templates/visibility.pt:78
+#: ../widgets/templates/visibility.pt:79
 msgid "not_visibility_widget_title"
 msgstr "Activar la visualització d'aquest camp per a tots els usuaris."
 
@@ -1946,7 +1951,7 @@ msgstr "Cerca"
 msgid "search_communities"
 msgstr "Cerca comunitats"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:142
+#: ulearn5/theme/browser/viewlets_templates/header.pt:154
 msgid "search_site"
 msgstr "Cerca en el Lloc"
 
@@ -2281,7 +2286,7 @@ msgstr "URL del video"
 msgid "video_url_description"
 msgstr "Afegeix l'adreça web del video de youtube"
 
-#: ../widgets/templates/visibility.pt:77
+#: ../widgets/templates/visibility.pt:78
 msgid "visibility_widget_title"
 msgstr "Desactivar la visualització d'aquest camp per aquells usuaris que nos siguin gestors."
 

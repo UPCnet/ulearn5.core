@@ -30,7 +30,7 @@ msgstr "Actividades destacadas"
 msgid "Activitats mes valorades"
 msgstr "Actividades más valoradas"
 
-#: ulearn5/theme/portlets/banners/banners.py:131
+#: ulearn5/theme/portlets/banners/banners.py:134
 msgid "Add Banners Portlet"
 msgstr "Añadir Portlet Banners"
 
@@ -79,7 +79,7 @@ msgstr "Banner"
 msgid "Blog"
 msgstr "Blog"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:139
+#: ulearn5/theme/browser/viewlets_templates/header.pt:151
 msgid "Buscar"
 msgstr "Buscar"
 
@@ -97,7 +97,7 @@ msgstr "Solo puede ser visto y editado por el propietario."
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:143
+#: ulearn5/theme/browser/viewlets_templates/header.pt:155
 msgid "Cerca"
 msgstr "Buscar"
 
@@ -194,7 +194,7 @@ msgstr "Documentos"
 msgid "Draft"
 msgstr "Borrador"
 
-#: ulearn5/theme/portlets/banners/banners.py:140
+#: ulearn5/theme/portlets/banners/banners.py:143
 msgid "Edit Banners Portlet"
 msgstr "Editar portlet Banner"
 
@@ -277,7 +277,7 @@ msgstr "General"
 msgid "Genweb intranet workflow"
 msgstr "Genweb intranet workflow"
 
-#: ulearn5/theme/portlets/banners/banners.py:26
+#: ulearn5/theme/portlets/banners/banners.py:27
 msgid "Global"
 msgstr "Global"
 
@@ -509,7 +509,7 @@ msgstr "Revisión pendiente"
 msgid "Pending reviewer queue"
 msgstr "En la cola pendiente del revisor"
 
-#: ulearn5/theme/portlets/banners/banners.py:27
+#: ulearn5/theme/portlets/banners/banners.py:28
 msgid "Personal"
 msgstr "Personal"
 
@@ -697,7 +697,7 @@ msgstr "El ID del usuario que realizó la última transición"
 msgid "This portlet displays Flashes Informativos."
 msgstr "Este portlet muestra Flashes Informativos"
 
-#: ulearn5/theme/portlets/banners/banners.py:132
+#: ulearn5/theme/portlets/banners/banners.py:135
 msgid "This portlet displays banners."
 msgstr "Este portlet muestra banners."
 
@@ -743,7 +743,7 @@ msgstr "Todas las comunidades"
 msgid "Twitter hashtag"
 msgstr "Twitter hashtag"
 
-#: ulearn5/theme/portlets/banners/banners.py:38
+#: ulearn5/theme/portlets/banners/banners.py:39
 msgid "Type"
 msgstr "Tipo"
 
@@ -903,12 +903,12 @@ msgid "background_property"
 msgstr "Propiedades globales de fondo"
 
 #. Default: "Banners (Global)"
-#: ulearn5/theme/portlets/banners/banners.py:54
+#: ulearn5/theme/portlets/banners/banners.py:55
 msgid "banners_global"
 msgstr "Banners (Global)"
 
 #. Default: "Banners (Personal)"
-#: ulearn5/theme/portlets/banners/banners.py:56
+#: ulearn5/theme/portlets/banners/banners.py:57
 msgid "banners_personal"
 msgstr "Banners (Personal)"
 
@@ -1376,17 +1376,17 @@ msgid "help_stats_button"
 msgstr "Mostar o no el botón de acceso a estadísticas diarias a stats/activity y stats/chats"
 
 #. Default: "Contacte telefònic"
-#: ../userschema.py:63
+#: ../userschema.py:61
 msgid "help_telefon"
 msgstr "Indique un número de teléfono de contacto."
 
 #. Default: "Fill in your Twitter username."
-#: ../userschema.py:37
+#: ../userschema.py:35
 msgid "help_twitter"
 msgstr "Indique su nombre de usuario de Twitter."
 
 #. Default: "Equip, Àrea / Companyia / Departament"
-#: ../userschema.py:50
+#: ../userschema.py:48
 msgid "help_ubicacio"
 msgstr "Indique su ubicación dentro de la compañía y/o ubicación geográfica."
 
@@ -1517,7 +1517,7 @@ msgstr "Notícias importantes"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:134
+#: ulearn5/theme/browser/viewlets_templates/header.pt:146
 msgid "info"
 msgstr "Info"
 
@@ -1621,17 +1621,17 @@ msgid "label_subscribe_to_community"
 msgstr "Suscríbete a la comunidad"
 
 #. Default: "Telèfon"
-#: ../userschema.py:62
+#: ../userschema.py:60
 msgid "label_telefon"
 msgstr "Teléfono"
 
 #. Default: "Twitter username"
-#: ../userschema.py:36
+#: ../userschema.py:34
 msgid "label_twitter"
 msgstr "Usuario de Twitter"
 
 #. Default: "Ubicació"
-#: ../userschema.py:49
+#: ../userschema.py:47
 msgid "label_ubicacio"
 msgstr "Ubicación"
 
@@ -1730,6 +1730,11 @@ msgstr "Estadísticas"
 msgid "menu-gestio-noticies"
 msgstr "Notícias"
 
+#. Default: "Create users"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:109
+msgid "menu-gestio-usuaris"
+msgstr "Crear usuarios"
+
 #. Default: "Management"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:54
 msgid "menu-gestion"
@@ -1813,7 +1818,7 @@ msgstr "No hay contenido compartido contingo actualmente."
 msgid "no_visibles"
 msgstr "Personas no visibles"
 
-#: ../widgets/templates/visibility.pt:78
+#: ../widgets/templates/visibility.pt:79
 msgid "not_visibility_widget_title"
 msgstr "Desactivar la visualización de este campo para aquellos usuarios que no sean gestores."
 
@@ -1941,7 +1946,7 @@ msgstr "Busca"
 msgid "search_communities"
 msgstr "Busca comunidades"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:142
+#: ulearn5/theme/browser/viewlets_templates/header.pt:154
 msgid "search_site"
 msgstr "Busca en el Sitio"
 
@@ -2276,7 +2281,7 @@ msgstr "URL del video"
 msgid "video_url_description"
 msgstr "Agregar la dirección web del video de youtube"
 
-#: ../widgets/templates/visibility.pt:77
+#: ../widgets/templates/visibility.pt:78
 msgid "visibility_widget_title"
 msgstr "Activar la visualización de este campo para todos los usuarios."
 
