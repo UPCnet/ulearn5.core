@@ -48,7 +48,7 @@
     <class class=".visibility_widget.VisibilityWidget">
         <require
             permission="zope.Public"
-            interface=".interfaces.IVisbilityWidget"
+            interface=".interfaces.IVisibilityWidget"
         />
     </class>
 

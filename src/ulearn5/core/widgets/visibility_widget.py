@@ -4,7 +4,7 @@ from z3c.form import interfaces
 from z3c.form.browser.checkbox import SingleCheckBoxWidget
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 
-from ulearn5.core.widgets.interfaces import IFieldsetWidget
+from ulearn5.core.widgets.interfaces import IVisibilityWidget
 
 import z3c.form.browser.text
 import z3c.form.interfaces
@@ -14,7 +14,7 @@ import zope.schema.interfaces
 
 
 class VisibilityWidget(SingleCheckBoxWidget):
-    zope.interface.implementsOnly(IFieldsetWidget)
+    zope.interface.implementsOnly(IVisibilityWidget)
 
     klass = u'visibility-widget'
     input_template = ViewPageTemplateFile('templates/visibility.pt')
@@ -26,10 +26,10 @@ class VisibilityWidget(SingleCheckBoxWidget):
             return self.input_template(self)
 
     def isActive(self):
-        return self.value == 'True'
+        return 'selected' in self.value
 
 
-@zope.component.adapter(zope.schema.interfaces.IField, interfaces.IFormLayer)
-@zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
+@zope.component.adapter(zope.schema.interfaces.IBool, interfaces.IFormLayer)
+@zope.interface.implementer(z3c.form.interfaces.ISingleCheckBoxWidget)
 def VisibilityFieldWidget(field, request):
     return z3c.form.widget.FieldWidget(field, VisibilityWidget(request))
