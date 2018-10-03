@@ -875,7 +875,7 @@ class viewUsersWithNotUpdatedPhoto(grok.View):
                 mtool = getToolByName(self.context, 'portal_membership')
                 portrait = mtool.getPersonalPortrait(userID)
                 typePortrait = portrait.__class__.__name__
-                if typePortrait == 'FSImage' or (typePortrait == 'Image' and portrait.size == 9715):
+                if typePortrait == 'FSImage' or (typePortrait == 'Image' and portrait.size == 9715 or portrait.size == 4831):
                     fullname = record[1].attrs['fullname'] if 'fullname' in record[1].attrs else ''
                     userInfo = {'fullname' : fullname}
                     result[userID] = userInfo
