@@ -46,6 +46,10 @@ msgstr "Añadir Portlet Mis Asignaturas"
 msgid "Add News Portlet"
 msgstr "Añadir Portlet Notícias"
 
+#: ulearn5/theme/portlets/quicklinks/quicklinks.py:113
+msgid "Add Quicklinks Portlet"
+msgstr "Añadir Portlet Enlaces directos"
+
 #: ulearn5/theme/portlets/recentchanges/recentchanges.py:138
 msgid "Add Recent Changes Portlet"
 msgstr "Añadir Portlet Cambios recientes"
@@ -93,7 +97,7 @@ msgid "Can only be seen and edited by the owner."
 msgstr "Solo puede ser visto y editado por el propietario."
 
 #: ../controlpanel.py:430
-#: ../controlportlets.py:376
+#: ../controlportlets.py:385
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -210,6 +214,10 @@ msgstr "Editar portlet mis asignaturas"
 msgid "Edit News Portlet"
 msgstr "Editar portlet notícias destacadas"
 
+#: ulearn5/theme/portlets/quicklinks/quicklinks.py:122
+msgid "Edit Quicklinks Portlet"
+msgstr "Editar portlet Enlaces directos"
+
 #: ulearn5/theme/portlets/recentchanges/recentchanges.py:147
 msgid "Edit Recent Changes Portlet"
 msgstr "Editar portlet cambios recientes"
@@ -219,7 +227,7 @@ msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícias suscritas"
 
 #: ../controlpanel.py:432
-#: ../controlportlets.py:378
+#: ../controlportlets.py:387
 msgid "Edit cancelled"
 msgstr "Edición cancelada"
 
@@ -238,6 +246,10 @@ msgstr "Los usuarios no pueden publicar los objetos, exclusivo para intranets."
 #: ../profiles/default/actions.xml
 msgid "Enable icalendar import"
 msgstr "Activar importación icalendar"
+
+#: ulearn5/theme/portlets/quicklinks/quicklinks.pt:51
+msgid "Error, the directory has been deleted."
+msgstr "Error, el directorio a sido eliminado."
 
 #: ../content/community.py:1343
 msgid "Esdeveniments"
@@ -517,7 +529,7 @@ msgstr "Personal"
 msgid "Personal Preferences"
 msgstr "Preferencial personales"
 
-#: ../controlportlets.py:315
+#: ../controlportlets.py:324
 msgid "Portlets settings"
 msgstr "Configuración de los portlets"
 
@@ -570,6 +582,10 @@ msgstr "Pone su artículo en una cola de revisión, por lo que se puede publicar
 
 #: ../controlpanel.py:84
 msgid "QuickLinks"
+msgstr "Enlaces directos"
+
+#: ulearn5/theme/portlets/quicklinks/quicklinks.py:35
+msgid "Quicklinks"
 msgstr "Enlaces directos"
 
 #: ../content/community.py:187
@@ -704,6 +720,10 @@ msgstr "Este portlet muestra banners."
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:91
 msgid "This portlet displays my subjects on moodle."
 msgstr "Este portlet muestra mis asignaturas en moodle"
+
+#: ulearn5/theme/portlets/quicklinks/quicklinks.py:114
+msgid "This portlet displays quicklinks."
+msgstr "Este portlet muestra enlaces directos."
 
 #: ulearn5/theme/portlets/importantnews/importantnews.py:176
 msgid "This portlet displays recent News Items."
@@ -1333,7 +1353,7 @@ msgid "help_portlets_rss"
 msgstr "Habilitar el portlet RSS."
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:316
+#: ../controlportlets.py:325
 msgid "help_portlets_settings_editform"
 msgstr "Configuraciones de los portlets. Configure los portlets permitidos."
 
@@ -1439,6 +1459,11 @@ msgstr "Habilitar el portlet para poder ver mis cursos EVA."
 #: ../controlportlets.py:158
 msgid "help_ulearn_portlets_mytags"
 msgstr "Habilitar el portlet con la nube de tags."
+
+#. Default: "Habilita el portlet quicklinks."
+#: ../controlportlets.py:311
+msgid "help_ulearn_portlets_quicklinks"
+msgstr "Habilitar el portlet de enlaces directos."
 
 #. Default: "Habilita el portlet para mostrar contenido a partir de un enllace rss."
 #: ../controlportlets.py:266
@@ -1729,11 +1754,6 @@ msgstr "Estadísticas"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:62
 msgid "menu-gestio-noticies"
 msgstr "Notícias"
-
-#. Default: "Create users"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:109
-msgid "menu-gestio-usuaris"
-msgstr "Crear usuarios"
 
 #. Default: "Management"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:54
@@ -2217,6 +2237,11 @@ msgstr "Habilitar portlet Ulearn Mis cursos"
 #: ../controlportlets.py:156
 msgid "ulearn_portlets_mytags"
 msgstr "Habilitar portlet Ulearn Mis etiquetas"
+
+#. Default: "Habilitar portlet Ulearn Quicklinks"
+#: ../controlportlets.py:309
+msgid "ulearn_portlets_quicklinks"
+msgstr "Habilitar el portlet Ulearn Enlaces directos"
 
 #. Default: "Habilitar portlet Ulearn RSS"
 #: ../controlportlets.py:264

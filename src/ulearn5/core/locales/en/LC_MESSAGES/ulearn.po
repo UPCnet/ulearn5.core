@@ -46,6 +46,10 @@ msgstr "Add My Subjects Portlet"
 msgid "Add News Portlet"
 msgstr "Add News Portlet"
 
+#: ulearn5/theme/portlets/quicklinks/quicklinks.py:113
+msgid "Add Quicklinks Portlet"
+msgstr "Add Quicklinks Portlet"
+
 #: ulearn5/theme/portlets/recentchanges/recentchanges.py:138
 msgid "Add Recent Changes Portlet"
 msgstr "Add Recent Changes Portle"
@@ -93,7 +97,7 @@ msgid "Can only be seen and edited by the owner."
 msgstr "Can only be seen and edited by the owner."
 
 #: ../controlpanel.py:430
-#: ../controlportlets.py:376
+#: ../controlportlets.py:385
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -210,6 +214,10 @@ msgstr "Edit My Subjects Portlet"
 msgid "Edit News Portlet"
 msgstr "Edit News Portlet"
 
+#: ulearn5/theme/portlets/quicklinks/quicklinks.py:122
+msgid "Edit Quicklinks Portlet"
+msgstr "Edit Quicklinks Portlet"
+
 #: ulearn5/theme/portlets/recentchanges/recentchanges.py:147
 msgid "Edit Recent Changes Portlet"
 msgstr "Edit Recent Changes Portlet"
@@ -219,7 +227,7 @@ msgid "Edit Subscribed News Portlet"
 msgstr "Edit Subscribed News Portlet"
 
 #: ../controlpanel.py:432
-#: ../controlportlets.py:378
+#: ../controlportlets.py:387
 msgid "Edit cancelled"
 msgstr "Editing canceled"
 
@@ -238,6 +246,10 @@ msgstr "Users can not post objects, exclusively for intranets."
 #: ../profiles/default/actions.xml
 msgid "Enable icalendar import"
 msgstr "Enable icalendar import"
+
+#: ulearn5/theme/portlets/quicklinks/quicklinks.pt:51
+msgid "Error, the directory has been deleted."
+msgstr "Error, the directory has been deleted."
 
 #. Default: "Eventos"
 #: ../content/community.py:1343
@@ -520,7 +532,7 @@ msgstr "Personal"
 msgid "Personal Preferences"
 msgstr "Personal Preferences"
 
-#: ../controlportlets.py:315
+#: ../controlportlets.py:324
 msgid "Portlets settings"
 msgstr "Portlets settings"
 
@@ -574,6 +586,10 @@ msgstr "Puts your item in a review queue, so it can be published on the site."
 #: ../controlpanel.py:84
 msgid "QuickLinks"
 msgstr "Quick Links"
+
+#: ulearn5/theme/portlets/quicklinks/quicklinks.py:35
+msgid "Quicklinks"
+msgstr "Quicklinks"
 
 #: ../content/community.py:187
 msgid "Readers"
@@ -707,6 +723,10 @@ msgstr "This portlet displays banners."
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:91
 msgid "This portlet displays my subjects on moodle."
 msgstr "This portlet displays my subjects on moodle."
+
+#: ulearn5/theme/portlets/quicklinks/quicklinks.py:114
+msgid "This portlet displays quicklinks."
+msgstr "This portlet displays quicklinks."
 
 #: ulearn5/theme/portlets/importantnews/importantnews.py:176
 msgid "This portlet displays recent News Items."
@@ -1339,7 +1359,7 @@ msgid "help_portlets_rss"
 msgstr "Enable portlet RSS."
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:316
+#: ../controlportlets.py:325
 msgid "help_portlets_settings_editform"
 msgstr "Settings Portlets. Configure allowed Portlets."
 
@@ -1445,6 +1465,11 @@ msgstr "Enable the portlet to see my courses of EVA."
 #: ../controlportlets.py:158
 msgid "help_ulearn_portlets_mytags"
 msgstr "Enable the tag cloud portlet."
+
+#. Default: "Habilita el portlet quicklinks."
+#: ../controlportlets.py:311
+msgid "help_ulearn_portlets_quicklinks"
+msgstr "Enable the portlet quickLinks."
 
 #. Default: "Habilita el portlet para mostrar contenido a partir de un enllace rss."
 #: ../controlportlets.py:266
@@ -1735,11 +1760,6 @@ msgstr "Stats"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:62
 msgid "menu-gestio-noticies"
 msgstr "News"
-
-#. Default: "Create users"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:109
-msgid "menu-gestio-usuaris"
-msgstr "Create users"
 
 #. Default: "Management"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:54
@@ -2223,6 +2243,11 @@ msgstr "Enable portlet Ulearn My Subjects"
 #: ../controlportlets.py:156
 msgid "ulearn_portlets_mytags"
 msgstr "Enable portlet Ulearn My Tags"
+
+#. Default: "Habilitar portlet Ulearn Quicklinks"
+#: ../controlportlets.py:309
+msgid "ulearn_portlets_quicklinks"
+msgstr "Enable portlet Ulearn Quicklinks"
 
 #. Default: "Habilitar portlet Ulearn RSS"
 #: ../controlportlets.py:264

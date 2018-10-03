@@ -304,6 +304,15 @@ class IPortletsSettings(Interface):
         required=False,
         default=False,
     )
+
+    ulearn_portlets_quicklinks = schema.Bool(
+        title=_(u'ulearn_portlets_quicklinks',
+                default=_(u"Habilitar portlet Ulearn Quicklinks")),
+        description=_(u'help_ulearn_portlets_quicklinks',
+                      default=_(u"Habilita el portlet quicklinks.")),
+        required=False,
+        default=False,
+    )
     # ==== FIN Portlets ====
 
 
