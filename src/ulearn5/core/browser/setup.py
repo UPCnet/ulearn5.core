@@ -116,8 +116,14 @@ class setupHomePage(grok.View):
         col_news.title = 'News'
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON
-
+        col_news.item_count = 10
         col_news.reindexObject()
+
+        # Set default view from aggregator
+        portal['news']['aggregator'].setLayout('collection_news_view')
+
+        # Set default page from 'News' folder
+        portal['news'].setDefaultPage('aggregator')
 
         from plone.portlets.interfaces import ILocalPortletAssignmentManager
         from plone.portlets.constants import CONTEXT_CATEGORY

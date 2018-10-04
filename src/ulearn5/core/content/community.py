@@ -164,7 +164,7 @@ class ICommunity(form.Schema):
         description=_(u'La descripcio de la comunitat'),
         required=False
     )
-   
+
     form.mode(IEditForm, community_type='hidden')
     community_type = schema.Choice(
         title=_(u'Tipus de comunitat'),
@@ -248,7 +248,7 @@ class ICommunity(form.Schema):
         description=_(u'help_notify_activity_via_push_comments_too'),
         required=False
     )
-    
+
     form.mode(IAddForm, terms='hidden')
     form.mode(IEditForm, terms='hidden')
     form.widget(terms=TermsFieldWidget)
@@ -1403,7 +1403,11 @@ class CommunityInitializeAdapter(object):
         col_news.setDescription(news.translate(_(u'Noticies de la comunitat')))
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON
+        col_news.item_count = 10
         news.setDefaultPage('aggregator')
+
+        # Set default view from aggregator
+        news['aggregator'].setLayout('collection_news_view')
 
         # Reindex all created objects
         community.reindexObject()
