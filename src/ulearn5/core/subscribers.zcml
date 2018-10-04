@@ -42,7 +42,7 @@
         />
 
     <!-- Modified Event Subscriber -->
-    <subscriber
+    <!-- <subscriber
         handler=".hooks.Modified"
         for="plone.app.contenttypes.interfaces.IDocument
              zope.lifecycleevent.interfaces.IObjectModifiedEvent"
@@ -52,8 +52,9 @@
         handler=".hooks.Modified"
         for="plone.app.contenttypes.interfaces.IEvent
              zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        />
+        /> -->
 
+    <!-- Sharing -->
     <subscriber
         handler=".browser.sharing.SharingChanged"
         for="plone.dexterity.interfaces.IDexterityContent
