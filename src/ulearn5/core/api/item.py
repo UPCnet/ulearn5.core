@@ -43,7 +43,7 @@ class Item(REST):
             item_id = expanded.split(local_url)[1][1:]
             mountpoint_id = self.context.getPhysicalPath()[1]
             if mountpoint_id == self.context.id:
-                item_path = api.portal.getSite().absolute_url_path() + '/' + item_id
+                item_path = '/'.join(api.portal.get().getPhysicalPath()) + '/' + item_id
             else:
                 item_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/' + item_id
             if item_path[-5:] == '/view':

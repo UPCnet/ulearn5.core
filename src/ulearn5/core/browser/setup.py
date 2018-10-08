@@ -773,6 +773,25 @@ class updateSharingCommunityElastic(grok.View):
                         logger.info('Actualitzat el objecte {} de la comunitat {}'.format(obj, id_community))
 
 
+class listAllCommunitiesObjects(grok.View):
+    """ returns a json with all the comunities and the number of objects of each one"""
+    grok.name('listallcommunitiesobjects')
+    grok.context(IPloneSiteRoot)
+    # only for admin users
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        pc = api.portal.get_tool(name='portal_catalog')
+        communities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
+        result_list = []
+        for num, community in enumerate(communities):
+            num_docs = len(pc(path={"query": community.getPath(), "depth": 2}))
+            new_com = {"community_name": community.getPath(),
+                       "community_docs": str(num_docs),
+                       }
+            result_list.append(new_com)
+        return json.dumps(result_list)
+
 class updateSharingCommunitiesElastic(grok.View):
     """ Aquesta vista actualitza el sharing de tots els objectes de totes les comunitats al elasticsearch """
     grok.name('updatesharingcommunitieselastic')
