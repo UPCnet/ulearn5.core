@@ -61,6 +61,22 @@ NEWS_QUERY = [{'i': u'portal_type', 'o': u'plone.app.querystring.operation.selec
 QUERY_SORT_ON = u'effective'
 
 
+def createOrGetObject(context, newid, title, type_name):
+    if newid in context.contentIds():
+        obj = context[newid]
+    else:
+        obj = createContentInContainer(context, type_name, title=title, checkConstrains=False)
+        transaction.savepoint()
+        if obj.id != newid:
+            context.manage_renameObject(obj.id, newid)
+        obj.reindexObject()
+    return obj
+
+
+def newPrivateFolder(context, newid, title):
+    return createOrGetObject(context, newid, title, u'privateFolder')
+
+
 class debug(grok.View):
     """ Convenience view for faster debugging. Needs to be manager. """
     grok.context(Interface)
@@ -71,6 +87,7 @@ class debug(grok.View):
 
 
 class setupHomePage(grok.View):
+    """ Add the portlets and add the values of settings """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
@@ -99,8 +116,14 @@ class setupHomePage(grok.View):
         col_news.title = 'News'
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON
-
+        col_news.item_count = 10
         col_news.reindexObject()
+
+        # Set default view from aggregator
+        portal['news']['aggregator'].setLayout('collection_news_view')
+
+        # Set default page from 'News' folder
+        portal['news'].setDefaultPage('aggregator')
 
         from plone.portlets.interfaces import ILocalPortletAssignmentManager
         from plone.portlets.constants import CONTEXT_CATEGORY
@@ -127,6 +150,7 @@ class setupHomePage(grok.View):
         blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
         from zope.container.interfaces import INameChooser
+        from ulearn5.theme.portlets.profile.profile import Assignment as profileAssignment
         from ulearn5.theme.portlets.communities import Assignment as communitiesAssignment
         from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
         from mrs5.max.portlets.maxui import Assignment as maxAssignment
@@ -141,6 +165,7 @@ class setupHomePage(grok.View):
         for portlet in manager:
             del manager[portlet]
         chooser = INameChooser(manager)
+        manager[chooser.chooseName(None, profileAssignment())] = profileAssignment()
         manager[chooser.chooseName(None, communitiesAssignment())] = communitiesAssignment()
         manager[chooser.chooseName(None, chatAssignment())] = chatAssignment()
         manager[chooser.chooseName(None, thinnkersAssignment())] = thinnkersAssignment()
@@ -212,6 +237,171 @@ class setupHomePage(grok.View):
 
 
 class createMenuFolders(grok.View):
+    """ Create the directory structure of the menu """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = getSite()
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion.exclude_from_nav = False
+        gestion.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(gestion)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        enlaces_cabecera = newPrivateFolder(gestion, 'menu', u'Menu')
+        enlaces_cabecera.exclude_from_nav = False
+        enlaces_cabecera.reindexObject()
+
+        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
+            language_folder = newPrivateFolder(enlaces_cabecera, language, language)
+            language_folder.exclude_from_nav = False
+            language_folder.reindexObject()
+            behavior = ISelectableConstrainTypes(language_folder)
+            behavior.setConstrainTypesMode(1)
+            behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+            behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        transaction.commit()
+        return 'Done'
+
+
+class createCustomizedHeaderFolder(grok.View):
+    """ Create the directory structure of the customized header """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = getSite()
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion.exclude_from_nav = False
+        gestion.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(gestion)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        description = u'La capçalera utilitzarà la primera imatge del directori, aquesta imatge ha de tenir una alçada de 83px. \nLa cabecera utilizará la primera imagen del directorio, esta imagen tiene que tener una altura de 83px. \nThe header will use the first image of the directory, this image must have a height of 83px.'
+
+        header = newPrivateFolder(gestion, 'header', u'Header')
+        header.exclude_from_nav = False
+        header.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(header)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
+            language_folder = newPrivateFolder(header, language, language)
+            language_folder.exclude_from_nav = False
+            language_folder.setLayout('folder_listing')
+            language_folder.description = description
+            language_folder.reindexObject()
+            behavior = ISelectableConstrainTypes(language_folder)
+            behavior.setConstrainTypesMode(1)
+            behavior.setLocallyAllowedTypes(('Image',))
+            behavior.setImmediatelyAddableTypes(('Image',))
+
+        header.reindexObject()
+        return 'Done'
+
+
+
+class createCustomizedFooterFolder(grok.View):
+    """ Create the directory structure of the customized footer """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        description = u'El peu de pàgina utilizarà el primer document del directori.\nEl pie de página utilizará el primer documento del directorio.\nThe footer will use the first document in the directory.'
+
+        portal = getSite()
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion.exclude_from_nav = False
+        gestion.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(gestion)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        footer = newPrivateFolder(gestion, 'footer', u'Footer')
+        footer.exclude_from_nav = False
+        footer.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(footer)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
+            language_folder = newPrivateFolder(footer, language, language)
+            language_folder.exclude_from_nav = False
+            language_folder.setLayout('folder_listing')
+            language_folder.description = description
+            language_folder.reindexObject()
+            behavior = ISelectableConstrainTypes(language_folder)
+            behavior.setConstrainTypesMode(1)
+            behavior.setLocallyAllowedTypes(('Document',))
+            behavior.setImmediatelyAddableTypes(('Document',))
+
+        footer.reindexObject()
+        return 'Done'
+
+
+class createBannersFolder(grok.View):
+    """ Create the directory banners in gestion """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = getSite()
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion.exclude_from_nav = False
+        gestion.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(gestion)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+
+        banners = newPrivateFolder(gestion, 'banners', u'Banners')
+        banners.exclude_from_nav = False
+        banners.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(banners)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('ulearn.banner',))
+        behavior.setImmediatelyAddableTypes(('ulearn.banner',))
+
+        transaction.commit()
+        return 'Done'
+
+
+class createPersonalBannerFolder(grok.View):
+    """ Create the directory banners in personal folder """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
@@ -226,37 +416,46 @@ class createMenuFolders(grok.View):
             obj.reindexObject()
         return obj
 
-    def newPrivateFolder(self, context, newid, title):
-        return self.createOrGetObject(context, newid, title, u'privateFolder')
-
     def render(self):
+        # /createPersonalBannerFolder?user=nom.cognom
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
             alsoProvides(self.request, IDisableCSRFProtection)
         except:
             pass
 
-        portal = getSite()
-        gestion = self.newPrivateFolder(portal, 'gestion', u'Gestión')
-        gestion.exclude_from_nav = False
-        gestion.setLayout('folder_listing')
-        behavior = ISelectableConstrainTypes(gestion)
-        behavior.setConstrainTypesMode(1)
-        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
-        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+        if 'user' in self.request.form:
+            userid = self.request.form['user']
+            user = api.user.get(username=userid)
+            if user:
+                portal = getSite()
+                perFolder = self.createOrGetObject(portal['Members'], userid, userid, u'privateFolder')
+                perFolder.exclude_from_nav = False
+                perFolder.setLayout('folder_listing')
+                behavior = ISelectableConstrainTypes(perFolder)
+                behavior.setConstrainTypesMode(1)
+                behavior.setLocallyAllowedTypes(('Folder',))
+                behavior.setImmediatelyAddableTypes(('Folder',))
 
-        enlaces_cabecera = self.newPrivateFolder(gestion, 'menu', u'Menu')
-        enlaces_cabecera.exclude_from_nav = False
-        enlaces_cabecera.reindexObject()
+                api.content.disable_roles_acquisition(perFolder)
+                for username, roles in perFolder.get_local_roles():
+                    perFolder.manage_delLocalRoles([username])
+                perFolder.manage_setLocalRoles(userid, ['Contributor', 'Editor', 'Reader'])
 
-        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
-            language_folder = self.newPrivateFolder(enlaces_cabecera, language, language)
-            language_folder.exclude_from_nav = False
-            language_folder.reindexObject()
-            behavior = ISelectableConstrainTypes(language_folder)
-            behavior.setConstrainTypesMode(1)
-            behavior.setLocallyAllowedTypes(('Folder', 'privateFolder', 'Link',))
-            behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder', 'Link',))
+                banFolder = self.createOrGetObject(perFolder, 'banners', 'Banners', u'Folder')
+                banFolder.exclude_from_nav = False
+                banFolder.setLayout('folder_listing')
+                behavior = ISelectableConstrainTypes(banFolder)
+                behavior.setConstrainTypesMode(1)
+                behavior.setLocallyAllowedTypes(('ulearn.banner',))
+                behavior.setImmediatelyAddableTypes(('ulearn.banner',))
+
+                transaction.commit()
+                return 'Done' + ', ' + userid + '.'
+            else:
+                return 'Error, user ' + userid + ' not exist.'
+        else:
+            return 'Error add user parameter - /createPersonalBannerFolder?user=user.name'
 
 
 class ldapkillah(grok.View):
@@ -317,6 +516,7 @@ class changeURLCommunities(grok.View):
 
                     community.maxclient.contexts[community_url].put(**properties_to_update)
                     self.context.plone_log('Comunitat amb url {} actualitzada per {}'.format(community_url, community_url_nova))
+
 
 class deleteUsers(grok.View):
     """ Delete users from the plone & max & communities """
@@ -432,6 +632,7 @@ class deleteUsersInCommunities(grok.View):
 
                 logger.info('Finished deleted users in communities: {}'.format(users))
 
+
 def getDestinationFolder(stats_folder,create_month=True):
     """
     This function creates if it doesn't exist a folder in <stats_folder>/<year>/<month>.
@@ -515,6 +716,7 @@ class ImportFileToFolder(grok.View):
             )
         self.response.setBody('OK')
 
+
 class updateSharingCommunityElastic(grok.View):
     """ Aquesta vista actualitza tots els objectes de la comunitat al elasticsearch """
     grok.name('updatesharingcommunityelastic')
@@ -569,6 +771,26 @@ class updateSharingCommunityElastic(grok.View):
                         elastic_sharing = queryUtility(IElasticSharing)
                         elastic_sharing.modified(obj)
                         logger.info('Actualitzat el objecte {} de la comunitat {}'.format(obj, id_community))
+
+
+class listAllCommunitiesObjects(grok.View):
+    """ returns a json with all the comunities and the number of objects of each one"""
+    grok.name('listallcommunitiesobjects')
+    grok.context(IPloneSiteRoot)
+    # only for admin users
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        pc = api.portal.get_tool(name='portal_catalog')
+        communities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
+        result_list = []
+        for num, community in enumerate(communities):
+            num_docs = len(pc(path={"query": community.getPath(), "depth": 2}))
+            new_com = {"community_name": community.getPath(),
+                       "community_docs": str(num_docs),
+                       }
+            result_list.append(new_com)
+        return json.dumps(result_list)
 
 class updateSharingCommunitiesElastic(grok.View):
     """ Aquesta vista actualitza el sharing de tots els objectes de totes les comunitats al elasticsearch """
@@ -661,6 +883,7 @@ class createElasticSharing(grok.View):
 
 
 class viewUsersWithNotUpdatedPhoto(grok.View):
+    """ Shows the user list that the photo has not been changed """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
@@ -677,7 +900,7 @@ class viewUsersWithNotUpdatedPhoto(grok.View):
                 mtool = getToolByName(self.context, 'portal_membership')
                 portrait = mtool.getPersonalPortrait(userID)
                 typePortrait = portrait.__class__.__name__
-                if typePortrait == 'FSImage' or (typePortrait == 'Image' and portrait.size == 9715):
+                if typePortrait == 'FSImage' or (typePortrait == 'Image' and portrait.size == 9715 or portrait.size == 4831):
                     fullname = record[1].attrs['fullname'] if 'fullname' in record[1].attrs else ''
                     userInfo = {'fullname' : fullname}
                     result[userID] = userInfo

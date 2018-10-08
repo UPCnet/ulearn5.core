@@ -82,7 +82,7 @@ msgstr ""
 
 #. Default: "El hashtag (por ejemplo: ulearn) que utilizará esta comunidad. No hace falta añadir el \"#\"."
 #: ../../../../ulearn5.core/ulearn/core/content/community.py:106
-msgid "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el "#"."
+msgid "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el \"#\"."
 msgstr ""
 
 #: ../../../../ulearn5.core/ulearn/core/content/community.py:372
@@ -449,3 +449,12 @@ msgstr "Afegir un fitxer"
 #: ../../../../ulearn5.core/ulearn/core/profiles/default/types/Image.xml:4
 msgid "Add a new image"
 msgstr "Afegir una imatge"
+
+#: ../../../../ulearn5.core/ulearn/core/profiles/default/types/News_Item.xml:4
+msgid "Add news"
+msgstr "Afegir una notícia"
+
+#: ../../../../ulearn5.core/ulearn/core/profiles/default/types/Event.xml:5
+msgid "Add a new event"
+msgstr "Afegir un esdeveniment"
+

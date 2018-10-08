@@ -56,7 +56,7 @@ class People(REST):
 
         result = {}
         user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
-        extender_name = api.portal.get_registry_record('genweb.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender')
+        extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender')
         for record in records:
 
             username = record[1].attrs['username']
@@ -64,26 +64,34 @@ class People(REST):
             rendered_properties = []
             if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
                 extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+                hasPublicProp = hasattr(extended_user_properties_utility, 'public_properties')
                 for prop in extended_user_properties_utility.directory_properties:
-                    userProp = user.getProperty(prop, '')
-                    if userProp:
-                        rendered_properties.append(dict(
-                            name=prop,
-                            value=userProp,
-                            icon=extended_user_properties_utility.directory_icons[prop]
-                        ))
+                    if not hasPublicProp or (hasPublicProp and prop in extended_user_properties_utility.public_properties):
+                        userProp = user.getProperty(prop, '')
+                        if userProp:
+                            check = user.getProperty('check_' + prop, '')
+                            if check == '' or check:
+                                rendered_properties.append(dict(
+                                    name=prop,
+                                    value=userProp,
+                                    icon=extended_user_properties_utility.directory_icons[prop]
+                                ))
             else:
                 # If it's not extended, then return the simple set of data we know
                 # about the user using also the directory_properties field
+                hasPublicProp = hasattr(user_properties_utility, 'public_properties')
                 for prop in user_properties_utility.directory_properties:
                     try:
-                        userProp = user.getProperty(prop, '')
-                        if userProp:
-                            rendered_properties.append(dict(
-                                name=prop,
-                                value=userProp,
-                                icon=user_properties_utility.directory_icons[prop],
-                            ))
+                        if not hasPublicProp or (hasPublicProp and prop in user_properties_utility.public_properties):
+                            userProp = user.getProperty(prop, '')
+                            if userProp:
+                                check = user.getProperty('check_' + prop, '')
+                                if check == '' or check:
+                                    rendered_properties.append(dict(
+                                        name=prop,
+                                        value=userProp,
+                                        icon=user_properties_utility.directory_icons[prop],
+                                    ))
                     except:
                         # Some users has @ in the username and is not valid...
                         pass
@@ -437,7 +445,7 @@ class Person(REST):
 
         rendered_properties = []
         try:
-            extender_name = api.portal.get_registry_record('genweb.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender')
+            extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender')
             if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
                 extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
                 for prop in extended_user_properties_utility.profile_properties:

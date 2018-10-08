@@ -8,5 +8,6 @@
  <object meta_type="Dexterity FTI" name="ulearn.community" />
  <object meta_type="Dexterity FTI" name="ulearn.video" />
  <object meta_type="Dexterity FTI" name="ulearn.video_embed" />
+ <object meta_type="Dexterity FTI" name="ulearn.banner" />
  <object meta_type="Dexterity FTI" name="privateFolder" />
 </object>

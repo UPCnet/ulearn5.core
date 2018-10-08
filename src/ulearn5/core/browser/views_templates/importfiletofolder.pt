@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:block fill-slot="top_slot"/>
+</head>
+
+<body>
+
+<metal:main fill-slot="content">
+    <tal:main-macro metal:define-macro="main">
+
+     <div metal:use-macro="context/global_statusmessage/macros/portal_message">
+         Status message
+     </div>
+
+
+      <form method="post" enctype="multipart/form-data" action="importfiletofolder">
+        the complete path and filename of the file on server. Be carefully if the view is called
+              and there are many instanes. The best way is to call it through http://ip:instance_port
+        <input name="local_file" type="text" style="width: 442px;"/>
+        <br>
+        the path without the '/' at the beginning, which is the base folder
+             where the 'year' folders should be created:
+        <input name="folder" type="text" style="width: 448px;"/>
+        <br>
+        <button name="save" type="submit">Puja a la carpeta</button>
+      </form>
+
+
+    </tal:main-macro>
+
+</metal:main>
+
+</body>
+</html>

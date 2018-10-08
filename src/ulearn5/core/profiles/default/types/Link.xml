@@ -9,5 +9,6 @@
   <element value="plone.app.content.interfaces.INameFromTitle"/>
   <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
   <element value="base5.core.behaviors.openlinkin.IOpenLinkInNewWindow" />
+  <element value="ulearn5.core.behaviors.awicon.IAwIcon" />
  </property>
 </object>

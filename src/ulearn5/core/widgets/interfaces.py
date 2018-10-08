@@ -11,3 +11,19 @@ class IAjaxSelectWidget(interfaces.ITextWidget):
 
 class ITagsSelectWidget(interfaces.ITextWidget):
     """Marker interface for the tags Select2Widget."""
+
+
+class IFieldsetWidget(interfaces.ITextLinesWidget):
+    """Fieldset widget."""
+
+
+class IMaxPortraitWidget(interfaces.ITextLinesWidget):
+    """Max Portrait widget."""
+
+
+class ITermsWidget(interfaces.ITextLinesWidget):
+    """Terms widget."""
+
+
+class IVisibilityWidget(interfaces.ISingleCheckBoxWidget):
+    """Visibility widget."""

@@ -143,6 +143,15 @@ class IPortletsSettings(Interface):
         default=False,
     )
 
+    base_portlets_smart = schema.Bool(
+        title=_(u'ulearn_smart',
+                default=_(u"Habilitar portlet Smart")),
+        description=_(u'help_ulearn_smart',
+                      default=_(u"Habilita el portlet del carrousel multimedia.")),
+        required=False,
+        default=False,
+    )
+
     ulearn_portlets_mytags = schema.Bool(
         title=_(u'ulearn_portlets_mytags',
                 default=_(u"Habilitar portlet ulearn_portlets_mytags")),
@@ -251,6 +260,15 @@ class IPortletsSettings(Interface):
         default=False,
     )
 
+    ulearn_portlets_rss = schema.Bool(
+        title=_(u'ulearn_portlets_rss',
+                default=_(u"Habilitar portlet Ulearn RSS")),
+        description=_(u'help_ulearn_portlets_rss',
+                      default=_(u"Habilita el portlet para mostrar contenido a partir de un enllace rss.")),
+        required=False,
+        default=False,
+    )
+
     ulearn_portlets_discussion = schema.Bool(
         title=_(u'ulearn_discussion',
                 default=_(u"Habilitar portlet Ulearn Discussion")),
@@ -260,20 +278,38 @@ class IPortletsSettings(Interface):
         default=False,
     )
 
-    ulearn_portlets_econnect = schema.Bool(
-        title=_(u'ulearn_econnect',
-                default=_(u"Habilitar portlet Ulearn eConnect")),
-        description=_(u'help_ulearn_econnect',
-                      default=_(u"Habilita el portlet eConnect.")),
-        required=False,
-        default=False,
-    )
-
     ulearn_portlets_stats = schema.Bool(
         title=_(u'ulearn_stats',
                 default=_(u"Habilitar portlet Ulearn Stats")),
         description=_(u'help_ulearn_stats',
                       default=_(u"Habilita el portlet per a veure les estadístiques.")),
+        required=False,
+        default=False,
+    )
+
+    ulearn_portlets_recentchanges = schema.Bool(
+        title=_(u'ulearn_recentchanges',
+                default=_(u"Habilitar portlet Ulearn Recent Changes")),
+        description=_(u'help_ulearn_recentchanges',
+                      default=_(u"Habilita el portlet per veure els canvis recents.")),
+        required=False,
+        default=False,
+    )
+
+    ulearn_portlets_banners = schema.Bool(
+        title=_(u'ulearn_portlets_banners',
+                default=_(u"Habilitar portlet Ulearn Banners")),
+        description=_(u'help_ulearn_portlets_banners',
+                      default=_(u"Habilita el portlet banners.")),
+        required=False,
+        default=False,
+    )
+
+    ulearn_portlets_quicklinks = schema.Bool(
+        title=_(u'ulearn_portlets_quicklinks',
+                default=_(u"Habilitar portlet Ulearn Quicklinks")),
+        description=_(u'help_ulearn_portlets_quicklinks',
+                      default=_(u"Habilita el portlet quicklinks.")),
         required=False,
         default=False,
     )

@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
-from zope import schema
-from zope.component import getUtility
-from z3c.form import button
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-
-from plone.supermodel import model
-from plone.directives import dexterity, form
-from plone.app.registry.browser import controlpanel
-
-from Products.statusmessages.interfaces import IStatusMessage
-
-from ulearn5.core import _
-from mrs5.max.utilities import IMAXClient
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
+from plone.app.registry.browser import controlpanel
+from plone.directives import dexterity, form
+from plone.supermodel import model
 from plone import api
-import transaction
+from Products.statusmessages.interfaces import IStatusMessage
+from z3c.form import button
+from zope import schema
+from zope.component import getUtility
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+
+from mrs5.max.utilities import IMAXClient
+
+from ulearn5.core import _
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
+
+import transaction
 
 
 communityActivityView = SimpleVocabulary(
@@ -25,6 +25,12 @@ communityActivityView = SimpleVocabulary(
      SimpleTerm(value=u'Activitats destacades', title=_(u'Activitats destacades'))]
 )
 
+buttonbarView = SimpleVocabulary(
+    [SimpleTerm(value=u'stream', title=_(u'Stream')),
+     SimpleTerm(value=u'mycommunities', title=_(u'My Communities')),
+     SimpleTerm(value=u'news', title=_(u'News')),
+     SimpleTerm(value=u'sharedwithme', title=_(u'Shared With Me'))]
+)
 
 class ILiteralQuickLinks(form.Schema):
     language = schema.Choice(
@@ -55,13 +61,13 @@ class IUlearnControlPanelSettings(model.Schema):
     model.fieldset(
         'General',
         _(u'General'),
-        fields=['campus_url', 'library_url', 'people_literal',
+        fields=['language', 'campus_url', 'library_url', 'people_literal',
                 'threshold_winwin1', 'threshold_winwin2',
-                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'activate_sharedwithme', 'buttonbar_selected'])
+                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme', 'buttonbar_selected'])
 
     model.fieldset(
-        'Specific',
-        _(u'Specific'),
+        'Design',
+        _(u'Design'),
         fields=['main_color', 'secondary_color', 'background_property',
                 'background_color',
                 'buttons_color_primary', 'buttons_color_secondary',
@@ -78,9 +84,9 @@ class IUlearnControlPanelSettings(model.Schema):
                    _(u'QuickLinks'),
                    fields=['quicklinks_literal', 'quicklinks_icon', 'quicklinks_table'])
 
-    model.fieldset('UPCnet only',
-                   _(u'UPCnet only'),
-                   fields=['language', 'activity_view', 'url_forget_password', 'show_news_in_app'])
+    model.fieldset('Communities',
+                   _(u'Communities'),
+                   fields=['activity_view', 'show_literals', 'url_terms'])
 
     campus_url = schema.TextLine(
         title=_(u'campus_url',
@@ -165,7 +171,7 @@ class IUlearnControlPanelSettings(model.Schema):
     buttonbar_selected = schema.Choice(
         title=_(u'buttonbar_selected'),
         description=_(u'Select the active button in the button bar.'),
-        values=['stream', 'news', 'mycommunities', 'sharedwithme'],
+        vocabulary=buttonbarView,
         required=True,
         default='stream')
 
@@ -175,7 +181,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_main_color',
                       default=_(u'Aquest és el color principal de l\'espai.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#003556',
     )
 
     secondary_color = schema.TextLine(
@@ -184,7 +190,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_secondary_color',
                       default=_(u'Aquest és el color secundari de l\'espai.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#003556',
     )
 
     maxui_form_bg = schema.TextLine(
@@ -193,7 +199,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_maxui_form_bg',
                       default=_(u'Aquest és el color del fons del widget de MAX.')),
         required=True,
-        default=u'#34495c',
+        default=u'#E8E8E8',
     )
 
     alt_gradient_start_color = schema.TextLine(
@@ -202,7 +208,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_alt_gradient_start_color',
                       default=_(u'Aquest és el color inicial dels gradients.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#FFFFFF',
     )
 
     alt_gradient_end_color = schema.TextLine(
@@ -211,7 +217,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_alt_gradient_end_color',
                       default=_(u'Aquest és el color final dels gradients.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#FFFFFF',
     )
 
     background_property = schema.TextLine(
@@ -229,7 +235,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_background_color',
                       default=_(u'Aquest és el color de fons global o la propietat corresponent.')),
         required=True,
-        default=u'#eae9e4',
+        default=u'#EAE9E4',
     )
 
     buttons_color_primary = schema.TextLine(
@@ -238,7 +244,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_buttons_color_primary',
                       default=_(u'Aquest és el color primari dels botons.')),
         required=True,
-        default=u'#34495E',
+        default=u'#003556',
     )
 
     buttons_color_secondary = schema.TextLine(
@@ -247,7 +253,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_buttons_color_secondary',
                       default=_(u'Aquest és el color secundari dels botons.')),
         required=True,
-        default=u'#34495E',
+        default=u'#003556',
     )
 
     color_community_closed = schema.TextLine(
@@ -256,7 +262,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_color_community_closed',
                       default=_(u'Aquest és el color per les comunitats tancades.')),
         required=True,
-        default=u'#f58d3d',
+        default=u'#08C2B1',
     )
 
     color_community_organizative = schema.TextLine(
@@ -265,7 +271,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_color_community_organizative',
                       default=_(u'Aquest és el color per les comunitats organitzatives.')),
         required=True,
-        default=u'#b5c035',
+        default=u'#C4B408',
     )
 
     color_community_open = schema.TextLine(
@@ -274,18 +280,7 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'help_color_community_open',
                       default=_(u'Aquest és el color per les comunitats obertes.')),
         required=True,
-        default=u'#888888',
-    )
-
-    dexterity.write_permission(language='zope2.ViewManagementScreens')
-    language = schema.Choice(
-        title=_(u'language',
-                default=_(u'Idioma de l\'espai')),
-        description=_(u'help_site_language',
-                      default=_(u'Aquest és l\'idioma de l\'espai, que es configura quan el paquet es reinstala.')),
-        required=True,
-        values=['ca', 'es', 'en'],
-        default='es',
+        default=u'#556B2F',
     )
 
     form.widget(nonvisibles=Select2MAXUserInputFieldWidget)
@@ -330,13 +325,16 @@ class IUlearnControlPanelSettings(model.Schema):
         required=True,
         default=u'Darreres activitats')
 
-    url_forget_password = schema.TextLine(
-        title=_(u'url_forget_password',
-                default=_(u'URL contrasenya oblidada')),
-        description=_(u'help_url_forget_password',
-                      default=_(u'Url per defecte: "/mail_password_form?userid=". Per a dominis externs indiqueu la url completa, "http://www.domini.cat"')),
+    dexterity.write_permission(language='zope2.ViewManagementScreens')
+    language = schema.Choice(
+        title=_(u'language',
+                default=_(u'Idioma de l\'espai')),
+        description=_(u'help_site_language',
+                      default=_(u'Aquest és l\'idioma de l\'espai, que es configura quan el paquet es reinstala.')),
         required=True,
-        default=_(u'/mail_password_form?userid='))
+        values=['ca', 'es', 'en'],
+        default='es',
+    )
 
     show_news_in_app = schema.Bool(
         title=_(u'show_news_in_app',
@@ -345,6 +343,24 @@ class IUlearnControlPanelSettings(model.Schema):
                       default=_(u"If selected, then gives the option to show the News Items in Mobile App.")),
         required=False,
         default=False,
+    )
+
+    show_literals = schema.Bool(
+        title=_(u'show_literals',
+                default=_(u"Show literal")),
+        description=_(u'help_show_literals',
+                      default=_(u"Disable or enable the display of community types in the portlet.")),
+        required=False,
+        default=False,
+    )
+
+    url_terms = schema.TextLine(
+        title=_(u'url_terms',
+                default=_(u"Url terms of use")),
+        description=_(u'help_url_terms',
+                      default=_(u"Url of the terms of use.")),
+        required=False,
+        default=u'',
     )
 
 

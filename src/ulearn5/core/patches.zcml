@@ -140,5 +140,11 @@
         replacement=".patches.aggregateIndex"
         />
 
+    <monkey:patch
+        description="Change tabs in the profile"
+        class="plone.app.users.browser.account.AccountPanelForm"
+        original="prepareObjectTabs"
+        replacement=".patches.prepareObjectTabs"
+        />
 
 </configure>

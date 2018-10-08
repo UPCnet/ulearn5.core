@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOMAINS="ulearn ulearn.portlets ulearn.displays"
+DOMAINS="ulearn ulearn.portlets ulearn.displays plone"
 LANGUAGES="ca es en"
 
 for domain in $DOMAINS

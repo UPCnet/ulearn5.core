@@ -193,10 +193,6 @@ def setupVarious(context):
     if getattr(portal, 'events', False):
         portal.manage_delObjects('events')
 
-    # Delete 'Members' folder
-    if getattr(portal, 'Members', False):
-        portal.manage_delObjects('Members')
-
     # Recall the last language set for this instance in case of reinstall
     registry = queryUtility(IRegistry)
     settings = registry.forInterface(IUlearnControlPanelSettings, check=False)
@@ -227,5 +223,6 @@ def setupVarious(context):
         site_properties.manage_addProperty('typesUseViewActionInListings', 'ulearn.video', 'lines')
     except:
         print "La propietat 'ulearn.video' ja estava afegida al portal site_properties"
+
     import transaction
     transaction.commit()

@@ -3,6 +3,7 @@ import copy
 import z3c.form.interfaces
 
 from plone import api
+from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import getUtility
 from zope.component import getUtilitiesFor
@@ -516,8 +517,6 @@ import ldap
 from ldap.filter import filter_format
 from base5.core.directory.views import get_ldap_config
 
-from plone.app.contenttypes import _
-
 def from_latin1(s):
     """
         Replaces LDAPUserFolder origin from_utf8 to return unicode from
@@ -986,3 +985,46 @@ def aggregateIndex(self, view_name, req, req_names, local_keys):
         str_value = (str(view_name), tuple(req_index), tuple(local_index))
     # return (str(view_name.encode('utf-8')), tuple(req_index), tuple(local_index))
     return str_value
+
+
+def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
+        context = self.context
+        mt = getToolByName(context, 'portal_membership')
+        tabs = []
+        navigation_root_url = context.absolute_url()
+
+        def _check_allowed(context, request, name):
+            """Check, if user has required permissions on view.
+            """
+            view = getMultiAdapter((context, request), name=name)
+            allowed = True
+            for perm in view.__ac_permissions__:
+                allowed = allowed and mt.checkPermission(perm[0], context)
+            return allowed
+
+        if _check_allowed(context, self.request, 'personal-information'):
+            tabs.append({
+                'title': _('title_personal_information_form',
+                           u'Personal Information'),
+                'url': navigation_root_url + '/@@personal-information',
+                'selected': (self.__name__ == 'personal-information'),
+                'id': 'user_data-personal-information',
+            })
+
+        if _check_allowed(context, self.request, 'ulearn-personal-preferences'):
+            tabs.append({
+                'title': _(u'Personal Preferences'),
+                'url': navigation_root_url + '/@@ulearn-personal-preferences',
+                'selected': (self.__name__ == 'ulearn-personal-preferences'),
+                'id': 'user_data-ulearn-personal-preferences',
+            })
+
+        member = mt.getAuthenticatedMember()
+        if member.canPasswordSet():
+            tabs.append({
+                'title': _('label_password', u'Password'),
+                'url': navigation_root_url + '/@@change-password',
+                'selected': (self.__name__ == 'change-password'),
+                'id': 'user_data-change-password',
+            })
+        return tabs

@@ -5,12 +5,10 @@ from zope.component import getUtility
 from zope.component import getUtilitiesFor
 
 from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.PluggableAuthService.interfaces.plugins import IPropertiesPlugin
 
 from souper.soup import Record
 from souper.interfaces import ICatalogFactory
 from repoze.catalog.query import Eq
-from repoze.catalog.query import And
 from souper.soup import get_soup
 
 from operator import itemgetter
@@ -165,14 +163,26 @@ def searchUsersFunction(context, request, search_string):  # noqa
     users_profile = []
     for user in users:
         if user is not None and user.attrs['username'] != 'admin':
+            if current_user.id == 'admin':
+                can_view_properties = True
+            else:
+                roles = api.user.get_roles(username=current_user, obj=portal)
+                can_view_properties = current_user == user.attrs['username'] or 'WebMaster' in roles or 'Manager' in roles
             if isinstance(user, Record):
                 user_dict = {}
+                user_info = api.user.get(user.attrs['username'])
                 for user_property in user_properties_utility.properties:
-                    user_dict.update({user_property: user.attrs.get(user_property, '')})
+                    if 'check_' not in user_property:
+                        check = user_info.getProperty('check_' + user_property, '')
+                        if can_view_properties or check == '' or check:
+                            user_dict.update({user_property: user.attrs.get(user_property, '')})
 
                 if has_extended_properties:
                     for user_property in extended_user_properties_utility.properties:
-                        user_dict.update({user_property: user.attrs.get(user_property, '')})
+                        if 'check_' not in user_property:
+                            check = user_info.getProperty('check_' + user_property, '')
+                            if can_view_properties or check == '' or check:
+                                user_dict.update({user_property: user.attrs.get(user_property, '')})
 
                 user_dict.update(dict(id=user.attrs['username']))
                 userImage = '<img src="' + settings.max_server + '/people/' + user.attrs['username'] + '/avatar/large" alt="' + user.attrs['username'] + '" title="' + user.attrs['username'] + '" height="105" width="105" >'

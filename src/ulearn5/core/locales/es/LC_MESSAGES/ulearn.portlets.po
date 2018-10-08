@@ -59,6 +59,12 @@ msgstr "Portlet Static"
 msgid "collective_polls_VotePortlet"
 msgstr "Portlet Encuestas"
 
+msgid "base_portlets_smart"
+msgstr "Portlet Smart"
+
+msgid "ulearn_portlets_recentchanges"
+msgstr "Portlet Ulearn Cambios recientes"
+
 msgid "ulearn_portlets_mytags"
 msgstr "Portlet Ulearn Mis etiquetas"
 
@@ -98,8 +104,14 @@ msgstr "Portlet Ulearn Noticias importantes"
 msgid "ulearn_portlets_discussion"
 msgstr "Portlet Ulearn Debates"
 
-msgid "ulearn_portlets_econnect"
-msgstr "Portlet Ulearn eConnect"
-
 msgid "ulearn_portlets_stats"
 msgstr "Portlet Ulearn Estadísticas"
+
+msgid "ulearn_portlets_rss"
+msgstr "Portlet Ulearn RSS"
+
+msgid "ulearn_portlets_banners"
+msgstr "Portlet Ulearn Banners"
+
+msgid "ulearn_portlets_quicklinks"
+msgstr "Portlet Ulearn Enlaces rápidos"

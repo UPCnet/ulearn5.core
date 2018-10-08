@@ -3,20 +3,20 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ulearn5.core">
 
-  <!-- Enhanced user properties adapter -->
 
-    <adapter
-      factory=".userschema.UlearnUserDataPanelExtender"
-      provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+  <!-- Ulearn personal preferences -->
 
-    <adapter
-      provides=".userschema.IUlearnUserSchema"
-      for="Products.CMFCore.interfaces.ISiteRoot"
-      factory=".userschema.UlearnUserDataSchemaAdapter"
+    <browser:page
+      name="ulearn-personal-preferences"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      class=".personalpreferences.UlearnPersonalPreferencesPanel"
+      permission="cmf.SetOwnProperties"
       />
 
     <adapter
-      factory=".userschema.UlearnRegistrationPanelExtender"
-      provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+      provides=".personalpreferences.IUlearnPersonalPreferences"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      factory=".personalpreferences.UlearnPersonalPreferencesPanelAdapter"
+      />
 
 </configure>

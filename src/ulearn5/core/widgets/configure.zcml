@@ -24,6 +24,34 @@
         />
     </class>
 
+    <class class=".fieldset_widget.FieldsetWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.IFieldsetWidget"
+        />
+    </class>
+
+    <class class=".max_portrait_widget.MaxPortraitWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.IMaxPortraitWidget"
+        />
+    </class>
+
+    <class class=".terms_widget.TermsWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.ITermsWidget"
+        />
+    </class>
+
+    <class class=".visibility_widget.VisibilityWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.IVisibilityWidget"
+        />
+    </class>
+
     <adapter factory=".select2_user_widget.SelectWidgetConverter" />
     <adapter factory=".select2_tags_widget.TagsSelectWidgetConverter" />
     <adapter factory=".select2_tags_widget.SubjectsFieldWidget" />
