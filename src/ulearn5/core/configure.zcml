@@ -41,6 +41,14 @@
         />
 
     <browser:page
+        for="*"
+        name="thumbnail-image"
+        class=".behaviors.view-thumb.Thumbnail"
+        layer="ulearn5.theme.interfaces.IUlearn5ThemeLayer"
+        permission="zope2.Public"
+        />
+
+    <browser:page
         name="ulearn-controlpanel"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         class=".controlpanel.UlearnControlPanel"

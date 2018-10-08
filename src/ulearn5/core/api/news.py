@@ -44,7 +44,7 @@ class News(REST):
         if show_news_in_app:
             mountpoint_id = self.context.getPhysicalPath()[1]
             if mountpoint_id == self.context.id:
-                default_path = api.portal.get().absolute_url_path() + '/news'
+                default_path = '/'.join(api.portal.get().getPhysicalPath()) + '/news'
             else:
                 default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/news'
             total_news = len(api.content.find(
@@ -96,8 +96,8 @@ class News(REST):
                 filename = None
                 contentType = None
                 raw_image = None
-
-                if getattr(item, 'is_inapp', None):
+                
+		if getattr(item, 'is_inapp', None):
                     is_inapp = item.is_inapp
                 if getattr(item, 'is_outoflist', None):
                     is_outoflist = item.is_outoflist
@@ -177,7 +177,7 @@ class New(REST):
             newid = self.params['newid']
             mountpoint_id = self.context.getPhysicalPath()[1]
             if mountpoint_id == self.context.id:
-                default_path = api.portal.get().absolute_url_path() + '/news'
+                default_path = '/'.join(api.portal.get().getPhysicalPath()) + '/news'
             else:
                 default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/news'
             item = api.content.find(portal_type="News Item", path=default_path, id=newid)
