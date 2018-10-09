@@ -689,7 +689,7 @@ class ImportFileToFolder(grok.View):
     grok.name('importfiletofolder')
     grok.require('base.webmaster')
 
-    def render(self):
+    def update(self):
         folder_name = self.request.get("folder")
         local_file = self.request.get("local_file")
 
