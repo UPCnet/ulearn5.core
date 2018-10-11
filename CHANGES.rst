@@ -2,11 +2,43 @@ Changelog
 =========
 
 
-0.8 (unreleased)
+0.8 (2018-10-11)
 ----------------
 
-- Nothing changed yet.
-
+* Cambiar condicion isPortletListActivate [iago.lopez]
+* Traducciones [iago.lopez]
+* Solucionar error ImportFileToFolder [Pilar Marinas]
+* Merge externs [Pilar Marinas]
+* Solucionar app i migracio [Pilar Marinas]
+* Solucionar api news plone5 [root]
+* Comentar hooks - Notificación de modificación: Documento y Evento [iago.lopez]
+* Añadir nueva vista a colección aggregator [iago.lopez]
+* Delete Userschema in core [Pilar Marinas]
+* Update viewuserswithnotupdatedphoto [iago.lopez]
+* Portlet Quicklinks [iago.lopez]
+* Widget Visibilitdad: Cambiar interfaces [iago.lopez]
+* Traduccion + Esconder Configuración del Sitio del menú (Actions) [iago.lopez]
+* Visibilidad campos del perfil [iago.lopez]
+* API: Renovar extender_name [iago.lopez]
+* Eliminar residuos del portlet eConnect [iago.lopez]
+* Traducciones [iago.lopez]
+* Tipo de contenido Bàner + Portlet Bàners [iago.lopez]
+* Traducción [iago.lopez]
+* Portlet Ulearn RSS + Traducciones [iago.lopez]
+* Traducciones [iago.lopez]
+* Modificar terminos uso comunidades [Pilar Marinas]
+* Define defaults colors of site [Pilar Marinas]
+* Terminos de uso (Falta ++add++ulearn.community) [iago.lopez]
+* Traducciones [iago.lopez]
+* added CMYK support to profile images [Pilar Marinas]
+* Limpieza [iago.lopez]
+* Añadir campos nuevos a la comunidad (show_news - show_events) [iago.lopez]
+* Traducciones [iago.lopez]
+* Notificar noticia en la actividad [iago.lopez]
+* Quitar fuzzy [iago.lopez]
+* Portlet Smart [iago.lopez]
+* Portlet Smart [iago.lopez]
+* WS Modify displayName user for uTalk [Pilar Marinas]
 
 0.7 (2018-07-05)
 ----------------
