@@ -183,7 +183,7 @@ class newsToolBar(viewletBase):
         active_portlets = self.autoCheckPortletsSetted()
         show_news = api.portal.get_registry_record(
             name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.activate_news')
-        return True if ('buttonbar' in active_portlets) or show_news else False
+        return True if ('buttonbar' in active_portlets) and show_news else False
 
     def isPortletFlashActivate(self):
         active_portlets = self.autoCheckPortletsSetted()
