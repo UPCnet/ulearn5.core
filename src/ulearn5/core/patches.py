@@ -236,7 +236,7 @@ class NegotiateLanguage(object):
 
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
-from mrs.max.browser.controlpanel import IMAXUISettings
+from mrs5.max.browser.controlpanel import IMAXUISettings
 
 def authenticateCredentials(self, credentials):
     """ Fulfill AuthenticationPlugin requirements """
