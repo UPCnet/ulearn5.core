@@ -181,7 +181,7 @@
    <property name="link_target"></property>
    <property name="icon_expr"></property>
    <property
-      name="available_expr">python:checkPermission("Delete objects", globals_view.getParentObject()) and checkPermission("Copy or Move", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
+      name="available_expr">python:checkPermission("Delete objects", object) and checkPermission("Copy or Move", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
    <property name="permissions">
     <element value="Delete objects"/>
    </property>
@@ -220,7 +220,7 @@
    <property name="link_target"></property>
    <property name="icon_expr"></property>
    <property
-      name="available_expr">python:checkPermission("Delete objects", globals_view.getParentObject()) and not globals_view.isPortalOrPortalDefaultPage()</property>
+      name="available_expr">python:checkPermission("Delete objects", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
    <property name="permissions">
     <element value="Delete objects"/>
    </property>
@@ -235,7 +235,7 @@
    <property name="link_target"></property>
    <property name="icon_expr"></property>
    <property
-      name="available_expr">python:checkPermission("Delete objects", globals_view.getParentObject()) and checkPermission("Copy or Move", object) and checkPermission("Add portal content", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
+      name="available_expr">python:checkPermission("Delete objects", object) and checkPermission("Copy or Move", object) and checkPermission("Add portal content", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
    <property name="permissions">
     <element value="Add portal content"/>
    </property>
