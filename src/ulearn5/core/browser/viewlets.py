@@ -187,7 +187,7 @@ class newsToolBar(viewletBase):
 
     def isPortletFlashActivate(self):
         active_portlets = self.autoCheckPortletsSetted()
-        return True if 'flashesinformativos' in active_portlets else False
+        return True if 'flashes_informativos' in active_portlets else False
 
     def isPortletImportantActivate(self):
         active_portlets = self.autoCheckPortletsSetted()
@@ -200,7 +200,7 @@ class newsToolBar(viewletBase):
 
     def isManagementNewsActivate(self):
         active_portlets = self.autoCheckPortletsSetted()
-        if 'buttonbar' in active_portlets or 'flashesinformativos' in active_portlets or 'importantnews' in active_portlets or self.isViewInAppChecked():
+        if 'buttonbar' in active_portlets or 'flashes_informativos' in active_portlets or 'importantnews' in active_portlets or self.isViewInAppChecked():
             return True
         else:
             return False
