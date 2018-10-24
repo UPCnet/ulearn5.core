@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import ILanguageSchema
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
+from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
 from base5.core.utilities import IElasticSearch
 from base5.core.utils import json_response
 from base5.portlets.browser.manager import IColStorage
@@ -14,17 +20,12 @@ from plone.namedfile.file import NamedBlobImage
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
 from plone.registry.interfaces import IRegistry
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import ILanguageSchema
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
-from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
 from ulearn5.core.browser.sharing import ElasticSharing
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
@@ -34,8 +35,8 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component.hooks import getSite
-from zope.interface import alsoProvides
 from zope.interface import Interface
+from zope.interface import alsoProvides
 
 import base64
 import json
@@ -1207,7 +1208,6 @@ class migrationEditaclCommunities(grok.View):
                             success_response = 'Migrat editacl comunitat: ' + community['title']
                             logger.info(success_response)
 
-
             logger.info('Ha finalitzat la migració del editacl de les comunitats.')
 
 
@@ -1215,7 +1215,6 @@ class changePortalType(grok.View):
     """ Change Portal Type ulearn5.owncloud.file_owncloud by  CloudFile """
     grok.name('changeportaltype')
     grok.context(IPloneSiteRoot)
-
 
     def render(self):
         try:
@@ -1233,5 +1232,29 @@ class changePortalType(grok.View):
             obj.reindexObject()
 
         transaction.commit()
+
+        return 'Done'
+
+
+class executeCronTasks(grok.View):
+    """ TODO: ..... """
+    grok.name('execute_cron_tasks')
+    grok.context(IPloneSiteRoot)
+
+    def render(self):
+        url = self.context.absolute_url()
+
+        registry = queryUtility(IRegistry)
+        settings = registry.forInterface(IUlearnControlPanelSettings, check=False)
+        tasks = settings.cron_tasks
+
+        for task in tasks:
+            result = requests.get(url + '/' + task)
+            if(result.status_code == 200):
+                # return result.text
+                print("OK: " + task)
+            else:
+                print("Error: " + task)
+                return 'Error'
 
         return 'Done'

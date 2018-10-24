@@ -32,6 +32,14 @@ buttonbarView = SimpleVocabulary(
      SimpleTerm(value=u'sharedwithme', title=_(u'Shared With Me'))]
 )
 
+cronTasksVocabulary = SimpleVocabulary(
+    [SimpleTerm(value=u'syncldapgroups', title=_(u'syncldapgroups')),
+     SimpleTerm(value=u'rebuild_user_catalog', title=_(u'rebuild_user_catalog')),
+     SimpleTerm(value=u'delete_user_catalog', title=_(u'delete_user_catalog')),
+     SimpleTerm(value=u'api/saveeditacl', title=_(u'api/saveeditacl'))]
+)
+
+
 class ILiteralQuickLinks(form.Schema):
     language = schema.Choice(
         title=_(u'Language'),
@@ -63,7 +71,7 @@ class IUlearnControlPanelSettings(model.Schema):
         _(u'General'),
         fields=['language', 'campus_url', 'library_url', 'people_literal',
                 'threshold_winwin1', 'threshold_winwin2',
-                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme', 'buttonbar_selected'])
+                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme', 'buttonbar_selected', 'cron_tasks'])
 
     model.fieldset(
         'Design',
@@ -173,7 +181,15 @@ class IUlearnControlPanelSettings(model.Schema):
         description=_(u'Select the active button in the button bar.'),
         vocabulary=buttonbarView,
         required=True,
-        default='stream')
+        default='stream',
+    )
+
+    cron_tasks = schema.List(
+        title=_(u"cron_tasks", default=u"Cron tasks"),
+        description=_(u'..........'),
+        value_type=schema.Choice(source=cronTasksVocabulary),
+        required=False,
+    )
 
     main_color = schema.TextLine(
         title=_(u'main_color',
