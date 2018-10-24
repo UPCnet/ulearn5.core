@@ -8,10 +8,10 @@ from plone.dexterity.utils import createContentInContainer
 from plone.namedfile.file import NamedBlobImage
 
 from ulearn5.core.api import ApiResponse
+from ulearn5.core.api import ObjectNotFound
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
-from ulearn5.core.api import ObjectNotFound
 
 from datetime import datetime
 
@@ -42,17 +42,15 @@ class News(REST):
         more_items = False
         total_news = 0
         if show_news_in_app:
-            mountpoint_id = self.context.getPhysicalPath()[1]
-            if mountpoint_id == self.context.id:
-                default_path = '/'.join(api.portal.get().getPhysicalPath()) + '/news'
-            else:
-                default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/news'
-            total_news = len(api.content.find(
+            news = api.content.find(
                 portal_type="News Item",
-                path=default_path,
+                review_state=['intranet', 'published'],
                 sort_order='descending',
                 sort_on='effective',
-                is_inapp=True))
+                is_inapp=True)
+
+            total_news = len(news)
+
             if pagination_page:
                 # Si page = 0, devolvemos la ?page=1 (que es lo mismo)
                 if pagination_page == '0':
@@ -60,22 +58,12 @@ class News(REST):
                 start = int(news_per_page) * (int(pagination_page) - 1)
                 end = int(news_per_page) * int(pagination_page)
                 # Devolvemos paginando
-                news = api.content.find(
-                    portal_type="News Item",
-                    path=default_path,
-                    sort_order='descending',
-                    sort_on='effective',
-                    is_inapp=True)[start:end]
+                news = news[start:end]
                 if end < total_news:
                     more_items = True
             else:
                 # No paginammos, solo devolvemos 10 primeras => ?page=1
-                news = api.content.find(
-                    portal_type="News Item",
-                    path=default_path,
-                    sort_order='descending',
-                    sort_on='effective',
-                    is_inapp=True)[0:news_per_page]
+                news = news[0:news_per_page]
                 if news_per_page < total_news:
                     more_items = True
             for item in news:
@@ -96,8 +84,8 @@ class News(REST):
                 filename = None
                 contentType = None
                 raw_image = None
-                
-		if getattr(item, 'is_inapp', None):
+
+                if getattr(item, 'is_inapp', None):
                     is_inapp = item.is_inapp
                 if getattr(item, 'is_outoflist', None):
                     is_outoflist = item.is_outoflist
