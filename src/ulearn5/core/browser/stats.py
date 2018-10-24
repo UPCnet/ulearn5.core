@@ -99,7 +99,7 @@ class StatsView(grok.View):
 
 
 class StatsQueryBase(grok.View):
-    """ Base methods for ease the extension of the genweb StatsQuery view.
+    """ Base methods for ease the extension of the base StatsQuery view.
     """
     grok.baseclass()
 

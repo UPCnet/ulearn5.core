@@ -29,7 +29,7 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from ulearn5.core.interfaces import IDocumentFolder, ILinksFolder, IPhotosFolder, IEventsFolder, INewsItemFolder
 from ulearn5.core.content.community import IInitializedCommunity
 from ulearn5.core.content.community import Community
-# from genweb.core.browser.helpers import listPloneSites
+
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.interfaces import IDiscussionFolder
 from ulearn5.core import _

@@ -153,7 +153,7 @@ def searchUsersFunction(context, request, search_string):  # noqa
                     users = filtered
 
     has_extended_properties = False
-    extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender')
+    extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
     if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
         has_extended_properties = True
         extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)

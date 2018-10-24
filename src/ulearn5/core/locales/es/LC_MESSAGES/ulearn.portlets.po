@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: GenWebUPC\n"
+"Project-Id-Version: UlearnPortlets\n"
 "POT-Creation-Date: 2018-02-12 12:24+0000\n"
 "PO-Revision-Date: 2014-04-14 11:35+0100\n"
 "Last-Translator: Corina Riba <corina.riba@upcnet.es>\n"

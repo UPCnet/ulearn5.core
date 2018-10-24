@@ -136,7 +136,7 @@ class TestExample(uLearnTestBase):
         login(self.portal, u'ulearn.testuser1')
         # We provide here the required initialization for a user custom properties catalog
         provideUtility(TestUserExtendedPropertiesSoupCatalogFactory(), name='user_properties_exttest')
-        api.portal.set_registry_record(name='base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender', value=u'user_properties_exttest')
+        api.portal.set_registry_record(name='base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender', value=u'user_properties_exttest')
 
         # Modify an user to accomodate new properties from extended catalog
         # Force it as we are not faking the extension of the user properties
@@ -320,7 +320,7 @@ class TestExample(uLearnTestBase):
         login(self.portal, u'ulearn.testuser1')
         # We provide here the required initialization for a user custom properties catalog
         provideUtility(TestUserExtendedPropertiesSoupCatalogFactory(), name='user_properties_exttest')
-        api.portal.set_registry_record(name='base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.user_properties_extender', value=u'user_properties_exttest')
+        api.portal.set_registry_record(name='base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender', value=u'user_properties_exttest')
 
         # Fake extended Plone user properties
         pmd = api.portal.get_tool('portal_memberdata')

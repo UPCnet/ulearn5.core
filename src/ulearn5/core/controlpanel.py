@@ -406,7 +406,7 @@ class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
                 maxclient.admin.security.roles['NonVisible'].users[user].post()
 
         if data.get('activate_sharedwithme', True):
-            if api.portal.get_registry_record('base5.core.controlpanel.core.IGenwebCoreControlPanelSettings.elasticsearch') != None:
+            if api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.elasticsearch') != None:
                 portal = api.portal.get()
                 if portal.portal_actions.object.local_roles.visible == False:
                     portal.portal_actions.object.local_roles.visible = True
