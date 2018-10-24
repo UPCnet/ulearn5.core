@@ -303,10 +303,7 @@ class Person(REST):
 
         else:
             # Update portal membership user properties
-            has_email = existing_user.getProperty('email', False)
-            if not has_email:
-                properties.update({'email': email})
-
+            properties.update({'email': email})
             existing_user.setMemberProperties(properties)
 
             # Update MAX properties
