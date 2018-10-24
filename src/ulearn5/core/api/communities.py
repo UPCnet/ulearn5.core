@@ -46,6 +46,65 @@ class CommunityMixin(object):
     #     return True
 
 
+class SaveEditACL(REST):
+    """
+        Simulate save on any communities on the Site.
+        Used to update the LDAP groups users membership.
+        Refresh users removed from LDAP in the soup catalog.
+
+            /api/saveeditacl
+    """
+
+    placeholder_type = 'saveeditacl'
+    placeholder_id = 'saveeditacl'
+
+    grok.adapts(APIRoot, IPloneSiteRoot)
+    grok.require('ulearn.APIAccess')
+
+    @api_resource(required_roles=['Api'])
+    def GET(self):
+        """ Launch an editacl SAVE process on all communities """
+        pc = api.portal.get_tool('portal_catalog')
+        communities = pc.unrestrictedSearchResults(portal_type='ulearn.community')
+        results = []
+        communities_ok = []
+        communities_error = []
+        for item in communities:
+            try:
+                self.target = item._unrestrictedGetObject()
+                self.payload = ICommunityACL(self.target)().attrs.get('acl', '')
+                print '--- Community: ' + str(self.target.absolute_url())
+                print '---- Payload: ' + str(self.payload)
+                adapter = self.target.adapted(request=self.request)
+                adapter.update_acl(self.payload)
+                users = self.payload['users']
+                users_checked = []
+
+                for user in users:
+                    try:
+                        adapter.update_acl_atomic(user['id'], user['role'])
+                        users_checked.append(str(user['id']) + ' as role ' + str(user['role']))
+                    except:
+                        raise BadParameters(user)
+
+                acl = adapter.get_acl()
+                adapter.set_plone_permissions(acl)
+                adapter.update_hub_subscriptions()
+                updated = 'Updated community subscriptions on: "{}" '.format(self.target.absolute_url())
+                logger.info(updated)
+                communities_ok.append(dict(url=self.target.absolute_url(),
+                                           users_checked=users_checked))
+            except:
+                error = 'Error updating community subscriptions on: "{}" '.format(self.target.absolute_url())
+                logger.error(error)
+                communities_error.append(self.target.absolute_url())
+
+        results.append(dict(successfully_updated_communities=communities_ok,
+                            error_updating_communities=communities_error))
+
+        return ApiResponse(results)
+
+
 class Communities(REST):
     """
         /api/communities
