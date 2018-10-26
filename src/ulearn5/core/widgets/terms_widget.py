@@ -18,7 +18,7 @@ class TermsWidget(CheckBoxWidget):
     def render(self):
         registry = queryUtility(IRegistry)
         ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
-        if ulearn_tool.url_terms == None:
+        if ulearn_tool.url_terms == None or ulearn_tool.url_terms == '':
             self.mode = 'hidden'
             template = self.hidden_template(self)
         elif '@@edit' in self.request.getURL():

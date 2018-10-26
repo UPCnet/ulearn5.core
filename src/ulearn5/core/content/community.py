@@ -1085,7 +1085,7 @@ class communityAdder(form.SchemaForm):
         super(communityAdder, self).updateWidgets()
         registry = queryUtility(IRegistry)
         ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
-        if ulearn_tool.url_terms == None:
+        if ulearn_tool.url_terms == None or ulearn_tool.url_terms == '':
            self.widgets['terms'].mode = 'hidden'
            self.fields['terms'].mode = 'hidden'
         else:
