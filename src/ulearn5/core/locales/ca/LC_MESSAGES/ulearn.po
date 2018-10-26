@@ -253,7 +253,7 @@ msgstr "Activar importació icalendar"
 
 #: ulearn5/theme/portlets/quicklinks/quicklinks.pt:51
 msgid "Error, the directory has been deleted."
-msgstr "Error, el directori a sigut eliminat."
+msgstr "Error, el directori ha sigut eliminat."
 
 #: ../content/community.py:1347
 msgid "Esdeveniments"
