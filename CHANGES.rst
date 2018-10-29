@@ -2,11 +2,20 @@ Changelog
 =========
 
 
-0.9 (unreleased)
+0.9 (2018-10-29)
 ----------------
 
-- Nothing changed yet.
-
+* Traducción portlet quicklinks [iago.lopez]
+* Que no aparezcan los terminos de uso si no hay url en ulearn settings [Pilar Marinas]
+* Avance vista execute_cron_tasks [iago.lopez]
+* Quitar Genweb [Pilar Marinas]
+* Add API saveeditacl [Pilar Marinas]
+* api/news: mostrar tambien noticias de comunidades [iago.lopez]
+* api/people/{username}: Permitir el cambio de email [iago.lopez]
+* Viewlet ulearn.newstoolbar arreglar funcionamiento flashes informativos [iago.lopez]
+* Only Site Administrator permission Delete_objects_Permission in frontpage, gestion, documents [Pilar Marinas]
+* mrs5.max [Pilar Marinas]
+* Add domain in successful login [Pilar Marinas]
 
 0.8 (2018-10-11)
 ----------------
