@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.10 (unreleased)
+0.10 (2018-10-30)
 -----------------
 
-- Nothing changed yet.
-
+* Solucionar test [Pilar Marinas]
+* Si no hay url y check no hacer el elastic [Pilar Marinas]
 
 0.9 (2018-10-29)
 ----------------
