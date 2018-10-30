@@ -110,35 +110,36 @@ class ElasticSharing(object):
         """
         # path = self.relative_path(object)
         self.elastic = getUtility(IElasticSearch)
-        elastic_index = ElasticSharing().get_index_name().lower()
-        if principal is None:
-            # Change to query elastic for a register matching principal and path
-            # and return a list of items or None if query empty
-            es_results = self.elastic().search(index=elastic_index,
-                                               doc_type='sharing',
-                                               body={'query': {'match': {'uuid': IGWUUID(object).get()}}}
-                                               )
-            result = []
-            if es_results['hits']['total'] > 0:
-                # result = [es_results['hits']['hits'][0]['_source']]
-                for i in range(es_results['hits']['total']):
-                    result.append(es_results['hits']['hits'][i]['_source'])
+        if self.elastic.connection != None:
+            elastic_index = ElasticSharing().get_index_name().lower()
+            if principal is None:
+                # Change to query elastic for a register matching principal and path
+                # and return a list of items or None if query empty
+                es_results = self.elastic().search(index=elastic_index,
+                                                   doc_type='sharing',
+                                                   body={'query': {'match': {'uuid': IGWUUID(object).get()}}}
+                                                   )
+                result = []
+                if es_results['hits']['total'] > 0:
+                    # result = [es_results['hits']['hits'][0]['_source']]
+                    for i in range(es_results['hits']['total']):
+                        result.append(es_results['hits']['hits'][i]['_source'])
 
-        else:
-            # Change to Query elastic for all registers matching path
-            # and returm ONE item
-            es_results = self.elastic().search(index=elastic_index,
-                                               doc_type='sharing',
-                                               body={'query': {
-                                                     'bool': {
-                                                        'must': [{'match': {'principal': principal}},
-                                                                 {'match': {'uuid': IGWUUID(object).get()}}]
-                                                     }}})
-            result = []
-            if es_results['hits']['total'] > 0:
-                result = [es_results['hits']['hits'][0]['_source']]
+            else:
+                # Change to Query elastic for all registers matching path
+                # and returm ONE item
+                es_results = self.elastic().search(index=elastic_index,
+                                                   doc_type='sharing',
+                                                   body={'query': {
+                                                         'bool': {
+                                                            'must': [{'match': {'principal': principal}},
+                                                                     {'match': {'uuid': IGWUUID(object).get()}}]
+                                                         }}})
+                result = []
+                if es_results['hits']['total'] > 0:
+                    result = [es_results['hits']['hits'][0]['_source']]
 
-        return result
+            return result
 
     def modified(self, object):
         """
