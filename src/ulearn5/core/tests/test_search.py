@@ -56,7 +56,7 @@ class TestExample(uLearnTestBase):
                             properties=dict(fullname=u'Víctor' + unicode(suffix),
                                             location=u'Barcelona',
                                             ubicacio=u'NX',
-                                            telefon=u'44002, 54390'))
+                                            email=u'test@upcnet.es'))
 
     def delete_default_test_users(self):
         for suffix in range(1, 15):
@@ -79,7 +79,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(users['content'][0]['id'], u'janet.dura')
 
     def test_search_portal_with_search_string_not_username(self):
-        search_string = u'654321'
+        search_string = u'Janet'
         login(self.portal, u'ulearn.testuser1')
         users = searchUsersFunction(self.portal, self.request, search_string)
         logout()
@@ -149,7 +149,6 @@ class TestExample(uLearnTestBase):
         self.assertEqual(users['content'][0]['id'], u'ulearn.testuser1')
         self.assertEqual(users['content'][0]['position'], u'Jefe')
         self.assertEqual(users['content'][0]['unit_organizational'], u'Finance')
-        self.assertEqual(users['content'][0]['telefon'], u'123456')
 
         logout()
 

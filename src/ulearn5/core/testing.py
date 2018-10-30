@@ -89,8 +89,8 @@ class Ulearn5CoreLayer(PloneSandboxLayer):
         portal.acl_users.userFolderAddUser('ulearn.testuser1', 'secret', ['Member', 'WebMaster'], [])
         portal.acl_users.userFolderAddUser('ulearn.testuser2', 'secret', ['Member', ], [])
 
-        api.user.get('ulearn.testuser1').setMemberProperties(mapping={'location': u'Test', 'telefon': u'123456'})
-        api.user.get('janet.dura').setMemberProperties(mapping={'fullname': u'Janet Durà', 'location': u'Barcelona', 'telefon': u'654321 123 123'})
+        api.user.get('ulearn.testuser1').setMemberProperties(mapping={'location': u'Test', 'email': u'test@upcnet.es'})
+        api.user.get('janet.dura').setMemberProperties(mapping={'fullname': u'Janet Durà', 'location': u'Barcelona', 'email': u'janet.dura@upcnet.es'})
 
         login(portal, 'admin')
         setup_max(u'ulearn.testuser1', '99994183a')

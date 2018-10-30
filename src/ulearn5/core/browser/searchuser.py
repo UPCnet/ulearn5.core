@@ -166,7 +166,7 @@ def searchUsersFunction(context, request, search_string):  # noqa
             if current_user.id == 'admin':
                 can_view_properties = True
             else:
-                roles = api.user.get_roles(username=current_user, obj=portal)
+                roles = api.user.get_roles(username=current_user.id, obj=portal)
                 can_view_properties = current_user == user.attrs['username'] or 'WebMaster' in roles or 'Manager' in roles
             if isinstance(user, Record):
                 user_dict = {}
