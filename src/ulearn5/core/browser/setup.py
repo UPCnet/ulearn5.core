@@ -37,6 +37,7 @@ from zope.component import queryUtility
 from zope.component.hooks import getSite
 from zope.interface import Interface
 from zope.interface import alsoProvides
+from ulearn5.core.api import api_resource
 
 import base64
 import json
@@ -1237,24 +1238,38 @@ class changePortalType(grok.View):
 
 
 class executeCronTasks(grok.View):
-    """ TODO: ..... """
+    """ TODO: .....
+        url/execute_cron_tasks/?user=victor&pass=123123
+    """
     grok.name('execute_cron_tasks')
     grok.context(IPloneSiteRoot)
 
+
     def render(self):
         url = self.context.absolute_url()
+
+        info_cron = []
 
         registry = queryUtility(IRegistry)
         settings = registry.forInterface(IUlearnControlPanelSettings, check=False)
         tasks = settings.cron_tasks
 
-        for task in tasks:
-            result = requests.get(url + '/' + task)
-            if(result.status_code == 200):
-                # return result.text
-                print("OK: " + task)
-            else:
-                print("Error: " + task)
-                return 'Error'
+        try:
+            username = self.request.form['user']
+            password = self.request.form['pass']
+        except:
+            info_cron.append("Error not username or password")
+            logger.info(url + ':' + str(info_cron))
+            return info_cron
 
-        return 'Done'
+        for task in tasks:
+            result = requests.get(url + '/' + task, auth=(username, password))
+            if(result.status_code == 200):
+                info_cron.append("OK: " + task)
+            else:
+                info_cron.append("Error: " + task)
+
+        info_cron.append("Done executeCronTasks")
+        logger.info(url + ':' + str(info_cron))
+
+        return info_cron
