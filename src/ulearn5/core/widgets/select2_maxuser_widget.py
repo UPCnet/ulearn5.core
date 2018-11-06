@@ -41,7 +41,7 @@ class Select2MAXUserInputWidget(textarea.TextAreaWidget):
                 },
                 initSelection: function(element, callback) {
                     var id=$(element).val();
-                    $.ajax(portal_url + '/genweb.fromusername2displayname', {
+                    $.ajax(portal_url + '/ulearn.fromusername2displayname', {
                         data: {
                             q: id,
                         },
