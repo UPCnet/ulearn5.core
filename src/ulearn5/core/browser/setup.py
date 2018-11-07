@@ -1127,24 +1127,25 @@ class migrationDocumentsCommunities(grok.View):
                 remote_password = self.request.form['remote_password']
                 comunitats_no_migrar = self.request.form['comunitats_no_migrar']
                 comunitats_a_migrar = self.request.form['comunitats_a_migrar']
+                servidor_comunitats_V4 = self.request.form['servidor_comunitats_V4']
+
 
                 json_communities = requests.get(url_instance_v4 + '/api/communitiesmigration', headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                 logger.info('Buscant comunitats per migrar')
                 communities = json.loads(json_communities.content)
                 for community in communities:
-                    if os.path.exists('/tmp/content_documents'):
-                        shutil.rmtree('/tmp/content_documents')
                     if (community['id'] not in comunitats_no_migrar) and (community['id'] in comunitats_a_migrar or comunitats_a_migrar == ''):
                         logger.info('Migrant comunitat {}'.format(community['title'].encode('utf-8')))
-                        result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=/tmp',
+                        result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=/var/plone/genweb.zope/var/',
                                                 headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                         if result.ok == False:
                             logger.info('Ha fallat export_dexterity')
                             time.sleep(10)
-                            result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=/tmp',
+                            result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=/var/plone/genweb.zope/var/',
                                                     headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
 
                         if result.ok == True:
+                            os.system('scp -r root@' + servidor_comunitats_V4 + ':/var/plone/genweb.zope/var/content_documents /Dades/plone/')
                             requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
                             logger.info('He migrat la carpeta documents de: ' + community['title'].encode('utf-8'))
                 logger.info('Ha finalitzat la migració de les comunitats.')

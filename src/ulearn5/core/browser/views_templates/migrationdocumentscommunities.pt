@@ -47,6 +47,9 @@
             Afegeix els ids de les comunitats que vols migrar (separats per coma). Si esta en blanc es migraran totes:
             <input name="comunitats_a_migrar" type="text" style="width: 1024px;"/>
             <br>
+            Afegeix el servidor de les comunitats en Plone 4 (shayla.upcnet.es):
+            <input name="servidor_comunitats_V4" type="text" style="width: 1024px;"/>
+            <br>
             <button name="save" type="submit">Migra les comunitats</button>
           </form>
 
