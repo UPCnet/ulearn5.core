@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.11 (unreleased)
+0.11 (2018-11-08)
 -----------------
 
-- Nothing changed yet.
-
+* Modificar ruta migrationDocumentsCommunities [Pilar Marinas]
+* Solucion widget select2_maxuser_widget [iago.lopez]
+* ExecuteCronTasks [Pilar Marinas]
+* Searchuser: no ver usuarios de la lista nonvisible [iago.lopez]
 
 0.10 (2018-10-30)
 -----------------
