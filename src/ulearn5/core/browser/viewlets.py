@@ -225,3 +225,14 @@ class ListTagsNews(viewletBase):
             return True if category in tags else False
         else:
             return False
+
+
+class ObjectUniversalLink(viewletBase):
+    grok.name('ulearn.universallink')
+    grok.context(Interface)
+    grok.template('universallink')
+    grok.viewletmanager(IAboveContentTitle)
+    grok.layer(IUlearn5CoreLayer)
+
+    def universalLink(self):
+        return api.portal.get().absolute_url() + '/resolveuid/' + self.context.UID()
