@@ -1,35 +1,36 @@
+from Acquisition import aq_chain
+from Acquisition import aq_inner
+from Products.CMFCore.utils import getToolByName
+
 from five import grok
 from hashlib import sha1
 from plone import api
-from Acquisition import aq_inner
-from zope.interface import Interface
-from zope.component.hooks import getSite
-from zope.security import checkPermission
-from plone.app.layout.viewlets.interfaces import IPortalHeader
-
-from ulearn5.core.gwuuid import IGWUUID
-from ulearn5.core.content.community import ICommunity
-from ulearn5.core import _
-from Acquisition import aq_chain
-
 from plone.app.contenttypes.interfaces import INewsItem
 from plone.app.layout.viewlets.interfaces import IAboveContentTitle
+from plone.app.layout.viewlets.interfaces import IPortalHeader
+from plone.dexterity.interfaces import IDexterityContent
 from plone.memoize.view import memoize_contextless
-from Products.CMFCore.utils import getToolByName
-from base5.core.adapters import IImportant
+from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletManager
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.component.hooks import getSite
+from zope.interface import Interface
+from zope.security import checkPermission
+
 from base5.core.adapters import IFlash
+from base5.core.adapters import IImportant
 from base5.core.adapters import IOutOfList
 from base5.core.adapters import IShowInApp
 from base5.core.utils import base_config
-
+from ulearn5.core import _
+from ulearn5.core.content.community import ICommunity
+from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.interfaces import IUlearn5CoreLayer
-from souper.soup import get_soup
-from repoze.catalog.query import Eq
-import json
 
-from plone.portlets.interfaces import IPortletManager
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from zope.component import getUtility, getMultiAdapter
+import json
 
 
 class CommunityNGDirective(grok.Viewlet):
@@ -229,10 +230,15 @@ class ListTagsNews(viewletBase):
 
 class ObjectUniversalLink(viewletBase):
     grok.name('ulearn.universallink')
-    grok.context(Interface)
+    grok.context(IDexterityContent)
     grok.template('universallink')
     grok.viewletmanager(IAboveContentTitle)
     grok.layer(IUlearn5CoreLayer)
 
     def universalLink(self):
         return api.portal.get().absolute_url() + '/resolveuid/' + self.context.UID()
+
+    def viewViewlet(self):
+        if self.context.id == 'front-page':
+            return False
+        return True
