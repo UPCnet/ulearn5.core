@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.12 (unreleased)
+0.12 (2018-11-12)
 -----------------
 
-- Nothing changed yet.
-
+* Class Object universal link dentro de las comunidades [Iago López Fernández]
+* Object universal link - no verlo en la página principal [Iago López Fernández]
+* Object universal link [Iago López Fernández]
 
 0.11 (2018-11-08)
 -----------------
