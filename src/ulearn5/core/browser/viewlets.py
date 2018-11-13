@@ -243,10 +243,3 @@ class ObjectUniversalLink(viewletBase):
         if self.context.id == 'front-page':
             return False
         return True
-
-    def klass(self):
-        context = aq_inner(self.context)
-        for obj in aq_chain(context):
-            if ICommunity.providedBy(obj):
-                return 'community'
-        return None
