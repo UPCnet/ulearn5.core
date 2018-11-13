@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.13 (unreleased)
+0.13 (2018-11-13)
 -----------------
 
-- Nothing changed yet.
-
+* Deshacer: Class Object universal link dentro de las comunidades [Iago López Fernández]
 
 0.12 (2018-11-12)
 -----------------
