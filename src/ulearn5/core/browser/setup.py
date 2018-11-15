@@ -1052,7 +1052,7 @@ class migrationCommunities(grok.View):
                             if brain:
                                 community_new = brain[0].getObject()
 
-                                setattr(community_new, ATTRIBUTE_NAME_FAVORITE, str(community['favoritedBy']))
+                                setattr(community_new, ATTRIBUTE_NAME_FAVORITE, set(eval(community['favoritedBy'])))
                                 community_new.reindexObject(idxs=['favoritedBy'])
 
                                 setattr(community_new, ATTRIBUTE_NAME, str(community['gwuuid']))
@@ -1131,7 +1131,12 @@ class migrationDocumentsCommunities(grok.View):
                 comunitats_no_migrar = self.request.form['comunitats_no_migrar']
                 comunitats_a_migrar = self.request.form['comunitats_a_migrar']
                 servidor_comunitats_V4 = self.request.form['servidor_comunitats_V4']
-
+                # (p.e: ssh/jane_id_rsa) --> Este es para Comunitats Externs
+                certificado_maquina_comunitats_V4 = self.request.form['certificado_maquina_comunitats_V4']
+                # /var/plone/genweb.zope/var
+                path_guardar_export_dexterity_comunitats_V4 = self.request.form['path_guardar_export_dexterity_comunitats_V4']
+                # /Dades/plone/ulearn5.zope/var
+                path_guardar_export_dexterity_comunitats_V5 = self.request.form['path_guardar_export_dexterity_comunitats_V5']
 
                 json_communities = requests.get(url_instance_v4 + '/api/communitiesmigration', headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                 logger.info('Buscant comunitats per migrar')
@@ -1139,18 +1144,23 @@ class migrationDocumentsCommunities(grok.View):
                 for community in communities:
                     if (community['id'] not in comunitats_no_migrar) and (community['id'] in comunitats_a_migrar or comunitats_a_migrar == ''):
                         logger.info('Migrant comunitat {}'.format(community['title'].encode('utf-8')))
-                        result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=/var/plone/genweb.zope/var/',
+                        result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=' + path_guardar_export_dexterity_comunitats_V4 + '/',
                                                 headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                         if result.ok == False:
                             logger.info('Ha fallat export_dexterity')
                             time.sleep(10)
-                            result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=/var/plone/genweb.zope/var/',
+                            result = requests.get(url_instance_v4 + '/' + community['id'] + '/documents/export_dexterity?dir=' + path_guardar_export_dexterity_comunitats_V4 + '/',
                                                     headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
 
                         if result.ok == True:
-                            os.system('scp -r root@' + servidor_comunitats_V4 + ':/var/plone/genweb.zope/var/content_documents /Dades/plone/')
-                            requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
-                            logger.info('He migrat la carpeta documents de: ' + community['title'].encode('utf-8'))
+                            shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content_documents')
+                            os.system('scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content_documents'  + ' ' + path_guardar_export_dexterity_comunitats_V5)
+                            time.sleep(30)
+                            migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
+                            if migrat.ok == True:
+                                logger.info('He migrat la carpeta documents de: ' + community['title'].encode('utf-8'))
+                            else:
+                                logger.error('NO he migrat la carpeta documents de: ' + community['title'].encode('utf-8'))
                 logger.info('Ha finalitzat la migració de les comunitats.')
 
 
