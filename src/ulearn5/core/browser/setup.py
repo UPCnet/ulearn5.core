@@ -1161,7 +1161,70 @@ class migrationDocumentsCommunities(grok.View):
                                 logger.info('He migrat la carpeta documents de: ' + community['title'].encode('utf-8'))
                             else:
                                 logger.error('NO he migrat la carpeta documents de: ' + community['title'].encode('utf-8'))
+
                 logger.info('Ha finalitzat la migració de les comunitats.')
+
+class migrationEventsCommunities(grok.View):
+    """ Aquesta vista migra la carpeta Events de les comunitats de Plone 4 a la nova versió en Plone 5 """
+    grok.name('migrationeventscommunities')
+    grok.template('migrationeventscommunities')
+    grok.context(IPloneSiteRoot)
+
+
+    def update(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            hscope = 'widgetcli'
+            pc = api.portal.get_tool('portal_catalog')
+            communities = pc.searchResults(portal_type='ulearn.community')
+
+            if self.request.form['url_instance_v4'] != '':
+                url_instance_v4 = self.request.form['url_instance_v4']
+                husernamev4 = self.request.form['husernamev4']
+                htokenv4 = self.request.form['htokenv4']
+                url_instance_v5 = self.request.form['url_instance_v5']
+                remote_username = self.request.form['remote_username']
+                remote_password = self.request.form['remote_password']
+                comunitats_no_migrar = self.request.form['comunitats_no_migrar']
+                comunitats_a_migrar = self.request.form['comunitats_a_migrar']
+                servidor_comunitats_V4 = self.request.form['servidor_comunitats_V4']
+                # (p.e: ssh/jane_id_rsa) --> Este es para Comunitats Externs
+                certificado_maquina_comunitats_V4 = self.request.form['certificado_maquina_comunitats_V4']
+                # /var/plone/genweb.zope/var
+                path_guardar_export_dexterity_comunitats_V4 = self.request.form['path_guardar_export_dexterity_comunitats_V4']
+                # /Dades/plone/ulearn5.zope/var
+                path_guardar_export_dexterity_comunitats_V5 = self.request.form['path_guardar_export_dexterity_comunitats_V5']
+
+                json_communities = requests.get(url_instance_v4 + '/api/communitiesmigration', headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                logger.info('Buscant comunitats per migrar')
+                communities = json.loads(json_communities.content)
+                for community in communities:
+                    if (community['id'] not in comunitats_no_migrar) and (community['id'] in comunitats_a_migrar or comunitats_a_migrar == ''):
+
+                        logger.info('Migrant carpeta Events comunitat {}'.format(community['title'].encode('utf-8')))
+                        result = requests.get(url_instance_v4 + '/' + community['id'] + '/events/export_dexterity?dir=' + path_guardar_export_dexterity_comunitats_V4 + '/',
+                                                headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                        if result.ok == False:
+                            logger.info('Ha fallat export_dexterity')
+                            time.sleep(10)
+                            result = requests.get(url_instance_v4 + '/' + community['id'] + '/events/export_dexterity?dir=' + path_guardar_export_dexterity_comunitats_V4 + '/',
+                                                    headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+
+                        if result.ok == True:
+                            shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content_events')
+                            os.system('scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content_events'  + ' ' + path_guardar_export_dexterity_comunitats_V5)
+                            time.sleep(30)
+                            migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/events/comunitats_import', auth=(remote_username, remote_password))
+                            if migrat.ok == True:
+                                logger.info('He migrat la carpeta events de: ' + community['title'].encode('utf-8'))
+                            else:
+                                logger.error('NO he migrat la carpeta events de: ' + community['title'].encode('utf-8'))
+                logger.info('Ha finalitzat la migració de la carpeta Events de les comunitats.')
 
 
 class migrationEditaclCommunities(grok.View):
