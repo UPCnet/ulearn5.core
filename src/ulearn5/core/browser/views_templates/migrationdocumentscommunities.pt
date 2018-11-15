@@ -50,6 +50,15 @@
             Afegeix el servidor de les comunitats en Plone 4 (shayla.upcnet.es):
             <input name="servidor_comunitats_V4" type="text" style="width: 1024px;"/>
             <br>
+            Afegeix el certificat que utilitzem per fer un scp -r en el servidor de les comunitats en Plone 4 (shayla.upcnet.es) (p.e: ssh/jane_id_rsa para Externs):
+            <input name="certificado_maquina_comunitats_V4" type="text" style="width: 1024px;"/>
+            <br>
+            Afegeix el path on guardarem el export de les comunitats en Plone 4 (/var/plone/genweb.zope/var):
+            <input name="path_guardar_export_dexterity_comunitats_V4" type="text" style="width: 1024px;"/>
+            <br>
+            Afegeix el path on guardarem el export de les comunitats en Plone 5 (/Dades/plone/ulearn5.zope/var):
+            <input name="path_guardar_export_dexterity_comunitats_V5" type="text" style="width: 1024px;"/>
+            <br>
             <button name="save" type="submit">Migra les comunitats</button>
           </form>
 
