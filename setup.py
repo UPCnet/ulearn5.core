@@ -57,7 +57,8 @@ setup(
         'ulearn5.theme',
         'ulearn5.owncloud',
         'mrs5.max',
-        'ipdb'
+        'ipdb',
+        'pytz'
     ],
     extras_require={
         'test': [
