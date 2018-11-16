@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.14 (unreleased)
+0.14 (2018-11-16)
 -----------------
 
-- Nothing changed yet.
-
+* Afegir Popen [alberto.duran]
+* migrationEventsCommunities [Pilar Marinas]
+* Migracion favoritedBy y modificar formulario para poner los path del export de Plone 4 y 5 [Pilar Marinas]
 
 0.13 (2018-11-13)
 -----------------
