@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.15 (unreleased)
+0.15 (2018-11-16)
 -----------------
 
-- Nothing changed yet.
-
+* Add pytz requirement [alberto.duran]
 
 0.14 (2018-11-16)
 -----------------
