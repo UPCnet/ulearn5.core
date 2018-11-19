@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2018-11-09 12:43+0000\n"
+"POT-Creation-Date: 2018-11-19 09:39+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -142,6 +142,10 @@ msgstr "Comentaris sobre l'última transició"
 #: ../controlpanel.py:96
 msgid "Communities"
 msgstr "Comunitats"
+
+#: ulearn5/theme/browser/views_templates/sharedwithme.pt:46
+msgid "Compartido por"
+msgstr "Compartit per"
 
 #: ../profiles/default/types/ulearn.community.xml
 msgid "Comunitat"
@@ -762,7 +766,7 @@ msgid "Tipus de comunitat"
 msgstr "Tipus de comunitat"
 
 #: ../browser/stats.py:69
-#: ../browser/viewlets.py:63
+#: ../browser/viewlets.py:65
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:34
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
@@ -1088,6 +1092,10 @@ msgstr ""
 #: ../content/community.py:261
 msgid "description_terms_of_user"
 msgstr "Es necessari acceptar les condicions d'ús i privacitat per crear una comunitat."
+
+#: ulearn5/theme/browser/views_templates/sharedwithme.pt:50
+msgid "desde"
+msgstr "des de"
 
 #. Default: "Discussion portlet"
 #: ulearn5/theme/portlets/discussion.py:31
@@ -1834,7 +1842,7 @@ msgstr "Notícies"
 #. Default: "There is no content shared with you right now."
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:35
 msgid "no_content_shared_user"
-msgstr "No hi ha contingut compartit amb tu ara mateix"
+msgstr "No hi ha contingut compartit. Es mostrarà aquí quan algú comparteixi alguna cosa amb tú."
 
 #: ../controlpanel.py:304
 msgid "no_visibles"
