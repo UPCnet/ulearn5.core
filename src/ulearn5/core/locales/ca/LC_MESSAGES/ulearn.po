@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2018-11-19 09:39+0000\n"
+"POT-Creation-Date: 2018-11-21 08:08+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -1007,6 +1007,10 @@ msgstr "Copia l'enllaç universal"
 #: ../controlportlets.py:138
 msgid "collective_polls_VotePortlet"
 msgstr "Habilitar portlet Enquestes"
+
+#: ../controlpanel.py:313
+msgid "collegiates"
+msgstr "Col·legiats"
 
 #. Default: "Color comunitat tancada"
 #: ../controlpanel.py:276

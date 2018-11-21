@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-11-19 09:39+0000\n"
+"POT-Creation-Date: 2018-11-21 08:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1007,6 +1007,10 @@ msgstr ""
 #. Default: "Habilitar portlet collective_polls_VotePortlet"
 #: ../controlportlets.py:138
 msgid "collective_polls_VotePortlet"
+msgstr ""
+
+#: ../controlpanel.py:313
+msgid "collegiates"
 msgstr ""
 
 #. Default: "Color comunitat tancada"
