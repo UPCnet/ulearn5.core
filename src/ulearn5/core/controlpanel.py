@@ -349,7 +349,7 @@ class IUlearnControlPanelSettings(model.Schema):
                       default=_(u'Aquest és l\'idioma de l\'espai, que es configura quan el paquet es reinstala.')),
         required=True,
         values=['ca', 'es', 'en'],
-        default='es',
+        default='ca',
     )
 
     show_news_in_app = schema.Bool(
