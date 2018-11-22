@@ -1194,6 +1194,62 @@ class migrationDocumentsCommunities(grok.View):
                 logger.info('Ha finalitzat la migració de les comunitats.')
 
 
+class migrationPath(grok.View):
+    """ Aquesta vista migra el contingut del path indicat de Plone 4 a la nova versió en Plone 5 """
+    grok.name('migrationpath')
+    grok.template('migrationpath')
+    grok.context(IPloneSiteRoot)
+    grok.require('cmf.ManagePortal')
+
+
+    def update(self):
+        from plone.protect.interfaces import IDisableCSRFProtection
+        alsoProvides(self.request, IDisableCSRFProtection)
+
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            hscope = 'widgetcli'
+
+            if self.request.form['url_instance_v4'] != '':
+                url_instance_v4 = self.request.form['url_instance_v4']
+                husernamev4 = self.request.form['husernamev4']
+                htokenv4 = self.request.form['htokenv4']
+                url_instance_v5 = self.request.form['url_instance_v5']
+                remote_username = self.request.form['remote_username']
+                remote_password = self.request.form['remote_password']
+                path_a_migrar = self.request.form['path_a_migrar']
+                servidor_comunitats_V4 = self.request.form['servidor_comunitats_V4']
+                # (p.e: ssh/jane_id_rsa) --> Este es para Comunitats Externs
+                certificado_maquina_comunitats_V4 = self.request.form['certificado_maquina_comunitats_V4']
+                # /var/plone/genweb.zope/var
+                path_guardar_export_dexterity_comunitats_V4 = self.request.form['path_guardar_export_dexterity_comunitats_V4']
+                # /Dades/plone/ulearn5.zope/var
+                path_guardar_export_dexterity_comunitats_V5 = self.request.form['path_guardar_export_dexterity_comunitats_V5']
+
+                logger.info('Migrant path {}'.format(path_a_migrar))
+
+                ############################# Migracio del path ###################################################
+                result = requests.get(url_instance_v4 + '/' + path_a_migrar + '/export_dexterity?dir=' + path_guardar_export_dexterity_comunitats_V4 + '/',
+                                        headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                if not result.ok:
+                    logger.info('Ha fallat export_dexterity del path, REINTENTANT....')
+                    time.sleep(10)
+                    result = requests.get(url_instance_v4 + '/' + path_a_migrar + '/export_dexterity?dir=' + path_guardar_export_dexterity_comunitats_V4 + '/',
+                                            headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+
+                if result.ok:
+                    shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
+
+                    cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
+                    subprocess.Popen([cmd], shell=True).wait()
+                    migrat = requests.get(url_instance_v5 + '/comunitats_import', auth=(remote_username, remote_password))
+                    if migrat.ok:
+                        logger.info('He migrat el path: ' + path_a_migrar)
+                    else:
+                        logger.error('NO he migrat el path: ' + path_a_migrar)
+
+                logger.info('Ha finalitzat la migració del path.')
+
+
 class migrationEditaclCommunities(grok.View):
     """ Aquesta vista migra els permisos del editacl de les comunitats de Plone 4 a la nova versió en Plone 5 """
     grok.name('migrationeditaclcommunities')
