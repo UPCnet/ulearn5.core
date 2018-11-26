@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.16 (unreleased)
+0.16 (2018-11-26)
 -----------------
 
-- Nothing changed yet.
-
+* Merge [Pilar Marinas]
+* Migrate portal_role_manager and modify clouseau [Pilar Marinas]
+* Controlpanel default language ca [Pilar Marinas]
+* Universal link: Añadir condicion borrada [Iago López Fernández]
+* migrationPath [Pilar Marinas]
+* MigrationUsersProfiles [Pilar Marinas]
 
 0.15 (2018-11-16)
 -----------------
