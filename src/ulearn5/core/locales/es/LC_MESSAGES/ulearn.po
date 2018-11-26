@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2018-11-09 12:43+0000\n"
+"POT-Creation-Date: 2018-11-21 08:08+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -142,6 +142,10 @@ msgstr "Comentarios sobre la última transición"
 #: ../controlpanel.py:96
 msgid "Communities"
 msgstr "Comunidades"
+
+#: ulearn5/theme/browser/views_templates/sharedwithme.pt:46
+msgid "Compartido por"
+msgstr "Compartido por"
 
 #: ../profiles/default/types/ulearn.community.xml
 msgid "Comunitat"
@@ -762,7 +766,7 @@ msgid "Tipus de comunitat"
 msgstr "Tipo de comunidad"
 
 #: ../browser/stats.py:69
-#: ../browser/viewlets.py:63
+#: ../browser/viewlets.py:65
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:34
 msgid "Todas las comunidades"
 msgstr "Todas las comunidades"
@@ -1004,6 +1008,10 @@ msgstr "Copia el enlace universal"
 msgid "collective_polls_VotePortlet"
 msgstr "Habilitar portlet Encuestas"
 
+#: ../controlpanel.py:313
+msgid "collegiates"
+msgstr "Colegiados"
+
 #. Default: "Color comunitat tancada"
 #: ../controlpanel.py:276
 msgid "color_community_closed"
@@ -1085,6 +1093,10 @@ msgstr ""
 #: ../content/community.py:261
 msgid "description_terms_of_user"
 msgstr "Es necesario aceptar las condiciones de uso y privacidad para crear una comunidad."
+
+#: ulearn5/theme/browser/views_templates/sharedwithme.pt:50
+msgid "desde"
+msgstr "desde"
 
 #. Default: "Discussion portlet"
 #: ulearn5/theme/portlets/discussion.py:31
@@ -1831,7 +1843,7 @@ msgstr "Notícias"
 #. Default: "There is no content shared with you right now."
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:35
 msgid "no_content_shared_user"
-msgstr "No hay contenido compartido contingo actualmente."
+msgstr "No hay contenido compartido. Se mostrará aquí cuando alguien lo comparta algo contigo."
 
 #: ../controlpanel.py:304
 msgid "no_visibles"

@@ -38,6 +38,17 @@ from zope.component import queryUtility
 from zope.component.hooks import getSite
 from zope.interface import alsoProvides
 from zope.interface import Interface
+from base5.core.utils import get_all_user_properties
+from base5.core.utils import add_user_to_catalog
+
+from plone.app.layout.navigation.root import getNavigationRootObject
+
+from ulearn5.owncloud.api.owncloud import HTTPResponseError
+from ulearn5.owncloud.api.owncloud import OCSResponseError
+from ulearn5.owncloud.utilities import IOwncloudClient
+from ulearn5.owncloud.utils import get_domain
+
+
 
 import base64
 import json
@@ -1304,3 +1315,42 @@ class executeCronTasks(grok.View):
         logger.info(url + ':' + str(info_cron))
 
         return info_cron
+
+
+class listFileUploadErrors(grok.View):
+    """ Vista per veure tots el fitchers File Upload que no estàn ven sincronitzats amb el OwnCloud.
+    """
+    grok.name('list_fileupload_errors')
+    grok.context(IPloneSiteRoot)
+
+    def render(self):
+        portal = api.portal.get()
+        if is_activate_owncloud(portal):
+            pc = api.portal.get_tool('portal_catalog')
+            files = pc.searchResults(portal_type='CloudFile')
+
+            if files:
+                client = getUtility(IOwncloudClient)
+                session = client.admin_connection()
+                errors = ''
+                for file in files:
+                    domain = get_domain()
+                    portal_state = file.unrestrictedTraverse('@@plone_portal_state')
+                    root = getNavigationRootObject(file, portal_state.portal())
+                    path = file.getPath().split('/')
+                    path = domain + "/" + "/".join(path[len(root.getPhysicalPath()):])
+                    try:
+                        session.file_info(path)
+                    except OCSResponseError:
+                        pass
+                    except HTTPResponseError:
+                        errors += path + '\n'
+
+                if errors:
+                    return errors
+                else:
+                    return 'Todo OK'
+            else:
+                return 'No hay ficheros'
+        else:
+            return 'Owncloud no activado'

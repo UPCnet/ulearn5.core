@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-11-09 12:43+0000\n"
+"POT-Creation-Date: 2018-11-21 08:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,6 +142,10 @@ msgstr ""
 
 #: ../controlpanel.py:96
 msgid "Communities"
+msgstr ""
+
+#: ulearn5/theme/browser/views_templates/sharedwithme.pt:46
+msgid "Compartido por"
 msgstr ""
 
 #: ../profiles/default/types/ulearn.community.xml
@@ -763,7 +767,7 @@ msgid "Tipus de comunitat"
 msgstr ""
 
 #: ../browser/stats.py:69
-#: ../browser/viewlets.py:63
+#: ../browser/viewlets.py:65
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:34
 msgid "Todas las comunidades"
 msgstr ""
@@ -1005,6 +1009,10 @@ msgstr ""
 msgid "collective_polls_VotePortlet"
 msgstr ""
 
+#: ../controlpanel.py:313
+msgid "collegiates"
+msgstr ""
+
 #. Default: "Color comunitat tancada"
 #: ../controlpanel.py:276
 msgid "color_community_closed"
@@ -1085,6 +1093,10 @@ msgstr ""
 
 #: ../content/community.py:261
 msgid "description_terms_of_user"
+msgstr ""
+
+#: ulearn5/theme/browser/views_templates/sharedwithme.pt:50
+msgid "desde"
 msgstr ""
 
 #. Default: "Discussion portlet"

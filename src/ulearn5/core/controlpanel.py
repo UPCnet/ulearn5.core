@@ -310,7 +310,7 @@ class IUlearnControlPanelSettings(model.Schema):
     people_literal = schema.Choice(
         title=_(u'people_literal'),
         description=_(u'Literals que identifiquen als usuaris de les comunitats i les seves aportacions.'),
-        values=[_(u'thinnkers'), _(u'persones'), _(u'participants')],
+        values=[_(u'thinnkers'), _(u'persones'), _(u'participants'), _(u'collegiates')],
         required=True,
         default=_(u'persones'))
 
@@ -349,7 +349,7 @@ class IUlearnControlPanelSettings(model.Schema):
                       default=_(u'Aquest és l\'idioma de l\'espai, que es configura quan el paquet es reinstala.')),
         required=True,
         values=['ca', 'es', 'en'],
-        default='es',
+        default='ca',
     )
 
     show_news_in_app = schema.Bool(
