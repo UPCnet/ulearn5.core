@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.17 (unreleased)
+0.17 (2018-11-27)
 -----------------
 
-- Nothing changed yet.
-
+* Neteja portlets per comunitats Plone 5 [Pilar Marinas]
+* Delete setup include in migration4to5 [Pilar Marinas]
 
 0.16 (2018-11-26)
 -----------------
