@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-11-21 08:08+0000\n"
+"POT-Creation-Date: 2018-11-27 14:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:151
+#: ulearn5/theme/browser/viewlets_templates/header.pt:177
 msgid "Buscar"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:155
+#: ulearn5/theme/browser/viewlets_templates/header.pt:181
 msgid "Cerca"
 msgstr ""
 
@@ -401,6 +401,10 @@ msgstr ""
 msgid "Making an item published to intranet means that it will be visible to the members (readers)."
 msgstr ""
 
+#: ulearn5/theme/browser/viewlets_templates/header.pt:61
+msgid "Manage Nomines"
+msgstr ""
+
 #: ../browser/migrations.py:179
 #: ../content/community.py:1346
 msgid "Media"
@@ -481,6 +485,14 @@ msgstr ""
 
 #: ../content/community.py:162
 msgid "Nom de la comunitat"
+msgstr ""
+
+#: ulearn5/theme/browser/viewlets_templates/header.pt:54
+msgid "Nomines"
+msgstr ""
+
+#: ulearn5/theme/browser/viewlets_templates/header.pt:67
+msgid "Nomines Root folder"
 msgstr ""
 
 #: ../content/community.py:1348
@@ -767,7 +779,7 @@ msgid "Tipus de comunitat"
 msgstr ""
 
 #: ../browser/stats.py:69
-#: ../browser/viewlets.py:65
+#: ../browser/viewlets.py:64
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:34
 msgid "Todas las comunidades"
 msgstr ""
@@ -851,6 +863,10 @@ msgstr ""
 #. Default: "Usuario <span class=\"formHelp\"></span>"
 #: ../browser/stats_templates/statsview.pt:224
 msgid "Usuario_stats"
+msgstr ""
+
+#: ulearn5/theme/browser/viewlets_templates/header.pt:73
+msgid "View loginfo"
 msgstr ""
 
 #: ../controlpanel.py:88
@@ -1569,7 +1585,7 @@ msgstr ""
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:146
+#: ulearn5/theme/browser/viewlets_templates/header.pt:172
 msgid "info"
 msgstr ""
 
@@ -1758,47 +1774,47 @@ msgid "maxui_form_bg"
 msgstr ""
 
 #. Default: "Estadistiques"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:103
+#: ulearn5/theme/browser/viewlets_templates/header.pt:129
 msgid "menu-gestio-estadistiques"
 msgstr ""
 
 #. Default: "Noticies"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:62
+#: ulearn5/theme/browser/viewlets_templates/header.pt:88
 msgid "menu-gestio-noticies"
 msgstr ""
 
 #. Default: "Management"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:54
+#: ulearn5/theme/browser/viewlets_templates/header.pt:80
 msgid "menu-gestion"
 msgstr ""
 
 #. Default: "Management footer"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:86
+#: ulearn5/theme/browser/viewlets_templates/header.pt:112
 msgid "menu-gestion-footer"
 msgstr ""
 
 #. Default: "Global banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:74
+#: ulearn5/theme/browser/viewlets_templates/header.pt:100
 msgid "menu-gestion-global-banners"
 msgstr ""
 
 #. Default: "Management header"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:80
+#: ulearn5/theme/browser/viewlets_templates/header.pt:106
 msgid "menu-gestion-header"
 msgstr ""
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:92
+#: ulearn5/theme/browser/viewlets_templates/header.pt:118
 msgid "menu-gestion-menu"
 msgstr ""
 
 #. Default: "Personal banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:68
+#: ulearn5/theme/browser/viewlets_templates/header.pt:94
 msgid "menu-gestion-personal-banners"
 msgstr ""
 
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:98
+#: ulearn5/theme/browser/viewlets_templates/header.pt:124
 msgid "menu-reset-menu"
 msgstr ""
 
@@ -1983,7 +1999,7 @@ msgstr ""
 msgid "search_communities"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:154
+#: ulearn5/theme/browser/viewlets_templates/header.pt:180
 msgid "search_site"
 msgstr ""
 
@@ -2060,13 +2076,7 @@ msgstr ""
 
 #. Default: "Shared with me"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:39
-#: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 msgid "shared_with_me"
-msgstr ""
-
-#. Default: "SharedWithMe"
-#: ulearn5/theme/portlets/sharedwithme.py:20
-msgid "sharedwithme"
 msgstr ""
 
 #. Default: "Show literal"

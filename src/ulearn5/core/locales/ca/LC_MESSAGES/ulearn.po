@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2018-11-21 08:08+0000\n"
+"POT-Creation-Date: 2018-11-27 14:26+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -87,7 +87,7 @@ msgstr "Bàner"
 msgid "Blog"
 msgstr "Blog"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:151
+#: ulearn5/theme/browser/viewlets_templates/header.pt:177
 msgid "Buscar"
 msgstr "Cerca"
 
@@ -105,7 +105,7 @@ msgstr "Només pot ser vist i editat pel propietari."
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:155
+#: ulearn5/theme/browser/viewlets_templates/header.pt:181
 msgid "Cerca"
 msgstr "Cerca"
 
@@ -400,6 +400,10 @@ msgstr "Fer un element privat significa que no serà visible per ningú, sinó p
 msgid "Making an item published to intranet means that it will be visible to the members (readers)."
 msgstr "Fer un article públic a la intranet vol dir que serà visible per als membres (lectors)."
 
+#: ulearn5/theme/browser/viewlets_templates/header.pt:61
+msgid "Manage Nomines"
+msgstr "Gestió de nòmines"
+
 #: ../browser/migrations.py:179
 #: ../content/community.py:1346
 msgid "Media"
@@ -481,6 +485,14 @@ msgstr "Nom"
 #: ../content/community.py:162
 msgid "Nom de la comunitat"
 msgstr "Nom de la comunitat"
+
+#: ulearn5/theme/browser/viewlets_templates/header.pt:54
+msgid "Nomines"
+msgstr "Nòmines"
+
+#: ulearn5/theme/browser/viewlets_templates/header.pt:67
+msgid "Nomines Root folder"
+msgstr "Carpeta arrel nòmines"
 
 #: ../content/community.py:1348
 msgid "Noticies"
@@ -766,7 +778,7 @@ msgid "Tipus de comunitat"
 msgstr "Tipus de comunitat"
 
 #: ../browser/stats.py:69
-#: ../browser/viewlets.py:65
+#: ../browser/viewlets.py:64
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:34
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
@@ -851,6 +863,10 @@ msgstr "Url a més contingut."
 #: ../browser/stats_templates/statsview.pt:224
 msgid "Usuario_stats"
 msgstr "Usuari"
+
+#: ulearn5/theme/browser/viewlets_templates/header.pt:73
+msgid "View loginfo"
+msgstr "Històric de canvis"
 
 #: ../controlpanel.py:88
 msgid "Visibility"
@@ -1571,7 +1587,7 @@ msgstr "Notícies importants"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:146
+#: ulearn5/theme/browser/viewlets_templates/header.pt:172
 msgid "info"
 msgstr "Informació"
 
@@ -1760,47 +1776,47 @@ msgid "maxui_form_bg"
 msgstr "Color del fons del widget de MAX."
 
 #. Default: "Estadistiques"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:103
+#: ulearn5/theme/browser/viewlets_templates/header.pt:129
 msgid "menu-gestio-estadistiques"
 msgstr "Estadístiques"
 
 #. Default: "Noticies"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:62
+#: ulearn5/theme/browser/viewlets_templates/header.pt:88
 msgid "menu-gestio-noticies"
 msgstr "Notícies"
 
 #. Default: "Management"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:54
+#: ulearn5/theme/browser/viewlets_templates/header.pt:80
 msgid "menu-gestion"
 msgstr "Gestió"
 
 #. Default: "Management footer"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:86
+#: ulearn5/theme/browser/viewlets_templates/header.pt:112
 msgid "menu-gestion-footer"
 msgstr "Gestionar peu"
 
 #. Default: "Global banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:74
+#: ulearn5/theme/browser/viewlets_templates/header.pt:100
 msgid "menu-gestion-global-banners"
 msgstr "Bàners globals"
 
 #. Default: "Management header"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:80
+#: ulearn5/theme/browser/viewlets_templates/header.pt:106
 msgid "menu-gestion-header"
 msgstr "Gestionar capçalera"
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:92
+#: ulearn5/theme/browser/viewlets_templates/header.pt:118
 msgid "menu-gestion-menu"
 msgstr "Menu de gestió"
 
 #. Default: "Personal banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:68
+#: ulearn5/theme/browser/viewlets_templates/header.pt:94
 msgid "menu-gestion-personal-banners"
 msgstr "Bàners personals"
 
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:98
+#: ulearn5/theme/browser/viewlets_templates/header.pt:124
 msgid "menu-reset-menu"
 msgstr "Reinicia el menú"
 
@@ -1987,7 +2003,7 @@ msgstr "Cerca"
 msgid "search_communities"
 msgstr "Cerca comunitats"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:154
+#: ulearn5/theme/browser/viewlets_templates/header.pt:180
 msgid "search_site"
 msgstr "Cerca en el Lloc"
 
@@ -2064,14 +2080,8 @@ msgstr "Accés a tots els elements compartits amb usuaris que no pertanyen a aqu
 
 #. Default: "Shared with me"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:39
-#: ulearn5/theme/portlets/templates/sharedwithme.pt:10
 msgid "shared_with_me"
 msgstr "Compartit amb mi"
-
-#. Default: "SharedWithMe"
-#: ulearn5/theme/portlets/sharedwithme.py:20
-msgid "sharedwithme"
-msgstr "Compartit amb mí"
 
 #. Default: "Show literal"
 #: ../controlpanel.py:365

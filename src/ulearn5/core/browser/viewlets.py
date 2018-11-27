@@ -27,7 +27,6 @@ from base5.core.adapters import IShowInApp
 from base5.core.utils import base_config
 from ulearn5.core import _
 from ulearn5.core.content.community import ICommunity
-from ulearn5.core.content.community import ICommunity
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.interfaces import IUlearn5CoreLayer
 
