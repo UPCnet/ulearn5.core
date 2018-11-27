@@ -1006,7 +1006,7 @@ msgstr "Copia l'enllaç universal"
 #. Default: "Habilitar portlet collective_polls_VotePortlet"
 #: ../controlportlets.py:138
 msgid "collective_polls_VotePortlet"
-msgstr "Habilitar portlet Enquestes"
+msgstr "Portlet Enquestes"
 
 #: ../controlpanel.py:313
 msgid "collegiates"
@@ -1265,7 +1265,7 @@ msgstr "Afegiu la URL del Campus associat a aquestes comunitats."
 #. Default: "Habilita el portlet collective_polls_VotePortlet."
 #: ../controlportlets.py:140
 msgid "help_collective_polls_VotePortlet"
-msgstr "Habilita el portlet Enquestes."
+msgstr "Habilita el portlet per afegir la darrera enquesta activa. Perque funcioni s'ha d'instal·lar el paquet d'enquestes i afegir en el tipus de contingut carpetes, que es puguin afegir enquestes."
 
 #. Default: "Aquest és el color per les comunitats tancades."
 #: ../controlpanel.py:278
@@ -1349,7 +1349,7 @@ msgstr "Habilita el portlet Col·lecció."
 #. Default: "Habilita el portlet plone_portlet_static_Static."
 #: ../controlportlets.py:131
 msgid "help_plone_portlet_static_Static"
-msgstr "Habilita el portlet Static."
+msgstr "Habilita el portlet per poder afegir contingut estàtic."
 
 #. Default: "Habilita el portlet portlets_Calendar."
 #: ../controlportlets.py:86
@@ -1369,7 +1369,7 @@ msgstr "Habilita el portlet Login."
 #. Default: "Habilita el portlet portlets_Navigation."
 #: ../controlportlets.py:113
 msgid "help_portlets_Navigation"
-msgstr "Habilita el portlet Navegació."
+msgstr "Habilita el portlet per visualitzar l'arbre de navegació."
 
 #. Default: "Habilita el portlet portlets_News."
 #: ../controlportlets.py:50
@@ -1384,12 +1384,12 @@ msgstr "Habilita el portlet Recents."
 #. Default: "Habilita el portlet portlets_Review."
 #: ../controlportlets.py:32
 msgid "help_portlets_Review"
-msgstr "Habilita el portlet Revisió."
+msgstr "Habilita el portlet per veure els continguts pendents de revisar."
 
 #. Default: "Habilita el portlet portlets_Search."
 #: ../controlportlets.py:23
 msgid "help_portlets_Search"
-msgstr "Habilita el portlet Cercador."
+msgstr "Habilita el portlet per cercar contingut."
 
 #. Default: "Habilita el portlet portlets_rss."
 #: ../controlportlets.py:122
@@ -1442,7 +1442,7 @@ msgstr "Mostra o no el botó d'accés a estadístiques diàries a stats/activity
 #. Default: "Habilita el portlet angular per a poder fer ús de les rutes angularjs."
 #: ../controlportlets.py:167
 msgid "help_ulearn_angularRouteView"
-msgstr "Habilita el portlet angular per a poder fer ús de les rutes angularjs."
+msgstr "Habilita el portlet angular per poder fer ús de les rutes angularjs."
 
 #. Default: "Habilita el portlet botonera central."
 #: ../controlportlets.py:176
@@ -1452,7 +1452,7 @@ msgstr "Habilita el portlet botonera central."
 #. Default: "Habilita el portlet per a mostrar el calendari amb els events."
 #: ../controlportlets.py:221
 msgid "help_ulearn_calendar"
-msgstr "Habilita el portlet per a mostrar el calendari amb els esdeveniments."
+msgstr "Habilita el portlet que mostra el calendari amb els esdeveniments."
 
 #. Default: "Habilita el portlet lateral on mostra les comunitats favorites."
 #: ../controlportlets.py:185
@@ -1462,7 +1462,7 @@ msgstr "Habilita el portlet lateral on mostra les comunitats favorites."
 #. Default: "Habilita el portlet."
 #: ../controlportlets.py:275
 msgid "help_ulearn_discussion"
-msgstr "Habilita el portlet Debats."
+msgstr "Habilita el portlet per mostrar l'últim comentari que s'ha realitzat. Et mostra on i qui ho ha fet."
 
 #. Default: "Habilita el portlet banners."
 #: ../controlportlets.py:302
@@ -1472,17 +1472,17 @@ msgstr "Habilita el portlet bàners."
 #. Default: "Habilita el portlet para mostrar las notícias en el flash informativo."
 #: ../controlportlets.py:248
 msgid "help_ulearn_portlets_flashesinformativos"
-msgstr "Habilita el portlet para mostrar las notícias en el flash informativo."
+msgstr "Habilita el portlet que mostra les notícies marcades com a flash."
 
 #. Default: "Habilita el portlet para mostrar las notícias marcadas como destacadas."
 #: ../controlportlets.py:257
 msgid "help_ulearn_portlets_importantnews"
-msgstr "Habilita el portlet para mostrar las notícias marcadas como destacadas."
+msgstr "Habilita el portlet que mostra les notícies marcades com a destacades."
 
 #. Default: "Habilita el portlet per a poder veure els meus cursos del EVA."
 #: ../controlportlets.py:239
 msgid "help_ulearn_portlets_mysubjects"
-msgstr "Habilita el portlet per a poder veure els meus cursos del EVA."
+msgstr "Habilita el portlet per poder veure els meus cursos del EVA."
 
 #. Default: "Habilita portlet amb el núvol de tags."
 #: ../controlportlets.py:158
@@ -1492,12 +1492,12 @@ msgstr "Habilita portlet amb el núvol de tags."
 #. Default: "Habilita el portlet quicklinks."
 #: ../controlportlets.py:311
 msgid "help_ulearn_portlets_quicklinks"
-msgstr "Habilita el portlet de enllaços directes."
+msgstr "Habilita el portlet per mostrar a partir d'una carperta seleccionada, les carpetes i enllaços que conté."
 
 #. Default: "Habilita el portlet para mostrar contenido a partir de un enllace rss."
 #: ../controlportlets.py:266
 msgid "help_ulearn_portlets_rss"
-msgstr "Habilita el portlet per a mostrar contingut a partir d'un enllaç rss."
+msgstr "Habilita el portlet per mostrar contingut a partir d'un enllaç rss."
 
 #. Default: "Habilita el portlet on mostra el perfil usuari, o la comunitat on estem."
 #: ../controlportlets.py:194
@@ -1522,17 +1522,17 @@ msgstr "Configuració de uLearn"
 #. Default: "Habilita el portlet per a veure el compartit amb mi."
 #: ../controlportlets.py:230
 msgid "help_ulearn_sharedwithme"
-msgstr "Habilita el portlet per a veure el compartit amb mi."
+msgstr "Habilita el portlet per veure el compartit amb mi."
 
 #. Default: "Habilita el portlet del carrousel multimedia."
 #: ../controlportlets.py:149
 msgid "help_ulearn_smart"
-msgstr "Habilita el portlet del carrousel multimedia."
+msgstr "Habilita el portlet de colecció. Maquetat per mostrar el carrousel multimedia."
 
 #. Default: "Habilita el portlet per a veure les estadístiques."
 #: ../controlportlets.py:284
 msgid "help_ulearn_stats"
-msgstr "Habilita el portlet per a veure les estadístiques."
+msgstr "Habilita el portlet per veure les estadístiques."
 
 #. Default: "Habilita el portlet on es mostren els usuaris, amb la cerca ."
 #: ../controlportlets.py:212
@@ -1807,12 +1807,12 @@ msgstr "Reinicia el menú"
 #. Default: "Habilitar portlet mrs_max_widget"
 #: ../controlportlets.py:57
 msgid "mrs_max_widget"
-msgstr "Habilitar portlet MAX UI"
+msgstr "Portlet MAX UI"
 
 #. Default: "Habilitar portlet mrs_maxchat_widget"
 #: ../controlportlets.py:66
 msgid "mrs_maxchat_widget"
-msgstr "Habilitar portlet MAX UI: Xat"
+msgstr "Portlet MAX UI: Xat"
 
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:21
 msgid "my_communities"
@@ -1875,57 +1875,57 @@ msgstr "persones"
 #. Default: "Habilitar portlet plone_portlet_collection_Collection"
 #: ../controlportlets.py:93
 msgid "plone_portlet_collection_Collection"
-msgstr "Habilitar portlet Col·lecció"
+msgstr "Portlet Col·lecció"
 
 #. Default: "Habilitar portlet plone_portlet_static_Static"
 #: ../controlportlets.py:129
 msgid "plone_portlet_static_Static"
-msgstr "Habilitar portlet Static"
+msgstr "Portlet Static"
 
 #. Default: "Habilitar portlet portlets_Calendar"
 #: ../controlportlets.py:84
 msgid "portlets_Calendar"
-msgstr "Habilitar portlet Calendari"
+msgstr "Portlet Calendari"
 
 #. Default: "Habilitar portlet portlets_Events"
 #: ../controlportlets.py:75
 msgid "portlets_Events"
-msgstr "Habilitar portlet Esdeveniments"
+msgstr "Portlet Esdeveniments"
 
 #. Default: "Habilitar portlet portlets_Login"
 #: ../controlportlets.py:102
 msgid "portlets_Login"
-msgstr "Habilitar portlet Login"
+msgstr "Portlet Login"
 
 #. Default: "Habilitar portlet portlets_Navigation"
 #: ../controlportlets.py:111
 msgid "portlets_Navigation"
-msgstr "Habilitar portlet Navegació"
+msgstr "Portlet Navegació"
 
 #. Default: "Habilitar portlet portlets_News"
 #: ../controlportlets.py:48
 msgid "portlets_News"
-msgstr "Habilitar portlet Noticies"
+msgstr "Portlet Noticies"
 
 #. Default: "Habilitar portlet portlets_Recent"
 #: ../controlportlets.py:39
 msgid "portlets_Recent"
-msgstr "Habilitar portlet Recents"
+msgstr "Portlet Recents"
 
 #. Default: "Habilitar portlet portlets_Review"
 #: ../controlportlets.py:30
 msgid "portlets_Review"
-msgstr "Habilitar portlet Revisió"
+msgstr "Portlet Revisió"
 
 #. Default: "Habilitar portlet portlets_Search"
 #: ../controlportlets.py:21
 msgid "portlets_Search"
-msgstr "Habilitar portlet Cercador"
+msgstr "Portlet Cercador"
 
 #. Default: "Habilitar portlet portlets_rss"
 #: ../controlportlets.py:120
 msgid "portlets_rss"
-msgstr "Habilitar portlet RSS"
+msgstr "Portlet RSS"
 
 #: ../profiles/default/types/privateFolder.xml
 msgid "privateFolder"
@@ -2195,27 +2195,27 @@ msgstr "Activitat"
 #. Default: "Habilitar portlet angularRouteView"
 #: ../controlportlets.py:165
 msgid "ulearn_angularRouteView"
-msgstr "Habilitar portlet Ulearn AngularRouteView"
+msgstr "Portlet Ulearn AngularRouteView"
 
 #. Default: "Habilitar portlet Ulearn Button Bar"
 #: ../controlportlets.py:174
 msgid "ulearn_button_bar"
-msgstr "Habilitar portlet Ulearn Button Bar"
+msgstr "Portlet Ulearn Button Bar"
 
 #. Default: "Habilitar portlet ulearn Calendar"
 #: ../controlportlets.py:219
 msgid "ulearn_calendar"
-msgstr "Habilitar portlet Ulearn Calendari"
+msgstr "Portlet Ulearn Calendari"
 
 #. Default: "Habilitar portlet Ulearn Comunnities"
 #: ../controlportlets.py:183
 msgid "ulearn_communities"
-msgstr "Habilitar portlet Ulearn Comunitats"
+msgstr "Portlet Ulearn Comunitats"
 
 #. Default: "Habilitar portlet Ulearn Discussion"
 #: ../controlportlets.py:273
 msgid "ulearn_discussion"
-msgstr "Habilitar portlet Ulearn Debats"
+msgstr "Portlet Ulearn Comentaris"
 
 #. Default: "Documents"
 #: ulearn5/theme/browser/viewlets_templates/folderbar.pt:22
@@ -2241,32 +2241,32 @@ msgstr "Notícies"
 #. Default: "Habilitar portlet Ulearn Banners"
 #: ../controlportlets.py:300
 msgid "ulearn_portlets_banners"
-msgstr "Habilitar portlet Ulearn Bàners"
+msgstr "Portlet Ulearn Bàners"
 
 #. Default: "Habilitar portlet flashesinformativos"
 #: ../controlportlets.py:246
 msgid "ulearn_portlets_flashesinformativos"
-msgstr "Habilitar portlet Ulearn Flashes Informatius"
+msgstr "Portlet Ulearn Flashes Informatius"
 
 #. Default: "Habilitar portlet importantnews"
 #: ../controlportlets.py:255
 msgid "ulearn_portlets_importantnews"
-msgstr "Habilitar portlet Ulearn Notícies destacades"
+msgstr "Portlet Ulearn Notícies destacades"
 
 #. Default: "Habilitar portlet ulearn_portlets_mysubjects"
 #: ../controlportlets.py:237
 msgid "ulearn_portlets_mysubjects"
-msgstr "Habilitar portlet Ulearn Els meus cursos"
+msgstr "Portlet Ulearn Els meus cursos"
 
 #. Default: "Habilitar portlet ulearn_portlets_mytags"
 #: ../controlportlets.py:156
 msgid "ulearn_portlets_mytags"
-msgstr "Habilitar portlet Ulearn Les meves etiquetes"
+msgstr "Portlet Ulearn Les meves etiquetes"
 
 #. Default: "Habilitar portlet Ulearn Quicklinks"
 #: ../controlportlets.py:309
 msgid "ulearn_portlets_quicklinks"
-msgstr "Habilitar portlet Ulearn Enllaços directes"
+msgstr "Portlet Ulearn Enllaços directes"
 
 #. Default: "Habilitar portlet Ulearn RSS"
 #: ../controlportlets.py:264
@@ -2276,37 +2276,37 @@ msgstr "Habilitar portlet Ulearn RSS"
 #. Default: "Habilitar portlet Ulearn Profile"
 #: ../controlportlets.py:192
 msgid "ulearn_profile"
-msgstr "Habilitar portlet Ulearn Perfil"
+msgstr "Portlet Ulearn Perfil"
 
 #. Default: "Habilitar portlet Ulearn Profile Community"
 #: ../controlportlets.py:201
 msgid "ulearn_profilecommunity"
-msgstr "Habilitar portlet Ulearn Perfil comunitat"
+msgstr "Portlet Ulearn Perfil comunitat"
 
 #. Default: "Habilitar portlet Ulearn Recent Changes"
 #: ../controlportlets.py:291
 msgid "ulearn_recentchanges"
-msgstr "Habilitar portlet Ulearn Canvis recents"
+msgstr "Portlet Ulearn Canvis recents"
 
 #. Default: "Habilitar portlet compartit amb mi"
 #: ../controlportlets.py:228
 msgid "ulearn_sharedwithme"
-msgstr "Habilitar portlet Ulearn Compartit amb mi"
+msgstr "Portlet Ulearn Compartit amb mi"
 
 #. Default: "Habilitar portlet Smart"
 #: ../controlportlets.py:147
 msgid "ulearn_smart"
-msgstr "Habilitar portlet Smart"
+msgstr "Portlet Smart (Col·lecció)"
 
 #. Default: "Habilitar portlet Ulearn Stats"
 #: ../controlportlets.py:282
 msgid "ulearn_stats"
-msgstr "Habilitar portlet Ulearn Estadístiques"
+msgstr "Portlet Ulearn Estadístiques"
 
 #. Default: "Habilitar portlet Ulearn Thinkers"
 #: ../controlportlets.py:210
 msgid "ulearn_thinkers"
-msgstr "Habilitar portlet Ulearn Persones"
+msgstr "Portlet Ulearn Persones"
 
 #. Default: "Url terms of use"
 #: ../controlpanel.py:374
