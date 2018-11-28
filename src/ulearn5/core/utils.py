@@ -1,14 +1,18 @@
-from plone import api
-from Products.Five.browser import BrowserView
-from zope.component import queryUtility
-from plone.registry.interfaces import IRegistry
+# -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
-from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from Products.Five.browser import BrowserView
+
+from plone import api
+from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
+from zope.component import queryUtility
+
 from mrs5.max.utilities import IMAXClient
-import transaction
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+
 import json
+import transaction
 
 
 def json_response(func):
@@ -34,14 +38,11 @@ def json_response(func):
 
     return decorator
 
+
 def is_activate_owncloud(self):
     """ Returns True id ulearn5.owncloud is installed """
-    qi = getToolByName(self, 'portal_quickinstaller')
-    prods = qi.listInstalledProducts()
-    for prod in prods:
-        if prod['id'] == 'ulearn5.owncloud':
-            return True
-    return False
+    return isInstalledProduct(self, 'ulearn5.owncloud')
+
 
 class ulearnUtils(BrowserView):
     """ Convenience methods placeholder ulearn.utils view. """
@@ -92,3 +93,12 @@ class ulearnUtils(BrowserView):
             return True
         else:
             return False
+
+
+def isInstalledProduct(self, package):
+    qi = getToolByName(self.context, 'portal_quickinstaller')
+    prods = qi.listInstalledProducts()
+    for prod in prods:
+        if prod['id'] == package:
+            return True
+    return False
