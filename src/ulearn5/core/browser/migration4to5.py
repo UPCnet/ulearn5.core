@@ -47,8 +47,9 @@ from ulearn5.owncloud.api.owncloud import HTTPResponseError
 from ulearn5.owncloud.api.owncloud import OCSResponseError
 from ulearn5.owncloud.utilities import IOwncloudClient
 from ulearn5.owncloud.utils import get_domain
-
-
+from base5.core.adapters import IFlash
+from base5.core.adapters import IImportant
+from base5.core.adapters import IShowInApp
 
 import base64
 import json
@@ -241,7 +242,8 @@ class migrationDocumentsCommunities(grok.View):
                                                     headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
 
                         if result.ok:
-                            shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
+                            if os.path.exists(path_guardar_export_dexterity_comunitats_V5 + '/content'):
+                                shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
 
                             cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
                             subprocess.Popen([cmd], shell=True).wait()
@@ -261,7 +263,8 @@ class migrationDocumentsCommunities(grok.View):
                                                     headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
 
                         if result.ok:
-                            shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
+                            if os.path.exists(path_guardar_export_dexterity_comunitats_V5 + '/content'):
+                                shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
 
                             cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
                             subprocess.Popen([cmd], shell=True).wait()
@@ -316,13 +319,14 @@ class migrationPath(grok.View):
                                             headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
 
                 if result.ok:
-                    shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
+                    if os.path.exists(path_guardar_export_dexterity_comunitats_V5 + '/content'):
+                        shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
 
                     #produccion
-                    #cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
+                    cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
 
                     #pre
-                    cmd = 'scp -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
+                    #cmd = 'scp -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
 
                     #local
                     #cmd = 'scp -r ' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
@@ -374,6 +378,62 @@ class migrationPortalRoleManager(grok.View):
                                 logger.info('Afegit al rol: ' + permission['role_id'] + ' - usuari: ' + user[0])
 
                 logger.info('Ha finalitzat la migració del portal-role-manager.')
+
+class migrationFlashImportantAPP(grok.View):
+    """ Aquesta vista migra els permisos del site portal-role-manager de Plone 4 a la nova versió en Plone 5 """
+    grok.name('migrationflasimportantapp')
+    grok.template('migrationflasimportantapp')
+    grok.context(IPloneSiteRoot)
+    grok.require('cmf.ManagePortal')
+
+
+    def update(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            hscope = 'widgetcli'
+
+            if self.request.form['url_instance_v4'] != '':
+                url_instance_v4 = self.request.form['url_instance_v4']
+                husernamev4 = self.request.form['husernamev4']
+                htokenv4 = self.request.form['htokenv4']
+                page = 1
+
+                json_news = requests.get(url_instance_v4 + '/api/news', headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                logger.info('Buscant les noticies per migrar')
+                news = json.loads(json_news.content)
+
+                pc = api.portal.get_tool('portal_catalog')
+
+                while news['more_items'] == True:
+                    page = page + 1
+
+
+                    for new in news['items']:
+                        brain = pc.unrestrictedSearchResults(path=str(new['absolute_url']))
+                        obj = brain[0].getObject()
+
+                        if new['is_flash'] == True:
+                            IFlash(obj).is_flash = True
+
+                        if new['is_important'] == True:
+                            IImportant(obj).is_important = True
+
+                        if new['is_inapp'] == True:
+                            IShowInApp(obj).is_inapp = True
+
+
+                        logger.info('Afegits checks a la noticia: ' + new['absolute_url'])
+                    json_news = requests.get(url_instance_v4 + '/api/news?page=' + str(page), headers={'X-Oauth-Username': husernamev4,'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                    logger.info('Buscant les noticies per migrar de la pagina: ' + str(page))
+                    news = json.loads(json_news.content)
+
+                logger.info('Ha finalitzat la migració dels checks')
+
 
 class migrationEditaclCommunities(grok.View):
     """ Aquesta vista migra els permisos del editacl de les comunitats de Plone 4 a la nova versió en Plone 5 """
