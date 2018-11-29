@@ -96,7 +96,7 @@ class ulearnUtils(BrowserView):
 
 
 def isInstalledProduct(self, package):
-    qi = getToolByName(self.context, 'portal_quickinstaller')
+    qi = getToolByName(self, 'portal_quickinstaller')
     prods = qi.listInstalledProducts()
     for prod in prods:
         if prod['id'] == package:
