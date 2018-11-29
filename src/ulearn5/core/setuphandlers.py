@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
-from zope.interface import implementer
+from Products.CMFPlone.interfaces import ITinyMCESchema
+
 from plone import api
-from zope.component import getUtility
-from zope.component import queryUtility
-from zope.component import getMultiAdapter
-from zope.component.hooks import getSite
-from plone.registry.interfaces import IRegistry
-from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletManager
 from plone.portlets.utils import registerPortletType
 from plone.portlets.utils import unregisterPortletType
-from Products.CMFCore.utils import getToolByName
-from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-from ulearn5.core.controlportlets import IPortletsSettings
+from plone.registry.interfaces import IRegistry
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.component import queryUtility
+from zope.component.hooks import getSite
+from zope.interface import implementer
 
 from ulearn5.core import _
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from ulearn5.core.controlportlets import IPortletsSettings
 
 import logging
 
@@ -216,6 +218,13 @@ def setupVarious(context):
 
     # Unset validate e-mail as we want the users to be created right the way
     portal.validate_email = False
+
+    # Setup Tiny
+    tiny_settings = registry.forInterface(ITinyMCESchema, prefix="plone", check=False)
+    tiny_settings.resizing = True
+    tiny_settings.autoresize = False
+    tiny_settings.editor_width = u'100%'
+    tiny_settings.editor_height = u'500'
 
     # Update types with default action listing
     site_properties = api.portal.get_tool(name='portal_properties').site_properties
