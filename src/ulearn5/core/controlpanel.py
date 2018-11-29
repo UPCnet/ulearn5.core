@@ -69,9 +69,10 @@ class IUlearnControlPanelSettings(model.Schema):
     model.fieldset(
         'General',
         _(u'General'),
-        fields=['language', 'campus_url', 'library_url', 'people_literal',
-                'threshold_winwin1', 'threshold_winwin2',
-                'threshold_winwin3', 'stats_button', 'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme', 'buttonbar_selected', 'cron_tasks'])
+        fields=['language', 'url_forget_password', 'campus_url', 'library_url', 'people_literal',
+                'threshold_winwin1', 'threshold_winwin2', 'threshold_winwin3', 'stats_button',
+                'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme',
+                'buttonbar_selected', 'cron_tasks'])
 
     model.fieldset(
         'Design',
@@ -350,6 +351,15 @@ class IUlearnControlPanelSettings(model.Schema):
         required=True,
         values=['ca', 'es', 'en'],
         default='ca',
+    )
+
+    url_forget_password = schema.TextLine(
+        title=_(u'url_forget_password',
+                default=_(u'URL contrasenya oblidada')),
+        description=_(u'help_url_forget_password',
+                      default=_(u'Url per defecte: "/mail_password_form?userid=". Per a dominis externs indiqueu la url completa, "http://www.domini.cat"')),
+        required=True,
+        default=_(u'/mail_password_form?userid=')
     )
 
     show_news_in_app = schema.Bool(
