@@ -2,6 +2,7 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
 from Products.CMFPlone.interfaces import ITinyMCESchema
+from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
 
 from plone import api
 from plone.portlets.interfaces import IPortletAssignmentMapping
@@ -225,6 +226,10 @@ def setupVarious(context):
     tiny_settings.autoresize = False
     tiny_settings.editor_width = u'100%'
     tiny_settings.editor_height = u'500'
+
+    # Permisos para añadir etiquetas
+    site_tool = registry.forInterface(ISiteSchema, prefix='plone')
+    site_tool.roles_allowed_to_add_keywords = ['Manager', 'Site Administrator', 'Reviewer', 'Authenticated']
 
     # Update types with default action listing
     site_properties = api.portal.get_tool(name='portal_properties').site_properties
