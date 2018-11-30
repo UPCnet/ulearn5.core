@@ -535,7 +535,7 @@ class changeURLCommunities(grok.View):
             if self.request.form['url'] != '':
                 url_nova = self.request.form['url']
                 url_antiga = self.request.form['url_antiga']
-                self.context.plone_log('Buscant comunitats per modificar la url')
+                logger.info('Buscant comunitats per modificar la url')
 
                 for brain in communities:
                     obj = brain.getObject()
@@ -545,7 +545,7 @@ class changeURLCommunities(grok.View):
                     properties_to_update = dict(url=community_url_nova)
 
                     community.maxclient.contexts[community_url].put(**properties_to_update)
-                    self.context.plone_log('Comunitat amb url {} actualitzada per {}'.format(community_url, community_url_nova))
+                    logger.info('Comunitat amb url {} actualitzada per {}'.format(community_url, community_url_nova))
 
 
 class deleteUsers(grok.View):
@@ -578,7 +578,7 @@ class deleteUsers(grok.View):
                         comunnities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
                         for num, community in enumerate(comunnities):
                             obj = community._unrestrictedGetObject()
-                            self.context.plone_log('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
+                            logger.info('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
                             gwuuid = IGWUUID(obj).get()
                             portal = api.portal.get()
                             soup = get_soup('communities_acl', portal)
@@ -636,7 +636,7 @@ class deleteUsersInCommunities(grok.View):
                         comunnities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
                         for num, community in enumerate(comunnities):
                             obj = community._unrestrictedGetObject()
-                            self.context.plone_log('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
+                            logger.info('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
                             gwuuid = IGWUUID(obj).get()
                             portal = api.portal.get()
                             soup = get_soup('communities_acl', portal)

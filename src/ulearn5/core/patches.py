@@ -123,7 +123,7 @@ def deleteMembers(self, member_ids):
                 community = pc.unrestrictedSearchResults(portal_type="ulearn.community", community_hash=community_subscription['hash'])
                 try:
                     obj = community[0]._unrestrictedGetObject()
-                    self.context.plone_log('Processant {} de {}. Comunitat {}'.format(num, len(communities_subscription), obj))
+                    logger.info('Processant {} de {}. Comunitat {}'.format(num, len(communities_subscription), obj))
                     gwuuid = IGWUUID(obj).get()
                     portal = api.portal.get()
                     soup = get_soup('communities_acl', portal)
