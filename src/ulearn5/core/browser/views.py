@@ -1,25 +1,33 @@
 # -*- coding: utf-8 -*-
+from PIL import ImageOps
+from Products.Five import BrowserView
+from cStringIO import StringIO
+
 from five import grok
 from itertools import chain
-from zope.interface import Interface
-from zope.component.hooks import getSite
-from zope.component import getMultiAdapter
-from zope.component import queryUtility
-from zope.component import getUtility
 from plone import api
+from plone.namedfile.utils import set_headers
+from plone.namedfile.utils import stream_data
+from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletManager
 from plone.registry.interfaces import IRegistry
+from repoze.catalog.query import Eq
+from souper.soup import Record
+from souper.soup import get_soup
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.component import queryUtility
+from zope.component.hooks import getSite
+from zope.interface import Interface
+
+from mrs5.max.utilities import IMAXClient
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.interfaces import IUlearn5CoreLayer
-from souper.soup import get_soup
-from souper.soup import Record
-from repoze.catalog.query import Eq
-from cStringIO import StringIO
-from PIL import ImageOps
-from mrs5.max.utilities import IMAXClient
-import os
+
 import PIL
 import json
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -245,3 +253,32 @@ class MigrateAvatars(grok.View):
         new_file.seek(0)
 
         return new_file, mimetype
+
+
+class ImagePortletImageView(grok.View):
+    grok.name('image-portlet-view')
+    grok.context(Interface)
+    grok.require('zope2.View')
+
+    """
+    Expose image fields as downloadable BLOBS from the image portlet.
+    Allow set caching rules (content caching for this view)
+    Ex: ulearn5.nomines.portlets.banner
+    """
+    def render(self):
+        content = self.context
+        # Read portlet assignment pointers from the GET query
+        name = self.request.form.get("portletName")
+        portletManager = self.request.form.get("portletManager")
+        imageId = self.request.form.get("image")
+        # Resolve portlet and its image field
+        manager = getUtility(IPortletManager, name=portletManager, context=content)
+        mapping = getMultiAdapter((content, manager), IPortletAssignmentMapping)
+        portlet = mapping[name]
+        image = getattr(portlet, imageId, None)
+        if not image:
+            return ""
+        # Set content type and length headers
+        set_headers(image, self.request.response)
+        # Push data to the downstream clients
+        return stream_data(image)
