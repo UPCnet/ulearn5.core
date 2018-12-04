@@ -87,11 +87,11 @@ $(document).ready(function() {
             var html = '';
             if (_.size(options) > 0) {
                 if (multiple) {
-                    html = '<select id="' + id + '" class="twolevel-widget level2" multiple="multiple" size="5" required>' +
+                    html = '<br/><select id="' + id + '" class="twolevel-widget list-field form-control level2" multiple="multiple" size="5" required>' +
                         options +
                         '</select>';
                 } else {
-                    html = '<select id="' + id + '" class="twolevel-widget level2" size="5" required>' +
+                    html = '<br/><select id="' + id + '" class="twolevel-widget list-field form-control level2" size="5" required>' +
                         options +
                         '</select>';
                 }
