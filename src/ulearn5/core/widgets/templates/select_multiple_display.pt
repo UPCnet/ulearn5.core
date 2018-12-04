@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      tal:omit-tag="">
+
+  <div id="" class=""
+        tal:attributes="id view/id;
+                        class view/klass;
+                        style view/style;
+                        title view/title;
+                        lang view/lang">
+
+  </div>
+  <span class="selected-option"
+         tal:content="view/firstLevel">
+  </span>
+  <ul class="selected-option" tal:condition="view/secondLevel">
+         <li tal:repeat="item view/secondLevel" tal:content="item"></li>
+  </ul>
+</html>

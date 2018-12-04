@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="ulearn">
 
     <class class=".token_input_widget.KeywordsTokenInputWidget">
@@ -31,6 +32,20 @@
         />
     </class>
 
+    <class class=".fieldset_widget.H3FieldsetWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.IFieldsetWidget"
+        />
+    </class>
+
+    <class class=".fieldset_widget.H4FieldsetWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.IFieldsetWidget"
+        />
+    </class>
+
     <class class=".max_portrait_widget.MaxPortraitWidget">
         <require
             permission="zope.Public"
@@ -55,5 +70,36 @@
     <adapter factory=".select2_user_widget.SelectWidgetConverter" />
     <adapter factory=".select2_tags_widget.TagsSelectWidgetConverter" />
     <adapter factory=".select2_tags_widget.SubjectsFieldWidget" />
+
+
+    <!-- Select multiple -->
+    <adapter factory=".select_multiple.TwoLevelWidgetConverter" />
+
+    <z3c:widgetTemplate
+        mode="display"
+        widget=".select_multiple.TwoLevelSelectWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="templates/select_multiple_display.pt"
+    />
+
+    <z3c:widgetTemplate
+        mode="input"
+        widget=".select_multiple.TwoLevelSelectWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="templates/select_multiple_input.pt"
+    />
+
+    <z3c:widgetTemplate
+        mode="hidden"
+        widget=".select_multiple.TwoLevelSelectWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="templates/select_multiple_hidden.pt"
+    />
+
+    <browser:resource
+        name="select_multiple.js"
+        file="select_multiple.js"
+    />
+    <!-- ... -->
 
 </configure>
