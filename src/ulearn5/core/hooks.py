@@ -31,6 +31,11 @@ from io import BytesIO as StringIO
 import io
 import PIL
 
+from mrs5.max.browser.controlpanel import IMAXUISettings
+from plone.registry.interfaces import IRegistry
+from zope.component import queryUtility
+from plone.dexterity.interfaces import IDexterityContent
+
 from plone.memoize import ram
 from time import time
 
@@ -50,6 +55,58 @@ tipus = {
     'es': dict(Document=u'documento', File=u'documento', Image=u'foto', Link=u'enlace', Event=u'evento', NewsItem=u'noticia'),
     'en': dict(Document=u'document', File=u'document', Image=u'photo', Link=u'link', Event=u'event', NewsItem=u'news item'),
 }
+
+@grok.subscribe(IDexterityContent, IObjectAddedEvent)
+def objectAdded(content, event):
+    """ DextirityContent modified """
+    portal = getSite()
+    pm = getToolByName(portal, 'portal_membership')
+    if pm.isAnonymousUser():  # the user has not logged in
+        username = ''
+        return
+    else:
+        member = pm.getAuthenticatedMember()
+
+    registry = queryUtility(IRegistry)
+    settings = registry.forInterface(IMAXUISettings, check=False)
+    domain = settings.domain
+
+    username = member.getUserName()
+    memberdata = pm.getMemberById(username)
+    content_path = "/".join(content.getPhysicalPath())
+    physical_path = content.getPhysicalPath()
+    relative = physical_path[len(portal.getPhysicalPath()):]
+
+    if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
+        logger.error('XXX DexterityContent Object added:'+ content_path +';comunitat:'+relative[0]+';username:'+username+';domain:'+domain )
+    else:
+        logger.error('XXX DexterityContent Object added:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:'+domain )
+
+@grok.subscribe(IDexterityContent, IObjectModifiedEvent)
+def objectModified(content, event):
+    """ DextirityContent modified """
+    portal = getSite()
+    pm = getToolByName(portal, 'portal_membership')
+    if pm.isAnonymousUser():  # the user has not logged in
+        username = ''
+        return
+    else:
+        member = pm.getAuthenticatedMember()
+
+    registry = queryUtility(IRegistry)
+    settings = registry.forInterface(IMAXUISettings, check=False)
+    domain = settings.domain
+
+    username = member.getUserName()
+    memberdata = pm.getMemberById(username)
+    content_path = "/".join(content.getPhysicalPath())
+    physical_path = content.getPhysicalPath()
+    relative = physical_path[len(portal.getPhysicalPath()):]
+
+    if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
+        logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:'+relative[0]+';username:'+username+';domain:'+domain )
+    else:
+        logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:'+domain )
 
 
 @grok.subscribe(ICommunity, IObjectAddedEvent)
