@@ -2,11 +2,23 @@ Changelog
 =========
 
 
-0.18 (unreleased)
+0.18 (2018-12-11)
 -----------------
 
-- Nothing changed yet.
-
+* Add in log objects added and modified [Pilar Marinas]
+* Estilos widget multiple [Iago López Fernández]
+* Widgets fieldset + multiple [Iago López Fernández]
+* Quitar plone_log [Pilar Marinas]
+* Traducciones [Iago López Fernández]
+* Vista image-portlet-view [Iago López Fernández]
+* Remplazar plone_log con logger.info [Pilar Marinas]
+* Controlpanel: añadir url_forget_password [Iago López Fernández]
+* migrationFlashImportantAPP [Pilar Marinas]
+* Solucion error util isInstalledProduct [Iago López Fernández]
+* setuphandlers: Permisos para añadir etiquetas [Iago López Fernández]
+* setuphandlers: Configuración tiny [Iago López Fernández]
+* Añadir util isInstalledProduct [Iago López Fernández]
+* Traducciones nominas [Iago López Fernández]
 
 0.17 (2018-11-27)
 -----------------
