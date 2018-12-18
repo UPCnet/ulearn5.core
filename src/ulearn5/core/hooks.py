@@ -80,7 +80,11 @@ def objectAdded(content, event):
     if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
         logger.error('XXX DexterityContent Object added:'+ content_path +';comunitat:'+relative[0]+';username:'+username+';domain:'+domain )
     else:
-        logger.error('XXX DexterityContent Object added:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:'+domain )
+        try:
+            logger.error('XXX DexterityContent Object added:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:'+domain )
+        except:
+            logger.error('XXX DexterityContent Object added:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:nodomain')
+
 
 @grok.subscribe(IDexterityContent, IObjectModifiedEvent)
 def objectModified(content, event):
@@ -106,7 +110,10 @@ def objectModified(content, event):
     if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
         logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:'+relative[0]+';username:'+username+';domain:'+domain )
     else:
-        logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:'+domain )
+        try:
+            logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:'+domain )
+        except:
+            logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:nodomain' )
 
 
 @grok.subscribe(ICommunity, IObjectAddedEvent)
