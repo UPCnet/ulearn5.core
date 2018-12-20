@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.19 (unreleased)
+0.19 (2018-12-20)
 -----------------
 
-- Nothing changed yet.
-
+* Title Site [Pilar Marinas]
+* Para que los hooks no den error al crear instancia [Pilar Marinas]
 
 0.18 (2018-12-11)
 -----------------
