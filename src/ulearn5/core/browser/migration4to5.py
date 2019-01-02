@@ -409,7 +409,7 @@ class migrationFlashImportantAPP(grok.View):
 
                 pc = api.portal.get_tool('portal_catalog')
 
-                while news['more_items'] == True:
+                while news['more_items'] == True or page == 1:
                     page = page + 1
 
 
