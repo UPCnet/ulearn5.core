@@ -380,7 +380,7 @@ class migrationPortalRoleManager(grok.View):
                 logger.info('Ha finalitzat la migració del portal-role-manager.')
 
 class migrationFlashImportantAPP(grok.View):
-    """ Aquesta vista migra els permisos del site portal-role-manager de Plone 4 a la nova versió en Plone 5 """
+    """ Aquesta vista migra si les noticies estan marcades com a flash, important, inAPP de Plone 4 a la nova versió en Plone 5 """
     grok.name('migrationflasimportantapp')
     grok.template('migrationflasimportantapp')
     grok.context(IPloneSiteRoot)
