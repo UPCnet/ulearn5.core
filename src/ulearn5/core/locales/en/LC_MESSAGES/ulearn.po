@@ -2366,3 +2366,26 @@ msgstr "Choose between title, description or content"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:45
 msgid "write_tag"
 msgstr "Enter tags"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:66
+msgid "statsTitle"
+msgstr "General statistics"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:67
+msgid "statsUpdating"
+msgstr "[Updating...]"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:74
+msgid "statsAccessedOverTime"
+msgstr "Accesses over time"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:74
+msgid "statsModifiedOverTime"
+msgstr "Modifications over time"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:76
+msgid "statsAccumulative"
+msgstr "Accumulative results"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:83
+msgid "statsCommunityName"

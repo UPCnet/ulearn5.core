@@ -2365,3 +2365,27 @@ msgstr "Escull entre títol, descripció o contingut"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:45
 msgid "write_tag"
 msgstr "Introdueix etiquetes"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:66
+msgid "statsTitle"
+msgstr "Estadístiques generals"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:67
+msgid "statsUpdating"
+msgstr "[Actualitzant...]"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:74
+msgid "statsAccessedOverTime"
+msgstr "Accesos en funció del temps"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:74
+msgid "statsModifiedOverTime"
+msgstr "Modificacions en funció del temps"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:76
+msgid "statsAccumulative"
+msgstr "Resultats acumulatius"
+
+#: ../ulearn5.core/ulearn5/core/browser/statisticsTemplate.pt:83
+msgid "statsCommunityName"
+msgstr "Nom de la comunitat"
