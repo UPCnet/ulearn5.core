@@ -869,7 +869,7 @@ msgstr "User <span class=\"formHelp\"></span>"
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:73
 msgid "View loginfo"
-msgstr "View acces log information"
+msgstr "Log file"
 
 #: ../controlpanel.py:88
 msgid "Visibility"

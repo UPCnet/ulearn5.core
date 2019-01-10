@@ -866,7 +866,7 @@ msgstr "Usuari"
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:73
 msgid "View loginfo"
-msgstr "Històric de canvis"
+msgstr "Historial de canvis"
 
 #: ../controlpanel.py:88
 msgid "Visibility"
