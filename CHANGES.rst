@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.20 (unreleased)
+0.20 (2019-01-15)
 -----------------
 
-- Nothing changed yet.
-
+* changed nomina translation [Roberto Diaz]
+* Migration Flash Important APP [Pilar Marinas]
+* Migration Flash Important APP [Pilar Marinas]
 
 0.19 (2018-12-20)
 -----------------
