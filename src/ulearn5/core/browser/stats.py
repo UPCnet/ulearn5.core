@@ -7,6 +7,10 @@ from collections import Counter
 
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from oauth2client.service_account import ServiceAccountCredentials
+from apiclient.discovery import build
 
 from plone.memoize.view import memoize_contextless
 
@@ -108,6 +112,7 @@ class StatsQueryBase(grok.View):
         catalog = getToolByName(self.portal(), 'portal_catalog')
         self.plone_stats = PloneStats(catalog)
         self.max_stats = MaxStats(self.get_max_client())
+        self.analytic_data = AnalyticsData(catalog)
         self._params = None
 
     @memoize_contextless
@@ -130,6 +135,9 @@ class StatsQueryBase(grok.View):
             return getattr(self.plone_stats, stat_method)(filters, start, end)
         elif hasattr(self.max_stats, stat_method):
             return getattr(self.max_stats, stat_method)(filters, start, end)
+        elif hasattr(self.analytic_data, stat_method):
+            if stat_method == 'stat_pageviews':
+               return getattr(self.analytic_data, stat_method)(filters, start, end)
         else:
             return 0
 
@@ -218,6 +226,7 @@ class StatsQuery(StatsQueryBase):
                     self.params['search_filters'],
                     start=first_moment_of_month(current),
                     end=last_moment_of_month(current))
+                import ipdb;ipdb.set_trace()
                 row.append(dict(value=value,
                                 stat_type=stat_type,
                                 drilldown_date=current.strftime('%Y-%m-%d'),
@@ -562,3 +571,110 @@ class MaxStats(object):
                 return endpoint.head(qs=params)
             except:
                 return '?'
+
+class AnalyticsData(object):
+    """
+    """
+    def __init__(self, catalog):
+        self.catalog = catalog
+
+    def get_community(self, path):
+        doc = api.portal.get().unrestrictedTraverse(path)
+        for obj in aq_chain(doc):
+            if ICommunity.providedBy(obj):
+                return obj
+
+    def format_documents(self, results):
+        import ipdb;ipdb.set_trace()
+        count_dict = {}
+        for doc in results:
+            community = self.get_community(doc.getPath())
+            community_path = '/'.join(community.getPhysicalPath())
+
+            if count_dict.get(community_path, False):
+                if count_dict[community_path]['users'].get(doc.Creator):
+                    count_dict[community_path]['users'][doc.Creator]['count'] += 1
+                else:
+                    user_displayName = api.user.get(doc.Creator).getProperty('fullname')
+                    if not user_displayName:
+                        user_displayName = doc.Creator
+                    count_dict[community_path]['users'][doc.Creator] = dict(count=1, displayName=user_displayName)
+            else:
+                count_dict[community_path] = dict(users={}, displayName=community.title)
+                user_displayName = api.user.get(doc.Creator).getProperty('fullname')
+                if not user_displayName:
+                    user_displayName = doc.Creator
+                count_dict[community_path]['users'][doc.Creator] = dict(count=1, displayName=user_displayName)
+
+        rows = []
+
+        for key in sorted([key for key in count_dict]):
+
+            for user in count_dict[key]['users']:
+                rows.append(dict(context=count_dict[key]['displayName'],
+                                 username=count_dict[key]['users'][user]['displayName'],
+                                 count=count_dict[key]['users'][user]['count']))
+
+        return rows
+
+    def stat_by_folder(self, search_folder, filters, start, end=None):
+        """
+        """
+
+        communityTitles = {}
+        communityShortpaths = []
+        for community in api.portal.get_tool(name='portal_catalog').unrestrictedSearchResults(portal_type='ulearn.community'):
+            communityShortpath = community.getPath().split('/')[2]
+            communityShortpaths.append(communityShortpath)
+            communityTitles[communityShortpath] = community.Title
+
+        settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
+        if settings is None or \
+           settings.gAnalytics_view_ID is None or \
+           settings.gAnalytics_JSON_info is None or \
+           settings.gAnalytics_enabled is None or \
+           settings.gAnalytics_enabled == False:
+           return {}
+        gAnalytics_view_ID = settings.gAnalytics_view_ID
+        gAnalytics_JSON_info = settings.gAnalytics_JSON_info
+
+        # falsePrefixes = ['/2/intranetupcnet',
+        #                  '/acl_users/credentials_cookie_auth/require_login?'
+        #                  'came_from=https://comunitats.upcnet.es']
+
+        falsePrefixes = []
+
+        credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+                       json.loads(gAnalytics_JSON_info),
+                       scopes=['https://www.googleapis.com/auth/analytics.readonly'])
+        service = build('analytics', 'v3', credentials=credentials)
+
+        gaFilters = ','.join('ga:pagePath=~/' + communityShortpath
+                             for communityShortpath in communityShortpaths)
+        # numResults = 0
+        # totalResults = 0
+        # first = True
+        data = {}
+        #while numResults < totalResults or first:
+        analyticsData = service.data().ga().get(**{
+            'ids': 'ga:' + gAnalytics_view_ID,
+            'start_date': '2005-01-01',
+            'end_date': '9999-12-31',
+            'metrics': 'ga:pageviews',
+            'dimensions': 'ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1,ga:dateHourMinute',
+            'filters': gaFilters,
+            'max_results': '20',
+            'sort': '-ga:pageviews'
+        }).execute()
+        # numResults += len(analyticsData['rows'])
+
+        # totalResults = int(analyticsData['totalResults'])
+        # first = False
+        import ipdb;ipdb.set_trace()
+        return analyticsData['rows']
+
+
+    def stat_pageviews(self, filters, start, end=None):
+        """
+        """
+        return self.stat_by_folder('pageviews', filters, start, end)
