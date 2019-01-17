@@ -224,10 +224,11 @@ class StatsQuery(StatsQueryBase):
         if 'pageviews' in self.params['stats_requested']:
             stats = getattr(self.analytic_data, 'stat_pageviews')(self.params['search_filters'], first_moment_of_month(current), last_moment_of_month(current))
 
+            portal_url = self.portal_url()
             for line in stats:
                 community = line[0].replace('/', '')
-                communityLink = self.portal_url() + line[0]
-                title = line[2].replace(' - Ulearn Comunitats', '')
+                communityLink = portal_url + line[0]
+                title = line[2][0:line[2].rfind(' -')]
                 titleLink = line[1]
                 typeContent = line[3]
                 date = datetime.strftime(datetime.strptime(line[4], '%Y%m%d%H%M'), '%d/%m/%Y %H:%M')
