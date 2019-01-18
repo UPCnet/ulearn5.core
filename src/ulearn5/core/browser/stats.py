@@ -268,9 +268,15 @@ class StatsQuery(StatsQueryBase):
         elif output_format == 'csv':
             self.request.response.setHeader('Content-type', 'application/csv')
             self.request.response.setHeader('Content-disposition', 'attachment; filename=ulearn-stats-{}.csv'.format(datetime.now().strftime('%Y%m%d%H%M%S')))
-            lines = [','.join(['Fecha'] + self.params['stats_requested'])]
-            for row in results['rows']:
-                lines.append(','.join([str(col['value']) for col in row]))
+            pageviews = 'pageviews' in self.params['stats_requested']
+            if not pageviews:
+                lines = [','.join(['Fecha'] + self.params['stats_requested'])]
+                for row in results['rows']:
+                    lines.append(','.join([str(col['value']) for col in row]))
+            else:
+                lines = [','.join([''] + self.params['stats_requested'])]
+                for row in results['rows']:
+                    lines.append(','.join([str(col['value'].encode('utf-8')) for col in row]))
             return '\n'.join(lines)
 
 
