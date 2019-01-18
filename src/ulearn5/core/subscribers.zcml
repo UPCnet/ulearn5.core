@@ -67,4 +67,17 @@
              zope.container.interfaces.IObjectRemovedEvent"
         />
 
+    <subscriber
+        for="plone.transformchain.interfaces.IBeforeSingleTransformEvent"
+        handler=".subscriber.handle_before_single"/>
+    <subscriber
+        for="plone.transformchain.interfaces.IAfterSingleTransformEvent"
+        handler=".subscriber.handle_after_single"/>
+    <subscriber
+        for="plone.transformchain.interfaces.IBeforeTransformsEvent"
+        handler=".subscriber.handle_before_transforms"/>
+    <subscriber
+        for="plone.transformchain.interfaces.IAfterTransformsEvent"
+        handler=".subscriber.handle_after_transforms"/>
+
 </configure>
