@@ -611,55 +611,9 @@ class AnalyticsData(object):
     def __init__(self, catalog):
         self.catalog = catalog
 
-    def get_community(self, path):
-        doc = api.portal.get().unrestrictedTraverse(path)
-        for obj in aq_chain(doc):
-            if ICommunity.providedBy(obj):
-                return obj
-
-    def format_documents(self, results):
-        count_dict = {}
-        for doc in results:
-            community = self.get_community(doc.getPath())
-            community_path = '/'.join(community.getPhysicalPath())
-
-            if count_dict.get(community_path, False):
-                if count_dict[community_path]['users'].get(doc.Creator):
-                    count_dict[community_path]['users'][doc.Creator]['count'] += 1
-                else:
-                    user_displayName = api.user.get(doc.Creator).getProperty('fullname')
-                    if not user_displayName:
-                        user_displayName = doc.Creator
-                    count_dict[community_path]['users'][doc.Creator] = dict(count=1, displayName=user_displayName)
-            else:
-                count_dict[community_path] = dict(users={}, displayName=community.title)
-                user_displayName = api.user.get(doc.Creator).getProperty('fullname')
-                if not user_displayName:
-                    user_displayName = doc.Creator
-                count_dict[community_path]['users'][doc.Creator] = dict(count=1, displayName=user_displayName)
-
-        rows = []
-
-        for key in sorted([key for key in count_dict]):
-
-            for user in count_dict[key]['users']:
-                rows.append(dict(context=count_dict[key]['displayName'],
-                                 username=count_dict[key]['users'][user]['displayName'],
-                                 count=count_dict[key]['users'][user]['count']))
-
-        return rows
-
     def stat_by_folder(self, search_folder, filters, start, end=None):
         """
         """
-
-        communityTitles = {}
-        communityShortpaths = []
-        for community in api.portal.get_tool(name='portal_catalog').unrestrictedSearchResults(portal_type='ulearn.community'):
-            communityShortpath = community.getPath().split('/')[2]
-            communityShortpaths.append(communityShortpath)
-            communityTitles[communityShortpath] = community.Title
-
         settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
         if settings is None or \
            settings.gAnalytics_view_ID is None or \
@@ -670,40 +624,36 @@ class AnalyticsData(object):
         gAnalytics_view_ID = settings.gAnalytics_view_ID
         gAnalytics_JSON_info = settings.gAnalytics_JSON_info
 
-        # falsePrefixes = ['/2/intranetupcnet',
-        #                  '/acl_users/credentials_cookie_auth/require_login?'
-        #                  'came_from=https://comunitats.upcnet.es']
-
-        falsePrefixes = []
-
         credentials = ServiceAccountCredentials.from_json_keyfile_dict(
                        json.loads(gAnalytics_JSON_info),
                        scopes=['https://www.googleapis.com/auth/analytics.readonly'])
         service = build('analytics', 'v3', credentials=credentials)
 
-        gaFilters = ','.join('ga:pagePath=~/' + communityShortpath
-                             for communityShortpath in communityShortpaths)
-        # numResults = 0
-        # totalResults = 0
-        # first = True
-        data = {}
-        #while numResults < totalResults or first:
+
+        catalog_filters = dict(portal_type='ulearn.community')
+
+        if filters['community']:
+            catalog_filters['community_hash'] = filters['community']
+
+        # List all paths of the resulting comunities
+        communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
+        gaFilters = ','.join('ga:pagePathLevel2=~/' + community.id for community in communities)
         analyticsData = service.data().ga().get(**{
             'ids': 'ga:' + gAnalytics_view_ID,
-            'start_date': '2005-01-01',
-            'end_date': '9999-12-31',
+            'start_date': str(datetime.date(start)),
+            'end_date': str(datetime.date(end)),
             'metrics': 'ga:pageviews',
             'dimensions': 'ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1,ga:dateHourMinute',
             'filters': gaFilters,
             'max_results': '20',
             'sort': '-ga:pageviews'
         }).execute()
-        # numResults += len(analyticsData['rows'])
 
-        # totalResults = int(analyticsData['totalResults'])
-        # first = False
-        # return analyticsData['rows']
-        return [[u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'201901111132', u'7'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'201901111136', u'5'], [u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'201901111131', u'4'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'document', u'201901111128', u'4'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110906', u'4'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901111127', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901131412', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'content_type', u'201901110851', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/enllacos/view', u'Enlla\xe7os - Ulearn Comunitats', u'link', u'201901111134', u'3'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110855', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901111116', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/carles.png/view', u'carles.png - Ulearn Comunitats', u'image', u'201901111129', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'201901111137', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/prova-pageviews', u'Prova pageviews - Ulearn Comunitats', u'document', u'201901131427', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110852', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110857', u'2'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901111112', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901111114', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901131412', u'1'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'content_type', u'201901110851', u'1']]
+        if 'rows' in analyticsData:
+            return analyticsData['rows']
+        else:
+            return []
+        #return [[u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'201901111132', u'7'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'201901111136', u'5'], [u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'201901111131', u'4'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'document', u'201901111128', u'4'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110906', u'4'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901111127', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901131412', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'content_type', u'201901110851', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/enllacos/view', u'Enlla\xe7os - Ulearn Comunitats', u'link', u'201901111134', u'3'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110855', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901111116', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/carles.png/view', u'carles.png - Ulearn Comunitats', u'image', u'201901111129', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'201901111137', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/prova-pageviews', u'Prova pageviews - Ulearn Comunitats', u'document', u'201901131427', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110852', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110857', u'2'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901111112', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901111114', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901131412', u'1'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'content_type', u'201901110851', u'1']]
 
 
     def stat_pageviews(self, filters, start, end=None):
