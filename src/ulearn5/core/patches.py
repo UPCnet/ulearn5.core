@@ -1039,3 +1039,40 @@ def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
                 'id': 'user_data-change-password',
             })
         return tabs
+
+
+def get_date_options(request):
+    from datetime import datetime
+    from zope.i18n import translate
+    from zope.component import getUtility
+    from plone.registry.interfaces import IRegistry
+    from Products.CMFPlone.interfaces import IDateAndTimeSchema
+
+    calendar = request.locale.dates.calendars['gregorian']
+    registry = getUtility(IRegistry)
+    date_tool = registry.forInterface(IDateAndTimeSchema, prefix='plone')
+    first_weekday = date_tool.first_weekday
+    today = datetime.today()
+    return {
+        'time': False,
+        'date': {
+            'firstDay': 0 if first_weekday == 6 else 1,
+            'weekdaysFull': [
+                calendar.days.get(t, (None, None))[0]
+                for t in (7, 1, 2, 3, 4, 5, 6)],
+            'weekdaysShort': [
+                calendar.days.get(t, (None, None))[1]
+                for t in (7, 1, 2, 3, 4, 5, 6)],
+            'monthsFull': calendar.getMonthNames(),
+            'monthsShort': calendar.getMonthAbbreviations(),
+            'selectYears': 200,
+            'min': [today.year - 100, 1, 1],
+            'max': [today.year + 20, 1, 1],
+            'format': translate(
+                _('pickadate_date_format', default='mmmm d, yyyy'),
+                context=request),
+            'placeholder': translate(_('Enter date...'), context=request),
+        },
+        'today': translate(_(u"Today"), context=request),
+        'clear': translate(_(u"Clear"), context=request),
+    }
