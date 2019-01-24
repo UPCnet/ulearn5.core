@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.21 (unreleased)
+0.21 (2019-01-24)
 -----------------
 
-- Nothing changed yet.
-
+* Add migrationFixFolderViews + pep8 [Iago López Fernández]
+* Poder seleccionar dia de la semana con el que se comienza en los calendarios de los campos de formulario de tipo fecha (Marmoset) [Iago López Fernández]
 
 0.20 (2019-01-15)
 -----------------
