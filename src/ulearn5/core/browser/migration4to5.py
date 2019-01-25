@@ -502,7 +502,7 @@ class migrationFixFolderViews(grok.View):
 
         original = 'folder_extended'
         target = 'listing_view'
-        for brain in self.context.portal_catalog(portal_type=('Folder', 'privatefolder')):
+        for brain in self.context.portal_catalog(portal_type=('Folder', 'privateFolder')):
             obj = brain.getObject()
             if getattr(obj, "layout", None) == original:
                 logger.info('- Actualitzat: ' + obj.absolute_url())
