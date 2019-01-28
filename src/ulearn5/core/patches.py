@@ -1040,6 +1040,7 @@ def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
             })
         return tabs
 
+
 def get_date_options(request):
     from datetime import datetime
     from zope.i18n import translate
@@ -1075,6 +1076,7 @@ def get_date_options(request):
         'today': translate(_(u"Today"), context=request),
         'clear': translate(_(u"Clear"), context=request),
     }
+
 
 import unicodedata
 from zope import schema

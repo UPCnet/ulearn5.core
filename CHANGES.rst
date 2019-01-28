@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.22 (unreleased)
+0.22 (2019-01-28)
 -----------------
 
-- Nothing changed yet.
-
+* Add decode UTF-8 en los campos del perfil [Pilar Marinas]
+* Fix migrationFixFolderViews [Iago López Fernández]
 
 0.21 (2019-01-24)
 -----------------
