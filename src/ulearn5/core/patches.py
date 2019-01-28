@@ -1040,7 +1040,6 @@ def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
             })
         return tabs
 
-
 def get_date_options(request):
     from datetime import datetime
     from zope.i18n import translate
@@ -1076,3 +1075,18 @@ def get_date_options(request):
         'today': translate(_(u"Today"), context=request),
         'clear': translate(_(u"Clear"), context=request),
     }
+
+import unicodedata
+from zope import schema
+
+def _setProperty(self, name, value):
+    if isinstance(value, set):
+        value = list(value)
+    if value and isinstance(self.schema[name], schema.Choice):
+        if isinstance(value, str):
+            value = str(value)
+        else:
+            value = value.encode('utf-8')
+    return self.context.setMemberProperties(
+        {name: value}, force_empty=True
+    )

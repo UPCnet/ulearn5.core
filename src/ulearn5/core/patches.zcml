@@ -147,4 +147,11 @@
         replacement=".patches.prepareObjectTabs"
         />
 
+    <monkey:patch
+        description="Add decode UTF-8 en los campos del perfil"
+        class="plone.app.users.browser.account.AccountPanelSchemaAdapter"
+        original="_setProperty"
+        replacement=".patches._setProperty"
+        />
+
 </configure>
