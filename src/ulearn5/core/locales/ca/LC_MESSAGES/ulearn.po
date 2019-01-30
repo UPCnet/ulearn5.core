@@ -1118,7 +1118,7 @@ msgstr "Telèfon"
 #. Default: "Create a new community"
 #: ulearn5/theme/portlets/templates/communities.pt:170
 msgid "createcommunity"
-msgstr "Crear una nova comunitat"
+msgstr "Crear nova comunitat"
 
 #. Default: "Cron tasks"
 #: ../controlpanel.py:213
