@@ -1045,7 +1045,7 @@ class executeCronTasks(grok.View):
 
         for task in tasks:
             result = requests.get(url + '/' + task, auth=(username, password))
-            if(result.status_code == 200):
+            if result.status_code == 200 and 'Error' not in result.text:
                 info_cron.append("OK: " + task)
             else:
                 info_cron.append("Error: " + task)
