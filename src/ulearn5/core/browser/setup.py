@@ -1024,12 +1024,13 @@ class executeCronTasks(grok.View):
     """
     grok.name('execute_cron_tasks')
     grok.context(IPloneSiteRoot)
+    grok.require('ulearn.APIAccess')
 
 
     def render(self):
         url = self.context.absolute_url()
 
-        info_cron = []
+        info_cron = {}
 
         registry = queryUtility(IRegistry)
         settings = registry.forInterface(IUlearnControlPanelSettings, check=False)
@@ -1039,21 +1040,22 @@ class executeCronTasks(grok.View):
             username = self.request.form['user']
             password = self.request.form['pass']
         except:
-            info_cron.append("Error not username or password")
+            info_cron.update({"status": "Error not username or password"})
             logger.info(url + ':' + str(info_cron))
-            return info_cron
+            return json.dumps(info_cron)
 
+        info_cron.update({"status": ""})
         for task in tasks:
             result = requests.get(url + '/' + task, auth=(username, password))
             if result.status_code == 200 and 'Error' not in result.text:
-                info_cron.append("OK: " + task)
+                info_cron.update({task: 'OK'})
             else:
-                info_cron.append("Error: " + task)
+                info_cron.update({task: 'Error'})
 
-        info_cron.append("Done executeCronTasks")
+        info_cron["status"] = "Done executeCronTasks"
         logger.info(url + ':' + str(info_cron))
 
-        return info_cron
+        return json.dumps(info_cron)
 
 
 class listFileUploadErrors(grok.View):
