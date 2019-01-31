@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.23 (unreleased)
+0.23 (2019-01-31)
 -----------------
 
-- Nothing changed yet.
-
+* Execute cron task [Pilar Marinas]
+* Cron task [Pilar Marinas]
+* Traduccion [Iago López Fernández]
+* Traducciones [Iago López Fernández]
 
 0.22 (2019-01-28)
 -----------------
