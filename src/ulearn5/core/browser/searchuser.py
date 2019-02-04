@@ -146,32 +146,33 @@ def searchUsersFunction(context, request, search_string):  # noqa
                 roles = api.user.get_roles(username=current_user.id, obj=portal)
                 can_view_properties = current_user == user.attrs['username'] or 'WebMaster' in roles or 'Manager' in roles
             if isinstance(user, Record):
-                user_dict = {}
                 user_info = api.user.get(user.attrs['username'])
-                for user_property in user_properties_utility.properties:
-                    if 'check_' not in user_property:
-                        check = user_info.getProperty('check_' + user_property, '')
-                        if can_view_properties or check == '' or check:
-                            user_dict.update({user_property: user.attrs.get(user_property, '')})
-
-                if has_extended_properties:
-                    for user_property in extended_user_properties_utility.properties:
+                if user_info:
+                    user_dict = {}
+                    for user_property in user_properties_utility.properties:
                         if 'check_' not in user_property:
                             check = user_info.getProperty('check_' + user_property, '')
                             if can_view_properties or check == '' or check:
                                 user_dict.update({user_property: user.attrs.get(user_property, '')})
 
-                user_dict.update(dict(id=user.attrs['username']))
-                userImage = '<img src="' + settings.max_server + '/people/' + user.attrs['username'] + '/avatar/large" alt="' + user.attrs['username'] + '" title="' + user.attrs['username'] + '" height="105" width="105" >'
-                # userImage = pm.getPersonalPortrait(user.attrs['username'])
-                # userImage.alt = user.attrs['username']
-                # userImage.title = user.attrs['username']
-                # userImage.height = 105
-                # userImage.width = 105
+                    if has_extended_properties:
+                        for user_property in extended_user_properties_utility.properties:
+                            if 'check_' not in user_property:
+                                check = user_info.getProperty('check_' + user_property, '')
+                                if can_view_properties or check == '' or check:
+                                    user_dict.update({user_property: user.attrs.get(user_property, '')})
 
-                user_dict.update(dict(foto=str(userImage)))
-                user_dict.update(dict(url=portal.absolute_url() + '/profile/' + user.attrs['username']))
-                users_profile.append(user_dict)
+                    user_dict.update(dict(id=user.attrs['username']))
+                    userImage = '<img src="' + settings.max_server + '/people/' + user.attrs['username'] + '/avatar/large" alt="' + user.attrs['username'] + '" title="' + user.attrs['username'] + '" height="105" width="105" >'
+                    # userImage = pm.getPersonalPortrait(user.attrs['username'])
+                    # userImage.alt = user.attrs['username']
+                    # userImage.title = user.attrs['username']
+                    # userImage.height = 105
+                    # userImage.width = 105
+
+                    user_dict.update(dict(foto=str(userImage)))
+                    user_dict.update(dict(url=portal.absolute_url() + '/profile/' + user.attrs['username']))
+                    users_profile.append(user_dict)
 
             else:
                 # User is NOT an standard Plone user!! is a dict provided by the patched enumerateUsers
