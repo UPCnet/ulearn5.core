@@ -57,7 +57,10 @@ class MaxPortraitWidget(NamedFileWidget):
 
     @property
     def username(self):
-        return api.user.get_current().id
+        if 'userid' in self.request.keys():
+            return self.request['userid']
+        else:
+            return api.user.get_current().id
 
     def is_admin_user(self):
         if api.user.get_current().id == 'admin':
