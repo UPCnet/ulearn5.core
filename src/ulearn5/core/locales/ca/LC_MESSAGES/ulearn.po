@@ -1246,7 +1246,7 @@ msgstr "Afegeix l'esdeveniment al calendari"
 #. Default: "Send event to attendees"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:103
 msgid "heading_send_event"
-msgstr "Envia la convocatòria als assitents"
+msgstr "Envia la convocatòria als assistents"
 
 #. Default: "Mostra o no el botó de Noticies a la tile central de les comunitats"
 #: ../controlpanel.py:189
@@ -2051,7 +2051,7 @@ msgstr "Envia invitació"
 #. Default: "There are not attendees to send the message"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:111
 msgid "send_invitation_not_attendees"
-msgstr "No hi ha assitents per enviar el missatge."
+msgstr "No hi ha assistents per enviar el missatge."
 
 #. Default: "Shared content"
 #: ../browser/sharing_templates/shared.pt:26
