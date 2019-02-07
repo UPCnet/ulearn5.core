@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-01-28 12:50+0000\n"
+"POT-Creation-Date: 2019-02-07 10:38+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -42,7 +42,7 @@ msgstr "Activitats més valorades"
 msgid "Add Banners Portlet"
 msgstr "Afegir portlet Bàners"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:178
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:151
 msgid "Add Flashes Informativos Portlet"
 msgstr "Afegir flash informatius"
 
@@ -50,7 +50,7 @@ msgstr "Afegir flash informatius"
 msgid "Add My Subjects Portlet"
 msgstr "Afegir portlet Les meves assignatures"
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:175
+#: ulearn5/theme/portlets/importantnews/importantnews.py:148
 msgid "Add News Portlet"
 msgstr "Afegir portlet Notícies"
 
@@ -62,7 +62,7 @@ msgstr "Afegir portlet Enllaços directes"
 msgid "Add Recent Changes Portlet"
 msgstr "Afegir portlet Canvis recents"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:232
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:206
 msgid "Add Subscribed News Portlet"
 msgstr "Afegir portlet Les meves noticies"
 
@@ -91,7 +91,7 @@ msgstr "Bàner"
 msgid "Blog"
 msgstr "Blog"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:183
+#: ulearn5/theme/browser/viewlets_templates/header.pt:189
 msgid "Buscar"
 msgstr "Cerca"
 
@@ -109,7 +109,7 @@ msgstr "Només pot ser vist i editat pel propietari."
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:187
+#: ulearn5/theme/browser/viewlets_templates/header.pt:193
 msgid "Cerca"
 msgstr "Cerca"
 
@@ -193,19 +193,19 @@ msgstr "Desactivar importació del icalendar"
 msgid "Discussion"
 msgstr "Debats"
 
-#: ulearn5/theme/portlets/rss/rss.py:273
+#: ulearn5/theme/portlets/rss/rss.py:274
 msgid "Display categories"
 msgstr "Mostrar categories"
 
-#: ulearn5/theme/portlets/rss/rss.py:261
+#: ulearn5/theme/portlets/rss/rss.py:262
 msgid "Display dates"
 msgstr "Mostrar dates"
 
-#: ulearn5/theme/portlets/rss/rss.py:265
+#: ulearn5/theme/portlets/rss/rss.py:266
 msgid "Display descriptions"
 msgstr "Mostrar descripcions"
 
-#: ulearn5/theme/portlets/rss/rss.py:269
+#: ulearn5/theme/portlets/rss/rss.py:270
 msgid "Display images"
 msgstr "Mostrar imatges"
 
@@ -222,7 +222,7 @@ msgstr "Esborrany"
 msgid "Edit Banners Portlet"
 msgstr "Editar portlet bàners"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:187
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:160
 msgid "Edit Flashes Informativos portlet"
 msgstr "Editar portlet Flash informatiu"
 
@@ -230,7 +230,7 @@ msgstr "Editar portlet Flash informatiu"
 msgid "Edit My Subjects Portlet"
 msgstr "Editar portlet Le meves assignatures"
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:185
+#: ulearn5/theme/portlets/importantnews/importantnews.py:158
 msgid "Edit News Portlet"
 msgstr "Edita portlet de notícies"
 
@@ -242,7 +242,7 @@ msgstr "Editar portlet Enllaços directes"
 msgid "Edit Recent Changes Portlet"
 msgstr "Edita portlet Canvis recents"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:242
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:216
 msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícies destacades"
 
@@ -325,8 +325,8 @@ msgstr "Inici"
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr "Has marcat el comparteix pero falta la url del elasticsearch"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:33
-#: ulearn5/theme/portlets/importantnews/importantnews.py:24
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:34
+#: ulearn5/theme/portlets/importantnews/importantnews.py:25
 msgid "How many items to list."
 msgstr "Quants elements vols llistar?"
 
@@ -368,7 +368,7 @@ msgstr "Instal·la el complement ulearn5.core"
 msgid "Intranet"
 msgstr "Intranet"
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:29
+#: ulearn5/theme/portlets/importantnews/importantnews.py:30
 msgid "Items in which workflow state to show."
 msgstr "Elements als que s'ha de mostra l'estat del Flux de treball."
 
@@ -450,11 +450,11 @@ msgstr "Mes final"
 msgid "Mes_inicial"
 msgstr "Mes inicial"
 
-#: ulearn5/theme/portlets/rss/rss.py:277
+#: ulearn5/theme/portlets/rss/rss.py:278
 msgid "More link"
 msgstr "Enllaç a més contingut"
 
-#: ulearn5/theme/portlets/rss/rss.py:282
+#: ulearn5/theme/portlets/rss/rss.py:283
 msgid "More text"
 msgstr "Text enllaç a més contingut"
 
@@ -506,7 +506,7 @@ msgstr "Nom de la comunitat"
 msgid "Nomines"
 msgstr "Nòmines"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:70
+#: ulearn5/theme/browser/viewlets_templates/header.pt:76
 msgid "Nomines Root folder"
 msgstr "Carpeta arrel nòmines"
 
@@ -526,8 +526,8 @@ msgstr "Notificar activitat i comentaris via 'push'"
 msgid "Notify activity via push"
 msgstr "Notificar activitat via 'push'"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:32
-#: ulearn5/theme/portlets/importantnews/importantnews.py:23
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:33
+#: ulearn5/theme/portlets/importantnews/importantnews.py:24
 msgid "Number of items to display"
 msgstr "Nombre d'elements a mostrar"
 
@@ -741,7 +741,7 @@ msgstr "Text"
 msgid "Text Quick Links"
 msgstr "Títol dels enllaços directes"
 
-#: ulearn5/theme/portlets/rss/rss.py:283
+#: ulearn5/theme/portlets/rss/rss.py:284
 msgid "Text to show more content."
 msgstr "Text que mostrará en el enllaç a més contingut."
 
@@ -749,7 +749,7 @@ msgstr "Text que mostrará en el enllaç a més contingut."
 msgid "The ID of the user who performed the last transition"
 msgstr "La identificació de l'usuari que va realitzar l'última transició"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:179
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
 msgid "This portlet displays Flashes Informativos."
 msgstr "Aquest portlet mostra Flashes informatius."
 
@@ -765,7 +765,7 @@ msgstr "Aquest portlet mostra le meves assignatures al moodle."
 msgid "This portlet displays quicklinks."
 msgstr "Aquest portlet mostra enllaços directes."
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:176
+#: ulearn5/theme/portlets/importantnews/importantnews.py:149
 msgid "This portlet displays recent News Items."
 msgstr "El portlet mostra les noticies més recents."
 
@@ -773,7 +773,7 @@ msgstr "El portlet mostra les noticies més recents."
 msgid "This portlet displays recently modified content."
 msgstr "Els portlet mostra els últims contiguts modificats."
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:233
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:207
 msgid "This portlet displays subscribed News Items."
 msgstr "Aquest portlet mostra els articles de notícies subscrits."
 
@@ -875,7 +875,7 @@ msgstr "Desinstal·la el complement ulearn5.core."
 msgid "Url"
 msgstr "Url"
 
-#: ulearn5/theme/portlets/rss/rss.py:278
+#: ulearn5/theme/portlets/rss/rss.py:279
 msgid "Url that links to more content."
 msgstr "Url a més contingut."
 
@@ -884,7 +884,7 @@ msgstr "Url a més contingut."
 msgid "Usuario_stats"
 msgstr "Usuari"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:76
+#: ulearn5/theme/browser/viewlets_templates/header.pt:82
 msgid "View loginfo"
 msgstr "Historial de canvis"
 
@@ -905,7 +905,7 @@ msgstr "Visible per a tothom, no editable pel propietari."
 msgid "Waiting to be reviewed, not editable by the owner."
 msgstr "A l'espera de ser revisat, el propietari no editarà."
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:28
+#: ulearn5/theme/portlets/importantnews/importantnews.py:29
 msgid "Workflow state"
 msgstr "Estat del flux de treball"
 
@@ -1008,7 +1008,7 @@ msgid "btnEditCommunity"
 msgstr "Edita comunitat"
 
 #. Default: "Button bar"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:49
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:50
 msgid "buttonbar"
 msgstr "Button bar"
 
@@ -1215,7 +1215,7 @@ msgid "find_label"
 msgstr "Cerca..."
 
 #. Default: "Flashes Informativos"
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:45
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:46
 msgid "flashes_informativos"
 msgstr "Flashes informatius"
 
@@ -1387,7 +1387,7 @@ msgid "help_mrs_maxchat_widget"
 msgstr "Habilita el portlet MAX UI: Xat."
 
 #. Default: "The title of the navigation tree."
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:27
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:28
 msgid "help_navigation_title"
 msgstr "Títol de l'arbre de navegació"
 
@@ -1602,13 +1602,13 @@ msgid "html_title_es"
 msgstr ""
 
 #. Default: "Important News"
-#: ulearn5/theme/portlets/importantnews/importantnews.py:44
+#: ulearn5/theme/portlets/importantnews/importantnews.py:45
 msgid "importantnews"
 msgstr "Notícies importants"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:178
+#: ulearn5/theme/browser/viewlets_templates/header.pt:184
 msgid "info"
 msgstr "Informació"
 
@@ -1688,7 +1688,7 @@ msgid "label_language"
 msgstr "Idioma"
 
 #. Default: "Title"
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:26
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:27
 msgid "label_navigation_title"
 msgstr "Títol"
 
@@ -1703,7 +1703,7 @@ msgid "label_password"
 msgstr "Contrasenya"
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:403
+#: ulearn5/theme/browser/views.py:404
 msgid "label_show_all"
 msgstr "Mostrar tots els elements"
 
@@ -1797,47 +1797,47 @@ msgid "maxui_form_bg"
 msgstr "Color del fons del widget de MAX."
 
 #. Default: "Estadistiques"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:134
+#: ulearn5/theme/browser/viewlets_templates/header.pt:140
 msgid "menu-gestio-estadistiques"
 msgstr "Estadístiques"
 
 #. Default: "Noticies"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:92
+#: ulearn5/theme/browser/viewlets_templates/header.pt:98
 msgid "menu-gestio-noticies"
 msgstr "Notícies"
 
 #. Default: "Management"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:84
+#: ulearn5/theme/browser/viewlets_templates/header.pt:90
 msgid "menu-gestion"
 msgstr "Gestió"
 
 #. Default: "Management footer"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:116
+#: ulearn5/theme/browser/viewlets_templates/header.pt:122
 msgid "menu-gestion-footer"
 msgstr "Gestionar peu"
 
 #. Default: "Global banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:104
+#: ulearn5/theme/browser/viewlets_templates/header.pt:110
 msgid "menu-gestion-global-banners"
 msgstr "Bàners globals"
 
 #. Default: "Management header"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:110
+#: ulearn5/theme/browser/viewlets_templates/header.pt:116
 msgid "menu-gestion-header"
 msgstr "Gestionar capçalera"
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:122
+#: ulearn5/theme/browser/viewlets_templates/header.pt:128
 msgid "menu-gestion-menu"
 msgstr "Menu de gestió"
 
 #. Default: "Personal banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:98
+#: ulearn5/theme/browser/viewlets_templates/header.pt:104
 msgid "menu-gestion-personal-banners"
 msgstr "Bàners personals"
 
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:128
+#: ulearn5/theme/browser/viewlets_templates/header.pt:134
 msgid "menu-reset-menu"
 msgstr "Reinicia el menú"
 
@@ -1994,7 +1994,7 @@ msgstr "Cerca"
 msgid "search_communities"
 msgstr "Cerca comunitats"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:186
+#: ulearn5/theme/browser/viewlets_templates/header.pt:192
 msgid "search_site"
 msgstr "Cerca en el Lloc"
 

@@ -52,3 +52,6 @@ msgstr "Vista amb miniaturas"
 
 msgid "event_listing"
 msgstr "Llista d'esdeveniments"
+
+msgid "grid_events_view"
+msgstr "Vista esdeveniments"
