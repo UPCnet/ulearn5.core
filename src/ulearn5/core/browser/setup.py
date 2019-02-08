@@ -704,17 +704,15 @@ def makeFolder(portal, name):
 
 
 class ImportFileToFolder(grok.View):
-    """
-    This view takes 2 arguments on the request GET data :
-    folder: the path without the '/' at the beginning, which is the base folder
-        where the 'year' folders should be created
-    local_file: the complete path and filename of the file on server. Be carefully if the view is called
-        and there are many instanes. The best way is to call it through <ip>:<instance_port>
+    """  This view takes 2 arguments on the request GET data :
+folder: the path without the '/' at the beginning, which is the base folder
+    where the 'year' folders should be created
+local_file: the complete path and filename of the file on server. Be carefully if the view is called
+    and there are many instanes. The best way is to call it through <ip>:<instance_port>
 
-    To test it: run python script with requests and:
-    payload={'folder':'test','local_file': '/home/vicente.iranzo/mongodb_VPN_2016_upcnet.xls'}
-    r = requests.get('http://localhost:8080/Plone/importfiletofolder', params=payload, auth=HTTPBasicAuth('admin', 'admin'))
-    """
+To test it: run python script with requests and:
+payload={'folder':'test','local_file': '/home/vicente.iranzo/mongodb_VPN_2016_upcnet.xls'}
+r = requests.get('http://localhost:8080/Plone/importfiletofolder', params=payload, auth=HTTPBasicAuth('admin', 'admin')) """
     grok.context(IPloneSiteRoot)
     grok.name('importfiletofolder')
     grok.require('base.webmaster')
@@ -1059,8 +1057,7 @@ class executeCronTasks(grok.View):
 
 
 class listFileUploadErrors(grok.View):
-    """ Vista per veure tots el fitchers File Upload que no estàn ven sincronitzats amb el OwnCloud.
-    """
+    """ Vista per veure tots el fitchers File Upload que no estàn ven sincronitzats amb el OwnCloud. """
     grok.name('list_fileupload_errors')
     grok.context(IPloneSiteRoot)
 
