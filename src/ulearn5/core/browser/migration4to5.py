@@ -510,3 +510,27 @@ class migrationFixFolderViews(grok.View):
 
         logger.info('- Ha finalitzat el procés.')
         return 'Ha finalitzat el procés.'
+
+
+class listContentsLocalRolesBlock(grok.View):
+    """ Aquesta vista mostra tots els continguts dintre de les comunitats que tenen desmarcat l'herència de permisos.
+
+[ Informació ]
+Per mostrar tots els continguts que tenien en Plone 4 permisos directes cal anar a Plone 4 i executar:
+/updatesharingcommunitieselastic
+
+Seguidament podem veure la llista de continguts en:
+/portal_catalog/Indexes/is_shared/manage_main """
+    grok.name('listcontentslocalrolesblock')
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        result = ''
+        for community in self.context.portal_catalog(portal_type='ulearn.community'):
+            for item in self.context.portal_catalog(path=community.getPath()):
+                if item.portal_type != 'ulearn.community':
+                    itemObj = item.getObject()
+                    if hasattr(itemObj, '__ac_local_roles_block__') and itemObj.__ac_local_roles_block__:
+                        result += item.getPath() + "\n"
+        return result
