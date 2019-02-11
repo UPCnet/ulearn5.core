@@ -24,6 +24,7 @@
   <element value="album_view"/>
   <element value="summary_view"/>
   <element value="tabular_view"/>
+  <element value="full_view"/>
   <element value="grid_events_view"/>
   <element value="filtered_contents_search_view"/>
   <element value="contents_pretty_view"/>
