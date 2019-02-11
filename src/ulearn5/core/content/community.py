@@ -1350,7 +1350,7 @@ class CommunityInitializeAdapter(object):
         # Set default view layout
         documents.setLayout('filtered_contents_search_view')
         media.setLayout('summary_view')
-        events.setLayout('summary_view')
+        events.setLayout('grid_events_view')
         news.setLayout('summary_view')
 
         # Mark them with a marker interface
