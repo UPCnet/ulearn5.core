@@ -2,11 +2,21 @@ Changelog
 =========
 
 
-0.24 (unreleased)
+0.24 (2019-02-11)
 -----------------
 
-- Nothing changed yet.
-
+* print to logger.info [Iago López Fernández]
+* Cambiar vista por defecto de la carpeta eventos de las comunidades al crearlas [grid_events_view] [Iago López Fernández]
+* Traducciones [Pilar Marinas]
+* Hacer parametrizable la vista migrationfixfolderviews [Iago López Fernández]
+* Añadir vista de eventos en las carpetas [Iago López Fernández]
+* Clouseau: Formato documentación [Iago López Fernández]
+* Añadir vista clouseau: listcontentslocalrolesblock [Iago López Fernández]
+* Traducción vista grid_events_view [Iago López Fernández]
+* Eliminar vista tot el contingut de carpetes i afegir vista esdeveniments [alberto.duran]
+* mispelled [Roberto Diaz]
+* Fix portrait widget [Iago López Fernández]
+* Mejora vista search del portlet Thinkers [Iago López Fernández]
 
 0.23 (2019-01-31)
 -----------------
