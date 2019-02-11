@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-02-07 10:38+0000\n"
+"POT-Creation-Date: 2019-02-11 11:47+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -95,7 +95,7 @@ msgstr "Blog"
 msgid "Buscar"
 msgstr "Search"
 
-#: ulearn5/theme/portlets/calendar.py:44
+#: ulearn5/theme/portlets/calendar.py:43
 #: ulearn5/theme/portlets/legacycalendar.py:33
 msgid "Calendar"
 msgstr "Calendar"

@@ -7,7 +7,7 @@ for domain in $DOMAINS
 do
   for language in $LANGUAGES
   do
-    if [ -f "$language/LC_MESSAGES/$domain.mo" ]
+    if [ -f "$language/LC_MESSAGES/$domain.po" ]
     then
       msgfmt -o $language/LC_MESSAGES/$domain.mo  $language/LC_MESSAGES/$domain.po
     fi
