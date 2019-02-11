@@ -73,8 +73,8 @@ class SaveEditACL(REST):
             try:
                 self.target = item._unrestrictedGetObject()
                 self.payload = ICommunityACL(self.target)().attrs.get('acl', '')
-                print '--- Community: ' + str(self.target.absolute_url())
-                print '---- Payload: ' + str(self.payload)
+                logger.info('--- Community: ' + str(self.target.absolute_url()))
+                logger.info('---- Payload: ' + str(self.payload))
                 adapter = self.target.adapted(request=self.request)
                 adapter.update_acl(self.payload)
                 users = self.payload['users']
