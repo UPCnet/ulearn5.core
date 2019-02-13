@@ -1024,7 +1024,6 @@ class executeCronTasks(grok.View):
     grok.context(IPloneSiteRoot)
     grok.require('ulearn.APIAccess')
 
-
     def render(self):
         url = self.context.absolute_url()
 
@@ -1053,6 +1052,24 @@ class executeCronTasks(grok.View):
         info_cron["status"] = "Done executeCronTasks"
         logger.info(url + ':' + str(info_cron))
 
+        return json.dumps(info_cron)
+
+
+class getInfoCronTasks(grok.View):
+    """ TODO: .....
+        url/get_info_cron_tasks
+    """
+    grok.name('get_info_cron_tasks')
+    grok.context(IPloneSiteRoot)
+    grok.require('ulearn.APIAccess')
+
+    def render(self):
+        info_cron = {}
+        portal = api.portal.get()
+        info_cron.update({"site": portal.getPhysicalPath()[2]})
+        registry = queryUtility(IRegistry)
+        settings = registry.forInterface(IUlearnControlPanelSettings, check=False)
+        info_cron.update({"tasks": settings.cron_tasks})
         return json.dumps(info_cron)
 
 
