@@ -52,7 +52,7 @@
         name="ulearn-controlpanel"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         class=".controlpanel.UlearnControlPanel"
-        permission="cmf.ManagePortal"
+        permission="ulearn5.core.setup"
         />
 
     <browser:page
