@@ -273,7 +273,7 @@ def packages_installed():
 
 def addActivityPost(content):
     installed = packages_installed()
-    if 'ulearn.abacus' in installed:
+    if 'ulearn5.abacus' in installed:
         if content.portal_type == 'Event':
             return False
 
