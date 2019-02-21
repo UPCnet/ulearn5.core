@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.25 (unreleased)
+0.25 (2019-02-21)
 -----------------
 
-- Nothing changed yet.
-
+* No notificar events en el activity de abacus [Pilar Marinas]
+* Añadir nueva vista get_info_cron_tasks [Iago López Fernández]
+* Cambiar permisos para visualizar /ulearn-controlpanel [Iago López Fernández]
 
 0.24 (2019-02-11)
 -----------------
