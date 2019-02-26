@@ -438,37 +438,51 @@ class Person(REST):
         """ Returns the user profile values. """
         username = self.params['username']
         user = api.user.get(username=username)
+        if user:
+            user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
 
-        user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+            rendered_properties = []
+            try:
+                extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+                if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
+                    extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+                    hasPublicProp = hasattr(extended_user_properties_utility, 'public_properties')
+                    for prop in extended_user_properties_utility.directory_properties:
+                        if not hasPublicProp or (hasPublicProp and prop in extended_user_properties_utility.public_properties):
+                            userProp = user.getProperty(prop, '')
+                            if userProp:
+                                check = user.getProperty('check_' + prop, '')
+                                if check == '' or check:
+                                    rendered_properties.append(dict(
+                                        name=prop,
+                                        value=userProp,
+                                        icon=extended_user_properties_utility.directory_icons[prop]
+                                    ))
+                else:
+                    # If it's not extended, then return the simple set of data we know
+                    # about the user using also the directory_properties field
+                    hasPublicProp = hasattr(user_properties_utility, 'public_properties')
+                    for prop in user_properties_utility.directory_properties:
+                        try:
+                            if not hasPublicProp or (hasPublicProp and prop in user_properties_utility.public_properties):
+                                userProp = user.getProperty(prop, '')
+                                if userProp:
+                                    check = user.getProperty('check_' + prop, '')
+                                    if check == '' or check:
+                                        rendered_properties.append(dict(
+                                            name=prop,
+                                            value=userProp,
+                                            icon=user_properties_utility.directory_icons[prop],
+                                        ))
+                        except:
+                            # Some users has @ in the username and is not valid...
+                            pass
+            except:
+                raise ObjectNotFound('User not found')
 
-        rendered_properties = []
-        try:
-            extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
-            if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
-                extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
-                for prop in extended_user_properties_utility.profile_properties:
-                    userProp = user.getProperty(prop, '')
-                    if userProp:
-                        rendered_properties.append(dict(
-                            name=prop,
-                            value=userProp,
-                            icon=extended_user_properties_utility.directory_icons[prop]
-                        ))
-            else:
-                # If it's not extended, then return the simple set of data we know
-                # about the user using also the profile_properties field
-                for prop in user_properties_utility.profile_properties:
-                    userProp = user.getProperty(prop, '')
-                    if userProp:
-                        rendered_properties.append(dict(
-                            name=prop,
-                            value=userProp,
-                            icon=user_properties_utility.directory_icons[prop]
-                        ))
-        except:
+            return ApiResponse(rendered_properties)
+        else:
             raise ObjectNotFound('User not found')
-
-        return ApiResponse(rendered_properties)
 
 
 class Subscriptions(REST):
