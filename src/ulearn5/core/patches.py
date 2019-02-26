@@ -113,6 +113,7 @@ def deleteMembers(self, member_ids):
 
     for member_id in member_ids:
         remove_user_from_catalog(member_id.lower())
+        logger.info('Eliminat usuari {} del catalog.'.format(member_id.lower()))
         pc = api.portal.get_tool(name='portal_catalog')
 
         communities_subscription = self.maxclient.people[member_id].subscriptions.get()
@@ -150,6 +151,7 @@ def deleteMembers(self, member_ids):
     if mdtool is not None:
         for member_id in member_ids:
             mdtool.deleteMemberData(member_id)
+            logger.info('Eliminat usuari {} del portal_memberdata.'.format(member_id))
             try:
                 self.maxclient.people[member_id].delete()
             except:
@@ -159,6 +161,7 @@ def deleteMembers(self, member_ids):
     # Delete members' local roles.
     mtool.deleteLocalRoles(getUtility(ISiteRoot), member_ids,
                            reindex=1, recursive=1)
+    logger.info('Eliminat usuari {} del local roles.'.format(member_id))
 
 
 class NegotiateLanguage(object):
