@@ -2,11 +2,14 @@ Changelog
 =========
 
 
-0.26 (unreleased)
+0.26 (2019-03-04)
 -----------------
 
-- Nothing changed yet.
-
+* Parche para que no mire si el password en LDAP es correcto para enginyersbcn [Pilar Marinas]
+* Modificar workflow por defecto (Default) de File y Image [Iago López Fernández]
+* GET api/people/{username}: obtener solo los campos publicos [Iago López Fernández]
+* Añadir logger al borrar usuario [Iago López Fernández]
+* api/people comprobar si el usuario existe en el ldap [Iago López Fernández]
 
 0.25 (2019-02-21)
 -----------------
