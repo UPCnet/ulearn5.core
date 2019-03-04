@@ -253,7 +253,9 @@ def authenticateCredentials(self, credentials):
 
     installed = packages_installed()
     if 'ulearn5.enginyersbcn' in installed:
-         password = None
+         ldap_users = ['ulearn.user1', 'ulearn.user2', 'ulearn.user3', 'administrador1', 'administrador2', 'comunicacio1', 'comunicacio2']
+         if login not in ldap_users:
+             return None
 
     user = acl.getUser(login, pwd=password)
 
