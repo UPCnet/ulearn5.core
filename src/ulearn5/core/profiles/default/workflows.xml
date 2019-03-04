@@ -32,8 +32,12 @@
   <type type_id="Discussion Item">
    <bound-workflow workflow_id="comment_one_state_workflow"/>
   </type>
-  <type type_id="File"/>
-  <type type_id="Image"/>
+  <type type_id="File">
+   <bound-workflow workflow_id="(Default)"/>
+  </type>
+  <type type_id="Image">
+   <bound-workflow workflow_id="(Default)"/>
+  </type>
   <type type_id="News Item">
    <bound-workflow workflow_id="news_intranet"/>
   </type>
