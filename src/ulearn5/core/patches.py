@@ -240,6 +240,7 @@ class NegotiateLanguage(object):
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
 from mrs5.max.browser.controlpanel import IMAXUISettings
+from ulearn5.core.hooks import packages_installed
 
 def authenticateCredentials(self, credentials):
     """ Fulfill AuthenticationPlugin requirements """
@@ -249,6 +250,10 @@ def authenticateCredentials(self, credentials):
 
     if not acl or not login or not password:
         return None, None
+
+    installed = packages_installed()
+    if 'ulearn5.enginyersbcn' in installed:
+         password = None
 
     user = acl.getUser(login, pwd=password)
 
