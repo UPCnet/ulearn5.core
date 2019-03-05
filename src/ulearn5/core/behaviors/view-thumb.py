@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.Five.browser import BrowserView
+import unicodedata
 
 
 class Thumbnail(BrowserView):
@@ -14,7 +15,7 @@ class Thumbnail(BrowserView):
         if getattr(context, 'thumbnail_image', None):
             img_data = context.thumbnail_image.open().read()
             contentType = context.thumbnail_image.contentType
-            filename = context.thumbnail_image.filename
+            filename = unicodedata.normalize('NFKD', context.thumbnail_image.filename).encode("ascii", "ignore").decode("ascii")
 
             self.request.response.setHeader('content-type', contentType)
             self.request.response.setHeader(
