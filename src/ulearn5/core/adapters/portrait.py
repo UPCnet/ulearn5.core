@@ -13,6 +13,9 @@ import logging
 import PIL
 from zope.interface import implements
 from zope.component import adapts
+from base5.core.utils import portal_url
+import requests
+import io
 
 logger = logging.getLogger(__name__)
 
@@ -55,9 +58,10 @@ def convertSquareImage(image_file):
     try:
         image = PIL.Image.open(image_file)
     except:
-        new_file = None
-        mimetype = 'image/jpg'
-        return new_file, mimetype
+        portrait_url = portal_url() + '/++theme++ulearn5/assets/images/defaultUser.png'
+        imgData = requests.get(portrait_url).content
+        image = PIL.Image.open(io.BytesIO(imgData))
+        image.filename = 'defaultUser'
 
     format = image.format
     mimetype = 'image/%s' % format.lower()
