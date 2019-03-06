@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.27 (unreleased)
+0.27 (2019-03-06)
 -----------------
 
-- Nothing changed yet.
-
+* Add Products PloneKeywordManager [Pilar Marinas]
+* Cambiar funcion para que si no hay avatar ponga el defaultUser [Pilar Marinas]
+* Normalize thumbnail_image [Iago López Fernández]
+* Parche para que no mire si el password en LDAP es correcto para enginyersbcn excepto usuarios LDAP [Pilar Marinas]
 
 0.26 (2019-03-04)
 -----------------
