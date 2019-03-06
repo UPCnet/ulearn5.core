@@ -58,7 +58,8 @@ setup(
         'ulearn5.owncloud',
         'mrs5.max',
         'ipdb',
-        'pytz'
+        'pytz',
+        'Products.PloneKeywordManager'
     ],
     extras_require={
         'test': [
