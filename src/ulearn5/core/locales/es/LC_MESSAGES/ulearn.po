@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-03-12 12:04+0000\n"
+"POT-Creation-Date: 2019-03-12 15:09+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -151,6 +151,10 @@ msgstr "Comentarios sobre la última transición"
 msgid "Communities"
 msgstr "Comunidades"
 
+#: ../profiles/default/types/ulearn.community_tag.xml
+msgid "Community tag"
+msgstr "Etiqueta de comunidad"
+
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:46
 msgid "Compartido por"
 msgstr "Compartido por"
@@ -180,6 +184,14 @@ msgstr "Últimas actividades"
 #: ../content/community.py:167
 msgid "Descripcio"
 msgstr "Descripción de la comunidad"
+
+#: ../content/community_tag.py:23
+msgid "Description"
+msgstr "Descripción"
+
+#: ../content/community_tag.py:24
+msgid "Description of community tag."
+msgstr "Descripción de la etiqueta de comunidad."
 
 #: ../controlpanel.py:79
 msgid "Design"
@@ -342,6 +354,10 @@ msgstr "Si no se agrega una imagen, se creará un banner predeterminado con el t
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
 msgstr "Si envió el artículo por error o desea realizar ediciones adicionales, este se lo devolverá."
 
+#: ../content/community_tag.py:29
+msgid "Image"
+msgstr "Imagen"
+
 #: ../content/community.py:219
 msgid "Imatge"
 msgstr "Imagen"
@@ -469,6 +485,10 @@ msgstr "Añadir Portlet Mis Asignaturas"
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "My Tags"
 msgstr "Filtra por etiquetas"
+
+#: ../content/community_tag.py:18
+msgid "Name of community tag"
+msgstr "Nombre de la etiqueta de comunidad."
 
 #: ../behaviors/awicon.py:21
 msgid "Name of the Font Awesome class to use as an icon. It is only visible in the menu."
@@ -792,6 +812,14 @@ msgstr "Hora de la última transición"
 #: ../content/community.py:174
 msgid "Tipus de comunitat"
 msgstr "Tipo de comunidad"
+
+#: ../content/community_tag.py:17
+msgid "Title"
+msgstr ""
+
+#: ../content/community_tag.py:30
+msgid "To obtain a good performance, it is recommended to use an image with a maximum width of 80px."
+msgstr "Para obtener un buen rendimiento, es recomendable utilizar una imagen con un anchura máxima de 80px."
 
 #: ../browser/stats.py:69
 #: ../browser/viewlets.py:64

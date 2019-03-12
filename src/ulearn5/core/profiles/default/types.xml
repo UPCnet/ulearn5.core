@@ -6,6 +6,7 @@
  <object meta_type="Dexterity FTI" name="AppFile" />
  <object meta_type="Dexterity FTI" name="AppImage" />
  <object meta_type="Dexterity FTI" name="ulearn.community" />
+ <object meta_type="Dexterity FTI" name="ulearn.community_tag" />
  <object meta_type="Dexterity FTI" name="ulearn.video" />
  <object meta_type="Dexterity FTI" name="ulearn.video_embed" />
  <object meta_type="Dexterity FTI" name="ulearn.banner" />

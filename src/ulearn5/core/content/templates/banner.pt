@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="ca"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="ulearn.enginyersbcn">
+      i18n:domain="ulearn">
 
   <body>
 
