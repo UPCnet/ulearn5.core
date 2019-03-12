@@ -95,7 +95,7 @@ class IUlearnControlPanelSettings(model.Schema):
 
     model.fieldset('Communities',
                    _(u'Communities'),
-                   fields=['activity_view', 'show_literals', 'url_terms'])
+                   fields=['activity_view', 'show_literals', 'activate_tags', 'url_terms'])
 
     html_title_ca = schema.TextLine(
         title=_(u"html_title_ca",
@@ -400,6 +400,15 @@ class IUlearnControlPanelSettings(model.Schema):
                 default=_(u"Show literal")),
         description=_(u'help_show_literals',
                       default=_(u"Disable or enable the display of community types in the portlet.")),
+        required=False,
+        default=False,
+    )
+
+    activate_tags = schema.Bool(
+        title=_(u'activate_tags',
+                default=_(u"Enable community tags")),
+        description=_(u'help_activate_tags',
+                      default=_(u"Disable or enable the functionality of community tags.")),
         required=False,
         default=False,
     )

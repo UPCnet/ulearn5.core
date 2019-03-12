@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-02-11 11:47+0000\n"
+"POT-Creation-Date: 2019-03-12 12:04+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Language: ca\n"
 
-#: ../patches.py:377
+#: ../patches.py:387
 msgid " ."
 msgstr " ."
 
@@ -104,7 +104,7 @@ msgstr "Calendari"
 msgid "Can only be seen and edited by the owner."
 msgstr "Només pot ser vist i editat pel propietari."
 
-#: ../controlpanel.py:480
+#: ../controlpanel.py:489
 #: ../controlportlets.py:323
 msgid "Cancel"
 msgstr "Cancel·la"
@@ -113,19 +113,19 @@ msgstr "Cancel·la"
 msgid "Cerca"
 msgstr "Cerca"
 
-#: ../patches.py:927
+#: ../patches.py:937
 msgid "Changes made."
 msgstr "Canvis realitzats."
 
-#: ../controlpanel.py:477
+#: ../controlpanel.py:486
 msgid "Changes saved"
 msgstr "Canvis desats"
 
-#: ../patches.py:318
+#: ../patches.py:328
 msgid "Changes saved."
 msgstr "Canvis desats"
 
-#: ../patches.py:1077
+#: ../patches.py:1087
 msgid "Clear"
 msgstr "Neteja"
 
@@ -193,19 +193,19 @@ msgstr "Desactivar importació del icalendar"
 msgid "Discussion"
 msgstr "Debats"
 
-#: ulearn5/theme/portlets/rss/rss.py:274
+#: ulearn5/theme/portlets/rss/rss.py:278
 msgid "Display categories"
 msgstr "Mostrar categories"
 
-#: ulearn5/theme/portlets/rss/rss.py:262
+#: ulearn5/theme/portlets/rss/rss.py:266
 msgid "Display dates"
 msgstr "Mostrar dates"
 
-#: ulearn5/theme/portlets/rss/rss.py:266
+#: ulearn5/theme/portlets/rss/rss.py:270
 msgid "Display descriptions"
 msgstr "Mostrar descripcions"
 
-#: ulearn5/theme/portlets/rss/rss.py:270
+#: ulearn5/theme/portlets/rss/rss.py:274
 msgid "Display images"
 msgstr "Mostrar imatges"
 
@@ -246,7 +246,7 @@ msgstr "Edita portlet Canvis recents"
 msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícies destacades"
 
-#: ../controlpanel.py:482
+#: ../controlpanel.py:491
 #: ../controlportlets.py:325
 msgid "Edit cancelled"
 msgstr "Edició cancel·lada"
@@ -267,7 +267,7 @@ msgstr "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 msgid "Enable icalendar import"
 msgstr "Activar importació icalendar"
 
-#: ../patches.py:1074
+#: ../patches.py:1084
 msgid "Enter date..."
 msgstr "Introduir data ..."
 
@@ -321,7 +321,7 @@ msgstr "Global"
 msgid "Go to homepage"
 msgstr "Inici"
 
-#: ../controlpanel.py:468
+#: ../controlpanel.py:477
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr "Has marcat el comparteix pero falta la url del elasticsearch"
 
@@ -450,11 +450,11 @@ msgstr "Mes final"
 msgid "Mes_inicial"
 msgstr "Mes inicial"
 
-#: ulearn5/theme/portlets/rss/rss.py:278
+#: ulearn5/theme/portlets/rss/rss.py:282
 msgid "More link"
 msgstr "Enllaç a més contingut"
 
-#: ulearn5/theme/portlets/rss/rss.py:283
+#: ulearn5/theme/portlets/rss/rss.py:287
 msgid "More text"
 msgstr "Text enllaç a més contingut"
 
@@ -565,7 +565,7 @@ msgstr "Pendent en la cua del revisor"
 msgid "Personal"
 msgstr "Personal"
 
-#: ../patches.py:1027
+#: ../patches.py:1037
 msgid "Personal Preferences"
 msgstr "Preferències personals"
 
@@ -678,7 +678,7 @@ msgstr "Rol per a les notícies a dintre de la intranet (Permet el esborrany i l
 
 #: ../browser/sharing_templates/sharing.pt:124
 #: ../content/community_templates/editacl.pt:93
-#: ../controlpanel.py:432
+#: ../controlpanel.py:441
 msgid "Save"
 msgstr "Desa"
 
@@ -741,7 +741,7 @@ msgstr "Text"
 msgid "Text Quick Links"
 msgstr "Títol dels enllaços directes"
 
-#: ulearn5/theme/portlets/rss/rss.py:284
+#: ulearn5/theme/portlets/rss/rss.py:288
 msgid "Text to show more content."
 msgstr "Text que mostrará en el enllaç a més contingut."
 
@@ -799,7 +799,7 @@ msgstr "Tipus de comunitat"
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
 
-#: ../patches.py:1076
+#: ../patches.py:1086
 msgid "Today"
 msgstr "Avui"
 
@@ -851,7 +851,7 @@ msgstr "Ulearn Participants"
 msgid "Ulearn discussion"
 msgstr "Ulearn Debats"
 
-#: ../controlpanel.py:422
+#: ../controlpanel.py:431
 msgid "Ulearn settings"
 msgstr "Configuració de uLearn"
 
@@ -875,7 +875,7 @@ msgstr "Desinstal·la el complement ulearn5.core."
 msgid "Url"
 msgstr "Url"
 
-#: ulearn5/theme/portlets/rss/rss.py:279
+#: ulearn5/theme/portlets/rss/rss.py:283
 msgid "Url that links to more content."
 msgstr "Url a més contingut."
 
@@ -928,6 +928,11 @@ msgstr "Mostra les noticies a les que estic subscrit"
 #: ../controlpanel.py:196
 msgid "activate_sharedwithme"
 msgstr "Mostra el que hi ha compartit amb mi"
+
+#. Default: "Enable community tags"
+#: ../controlpanel.py:408
+msgid "activate_tags"
+msgstr "Habilitar les etiquetes de comunitats"
 
 #: ../content/community.py:182
 #: ../controlpanel.py:363
@@ -1210,7 +1215,7 @@ msgid "filter"
 msgstr "Filtra per text i/o per etiquetes:"
 
 #. Default: "busqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:121
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:143
 msgid "find_label"
 msgstr "Cerca..."
 
@@ -1257,6 +1262,11 @@ msgstr "Mostra o no el botó de Noticies a la tile central de les comunitats"
 #: ../controlpanel.py:198
 msgid "help_activate_sharedwithme"
 msgstr "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
+
+#. Default: "Disable or enable the functionality of community tags."
+#: ../controlpanel.py:410
+msgid "help_activate_tags"
+msgstr "Desactivar o activar la funcionalitat de etiquetes de comunitat."
 
 #: ../content/community.py:183
 #: ../controlpanel.py:364
@@ -1536,7 +1546,7 @@ msgid "help_ulearn_recentchanges"
 msgstr "Habilita el portlet per veure els canvis recents."
 
 #. Default: "uLearn configuration registry."
-#: ../controlpanel.py:423
+#: ../controlpanel.py:432
 msgid "help_ulearn_settings_editform"
 msgstr "Configuració de uLearn"
 
@@ -1562,7 +1572,7 @@ msgid "help_url_forget_password"
 msgstr ""
 
 #. Default: "Url of the terms of use."
-#: ../controlpanel.py:410
+#: ../controlpanel.py:419
 msgid "help_url_terms"
 msgstr "URL per als termes d'ús"
 
@@ -1698,7 +1708,7 @@ msgid "label_not_subjects"
 msgstr "No hi ha assignatures disponibles."
 
 #. Default: "Password"
-#: ../patches.py:1036
+#: ../patches.py:1046
 msgid "label_password"
 msgstr "Contrasenya"
 
@@ -1762,32 +1772,32 @@ msgid "main_color"
 msgstr "Color principal"
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:357
+#: ../patches.py:367
 msgid "manage_homepage_portlets_description"
 msgstr "Gestiona els portlets de la pàgina inicial"
 
 #. Default: "Homepage"
-#: ../patches.py:356
+#: ../patches.py:366
 msgid "manage_homepage_portlets_title"
 msgstr "Pàgina inicial"
 
 #. Default: "Manage left portlets"
-#: ../patches.py:395
+#: ../patches.py:405
 msgid "manage_left_portlets_description"
 msgstr "Gestiona els portlets de l'esquerra"
 
 #. Default: "Left"
-#: ../patches.py:394
+#: ../patches.py:404
 msgid "manage_left_portlets_title"
 msgstr "Esquerra"
 
 #. Default: "Manage right portlets"
-#: ../patches.py:398
+#: ../patches.py:408
 msgid "manage_right_portlets_description"
 msgstr "Gestiona els portlets de la dreta"
 
 #. Default: "Right"
-#: ../patches.py:397
+#: ../patches.py:407
 msgid "manage_right_portlets_title"
 msgstr "Dreta"
 
@@ -1910,7 +1920,7 @@ msgid "persones"
 msgstr "persones"
 
 #. Default: "mmmm d, yyyy"
-#: ../patches.py:1072
+#: ../patches.py:1082
 msgid "pickadate_date_format"
 msgstr ""
 
@@ -1959,7 +1969,7 @@ msgstr "Icona Font Awesome"
 
 #. Default: "Leer mas.."
 #: ulearn5/theme/browser/views_templates/collectionnews.pt:97
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:155
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:177
 msgid "readmore"
 msgstr "Llegir més..."
 
@@ -2160,7 +2170,7 @@ msgid "title_add_to_ical"
 msgstr "Descarrega aquest esdeveniment en format iCal"
 
 #. Default: "Personal Information"
-#: ../patches.py:1018
+#: ../patches.py:1028
 msgid "title_personal_information_form"
 msgstr "Informació personal"
 
@@ -2305,7 +2315,7 @@ msgid "url_forget_password"
 msgstr ""
 
 #. Default: "Url terms of use"
-#: ../controlpanel.py:408
+#: ../controlpanel.py:417
 msgid "url_terms"
 msgstr "URL dels termes d'ús"
 
@@ -2332,13 +2342,13 @@ msgid "visibility_widget_title"
 msgstr "Desactivar la visualització d'aquest camp per aquells usuaris que nos siguin gestors."
 
 #. Default: "Use site default"
-#: ../patches.py:464
+#: ../patches.py:474
 #: ../personalpreferences.py:75
 msgid "vocabulary-available-editor-novalue"
 msgstr "Utilitza el lloc predeterminat"
 
 #. Default: "Language neutral (site default)"
-#: ../patches.py:459
+#: ../patches.py:469
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Idioma neutral (predeterminat del lloc)"
 

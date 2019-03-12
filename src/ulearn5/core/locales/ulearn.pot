@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-02-11 11:47+0000\n"
+"POT-Creation-Date: 2019-03-12 12:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ulearn\n"
 
-#: ../patches.py:377
+#: ../patches.py:387
 msgid " ."
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Can only be seen and edited by the owner."
 msgstr ""
 
-#: ../controlpanel.py:480
+#: ../controlpanel.py:489
 #: ../controlportlets.py:323
 msgid "Cancel"
 msgstr ""
@@ -114,19 +114,19 @@ msgstr ""
 msgid "Cerca"
 msgstr ""
 
-#: ../patches.py:927
+#: ../patches.py:937
 msgid "Changes made."
 msgstr ""
 
-#: ../controlpanel.py:477
+#: ../controlpanel.py:486
 msgid "Changes saved"
 msgstr ""
 
-#: ../patches.py:318
+#: ../patches.py:328
 msgid "Changes saved."
 msgstr ""
 
-#: ../patches.py:1077
+#: ../patches.py:1087
 msgid "Clear"
 msgstr ""
 
@@ -194,19 +194,19 @@ msgstr ""
 msgid "Discussion"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:274
+#: ulearn5/theme/portlets/rss/rss.py:278
 msgid "Display categories"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:262
+#: ulearn5/theme/portlets/rss/rss.py:266
 msgid "Display dates"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:266
+#: ulearn5/theme/portlets/rss/rss.py:270
 msgid "Display descriptions"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:270
+#: ulearn5/theme/portlets/rss/rss.py:274
 msgid "Display images"
 msgstr ""
 
@@ -247,7 +247,7 @@ msgstr ""
 msgid "Edit Subscribed News Portlet"
 msgstr ""
 
-#: ../controlpanel.py:482
+#: ../controlpanel.py:491
 #: ../controlportlets.py:325
 msgid "Edit cancelled"
 msgstr ""
@@ -268,7 +268,7 @@ msgstr ""
 msgid "Enable icalendar import"
 msgstr ""
 
-#: ../patches.py:1074
+#: ../patches.py:1084
 msgid "Enter date..."
 msgstr ""
 
@@ -322,7 +322,7 @@ msgstr ""
 msgid "Go to homepage"
 msgstr ""
 
-#: ../controlpanel.py:468
+#: ../controlpanel.py:477
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr ""
 
@@ -451,11 +451,11 @@ msgstr ""
 msgid "Mes_inicial"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:278
+#: ulearn5/theme/portlets/rss/rss.py:282
 msgid "More link"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:283
+#: ulearn5/theme/portlets/rss/rss.py:287
 msgid "More text"
 msgstr ""
 
@@ -566,7 +566,7 @@ msgstr ""
 msgid "Personal"
 msgstr ""
 
-#: ../patches.py:1027
+#: ../patches.py:1037
 msgid "Personal Preferences"
 msgstr ""
 
@@ -679,7 +679,7 @@ msgstr ""
 
 #: ../browser/sharing_templates/sharing.pt:124
 #: ../content/community_templates/editacl.pt:93
-#: ../controlpanel.py:432
+#: ../controlpanel.py:441
 msgid "Save"
 msgstr ""
 
@@ -742,7 +742,7 @@ msgstr ""
 msgid "Text Quick Links"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:284
+#: ulearn5/theme/portlets/rss/rss.py:288
 msgid "Text to show more content."
 msgstr ""
 
@@ -800,7 +800,7 @@ msgstr ""
 msgid "Todas las comunidades"
 msgstr ""
 
-#: ../patches.py:1076
+#: ../patches.py:1086
 msgid "Today"
 msgstr ""
 
@@ -852,7 +852,7 @@ msgstr ""
 msgid "Ulearn discussion"
 msgstr ""
 
-#: ../controlpanel.py:422
+#: ../controlpanel.py:431
 msgid "Ulearn settings"
 msgstr ""
 
@@ -876,7 +876,7 @@ msgstr ""
 msgid "Url"
 msgstr ""
 
-#: ulearn5/theme/portlets/rss/rss.py:279
+#: ulearn5/theme/portlets/rss/rss.py:283
 msgid "Url that links to more content."
 msgstr ""
 
@@ -928,6 +928,11 @@ msgstr ""
 #. Default: "Mostra el que hi ha compartit amb mi"
 #: ../controlpanel.py:196
 msgid "activate_sharedwithme"
+msgstr ""
+
+#. Default: "Enable community tags"
+#: ../controlpanel.py:408
+msgid "activate_tags"
 msgstr ""
 
 #: ../content/community.py:182
@@ -1208,7 +1213,7 @@ msgid "filter"
 msgstr ""
 
 #. Default: "busqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:121
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:143
 msgid "find_label"
 msgstr ""
 
@@ -1254,6 +1259,11 @@ msgstr ""
 #. Default: "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 #: ../controlpanel.py:198
 msgid "help_activate_sharedwithme"
+msgstr ""
+
+#. Default: "Disable or enable the functionality of community tags."
+#: ../controlpanel.py:410
+msgid "help_activate_tags"
 msgstr ""
 
 #: ../content/community.py:183
@@ -1524,7 +1534,7 @@ msgid "help_ulearn_recentchanges"
 msgstr ""
 
 #. Default: "uLearn configuration registry."
-#: ../controlpanel.py:423
+#: ../controlpanel.py:432
 msgid "help_ulearn_settings_editform"
 msgstr ""
 
@@ -1549,7 +1559,7 @@ msgid "help_url_forget_password"
 msgstr ""
 
 #. Default: "Url of the terms of use."
-#: ../controlpanel.py:410
+#: ../controlpanel.py:419
 msgid "help_url_terms"
 msgstr ""
 
@@ -1685,7 +1695,7 @@ msgid "label_not_subjects"
 msgstr ""
 
 #. Default: "Password"
-#: ../patches.py:1036
+#: ../patches.py:1046
 msgid "label_password"
 msgstr ""
 
@@ -1749,32 +1759,32 @@ msgid "main_color"
 msgstr ""
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:357
+#: ../patches.py:367
 msgid "manage_homepage_portlets_description"
 msgstr ""
 
 #. Default: "Homepage"
-#: ../patches.py:356
+#: ../patches.py:366
 msgid "manage_homepage_portlets_title"
 msgstr ""
 
 #. Default: "Manage left portlets"
-#: ../patches.py:395
+#: ../patches.py:405
 msgid "manage_left_portlets_description"
 msgstr ""
 
 #. Default: "Left"
-#: ../patches.py:394
+#: ../patches.py:404
 msgid "manage_left_portlets_title"
 msgstr ""
 
 #. Default: "Manage right portlets"
-#: ../patches.py:398
+#: ../patches.py:408
 msgid "manage_right_portlets_description"
 msgstr ""
 
 #. Default: "Right"
-#: ../patches.py:397
+#: ../patches.py:407
 msgid "manage_right_portlets_title"
 msgstr ""
 
@@ -1897,7 +1907,7 @@ msgid "persones"
 msgstr ""
 
 #. Default: "mmmm d, yyyy"
-#: ../patches.py:1072
+#: ../patches.py:1082
 msgid "pickadate_date_format"
 msgstr ""
 
@@ -1946,7 +1956,7 @@ msgstr ""
 
 #. Default: "Leer mas.."
 #: ulearn5/theme/browser/views_templates/collectionnews.pt:97
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:155
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:177
 msgid "readmore"
 msgstr ""
 
@@ -2144,7 +2154,7 @@ msgid "title_add_to_ical"
 msgstr ""
 
 #. Default: "Personal Information"
-#: ../patches.py:1018
+#: ../patches.py:1028
 msgid "title_personal_information_form"
 msgstr ""
 
@@ -2289,7 +2299,7 @@ msgid "url_forget_password"
 msgstr ""
 
 #. Default: "Url terms of use"
-#: ../controlpanel.py:408
+#: ../controlpanel.py:417
 msgid "url_terms"
 msgstr ""
 
@@ -2316,13 +2326,13 @@ msgid "visibility_widget_title"
 msgstr ""
 
 #. Default: "Use site default"
-#: ../patches.py:464
+#: ../patches.py:474
 #: ../personalpreferences.py:75
 msgid "vocabulary-available-editor-novalue"
 msgstr ""
 
 #. Default: "Language neutral (site default)"
-#: ../patches.py:459
+#: ../patches.py:469
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr ""
 
