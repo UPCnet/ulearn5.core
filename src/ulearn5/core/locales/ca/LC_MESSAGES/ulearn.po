@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-03-13 06:44+0000\n"
+"POT-Creation-Date: 2019-03-13 10:31+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -87,7 +87,7 @@ msgstr "Totes les dates"
 msgid "Banner"
 msgstr "Bàner"
 
-#: ../content/community.py:1406
+#: ../content/community.py:1466
 msgid "Blog"
 msgstr "Blog"
 
@@ -168,7 +168,7 @@ msgstr "Comunitat"
 msgid "Comunitat_stats"
 msgstr "Estadístiques"
 
-#: ../content/community.py:1095
+#: ../content/community.py:1141
 msgid "Crea la comunitat"
 msgstr "Crea la comunitat"
 
@@ -181,7 +181,7 @@ msgstr "Crea una imatge de tipus thumb per mostrar al l'app."
 msgid "Darreres activitats"
 msgstr "Darreres activitats"
 
-#: ../content/community.py:167
+#: ../content/community.py:198
 msgid "Descripcio"
 msgstr "Descripció"
 
@@ -221,7 +221,7 @@ msgstr "Mostrar descripcions"
 msgid "Display images"
 msgstr "Mostrar imatges"
 
-#: ../content/community.py:1345
+#: ../content/community.py:1405
 msgid "Documents"
 msgstr "Documents"
 
@@ -263,11 +263,11 @@ msgstr "Editar portlet Notícies destacades"
 msgid "Edit cancelled"
 msgstr "Edició cancel·lada"
 
-#: ../content/community.py:1218
+#: ../content/community.py:1276
 msgid "Edita la comunitat"
 msgstr "Desa"
 
-#: ../content/community.py:202
+#: ../content/community.py:233
 msgid "Editors"
 msgstr "Editores"
 
@@ -287,7 +287,7 @@ msgstr "Introduir data ..."
 msgid "Error, the directory has been deleted."
 msgstr "Error, el directori ha sigut eliminat."
 
-#: ../content/community.py:1347
+#: ../content/community.py:1407
 msgid "Esdeveniments"
 msgstr "Esdeveniments"
 
@@ -358,11 +358,11 @@ msgstr "Si heu enviat l'element per error o voleu fer edicions addicionals, aix�
 msgid "Image"
 msgstr "Imatge"
 
-#: ../content/community.py:219
+#: ../content/community.py:250
 msgid "Imatge"
 msgstr "Imatge"
 
-#: ../content/community.py:220
+#: ../content/community.py:251
 msgid "Imatge que defineix la comunitat"
 msgstr "Imatge que defineix la comunitat"
 
@@ -388,7 +388,7 @@ msgstr "Intranet"
 msgid "Items in which workflow state to show."
 msgstr "Elements als que s'ha de mostra l'estat del Flux de treball."
 
-#: ../content/community.py:168
+#: ../content/community.py:199
 msgid "La descripcio de la comunitat"
 msgstr "La descripció de la comunitat"
 
@@ -433,7 +433,7 @@ msgid "Manage Nomines"
 msgstr "Gestió de nòmines"
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1346
+#: ../content/community.py:1406
 msgid "Media"
 msgstr "Media"
 
@@ -514,11 +514,11 @@ msgstr "Notícies importants"
 msgid "News intranet workflow"
 msgstr "News intranet workflow"
 
-#: ../content/community.py:161
+#: ../content/community.py:192
 msgid "Nom"
 msgstr "Nom"
 
-#: ../content/community.py:162
+#: ../content/community.py:193
 msgid "Nom de la comunitat"
 msgstr "Nom de la comunitat"
 
@@ -530,19 +530,19 @@ msgstr "Nòmines"
 msgid "Nomines Root folder"
 msgstr "Carpeta arrel nòmines"
 
-#: ../content/community.py:1348
+#: ../content/community.py:1408
 msgid "Noticies"
 msgstr "Notícies"
 
-#: ../content/community.py:1407
+#: ../content/community.py:1467
 msgid "Noticies de la comunitat"
 msgstr "Blog de notícies de la comunitat"
 
-#: ../content/community.py:251
+#: ../content/community.py:291
 msgid "Notify activity and comments via push"
 msgstr "Notificar activitat i comentaris via 'push'"
 
-#: ../content/community.py:245
+#: ../content/community.py:285
 msgid "Notify activity via push"
 msgstr "Notificar activitat via 'push'"
 
@@ -567,7 +567,7 @@ msgstr "Obrir en una finestra nova"
 msgid "Organizative"
 msgstr "Organitzativa"
 
-#: ../content/community.py:211
+#: ../content/community.py:242
 msgid "Owners"
 msgstr "Propietarios"
 
@@ -648,7 +648,7 @@ msgstr "Enllaços directes"
 msgid "Quicklinks"
 msgstr "Enllaços directes"
 
-#: ../content/community.py:191
+#: ../content/community.py:222
 msgid "Readers"
 msgstr "Lectors"
 
@@ -715,19 +715,19 @@ msgstr "Envia l'article a l'esborrany."
 msgid "Shared With Me"
 msgstr "Compartit amb mi"
 
-#: ../content/community.py:238
+#: ../content/community.py:278
 msgid "Show events"
 msgstr "Mostrar els esdeveniments"
 
-#: ../content/community.py:239
+#: ../content/community.py:279
 msgid "Show events in the central area of the main community page."
 msgstr "Mostra els esdeveniments en la zona centra de la pàgina principal de la comunitat."
 
-#: ../content/community.py:231
+#: ../content/community.py:271
 msgid "Show news"
 msgstr "Mostrar les notícies"
 
-#: ../content/community.py:232
+#: ../content/community.py:272
 msgid "Show news in the central area of the main community page"
 msgstr "Mostra les notícies en la zona centra de la pàgina principal de la comunitat."
 
@@ -741,15 +741,15 @@ msgstr "Activitat"
 msgid "Submit for publication"
 msgstr "Enviar per a la publicació"
 
-#: ../content/community.py:203
+#: ../content/community.py:234
 msgid "Subscribed people with editor permissions"
 msgstr "Llista amb les persones subscrites amb permís d'edició"
 
-#: ../content/community.py:212
+#: ../content/community.py:243
 msgid "Subscribed people with owner permissions"
 msgstr "Llista amb les persones propietàries de la comunitat"
 
-#: ../content/community.py:192
+#: ../content/community.py:223
 msgid "Subscribed people with read-only permissions"
 msgstr "Llista amb les persones subscrites amb permís de lectura"
 
@@ -809,13 +809,13 @@ msgstr "Imatge thumbnail"
 msgid "Time of the last transition"
 msgstr "Temps de l'última transició"
 
-#: ../content/community.py:174
+#: ../content/community.py:205
 msgid "Tipus de comunitat"
 msgstr "Tipus de comunitat"
 
 #: ../content/community_tag.py:17
 msgid "Title"
-msgstr ""
+msgstr "Títol"
 
 #: ../content/community_tag.py:30
 msgid "To obtain a good performance, it is recommended to use an image with a maximum width of 80px."
@@ -831,7 +831,7 @@ msgstr "Totes les comunitats"
 msgid "Today"
 msgstr "Avui"
 
-#: ../content/community.py:225
+#: ../content/community.py:256
 msgid "Twitter hashtag"
 msgstr "Twitter hashtag"
 
@@ -962,7 +962,7 @@ msgstr "Mostra el que hi ha compartit amb mi"
 msgid "activate_tags"
 msgstr "Habilitar les etiquetes de comunitats"
 
-#: ../content/community.py:182
+#: ../content/community.py:213
 #: ../controlpanel.py:363
 msgid "activity_view"
 msgstr "Visualització Activitats Comunitat"
@@ -1111,7 +1111,7 @@ msgstr "Comunitats"
 msgid "community_open_and_no_subscribed"
 msgstr "Aquesta comunitat és oberta, però actualment no hi estàs subscrit"
 
-#: ../content/community.py:175
+#: ../content/community.py:206
 msgid "community_type_description"
 msgstr ""
 "Oberta: Pública (la veu tothom) i et pots subscriure i desubscriure't. \n"
@@ -1119,17 +1119,17 @@ msgstr ""
 " Organitzativa: Només et pot subscriure un administrador i no et pots desubscriure't."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1159
+#: ../content/community.py:1207
 msgid "comunitat_creada"
 msgstr "La comunitat ${comunitat} ha estat creada."
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1132
+#: ../content/community.py:1179
 msgid "comunitat_existeix"
 msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1276
+#: ../content/community.py:1336
 msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
@@ -1162,7 +1162,11 @@ msgstr ""
 msgid "delete_user_catalog"
 msgstr ""
 
-#: ../content/community.py:261
+#: ../content/community.py:265
+msgid "description_community_tags"
+msgstr "Selecciona les etiquetes de la comunitat."
+
+#: ../content/community.py:301
 msgid "description_terms_of_user"
 msgstr "Es necessari acceptar les condicions d'ús i privacitat per crear una comunitat."
 
@@ -1186,7 +1190,7 @@ msgid "entrades"
 msgstr "entrades"
 
 #. Default: "Falta omplir algun camp obligatori."
-#: ../content/community.py:1104
+#: ../content/community.py:1150
 msgid "error"
 msgstr "Falta omplir algun camp obligatori."
 
@@ -1228,12 +1232,12 @@ msgid "external_website"
 msgstr "Visita un lloc web extern"
 
 #. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
-#: ../content/community.py:152
+#: ../content/community.py:183
 msgid "falta_condicions"
 msgstr "Es necessari acceptar les condicions d'ús i privacitat per crear una comunitat."
 
 #. Default: "No es pot crear una comunitat sense titol"
-#: ../content/community.py:1100
+#: ../content/community.py:1146
 msgid "falta_titol"
 msgstr "No es pot crear una comunitat sense títol"
 
@@ -1267,7 +1271,7 @@ msgstr "Vés al campus"
 msgid "gotolibrary"
 msgstr "Ves a la biblioteca"
 
-#: ../content/community.py:226
+#: ../content/community.py:257
 msgid "hashtag_help"
 msgstr "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el '#'."
 
@@ -1296,7 +1300,7 @@ msgstr "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compa
 msgid "help_activate_tags"
 msgstr "Desactivar o activar la funcionalitat de etiquetes de comunitat."
 
-#: ../content/community.py:183
+#: ../content/community.py:214
 #: ../controlpanel.py:364
 msgid "help_activity_view"
 msgstr "Selecciona el mode de visualització de les activitats de la comunitat"
@@ -1429,7 +1433,7 @@ msgstr "Habilita el portlet MAX UI: Xat."
 msgid "help_navigation_title"
 msgstr "Títol de l'arbre de navegació"
 
-#: ../content/community.py:252
+#: ../content/community.py:292
 msgid "help_notify_activity_via_push_comments_too"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat i els comentaris d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
@@ -1936,7 +1940,7 @@ msgstr "Persones no visibles"
 msgid "not_visibility_widget_title"
 msgstr "Activar la visualització d'aquest camp per a tots els usuaris."
 
-#: ../content/community.py:246
+#: ../content/community.py:286
 msgid "notify_activity_via_push_help"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
@@ -2202,12 +2206,16 @@ msgstr "Participants"
 msgid "title_add_to_ical"
 msgstr "Descarrega aquest esdeveniment en format iCal"
 
+#: ../content/community.py:264
+msgid "title_community_tags"
+msgstr "Etiquetes"
+
 #. Default: "Personal Information"
 #: ../patches.py:1028
 msgid "title_personal_information_form"
 msgstr "Informació personal"
 
-#: ../content/community.py:260
+#: ../content/community.py:300
 msgid "title_terms_of_user"
 msgstr "Termes d'ús"
 

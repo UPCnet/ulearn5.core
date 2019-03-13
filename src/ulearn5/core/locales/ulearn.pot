@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-03-13 06:44+0000\n"
+"POT-Creation-Date: 2019-03-13 10:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Banner"
 msgstr ""
 
-#: ../content/community.py:1406
+#: ../content/community.py:1466
 msgid "Blog"
 msgstr ""
 
@@ -169,7 +169,7 @@ msgstr ""
 msgid "Comunitat_stats"
 msgstr ""
 
-#: ../content/community.py:1095
+#: ../content/community.py:1141
 msgid "Crea la comunitat"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Darreres activitats"
 msgstr ""
 
-#: ../content/community.py:167
+#: ../content/community.py:198
 msgid "Descripcio"
 msgstr ""
 
@@ -222,7 +222,7 @@ msgstr ""
 msgid "Display images"
 msgstr ""
 
-#: ../content/community.py:1345
+#: ../content/community.py:1405
 msgid "Documents"
 msgstr ""
 
@@ -264,11 +264,11 @@ msgstr ""
 msgid "Edit cancelled"
 msgstr ""
 
-#: ../content/community.py:1218
+#: ../content/community.py:1276
 msgid "Edita la comunitat"
 msgstr ""
 
-#: ../content/community.py:202
+#: ../content/community.py:233
 msgid "Editors"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgstr ""
 msgid "Error, the directory has been deleted."
 msgstr ""
 
-#: ../content/community.py:1347
+#: ../content/community.py:1407
 msgid "Esdeveniments"
 msgstr ""
 
@@ -359,11 +359,11 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: ../content/community.py:219
+#: ../content/community.py:250
 msgid "Imatge"
 msgstr ""
 
-#: ../content/community.py:220
+#: ../content/community.py:251
 msgid "Imatge que defineix la comunitat"
 msgstr ""
 
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Items in which workflow state to show."
 msgstr ""
 
-#: ../content/community.py:168
+#: ../content/community.py:199
 msgid "La descripcio de la comunitat"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgid "Manage Nomines"
 msgstr ""
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1346
+#: ../content/community.py:1406
 msgid "Media"
 msgstr ""
 
@@ -515,11 +515,11 @@ msgstr ""
 msgid "News intranet workflow"
 msgstr ""
 
-#: ../content/community.py:161
+#: ../content/community.py:192
 msgid "Nom"
 msgstr ""
 
-#: ../content/community.py:162
+#: ../content/community.py:193
 msgid "Nom de la comunitat"
 msgstr ""
 
@@ -531,19 +531,19 @@ msgstr ""
 msgid "Nomines Root folder"
 msgstr ""
 
-#: ../content/community.py:1348
+#: ../content/community.py:1408
 msgid "Noticies"
 msgstr ""
 
-#: ../content/community.py:1407
+#: ../content/community.py:1467
 msgid "Noticies de la comunitat"
 msgstr ""
 
-#: ../content/community.py:251
+#: ../content/community.py:291
 msgid "Notify activity and comments via push"
 msgstr ""
 
-#: ../content/community.py:245
+#: ../content/community.py:285
 msgid "Notify activity via push"
 msgstr ""
 
@@ -568,7 +568,7 @@ msgstr ""
 msgid "Organizative"
 msgstr ""
 
-#: ../content/community.py:211
+#: ../content/community.py:242
 msgid "Owners"
 msgstr ""
 
@@ -649,7 +649,7 @@ msgstr ""
 msgid "Quicklinks"
 msgstr ""
 
-#: ../content/community.py:191
+#: ../content/community.py:222
 msgid "Readers"
 msgstr ""
 
@@ -716,19 +716,19 @@ msgstr ""
 msgid "Shared With Me"
 msgstr ""
 
-#: ../content/community.py:238
+#: ../content/community.py:278
 msgid "Show events"
 msgstr ""
 
-#: ../content/community.py:239
+#: ../content/community.py:279
 msgid "Show events in the central area of the main community page."
 msgstr ""
 
-#: ../content/community.py:231
+#: ../content/community.py:271
 msgid "Show news"
 msgstr ""
 
-#: ../content/community.py:232
+#: ../content/community.py:272
 msgid "Show news in the central area of the main community page"
 msgstr ""
 
@@ -742,15 +742,15 @@ msgstr ""
 msgid "Submit for publication"
 msgstr ""
 
-#: ../content/community.py:203
+#: ../content/community.py:234
 msgid "Subscribed people with editor permissions"
 msgstr ""
 
-#: ../content/community.py:212
+#: ../content/community.py:243
 msgid "Subscribed people with owner permissions"
 msgstr ""
 
-#: ../content/community.py:192
+#: ../content/community.py:223
 msgid "Subscribed people with read-only permissions"
 msgstr ""
 
@@ -810,7 +810,7 @@ msgstr ""
 msgid "Time of the last transition"
 msgstr ""
 
-#: ../content/community.py:174
+#: ../content/community.py:205
 msgid "Tipus de comunitat"
 msgstr ""
 
@@ -832,7 +832,7 @@ msgstr ""
 msgid "Today"
 msgstr ""
 
-#: ../content/community.py:225
+#: ../content/community.py:256
 msgid "Twitter hashtag"
 msgstr ""
 
@@ -963,7 +963,7 @@ msgstr ""
 msgid "activate_tags"
 msgstr ""
 
-#: ../content/community.py:182
+#: ../content/community.py:213
 #: ../controlpanel.py:363
 msgid "activity_view"
 msgstr ""
@@ -1112,22 +1112,22 @@ msgstr ""
 msgid "community_open_and_no_subscribed"
 msgstr ""
 
-#: ../content/community.py:175
+#: ../content/community.py:206
 msgid "community_type_description"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1159
+#: ../content/community.py:1207
 msgid "comunitat_creada"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1132
+#: ../content/community.py:1179
 msgid "comunitat_existeix"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1276
+#: ../content/community.py:1336
 msgid "comunitat_modificada"
 msgstr ""
 
@@ -1160,7 +1160,11 @@ msgstr ""
 msgid "delete_user_catalog"
 msgstr ""
 
-#: ../content/community.py:261
+#: ../content/community.py:265
+msgid "description_community_tags"
+msgstr ""
+
+#: ../content/community.py:301
 msgid "description_terms_of_user"
 msgstr ""
 
@@ -1184,7 +1188,7 @@ msgid "entrades"
 msgstr ""
 
 #. Default: "Falta omplir algun camp obligatori."
-#: ../content/community.py:1104
+#: ../content/community.py:1150
 msgid "error"
 msgstr ""
 
@@ -1226,12 +1230,12 @@ msgid "external_website"
 msgstr ""
 
 #. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
-#: ../content/community.py:152
+#: ../content/community.py:183
 msgid "falta_condicions"
 msgstr ""
 
 #. Default: "No es pot crear una comunitat sense titol"
-#: ../content/community.py:1100
+#: ../content/community.py:1146
 msgid "falta_titol"
 msgstr ""
 
@@ -1265,7 +1269,7 @@ msgstr ""
 msgid "gotolibrary"
 msgstr ""
 
-#: ../content/community.py:226
+#: ../content/community.py:257
 msgid "hashtag_help"
 msgstr ""
 
@@ -1294,7 +1298,7 @@ msgstr ""
 msgid "help_activate_tags"
 msgstr ""
 
-#: ../content/community.py:183
+#: ../content/community.py:214
 #: ../controlpanel.py:364
 msgid "help_activity_view"
 msgstr ""
@@ -1424,7 +1428,7 @@ msgstr ""
 msgid "help_navigation_title"
 msgstr ""
 
-#: ../content/community.py:252
+#: ../content/community.py:292
 msgid "help_notify_activity_via_push_comments_too"
 msgstr ""
 
@@ -1923,7 +1927,7 @@ msgstr ""
 msgid "not_visibility_widget_title"
 msgstr ""
 
-#: ../content/community.py:246
+#: ../content/community.py:286
 msgid "notify_activity_via_push_help"
 msgstr ""
 
@@ -2186,12 +2190,16 @@ msgstr ""
 msgid "title_add_to_ical"
 msgstr ""
 
+#: ../content/community.py:264
+msgid "title_community_tags"
+msgstr ""
+
 #. Default: "Personal Information"
 #: ../patches.py:1028
 msgid "title_personal_information_form"
 msgstr ""
 
-#: ../content/community.py:260
+#: ../content/community.py:300
 msgid "title_terms_of_user"
 msgstr ""
 

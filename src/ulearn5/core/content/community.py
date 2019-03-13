@@ -11,6 +11,7 @@ from ZPublisher.HTTPRequest import FileUpload
 from five import grok
 from hashlib import sha1
 from plone import api
+from plone.app.layout.navigation.root import getNavigationRootObject
 from plone.dexterity.content import Container
 from plone.dexterity.interfaces import IDexterityContent
 from plone.dexterity.utils import createContentInContainer
@@ -32,6 +33,8 @@ from souper.soup import NodeAttributeIndexer
 from souper.soup import Record
 from souper.soup import get_soup
 from z3c.form import button
+from z3c.form.interfaces import IAddForm
+from z3c.form.interfaces import IEditForm
 from zope import schema
 from zope.component import adapts
 from zope.component import getMultiAdapter
@@ -74,16 +77,13 @@ from ulearn5.owncloud.api.owncloud import Client
 from ulearn5.owncloud.api.owncloud import HTTPResponseError
 from ulearn5.owncloud.api.owncloud import OCSResponseError
 from ulearn5.owncloud.utilities import IOwncloudClient
-from ulearn5.owncloud.api.owncloud import Client, HTTPResponseError, OCSResponseError
-from DateTime.DateTime import DateTime
-from plone.app.layout.navigation.root import getNavigationRootObject
 from ulearn5.owncloud.utils import get_domain
 from ulearn5.owncloud.utils import update_owncloud_permission
-from z3c.form.interfaces import IAddForm, IEditForm
 
 import json
 import logging
 import mimetypes
+import unicodedata
 
 
 logger = logging.getLogger(__name__)
@@ -145,6 +145,37 @@ def communityActivityViews(context):
     terms.append(SimpleVocabulary.createTerm(u'Activitats destacades', 'activitats_destacades', _(u'Activitats destacades')))
 
     return SimpleVocabulary(terms)
+
+
+def getAllContentsOfType(portal_type, current_path):
+    catalog = api.portal.get_tool('portal_catalog')
+    brains = catalog(portal_type=(portal_type),
+                     review_state=['published', 'intranet'],
+                     sort_on=('sortable_title'),
+                     sort_order='ascending',
+                     path=current_path)
+
+    result = []
+    for brain in brains:
+        item = brain.getObject().title
+        if isinstance(item, str):
+            flattened = unicodedata.normalize('NFKD', item.decode('utf-8')).encode('ascii', errors='ignore')
+        else:
+            flattened = unicodedata.normalize('NFKD', item).encode('ascii', errors='ignore')
+
+        result.append(SimpleVocabulary.createTerm(item, flattened, item))
+
+    return SimpleVocabulary(result)
+
+
+def getRootPath():
+    return '/'.join(api.portal.get().getPhysicalPath())
+
+
+@grok.provider(IContextSourceBinder)
+def getCommunityTags(context):
+    current_path = getRootPath() + "/gestion/community-tags"
+    return getAllContentsOfType("ulearn.community_tag", current_path)
 
 
 def isChecked(value):
@@ -227,6 +258,15 @@ class ICommunity(form.Schema):
         required=False
     )
 
+    form.mode(IAddForm, community_tags='hidden')
+    form.mode(IEditForm, community_tags='hidden')
+    community_tags = schema.Set(
+        title=_(u'title_community_tags'),
+        description=_(u'description_community_tags'),
+        required=False,
+        value_type=schema.Choice(source=getCommunityTags),
+    )
+
     show_news = schema.Bool(
         title=_(u'Show news'),
         description=_(u'Show news in the central area of the main community page'),
@@ -261,7 +301,6 @@ class ICommunity(form.Schema):
         description=_(u'description_terms_of_user'),
         constraint=isChecked
     )
-
 
 
 # INTERFICIES QUE POT IMPLEMENTAR UNA COMUNITAT
@@ -1086,11 +1125,18 @@ class communityAdder(form.SchemaForm):
         registry = queryUtility(IRegistry)
         ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
         if ulearn_tool.url_terms == None or ulearn_tool.url_terms == '':
-           self.widgets['terms'].mode = 'hidden'
-           self.fields['terms'].mode = 'hidden'
+            self.widgets['terms'].mode = 'hidden'
+            self.fields['terms'].mode = 'hidden'
         else:
-           self.widgets['terms'].mode = 'input'
-           self.fields['terms'].mode = 'input'
+            self.widgets['terms'].mode = 'input'
+            self.fields['terms'].mode = 'input'
+
+        if ulearn_tool.activate_tags:
+            self.widgets['community_tags'].mode = 'input'
+            self.fields['community_tags'].mode = 'input'
+        else:
+            self.fields['community_tags'].mode = 'hidden'
+            self.widgets['community_tags'].mode = 'hidden'
 
     @button.buttonAndHandler(_(u'Crea la comunitat'), name='save')
     def handleApply(self, action):
@@ -1112,6 +1158,7 @@ class communityAdder(form.SchemaForm):
         image = data['image']
         community_type = data['community_type']
         activity_view = data['activity_view']
+        community_tags = data['community_tags']
         show_news = data['show_news']
         show_events = data['show_events']
         twitter_hashtag = data['twitter_hashtag']
@@ -1146,6 +1193,7 @@ class communityAdder(form.SchemaForm):
                 image=image,
                 community_type=community_type,
                 activity_view=activity_view,
+                community_tags=community_tags,
                 show_news=show_news,
                 show_events=show_events,
                 twitter_hashtag=twitter_hashtag,
@@ -1187,10 +1235,20 @@ class communityEdit(form.SchemaForm):
     def updateWidgets(self):
         super(communityEdit, self).updateWidgets()
 
+        registry = queryUtility(IRegistry)
+        ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
+        if ulearn_tool.activate_tags:
+            self.widgets['community_tags'].mode = 'input'
+            self.fields['community_tags'].mode = 'input'
+        else:
+            self.fields['community_tags'].mode = 'hidden'
+            self.widgets['community_tags'].mode = 'hidden'
+
         self.widgets['title'].value = self.context.title
         self.widgets['description'].value = self.context.description
         self.widgets['community_type'].value = [self.ctype_map[self.context.community_type]]
         self.widgets['activity_view'].value = [self.cview_map[self.context.activity_view]]
+        self.widgets['community_tags'].value = self.context.community_tags
         self.widgets['show_news'].value = self.context.show_news
         self.widgets['show_events'].value = self.context.show_events
         self.widgets['twitter_hashtag'].value = self.context.twitter_hashtag
@@ -1230,6 +1288,7 @@ class communityEdit(form.SchemaForm):
         image = data['image']
         community_type = data['community_type']
         activity_view = data['activity_view']
+        community_tags = data['community_tags']
         show_news = data['show_news']
         show_events = data['show_events']
         twitter_hashtag = data['twitter_hashtag']
@@ -1259,6 +1318,7 @@ class communityEdit(form.SchemaForm):
             self.context.owners = owners
             self.context.community_type = community_type
             self.context.activity_view = activity_view
+            self.context.community_tags = community_tags
             self.context.show_news = show_news
             self.context.show_events = show_events
             self.context.twitter_hashtag = twitter_hashtag
