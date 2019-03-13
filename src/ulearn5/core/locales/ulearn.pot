@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-03-12 15:09+0000\n"
+"POT-Creation-Date: 2019-03-13 06:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:189
+#: ulearn5/theme/browser/viewlets_templates/header.pt:195
 msgid "Buscar"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:193
+#: ulearn5/theme/browser/viewlets_templates/header.pt:199
 msgid "Cerca"
 msgstr ""
 
@@ -1633,7 +1633,7 @@ msgstr ""
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:184
+#: ulearn5/theme/browser/viewlets_templates/header.pt:190
 msgid "info"
 msgstr ""
 
@@ -1821,8 +1821,13 @@ msgstr ""
 msgid "maxui_form_bg"
 msgstr ""
 
+#. Default: "Community tags"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:104
+msgid "menu-gestio-community-tags"
+msgstr ""
+
 #. Default: "Estadistiques"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:140
+#: ulearn5/theme/browser/viewlets_templates/header.pt:146
 msgid "menu-gestio-estadistiques"
 msgstr ""
 
@@ -1837,32 +1842,32 @@ msgid "menu-gestion"
 msgstr ""
 
 #. Default: "Management footer"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:122
+#: ulearn5/theme/browser/viewlets_templates/header.pt:128
 msgid "menu-gestion-footer"
 msgstr ""
 
 #. Default: "Global banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:110
+#: ulearn5/theme/browser/viewlets_templates/header.pt:116
 msgid "menu-gestion-global-banners"
 msgstr ""
 
 #. Default: "Management header"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:116
+#: ulearn5/theme/browser/viewlets_templates/header.pt:122
 msgid "menu-gestion-header"
 msgstr ""
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:128
+#: ulearn5/theme/browser/viewlets_templates/header.pt:134
 msgid "menu-gestion-menu"
 msgstr ""
 
 #. Default: "Personal banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:104
+#: ulearn5/theme/browser/viewlets_templates/header.pt:110
 msgid "menu-gestion-personal-banners"
 msgstr ""
 
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:134
+#: ulearn5/theme/browser/viewlets_templates/header.pt:140
 msgid "menu-reset-menu"
 msgstr ""
 
@@ -2017,7 +2022,7 @@ msgstr ""
 msgid "search_communities"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:192
+#: ulearn5/theme/browser/viewlets_templates/header.pt:198
 msgid "search_site"
 msgstr ""
 
