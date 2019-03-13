@@ -28,6 +28,7 @@ INDEXES = (('subscribed_users', 'KeywordIndex'),
            ('subscribed_items', 'FieldIndex'),
            ('community_type', 'FieldIndex'),
            ('community_hash', 'FieldIndex'),
+           ('community_tags', 'KeywordIndex'),
            ('is_shared', 'BooleanIndex'),
            )
 

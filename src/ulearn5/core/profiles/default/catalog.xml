@@ -5,6 +5,7 @@
     <column value="subscribed_users"/>
     <column value="community_type"/>
     <column value="community_hash"/>
+    <column value="community_tags"/>
     <column value="is_shared"/>
     <column value="gwuuid"/>
 </object>

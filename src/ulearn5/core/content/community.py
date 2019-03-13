@@ -1632,3 +1632,14 @@ def community_hash(context):
 
 
 grok.global_adapter(community_hash, name='community_hash')
+
+
+@indexer(ICommunity)
+def community_tags(context):
+    """ Create a catalogue indexer, registered as an adapter, which can
+        populate the ``community_tags`` value count it and index.
+    """
+    return context.community_tags
+
+
+grok.global_adapter(community_tags, name='community_tags')
