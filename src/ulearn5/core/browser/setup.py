@@ -294,6 +294,46 @@ class createMenuFolders(grok.View):
         return 'Done'
 
 
+class createCommunityTagsFolders(grok.View):
+    """ Active functionality of community tags and create the directory structure of the community tags """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        registry = queryUtility(IRegistry)
+        settings = registry.forInterface(IUlearnControlPanelSettings)
+        settings.activate_tags = True
+
+        portal = getSite()
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion.exclude_from_nav = False
+        gestion.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(gestion)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+        gestion._Delete_objects_Permission = ('Site Administrator',)
+
+        community_tags = newPrivateFolder(gestion, 'community-tags', u'Community tags')
+        community_tags.exclude_from_nav = False
+        community_tags.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(community_tags)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('ulearn.community_tag',))
+        behavior.setImmediatelyAddableTypes(('ulearn.community_tag',))
+        community_tags._Delete_objects_Permission = ('Site Administrator',)
+        community_tags.reindexObject()
+
+        transaction.commit()
+        return 'Done'
+
+
 class createCustomizedHeaderFolder(grok.View):
     """ Create the directory structure of the customized header """
     grok.context(IPloneSiteRoot)
@@ -341,7 +381,6 @@ class createCustomizedHeaderFolder(grok.View):
 
         header.reindexObject()
         return 'Done'
-
 
 
 class createCustomizedFooterFolder(grok.View):
