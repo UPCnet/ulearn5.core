@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-03-13 10:31+0000\n"
+"POT-Creation-Date: 2019-03-14 10:19+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -313,7 +313,7 @@ msgstr "Icona Font Awesome"
 msgid "For external links use https:// or http://"
 msgstr "Per a enllaços externs utilitzar https:// o http://"
 
-#: ../setuphandlers.py:186
+#: ../setuphandlers.py:187
 msgid "Front page"
 msgstr "Pàgina principal"
 
@@ -349,6 +349,10 @@ msgstr "Icona"
 #: ../content/banner.py:18
 msgid "If you do not add an image, a default banner will be created using the title."
 msgstr "En cas de no afegir imatge, es creará un banner per defecte fent ús del títol."
+
+#: ../content/community_tag.py:36
+msgid "If you do not assign an image, this value will be used. By default: fa-filter"
+msgstr "En cas de no assignar cap imatge, s'utilitzarà aquest valor. Per defecte: fa-filter"
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-03-13 10:31+0000\n"
+"POT-Creation-Date: 2019-03-14 10:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -314,7 +314,7 @@ msgstr ""
 msgid "For external links use https:// or http://"
 msgstr ""
 
-#: ../setuphandlers.py:186
+#: ../setuphandlers.py:187
 msgid "Front page"
 msgstr ""
 
@@ -349,6 +349,10 @@ msgstr ""
 
 #: ../content/banner.py:18
 msgid "If you do not add an image, a default banner will be created using the title."
+msgstr ""
+
+#: ../content/community_tag.py:36
+msgid "If you do not assign an image, this value will be used. By default: fa-filters"
 msgstr ""
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml

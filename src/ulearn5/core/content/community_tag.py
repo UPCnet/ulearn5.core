@@ -31,6 +31,12 @@ class ICommunityTag(form.Schema):
         required=False,
     )
 
+    awicon = schema.TextLine(
+        title=u'Font Awesome',
+        description=_(u'If you do not assign an image, this value will be used. By default: fa-filter'),
+        required=False
+    )
+
 
 class CommunityTag(Item):
     implements(ICommunityTag)
@@ -40,3 +46,6 @@ class CommunityTagView(grok.View):
     grok.context(ICommunityTag)
     grok.name('view')
     grok.template('community_tag')
+
+    def awicon(self):
+        return self.context.awicon if self.context.awicon else 'fa-filter'
