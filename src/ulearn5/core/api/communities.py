@@ -148,6 +148,7 @@ class Communities(REST):
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
                              favorited=brain.id in favorites,
+                             tags=[x for x in iter(brain.community_tags)] if brain.community_tags else '',
                              can_manage=self.is_community_manager(brain))
             result.append(community)
 
