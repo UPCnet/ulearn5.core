@@ -1413,9 +1413,10 @@ class CommunityInitializeAdapter(object):
         # Set default view from aggregator
         news['aggregator'].setLayout('collection_news_view')
 
-        documents._Delete_objects_Permission = ('Site Administrator',)
-        events._Delete_objects_Permission = ('Site Administrator',)
-        news._Delete_objects_Permission = ('Site Administrator',)
+        documents._Delete_objects_Permission = ('Site Administrator','Manager',)
+        events._Delete_objects_Permission = ('Site Administrator','Manager',)
+        news._Delete_objects_Permission = ('Site Administrator','Manager',)
+        col_news._Delete_objects_Permission = ('Site Administrator','Manager',)
 
         # Reindex all created objects
         community.reindexObject()

@@ -21,6 +21,7 @@
       <role name="Manager"/>
       <role name="Editor"/>
       <role name="Contributor"/>
+      <role name="WebMaster"/>
     </permission>
     <permission name="Plone Site Setup: Users and Groups" acquire="True">
       <role name="Manager"/>
@@ -42,6 +43,7 @@
       <role name="Editor"/>
       <role name="Site Administrator"/>
       <role name="Manager"/>
+      <role name="WebMaster"/>
     </permission>
     <permission name="Portlets: Manage portlets"
                 acquire="True">

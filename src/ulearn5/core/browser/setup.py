@@ -119,7 +119,7 @@ class setupHomePage(grok.View):
         wftool = getToolByName(frontpage, 'portal_workflow')
         wftool.doActionFor(frontpage, 'reject')
         wftool.doActionFor(frontpage, 'publishtointranet')
-        frontpage._Delete_objects_Permission = ('Site Administrator',)
+        frontpage._Delete_objects_Permission = ('Site Administrator','Manager',)
         transaction.commit()
 
         # Delete original 'aggregator' collection from 'News' folder
@@ -132,7 +132,7 @@ class setupHomePage(grok.View):
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON
         col_news.item_count = 10
-        col_news._Delete_objects_Permission = ('Site Administrator',)
+        col_news._Delete_objects_Permission = ('Site Administrator','Manager',)
         col_news.reindexObject()
 
         # Set default view from aggregator
@@ -140,7 +140,7 @@ class setupHomePage(grok.View):
 
         # Set default page from 'News' folder
         portal['news'].setDefaultPage('aggregator')
-        portal['news']._Delete_objects_Permission = ('Site Administrator',)
+        portal['news']._Delete_objects_Permission = ('Site Administrator','Manager',)
 
         from plone.portlets.interfaces import ILocalPortletAssignmentManager
         from plone.portlets.constants import CONTEXT_CATEGORY
@@ -273,17 +273,17 @@ class createMenuFolders(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        gestion._Delete_objects_Permission = ('Site Administrator',)
+        gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         enlaces_cabecera = newPrivateFolder(gestion, 'menu', u'Menu')
         enlaces_cabecera.exclude_from_nav = False
-        enlaces_cabecera._Delete_objects_Permission = ('Site Administrator',)
+        enlaces_cabecera._Delete_objects_Permission = ('Site Administrator', 'Manager',)
         enlaces_cabecera.reindexObject()
 
         for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
             language_folder = newPrivateFolder(enlaces_cabecera, language, language)
             language_folder.exclude_from_nav = False
-            language_folder._Delete_objects_Permission = ('Site Administrator',)
+            language_folder._Delete_objects_Permission = ('Site Administrator', 'Manager',)
             language_folder.reindexObject()
             behavior = ISelectableConstrainTypes(language_folder)
             behavior.setConstrainTypesMode(1)
@@ -314,7 +314,7 @@ class createCustomizedHeaderFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        gestion._Delete_objects_Permission = ('Site Administrator',)
+        gestion._Delete_objects_Permission = ('Site Administrator','Manager',)
 
         description = u'La capçalera utilitzarà la primera imatge del directori, aquesta imatge ha de tenir una alçada de 83px. \nLa cabecera utilizará la primera imagen del directorio, esta imagen tiene que tener una altura de 83px. \nThe header will use the first image of the directory, this image must have a height of 83px.'
 
@@ -325,14 +325,14 @@ class createCustomizedHeaderFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        header._Delete_objects_Permission = ('Site Administrator',)
+        header._Delete_objects_Permission = ('Site Administrator','Manager',)
 
         for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
             language_folder = newPrivateFolder(header, language, language)
             language_folder.exclude_from_nav = False
             language_folder.setLayout('folder_listing')
             language_folder.description = description
-            language_folder._Delete_objects_Permission = ('Site Administrator',)
+            language_folder._Delete_objects_Permission = ('Site Administrator','Manager',)
             language_folder.reindexObject()
             behavior = ISelectableConstrainTypes(language_folder)
             behavior.setConstrainTypesMode(1)
@@ -366,7 +366,7 @@ class createCustomizedFooterFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        gestion._Delete_objects_Permission = ('Site Administrator',)
+        gestion._Delete_objects_Permission = ('Site Administrator','Manager',)
 
         footer = newPrivateFolder(gestion, 'footer', u'Footer')
         footer.exclude_from_nav = False
@@ -375,14 +375,14 @@ class createCustomizedFooterFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        footer._Delete_objects_Permission = ('Site Administrator',)
+        footer._Delete_objects_Permission = ('Site Administrator','Manager',)
 
         for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
             language_folder = newPrivateFolder(footer, language, language)
             language_folder.exclude_from_nav = False
             language_folder.setLayout('folder_listing')
             language_folder.description = description
-            language_folder._Delete_objects_Permission = ('Site Administrator',)
+            language_folder._Delete_objects_Permission = ('Site Administrator','Manager',)
             language_folder.reindexObject()
             behavior = ISelectableConstrainTypes(language_folder)
             behavior.setConstrainTypesMode(1)
@@ -413,7 +413,7 @@ class createBannersFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        gestion._Delete_objects_Permission = ('Site Administrator',)
+        gestion._Delete_objects_Permission = ('Site Administrator','Manager',)
 
         banners = newPrivateFolder(gestion, 'banners', u'Banners')
         banners.exclude_from_nav = False
@@ -422,7 +422,7 @@ class createBannersFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('ulearn.banner',))
         behavior.setImmediatelyAddableTypes(('ulearn.banner',))
-        banners._Delete_objects_Permission = ('Site Administrator',)
+        banners._Delete_objects_Permission = ('Site Administrator','Manager',)
 
         transaction.commit()
         return 'Done'
@@ -464,7 +464,7 @@ class createPersonalBannerFolder(grok.View):
                 behavior.setConstrainTypesMode(1)
                 behavior.setLocallyAllowedTypes(('Folder',))
                 behavior.setImmediatelyAddableTypes(('Folder',))
-                perFolder._Delete_objects_Permission = ('Site Administrator',)
+                perFolder._Delete_objects_Permission = ('Site Administrator','Manager',)
 
                 api.content.disable_roles_acquisition(perFolder)
                 for username, roles in perFolder.get_local_roles():
@@ -478,7 +478,7 @@ class createPersonalBannerFolder(grok.View):
                 behavior.setConstrainTypesMode(1)
                 behavior.setLocallyAllowedTypes(('ulearn.banner',))
                 behavior.setImmediatelyAddableTypes(('ulearn.banner',))
-                banFolder._Delete_objects_Permission = ('Site Administrator',)
+                banFolder._Delete_objects_Permission = ('Site Administrator','Manager',)
 
                 transaction.commit()
                 return 'Done' + ', ' + userid + '.'
