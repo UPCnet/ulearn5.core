@@ -318,7 +318,7 @@ class createCommunityTagsFolders(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        gestion._Delete_objects_Permission = ('Site Administrator',)
+        gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         community_tags = newPrivateFolder(gestion, 'community-tags', u'Community tags')
         community_tags.exclude_from_nav = False
@@ -327,7 +327,7 @@ class createCommunityTagsFolders(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('ulearn.community_tag',))
         behavior.setImmediatelyAddableTypes(('ulearn.community_tag',))
-        community_tags._Delete_objects_Permission = ('Site Administrator',)
+        community_tags._Delete_objects_Permission = ('Site Administrator', 'Manager',)
         community_tags.reindexObject()
 
         transaction.commit()
