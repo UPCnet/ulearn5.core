@@ -50,10 +50,6 @@
       <role name="Manager"/>
       <role name="WebMaster"/>
     </permission>
-    <permission name="Add Plone Keyword Manager Tools" acquire="True">
-      <role name="Manager"/>
-      <role name="WebMaster"/>
-    </permission>
     <permission name="Manage Keywords" acquire="True">
       <role name="Manager"/>
       <role name="WebMaster"/>
