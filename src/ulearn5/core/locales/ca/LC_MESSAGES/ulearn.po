@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-03-14 10:19+0000\n"
+"POT-Creation-Date: 2019-03-20 09:17+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -62,7 +62,7 @@ msgstr "Afegir portlet Enllaços directes"
 msgid "Add Recent Changes Portlet"
 msgstr "Afegir portlet Canvis recents"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:206
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:223
 msgid "Add Subscribed News Portlet"
 msgstr "Afegir portlet Les meves noticies"
 
@@ -138,8 +138,8 @@ msgid "Click to enable the icalendar import feature on this context."
 msgstr "Feu clic per activar la funció d'importació del icalendar en aquest context."
 
 #: ../content/community.py:129
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:35
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:64
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:33
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:65
 msgid "Closed"
 msgstr "Tancada"
 
@@ -254,7 +254,7 @@ msgstr "Editar portlet Enllaços directes"
 msgid "Edit Recent Changes Portlet"
 msgstr "Edita portlet Canvis recents"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:216
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:233
 msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícies destacades"
 
@@ -556,8 +556,8 @@ msgid "Number of items to display"
 msgstr "Nombre d'elements a mostrar"
 
 #: ../content/community.py:124
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:36
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:65
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:34
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:66
 msgid "Open"
 msgstr "Oberta"
 
@@ -566,8 +566,8 @@ msgid "Open in new tab"
 msgstr "Obrir en una finestra nova"
 
 #: ../content/community.py:134
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:37
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:66
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:35
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:67
 msgid "Organizative"
 msgstr "Organitzativa"
 
@@ -797,7 +797,7 @@ msgstr "El portlet mostra les noticies més recents."
 msgid "This portlet displays recently modified content."
 msgstr "Els portlet mostra els últims contiguts modificats."
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:207
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:224
 msgid "This portlet displays subscribed News Items."
 msgstr "Aquest portlet mostra els articles de notícies subscrits."
 
@@ -827,7 +827,7 @@ msgstr "Per obtenir un bon rendiment, es recomenable utilitzar una imatge d'una 
 
 #: ../browser/stats.py:69
 #: ../browser/viewlets.py:64
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:34
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:31
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
 
@@ -977,7 +977,7 @@ msgid "actualidad"
 msgstr "Actualitat"
 
 #. Default: "Communities"
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:22
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:20
 #: ulearn5/theme/browser/views_templates/communities.pt:25
 msgid "allcommunities"
 msgstr "Comunitats"
@@ -1045,7 +1045,7 @@ msgid "btnEditCommunity"
 msgstr "Edita comunitat"
 
 #. Default: "Button bar"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:50
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:53
 msgid "buttonbar"
 msgstr "Button bar"
 
@@ -1153,7 +1153,7 @@ msgid "contact_phone"
 msgstr "Telèfon"
 
 #. Default: "Create a new community"
-#: ulearn5/theme/portlets/templates/communities.pt:170
+#: ulearn5/theme/portlets/templates/communities.pt:175
 msgid "createcommunity"
 msgstr "Crear nova comunitat"
 
@@ -1251,7 +1251,7 @@ msgid "filter"
 msgstr "Filtra per text i/o per etiquetes:"
 
 #. Default: "busqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:143
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:178
 msgid "find_label"
 msgstr "Cerca..."
 
@@ -1266,12 +1266,12 @@ msgid "flashesinformativos"
 msgstr "Última hora"
 
 #. Default: "Go to the campus"
-#: ulearn5/theme/portlets/templates/communities.pt:158
+#: ulearn5/theme/portlets/templates/communities.pt:163
 msgid "gotocampus"
 msgstr "Vés al campus"
 
 #. Default: "Go to the library"
-#: ulearn5/theme/portlets/templates/communities.pt:163
+#: ulearn5/theme/portlets/templates/communities.pt:168
 msgid "gotolibrary"
 msgstr "Ves a la biblioteca"
 
@@ -1749,7 +1749,7 @@ msgid "label_password"
 msgstr "Contrasenya"
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:404
+#: ulearn5/theme/browser/views.py:418
 msgid "label_show_all"
 msgstr "Mostrar tots els elements"
 
@@ -1995,7 +1995,7 @@ msgid "profile"
 msgstr "Perfil d'usuari"
 
 #. Default: "Profile Community"
-#: ulearn5/theme/portlets/profilecommunity/profilecommunity.py:26
+#: ulearn5/theme/portlets/profilecommunity/profilecommunity.py:29
 msgid "profilecommunity"
 msgstr "Perfil de la comunitat"
 
@@ -2010,7 +2010,6 @@ msgstr "Icona Font Awesome"
 
 #. Default: "Leer mas.."
 #: ulearn5/theme/browser/views_templates/collectionnews.pt:97
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:177
 msgid "readmore"
 msgstr "Llegir més..."
 
@@ -2040,7 +2039,7 @@ msgid "search"
 msgstr "Cerca"
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:26
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:24
 #: ulearn5/theme/browser/views_templates/communities.pt:29
 msgid "search_communities"
 msgstr "Cerca comunitats"
@@ -2058,6 +2057,11 @@ msgstr "Cerca usuaris"
 #: ../controlpanel.py:229
 msgid "secondary_color"
 msgstr "Color secundari"
+
+#. Default: "See communities by tag"
+#: ulearn5/theme/portlets/templates/communities.pt:158
+msgid "see_communities_bytag"
+msgstr "Veure comunitats per etiqueta"
 
 #. Default: "Mes noticies"
 #: ulearn5/theme/portlets/importantnews/importantnews.pt:52

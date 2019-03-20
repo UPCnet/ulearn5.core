@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-03-14 10:19+0000\n"
+"POT-Creation-Date: 2019-03-20 09:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Add Recent Changes Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:206
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:223
 msgid "Add Subscribed News Portlet"
 msgstr ""
 
@@ -139,8 +139,8 @@ msgid "Click to enable the icalendar import feature on this context."
 msgstr ""
 
 #: ../content/community.py:129
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:35
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:64
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:33
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:65
 msgid "Closed"
 msgstr ""
 
@@ -255,7 +255,7 @@ msgstr ""
 msgid "Edit Recent Changes Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:216
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:233
 msgid "Edit Subscribed News Portlet"
 msgstr ""
 
@@ -352,7 +352,7 @@ msgid "If you do not add an image, a default banner will be created using the ti
 msgstr ""
 
 #: ../content/community_tag.py:36
-msgid "If you do not assign an image, this value will be used. By default: fa-filters"
+msgid "If you do not assign an image, this value will be used. By default: fa-filter"
 msgstr ""
 
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
@@ -557,8 +557,8 @@ msgid "Number of items to display"
 msgstr ""
 
 #: ../content/community.py:124
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:36
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:65
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:34
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:66
 msgid "Open"
 msgstr ""
 
@@ -567,8 +567,8 @@ msgid "Open in new tab"
 msgstr ""
 
 #: ../content/community.py:134
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:37
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:66
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:35
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:67
 msgid "Organizative"
 msgstr ""
 
@@ -798,7 +798,7 @@ msgstr ""
 msgid "This portlet displays recently modified content."
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:207
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:224
 msgid "This portlet displays subscribed News Items."
 msgstr ""
 
@@ -828,7 +828,7 @@ msgstr ""
 
 #: ../browser/stats.py:69
 #: ../browser/viewlets.py:64
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:34
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:31
 msgid "Todas las comunidades"
 msgstr ""
 
@@ -978,7 +978,7 @@ msgid "actualidad"
 msgstr ""
 
 #. Default: "Communities"
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:22
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:20
 #: ulearn5/theme/browser/views_templates/communities.pt:25
 msgid "allcommunities"
 msgstr ""
@@ -1046,7 +1046,7 @@ msgid "btnEditCommunity"
 msgstr ""
 
 #. Default: "Button bar"
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:50
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:53
 msgid "buttonbar"
 msgstr ""
 
@@ -1151,7 +1151,7 @@ msgid "contact_phone"
 msgstr ""
 
 #. Default: "Create a new community"
-#: ulearn5/theme/portlets/templates/communities.pt:170
+#: ulearn5/theme/portlets/templates/communities.pt:175
 msgid "createcommunity"
 msgstr ""
 
@@ -1249,7 +1249,7 @@ msgid "filter"
 msgstr ""
 
 #. Default: "busqueda..."
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:143
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:178
 msgid "find_label"
 msgstr ""
 
@@ -1264,12 +1264,12 @@ msgid "flashesinformativos"
 msgstr ""
 
 #. Default: "Go to the campus"
-#: ulearn5/theme/portlets/templates/communities.pt:158
+#: ulearn5/theme/portlets/templates/communities.pt:163
 msgid "gotocampus"
 msgstr ""
 
 #. Default: "Go to the library"
-#: ulearn5/theme/portlets/templates/communities.pt:163
+#: ulearn5/theme/portlets/templates/communities.pt:168
 msgid "gotolibrary"
 msgstr ""
 
@@ -1736,7 +1736,7 @@ msgid "label_password"
 msgstr ""
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:404
+#: ulearn5/theme/browser/views.py:418
 msgid "label_show_all"
 msgstr ""
 
@@ -1982,7 +1982,7 @@ msgid "profile"
 msgstr ""
 
 #. Default: "Profile Community"
-#: ulearn5/theme/portlets/profilecommunity/profilecommunity.py:26
+#: ulearn5/theme/portlets/profilecommunity/profilecommunity.py:29
 msgid "profilecommunity"
 msgstr ""
 
@@ -1997,7 +1997,6 @@ msgstr ""
 
 #. Default: "Leer mas.."
 #: ulearn5/theme/browser/views_templates/collectionnews.pt:97
-#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:177
 msgid "readmore"
 msgstr ""
 
@@ -2025,7 +2024,7 @@ msgid "search"
 msgstr ""
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/allcommunities.pt:26
+#: ulearn5/theme/browser/views_templates/allcommunities.pt:24
 #: ulearn5/theme/browser/views_templates/communities.pt:29
 msgid "search_communities"
 msgstr ""
@@ -2042,6 +2041,11 @@ msgstr ""
 #. Default: "Color secundari"
 #: ../controlpanel.py:229
 msgid "secondary_color"
+msgstr ""
+
+#. Default: "See communities by tag"
+#: ulearn5/theme/portlets/templates/communities.pt:158
+msgid "see_communities_bytag"
 msgstr ""
 
 #. Default: "Mes noticies"
