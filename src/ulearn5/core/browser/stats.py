@@ -7,6 +7,10 @@ from collections import Counter
 
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from oauth2client.service_account import ServiceAccountCredentials
+from apiclient.discovery import build
 
 from plone.memoize.view import memoize_contextless
 
@@ -108,6 +112,7 @@ class StatsQueryBase(grok.View):
         catalog = getToolByName(self.portal(), 'portal_catalog')
         self.plone_stats = PloneStats(catalog)
         self.max_stats = MaxStats(self.get_max_client())
+        self.analytic_data = AnalyticsData(catalog)
         self._params = None
 
     @memoize_contextless
@@ -130,6 +135,9 @@ class StatsQueryBase(grok.View):
             return getattr(self.plone_stats, stat_method)(filters, start, end)
         elif hasattr(self.max_stats, stat_method):
             return getattr(self.max_stats, stat_method)(filters, start, end)
+        elif hasattr(self.analytic_data, stat_method):
+            if stat_method == 'stat_pageviews':
+               return getattr(self.analytic_data, stat_method)(filters, start, end)
         else:
             return 0
 
@@ -200,6 +208,10 @@ class StatsQuery(StatsQueryBase):
     grok.name('ulearn-stats-query')
     grok.require('base.webmaster')
 
+    @memoize_contextless
+    def portal_url(self):
+        return self.portal().absolute_url()
+
     def render(self):
         if self.params['end'] < self.params['start']:
             self.params['end'] == self.params['start']
@@ -209,21 +221,45 @@ class StatsQuery(StatsQueryBase):
         }
 
         current = self.params['start']
-        while current <= self.params['end']:
-            row = [dict(value=self.get_month_by_num(current.month) + u' ' + unicode(current.year),
-                        show_drilldown=False)]
-            for stat_type in self.params['stats_requested']:
-                value = self.get_stats(
-                    stat_type,
-                    self.params['search_filters'],
-                    start=first_moment_of_month(current),
-                    end=last_moment_of_month(current))
-                row.append(dict(value=value,
-                                stat_type=stat_type,
-                                drilldown_date=current.strftime('%Y-%m-%d'),
-                                show_drilldown=True))
-            results['rows'].append(row)
-            current = next_month(current)
+        if 'pageviews' in self.params['stats_requested']:
+            stats = getattr(self.analytic_data, 'stat_pageviews')(self.params['search_filters'], first_moment_of_month(current), last_moment_of_month(current))
+
+            portal_url = self.portal_url()
+            for line in stats:
+                community = line[0].replace('/', '')
+                communityLink = portal_url + line[0]
+                title = line[2][0:line[2].rfind(' -')]
+                titleLink = line[1]
+                typeContent = line[3]
+                date = datetime.strftime(datetime.strptime(line[4], '%Y%m%d%H%M'), '%d/%m/%Y %H:%M')
+                views = line[5]
+
+                row = [dict(value='', link=None, show_drilldown=False),
+                       dict(value=community, link=communityLink, show_drilldown=False),
+                       dict(value=title, link=titleLink, show_drilldown=False),
+                       dict(value=typeContent, link=None, show_drilldown=False),
+                       dict(value=date, link=None, show_drilldown=False),
+                       dict(value=views, link=None, show_drilldown=False)]
+                results['rows'].append(row)
+        else:
+            while current <= self.params['end']:
+                row = [dict(value=self.get_month_by_num(current.month) + u' ' + unicode(current.year),
+                            link=None,
+                            show_drilldown=False)]
+
+                for stat_type in self.params['stats_requested']:
+                    value = self.get_stats(
+                        stat_type,
+                        self.params['search_filters'],
+                        start=first_moment_of_month(current),
+                        end=last_moment_of_month(current))
+                    row.append(dict(value=value,
+                                    stat_type=stat_type,
+                                    drilldown_date=current.strftime('%Y-%m-%d'),
+                                    link=None,
+                                    show_drilldown=True))
+                results['rows'].append(row)
+                current = next_month(current)
 
         output_format = self.request.form.get('format', 'json')
         if output_format == 'json':
@@ -232,9 +268,15 @@ class StatsQuery(StatsQueryBase):
         elif output_format == 'csv':
             self.request.response.setHeader('Content-type', 'application/csv')
             self.request.response.setHeader('Content-disposition', 'attachment; filename=ulearn-stats-{}.csv'.format(datetime.now().strftime('%Y%m%d%H%M%S')))
-            lines = [','.join(['Fecha'] + self.params['stats_requested'])]
-            for row in results['rows']:
-                lines.append(','.join([str(col['value']) for col in row]))
+            pageviews = 'pageviews' in self.params['stats_requested']
+            if not pageviews:
+                lines = [','.join(['Fecha'] + self.params['stats_requested'])]
+                for row in results['rows']:
+                    lines.append(','.join([str(col['value']) for col in row]))
+            else:
+                lines = [','.join([''] + self.params['stats_requested'])]
+                for row in results['rows']:
+                    lines.append(','.join([str(col['value'].encode('utf-8')) for col in row]))
             return '\n'.join(lines)
 
 
@@ -562,3 +604,59 @@ class MaxStats(object):
                 return endpoint.head(qs=params)
             except:
                 return '?'
+
+class AnalyticsData(object):
+    """
+    """
+    def __init__(self, catalog):
+        self.catalog = catalog
+
+    def stat_by_folder(self, search_folder, filters, start, end=None):
+        """
+        """
+        settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
+        if settings is None or \
+           settings.gAnalytics_view_ID is None or \
+           settings.gAnalytics_JSON_info is None or \
+           settings.gAnalytics_enabled is None or \
+           settings.gAnalytics_enabled == False:
+           return {}
+        gAnalytics_view_ID = settings.gAnalytics_view_ID
+        gAnalytics_JSON_info = settings.gAnalytics_JSON_info
+
+        credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+                       json.loads(gAnalytics_JSON_info),
+                       scopes=['https://www.googleapis.com/auth/analytics.readonly'])
+        service = build('analytics', 'v3', credentials=credentials)
+
+
+        catalog_filters = dict(portal_type='ulearn.community')
+
+        if filters['community']:
+            catalog_filters['community_hash'] = filters['community']
+
+        # List all paths of the resulting comunities
+        communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
+        gaFilters = ','.join('ga:pagePathLevel2=~/' + community.id for community in communities)
+        analyticsData = service.data().ga().get(**{
+            'ids': 'ga:' + gAnalytics_view_ID,
+            'start_date': str(datetime.date(start)),
+            'end_date': str(datetime.date(end)),
+            'metrics': 'ga:pageviews',
+            'dimensions': 'ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1,ga:dateHourMinute',
+            'filters': gaFilters,
+            'max_results': '20',
+            'sort': '-ga:pageviews'
+        }).execute()
+
+        if 'rows' in analyticsData:
+            return analyticsData['rows']
+        else:
+            return []
+        #return [[u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'201901111132', u'7'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'201901111136', u'5'], [u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'201901111131', u'4'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'document', u'201901111128', u'4'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110906', u'4'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901111127', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901131412', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'content_type', u'201901110851', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/enllacos/view', u'Enlla\xe7os - Ulearn Comunitats', u'link', u'201901111134', u'3'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110855', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901111116', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/carles.png/view', u'carles.png - Ulearn Comunitats', u'image', u'201901111129', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'201901111137', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/prova-pageviews', u'Prova pageviews - Ulearn Comunitats', u'document', u'201901131427', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110852', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110857', u'2'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901111112', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901111114', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901131412', u'1'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'content_type', u'201901110851', u'1']]
+
+
+    def stat_pageviews(self, filters, start, end=None):
+        """
+        """
+        return self.stat_by_folder('pageviews', filters, start, end)
