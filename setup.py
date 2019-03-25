@@ -60,6 +60,8 @@ setup(
         'ipdb',
         'pytz',
         'Products.PloneKeywordManager'
+        'google-api-python-client',
+        'oauth2client'
     ],
     extras_require={
         'test': [
