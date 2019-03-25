@@ -59,7 +59,7 @@ setup(
         'mrs5.max',
         'ipdb',
         'pytz',
-        'Products.PloneKeywordManager'
+        'Products.PloneKeywordManager',
         'google-api-python-client',
         'oauth2client'
     ],
