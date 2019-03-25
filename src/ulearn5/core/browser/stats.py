@@ -231,14 +231,12 @@ class StatsQuery(StatsQueryBase):
                 title = line[2][0:line[2].rfind(' -')]
                 titleLink = line[1]
                 typeContent = line[3]
-                date = datetime.strftime(datetime.strptime(line[4], '%Y%m%d%H%M'), '%d/%m/%Y %H:%M')
-                views = line[5]
+                views = line[4]
 
                 row = [dict(value='', link=None, show_drilldown=False),
                        dict(value=community, link=communityLink, show_drilldown=False),
                        dict(value=title, link=titleLink, show_drilldown=False),
                        dict(value=typeContent, link=None, show_drilldown=False),
-                       dict(value=date, link=None, show_drilldown=False),
                        dict(value=views, link=None, show_drilldown=False)]
                 results['rows'].append(row)
         else:
@@ -643,9 +641,9 @@ class AnalyticsData(object):
             'start_date': str(datetime.date(start)),
             'end_date': str(datetime.date(end)),
             'metrics': 'ga:pageviews',
-            'dimensions': 'ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1,ga:dateHourMinute',
+            'dimensions': 'ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1',
             'filters': gaFilters,
-            'max_results': '20',
+            'max_results': '40',
             'sort': '-ga:pageviews'
         }).execute()
 
