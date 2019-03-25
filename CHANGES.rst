@@ -2,11 +2,19 @@ Changelog
 =========
 
 
-0.29 (unreleased)
+0.29 (2019-03-25)
 -----------------
 
-- Nothing changed yet.
-
+* solucionar merge [Pilar Marinas]
+* Merge estadistiques [Pilar Marinas]
+* Quitar filtro fecha [Pilar Marinas]
+* travis [Pilar Marinas]
+* travis [Pilar Marinas]
+* travis [Pilar Marinas]
+* travis [pmarinas]
+* Solucionar Travis [pmarinas]
+* Solucionar tests [Pilar Marinas]
+* Travis [Pilar Marinas]
 
 0.28 (2019-03-18)
 -----------------
