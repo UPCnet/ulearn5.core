@@ -1,6 +1,6 @@
 [report]
 include =
-    src/base5/*
+    src/ulearn5/*
 omit =
     */test*
     */upgrades/*
