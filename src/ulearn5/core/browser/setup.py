@@ -48,8 +48,6 @@ from ulearn5.owncloud.api.owncloud import OCSResponseError
 from ulearn5.owncloud.utilities import IOwncloudClient
 from ulearn5.owncloud.utils import get_domain
 
-
-
 import base64
 import json
 import logging
@@ -1109,3 +1107,79 @@ class listFileUploadErrors(grok.View):
                 return 'No hay ficheros'
         else:
             return 'Owncloud no activado'
+
+
+class changePermissionsToContent(grok.View):
+    """ Canvia els permisos a tots el continguts que s'han creat autòmaticament (/news, /gestion, ...) """
+    grok.name('changePermissionsToContent')
+    grok.context(IPloneSiteRoot)
+
+    def render(self):
+        portal = getSite()
+        langs = getToolByName(portal, 'portal_languages').getSupportedLanguages()
+        delete_permission = ('Site Administrator', 'Manager',)
+
+        portal['front-page']._Delete_objects_Permission = delete_permission
+
+        if 'news' in portal:
+            portal['news']._Delete_objects_Permission = delete_permission
+
+            if 'aggregator' in portal['news']:
+                portal['news']['aggregator']._Delete_objects_Permission = delete_permission
+
+        if 'Members' in portal:
+            for user in portal['Members']:
+                portal['Members'][user]._Delete_objects_Permission = delete_permission
+
+                if 'banners' in portal['Members'][user]:
+                    portal['Members'][user]['banners']._Delete_objects_Permission = delete_permission
+
+        if 'gestion' in portal:
+            portal['gestion']._Delete_objects_Permission = delete_permission
+
+            if 'menu' in portal['gestion']:
+                portal['gestion']['menu']._Delete_objects_Permission = delete_permission
+
+                for lang in langs:
+                    if lang in portal['gestion']['menu']:
+                        portal['gestion']['menu'][lang]._Delete_objects_Permission = delete_permission
+
+            if 'header' in portal['gestion']:
+                portal['gestion']['header']._Delete_objects_Permission = delete_permission
+
+                for lang in langs:
+                    if lang in portal['gestion']['header']:
+                        portal['gestion']['header'][lang]._Delete_objects_Permission = delete_permission
+
+            if 'footer' in portal['gestion']:
+                portal['gestion']['footer']._Delete_objects_Permission = delete_permission
+
+                for lang in langs:
+                    if lang in portal['gestion']['footer']:
+                        portal['gestion']['footer'][lang]._Delete_objects_Permission = delete_permission
+
+            if 'banners' in portal['gestion']:
+                portal['gestion']['banners']._Delete_objects_Permission = delete_permission
+
+            if 'community-tags' in portal['gestion']:
+                portal['gestion']['community-tags']._Delete_objects_Permission = delete_permission
+
+        pc = api.portal.get_tool('portal_catalog')
+        communities = pc.unrestrictedSearchResults(portal_type='ulearn.community')
+
+        for community in communities:
+            com = community.id
+            if 'documents' in portal[com]:
+                portal[com]['documents']._Delete_objects_Permission = delete_permission
+
+            if 'events' in portal[com]:
+                portal[com]['events']._Delete_objects_Permission = delete_permission
+
+            if 'news' in portal[com]:
+                portal[com]['news']._Delete_objects_Permission = delete_permission
+
+                if 'aggregator' in portal[com]['news']:
+                    portal[com]['news']['aggregator']._Delete_objects_Permission = delete_permission
+
+        transaction.commit()
+        return 'OK'
