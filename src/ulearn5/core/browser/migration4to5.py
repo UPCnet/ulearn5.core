@@ -204,7 +204,13 @@ class migrationDocumentsCommunities(grok.View):
                             if os.path.exists(path_guardar_export_dexterity_comunitats_V5 + '/content'):
                                 shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
 
-                            cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+                            if certificado_maquina_comunitats_V4 == 'local':
+                                # para hacer la migracion con las instancias de plone 4 y 5 en la misma maquina
+                                cmd = 'cp -r ' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+                            else:
+                                # produccion
+                                cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+
                             subprocess.Popen([cmd], shell=True).wait()
                             migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
                             if migrat.ok:
@@ -223,7 +229,13 @@ class migrationDocumentsCommunities(grok.View):
                             if os.path.exists(path_guardar_export_dexterity_comunitats_V5 + '/content'):
                                 shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
 
-                            cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+                            if certificado_maquina_comunitats_V4 == 'local':
+                                # para hacer la migracion con las instancias de plone 4 y 5 en la misma maquina
+                                cmd = 'cp -r ' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+                            else:
+                                # produccion
+                                cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+
                             subprocess.Popen([cmd], shell=True).wait()
                             migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/events/comunitats_import', auth=(remote_username, remote_password))
                             if migrat.ok:
@@ -276,8 +288,12 @@ class migrationPath(grok.View):
                     if os.path.exists(path_guardar_export_dexterity_comunitats_V5 + '/content'):
                         shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
 
-                    # produccion
-                    cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+                    if certificado_maquina_comunitats_V4 == 'local':
+                        # para hacer la migracion con las instancias de plone 4 y 5 en la misma maquina
+                        cmd = 'scp -r ' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
+                    else:
+                        # produccion
+                        cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
 
                     # pre
                     # cmd = 'scp -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
