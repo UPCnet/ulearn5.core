@@ -382,6 +382,33 @@ def CreateThumbImage(content, event):
     else:
         content.thumbnail_image = None
 
+@grok.subscribe(ICommunity, IObjectAddedEvent)
+@grok.subscribe(ICommunity, IObjectModifiedEvent)
+def CreateThumbImageCommunity(content, event):
+    """ Update thumb from Community image on save
+    """
+    if getattr(content, 'image', None):
+        content_type = content.image.contentType
+        filename = content.image.filename
+        raw_file = content.image.data
+        raw_content = StringIO(raw_file)
+        img = PIL.Image.open(raw_content).convert('RGB')
+
+        basewidth = 150
+        wpercent = basewidth / float(img.size[0])
+        hsize = int(float(img.size[1]) * float(wpercent))
+        resized = img.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
+        output_tmp = io.BytesIO()
+        resized.save(output_tmp, format='JPEG')
+        hex_data = output_tmp.getvalue()
+        thumb_image = NamedBlobImage(
+            data=hex_data,
+            filename=filename,
+            contentType=str(content_type))
+        content.thumbnail_image = thumb_image
+    else:
+        content.thumbnail_image = None
+
 
 @grok.subscribe(IFolder, IObjectAddedEvent)
 def setLocallyAllowedTypesFolder(content, event):
