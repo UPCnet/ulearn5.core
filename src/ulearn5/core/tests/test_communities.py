@@ -170,7 +170,7 @@ class TestExample(uLearnTestBase):
         self.assertTrue(u'ulearn.testuser1' in self.get_max_subscribed_users(community))
 
         # Test for Plone permissions/local roles
-        self.assertTrue('Reader' in community.get_local_roles_for_userid(userid='AuthenticatedUsers'))
+        self.assertTrue('Reader' not in community.get_local_roles_for_userid(userid='AuthenticatedUsers'))
         self.assertTrue('Editor' in community.get_local_roles_for_userid(userid='ulearn.testuser1'))
         self.assertTrue('Owner' in community.get_local_roles_for_userid(userid='ulearn.testuser1'))
         self.assertTrue('Reader' in community.get_local_roles_for_userid(userid='ulearn.testuser1'))
@@ -331,34 +331,34 @@ class TestExample(uLearnTestBase):
 
         pc = api.portal.get_tool('portal_catalog')
 
-        self.assertEqual(len(pc.searchResults(portal_type='Event')), 1)
+        self.assertEqual(len(pc.searchResults(portal_type='Event')), 0)
 
-    # def test_events_visibility_open_communities_switch_to_closed(self):
-    #     community = self.create_test_community(community_type='Open')
+    def test_events_visibility_open_communities_switch_to_closed(self):
+        login(self.portal, 'ulearn.testuser1')
+        community = self.create_test_community(community_type='Open')
 
-    #     login(self.portal, 'ulearn.testuser1')
-    #     community['events'].invokeFactory('Event', 'test-event', title="Da event")
-    #     logout()
+        community['events'].invokeFactory('Event', 'test-event', title="Da event")
+        logout()
 
-    #     login(self.portal, 'ulearn.testuser2')
+        login(self.portal, 'ulearn.testuser2')
 
-    #     pc = api.portal.get_tool('portal_catalog')
+        pc = api.portal.get_tool('portal_catalog')
 
-    #     self.assertEqual(len(pc.searchResults(portal_type='Event')), 1)
+        self.assertEqual(len(pc.searchResults(portal_type='Event')), 0)
 
-    #     logout()
+        logout()
 
-    #     login(self.portal, 'ulearn.testuser1')
+        login(self.portal, 'ulearn.testuser1')
 
-    #     community.community_type = 'Closed'
-    #     notify(ObjectModifiedEvent(community))
+        community.community_type = 'Closed'
+        notify(ObjectModifiedEvent(community))
 
-    #     logout()
+        logout()
 
-    #     login(self.portal, 'ulearn.testuser2')
+        login(self.portal, 'ulearn.testuser2')
 
-    #     self.assertFalse(pc.searchResults(portal_type='Event'))
-    #     self.assertRaises(Unauthorized, self.portal.restrictedTraverse, 'community-test/events/test-event')
+        self.assertFalse(pc.searchResults(portal_type='Event'))
+        self.assertRaises(Unauthorized, self.portal.restrictedTraverse, 'community-test/events/test-event')
 
     # def test_newcommunities_getters_setters(self):
     #     readers = [u'victor.fernandez']

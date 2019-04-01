@@ -218,7 +218,7 @@ class TestAPI(uLearnTestBase):
         self.assertEqual(community_view.request.response.getStatus(), 200)
         self.assertEqual(community.community_type, 'Open')
 
-        self.assertTrue('Reader' in community.get_local_roles_for_userid(userid='AuthenticatedUsers'))
+        self.assertTrue('Reader' not in community.get_local_roles_for_userid(userid='AuthenticatedUsers'))
 
         max_community_info = self.get_max_context_info(community)
         for key in OPEN_PERMISSIONS:
@@ -302,11 +302,10 @@ class TestAPI(uLearnTestBase):
         httpretty.enable()
         http_mock_hub_syncacl(acl, self.settings.hub_server)
         login(self.portal, 'ulearn.testuser2')
-
         response = subscriptions_view.POST()
         response = json.loads(response)
 
-        self.assertTrue(response['status_code'] == 403)
+        self.assertTrue(response['status_code'] == 404)
 
     def test_communities_get(self):
         """ Gets all communities and its properties for the requester user. """
