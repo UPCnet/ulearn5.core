@@ -1111,8 +1111,8 @@ class listFileUploadErrors(grok.View):
 
 class changePermissionsToContent(grok.View):
     """ Canvia els permisos a tots el continguts que s'han creat autòmaticament (/news, /gestion, ...) """
-    grok.name('changePermissionsToContent')
     grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
 
     def render(self):
         portal = getSite()
@@ -1168,6 +1168,8 @@ class changePermissionsToContent(grok.View):
         communities = pc.unrestrictedSearchResults(portal_type='ulearn.community')
 
         for community in communities:
+            community.getObject().manage_delLocalRoles(['AuthenticatedUsers'])
+
             com = community.id
             if 'documents' in portal[com]:
                 portal[com]['documents']._Delete_objects_Permission = delete_permission
