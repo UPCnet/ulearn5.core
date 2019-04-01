@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.30 (unreleased)
+0.30 (2019-04-01)
 -----------------
 
-- Nothing changed yet.
-
+* Clouseau changepermissionstocontent: Quitar permisos de AuthenticatedUsers a las comunidades [Iago López Fernández]
+* Modificar permisos comunidades Abiertas [Iago López Fernández]
+* Solucionar migracion si plone 4 y 5 misma maquina [Pilar Marinas]
+* Clouseau: changePermissionsToContent [Iago López Fernández]
+* coverage [Pilar Marinas]
+* Traducciones [Iago López Fernández]
 
 0.29 (2019-03-25)
 -----------------
