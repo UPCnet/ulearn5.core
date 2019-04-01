@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.31 (unreleased)
+0.31 (2019-04-01)
 -----------------
 
-- Nothing changed yet.
-
+* Solucionar test [Pilar Marinas]
 
 0.30 (2019-04-01)
 -----------------
