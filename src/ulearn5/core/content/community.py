@@ -675,8 +675,9 @@ class OpenCommunity(CommunityAdapterMixin):
         )
 
     def set_plone_permissions(self, acl, changed=False):
+        # if self.context.get_local_roles_for_userid(userid='AuthenticatedUsers'):
+            # self.context.manage_delLocalRoles(['AuthenticatedUsers'])
         if not self.context.get_local_roles_for_userid(userid='AuthenticatedUsers'):
-            #self.context.manage_delLocalRoles(['AuthenticatedUsers'])
             self.context.manage_setLocalRoles('AuthenticatedUsers', ['Reader'])
             changed = True
 
