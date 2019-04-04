@@ -233,6 +233,26 @@ class Community(REST, CommunityMixin):
     def __init__(self, context, request):
         super(Community, self).__init__(context, request)
 
+    @api_resource(required_roles=['Member', 'Manager', 'Api'])
+    def GET(self):
+        """ Return information community """
+
+        community = self.params.pop('community')
+        pc = api.portal.get_tool('portal_catalog')
+        communities = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=community)
+
+        result = []
+        for brain in communities:
+            community = dict(id=brain.id,
+                             title=brain.Title,
+                             description=brain.Description,
+                             url=brain.getURL(),
+                             gwuuid=brain.gwuuid,
+                             type=brain.community_type)
+            result.append(community)
+
+        return ApiResponse(result)
+
     @api_resource(get_target=True, required_roles=['Owner', 'Manager', 'Api'])
     def PUT(self):
         """ Modifies the community itself. """
