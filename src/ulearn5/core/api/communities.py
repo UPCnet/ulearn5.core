@@ -116,7 +116,7 @@ class Communities(REST):
     grok.adapts(APIRoot, IPloneSiteRoot)
     grok.require('base.authenticated')
 
-    @api_resource(required_roles=['Member', 'Manager'])
+    @api_resource(required_roles=['Member', 'Manager', 'Api'])
     def GET(self):
         """ Returns all the user communities and the open ones. """
 
@@ -233,7 +233,7 @@ class Community(REST, CommunityMixin):
     def __init__(self, context, request):
         super(Community, self).__init__(context, request)
 
-    @api_resource(get_target=True, required_roles=['Owner', 'Manager'])
+    @api_resource(get_target=True, required_roles=['Owner', 'Manager', 'Api'])
     def PUT(self):
         """ Modifies the community itself. """
         params = {}
@@ -269,7 +269,7 @@ class Community(REST, CommunityMixin):
         logger.info(success_response)
         return ApiResponse.from_string(success_response)
 
-    @api_resource(get_target=True, required_roles=['Owner', 'Manager'])
+    @api_resource(get_target=True, required_roles=['Owner', 'Manager', 'Api'])
     def DELETE(self):
         # Check if there's a valid community with the requested hash
         # lookedup_obj = self.lookup_community()
@@ -365,7 +365,7 @@ class Subscriptions(REST, CommunityMixin):
     grok.adapts(Community, IPloneSiteRoot)
     grok.require('base.authenticated')
 
-    @api_resource(get_target=True, required_roles=['Owner', 'Manager'])
+    @api_resource(get_target=True, required_roles=['Owner', 'Manager', 'Api'])
     def GET(self):
         """
             Get the subscriptions for the community. The security is given an
@@ -387,7 +387,7 @@ class Subscriptions(REST, CommunityMixin):
 
         return ApiResponse(result)
 
-    @api_resource(get_target=True, required_roles=['Owner', 'Manager'])
+    @api_resource(get_target=True, required_roles=['Owner', 'Manager', 'Api'])
     def POST(self):
         """
             Subscribes a bunch of users to a community the security is given an
@@ -412,15 +412,18 @@ class Subscriptions(REST, CommunityMixin):
         logger.info(success_response)
         return ApiResponse.from_string(success_response)
 
-    @api_resource(get_target=True, required_roles=['Owner', 'Manager'])
+    @api_resource(get_target=True, required_roles=['Owner', 'Manager', 'Api'])
     def PUT(self):
         """
             Subscribes a bunch of users to a community the security is given an
             initial soft check for authenticated users at the view level and
             then by checking explicitly if the requester user has permission on
             the target community.
-        """
 
+            objUser = {'users': [{'id': 'user1', 'displayName': 'Display name', 'role': 'reader'}]}
+            requests.put('url/api/communities/' + communityHash + '/subscriptions',data=json.dumps(objUser), headers={'X-Oauth-Username': husername,'X-Oauth-Token': htoken, 'X-Oauth-Scope': hscope})
+
+        """
         self.update_subscriptions()
 
         # Response successful
@@ -428,7 +431,7 @@ class Subscriptions(REST, CommunityMixin):
         logger.info(success_response)
         return ApiResponse.from_string(success_response)
 
-    @api_resource(get_target=True, required_roles=['Owner', 'Manager'])
+    @api_resource(get_target=True, required_roles=['Owner', 'Manager', 'Api'])
     def DELETE(self):
         # # Check if there's a valid community with the requested hash
         # lookedup_obj = self.lookup_community()
