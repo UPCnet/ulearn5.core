@@ -1168,8 +1168,8 @@ class changePermissionsToContent(grok.View):
         communities = pc.unrestrictedSearchResults(portal_type='ulearn.community')
 
         for community in communities:
-            #community.getObject().manage_delLocalRoles(['AuthenticatedUsers'])
-            community.getObject().manage_setLocalRoles('AuthenticatedUsers', ['Reader'])
+            community.getObject().manage_delLocalRoles(['AuthenticatedUsers'])
+            #community.getObject().manage_setLocalRoles('AuthenticatedUsers', ['Reader'])
 
             com = community.id
             if 'documents' in portal[com]:
