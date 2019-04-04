@@ -185,7 +185,7 @@ class TestAPI(uLearnTestBase):
         response = subscriptions_view.POST()
         response = json.loads(response)
 
-        self.assertEqual(subscriptions_view.request.response.getStatus(), 404)
+        self.assertEqual(subscriptions_view.request.response.getStatus(), 403)
         logout()
 
         httpretty.disable()
