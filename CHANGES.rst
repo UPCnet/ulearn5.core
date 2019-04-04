@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.33 (unreleased)
+0.33 (2019-04-04)
 -----------------
 
-- Nothing changed yet.
-
+* Mofify test_community_subscribe_post [Pilar Marinas]
+* AuthenticatedUsers in OpenCommunity [Pilar Marinas]
+* Api GET community [Pilar Marinas]
+* Add role Api in WS communities [Pilar Marinas]
+* AuthenticatedUsers in OpenCommunity [Iago López Fernández]
+* AuthenticatedUsers in OpenCommunity [Pilar Marinas]
 
 0.32 (2019-04-01)
 -----------------
