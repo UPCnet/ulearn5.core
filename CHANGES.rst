@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.35 (unreleased)
+0.35 (2019-04-08)
 -----------------
 
-- Nothing changed yet.
-
+* Corregir Estadisticas  path comunidad con mountpoint [Pilar Marinas]
 
 0.34 (2019-04-08)
 -----------------
