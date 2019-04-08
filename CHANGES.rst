@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.34 (unreleased)
+0.34 (2019-04-08)
 -----------------
 
-- Nothing changed yet.
-
+* Mejorar vista /stats/pageviews [Iago López Fernández]
+* travis_wait to resolve timeout coverage [Pilar Marinas]
 
 0.33 (2019-04-04)
 -----------------
