@@ -227,8 +227,8 @@ class StatsQuery(StatsQueryBase):
             portal_url = self.portal_url()
             for line in stats:
                 community = line[0].replace('/', '')
-                if '?_authenticator' in community:
-                    pos = community.find('?_authenticator')
+                if '?' in community:
+                    pos = community.find('?')
                     community = community[0:pos]
                 communityLink = portal_url + line[0]
                 title = line[2][0:line[2].rfind(' -')]
@@ -638,13 +638,13 @@ class AnalyticsData(object):
 
         # List all paths of the resulting comunities
         communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
-        gaFilters = ','.join('ga:pagePath=~/' + community.id for community in communities)
+        gaFilters = ','.join('ga:pagePathLevel1=~/' + community.id for community in communities)
         analyticsData = service.data().ga().get(**{
             'ids': 'ga:' + gAnalytics_view_ID,
             'start_date': str(datetime.date(start)),
             'end_date': str(datetime.date(end)),
             'metrics': 'ga:pageviews',
-            'dimensions': 'ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1',
+            'dimensions': 'ga:pagePathLevel1,ga:pagePath,ga:pageTitle,ga:dimension1',
             'filters': gaFilters,
             'max_results': '40',
             'sort': '-ga:pageviews'
