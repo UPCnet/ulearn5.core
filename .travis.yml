@@ -12,16 +12,16 @@ install:
   - python bootstrap-buildout.py
   - bin/buildout -N buildout:download-cache=downloads annotate
   - bin/buildout -N buildout:download-cache=downloads
-  - travis_wait 30 python TriggerBuild.py
+  - pip install -U tox coveralls
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - firefox -v
 script:
   - bin/test
+  - travis_wait 30 tox --develop
 after_success:
   - bin/createcoverage
-  - pip install coveralls
   - coveralls
 notifications:
   email:
