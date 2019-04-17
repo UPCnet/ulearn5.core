@@ -61,7 +61,8 @@ setup(
         'pytz',
         'Products.PloneKeywordManager',
         'google-api-python-client',
-        'oauth2client'
+        'oauth2client',
+        'collective.easyform'
     ],
     extras_require={
         'test': [
