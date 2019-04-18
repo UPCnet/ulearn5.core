@@ -222,7 +222,11 @@ class StatsQuery(StatsQueryBase):
 
         current = self.params['start']
         if 'pageviews' in self.params['stats_requested']:
-            stats = getattr(self.analytic_data, 'stat_pageviews')(self.params['search_filters'], first_moment_of_month(current), last_moment_of_month(current))
+
+            stats = getattr(self.analytic_data, 'stat_pageviews')(
+                self.params['search_filters'],
+                first_moment_of_month(current),
+                last_moment_of_month(self.params['end']))
 
             portal_url = self.portal_url()
             for line in stats:
