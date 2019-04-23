@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-03-26 08:20+0000\n"
+"POT-Creation-Date: 2019-04-18 09:54+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -87,7 +87,7 @@ msgstr "Totes les dates"
 msgid "Banner"
 msgstr "Bàner"
 
-#: ../content/community.py:1406
+#: ../content/community.py:1409
 msgid "Blog"
 msgstr "Blog"
 
@@ -165,7 +165,7 @@ msgstr "Comunitat"
 msgid "Comunitat_stats"
 msgstr "Estadístiques"
 
-#: ../content/community.py:1095
+#: ../content/community.py:1098
 msgid "Crea la comunitat"
 msgstr "Crea la comunitat"
 
@@ -210,7 +210,7 @@ msgstr "Mostrar descripcions"
 msgid "Display images"
 msgstr "Mostrar imatges"
 
-#: ../content/community.py:1345
+#: ../content/community.py:1348
 msgid "Documents"
 msgstr "Documents"
 
@@ -252,7 +252,7 @@ msgstr "Editar portlet Notícies destacades"
 msgid "Edit cancelled"
 msgstr "Edició cancel·lada"
 
-#: ../content/community.py:1218
+#: ../content/community.py:1221
 msgid "Edita la comunitat"
 msgstr "Desa"
 
@@ -284,7 +284,7 @@ msgstr ""
 msgid "Error, the directory has been deleted."
 msgstr "Error, el directori ha sigut eliminat."
 
-#: ../content/community.py:1347
+#: ../content/community.py:1350
 msgid "Esdeveniments"
 msgstr "Esdeveniments"
 
@@ -293,7 +293,7 @@ msgid "Events"
 msgstr "Agenda"
 
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
-#: ../browser/stats_templates/statsview.pt:243
+#: ../browser/stats_templates/statsview.pt:245
 msgid "Filtro por palabra clave"
 msgstr "Filtrar per paraula clau"
 
@@ -430,7 +430,7 @@ msgid "Manage Nomines"
 msgstr "Gestió de nòmines"
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1346
+#: ../content/community.py:1349
 msgid "Media"
 msgstr "Media"
 
@@ -523,11 +523,15 @@ msgstr "Nòmines"
 msgid "Nomines Root folder"
 msgstr "Carpeta arrel nòmines"
 
-#: ../content/community.py:1348
+#: ../browser/viewlets.py:72
+msgid "Noticias"
+msgstr "Notícies"
+
+#: ../content/community.py:1351
 msgid "Noticies"
 msgstr "Notícies"
 
-#: ../content/community.py:1407
+#: ../content/community.py:1410
 msgid "Noticies de la comunitat"
 msgstr "Blog de notícies de la comunitat"
 
@@ -662,7 +666,7 @@ msgstr "Restringeix"
 msgid "Restricted to managers"
 msgstr "Restringit als administradors"
 
-#: ../browser/stats_templates/statsview.pt:287
+#: ../browser/stats_templates/statsview.pt:289
 msgid "Resultados"
 msgstr "Resultats"
 
@@ -810,7 +814,7 @@ msgstr "Temps de l'última transició"
 msgid "Tipus de comunitat"
 msgstr "Tipus de comunitat"
 
-#: ../browser/stats.py:73
+#: ../browser/stats.py:74
 #: ../browser/viewlets.py:64
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:34
 msgid "Todas las comunidades"
@@ -819,6 +823,10 @@ msgstr "Totes les comunitats"
 #: ../patches.py:1086
 msgid "Today"
 msgstr "Avui"
+
+#: ../browser/viewlets.py:71
+msgid "Todo el contenido"
+msgstr "Tot el contingut"
 
 #: ../content/community.py:225
 msgid "Twitter hashtag"
@@ -897,7 +905,7 @@ msgid "Url that links to more content."
 msgstr "Url a més contingut."
 
 #. Default: "Usuario <span class=\"formHelp\"></span>"
-#: ../browser/stats_templates/statsview.pt:224
+#: ../browser/stats_templates/statsview.pt:226
 msgid "Usuario_stats"
 msgstr "Usuari"
 
@@ -1017,7 +1025,7 @@ msgid "btnAclCommunity"
 msgstr "Gestiona membres"
 
 #. Default: "Cancela"
-#: ../browser/stats_templates/statsview.pt:279
+#: ../browser/stats_templates/statsview.pt:281
 msgid "btnCancel"
 msgstr "Cancel·la"
 
@@ -1112,17 +1120,17 @@ msgstr ""
 " Organitzativa: Només et pot subscriure un administrador i no et pots desubscriure't."
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1159
+#: ../content/community.py:1162
 msgid "comunitat_creada"
 msgstr "La comunitat ${comunitat} ha estat creada."
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1132
+#: ../content/community.py:1135
 msgid "comunitat_existeix"
 msgstr "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1276
+#: ../content/community.py:1279
 msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
@@ -1179,7 +1187,7 @@ msgid "entrades"
 msgstr "entrades"
 
 #. Default: "Falta omplir algun camp obligatori."
-#: ../content/community.py:1104
+#: ../content/community.py:1107
 msgid "error"
 msgstr "Falta omplir algun camp obligatori."
 
@@ -1211,7 +1219,7 @@ msgid "event_where"
 msgstr "On"
 
 #. Default: "Exporta"
-#: ../browser/stats_templates/statsview.pt:278
+#: ../browser/stats_templates/statsview.pt:280
 msgid "exporta"
 msgstr "Exporta"
 
@@ -1226,7 +1234,7 @@ msgid "falta_condicions"
 msgstr "Es necessari acceptar les condicions d'ús i privacitat per crear una comunitat."
 
 #. Default: "No es pot crear una comunitat sense titol"
-#: ../content/community.py:1100
+#: ../content/community.py:1103
 msgid "falta_titol"
 msgstr "No es pot crear una comunitat sense títol"
 
@@ -2009,7 +2017,7 @@ msgstr "Retira a la intranet"
 # msgid "help_ulearn_settings_editform"
 # msgstr "Registre de configuració d'uLearn."
 #. Default: "Cerca"
-#: ../browser/stats_templates/statsview.pt:277
+#: ../browser/stats_templates/statsview.pt:279
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:25
 msgid "search"
 msgstr "Cerca"

@@ -153,7 +153,7 @@
 <div class="field empty span6">
     <label for="form-widgets-IDublinCore-effective" class="horizontal" i18n:translate="Inicio_stats">
         Inicio
-        <span class="formHelp" i18n:translate="Mes_inicial">Mes inicialsds</span>
+        <span class="formHelp" i18n:translate="Mes_inicial">Mes inicial</span>
     </label>
 
     <div class="fieldErrorBox"></div>
@@ -213,6 +213,8 @@
       <div class="fieldErrorBox"></div>
 
     <select class="year datetime-widget datetime-field" id="community" name="community">
+      <option tal:repeat="content view/get_pageviews_info" tal:attributes="value content/hash" tal:content="content/title">Contingut</option>
+
       <option tal:repeat="community view/get_communities" tal:attributes="value community/hash" tal:content="community/title">Todas las comunidades</option>
     </select>
 

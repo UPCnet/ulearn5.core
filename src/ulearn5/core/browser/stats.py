@@ -53,6 +53,7 @@ def last_twelve_months_range():
 
     return (last_year, last_year_month, current_year, current_month)
 
+
 STATS = ['activity', 'comments', 'documents', 'links', 'media']
 
 
@@ -137,7 +138,7 @@ class StatsQueryBase(grok.View):
             return getattr(self.max_stats, stat_method)(filters, start, end)
         elif hasattr(self.analytic_data, stat_method):
             if stat_method == 'stat_pageviews':
-               return getattr(self.analytic_data, stat_method)(filters, start, end)
+                return getattr(self.analytic_data, stat_method)(filters, start, end)
         else:
             return 0
 
@@ -214,7 +215,7 @@ class StatsQuery(StatsQueryBase):
 
     def render(self):
         if self.params['end'] < self.params['start']:
-            self.params['end'] == self.params['start']
+            self.params['end'] = self.params['start']
 
         results = {
             'rows': []
@@ -610,6 +611,7 @@ class MaxStats(object):
             except:
                 return '?'
 
+
 class AnalyticsData(object):
     """
     """
@@ -625,24 +627,26 @@ class AnalyticsData(object):
            settings.gAnalytics_JSON_info is None or \
            settings.gAnalytics_enabled is None or \
            settings.gAnalytics_enabled == False:
-           return {}
+            return {}
         gAnalytics_view_ID = settings.gAnalytics_view_ID
         gAnalytics_JSON_info = settings.gAnalytics_JSON_info
 
         credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-                       json.loads(gAnalytics_JSON_info),
-                       scopes=['https://www.googleapis.com/auth/analytics.readonly'])
+                        json.loads(gAnalytics_JSON_info),
+                        scopes=['https://www.googleapis.com/auth/analytics.readonly'])
         service = build('analytics', 'v3', credentials=credentials)
 
+        if filters['community'] == 'site':
+            gaFilters = 'ga:pagePathLevel1=~/'
+        elif filters['community'] == 'news':
+            gaFilters = 'ga:pagePathLevel1=~/news'
+        else:
+            catalog_filters = dict(portal_type='ulearn.community')
+            if filters['community']:
+                catalog_filters['community_hash'] = filters['community']
+            communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
+            gaFilters = ','.join('ga:pagePathLevel1=~/' + community.id for community in communities)
 
-        catalog_filters = dict(portal_type='ulearn.community')
-
-        if filters['community']:
-            catalog_filters['community_hash'] = filters['community']
-
-        # List all paths of the resulting comunities
-        communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
-        gaFilters = ','.join('ga:pagePathLevel1=~/' + community.id for community in communities)
         analyticsData = service.data().ga().get(**{
             'ids': 'ga:' + gAnalytics_view_ID,
             'start_date': str(datetime.date(start)),
@@ -658,8 +662,7 @@ class AnalyticsData(object):
             return analyticsData['rows']
         else:
             return []
-        #return [[u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'201901111132', u'7'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'201901111136', u'5'], [u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'201901111131', u'4'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'document', u'201901111128', u'4'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110906', u'4'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901111127', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901131412', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'content_type', u'201901110851', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/enllacos/view', u'Enlla\xe7os - Ulearn Comunitats', u'link', u'201901111134', u'3'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110855', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'201901111116', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/carles.png/view', u'carles.png - Ulearn Comunitats', u'image', u'201901111129', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'201901111137', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/prova-pageviews', u'Prova pageviews - Ulearn Comunitats', u'document', u'201901131427', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110852', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'201901110857', u'2'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901111112', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901111114', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'201901131412', u'1'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'content_type', u'201901110851', u'1']]
-
+        # return [[u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'7'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'5'], [u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'4'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'document', u'4'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'4'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'content_type', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/enllacos/view', u'Enlla\xe7os - Ulearn Comunitats', u'link', u'3'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/carles.png/view', u'carles.png - Ulearn Comunitats', u'image', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/prova-pageviews', u'Prova pageviews - Ulearn Comunitats', u'document', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'2'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'1'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'content_type', u'1']]
 
     def stat_pageviews(self, filters, start, end=None):
         """
