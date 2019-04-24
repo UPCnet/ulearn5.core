@@ -5,8 +5,11 @@ from Products.Five.browser import BrowserView
 
 from plone import api
 from plone.registry.interfaces import IRegistry
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
 from zope.component import getUtility
 from zope.component import queryUtility
+from zope.component.hooks import getSite
 
 from mrs5.max.utilities import IMAXClient
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
@@ -102,3 +105,19 @@ def isInstalledProduct(self, package):
         if prod['id'] == package:
             return True
     return False
+
+
+def getSearchersFromUser():
+    portal = getSite()
+    current_user = api.user.get_current()
+    userid = current_user.id
+    soup_searches = get_soup('user_news_searches', portal)
+    exist = [r for r in soup_searches.query(Eq('id', userid))]
+
+    res = []
+    if exist:
+        values = exist[0].attrs['searches']
+        if values:
+            for val in values:
+                res.append(' '.join(val))
+    return res

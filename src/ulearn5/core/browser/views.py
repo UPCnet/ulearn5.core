@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from PIL import ImageOps
-from Products.Five import BrowserView
 from cStringIO import StringIO
 
 from five import grok
@@ -20,18 +19,18 @@ from zope.component import queryUtility
 from zope.component.hooks import getSite
 from zope.interface import Interface
 
+from base5.core.utils import portal_url
 from mrs5.max.utilities import IMAXClient
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.interfaces import IUlearn5CoreLayer
+from ulearn5.core.utils import getSearchersFromUser
 
 import PIL
+import io
 import json
 import logging
 import os
-
-from base5.core.utils import portal_url
 import requests
-import io
 
 
 logger = logging.getLogger(__name__)
@@ -118,6 +117,7 @@ class addUserSearch(grok.View):
                 acl_record.attrs['searches'] = total_searches
 
         soup_searches.reindex(records=[acl_record])
+        return getSearchersFromUser()
 
 
 class removeUserSearch(grok.View):
@@ -148,9 +148,14 @@ class removeUserSearch(grok.View):
                         else:
                             in_list = True
                     if in_list:
-                        total_searches.remove(search_items)
+                        try:
+                            total_searches.remove(search_items)
+                        except:
+                            pass
                         acl_record.attrs['searches'] = total_searches
                         soup_searches.reindex(records=[acl_record])
+
+        return getSearchersFromUser()
 
 
 class isSearchInSearchers(grok.View):
@@ -189,19 +194,7 @@ class getUserSearchers(grok.View):
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):
-        portal = getSite()
-        current_user = api.user.get_current()
-        userid = current_user.id
-        soup_searches = get_soup('user_news_searches', portal)
-        exist = [r for r in soup_searches.query(Eq('id', userid))]
-
-        res = []
-        if exist:
-            values = exist[0].attrs['searches']
-            if values:
-                for val in values:
-                    res.append(' '.join(val))
-        return res
+        return getSearchersFromUser()
 
 
 class MigrateAvatars(grok.View):
@@ -240,7 +233,7 @@ class MigrateAvatars(grok.View):
         try:
             image = PIL.Image.open(image_file)
         except:
-            portrait_url = portal_url()+'/++theme++ulearn5/assets/images/defaultUser.png'
+            portrait_url = portal_url() + '/++theme++ulearn5/assets/images/defaultUser.png'
             imgData = requests.get(portrait_url).content
             image = PIL.Image.open(io.BytesIO(imgData))
             image.filename = 'defaultUser'
