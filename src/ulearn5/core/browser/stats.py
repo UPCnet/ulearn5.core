@@ -637,9 +637,9 @@ class AnalyticsData(object):
         service = build('analytics', 'v3', credentials=credentials)
 
         if filters['community'] == 'site':
-            gaFilters = 'ga:pagePathLevel1=~/'
+            gaFilters = 'ga:pagePathLevel1=~/;ga:dimension1!~plone-site;ga:pagePathLevel1!=/;ga:pagePath!@/++'
         elif filters['community'] == 'news':
-            gaFilters = 'ga:pagePathLevel1=~/news'
+            gaFilters = 'ga:pagePathLevel1=~/news;ga:dimension1=~news-item'
         else:
             catalog_filters = dict(portal_type='ulearn.community')
             if filters['community']:
