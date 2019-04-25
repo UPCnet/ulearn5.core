@@ -60,10 +60,28 @@ class ULearnNGDirectives(grok.Viewlet):
     def get_communities(self):
         """ Gets the communities to show in the stats selectize dropdown
         """
+        lang = api.user.get_current().getProperty('language')
+        if lang not in ['ca', 'en', 'es']:
+            lang = 'ca'
+
         pc = api.portal.get_tool('portal_catalog')
-        all_communities = [{'hash': 'all', 'title': _(u'Todas las comunidades')}]
+        tool = getToolByName(self, 'translation_service')
+        all_communities = [{'hash': 'all', 'title': tool.translate(_(u'Todas las comunidades'), 'ulearn5.core', target_language=lang)}]
         all_communities += [{'hash': community.community_hash, 'title': community.Title} for community in pc.searchResults(portal_type='ulearn.community')]
         return json.dumps(all_communities)
+
+    def get_pageviews_info(self):
+        """ Gets the another options to show in the stats/pageviews selectize dropdown
+        """
+        lang = api.user.get_current().getProperty('language')
+        if lang not in ['ca', 'en', 'es']:
+            lang = 'ca'
+
+        tool = getToolByName(self, 'translation_service')
+        info = [{'hash': 'site', 'title': tool.translate(_(u'Todo el contenido'), 'ulearn5.core', target_language=lang)}]
+        info += [{'hash': 'news', 'title': tool.translate(_(u'Noticias'), 'ulearn5.core', target_language=lang)}]
+        communities = json.loads(self.get_communities())
+        return json.dumps(info + communities)
 
     def show_extended(self):
         """ This attribute from the directive is used to show special buttons or

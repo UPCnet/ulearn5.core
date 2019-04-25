@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-03-26 08:20+0000\n"
+"POT-Creation-Date: 2019-04-18 09:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Banner"
 msgstr ""
 
-#: ../content/community.py:1406
+#: ../content/community.py:1409
 msgid "Blog"
 msgstr ""
 
@@ -166,7 +166,7 @@ msgstr ""
 msgid "Comunitat_stats"
 msgstr ""
 
-#: ../content/community.py:1095
+#: ../content/community.py:1098
 msgid "Crea la comunitat"
 msgstr ""
 
@@ -211,7 +211,7 @@ msgstr ""
 msgid "Display images"
 msgstr ""
 
-#: ../content/community.py:1345
+#: ../content/community.py:1348
 msgid "Documents"
 msgstr ""
 
@@ -253,7 +253,7 @@ msgstr ""
 msgid "Edit cancelled"
 msgstr ""
 
-#: ../content/community.py:1218
+#: ../content/community.py:1221
 msgid "Edita la comunitat"
 msgstr ""
 
@@ -285,7 +285,7 @@ msgstr ""
 msgid "Error, the directory has been deleted."
 msgstr ""
 
-#: ../content/community.py:1347
+#: ../content/community.py:1350
 msgid "Esdeveniments"
 msgstr ""
 
@@ -294,7 +294,7 @@ msgid "Events"
 msgstr ""
 
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
-#: ../browser/stats_templates/statsview.pt:243
+#: ../browser/stats_templates/statsview.pt:245
 msgid "Filtro por palabra clave"
 msgstr ""
 
@@ -431,7 +431,7 @@ msgid "Manage Nomines"
 msgstr ""
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1346
+#: ../content/community.py:1349
 msgid "Media"
 msgstr ""
 
@@ -524,11 +524,15 @@ msgstr ""
 msgid "Nomines Root folder"
 msgstr ""
 
-#: ../content/community.py:1348
+#: ../browser/viewlets.py:72
+msgid "Noticias"
+msgstr ""
+
+#: ../content/community.py:1351
 msgid "Noticies"
 msgstr ""
 
-#: ../content/community.py:1407
+#: ../content/community.py:1410
 msgid "Noticies de la comunitat"
 msgstr ""
 
@@ -663,7 +667,7 @@ msgstr ""
 msgid "Restricted to managers"
 msgstr ""
 
-#: ../browser/stats_templates/statsview.pt:287
+#: ../browser/stats_templates/statsview.pt:289
 msgid "Resultados"
 msgstr ""
 
@@ -811,7 +815,7 @@ msgstr ""
 msgid "Tipus de comunitat"
 msgstr ""
 
-#: ../browser/stats.py:73
+#: ../browser/stats.py:74
 #: ../browser/viewlets.py:64
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:34
 msgid "Todas las comunidades"
@@ -819,6 +823,10 @@ msgstr ""
 
 #: ../patches.py:1086
 msgid "Today"
+msgstr ""
+
+#: ../browser/viewlets.py:71
+msgid "Todo el contenido"
 msgstr ""
 
 #: ../content/community.py:225
@@ -898,7 +906,7 @@ msgid "Url that links to more content."
 msgstr ""
 
 #. Default: "Usuario <span class=\"formHelp\"></span>"
-#: ../browser/stats_templates/statsview.pt:224
+#: ../browser/stats_templates/statsview.pt:226
 msgid "Usuario_stats"
 msgstr ""
 
@@ -1018,7 +1026,7 @@ msgid "btnAclCommunity"
 msgstr ""
 
 #. Default: "Cancela"
-#: ../browser/stats_templates/statsview.pt:279
+#: ../browser/stats_templates/statsview.pt:281
 msgid "btnCancel"
 msgstr ""
 
@@ -1110,17 +1118,17 @@ msgid "community_type_description"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1159
+#: ../content/community.py:1162
 msgid "comunitat_creada"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1132
+#: ../content/community.py:1135
 msgid "comunitat_existeix"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1276
+#: ../content/community.py:1279
 msgid "comunitat_modificada"
 msgstr ""
 
@@ -1177,7 +1185,7 @@ msgid "entrades"
 msgstr ""
 
 #. Default: "Falta omplir algun camp obligatori."
-#: ../content/community.py:1104
+#: ../content/community.py:1107
 msgid "error"
 msgstr ""
 
@@ -1209,7 +1217,7 @@ msgid "event_where"
 msgstr ""
 
 #. Default: "Exporta"
-#: ../browser/stats_templates/statsview.pt:278
+#: ../browser/stats_templates/statsview.pt:280
 msgid "exporta"
 msgstr ""
 
@@ -1224,7 +1232,7 @@ msgid "falta_condicions"
 msgstr ""
 
 #. Default: "No es pot crear una comunitat sense titol"
-#: ../content/community.py:1100
+#: ../content/community.py:1103
 msgid "falta_titol"
 msgstr ""
 
@@ -1994,7 +2002,7 @@ msgid "retiraalaintranet"
 msgstr ""
 
 #. Default: "Cerca"
-#: ../browser/stats_templates/statsview.pt:277
+#: ../browser/stats_templates/statsview.pt:279
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:25
 msgid "search"
 msgstr ""
