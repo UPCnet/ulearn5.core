@@ -1,34 +1,31 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
-from five import grok
-from zope.component import getUtility
-
+from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+from StringIO import StringIO
+
+from five import grok
 from plone import api
+from repoze.catalog.query import Eq
+from souper.interfaces import ICatalogFactory
+from souper.soup import get_soup
+from zExceptions import Forbidden
+from zope.component import getUtilitiesFor
+from zope.component import getUtility
 
 from base5.core.patches import changeMemberPortrait
-from mrs5.max.utilities import IMAXClient
-
-from ulearn5.core.api import ApiResponse
-from ulearn5.core.api import REST
-from ulearn5.core.api import api_resource
-from ulearn5.core.api import ObjectNotFound
-from ulearn5.core.api.root import APIRoot
-from ulearn5.core.browser.security import execute_under_special_role
-
-from StringIO import StringIO
 from base5.core.utils import add_user_to_catalog
 from base5.core.utils import get_all_user_properties
 from base5.core.utils import remove_user_from_catalog
-from repoze.catalog.query import Eq
-from souper.soup import get_soup
+from mrs5.max.utilities import IMAXClient
+from ulearn5.core.api import ApiResponse
+from ulearn5.core.api import ObjectNotFound
+from ulearn5.core.api import REST
+from ulearn5.core.api import api_resource
+from ulearn5.core.api.root import APIRoot
+from ulearn5.core.browser.security import execute_under_special_role
 from ulearn5.core.gwuuid import IGWUUID
-
-from Products.CMFCore.interfaces import ISiteRoot
-from zExceptions import Forbidden
-from souper.interfaces import ICatalogFactory
-from zope.component import getUtilitiesFor
 
 import logging
 import requests
@@ -477,6 +474,46 @@ class Person(REST):
                         except:
                             # Some users has @ in the username and is not valid...
                             pass
+            except:
+                raise ObjectNotFound('User not found')
+
+            return ApiResponse(rendered_properties)
+        else:
+            raise ObjectNotFound('User not found')
+
+
+class All(REST):
+    """
+        /api/people/{username}/all
+
+        Returns the user all properties values.
+    """
+
+    grok.adapts(Person, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    @api_resource(required=['username'])
+    def GET(self):
+        """ Returns the user all profile values. """
+        username = self.params['username']
+        user = api.user.get(username=username)
+        if user:
+            userid = user.id.lower()
+            user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+            rendered_properties = {userid: {}}
+            try:
+                extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+                if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
+                    extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+                    for prop in extended_user_properties_utility.properties:
+                        userProp = user.getProperty(prop, '')
+                        if userProp:
+                            rendered_properties[userid].update({prop: userProp})
+                else:
+                    for prop in user_properties_utility.properties:
+                        userProp = user.getProperty(prop, '')
+                        if userProp:
+                            rendered_properties[userid].update({prop: userProp})
             except:
                 raise ObjectNotFound('User not found')
 
