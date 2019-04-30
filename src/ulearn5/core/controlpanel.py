@@ -72,7 +72,7 @@ class IUlearnControlPanelSettings(model.Schema):
         fields=['html_title_ca', 'html_title_es', 'html_title_en', 'language', 'url_forget_password', 'campus_url', 'library_url', 'people_literal',
                 'threshold_winwin1', 'threshold_winwin2', 'threshold_winwin3', 'stats_button',
                 'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme',
-                'buttonbar_selected', 'cron_tasks'])
+                'buttonbar_selected', 'cron_tasks', 'url_private_policy'])
 
     model.fieldset(
         'Design',
@@ -104,7 +104,7 @@ class IUlearnControlPanelSettings(model.Schema):
     html_title_ca = schema.TextLine(
         title=_(u"html_title_ca",
                 default=u"Títol del web amb HTML tags (negretes) [CA]"),
-        description=_(u"help_html_title_ca",
+        description=_(u"help_html_title",
                       default=u"Afegiu el títol del Ulearn. Podeu incloure tags HTML"),
         required=False,
     )
@@ -112,7 +112,7 @@ class IUlearnControlPanelSettings(model.Schema):
     html_title_es = schema.TextLine(
         title=_(u"html_title_es",
                 default=u"Títol del web amb HTML tags (negretes) [ES]"),
-        description=_(u"help_html_title_es",
+        description=_(u"help_html_title",
                       default=u"Afegiu el títol del Ulearn. Podeu incloure tags HTML"),
         required=False,
     )
@@ -120,8 +120,8 @@ class IUlearnControlPanelSettings(model.Schema):
     html_title_en = schema.TextLine(
         title=_(u"html_title_en",
                 default=u"Títol del web amb HTML tags (negretes) [EN]"),
-        description=_(u"help_html_title_en",
-                      default=u"Afegiu el títol del Ulearn. Podeu incloure tags HTML."),
+        description=_(u"help_html_title",
+                      default=u"Afegiu el títol del Ulearn. Podeu incloure tags HTML"),
         required=False,
     )
 
@@ -215,9 +215,18 @@ class IUlearnControlPanelSettings(model.Schema):
 
     cron_tasks = schema.List(
         title=_(u"cron_tasks", default=u"Cron tasks"),
-        description=_(u'..........'),
+        description=_(u'Tasques que s\'executaran per la nit'),
         value_type=schema.Choice(source=cronTasksVocabulary),
         required=False,
+    )
+
+    url_private_policy = schema.TextLine(
+        title=_(u'url_private_policy',
+                default=_(u"Url private policy")),
+        description=_(u'help_url_private_policy',
+                      default=_(u"Url of the private policy.")),
+        required=False,
+        default=u'',
     )
 
     main_color = schema.TextLine(

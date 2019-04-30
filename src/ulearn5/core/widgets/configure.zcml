@@ -60,6 +60,13 @@
         />
     </class>
 
+    <class class=".private_policy_widget.PrivatePolicyWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.IPrivatePolicyWidget"
+        />
+    </class>
+
     <class class=".visibility_widget.VisibilityWidget">
         <require
             permission="zope.Public"

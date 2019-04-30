@@ -25,5 +25,9 @@ class ITermsWidget(interfaces.ITextLinesWidget):
     """Terms widget."""
 
 
+class IPrivatePolicyWidget(interfaces.ITextLinesWidget):
+    """Terms widget."""
+
+
 class IVisibilityWidget(interfaces.ISingleCheckBoxWidget):
     """Visibility widget."""
