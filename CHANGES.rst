@@ -2,11 +2,19 @@ Changelog
 =========
 
 
-0.36 (unreleased)
+0.36 (2019-05-02)
 -----------------
 
-- Nothing changed yet.
-
+* Travis [Pilar Marinas]
+* Quitar delete_local_roles de la base y anadir usuario en soup [Pilar Marinas]
+* Política de privacidad + Traducciones [Iago López Fernández]
+* /api/people/{username}/all [Iago López Fernández]
+* Merge remote-tracking branch 'origin/estadistiques' into develop [Pilar Marinas]
+* Mejorar filtros site y news [Pilar Marinas]
+* Mejora buscador subscribednews [Iago López Fernández]
+* Vista stats/pageviews: Añadir nuevos path para fitrar [Iago López Fernández]
+* Vista stats/pageviews: Solucion fechas [Iago López Fernández]
+* Añadir collective.easyform [Iago López Fernández]
 
 0.35 (2019-04-08)
 -----------------
