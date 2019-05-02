@@ -26,6 +26,7 @@ from plone.i18n.interfaces import INegotiateLanguage
 from plone.registry.interfaces import IRegistry
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
+from souper.soup import Record
 
 from base5.core.utils import remove_user_from_catalog
 from ulearn5.core.gwuuid import IGWUUID
@@ -87,6 +88,7 @@ def deleteMembers(self, member_ids):
     # in the CMF member tool's version
     context = aq_inner(self.context)
     mtool = getToolByName(self.context, 'portal_membership')
+
     # Delete members in acl_users.
     acl_users = context.acl_users
     if isinstance(member_ids, basestring):
@@ -152,16 +154,32 @@ def deleteMembers(self, member_ids):
         for member_id in member_ids:
             mdtool.deleteMemberData(member_id)
             logger.info('Eliminat usuari {} del portal_memberdata.'.format(member_id))
+
+            # Guardamos el username en el soup para borrar el usuario del local roles
+            portal = api.portal.get()
+            soup_users_delete = get_soup('users_delete_local_roles', portal)
+            exist = [r for r in soup_users_delete.query(Eq('id_username', member_id))]
+
+            if not exist:
+                record = Record()
+                record.attrs['id_username'] = member_id
+                soup_users_delete.add(record)
+                soup_users_delete.reindex()
+
             try:
                 self.maxclient.people[member_id].delete()
             except:
                 # No existe el usuari en max
                 pass
 
+    # OJO se quita porque si el site es muy grande al recorrer todo para borrar da Time-out y
+    # ademas consume mucha memoria y tumba los zopes.
+    # Hemos creado la vista delete_local_roles en base5.core.setup.py que ejecuta esto.
+
     # Delete members' local roles.
-    mtool.deleteLocalRoles(getUtility(ISiteRoot), member_ids,
-                           reindex=1, recursive=1)
-    logger.info('Eliminat usuari {} del local roles.'.format(member_id))
+    #mtool.deleteLocalRoles(getUtility(ISiteRoot), member_ids,
+    #                       reindex=1, recursive=1)
+    #logger.info('Eliminat usuari {} del local roles.'.format(member_id))
 
 
 class NegotiateLanguage(object):

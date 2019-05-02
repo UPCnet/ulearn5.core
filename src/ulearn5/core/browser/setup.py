@@ -40,6 +40,9 @@ from zope.interface import alsoProvides
 from zope.interface import Interface
 from base5.core.utils import get_all_user_properties
 from base5.core.utils import add_user_to_catalog
+from base5.core.utils import remove_user_from_catalog
+from ulearn5.core.api.people import Person
+from mrs5.max.utilities import IMAXClient
 
 from plone.app.layout.navigation.root import getNavigationRootObject
 
@@ -60,8 +63,6 @@ import transaction
 
 
 ATTRIBUTE_NAME_FAVORITE = '_favoritedBy'
-
-# from ulearn5.core.api.people import Person
 
 logger = logging.getLogger(__name__)
 
@@ -573,32 +574,46 @@ class deleteUsers(grok.View):
                         remove_user_from_catalog(user.lower())
                         pc = api.portal.get_tool(name='portal_catalog')
                         username = user
-                        comunnities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
-                        for num, community in enumerate(comunnities):
-                            obj = community._unrestrictedGetObject()
-                            logger.info('Processant {} de {}. Comunitat {}'.format(num, len(comunnities), obj))
-                            gwuuid = IGWUUID(obj).get()
-                            portal = api.portal.get()
-                            soup = get_soup('communities_acl', portal)
-
-                            records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
-
-                            # Save ACL into the communities_acl soup
-                            if records:
-                                acl_record = records[0]
-                                acl = acl_record.attrs['acl']
-                                exist = [a for a in acl['users'] if a['id'] == unicode(username)]
-                                if exist:
-                                    acl['users'].remove(exist[0])
-                                    acl_record.attrs['acl'] = acl
-                                    soup.reindex(records=[acl_record])
-                                    adapter = obj.adapted()
-                                    adapter.set_plone_permissions(adapter.get_acl())
 
                         maxclient, settings = getUtility(IMAXClient)()
                         maxclient.setActor(settings.max_restricted_username)
                         maxclient.setToken(settings.max_restricted_token)
-                        maxclient.people[username].delete()
+
+                        communities_subscription = maxclient.people[username].subscriptions.get()
+
+                        if communities_subscription != []:
+
+                            for num, community_subscription in enumerate(communities_subscription):
+                                community = pc.unrestrictedSearchResults(portal_type="ulearn.community", community_hash=community_subscription['hash'])
+                                try:
+                                    obj = community[0]._unrestrictedGetObject()
+                                    logger.info('Processant {} de {}. Comunitat {}'.format(num, len(communities_subscription), obj))
+                                    gwuuid = IGWUUID(obj).get()
+                                    portal = api.portal.get()
+                                    soup = get_soup('communities_acl', portal)
+
+                                    records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
+
+                                    # Save ACL into the communities_acl soup
+                                    if records:
+                                        acl_record = records[0]
+                                        acl = acl_record.attrs['acl']
+                                        exist = [a for a in acl['users'] if a['id'] == unicode(username)]
+                                        if exist:
+                                            acl['users'].remove(exist[0])
+                                            acl_record.attrs['acl'] = acl
+                                            soup.reindex(records=[acl_record])
+                                            adapter = obj.adapted()
+                                            adapter.set_plone_permissions(adapter.get_acl())
+
+                                except:
+                                    continue
+
+                        try:
+                            maxclient.people[username].delete()
+                        except:
+                            # No existe el usuari en max
+                            pass
                         logger.info('Delete user: {}'.format(user))
                     except:
                         logger.error('User not deleted: {}'.format(user))

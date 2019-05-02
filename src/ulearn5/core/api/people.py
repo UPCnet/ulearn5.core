@@ -10,6 +10,7 @@ from plone import api
 from repoze.catalog.query import Eq
 from souper.interfaces import ICatalogFactory
 from souper.soup import get_soup
+from souper.soup import Record
 from zExceptions import Forbidden
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
@@ -360,17 +361,32 @@ class Person(REST):
             for member_id in member_ids:
                 mdtool.deleteMemberData(member_id)
 
-        portal = getUtility(ISiteRoot)
-        reindex = 1
-        recursive = 1
-        # Delete members' local roles.
-        execute_under_special_role(portal,
-                                   "Manager",
-                                   mtool.deleteLocalRoles,
-                                   portal,
-                                   member_ids,
-                                   reindex,
-                                   recursive)
+                # Guardamos el username en el soup para borrar el usuario del local roles
+                portal = api.portal.get()
+                soup_users_delete = get_soup('users_delete_local_roles', portal)
+                exist = [r for r in soup_users_delete.query(Eq('id_username', member_id))]
+
+                if not exist:
+                    record = Record()
+                    record.attrs['id_username'] = member_id
+                    soup_users_delete.add(record)
+                    soup_users_delete.reindex()
+
+        # OJO se quita porque si el site es muy grande al recorrer todo para borrar da Time-out y
+        # ademas consume mucha memoria y tumba los zopes.
+        # Hemos creado la vista delete_local_roles en base5.core.setup.py que ejecuta esto.
+
+        # portal = getUtility(ISiteRoot)
+        # reindex = 1
+        # recursive = 1
+        # # Delete members' local roles.
+        # execute_under_special_role(portal,
+        #                            "Manager",
+        #                            mtool.deleteLocalRoles,
+        #                            portal,
+        #                            member_ids,
+        #                            reindex,
+        #                            recursive)
 
     @api_resource(required=['username'])
     def PUT(self):
