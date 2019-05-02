@@ -19,8 +19,9 @@ before_script:
 - firefox -v
 script:
   - bin/test
+  - bin/coverage run bin/test
 after_success:
-  - coverage combine
+  - pip install coveralls
   - coveralls
 notifications:
   email:

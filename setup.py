@@ -61,8 +61,7 @@ setup(
         'pytz',
         'Products.PloneKeywordManager',
         'google-api-python-client',
-        'oauth2client',
-        'collective.easyform'
+        'oauth2client'
     ],
     extras_require={
         'test': [
@@ -77,7 +76,7 @@ setup(
             'elasticsearch',
             'ulearn5.js',
             'plone.app.iterate',
-            'plone.app.robotframework[debug]',
+            'plone.app.robotframework[debug]'
         ],
     },
     entry_points="""
