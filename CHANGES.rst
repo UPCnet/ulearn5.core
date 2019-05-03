@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.37 (unreleased)
+0.37 (2019-05-03)
 -----------------
 
-- Nothing changed yet.
-
+* Quitar require collective.easyform [Pilar Marinas]
 
 0.36 (2019-05-02)
 -----------------
