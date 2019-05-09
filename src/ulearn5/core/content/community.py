@@ -1572,7 +1572,12 @@ def community_hash(context):
     """ Create a catalogue indexer, registered as an adapter, which can
         populate the ``community_hash`` value count it and index.
     """
-    return sha1(context.absolute_url()).hexdigest()
+    registry = queryUtility(IRegistry)
+    ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
+    if ulearn_tool.url_site == None or ulearn_tool.url_site == '':
+        return sha1(context.absolute_url()).hexdigest()
+    else:
+        return sha1(ulearn_tool.url_site + '/' + context.id).hexdigest()
 
 
 grok.global_adapter(community_hash, name='community_hash')

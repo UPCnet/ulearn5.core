@@ -73,7 +73,7 @@ class IUlearnControlPanelSettings(model.Schema):
         fields=['html_title_ca', 'html_title_es', 'html_title_en', 'language', 'url_forget_password', 'campus_url', 'library_url', 'people_literal',
                 'threshold_winwin1', 'threshold_winwin2', 'threshold_winwin3', 'stats_button',
                 'info_servei', 'activate_news', 'show_news_in_app', 'activate_sharedwithme',
-                'buttonbar_selected', 'cron_tasks', 'url_private_policy'])
+                'buttonbar_selected', 'cron_tasks', 'url_private_policy', 'url_site'])
 
     model.fieldset(
         'Design',
@@ -226,6 +226,15 @@ class IUlearnControlPanelSettings(model.Schema):
                 default=_(u"Url private policy")),
         description=_(u'help_url_private_policy',
                       default=_(u"Url of the private policy.")),
+        required=False,
+        default=u'',
+    )
+
+    url_site = schema.TextLine(
+        title=_(u'url_site',
+                default=_(u"Url site")),
+        description=_(u'help_url_site',
+                      default=_(u"Url of the site.")),
         required=False,
         default=u'',
     )
