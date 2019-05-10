@@ -1120,3 +1120,32 @@ def _setProperty(self, name, value):
     return self.context.setMemberProperties(
         {name: value}, force_empty=True
     )
+
+
+from Products.PortalTransforms.transforms.safe_html import decode_htmlentities
+import re
+
+CSS_COMMENT = re.compile(r'/\*.*\*/')
+
+
+def hasScript(s):
+    """Dig out evil Java/VB script inside an HTML attribute.
+    >>> hasScript('script:evil(1);')
+    True
+    >>> hasScript('expression:evil(1);')
+    True
+    >>> hasScript('expression/**/:evil(1);')
+    True
+    >>> hasScript('http://foo.com/ExpressionOfInterest.doc')
+    False
+    """
+    s = decode_htmlentities(s)
+    s = s.replace('\x00', '')
+    s = CSS_COMMENT.sub('', s)
+    s = ''.join(s.split()).lower()
+    # Original code
+    # for t in ('script:', 'expression:', 'expression(', 'data:'):
+    for t in ('script:', 'expression:', 'expression('):
+        if t in s:
+            return True
+    return False
