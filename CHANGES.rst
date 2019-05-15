@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.38 (unreleased)
+0.38 (2019-05-15)
 -----------------
 
-- Nothing changed yet.
-
+* Solucionar si no hay username gebropharma [Pilar Marinas]
+* travsi [Pilar Marinas]
+* Marmoset: Aceptar imagenes en data:text/html;base64,... [Iago López Fernández]
+* migrationDocumentsCommunities por partes para que no de ClientDisconnected [Pilar Marinas]
+* Marmoset: Aceptar imagenes en data:text/html;base64,... [Iago López Fernández]
+* Resolver hash comunidades al hacer clear and rebuild por puerto [Pilar Marinas]
 
 0.37 (2019-05-03)
 -----------------
