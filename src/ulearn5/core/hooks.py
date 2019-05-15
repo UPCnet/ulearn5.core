@@ -106,7 +106,8 @@ def objectModified(content, event):
     content_path = "/".join(content.getPhysicalPath())
     physical_path = content.getPhysicalPath()
     relative = physical_path[len(portal.getPhysicalPath()):]
-
+    if username == None:
+        username = ''
     if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
         logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:'+relative[0]+';username:'+username+';domain:'+domain )
     else:
