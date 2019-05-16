@@ -21,8 +21,7 @@ script:
   - bin/test
   - bin/coverage run bin/test
 after_success:
-  - pip install coveralls
   - coveralls
 notifications:
   email:
-    - plone.team@upcnet.es
+    - pilar.marinas@upcnet.es
