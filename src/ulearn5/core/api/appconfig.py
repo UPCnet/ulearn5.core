@@ -8,6 +8,10 @@ from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
 import requests
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class Appconfig(REST):
     """
@@ -61,4 +65,8 @@ class Appconfig(REST):
                     buttonbar_selected=buttonbar_selected,
                     language=language
                     )
+
+        if 'username' in self.params:
+            logger.error('XXX mobile access username {} in domain {}'.format(self.params.get('username'),domain))
+
         return ApiResponse(info)
