@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.39 (unreleased)
+0.39 (2019-05-17)
 -----------------
 
-- Nothing changed yet.
-
+* Log get to appconfig for mobile access [Pilar Marinas]
+* Travis [Pilar Marinas]
 
 0.38 (2019-05-15)
 -----------------
