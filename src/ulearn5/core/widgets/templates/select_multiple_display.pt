@@ -8,12 +8,11 @@
                         style view/style;
                         title view/title;
                         lang view/lang">
-
+    <span class="selected-option"
+           tal:content="view/firstLevel">
+    </span>
+    <ul class="selected-option" tal:condition="view/secondLevel">
+      <li tal:repeat="item view/secondLevel" tal:content="item"></li>
+    </ul>
   </div>
-  <span class="selected-option"
-         tal:content="view/firstLevel">
-  </span>
-  <ul class="selected-option" tal:condition="view/secondLevel">
-         <li tal:repeat="item view/secondLevel" tal:content="item"></li>
-  </ul>
 </html>
