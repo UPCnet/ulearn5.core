@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     tal:omit-tag=""
+     tal:define="items view/items;">
+
+  <div tal:attributes="data-fieldname view/field/getName;
+                       class view/klass;">
+      <tal:block tal:repeat="item items">
+        <span tal:condition="item/checked">
+          <tal:block tal:content="item/label">Label</tal:block>
+          <br />
+        </span>
+      </tal:block>
+  </div>
+</html>

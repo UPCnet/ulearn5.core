@@ -18,9 +18,13 @@ class CheckboxInfoWidget(CheckBoxWidget):
 
     klass = u'checbox-info-widget'
     input_template = ViewPageTemplateFile('templates/checkbox_info_input.pt')
+    display_template = ViewPageTemplateFile('templates/checkbox_info_display.pt')
 
     def render(self):
-        return self.input_template(self)
+        if self.mode == z3c.form.interfaces.DISPLAY_MODE:
+            return self.display_template(self)
+        else:
+            return self.input_template(self)
 
 
 @zope.interface.implementer(zope.schema.interfaces.IBool, interfaces.IFormLayer)
