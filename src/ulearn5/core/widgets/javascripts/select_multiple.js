@@ -222,32 +222,6 @@ $(document).ready(function() {
             };
         });
 
-
-        /*
-    	*  Shows a popover with a description for every checkbox of the field
-        */
-
-
-        $('#form-widgets-interest_topics input')
-        .on('mouseover', function(event) {
-                var $select = $(event.target);
-                var selectedfieldname = $select.val();
-                var $objselected = _.find(list_interest_topics, function(field) {
-                    return field.value === selectedfieldname;
-                });
-
-                /*var data = '<span>' + $objselected.description + '</span>';
-                $("#" + $select.attr('data-content')).html(data);*/
-                $select.attr('data-title', selectedfieldname);
-                $select.attr('data-content', $objselected.description);
-                $select.popover('show');
-            }
-        )
-        .on('mouseout', function(event) {
-            var $select = $(event.target);
-            $select.popover('hide');
-        });
-
     }, 1000);
 
 });

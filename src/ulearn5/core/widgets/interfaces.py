@@ -31,3 +31,7 @@ class IPrivatePolicyWidget(interfaces.ITextLinesWidget):
 
 class IVisibilityWidget(interfaces.ISingleCheckBoxWidget):
     """Visibility widget."""
+
+
+class ICheckboxInfoWidget(interfaces.ICheckBoxWidget):
+    """Checkbox Info widget."""

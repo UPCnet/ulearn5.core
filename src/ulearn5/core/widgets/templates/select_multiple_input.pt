@@ -3,14 +3,13 @@
      tal:omit-tag="">
 
   <span tal:define="portal_state context/@@plone_portal_state;
-                          portal_url portal_state/portal_url;">
-            <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++select_multiple.js"></script>
-        </span>
+                    portal_url portal_state/portal_url;">
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++select_multiple.js"></script>
+  </span>
 
-
-<div id="" tal:attributes="id string:${view/id}_level1">
-    <select id="" name="" class="" tabindex="" disabled="" multiple="" size="" data-next=""
-      data-field=""
+  <div id="" tal:attributes="id string:${view/id}_level1">
+    <select id="" name="" class="" tabindex="" disabled=""
+            multiple="" size="" data-next="" data-field=""
             tal:attributes="id string:${view/id};
                             class string:${view/klass};
                             data-fieldname view/field/getName;
@@ -36,25 +35,25 @@
                             multiple view/multiple;
                             size view/size">
     </select>
-</div>
+  </div>
 
-<div id="" tal:attributes="id string:${view/id}_level2">
-</div>
+  <div id="" tal:attributes="id string:${view/id}_level2">
+  </div>
 
-<input type="hidden" value="1"
-       tal:attributes="name string:${view/z3cname}"/>
+  <input type="hidden" value="1"
+         tal:attributes="name string:${view/z3cname}"/>
 
-<input type="hidden" value="0"
-       tal:attributes="name string:${view/z3cname}.count"/>
+  <input type="hidden" value="0"
+         tal:attributes="name string:${view/z3cname}.count"/>
 
-<input type="hidden"
-       tal:condition="view/firstLevel"
-       tal:attributes="class string:${view/id}-firstLevel;
-                       value view/firstLevel"/>
+  <input type="hidden"
+         tal:condition="view/firstLevel"
+         tal:attributes="class string:${view/id}-firstLevel;
+                         value view/firstLevel"/>
 
-<input tal:condition="view/secondLevel"
-       tal:repeat="item view/secondLevel" type="hidden"
-       tal:attributes="class string:${view/id}-secondLevel;
-                       value item"/>
+  <input tal:condition="view/secondLevel"
+         tal:repeat="item view/secondLevel" type="hidden"
+         tal:attributes="class string:${view/id}-secondLevel;
+                         value item"/>
 </div>
 

@@ -105,8 +105,20 @@
 
     <browser:resource
         name="select_multiple.js"
-        file="select_multiple.js"
+        file="javascripts/select_multiple.js"
     />
-    <!-- ... -->
+
+    <class class=".checkbox_info.CheckboxInfoWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.ICheckboxInfoWidget"
+        />
+    </class>
+
+    <browser:resource
+        name="checkbox_info.js"
+        file="javascripts/checkbox_info.js"
+    />
+
 
 </configure>
