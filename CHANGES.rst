@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.40 (unreleased)
+0.40 (2019-06-26)
 -----------------
 
-- Nothing changed yet.
-
+* Activar visibilidad Historial [Iago López Fernández]
+* Modificar template widget select_multiple_display [Iago López Fernández]
+* Widget checkbox info DISPLAY_MODE [Iago López Fernández]
+* Widget checkbox info [Iago López Fernández]
 
 0.39 (2019-05-17)
 -----------------
