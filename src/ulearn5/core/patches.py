@@ -40,47 +40,53 @@ logger = logging.getLogger('event.LDAPMultiPlugin')
 def enumerateUsers(self, id=None, login=None, exact_match=False, **kw):
         """ See IUserEnumerationPlugin.
         """
-        plugin_id = self.getId()
-        # This plugin can't search for a user by id or login, because there is
-        # no such keys in the storage (data dict in the comprehensive list)
-        # If kw is empty or not, we continue the search.
-        if id is not None or login is not None:
-            return ()
 
-        criteria = copy.copy(kw)
+        installed = packages_installed()
+        if 'base5.core' in installed:
+            plugin_id = self.getId()
+            # This plugin can't search for a user by id or login, because there is
+            # no such keys in the storage (data dict in the comprehensive list)
+            # If kw is empty or not, we continue the search.
+            if id is not None or login is not None:
+                return ()
 
-        users = [(user, data) for (user, data) in self._storage.items()
-                 if self.testMemberData(data, criteria, exact_match)
-                 and not data.get('isGroup', False)]
+            criteria = copy.copy(kw)
 
-        has_extended_properties = False
-        extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+            users = [(user, data) for (user, data) in self._storage.items()
+                     if self.testMemberData(data, criteria, exact_match)
+                     and not data.get('isGroup', False)]
 
-        if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
-            has_extended_properties = True
-            extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+            has_extended_properties = False
+            extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
 
-        user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+            if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
+                has_extended_properties = True
+                extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
 
-        users_profile = []
-        for user_id, user in users:
-            if user is not None:
-                user_dict = {}
-                for user_property in user_properties_utility.properties:
-                    user_dict.update({user_property: user.get(user_property, '')})
+            user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
 
-                if has_extended_properties:
-                    for user_property in extended_user_properties_utility.properties:
+            users_profile = []
+            for user_id, user in users:
+                if user is not None:
+                    user_dict = {}
+                    for user_property in user_properties_utility.properties:
                         user_dict.update({user_property: user.get(user_property, '')})
 
-                user_dict.update(dict(id=user_id))
-                user_dict.update(dict(login=user_id))
-                user_dict.update(dict(title=user.get('fullname', user_id)))
-                user_dict.update(dict(description=user.get('fullname', user_id)))
-                user_dict.update({'pluginid': plugin_id})
-                users_profile.append(user_dict)
+                    if has_extended_properties:
+                        for user_property in extended_user_properties_utility.properties:
+                            user_dict.update({user_property: user.get(user_property, '')})
 
-        return tuple(users_profile)
+                    user_dict.update(dict(id=user_id))
+                    user_dict.update(dict(login=user_id))
+                    user_dict.update(dict(title=user.get('fullname', user_id)))
+                    user_dict.update(dict(description=user.get('fullname', user_id)))
+                    user_dict.update({'pluginid': plugin_id})
+                    users_profile.append(user_dict)
+
+            return tuple(users_profile)
+        else:
+            return None
+
 
 
 def deleteMembers(self, member_ids):
