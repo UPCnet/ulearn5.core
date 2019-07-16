@@ -46,6 +46,13 @@
         />
     </class>
 
+    <class class=".fieldset_widget.H5FieldsetWidget">
+        <require
+            permission="zope.Public"
+            interface=".interfaces.IFieldsetWidget"
+        />
+    </class>
+
     <class class=".max_portrait_widget.MaxPortraitWidget">
         <require
             permission="zope.Public"
