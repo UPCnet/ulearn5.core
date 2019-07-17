@@ -14,7 +14,7 @@ long_description = '\n\n'.join([
 
 setup(
     name='ulearn5.core',
-    version='0.41',
+    version='0.42.dev0',
     description="Core Comunitats Plone 5",
     long_description=long_description,
     # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
