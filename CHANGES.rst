@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.41 (unreleased)
+0.41 (2019-07-17)
 -----------------
 
-- Nothing changed yet.
-
+* Añadir nuevo widget Fieldset h5 [Iago López Fernández]
+* enumerateUsers -> Comprobar que este instalado el paquete base5.core [Iago López Fernández]
 
 0.40 (2019-06-26)
 -----------------
