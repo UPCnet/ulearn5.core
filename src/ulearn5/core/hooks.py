@@ -39,6 +39,9 @@ from plone.dexterity.interfaces import IDexterityContent
 from plone.memoize import ram
 from time import time
 
+import requests
+import os
+
 import logging
 import transaction
 
@@ -55,6 +58,8 @@ tipus = {
     'es': dict(Document=u'documento', File=u'documento', Image=u'foto', Link=u'enlace', Event=u'evento', NewsItem=u'noticia'),
     'en': dict(Document=u'document', File=u'document', Image=u'photo', Link=u'link', Event=u'event', NewsItem=u'news item'),
 }
+
+varnish_to_ban = os.environ.get('varnish_to_ban', '')
 
 @grok.subscribe(IDexterityContent, IObjectAddedEvent)
 def objectAdded(content, event):
@@ -115,6 +120,10 @@ def objectModified(content, event):
             logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:'+domain )
         except:
             logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:nodomain' )
+
+    if varnish_to_ban != '' :
+        resp = requests.request('BAN', varnish_to_ban, headers={'X-Ban': '.*/'.join(content.getPhysicalPath()[1:3])+'.*'}, timeout=1 )
+
 
 
 @grok.subscribe(ICommunity, IObjectAddedEvent)
