@@ -85,6 +85,13 @@
         />
 
     <monkey:patch
+        description="Sets the group type when creating an ldap group"
+        class="Products.LDAPUserFolder.LDAPUserFolder"
+        original="manage_addGroup"
+        replacement=".patches.manage_addGroup"
+        />
+
+    <monkey:patch
         description="Override ldap group search on PAS"
         class="Products.LDAPUserFolder.LDAPUserFolder"
         original="searchGroups"

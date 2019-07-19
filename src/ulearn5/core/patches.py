@@ -663,6 +663,54 @@ def getGroups(self, dn='*', attr=None, pwd=''):
 
     return group_list
 
+from base5.core.directory.views import get_create_group_type
+from Products.LDAPUserFolder.utils import GROUP_MEMBER_MAP
+def manage_addGroup( self
+                   , newgroup_name
+                   , newgroup_type='groupOfUniqueNames'
+                   , REQUEST=None
+                   ):
+    """ Add a new group in groups_base """
+    newgroup_type = get_create_group_type()
+
+    if self._local_groups and newgroup_name:
+        add_groups = self._additional_groups
+
+        if newgroup_name not in add_groups:
+            add_groups.append(newgroup_name)
+
+        self._additional_groups = add_groups
+        msg = 'Added new group %s' % (newgroup_name)
+
+    elif newgroup_name:
+        attributes = {}
+        attributes['cn'] = [newgroup_name]
+        attributes['objectClass'] = ['top', newgroup_type]
+
+        if self._binduid:
+            initial_member = self._binduid
+        else:
+            user = getSecurityManager().getUser()
+            try:
+                initial_member = user.getUserDN()
+            except:
+                initial_member = ''
+
+        attributes[GROUP_MEMBER_MAP.get(newgroup_type)] = initial_member
+
+        err_msg = self._delegate.insert( base=self.groups_base
+                                       , rdn='cn=%s' % newgroup_name
+                                       , attrs=attributes
+                                       )
+        msg = err_msg or 'Added new group %s' % (newgroup_name)
+
+    else:
+        msg = 'No group name specified'
+
+    if REQUEST:
+        return self.manage_grouprecords(manage_tabs_message=msg)
+
+
 from Products.LDAPUserFolder.utils import VALID_GROUP_ATTRIBUTES
 from Products.LDAPUserFolder.utils import guid2string
 from Products.LDAPUserFolder.LDAPUserFolder import logger
