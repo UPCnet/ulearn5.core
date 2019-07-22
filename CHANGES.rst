@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.42 (unreleased)
+0.42 (2019-07-22)
 -----------------
 
-- Nothing changed yet.
-
+* Ldap group creation parametre [Vicente Iranzo Maestre]
+* Varnish in object Modified [pilar.marinas]
 
 0.41 (2019-07-17)
 -----------------
