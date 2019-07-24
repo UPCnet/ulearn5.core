@@ -16,6 +16,34 @@ from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
 import json
 import transaction
+import re
+from zope import schema
+
+RE_VALID_TWITTER_USERNAME = r'^\s*@?([a-zA-Z0-9_]{1,15})\s*$'
+
+
+class InvalidTwitterUsernameError(schema.ValidationError):
+    __doc__ = "Invalid twitter username"
+
+
+def isValidTwitterUsername(text):
+    """
+        Is a valid twitter username?
+        See max.regex for more info on the regex
+    """
+    match = re.match(RE_VALID_TWITTER_USERNAME, text)
+    success = match is not None
+    if not success:
+        raise InvalidTwitterUsernameError
+    else:
+        return True
+
+
+def stripTwitterUsername(text):
+    """
+        Returns the valid part of a twitter username input, lowercased
+    """
+    return re.sub(RE_VALID_TWITTER_USERNAME, r'\1', text).lower()
 
 
 def json_response(func):
