@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.43 (unreleased)
+0.43 (2019-07-29)
 -----------------
 
-- Nothing changed yet.
-
+* isValidTwitterUsername [pilar.marinas]
 
 0.42 (2019-07-22)
 -----------------
