@@ -23,6 +23,7 @@ import requests
 import shutil
 import subprocess
 import time
+import transaction
 
 
 ATTRIBUTE_NAME_FAVORITE = '_favoritedBy'
@@ -221,7 +222,9 @@ class migrationDocumentsCommunities(grok.View):
                             subprocess.Popen([cmd_mv], shell=True).wait()
 
                             allcontent_dir = path_guardar_export_dexterity_comunitats_V5 + '/allcontent'
-                            for elem in os.listdir(allcontent_dir):
+                            elements = os.listdir(allcontent_dir)
+                            elements.sort(key=int)
+                            for elem in elements:
                                 if not os.path.isdir(allcontent_dir+'/'+elem):
                                     continue
                                 os.mkdir(path_guardar_export_dexterity_comunitats_V5 + '/content')
@@ -231,6 +234,7 @@ class migrationDocumentsCommunities(grok.View):
 
                                 migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
                                 shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
+                                transaction.commit()
 
                             if migrat.ok:
                                 logger.info('He migrat la carpeta documents de: ' + community['title'].encode('utf-8'))
@@ -257,6 +261,8 @@ class migrationDocumentsCommunities(grok.View):
 
                             subprocess.Popen([cmd], shell=True).wait()
                             migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/events/comunitats_import', auth=(remote_username, remote_password))
+                            transaction.commit()
+
                             if migrat.ok:
                                 logger.info('He migrat la carpeta esdeveniments de: ' + community['title'].encode('utf-8'))
                             else:
