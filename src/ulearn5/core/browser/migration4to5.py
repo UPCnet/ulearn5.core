@@ -313,6 +313,9 @@ class migrationPath(grok.View):
                     if os.path.exists(path_guardar_export_dexterity_comunitats_V5 + '/content'):
                         shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
 
+                    if os.path.exists(path_guardar_export_dexterity_comunitats_V5 + '/allcontent'):
+                        shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/allcontent')
+
                     if certificado_maquina_comunitats_V4 == 'local':
                         # para hacer la migracion con las instancias de plone 4 y 5 en la misma maquina
                         cmd = 'scp -r ' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
@@ -326,7 +329,27 @@ class migrationPath(grok.View):
                     # local
                     # cmd = 'scp -r ' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
                     subprocess.Popen([cmd], shell=True).wait()
-                    migrat = requests.get(url_instance_v5 + '/comunitats_import', auth=(remote_username, remote_password))
+
+                    cmd_mv = 'mv '+path_guardar_export_dexterity_comunitats_V5 + '/content '\
+                            + path_guardar_export_dexterity_comunitats_V5 + '/allcontent'
+                    subprocess.Popen([cmd_mv], shell=True).wait()
+
+                    allcontent_dir = path_guardar_export_dexterity_comunitats_V5 + '/allcontent'
+                    elements = os.listdir(allcontent_dir)
+                    elements.sort(key=int)
+                    for elem in elements:
+                        if not os.path.isdir(allcontent_dir+'/'+elem):
+                            continue
+                        os.mkdir(path_guardar_export_dexterity_comunitats_V5 + '/content')
+                        cmd_mv = 'mv ' + path_guardar_export_dexterity_comunitats_V5 + '/allcontent/'+elem \
+                                + ' ' + path_guardar_export_dexterity_comunitats_V5 + '/content/'
+                        subprocess.Popen([cmd_mv], shell=True).wait()
+
+                        migrat = requests.get(url_instance_v5 + '/comunitats_import', auth=(remote_username, remote_password))
+                        shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
+                        transaction.commit()
+                        logger.info('He migrat el elem: ' + elem)
+
                     if migrat.ok:
                         logger.info('He migrat el path: ' + path_a_migrar)
                     else:
