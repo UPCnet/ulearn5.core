@@ -19,11 +19,14 @@ import transaction
 import re
 from zope import schema
 
+from ulearn5.core import _
+
+
 RE_VALID_TWITTER_USERNAME = r'^\s*@?([a-zA-Z0-9_]{1,15})\s*$'
 
 
 class InvalidTwitterUsernameError(schema.ValidationError):
-    __doc__ = "Invalid twitter username"
+    __doc__ = _(u"Invalid twitter username.")
 
 
 def isValidTwitterUsername(text):

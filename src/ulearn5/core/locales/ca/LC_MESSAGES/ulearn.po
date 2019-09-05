@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-04-30 09:08+0000\n"
+"POT-Creation-Date: 2019-09-05 10:13+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Language: ca\n"
 
-#: ../patches.py:387
+#: ../patches.py:411
 msgid " ."
 msgstr " ."
 
-#: ../controlpanel.py:399
+#: ../controlpanel.py:409
 msgid "/mail_password_form?userid="
 msgstr "/mail_password_form?userid="
 
@@ -70,7 +70,7 @@ msgstr "Afegir una carpeta privada"
 msgid "Add awesome icon"
 msgstr "Afegir fontawesome"
 
-#: ../controlpanel.py:357
+#: ../controlpanel.py:367
 msgid "Add the quick links by language"
 msgstr "Text que es mostrarà com a títol dels enllaços directes."
 
@@ -100,7 +100,7 @@ msgstr "Calendari"
 msgid "Can only be seen and edited by the owner."
 msgstr "Només pot ser vist i editat pel propietari."
 
-#: ../controlpanel.py:511
+#: ../controlpanel.py:521
 #: ../controlportlets.py:323
 msgid "Cancel"
 msgstr "Cancel·la"
@@ -109,19 +109,19 @@ msgstr "Cancel·la"
 msgid "Cerca"
 msgstr "Cerca"
 
-#: ../patches.py:937
+#: ../patches.py:1009
 msgid "Changes made."
 msgstr "Canvis realitzats."
 
-#: ../controlpanel.py:508
+#: ../controlpanel.py:518
 msgid "Changes saved"
 msgstr "Canvis desats"
 
-#: ../patches.py:328
+#: ../patches.py:352
 msgid "Changes saved."
 msgstr "Canvis desats"
 
-#: ../patches.py:1087
+#: ../patches.py:1159
 msgid "Clear"
 msgstr "Neteja"
 
@@ -143,7 +143,7 @@ msgstr "Tancada"
 msgid "Comments about the last transition"
 msgstr "Comentaris sobre l'última transició"
 
-#: ../controlpanel.py:97
+#: ../controlpanel.py:98
 msgid "Communities"
 msgstr "Comunitats"
 
@@ -178,7 +178,7 @@ msgstr "Darreres activitats"
 msgid "Descripcio"
 msgstr "Descripció"
 
-#: ../controlpanel.py:79
+#: ../controlpanel.py:80
 msgid "Design"
 msgstr "Disseny"
 
@@ -243,7 +243,7 @@ msgstr "Edita portlet Canvis recents"
 msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícies destacades"
 
-#: ../controlpanel.py:513
+#: ../controlpanel.py:523
 #: ../controlportlets.py:325
 msgid "Edit cancelled"
 msgstr "Edició cancel·lada"
@@ -264,15 +264,15 @@ msgstr "Els usuaris no poden publicar els objectes, exclusiu per intranets."
 msgid "Enable icalendar import"
 msgstr "Activar importació icalendar"
 
-#: ../controlpanel.py:430
+#: ../controlpanel.py:440
 msgid "Enable querying Google Analytics' servers"
 msgstr "Habiliteu la consulta dels servidors de Google Analytics"
 
-#: ../patches.py:1084
+#: ../patches.py:1156
 msgid "Enter date..."
 msgstr "Introduir data ..."
 
-#: ../controlpanel.py:443
+#: ../controlpanel.py:453
 msgid "Enter the content of the JSON file given when the service account was created"
 msgstr "Introduïu el contingut del fitxer JSON donat quan es va crear el compte de servei"
 
@@ -298,7 +298,7 @@ msgstr "Filtrar per paraula clau"
 msgid "Fin_stats"
 msgstr "Fi <span class=\"formHelp\">x</span>"
 
-#: ../controlpanel.py:60
+#: ../controlpanel.py:61
 msgid "Font Awesome Icon"
 msgstr "Icona Font Awesome"
 
@@ -310,7 +310,7 @@ msgstr "Per a enllaços externs utilitzar https:// o http://"
 msgid "Front page"
 msgstr "Pàgina principal"
 
-#: ../controlpanel.py:71
+#: ../controlpanel.py:72
 msgid "General"
 msgstr "General"
 
@@ -326,7 +326,7 @@ msgstr "Global"
 msgid "Go to homepage"
 msgstr "Inici"
 
-#: ../controlpanel.py:499
+#: ../controlpanel.py:509
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr "Has marcat el comparteix pero falta la url del elasticsearch"
 
@@ -373,11 +373,15 @@ msgstr "Instal·la el complement ulearn5.core"
 msgid "Intranet"
 msgstr "Intranet"
 
+#: ../utils.py:29
+msgid "Invalid twitter username."
+msgstr "Usuari de Twitter invàlid."
+
 #: ulearn5/theme/portlets/importantnews/importantnews.py:30
 msgid "Items in which workflow state to show."
 msgstr "Elements als que s'ha de mostra l'estat del Flux de treball."
 
-#: ../controlpanel.py:442
+#: ../controlpanel.py:452
 msgid "JSON encoded user info"
 msgstr "Informació d'usuari codificada en JSON"
 
@@ -385,19 +389,19 @@ msgstr "Informació d'usuari codificada en JSON"
 msgid "La descripcio de la comunitat"
 msgstr "La descripció de la comunitat"
 
-#: ../controlpanel.py:45
+#: ../controlpanel.py:46
 msgid "Language"
 msgstr "Idioma"
 
-#: ../controlpanel.py:59
+#: ../controlpanel.py:60
 msgid "Link"
 msgstr "Enllaç"
 
-#: ../controlpanel.py:350
+#: ../controlpanel.py:360
 msgid "Literals que identifiquen als usuaris de les comunitats i les seves aportacions."
 msgstr "Literals que identifiquen als usuaris de les comunitats i les seves aportacions."
 
-#: ../controlpanel.py:343
+#: ../controlpanel.py:353
 msgid "Llista amb les persones que no han de sortir a les cerques i que tenen acces restringit per la resta de persones."
 msgstr "Llista amb les persones que no han de sortir a les cerques i que tenen accés restringit per la resta de persones."
 
@@ -484,7 +488,7 @@ msgstr "Filtra per etiquetes"
 msgid "Name of the Font Awesome class to use as an icon. It is only visible in the menu."
 msgstr "Nom de la classe Font Awesome per utilitzar-la com a icona. Només es pot veure al menú."
 
-#: ../controlpanel.py:61
+#: ../controlpanel.py:62
 msgid "New window"
 msgstr "Obrir finestra nova?"
 
@@ -545,7 +549,7 @@ msgstr "Notificar activitat via 'push'"
 msgid "Number of items to display"
 msgstr "Nombre d'elements a mostrar"
 
-#: ../controlpanel.py:437
+#: ../controlpanel.py:447
 msgid "Obtainable from the View Settings panel on Google Analytics Admin control panel"
 msgstr "Obtenible des del panell de View Settings al tauler de control de l’Administrador de Google Analytics"
 
@@ -583,7 +587,7 @@ msgstr "Pendent en la cua del revisor"
 msgid "Personal"
 msgstr "Personal"
 
-#: ../patches.py:1037
+#: ../patches.py:1109
 msgid "Personal Preferences"
 msgstr "Preferències personals"
 
@@ -638,7 +642,7 @@ msgstr "La publicació de l'element fa que sigui visible per a altres usuaris."
 msgid "Puts your item in a review queue, so it can be published on the site."
 msgstr "Publica el teu article en una cua de revisió, de manera que es pot publicar al lloc."
 
-#: ../controlpanel.py:93
+#: ../controlpanel.py:94
 msgid "QuickLinks"
 msgstr "Enllaços directes"
 
@@ -696,11 +700,11 @@ msgstr "Rol per a les notícies a dintre de la intranet (Permet el esborrany i l
 
 #: ../browser/sharing_templates/sharing.pt:124
 #: ../content/community_templates/editacl.pt:93
-#: ../controlpanel.py:463
+#: ../controlpanel.py:473
 msgid "Save"
 msgstr "Desa"
 
-#: ../controlpanel.py:210
+#: ../controlpanel.py:211
 msgid "Select the active button in the button bar."
 msgstr "Selecciona el apartat que voleu que aparegui per defecte actiu en la button bar."
 
@@ -751,15 +755,15 @@ msgstr "Llista amb les persones propietàries de la comunitat"
 msgid "Subscribed people with read-only permissions"
 msgstr "Llista amb les persones subscrites amb permís de lectura"
 
-#: ../controlpanel.py:218
+#: ../controlpanel.py:219
 msgid "Tasques que s'executaran per la nit"
 msgstr "Tasques que s'executarán per la nit"
 
-#: ../controlpanel.py:49
+#: ../controlpanel.py:50
 msgid "Text"
 msgstr "Text"
 
-#: ../controlpanel.py:356
+#: ../controlpanel.py:366
 msgid "Text Quick Links"
 msgstr "Títol dels enllaços directes"
 
@@ -821,7 +825,7 @@ msgstr "Tipus de comunitat"
 msgid "Todas las comunidades"
 msgstr "Totes les comunitats"
 
-#: ../patches.py:1086
+#: ../patches.py:1158
 msgid "Today"
 msgstr "Avui"
 
@@ -877,7 +881,7 @@ msgstr "Ulearn Participants"
 msgid "Ulearn discussion"
 msgstr "Ulearn Debats"
 
-#: ../controlpanel.py:453
+#: ../controlpanel.py:463
 msgid "Ulearn settings"
 msgstr "Configuració de uLearn"
 
@@ -910,7 +914,7 @@ msgstr "Url a més contingut."
 msgid "Usuario_stats"
 msgstr "Usuari"
 
-#: ../controlpanel.py:436
+#: ../controlpanel.py:446
 msgid "View ID"
 msgstr "View ID"
 
@@ -918,7 +922,7 @@ msgstr "View ID"
 msgid "View loginfo"
 msgstr "Historial de canvis"
 
-#: ../controlpanel.py:89
+#: ../controlpanel.py:90
 msgid "Visibility"
 msgstr "Visibilitat"
 
@@ -960,17 +964,17 @@ msgid "accepto_politica_2"
 msgstr "política de privacitat"
 
 #. Default: "Mostra les noticies a les que estic subscrit"
-#: ../controlpanel.py:191
+#: ../controlpanel.py:192
 msgid "activate_news"
 msgstr "Mostra les noticies a les que estic subscrit"
 
 #. Default: "Mostra el que hi ha compartit amb mi"
-#: ../controlpanel.py:200
+#: ../controlpanel.py:201
 msgid "activate_sharedwithme"
 msgstr "Mostra el que hi ha compartit amb mi"
 
 #: ../content/community.py:182
-#: ../controlpanel.py:376
+#: ../controlpanel.py:386
 msgid "activity_view"
 msgstr "Visualització Activitats Comunitat"
 
@@ -986,12 +990,12 @@ msgid "allcommunities"
 msgstr "Comunitats"
 
 #. Default: "Color final dels gradients"
-#: ../controlpanel.py:269
+#: ../controlpanel.py:279
 msgid "alt_gradient_end_color"
 msgstr "Color final dels gradients"
 
 #. Default: "Color inicial dels gradients."
-#: ../controlpanel.py:260
+#: ../controlpanel.py:270
 msgid "alt_gradient_start_color"
 msgstr "Color inicial dels gradients."
 
@@ -1000,17 +1004,17 @@ msgstr "Color inicial dels gradients."
 msgid "angularrouteview"
 msgstr "AngularRouteView"
 
-#: ../controlpanel.py:39
+#: ../controlpanel.py:40
 msgid "api/saveeditacl"
 msgstr "api/saveeditac"
 
 #. Default: "Color de fons global"
-#: ../controlpanel.py:287
+#: ../controlpanel.py:297
 msgid "background_color"
 msgstr "Color de fons global"
 
 #. Default: "Propietat de fons global"
-#: ../controlpanel.py:278
+#: ../controlpanel.py:288
 msgid "background_property"
 msgstr "Propietat de fons global"
 
@@ -1057,22 +1061,22 @@ msgstr "Edita comunitat"
 msgid "buttonbar"
 msgstr "Button bar"
 
-#: ../controlpanel.py:209
+#: ../controlpanel.py:210
 msgid "buttonbar_selected"
 msgstr "Selecció per la botonera de portlets"
 
 #. Default: "Color primari dels botons"
-#: ../controlpanel.py:296
+#: ../controlpanel.py:306
 msgid "buttons_color_primary"
 msgstr "Color primari dels botons"
 
 #. Default: "Color secundari dels botons"
-#: ../controlpanel.py:305
+#: ../controlpanel.py:315
 msgid "buttons_color_secondary"
 msgstr "Color secundari dels botons"
 
 #. Default: "URL del campus"
-#: ../controlpanel.py:129
+#: ../controlpanel.py:130
 msgid "campus_url"
 msgstr "Adreça web del Campus"
 
@@ -1089,22 +1093,22 @@ msgstr "Copia l'enllaç universal"
 msgid "collective_polls_VotePortlet"
 msgstr "Portlet Enquestes"
 
-#: ../controlpanel.py:351
+#: ../controlpanel.py:361
 msgid "collegiates"
 msgstr "Col·legiats"
 
 #. Default: "Color comunitat tancada"
-#: ../controlpanel.py:314
+#: ../controlpanel.py:324
 msgid "color_community_closed"
 msgstr "Color comunitat tancada"
 
 #. Default: "Color comunitat oberta"
-#: ../controlpanel.py:332
+#: ../controlpanel.py:342
 msgid "color_community_open"
 msgstr "Color comunitat oberta"
 
 #. Default: "Color comunitat organitzativa"
-#: ../controlpanel.py:323
+#: ../controlpanel.py:333
 msgid "color_community_organizative"
 msgstr "Color comunitat organitzativa"
 
@@ -1166,9 +1170,13 @@ msgid "createcommunity"
 msgstr "Crear nova comunitat"
 
 #. Default: "Cron tasks"
-#: ../controlpanel.py:217
+#: ../controlpanel.py:218
 msgid "cron_tasks"
 msgstr "Tareas del cron"
+
+#: ../controlpanel.py:39
+msgid "delete_local_roles"
+msgstr ""
 
 #: ../controlpanel.py:38
 msgid "delete_user_catalog"
@@ -1218,13 +1226,13 @@ msgid "event_what"
 msgstr "Què"
 
 #. Default: "When"
-#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:38
+#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:41
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:27
 msgid "event_when"
 msgstr "Quan"
 
 #. Default: "Where"
-#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:43
+#: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:46
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:66
 msgid "event_where"
 msgstr "On"
@@ -1250,7 +1258,7 @@ msgid "falta_titol"
 msgstr "No es pot crear una comunitat sense títol"
 
 #. Default: "Filtra per nom i/o per etiquetes:"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:33
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:34
 msgid "filter"
 msgstr "Filtra per text i/o per etiquetes:"
 
@@ -1294,52 +1302,52 @@ msgid "heading_send_event"
 msgstr "Envia la convocatòria als assistents"
 
 #. Default: "Mostra o no el botó de Noticies a la tile central de les comunitats"
-#: ../controlpanel.py:193
+#: ../controlpanel.py:194
 msgid "help_activate_news"
 msgstr "Mostra o no el botó de Noticies a la tile central de les comunitats"
 
 #. Default: "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
-#: ../controlpanel.py:202
+#: ../controlpanel.py:203
 msgid "help_activate_sharedwithme"
 msgstr "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
 
 #: ../content/community.py:183
-#: ../controlpanel.py:377
+#: ../controlpanel.py:387
 msgid "help_activity_view"
 msgstr "Selecciona el mode de visualització de les activitats de la comunitat"
 
 #. Default: "Aquest és el color final dels gradients."
-#: ../controlpanel.py:271
+#: ../controlpanel.py:281
 msgid "help_alt_gradient_end_color"
 msgstr "Aquest és el color final dels gradients."
 
 #. Default: "Aquest és el color inicial dels gradients."
-#: ../controlpanel.py:262
+#: ../controlpanel.py:272
 msgid "help_alt_gradient_start_color"
 msgstr "Aquest és el color inicial dels gradients."
 
 #. Default: "Aquest és el color de fons global o la propietat corresponent."
-#: ../controlpanel.py:289
+#: ../controlpanel.py:299
 msgid "help_background_color"
 msgstr "Aquest és el color de fons global."
 
 #. Default: "Aquest és la propietat de CSS de background."
-#: ../controlpanel.py:280
+#: ../controlpanel.py:290
 msgid "help_background_property"
 msgstr "Aquest és la propietat de CSS de background."
 
 #. Default: "Aquest és el color primari dels botons."
-#: ../controlpanel.py:298
+#: ../controlpanel.py:308
 msgid "help_buttons_color_primary"
 msgstr "Aquest és el color primari dels botons."
 
 #. Default: "Aquest és el color secundari dels botons."
-#: ../controlpanel.py:307
+#: ../controlpanel.py:317
 msgid "help_buttons_color_secondary"
 msgstr "Aquest és el color secundari dels botons."
 
 #. Default: "Afegiu la URL del campus associat a aquestes comunitats."
-#: ../controlpanel.py:131
+#: ../controlpanel.py:132
 msgid "help_campus_url"
 msgstr "Afegiu la URL del Campus associat a aquestes comunitats."
 
@@ -1350,27 +1358,27 @@ msgid "help_collective_polls_VotePortlet"
 msgstr "Habilita el portlet per afegir la darrera enquesta activa. Perque funcioni s'ha d'instal·lar el paquet d'enquestes i afegir en el tipus de contingut carpetes, que es puguin afegir enquestes."
 
 #. Default: "Aquest és el color per les comunitats tancades."
-#: ../controlpanel.py:316
+#: ../controlpanel.py:326
 msgid "help_color_community_closed"
 msgstr "Aquest és el color per les comunitats tancades."
 
 #. Default: "Aquest és el color per les comunitats obertes."
-#: ../controlpanel.py:334
+#: ../controlpanel.py:344
 msgid "help_color_community_open"
 msgstr "Aquest és el color per les comunitats obertes."
 
 #. Default: "Aquest és el color per les comunitats organitzatives."
-#: ../controlpanel.py:325
+#: ../controlpanel.py:335
 msgid "help_color_community_organizative"
 msgstr "Aquest és el color per les comunitats organitzatives."
 
 #. Default: "Afegiu el títol del Ulearn. Podeu incloure tags HTML"
-#: ../controlpanel.py:107
+#: ../controlpanel.py:108
 msgid "help_html_title"
 msgstr "Afegiu el títol del Ulearn. Podeu incloure tags HTML"
 
 #. Default: "Aquest és l'enllaç al servei."
-#: ../controlpanel.py:185
+#: ../controlpanel.py:186
 msgid "help_info_servei"
 msgstr "Enllaç al servei."
 
@@ -1380,32 +1388,32 @@ msgid "help_language"
 msgstr "Idioma de l'espai."
 
 #. Default: "Afegiu la URL de la biblioteca associada a aquestes comunitats."
-#: ../controlpanel.py:140
+#: ../controlpanel.py:141
 msgid "help_library_url"
 msgstr "Afegiu la URL de la biblioteca associada a aquestes comunitats."
 
 #. Default: "Aquest és el llindar del winwin #1."
-#: ../controlpanel.py:149
+#: ../controlpanel.py:150
 msgid "help_llindar_winwin1"
 msgstr "Aquest és el llindar del Winwinn #1."
 
 #. Default: "Aquest és el llindar del winwin #2."
-#: ../controlpanel.py:158
+#: ../controlpanel.py:159
 msgid "help_llindar_winwin2"
 msgstr "Aquest és el llindar del Winwinn #2."
 
 #. Default: "Aquest és el llindar del winwin #3."
-#: ../controlpanel.py:167
+#: ../controlpanel.py:168
 msgid "help_llindar_winwin3"
 msgstr "Aquest és el llindar del Winwinn #3."
 
 #. Default: "Aquest és el color principal de l'espai."
-#: ../controlpanel.py:235
+#: ../controlpanel.py:245
 msgid "help_main_color"
 msgstr "Aquest és el color principal de l'espai."
 
 #. Default: "Aquest és el color del fons del widget de MAX."
-#: ../controlpanel.py:253
+#: ../controlpanel.py:263
 msgid "help_maxui_form_bg"
 msgstr "Aquest és el color del fons del widget de MAX."
 
@@ -1460,40 +1468,40 @@ msgid "help_portlets_settings_editform"
 msgstr "Configuració de portlets. Configura els portlets permesos."
 
 #. Default: "Afegiu la icona del Font Awesome que voleu que es mostri"
-#: ../controlpanel.py:364
+#: ../controlpanel.py:374
 msgid "help_quicklinks_icon"
 msgstr "Icona del Font Awesome que apareix al costat del títol dels enllaços directes"
 
-#: ../controlpanel.py:358
+#: ../controlpanel.py:368
 msgid "help_quicklinks_literal"
 msgstr "Text que sortirà com a títol dels enllaços directes"
 
-#: ../controlpanel.py:373
+#: ../controlpanel.py:383
 msgid "help_quicklinks_table"
 msgstr "En aquesta taula s'han d'afegir tots els enllaços directes que volem mostrar"
 
 #. Default: "Aquest és el color secundari de l'espai."
-#: ../controlpanel.py:244
+#: ../controlpanel.py:254
 msgid "help_secondary_color"
 msgstr "Aquest és el color secundari de l'espai."
 
 #. Default: "Disable or enable the display of community types in the portlet."
-#: ../controlpanel.py:414
+#: ../controlpanel.py:424
 msgid "help_show_literals"
 msgstr "Desactivar o activar la visualització dels tipus de comunitat en el portlet."
 
 #. Default: "If selected, then gives the option to show the News Items in Mobile App."
-#: ../controlpanel.py:405
+#: ../controlpanel.py:415
 msgid "help_show_news_in_app"
 msgstr "Si es marca aquesta casella, les notícies del lloc es mostraran a l'app mòbil."
 
 #. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
-#: ../controlpanel.py:386
+#: ../controlpanel.py:396
 msgid "help_site_language"
 msgstr "Aquest és l'idioma de l'espai."
 
 #. Default: "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
-#: ../controlpanel.py:176
+#: ../controlpanel.py:177
 msgid "help_stats_button"
 msgstr "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 
@@ -1571,7 +1579,7 @@ msgid "help_ulearn_recentchanges"
 msgstr "Habilita el portlet per veure els canvis recents."
 
 #. Default: "uLearn configuration registry."
-#: ../controlpanel.py:454
+#: ../controlpanel.py:464
 msgid "help_ulearn_settings_editform"
 msgstr "Configuració de uLearn"
 
@@ -1592,17 +1600,22 @@ msgid "help_ulearn_thinkers"
 msgstr "Habilita el portlet on es mostren els usuaris, amb la cerca."
 
 #. Default: "Url per defecte: \"/mail_password_form?userid=\". Per a dominis externs indiqueu la url completa, \"http://www.domini.cat\""
-#: ../controlpanel.py:396
+#: ../controlpanel.py:406
 msgid "help_url_forget_password"
 msgstr "Url per defecte: \"/mail_password_form?userid=\". Per a dominis externs indiqueu la url completa, \"http://www.domini.cat\""
 
 #. Default: "Url of the private policy."
-#: ../controlpanel.py:226
+#: ../controlpanel.py:227
 msgid "help_url_private_policy"
 msgstr "URL de la política de privacitat."
 
+#. Default: "Url of the site."
+#: ../controlpanel.py:236
+msgid "help_url_site"
+msgstr ""
+
 #. Default: "Url of the terms of use."
-#: ../controlpanel.py:423
+#: ../controlpanel.py:433
 msgid "help_url_terms"
 msgstr "URL per als termes d'ús"
 
@@ -1627,17 +1640,17 @@ msgid "help_wsurl"
 msgstr "Url del moodle."
 
 #. Default: "Títol del web amb HTML tags (negretes) [CA]"
-#: ../controlpanel.py:105
+#: ../controlpanel.py:106
 msgid "html_title_ca"
 msgstr "Títol del web amb HTML tags (negretes) [CA]"
 
 #. Default: "Títol del web amb HTML tags (negretes) [EN]"
-#: ../controlpanel.py:121
+#: ../controlpanel.py:122
 msgid "html_title_en"
 msgstr "Títol del web amb HTML tags (negretes) [EN]"
 
 #. Default: "Títol del web amb HTML tags (negretes) [ES]"
-#: ../controlpanel.py:113
+#: ../controlpanel.py:114
 msgid "html_title_es"
 msgstr "Títol del web amb HTML tags (negretes) [ES]"
 
@@ -1668,7 +1681,7 @@ msgid "info_public"
 msgstr "Informació pública (directori)"
 
 #. Default: "Informació del servei"
-#: ../controlpanel.py:183
+#: ../controlpanel.py:184
 msgid "info_servei"
 msgstr "Informació del servei"
 
@@ -1738,7 +1751,7 @@ msgid "label_not_subjects"
 msgstr "No hi ha assignatures disponibles."
 
 #. Default: "Password"
-#: ../patches.py:1046
+#: ../patches.py:1118
 msgid "label_password"
 msgstr "Contrasenya"
 
@@ -1772,67 +1785,67 @@ msgid "label_wsurl"
 msgstr "Url del  Webservice"
 
 #. Default: "Idioma de l'espai"
-#: ../controlpanel.py:384
+#: ../controlpanel.py:394
 msgid "language"
 msgstr "Idioma"
 
 #. Default: "URL de la biblioteca"
-#: ../controlpanel.py:138
+#: ../controlpanel.py:139
 msgid "library_url"
 msgstr "URL de la biblioteca"
 
 #. Default: "Llindar del winwin 1"
-#: ../controlpanel.py:147
+#: ../controlpanel.py:148
 msgid "llindar_winwin1"
 msgstr "Llindar del Winwinn 1"
 
 #. Default: "Llindar del winwin 2"
-#: ../controlpanel.py:156
+#: ../controlpanel.py:157
 msgid "llindar_winwin2"
 msgstr "Llindar del Winwinn 2"
 
 #. Default: "Llindar del winwin 3"
-#: ../controlpanel.py:165
+#: ../controlpanel.py:166
 msgid "llindar_winwin3"
 msgstr "Llindar del Winwinn 3"
 
 #. Default: "Color principal"
-#: ../controlpanel.py:233
+#: ../controlpanel.py:243
 msgid "main_color"
 msgstr "Color principal"
 
 #. Default: "Manage homepage portlets"
-#: ../patches.py:367
+#: ../patches.py:391
 msgid "manage_homepage_portlets_description"
 msgstr "Gestiona els portlets de la pàgina inicial"
 
 #. Default: "Homepage"
-#: ../patches.py:366
+#: ../patches.py:390
 msgid "manage_homepage_portlets_title"
 msgstr "Pàgina inicial"
 
 #. Default: "Manage left portlets"
-#: ../patches.py:405
+#: ../patches.py:429
 msgid "manage_left_portlets_description"
 msgstr "Gestiona els portlets de l'esquerra"
 
 #. Default: "Left"
-#: ../patches.py:404
+#: ../patches.py:428
 msgid "manage_left_portlets_title"
 msgstr "Esquerra"
 
 #. Default: "Manage right portlets"
-#: ../patches.py:408
+#: ../patches.py:432
 msgid "manage_right_portlets_description"
 msgstr "Gestiona els portlets de la dreta"
 
 #. Default: "Right"
-#: ../patches.py:407
+#: ../patches.py:431
 msgid "manage_right_portlets_title"
 msgstr "Dreta"
 
 #. Default: "Color del fons del widget de MAX."
-#: ../controlpanel.py:251
+#: ../controlpanel.py:261
 msgid "maxui_form_bg"
 msgstr "Color del fons del widget de MAX."
 
@@ -1925,7 +1938,7 @@ msgstr "Notícies"
 msgid "no_content_shared_user"
 msgstr "No hi ha contingut compartit. Es mostrarà aquí quan algú comparteixi alguna cosa amb tú."
 
-#: ../controlpanel.py:342
+#: ../controlpanel.py:352
 msgid "no_visibles"
 msgstr "Persones no visibles"
 
@@ -1937,20 +1950,20 @@ msgstr "Activar la visualització d'aquest camp per a tots els usuaris."
 msgid "notify_activity_via_push_help"
 msgstr "Si s'activa aquesta opció, es notificarà l'activitat d'aquesta comunitat a tots els usuaris que hi estiguin subscrits als seus dispositius mòbils a través de notificacions 'push' de l'aplicació UPCnet uTalk."
 
-#: ../controlpanel.py:351
+#: ../controlpanel.py:361
 msgid "participants"
 msgstr "participants"
 
-#: ../controlpanel.py:349
+#: ../controlpanel.py:359
 msgid "people_literal"
 msgstr "Literals d'identificació de persones"
 
-#: ../controlpanel.py:351
+#: ../controlpanel.py:361
 msgid "persones"
 msgstr "persones"
 
 #. Default: "mmmm d, yyyy"
-#: ../patches.py:1082
+#: ../patches.py:1154
 msgid "pickadate_date_format"
 msgstr "mmmm d, yyyy"
 
@@ -1993,12 +2006,12 @@ msgid "publicaalaintranet"
 msgstr "Publica a la intranet"
 
 #. Default: "icon-link"
-#: ../controlpanel.py:362
+#: ../controlpanel.py:372
 msgid "quicklinks_icon"
 msgstr "Icona Font Awesome"
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/browser/views_templates/collectionnews.pt:97
+#: ulearn5/theme/browser/views_templates/collectionnews.pt:104
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:177
 msgid "readmore"
 msgstr "Llegir més..."
@@ -2044,11 +2057,12 @@ msgid "search_users"
 msgstr "Cerca usuaris"
 
 #. Default: "Color secundari"
-#: ../controlpanel.py:242
+#: ../controlpanel.py:252
 msgid "secondary_color"
 msgstr "Color secundari"
 
 #. Default: "Mes noticies"
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:185
 #: ulearn5/theme/portlets/importantnews/importantnews.pt:52
 msgid "seemore"
 msgstr "Més notícies"
@@ -2104,7 +2118,7 @@ msgid "shared_content_description"
 msgstr "Tots els continguts compartits per algun membre d'aquesta comunitat "
 
 #. Default: "Shared content"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:62
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:63
 #: ulearn5/theme/browser/views_templates/filtered_contents_search_ajax.pt:9
 msgid "shared_content_title"
 msgstr "Accés a tots els elements compartits amb usuaris que no pertanyen a aquesta comunitat"
@@ -2115,12 +2129,12 @@ msgid "shared_with_me"
 msgstr "Compartit amb mi"
 
 #. Default: "Show literal"
-#: ../controlpanel.py:412
+#: ../controlpanel.py:422
 msgid "show_literals"
 msgstr "Veure els tipus de comunitat"
 
 #. Default: "Show News Items in App"
-#: ../controlpanel.py:403
+#: ../controlpanel.py:413
 msgid "show_news_in_app"
 msgstr "Mostra les notícies a l'app mòbil"
 
@@ -2140,7 +2154,7 @@ msgid "statsCommunityName"
 msgstr "Nom de la comunitat"
 
 #. Default: "Mostrar botó d'accés a estadístiques diàries"
-#: ../controlpanel.py:174
+#: ../controlpanel.py:175
 msgid "stats_button"
 msgstr "Mostrar botó d'accés a estadístiques diàries"
 
@@ -2194,7 +2208,7 @@ msgid "text_form_resubmit_message"
 msgstr "Ja heu fet clic al botó de enviar. Segur que voleu enviar aquest formulari de nou?"
 
 #. Default: "Thinnkers portlet"
-#: ../controlpanel.py:351
+#: ../controlpanel.py:361
 msgid "thinnkers"
 msgstr "Persones"
 
@@ -2208,7 +2222,7 @@ msgid "title_add_to_ical"
 msgstr "Descarrega aquest esdeveniment en format iCal"
 
 #. Default: "Personal Information"
-#: ../patches.py:1028
+#: ../patches.py:1100
 msgid "title_personal_information_form"
 msgstr "Informació personal"
 
@@ -2348,17 +2362,22 @@ msgid "ulearn_thinkers"
 msgstr "Portlet Ulearn Persones"
 
 #. Default: "URL contrasenya oblidada"
-#: ../controlpanel.py:394
+#: ../controlpanel.py:404
 msgid "url_forget_password"
 msgstr "URL contrasenya oblidada"
 
 #. Default: "Url private policy"
-#: ../controlpanel.py:224
+#: ../controlpanel.py:225
 msgid "url_private_policy"
 msgstr "URL política de privacitat"
 
+#. Default: "Url site"
+#: ../controlpanel.py:234
+msgid "url_site"
+msgstr ""
+
 #. Default: "Url terms of use"
-#: ../controlpanel.py:421
+#: ../controlpanel.py:431
 msgid "url_terms"
 msgstr "URL dels termes d'ús"
 
@@ -2385,22 +2404,22 @@ msgid "visibility_widget_title"
 msgstr "Desactivar la visualització d'aquest camp per aquells usuaris que nos siguin gestors."
 
 #. Default: "Use site default"
-#: ../patches.py:474
+#: ../patches.py:498
 #: ../personalpreferences.py:75
 msgid "vocabulary-available-editor-novalue"
 msgstr "Utilitza el lloc predeterminat"
 
 #. Default: "Language neutral (site default)"
-#: ../patches.py:469
+#: ../patches.py:493
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Idioma neutral (predeterminat del lloc)"
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:37
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:38
 msgid "write_doc"
 msgstr "Escull entre títol, descripció o contingut"
 
 #. Default: "Cerca"
-#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:45
+#: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:46
 msgid "write_tag"
 msgstr "Introdueix etiquetes"
