@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.44 (unreleased)
+0.44 (2019-09-09)
 -----------------
 
-- Nothing changed yet.
-
+* Traducción error Twitter username [Iago López Fernández]
+* Migración por path [Iago López Fernández]
+* Mejora migracion de la documentacion de las comunidades [root]
 
 0.43 (2019-07-29)
 -----------------
