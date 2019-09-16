@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.45 (unreleased)
+0.45 (2019-09-16)
 -----------------
 
-- Nothing changed yet.
-
+* Añadir paquete plone.restapi [Iago López Fernández]
+* Modify literal help portrait [pilar.marinas]
 
 0.44 (2019-09-09)
 -----------------
