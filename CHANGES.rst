@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.46 (unreleased)
+0.46 (2019-09-17)
 -----------------
 
-- Nothing changed yet.
-
+* Permitir a la API modificar grupos para añadir y eliminar usuarios [Iago López Fernández]
 
 0.45 (2019-09-16)
 -----------------
