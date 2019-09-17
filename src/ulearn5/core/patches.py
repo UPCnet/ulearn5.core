@@ -1203,3 +1203,10 @@ def hasScript(s):
         if t in s:
             return True
     return False
+
+
+security = ClassSecurityInfo()
+
+security.declarePrivate('updateGroup')
+def updateGroup(self, id, **kw):
+    return True

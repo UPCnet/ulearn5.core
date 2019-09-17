@@ -161,4 +161,11 @@
         replacement=".patches._setProperty"
         />
 
+    <monkey:patch
+        description="Permetre utilitzar la API de modificacio de grups per afegir i eliminar usuaris"
+        class="Products.PloneLDAP.mixins.groupmgmt.GroupManagementMixin"
+        original="updateGroup"
+        replacement=".patches.updateGroup"
+        />
+
 </configure>
