@@ -29,4 +29,10 @@
   <element value="filtered_contents_search_view"/>
   <element value="contents_pretty_view"/>
  </property>
+ <action title="Edit" action_id="edit" category="object"
+    condition_expr="python:here.portal_type not in ['ulearn.community'] and here.aq_parent.portal_type not in ['ulearn.community'] and (here.aq_parent.aq_parent.portal_type not in ['ulearn.community'] and here.portal_type in ['Collection'])"
+    description="" icon_expr="" link_target=""
+    url_expr="string:${object_url}/edit" visible="True">
+  <permission value="Modify portal content"/>
+ </action>
 </object>

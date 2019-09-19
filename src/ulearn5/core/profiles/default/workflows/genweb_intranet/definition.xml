@@ -312,7 +312,7 @@
   </action>
   <guard>
    <guard-role>Manager</guard-role>
-   <guard-role>Editor</guard-role>
+   <guard-role>WebMaster</guard-role>
    <guard-role>Owner</guard-role>
   </guard>
  </transition>

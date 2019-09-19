@@ -13,8 +13,7 @@
       <role name="CC organizative"/>
       <role name="CC open"/>
       <role name="CC closed"/>
-      <role name="WebMaster"/>
-      <role name="Contributor"/>
+      <role name="WebMaster"/>      
     </permission>
     <permission name="Delete objects" acquire="True">
       <role name="Owner"/>

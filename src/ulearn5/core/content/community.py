@@ -1417,9 +1417,16 @@ class CommunityInitializeAdapter(object):
         news['aggregator'].setLayout('collection_news_view')
 
         documents._Delete_objects_Permission = ('Site Administrator','Manager',)
+        documents._Modify_portal_content_Permission = ('Site Administrator','Manager', 'WebMaster', 'Owner')
         events._Delete_objects_Permission = ('Site Administrator','Manager',)
+        events._Modify_portal_content_Permission = ('Site Administrator','Manager', 'WebMaster', 'Owner')
         news._Delete_objects_Permission = ('Site Administrator','Manager',)
+        news._Modify_portal_content_Permission = ('Site Administrator','Manager', 'WebMaster', 'Owner')
         col_news._Delete_objects_Permission = ('Site Administrator','Manager',)
+        col_news._Modify_portal_content_Permission = ('Site Administrator','Manager', 'WebMaster', 'Owner')
+
+        community._Delete_objects_Permission = ('Site Administrator','Manager', 'WebMaster', 'Owner')
+        community._Modify_portal_content_Permission = ('Site Administrator','Manager', 'WebMaster', 'Owner')
 
         # Reindex all created objects
         community.reindexObject()
