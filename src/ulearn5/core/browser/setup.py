@@ -1133,6 +1133,7 @@ class changePermissionsToContent(grok.View):
         portal = getSite()
         langs = getToolByName(portal, 'portal_languages').getSupportedLanguages()
         delete_permission = ('Site Administrator', 'Manager',)
+        edit_permission = ('Site Administrator', 'Manager', 'WebMaster', 'Owner')
 
         portal['front-page']._Delete_objects_Permission = delete_permission
 
@@ -1183,21 +1184,29 @@ class changePermissionsToContent(grok.View):
         communities = pc.unrestrictedSearchResults(portal_type='ulearn.community')
 
         for community in communities:
-            community.getObject().manage_delLocalRoles(['AuthenticatedUsers'])
+            com = community.getObject()
+            com.manage_delLocalRoles(['AuthenticatedUsers'])
             #community.getObject().manage_setLocalRoles('AuthenticatedUsers', ['Reader'])
+
+            com._Delete_objects_Permission = ('Site Administrator', 'Manager', 'WebMaster', 'Owner')
+            com._Modify_portal_content_Permission = edit_permission
 
             com = community.id
             if 'documents' in portal[com]:
                 portal[com]['documents']._Delete_objects_Permission = delete_permission
+                portal[com]['documents']._Modify_portal_content_Permission = edit_permission
 
             if 'events' in portal[com]:
                 portal[com]['events']._Delete_objects_Permission = delete_permission
+                portal[com]['events']._Modify_portal_content_Permission = edit_permission
 
             if 'news' in portal[com]:
                 portal[com]['news']._Delete_objects_Permission = delete_permission
+                portal[com]['news']._Modify_portal_content_Permission = edit_permission
 
                 if 'aggregator' in portal[com]['news']:
                     portal[com]['news']['aggregator']._Delete_objects_Permission = delete_permission
+                    portal[com]['news']['aggregator']._Modify_portal_content_Permission = edit_permission
 
         transaction.commit()
         return 'OK'
