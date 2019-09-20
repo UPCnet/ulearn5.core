@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.47 (unreleased)
+0.47 (2019-09-20)
 -----------------
 
-- Nothing changed yet.
-
+* Permisos Editor Comunidad revisados [alberto.duran]
+* changePermissionsToContent [Iago López Fernández]
+* Permisos Editor Comunidad [pilar.marinas]
 
 0.46 (2019-09-17)
 -----------------
