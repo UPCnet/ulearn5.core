@@ -58,5 +58,10 @@
       <role name="Site Administrator"/>
       <role name="WebMaster"/>
     </permission>
+    <permission name="Manage users" acquire="True">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="WebMaster"/>
+    </permission>
   </permissions>
 </rolemap>
