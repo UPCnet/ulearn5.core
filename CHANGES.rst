@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.48 (unreleased)
+0.48 (2019-10-02)
 -----------------
 
-- Nothing changed yet.
-
+* Add permission WebMaster to manage users [pilar.marinas]
 
 0.47 (2019-09-20)
 -----------------
