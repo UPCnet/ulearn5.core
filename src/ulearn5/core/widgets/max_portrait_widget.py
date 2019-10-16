@@ -59,6 +59,8 @@ class MaxPortraitWidget(NamedFileWidget):
     def username(self):
         if 'userid' in self.request.keys():
             return self.request['userid']
+        elif self.context.portal_type == 'switchmed.profile':
+            return self.context.id
         else:
             return api.user.get_current().id
 
