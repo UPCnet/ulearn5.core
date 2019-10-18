@@ -139,12 +139,17 @@ def searchUsersFunction(context, request, search_string):  # noqa
 
     users_profile = []
     for user in users:
+        nonvisibles = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.nonvisibles')
+        if nonvisibles == None:
+            nonvisibles = []
         if user is not None and user.attrs['username'] != 'admin':
             if current_user.id == 'admin':
                 can_view_properties = True
             else:
                 roles = api.user.get_roles(username=current_user.id, obj=portal)
                 can_view_properties = current_user == user.attrs['username'] or 'WebMaster' in roles or 'Manager' in roles
+                if user.attrs['username'] in nonvisibles:
+                    continue
             if isinstance(user, Record):
                 user_info = api.user.get(user.attrs['username'])
                 if user_info:
@@ -196,17 +201,6 @@ def searchUsersFunction(context, request, search_string):  # noqa
                 user_dict.update(dict(url=portal.absolute_url() + '/profile/' + user.get('id', '')))
                 users_profile.append(user_dict)
 
-    nonvisibles = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.nonvisibles')
-    if nonvisibles:
-        users_profile = [user for user in users_profile if user['id'] not in nonvisibles]
-
     len_usuaris = len(users_profile)
-    if len_usuaris > 100:
-        escollits = random.sample(range(len(users_profile)), 100)
-        llista = []
-        for escollit in escollits:
-            llista.append(users_profile[escollit])
-        return {'content': llista, 'length': len_usuaris, 'big': True}
-    else:
-        users_profile.sort(key=itemgetter('username'))
-        return {'content': users_profile, 'length': len_usuaris, 'big': False}
+    users_profile.sort(key=itemgetter('username'))
+    return {'content': users_profile, 'length': len_usuaris, 'big': False}
