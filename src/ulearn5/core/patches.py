@@ -1210,3 +1210,48 @@ security = ClassSecurityInfo()
 security.declarePrivate('updateGroup')
 def updateGroup(self, id, **kw):
     return True
+
+
+from Products.CMFPlone.PloneBatch import Batch
+import json
+
+
+def ajaxSearchCall(self):
+    items = []
+    # try:
+    #     per_page = int(self.request.form.get('perPage'))
+    # except:
+    #     per_page = 10
+    #
+    # Fix results for page in 4
+    per_page = 4
+
+    try:
+        page = int(self.request.form.get('page'))
+    except:
+        page = 1
+
+    results = self.results(batch=False, use_content_listing=False)
+    batch = Batch(results, per_page, start=(page - 1) * per_page)
+    registry = queryUtility(IRegistry)
+    length = registry.get('plone.search_results_description_length')
+    plone_view = getMultiAdapter(
+        (self.context, self.request), name='plone')
+    registry = getUtility(IRegistry)
+    view_action_types = registry.get(
+        'plone.types_use_view_action_in_listings', [])
+    for item in batch:
+        url = item.getURL()
+        if item.portal_type in view_action_types:
+            url = '%s/view' % url
+        items.append({
+            'id': item.UID,
+            'title': item.Title,
+            'description': plone_view.cropText(item.Description, length),
+            'url': url,
+            'state': item.review_state if item.review_state else None,
+        })
+    return json.dumps({
+        'total': len(results),
+        'items': items
+    })

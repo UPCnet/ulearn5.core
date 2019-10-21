@@ -1,28 +1,43 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
-from base5.core.utilities import IElasticSearch
-from base5.core.utils import json_response
-from base5.portlets.browser.manager import IColStorage
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import ILanguageSchema
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from Products.CMFPlone.interfaces import ISearchSchema
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
+from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
+
 from datetime import datetime
 from five import grok
 from mimetypes import MimeTypes
 from plone import api
 from plone.app.discussion.interfaces import IDiscussionSettings
+from plone.app.layout.navigation.root import getNavigationRootObject
 from plone.dexterity.utils import createContentInContainer
 from plone.namedfile.file import NamedBlobFile
 from plone.namedfile.file import NamedBlobImage
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
 from plone.registry.interfaces import IRegistry
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import ILanguageSchema
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
-from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.component import queryUtility
+from zope.component.hooks import getSite
+from zope.interface import Interface
+from zope.interface import alsoProvides
+
+from base5.core.utilities import IElasticSearch
+from base5.core.utils import add_user_to_catalog
+from base5.core.utils import get_all_user_properties
+from base5.core.utils import json_response
+from base5.core.utils import remove_user_from_catalog
+from base5.portlets.browser.manager import IColStorage
+from mrs5.max.utilities import IMAXClient
 from ulearn5.core.api import api_resource
+from ulearn5.core.api.people import Person
 from ulearn5.core.browser.sharing import ElasticSharing
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
@@ -31,25 +46,11 @@ from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
 from ulearn5.core.utils import is_activate_owncloud
-from ulearn5.owncloud.utils import update_owncloud_permission
-from zope.component import getMultiAdapter
-from zope.component import getUtility
-from zope.component import queryUtility
-from zope.component.hooks import getSite
-from zope.interface import alsoProvides
-from zope.interface import Interface
-from base5.core.utils import get_all_user_properties
-from base5.core.utils import add_user_to_catalog
-from base5.core.utils import remove_user_from_catalog
-from ulearn5.core.api.people import Person
-from mrs5.max.utilities import IMAXClient
-
-from plone.app.layout.navigation.root import getNavigationRootObject
-
 from ulearn5.owncloud.api.owncloud import HTTPResponseError
 from ulearn5.owncloud.api.owncloud import OCSResponseError
 from ulearn5.owncloud.utilities import IOwncloudClient
 from ulearn5.owncloud.utils import get_domain
+from ulearn5.owncloud.utils import update_owncloud_permission
 
 import base64
 import json
@@ -237,6 +238,10 @@ class setupHomePage(grok.View):
         # Enabled comments globally
         discussion_tool = registry.forInterface(IDiscussionSettings)
         discussion_tool.globally_enabled = True
+
+        # Livesearch
+        search_tool = registry.forInterface(ISearchSchema, prefix='plone')
+        search_tool.search_results_description_length = 140
 
         # Types permited in news folder
         news_tool = ISelectableConstrainTypes(portal['news'])

@@ -168,4 +168,11 @@
         replacement=".patches.updateGroup"
         />
 
+    <monkey:patch
+        description="Modificar el nombre de resultats per pàgina en el livesearch"
+        class="Products.CMFPlone.browser.search.AjaxSearch"
+        original="__call__"
+        replacement=".patches.ajaxSearchCall"
+        />
+
 </configure>
