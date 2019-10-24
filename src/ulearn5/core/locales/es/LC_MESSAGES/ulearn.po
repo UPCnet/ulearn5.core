@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-09-05 10:13+0000\n"
+"POT-Creation-Date: 2019-10-24 10:37+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -38,7 +38,7 @@ msgstr "Actividades más valoradas"
 msgid "Add Banners Portlet"
 msgstr "Añadir Portlet Banners"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:151
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
 msgid "Add Flashes Informativos Portlet"
 msgstr "Añadir portlet Flashes Informativos"
 
@@ -219,7 +219,7 @@ msgstr "Borrador"
 msgid "Edit Banners Portlet"
 msgstr "Editar portlet Banner"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:160
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:161
 msgid "Edit Flashes Informativos portlet"
 msgstr "Edit portlet Flashes Informativos"
 
@@ -599,6 +599,10 @@ msgstr "Configuración de los portlets"
 msgid "Preferences"
 msgstr "Perfil"
 
+#: ulearn5/theme/browser/views_templates/search.pt:131
+msgid "Press Ctrl to enable or disable multiple tags"
+msgstr "Pulse Ctrl para poder habilitar o deshabilitar varias etiquetas"
+
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Previous transition"
@@ -775,7 +779,7 @@ msgstr "Texto que se mostrará en el enlace de más contenido."
 msgid "The ID of the user who performed the last transition"
 msgstr "El ID del usuario que realizó la última transición"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:153
 msgid "This portlet displays Flashes Informativos."
 msgstr "Este portlet muestra Flashes Informativos"
 

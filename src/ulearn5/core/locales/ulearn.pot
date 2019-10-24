@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-05 10:13+0000\n"
+"POT-Creation-Date: 2019-10-24 10:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Add Banners Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:151
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
 msgid "Add Flashes Informativos Portlet"
 msgstr ""
 
@@ -220,7 +220,7 @@ msgstr ""
 msgid "Edit Banners Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:160
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:161
 msgid "Edit Flashes Informativos portlet"
 msgstr ""
 
@@ -599,6 +599,10 @@ msgstr ""
 msgid "Preferences"
 msgstr ""
 
+#: ulearn5/theme/browser/views_templates/search.pt:131
+msgid "Press Ctrl to enable or disable multiple tags"
+msgstr ""
+
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Previous transition"
@@ -775,7 +779,7 @@ msgstr ""
 msgid "The ID of the user who performed the last transition"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:153
 msgid "This portlet displays Flashes Informativos."
 msgstr ""
 
