@@ -178,6 +178,13 @@ def Added(content, event):
         # or the content is created externaly through apps via the upload ws
         return
 
+    if content.portal_type == 'News Item':
+        if event.transition is None:
+            return
+        elif event.transition.id != 'publicaalaintranet':
+            return
+
+
     username, oauth_token = getUserOauthToken(pm)
     maxclient = connectMaxclient(username, oauth_token)
 

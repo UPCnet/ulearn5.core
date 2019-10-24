@@ -38,7 +38,7 @@
     <subscriber
         handler=".hooks.Added"
         for="plone.app.contenttypes.interfaces.INewsItem
-             zope.container.interfaces.IObjectAddedEvent"
+             Products.DCWorkflow.interfaces.IBeforeTransitionEvent"
         />
 
     <!-- Modified Event Subscriber -->
