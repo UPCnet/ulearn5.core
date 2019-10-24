@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.50 (unreleased)
+0.50 (2019-10-24)
 -----------------
 
-- Nothing changed yet.
-
+* Traducciones [Iago López Fernández]
 
 0.49 (2019-10-24)
 -----------------
