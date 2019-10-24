@@ -2,11 +2,14 @@ Changelog
 =========
 
 
-0.49 (unreleased)
+0.49 (2019-10-24)
 -----------------
 
-- Nothing changed yet.
-
+* Notificacion Push Noticia cuando se publique en la intranet [pilar.marinas]
+* Livesearch: Mostrar 4 resultados y reducir descripción a 140 caracteres [Iago López Fernández]
+* Merge remote-tracking branch 'origin/searchusers' into develop [Iago López Fernández]
+* Mejora de velocidad searchuser [Iago López Fernández]
+* Solucionar error switchmed profile [pilar.marinas]
 
 0.48 (2019-10-02)
 -----------------
