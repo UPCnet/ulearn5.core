@@ -15,17 +15,14 @@
                       onkeydown view/onkeydown;
                       onkeyup view/onkeyup"
         tal:define="value view/value;
-                    exists python:value is not None;">
+                    exists python:value is not None;
+                    ulearn_utils context/@@ulearn.utils;">
         <img tal:define="fieldname view/field/__name__ | nothing;
                          filename view/filename;
                          filename_encoded view/filename_encoded;
-                         width view/width;
-                         height view/height;
                          alt view/alt"
              tal:condition="python:exists and fieldname"
-             tal:attributes="src view/download_url;
-                             height view/height;
-                             width view/width;
+             tal:attributes="src string:${ulearn_utils/url_max_server}/people/${view/username}/avatar/large;
                              alt view/alt"
             />
         <span tal:condition="not:exists" class="discreet" i18n:translate="no_image">
