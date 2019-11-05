@@ -60,9 +60,9 @@ class MaxPortraitWidget(NamedFileWidget):
         if 'userid' in self.request.keys():
             return self.request['userid']
         elif self.context.portal_type == 'switchmed.profile':
-            return self.context.id
+            return self.context.Title()
         else:
-            return api.user.get_current().Title()
+            return api.user.get_current().id
 
     def is_admin_user(self):
         if api.user.get_current().id == 'admin':
