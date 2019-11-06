@@ -2,11 +2,14 @@ Changelog
 =========
 
 
-0.51 (unreleased)
+0.51 (2019-11-06)
 -----------------
 
-- Nothing changed yet.
-
+* max_portrait_widget: Arreglar error username [root]
+* max_portrait_widget: Arreglar error username [root]
+* Ordenar vista comunidades por Organizativas, Cerradas, Abiertas y en orden alfabetico [pilar.marinas]
+* max_portrait_widget: Arreglar error username [Iago López Fernández]
+* max_portrait_display: Coger imagen del max [Iago López Fernández]
 
 0.50 (2019-10-24)
 -----------------
