@@ -175,4 +175,11 @@
         replacement=".patches.ajaxSearchCall"
         />
 
+    <monkey:patch
+        description="Traduir workflows que es veuen en el folder_contents"
+        class="plone.app.content.browser.contents.workflow.WorkflowActionView"
+        original="__call__"
+        replacement=".patches.workflowActionViewCall"
+        />
+
 </configure>

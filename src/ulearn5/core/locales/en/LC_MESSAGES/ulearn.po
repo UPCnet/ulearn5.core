@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-10-24 10:37+0000\n"
+"POT-Creation-Date: 2019-11-07 07:08+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -1183,7 +1183,7 @@ msgstr "Cron tasks"
 
 #: ../controlpanel.py:39
 msgid "delete_local_roles"
-msgstr ""
+msgstr "delete_local_roles"
 
 #: ../controlpanel.py:38
 msgid "delete_user_catalog"
@@ -1383,6 +1383,11 @@ msgstr "This is the color of organizatives communities."
 #: ../controlpanel.py:108
 msgid "help_html_title"
 msgstr "Add the Ulearn title. You can include HTML tags"
+
+#. Default: "If checked, this will attempt to modify the status of all content in any selected folders and their subfolders."
+#: ulearn5/theme/templates/plone.app.content.browser.contents.templates.workflow.pt:23
+msgid "help_include_contained_objects"
+msgstr "If checked, this will attempt to modify the status of all content in any selected folders and their subfolders."
 
 #. Default: "Aquest és l'enllaç al servei."
 #: ../controlpanel.py:186
@@ -1619,7 +1624,7 @@ msgstr "Url of the private policy."
 #. Default: "Url of the site."
 #: ../controlpanel.py:236
 msgid "help_url_site"
-msgstr ""
+msgstr "Url of the site"
 
 #. Default: "Url of the terms of use."
 #: ../controlpanel.py:433
@@ -2379,7 +2384,7 @@ msgstr "Private policy URL"
 #. Default: "Url site"
 #: ../controlpanel.py:234
 msgid "url_site"
-msgstr ""
+msgstr "Url of the site"
 
 #. Default: "Url terms of use"
 #: ../controlpanel.py:431

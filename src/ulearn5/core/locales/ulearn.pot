@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-10-24 10:37+0000\n"
+"POT-Creation-Date: 2019-11-07 07:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1375,6 +1375,11 @@ msgstr ""
 #. Default: "Afegiu el títol del Ulearn. Podeu incloure tags HTML"
 #: ../controlpanel.py:108
 msgid "help_html_title"
+msgstr ""
+
+#. Default: "If checked, this will attempt to modify the status of all content in any selected folders and their subfolders."
+#: ulearn5/theme/templates/plone.app.content.browser.contents.templates.workflow.pt:23
+msgid "help_include_contained_objects"
 msgstr ""
 
 #. Default: "Aquest és l'enllaç al servei."

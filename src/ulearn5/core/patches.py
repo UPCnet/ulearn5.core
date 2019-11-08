@@ -1255,3 +1255,37 @@ def ajaxSearchCall(self):
         'total': len(results),
         'items': items
     })
+
+
+from plone.app.content.browser.contents.workflow import WorkflowActionView
+
+
+def workflowActionViewCall(self):
+    self.pworkflow = getToolByName(self.context, 'portal_workflow')
+    self.putils = getToolByName(self.context, 'plone_utils')
+    self.transition_id = self.request.form.get('transition', None)
+    self.comments = self.request.form.get('comments', '')
+    self.recurse = self.request.form.get('recurse', 'no') == 'yes'
+    if self.request.form.get('render') == 'yes':
+        # asking for render information
+        selection = self.get_selection()
+        catalog = getToolByName(self.context, 'portal_catalog')
+        brains = catalog(UID=selection, show_inactive=True)
+        transitions = []
+
+        current = api.user.get_current()
+        lang = current.getProperty('language')
+        for brain in brains:
+            obj = brain.getObject()
+            for transition in self.pworkflow.getTransitionsFor(obj):
+                tdata = {
+                    'id': transition['id'],
+                    'title': self.context.translate(transition['name'], domain='ulearn', target_language=lang)
+                }
+                if tdata not in transitions:
+                    transitions.append(tdata)
+        return self.json({
+            'transitions': transitions
+        })
+    else:
+        return super(WorkflowActionView, self).__call__()
