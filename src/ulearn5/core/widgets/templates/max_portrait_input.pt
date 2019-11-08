@@ -28,10 +28,11 @@
                 allow_nochange view/allow_nochange;
                 doc_type view/file_content_type;
                 icon view/file_icon;
-                isAdmin view/is_admin_user;">
+                isAdmin view/is_admin_user;
+                portal_url view/portal_url;">
     <span tal:condition="python:exists and download_url and action=='nochange'"
           tal:define="ulearn_utils context/@@ulearn.utils;">
-        <img tal:condition="isAdmin" tal:attributes="src string:++theme++ulearn5/assets/images/defaultUser.png" alt="admin user"
+        <img tal:condition="isAdmin" tal:attributes="src string:${portal_url}/++theme++ulearn5/assets/images/defaultUser.png" alt="admin user"
              class="portraitProfile">
         <img tal:condition="not:isAdmin" tal:attributes="src string:${ulearn_utils/url_max_server}/people/${view/username}/avatar/large;
                                                          alt string:${view/username} user;"
