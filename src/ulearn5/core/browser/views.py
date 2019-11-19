@@ -117,7 +117,7 @@ class addUserSearch(grok.View):
                 acl_record.attrs['searches'] = total_searches
 
         soup_searches.reindex(records=[acl_record])
-        return getSearchersFromUser()
+        return json.dumps(getSearchersFromUser())
 
 
 class removeUserSearch(grok.View):
@@ -155,7 +155,7 @@ class removeUserSearch(grok.View):
                         acl_record.attrs['searches'] = total_searches
                         soup_searches.reindex(records=[acl_record])
 
-        return getSearchersFromUser()
+        return json.dumps(getSearchersFromUser())
 
 
 class isSearchInSearchers(grok.View):
@@ -194,7 +194,7 @@ class getUserSearchers(grok.View):
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):
-        return getSearchersFromUser()
+        return json.dumps(getSearchersFromUser())
 
 
 class MigrateAvatars(grok.View):
