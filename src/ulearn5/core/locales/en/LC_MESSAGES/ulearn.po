@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-11-07 07:08+0000\n"
+"POT-Creation-Date: 2019-11-22 08:28+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -58,7 +58,7 @@ msgstr "Add Quicklinks Portlet"
 msgid "Add Recent Changes Portlet"
 msgstr "Add Recent Changes Portle"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:196
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:200
 msgid "Add Subscribed News Portlet"
 msgstr "Add Subscribed News Portlet"
 
@@ -239,7 +239,7 @@ msgstr "Edit Quicklinks Portlet"
 msgid "Edit Recent Changes Portlet"
 msgstr "Edit Recent Changes Portlet"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:206
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:210
 msgid "Edit Subscribed News Portlet"
 msgstr "Edit Subscribed News Portlet"
 
@@ -806,7 +806,7 @@ msgstr "This portlet displays recent News Items."
 msgid "This portlet displays recently modified content."
 msgstr "This portlet displays recently modified content."
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:197
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:201
 msgid "This portlet displays subscribed News Items."
 msgstr "This portlet displays subscribed News Items."
 
@@ -1768,7 +1768,7 @@ msgid "label_password"
 msgstr "Password"
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:404
+#: ulearn5/theme/browser/views.py:405
 msgid "label_show_all"
 msgstr "Show all items"
 
@@ -2004,7 +2004,7 @@ msgid "privateFolder"
 msgstr "Private folder"
 
 #. Default: "User profile"
-#: ulearn5/theme/portlets/profile/profile.py:39
+#: ulearn5/theme/portlets/profile/profile.py:40
 msgid "profile"
 msgstr "User profile"
 
@@ -2423,6 +2423,10 @@ msgstr "Use site default"
 #: ../patches.py:493
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Language neutral (site default)"
+
+#: ../controlpanel.py:361
+msgid "who_is_who"
+msgstr "Who is who"
 
 #. Default: "Cerca"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:38

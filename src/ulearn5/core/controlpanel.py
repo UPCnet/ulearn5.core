@@ -358,7 +358,7 @@ class IUlearnControlPanelSettings(model.Schema):
     people_literal = schema.Choice(
         title=_(u'people_literal'),
         description=_(u'Literals que identifiquen als usuaris de les comunitats i les seves aportacions.'),
-        values=[_(u'thinnkers'), _(u'persones'), _(u'participants'), _(u'collegiates')],
+        values=[_(u'thinnkers'), _(u'persones'), _(u'participants'), _(u'collegiates'), _(u'who_is_who')],
         required=True,
         default=_(u'persones'))
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-11-07 07:08+0000\n"
+"POT-Creation-Date: 2019-11-22 08:28+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -58,7 +58,7 @@ msgstr "Añadir Portlet Enlaces directos"
 msgid "Add Recent Changes Portlet"
 msgstr "Añadir Portlet Cambios recientes"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:196
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:200
 msgid "Add Subscribed News Portlet"
 msgstr "Añadir Portlet Mis notícias"
 
@@ -239,7 +239,7 @@ msgstr "Editar portlet Enlaces directos"
 msgid "Edit Recent Changes Portlet"
 msgstr "Editar portlet cambios recientes"
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:206
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:210
 msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícias suscritas"
 
@@ -803,7 +803,7 @@ msgstr "Este portlet muestra las notícias destacadas."
 msgid "This portlet displays recently modified content."
 msgstr "Este portlet muestra los contenidos modificados recientemente."
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:197
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:201
 msgid "This portlet displays subscribed News Items."
 msgstr "Este portlet muestra las notícias suscritas"
 
@@ -1762,7 +1762,7 @@ msgid "label_password"
 msgstr "Contraseña"
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:404
+#: ulearn5/theme/browser/views.py:405
 msgid "label_show_all"
 msgstr "Muestra todos los elementos"
 
@@ -1998,7 +1998,7 @@ msgid "privateFolder"
 msgstr "Carpeta privada"
 
 #. Default: "User profile"
-#: ulearn5/theme/portlets/profile/profile.py:39
+#: ulearn5/theme/portlets/profile/profile.py:40
 msgid "profile"
 msgstr "Perfil del usuario"
 
@@ -2417,6 +2417,10 @@ msgstr "Usar el sitio predeterminado"
 #: ../patches.py:493
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr "Idioma neutral (sitio predeterminado)"
+
+#: ../controlpanel.py:361
+msgid "who_is_who"
+msgstr "Quién es quién"
 
 #. Default: "Cerca"
 #: ulearn5/theme/browser/views_templates/filtered_contents_search.pt:38

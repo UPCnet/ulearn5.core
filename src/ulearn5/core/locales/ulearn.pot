@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-11-07 07:08+0000\n"
+"POT-Creation-Date: 2019-11-22 08:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Add Recent Changes Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:196
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:200
 msgid "Add Subscribed News Portlet"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgstr ""
 msgid "Edit Recent Changes Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:206
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:210
 msgid "Edit Subscribed News Portlet"
 msgstr ""
 
@@ -803,7 +803,7 @@ msgstr ""
 msgid "This portlet displays recently modified content."
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:197
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:201
 msgid "This portlet displays subscribed News Items."
 msgstr ""
 
@@ -1751,7 +1751,7 @@ msgid "label_password"
 msgstr ""
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:404
+#: ulearn5/theme/browser/views.py:405
 msgid "label_show_all"
 msgstr ""
 
@@ -1987,7 +1987,7 @@ msgid "privateFolder"
 msgstr ""
 
 #. Default: "User profile"
-#: ulearn5/theme/portlets/profile/profile.py:39
+#: ulearn5/theme/portlets/profile/profile.py:40
 msgid "profile"
 msgstr ""
 
@@ -2404,6 +2404,10 @@ msgstr ""
 #. Default: "Language neutral (site default)"
 #: ../patches.py:493
 msgid "vocabulary-missing-single-value-for-edit"
+msgstr ""
+
+#: ../controlpanel.py:361
+msgid "who_is_who"
 msgstr ""
 
 #. Default: "Cerca"
