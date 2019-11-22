@@ -68,6 +68,7 @@ class Communities(REST):
                 url=record.attrs['hash'],
                 groups=record.attrs['groups'],
                 users=users,
+                path=record.attrs['path'],
             ))
 
         return ApiResponse(result)
