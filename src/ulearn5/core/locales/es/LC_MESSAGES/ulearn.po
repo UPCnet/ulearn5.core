@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-11-22 08:28+0000\n"
+"POT-Creation-Date: 2019-12-03 08:46+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -101,7 +101,7 @@ msgid "Can only be seen and edited by the owner."
 msgstr "Solo puede ser visto y editado por el propietario."
 
 #: ../controlpanel.py:521
-#: ../controlportlets.py:323
+#: ../controlportlets.py:332
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -244,7 +244,7 @@ msgid "Edit Subscribed News Portlet"
 msgstr "Editar portlet Notícias suscritas"
 
 #: ../controlpanel.py:523
-#: ../controlportlets.py:325
+#: ../controlportlets.py:334
 msgid "Edit cancelled"
 msgstr "Edición cancelada"
 
@@ -591,7 +591,7 @@ msgstr "Personal"
 msgid "Personal Preferences"
 msgstr "Preferencial personales"
 
-#: ../controlportlets.py:262
+#: ../controlportlets.py:271
 msgid "Portlets settings"
 msgstr "Configuración de los portlets"
 
@@ -866,6 +866,10 @@ msgid "Ulearn Communities"
 msgstr "Ulearn Comunidades"
 
 #: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn My Communities"
+msgstr "Ulearn Mis comunidades"
+
+#: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Profile"
 msgstr "Ulearn Perfil"
 
@@ -1122,6 +1126,7 @@ msgid "communities"
 msgstr "Comunidades"
 
 #. Default: "Comunidades"
+#: ulearn5/theme/portlets/mycommunities/mycommunities.pt:12
 #: ulearn5/theme/portlets/templates/communities.pt:12
 msgid "communities_title"
 msgstr "Comunidades"
@@ -1166,7 +1171,8 @@ msgid "contact_phone"
 msgstr "Teléfono"
 
 #. Default: "Create a new community"
-#: ulearn5/theme/portlets/templates/communities.pt:170
+#: ulearn5/theme/portlets/mycommunities/mycommunities.pt:171
+#: ulearn5/theme/portlets/templates/communities.pt:171
 msgid "createcommunity"
 msgstr "Crea nueva comunidad"
 
@@ -1279,12 +1285,14 @@ msgid "flashesinformativos"
 msgstr "Última hora"
 
 #. Default: "Go to the campus"
-#: ulearn5/theme/portlets/templates/communities.pt:158
+#: ulearn5/theme/portlets/mycommunities/mycommunities.pt:159
+#: ulearn5/theme/portlets/templates/communities.pt:159
 msgid "gotocampus"
 msgstr "Ve al campus"
 
 #. Default: "Go to the library"
-#: ulearn5/theme/portlets/templates/communities.pt:163
+#: ulearn5/theme/portlets/mycommunities/mycommunities.pt:164
+#: ulearn5/theme/portlets/templates/communities.pt:164
 msgid "gotolibrary"
 msgstr "Ve a la biblioteca"
 
@@ -1469,7 +1477,7 @@ msgid "help_portlets_Search"
 msgstr "Habilita el portlet para buscar contenido."
 
 #. Default: "Settings Portlets. Configure allowed Portlets."
-#: ../controlportlets.py:263
+#: ../controlportlets.py:272
 msgid "help_portlets_settings_editform"
 msgstr "Configuraciones de los portlets. Configure los portlets permitidos."
 
@@ -1552,6 +1560,11 @@ msgstr "Habilitar el portlet que muestra las noticias marcadas como flash."
 #: ../controlportlets.py:195
 msgid "help_ulearn_portlets_importantnews"
 msgstr "Habilitar el portlet que muestra las noticias marcadas como destacadas."
+
+#. Default: "Habilita el portlet para mostrar todas la comunidades a la qual estas subscrito."
+#: ../controlportlets.py:258
+msgid "help_ulearn_portlets_mycommunities"
+msgstr "Habilita el portlet para mostrar todas la comunidades a la qual estas subscrito."
 
 #. Default: "Habilita el portlet per a poder veure els meus cursos del EVA."
 #: ../controlportlets.py:177
@@ -1914,6 +1927,11 @@ msgstr "Habilitar portlet MAX UI: Chat"
 msgid "my_communities"
 msgstr "Comunidades"
 
+#. Default: "My Communities portlet"
+#: ulearn5/theme/portlets/mycommunities/mycommunities.py:25
+msgid "mycommunities"
+msgstr "Mis comunidades"
+
 #. Default: "mysubjects"
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:44
 msgid "mysubjects"
@@ -2072,7 +2090,8 @@ msgid "seemore"
 msgstr "Más notícias"
 
 #. Default: "See more communities"
-#: ulearn5/theme/portlets/templates/communities.pt:153
+#: ulearn5/theme/portlets/mycommunities/mycommunities.pt:154
+#: ulearn5/theme/portlets/templates/communities.pt:154
 msgid "seemore_communities"
 msgstr "Más comunidades"
 
@@ -2319,6 +2338,11 @@ msgstr "Portlet Ulearn Flashes Informativos"
 #: ../controlportlets.py:193
 msgid "ulearn_portlets_importantnews"
 msgstr "Portlet Ulearn Noticias Destacadas"
+
+#. Default: "Habilitar portlet Ulearn My Communities"
+#: ../controlportlets.py:256
+msgid "ulearn_portlets_mycommunities"
+msgstr "Portlet Ulearn Mis comunidades"
 
 #. Default: "Habilitar portlet ulearn_portlets_mysubjects"
 #: ../controlportlets.py:175

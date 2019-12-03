@@ -251,6 +251,15 @@ class IPortletsSettings(Interface):
         required=False,
         default=True,
     )
+
+    ulearn_portlets_mycommunities = schema.Bool(
+        title=_(u'ulearn_portlets_mycommunities',
+                default=_(u"Habilitar portlet Ulearn My Communities")),
+        description=_(u'help_ulearn_portlets_mycommunities',
+                      default=_(u"Habilita el portlet para mostrar todas la comunidades a la qual estas subscrito.")),
+        required=False,
+        default=False,
+    )
     # ==== FIN Portlets ====
 
 

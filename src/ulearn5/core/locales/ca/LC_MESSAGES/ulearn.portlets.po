@@ -118,3 +118,9 @@ msgstr "Portlet Ulearn Enllaços ràpids"
 
 msgid "ulearn_portlets_bannernomines"
 msgstr "Portlet Ulearn Bàner nómines"
+
+msgid "ulearn_portlets_mysubscribednews"
+msgstr "Portlet Ulearn Notícies Subscrites"
+
+msgid "ulearn_portlets_mycommunities"
+msgstr "Portlet Ulearn Les meves comunitats"
