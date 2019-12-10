@@ -2087,7 +2087,7 @@ msgstr "Color secundario"
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:185
 #: ulearn5/theme/portlets/importantnews/importantnews.pt:52
 msgid "seemore"
-msgstr "Más notícias"
+msgstr "Más noticias"
 
 #. Default: "See more communities"
 #: ulearn5/theme/portlets/mycommunities/mycommunities.pt:154
