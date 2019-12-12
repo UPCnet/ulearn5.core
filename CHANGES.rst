@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.54 (unreleased)
+0.54 (2019-12-12)
 -----------------
 
-- Nothing changed yet.
-
+* Invertir resultados de la colección aggregator [Iago López Fernández]
 
 0.53 (2019-12-12)
 -----------------
