@@ -1410,6 +1410,7 @@ class CommunityInitializeAdapter(object):
         col_news.setDescription(news.translate(_(u'Noticies de la comunitat')))
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON
+        col_news.sort_reversed = True
         col_news.item_count = 10
         news.setDefaultPage('aggregator')
 

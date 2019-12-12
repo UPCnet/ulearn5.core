@@ -131,6 +131,7 @@ class setupHomePage(grok.View):
         col_news.title = 'News'
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON
+        col_news.sort_reversed = True
         col_news.item_count = 10
         col_news._Delete_objects_Permission = ('Site Administrator','Manager',)
         col_news.reindexObject()
