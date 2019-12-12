@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.53 (unreleased)
+0.53 (2019-12-12)
 -----------------
 
-- Nothing changed yet.
-
+* Añadir usuario dega en los usuarios validos de authenticateCredentials [Iago López Fernández]
+* Traduccion [Iago López Fernández]
+* Añadir portlet mycommunities en controlportlets + Traducciones [Iago López Fernández]
+* Add path in api groups communities [pilar.marinas]
+* people_literal: Añadir opción Quién es quién [Iago López Fernández]
+* Subscribednews: Solucionar error búsquedas guardadas con acentos [Iago López Fernández]
 
 0.52 (2019-11-14)
 -----------------
