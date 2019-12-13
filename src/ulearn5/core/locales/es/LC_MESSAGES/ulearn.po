@@ -460,7 +460,6 @@ msgstr "Mes final"
 
 #. Default: "Mes inicial"
 #: ../browser/stats_templates/statsview.pt:156
-#, fuzzy
 msgid "Mes_inicial"
 msgstr "Mes inicial"
 
@@ -1362,7 +1361,6 @@ msgstr "Añadir la URL del Campus asociado a esta comunidad."
 
 #. Default: "Habilita el portlet para añadir la última encuesta activa. Para que funcione se tiene que instalar el paquete de encuestas y añadir en el tipo de contenido folder que se puedan añadir encuestas."
 #: ../controlportlets.py:54
-#, fuzzy
 msgid "help_collective_polls_VotePortlet"
 msgstr "Habilita el portlet para añadir la última encuesta activa. Para que funcione se tiene que instalar el paquete de encuestas y añadir en el tipo de contenido folder que se puedan añadir encuestas.."
 
@@ -1433,13 +1431,11 @@ msgstr "Color de fondo del widget de MAX."
 
 #. Default: "Habilita el portlet del max para poder ver la actividad y si se quiere los chats."
 #: ../controlportlets.py:75
-#, fuzzy
 msgid "help_mrs_max_widget"
 msgstr "Habilitar el portlet MAX UI."
 
 #. Default: "Habilita el portlet para ver los chats del max."
 #: ../controlportlets.py:84
-#, fuzzy
 msgid "help_mrs_maxchat_widget"
 msgstr "Habilitar el portlet MAX UI: Chat."
 
@@ -1454,25 +1450,21 @@ msgstr "Si se activa esta casilla, se notificará la actividad y los comentarios
 
 #. Default: "Habilita el portlet para poder añadir contenido estático."
 #: ../controlportlets.py:63
-#, fuzzy
 msgid "help_plone_portlet_static_Static"
 msgstr "Habilita el portlet para poder añadir contenido estático."
 
 #. Default: "Habilita el portlet para visualizar el arbol de navegación."
 #: ../controlportlets.py:44
-#, fuzzy
 msgid "help_portlets_Navigation"
 msgstr "Habilita el portlet para visualizar el arbol de navegación."
 
 #. Default: "Habilita el portlet para ver los contenidos pendientes de revisar."
 #: ../controlportlets.py:34
-#, fuzzy
 msgid "help_portlets_Review"
 msgstr "Habilita el portlet para ver los contenidos pendientes de revisar."
 
 #. Default: "Habilita el portlet para buscar contenido."
 #: ../controlportlets.py:24
-#, fuzzy
 msgid "help_portlets_Search"
 msgstr "Habilita el portlet para buscar contenido."
 
@@ -1541,7 +1533,6 @@ msgstr "Habilitar el portlet lateral donde mostrar las comunidades favoritas."
 
 #. Default: "Habilita el portlet para mostrar el último comentario que se ha realizado. Te muestra donde y quien lo ha hecho."
 #: ../controlportlets.py:213
-#, fuzzy
 msgid "help_ulearn_discussion"
 msgstr "Habilita el portlet para mostrar el último comentario que se ha realizado. Te muestra donde y quien lo ha hecho."
 
@@ -1552,7 +1543,6 @@ msgstr "Habilitar el portlet de banners."
 
 #. Default: "Habilita el portlet para mostrar las notícias marcadas com a flash."
 #: ../controlportlets.py:186
-#, fuzzy
 msgid "help_ulearn_portlets_flashesinformativos"
 msgstr "Habilitar el portlet que muestra las noticias marcadas como flash."
 
@@ -1573,7 +1563,6 @@ msgstr "Habilitar el portlet para poder ver mis cursos EVA."
 
 #. Default: "Habilita el portlet para mostrar a partir de una carpeta seleccionada las carpetas y los enlaces que contiene."
 #: ../controlportlets.py:249
-#, fuzzy
 msgid "help_ulearn_portlets_quicklinks"
 msgstr "Habilitar el portlet para mostrar a partir de una carpeta seleccionada las carpetas y los enlaces que contiene."
 
@@ -1604,7 +1593,6 @@ msgstr "Configuración de uLearn"
 
 #. Default: "Habilita el portlet de colección. Maquetado para mostrar el carrousel multimedia."
 #: ../controlportlets.py:94
-#, fuzzy
 msgid "help_ulearn_smart"
 msgstr "Habilita el portlet de colección. Maquetado para mostrar el carrousel multimedia."
 
