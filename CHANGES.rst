@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.55 (unreleased)
+0.55 (2019-12-16)
 -----------------
 
-- Nothing changed yet.
-
+* Eliminar fuzzy locales [Iago López Fernández]
 
 0.54 (2019-12-12)
 -----------------
