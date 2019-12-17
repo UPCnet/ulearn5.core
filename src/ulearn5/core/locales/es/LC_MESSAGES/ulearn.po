@@ -1229,13 +1229,13 @@ msgstr "Web"
 #. Default: "What"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:21
 msgid "event_what"
-msgstr "Què"
+msgstr "Qué"
 
 #. Default: "When"
 #: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:41
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:27
 msgid "event_when"
-msgstr "Cuando"
+msgstr "Cuándo"
 
 #. Default: "Where"
 #: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:46
