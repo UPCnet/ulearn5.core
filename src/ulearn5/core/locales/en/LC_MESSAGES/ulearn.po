@@ -2336,7 +2336,7 @@ msgstr "Enable portlet Ulearn Important News"
 #. Default: "Habilitar portlet Ulearn My Communities"
 #: ../controlportlets.py:256
 msgid "ulearn_portlets_mycommunities"
-msgstr "Enable portlet Ulearn My Communities""
+msgstr "Enable portlet Ulearn My Communities"
 
 #. Default: "Habilitar portlet ulearn_portlets_mysubjects"
 #: ../controlportlets.py:175
