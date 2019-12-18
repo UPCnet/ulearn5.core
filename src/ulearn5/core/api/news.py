@@ -158,16 +158,24 @@ class New(REST):
 
         return result
 
+    # /api/news/{newid}?absolute_url={absolute_url}
     @api_resource(required=['newid'])
     def GET(self):
         show_news_in_app = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
         if show_news_in_app:
             newid = self.params['newid']
             mountpoint_id = self.context.getPhysicalPath()[1]
-            if mountpoint_id == self.context.id:
-                default_path = '/'.join(api.portal.get().getPhysicalPath()) + '/news'
+            if 'absolute_url' in self.params:
+              absolute_url = self.params['absolute_url']
+              if mountpoint_id == self.context.id:
+                  default_path = '/'.join(absolute_url.split('/')[:-1])
+              else:
+                  default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/'.join(absolute_url.split('/')[:-1])
             else:
-                default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/news'
+              if mountpoint_id == self.context.id:
+                  default_path = '/'.join(api.portal.get().getPhysicalPath()) + '/news'
+              else:
+                  default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/news'
             item = api.content.find(portal_type="News Item", path=default_path, id=newid)
             if item:
                 newitem = item[0]
