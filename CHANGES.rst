@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.56 (unreleased)
+0.56 (2019-12-18)
 -----------------
 
-- Nothing changed yet.
-
+* WS api/news/newid [pilar.marinas]
+* Traduccion [Iago López Fernández]
+* Traducciones evento [Iago López Fernández]
 
 0.55 (2019-12-16)
 -----------------
