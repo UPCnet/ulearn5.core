@@ -48,9 +48,8 @@ class ElasticSharing(object):
 
     @property
     def site_root_path(self):
-        if self._root_path is None:
-            site = getSite()
-            self._root_path = '/'.join(site.getPhysicalPath())
+        site = getSite()
+        self._root_path = '/'.join(site.getPhysicalPath())
         return self._root_path
 
     def relative_path(self, object):
@@ -272,7 +271,7 @@ class ElasticSharing(object):
 
         def format_item(item):
             #community_path = re.sub(r'(^{}\/[^\/]+)\/?.*$'.format(self.site_root_path), r'\1', str(item['path']))
-            community_path = str(format(self.site_root_path) + '/' + item['path'].split('/')[1])
+            community_path = str(format(self.site_root_path) + '/' + item['path'].split('/')[3])
             community = communities_by_path[community_path]
 
             item_catalog = portal_catalog.unrestrictedSearchResults(gwuuid=str(item['uuid']))[0]
