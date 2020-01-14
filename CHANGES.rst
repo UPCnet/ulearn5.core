@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.57 (unreleased)
+0.57 (2020-01-14)
 -----------------
 
-- Nothing changed yet.
-
+* Modificar compartit amb mi elastic [pilar.marinas]
+* Modificar compartit amb mi elastic [pilar.marinas]
 
 0.56 (2019-12-18)
 -----------------
