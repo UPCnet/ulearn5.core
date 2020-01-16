@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.58 (unreleased)
+0.58 (2020-01-16)
 -----------------
 
-- Nothing changed yet.
-
+* Añadir usuario sac en los usuarios validos de authenticateCredentials [Iago López Fernández]
 
 0.57 (2020-01-14)
 -----------------
