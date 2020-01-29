@@ -452,7 +452,7 @@ msgstr "El membre retreu la submissió"
 
 #: ulearn5/theme/portlets/templates/thinnkers.pt:14
 msgid "Community members"
-msgstr "Membres de la comunitat"
+msgstr "Membres comunitat"
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:22
 msgid "Menu"

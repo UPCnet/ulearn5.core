@@ -452,7 +452,7 @@ msgstr "El miembro retracta la presentación"
 
 #: ulearn5/theme/portlets/templates/thinnkers.pt:14
 msgid "Community members"
-msgstr "Miembros de la comunidad"
+msgstr "Miembros comunidad"
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:22
 msgid "Menu"
