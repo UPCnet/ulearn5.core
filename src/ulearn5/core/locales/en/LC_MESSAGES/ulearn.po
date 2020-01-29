@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-12-03 08:46+0000\n"
+"POT-Creation-Date: 2020-01-29 13:04+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -148,6 +148,7 @@ msgid "Communities"
 msgstr "Communities"
 
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:46
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:219
 msgid "Compartido por"
 msgstr "Shared by"
 
@@ -449,6 +450,10 @@ msgstr "Member promotes content to public draft"
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Member retracts submission"
 msgstr "Member retracts submission"
+
+#: ulearn5/theme/portlets/templates/thinnkers.pt:14
+msgid "Community members"
+msgstr "Community members"
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:22
 msgid "Menu"
@@ -1199,6 +1204,7 @@ msgid "description_terms_of_user"
 msgstr "It's necessary to accept the conditions of use and privacy to create a community."
 
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:50
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:223
 msgid "desde"
 msgstr "from"
 
@@ -1953,6 +1959,7 @@ msgstr "News"
 
 #. Default: "There is no content shared with you right now."
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:35
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:209
 msgid "no_content_shared_user"
 msgstr "No shared content. It will be displayed here when someone shares it with you."
 
@@ -2068,7 +2075,7 @@ msgid "search_site"
 msgstr "Search on the Site"
 
 #. Default: "Cerca"
-#: ulearn5/theme/portlets/templates/thinnkers.pt:33
+#: ulearn5/theme/portlets/templates/thinnkers.pt:36
 msgid "search_users"
 msgstr "Search users"
 
@@ -2110,7 +2117,7 @@ msgid "seemoreevents"
 msgstr "See more events"
 
 #. Default: "Veure tots els participants"
-#: ulearn5/theme/portlets/templates/thinnkers.pt:45
+#: ulearn5/theme/portlets/templates/thinnkers.pt:48
 msgid "seethinkers"
 msgstr "See all attendees"
 

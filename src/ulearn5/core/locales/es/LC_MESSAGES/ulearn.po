@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2019-12-03 08:46+0000\n"
+"POT-Creation-Date: 2020-01-29 13:04+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -148,6 +148,7 @@ msgid "Communities"
 msgstr "Comunidades"
 
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:46
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:219
 msgid "Compartido por"
 msgstr "Compartido por"
 
@@ -448,6 +449,10 @@ msgstr "El miembro promueve contenido para el borrador público"
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Member retracts submission"
 msgstr "El miembro retracta la presentación"
+
+#: ulearn5/theme/portlets/templates/thinnkers.pt:14
+msgid "Community members"
+msgstr "Miembros de la comunidad"
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:22
 msgid "Menu"
@@ -1193,6 +1198,7 @@ msgid "description_terms_of_user"
 msgstr "Es necesario aceptar las condiciones de uso y privacidad para crear una comunidad."
 
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:50
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:223
 msgid "desde"
 msgstr "desde"
 
@@ -1947,6 +1953,7 @@ msgstr "Notícias"
 
 #. Default: "There is no content shared with you right now."
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:35
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:209
 msgid "no_content_shared_user"
 msgstr "No hay contenido compartido. Se mostrará aquí cuando alguien lo comparta algo contigo."
 
@@ -2062,7 +2069,7 @@ msgid "search_site"
 msgstr "Busca en el Sitio"
 
 #. Default: "Cerca"
-#: ulearn5/theme/portlets/templates/thinnkers.pt:33
+#: ulearn5/theme/portlets/templates/thinnkers.pt:36
 msgid "search_users"
 msgstr "Busca usuarios"
 
@@ -2104,7 +2111,7 @@ msgid "seemoreevents"
 msgstr "Más eventos"
 
 #. Default: "Veure tots els participants"
-#: ulearn5/theme/portlets/templates/thinnkers.pt:45
+#: ulearn5/theme/portlets/templates/thinnkers.pt:48
 msgid "seethinkers"
 msgstr "Ver todas"
 

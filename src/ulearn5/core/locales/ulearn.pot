@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-12-03 08:46+0000\n"
+"POT-Creation-Date: 2020-01-29 13:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,6 +149,7 @@ msgid "Communities"
 msgstr ""
 
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:46
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:219
 msgid "Compartido por"
 msgstr ""
 
@@ -448,6 +449,10 @@ msgstr ""
 #: ../profiles/default/workflows/genweb_intranet/definition.xml
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Member retracts submission"
+msgstr ""
+
+#: ulearn5/theme/portlets/templates/thinnkers.pt:14
+msgid "Community members"
 msgstr ""
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:22
@@ -1194,6 +1199,7 @@ msgid "description_terms_of_user"
 msgstr ""
 
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:50
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:223
 msgid "desde"
 msgstr ""
 
@@ -1948,6 +1954,7 @@ msgstr ""
 
 #. Default: "There is no content shared with you right now."
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:35
+#: ulearn5/theme/portlets/buttonbar/buttonbar.pt:209
 msgid "no_content_shared_user"
 msgstr ""
 
@@ -2063,7 +2070,7 @@ msgid "search_site"
 msgstr ""
 
 #. Default: "Cerca"
-#: ulearn5/theme/portlets/templates/thinnkers.pt:33
+#: ulearn5/theme/portlets/templates/thinnkers.pt:36
 msgid "search_users"
 msgstr ""
 
@@ -2105,7 +2112,7 @@ msgid "seemoreevents"
 msgstr ""
 
 #. Default: "Veure tots els participants"
-#: ulearn5/theme/portlets/templates/thinnkers.pt:45
+#: ulearn5/theme/portlets/templates/thinnkers.pt:48
 msgid "seethinkers"
 msgstr ""
 
