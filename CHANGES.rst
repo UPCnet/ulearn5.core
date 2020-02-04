@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.59 (unreleased)
+0.59 (2020-02-04)
 -----------------
 
-- Nothing changed yet.
-
+* Literal portlet thinnkers [Iago López Fernández]
+* Literal portlet thinnkers [Iago López Fernández]
 
 0.58 (2020-01-16)
 -----------------
