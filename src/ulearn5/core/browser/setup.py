@@ -29,6 +29,7 @@ from zope.component.hooks import getSite
 from zope.interface import Interface
 from zope.interface import alsoProvides
 
+from base5.core.adapters.favorites import IFavorite
 from base5.core.utilities import IElasticSearch
 from base5.core.utils import add_user_to_catalog
 from base5.core.utils import get_all_user_properties
@@ -41,6 +42,7 @@ from ulearn5.core.api.people import Person
 from ulearn5.core.browser.sharing import ElasticSharing
 from ulearn5.core.browser.sharing import IElasticSharing
 from ulearn5.core.content.community import ICommunity
+from ulearn5.core.content.community import ICommunityACL
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.gwuuid import IGWUUID
@@ -1215,4 +1217,28 @@ class changePermissionsToContent(grok.View):
                     portal[com]['news']['aggregator']._Modify_portal_content_Permission = edit_permission
 
         transaction.commit()
+        return 'OK'
+
+
+class addAllCommunitiesAsFavoriteFromAllUsers(grok.View):
+    """ Añade a favorito todas las comunidades a las que esta suscrito los usuarios, si esta en un grupo no funciona actualmente """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = getSite()
+        pc = getToolByName(portal, "portal_catalog")
+        communities = pc.unrestrictedSearchResults(object_provides=ICommunity.__identifier__)
+
+        for community in communities:
+            communityObj = community.getObject()
+            result = ICommunityACL(communityObj)().attrs.get('acl', '')
+            for user in result['users']:
+                IFavorite(communityObj).add(user['id'].strip())
         return 'OK'
