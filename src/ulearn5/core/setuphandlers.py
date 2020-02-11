@@ -234,9 +234,9 @@ def setupVarious(context):
     # Update types with default action listing
     site_properties = api.portal.get_tool(name='portal_properties').site_properties
     try:
-        site_properties.manage_addProperty('typesUseViewActionInListings', 'ulearn.video', 'lines')
+        site_properties.manage_addProperty('typesUseViewActionInListings', 'ulearn.video\nVideo\nImage', 'lines')
     except:
-        print "La propietat 'ulearn.video' ja estava afegida al portal site_properties"
+        print "La propietat 'typesUseViewActionInListings' ja estava afegida al portal site_properties"
 
     import transaction
     transaction.commit()
