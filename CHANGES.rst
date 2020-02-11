@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.60 (unreleased)
+0.60 (2020-02-11)
 -----------------
 
-- Nothing changed yet.
-
+* Closeau: añadir addallcommunitiesasfavoritefromallusers [Iago López Fernández]
 
 0.59 (2020-02-04)
 -----------------
