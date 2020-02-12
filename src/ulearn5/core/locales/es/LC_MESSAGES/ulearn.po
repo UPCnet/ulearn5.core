@@ -2113,7 +2113,7 @@ msgstr "Más eventos"
 #. Default: "Veure tots els participants"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:48
 msgid "seethinkers"
-msgstr "Ver todas"
+msgstr "Ver todos"
 
 #. Default: "Send invitation"
 #: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:107
