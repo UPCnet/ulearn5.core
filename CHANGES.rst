@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.61 (unreleased)
+0.61 (2020-02-12)
 -----------------
 
-- Nothing changed yet.
-
+* Add users enginyersBCN [pilar.marinas]
+* Cambio literal: ver todas a ver todos [Iago López Fernández]
+* Cambiar propiedad typesUseViewActionInListings a ulearn.video\nVideo\nImage [Iago López Fernández]
 
 0.60 (2020-02-11)
 -----------------
