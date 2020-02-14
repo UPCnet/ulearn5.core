@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.62 (unreleased)
+0.62 (2020-02-14)
 -----------------
 
-- Nothing changed yet.
-
+* Modificado get_roles para que funcione la subscripcion usuarios si usuari pertene a un grupo [Iago López Fernández]
+* Modificado get_roles para que funcione la subscripcion usuarios si usuari pertene a un grupo [pilar.marinas]
 
 0.61 (2020-02-12)
 -----------------
