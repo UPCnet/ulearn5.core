@@ -307,7 +307,7 @@ class REST(REST_BASE):
     def check_roles(self, obj=None, roles=[]):
         allowed = False
         memberdata = api.user.get_current()
-        #user_roles = memberdata.getRoles()
+        user_roles = memberdata.getRoles()
         if obj:
             #local_roles = obj.__ac_local_roles__.get(memberdata.id, [])
             #user_roles = list(set(user_roles).union(set(local_roles)))
