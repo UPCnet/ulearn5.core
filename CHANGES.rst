@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.63 (unreleased)
+0.63 (2020-02-17)
 -----------------
 
-- Nothing changed yet.
-
+* Afegir usuaris generics enginyersbcn [pilar.marinas]
 
 0.62 (2020-02-14)
 -----------------
