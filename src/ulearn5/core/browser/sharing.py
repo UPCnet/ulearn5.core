@@ -272,15 +272,18 @@ class ElasticSharing(object):
         def format_item(item):
             #community_path = re.sub(r'(^{}\/[^\/]+)\/?.*$'.format(self.site_root_path), r'\1', str(item['path']))
             community_path = str(format(self.site_root_path) + '/' + item['path'].split('/')[1])
-            community = communities_by_path[community_path]
+            try:
+                community = communities_by_path[community_path]
+            except:
+                community = None
 
             item_catalog = portal_catalog.unrestrictedSearchResults(gwuuid=str(item['uuid']))[0]
             return dict(
                 title=item_catalog.Title,
                 url=item_catalog.getURL(),
                 portal_type=item_catalog.portal_type,
-                community_displayname=community.Title,
-                community_url=community.getURL(),
+                community_displayname='' if community == None else community.Title,
+                community_url='' if community == None else community.getURL(),
                 by=item_catalog.Creator,
                 by_profile='{}/profile/{}'.format(getSite().absolute_url(), item_catalog.Creator)
             )
