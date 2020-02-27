@@ -98,6 +98,29 @@ class People(REST):
 
         return ApiResponse(result)
 
+class Users(REST):
+    """
+        /api/people/users
+    """
+    grok.adapts(People, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    def __init__(self, context, request):
+        super(Users, self).__init__(context, request)
+
+    @api_resource(required=[])
+    def GET(self):
+        portal = api.portal.get()
+        soup = get_soup('user_properties', portal)
+        records = [r for r in soup.data.items()]
+
+        result = []
+        for record in records:
+            result.append(record[1].attrs['id'])
+
+        result.sort()
+        return ApiResponse(result)
+
 
 class Sync(REST):
     """
