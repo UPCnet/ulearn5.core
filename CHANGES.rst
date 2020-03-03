@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.65 (unreleased)
+0.65 (2020-03-03)
 -----------------
 
-- Nothing changed yet.
-
+* New WS api/people/users [pilar.marinas]
+* Solucionar error elastic si comparten y no es comunidad [pilar.marinas]
 
 0.64 (2020-02-17)
 -----------------
