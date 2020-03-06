@@ -48,9 +48,9 @@ import transaction
 logger = logging.getLogger(__name__)
 
 articles = {
-    'ca': dict(File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una'),
-    'es': dict(File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una'),
-    'en': dict(File=u'a', Image=u'an', Link=u'a', Event=u'an', NewsItem=u'a'),
+    'ca': dict(Document=u'un', File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una'),
+    'es': dict(Document=u'un', File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una'),
+    'en': dict(Document=u'a', File=u'a', Image=u'an', Link=u'a', Event=u'an', NewsItem=u'a'),
 }
 
 tipus = {
@@ -60,6 +60,7 @@ tipus = {
 }
 
 varnish_to_ban = os.environ.get('varnish_to_ban', '')
+
 
 @grok.subscribe(IDexterityContent, IObjectAddedEvent)
 def objectAdded(content, event):
@@ -83,12 +84,12 @@ def objectAdded(content, event):
     relative = physical_path[len(portal.getPhysicalPath()):]
 
     if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
-        logger.error('XXX DexterityContent Object added:'+ content_path +';comunitat:'+relative[0]+';username:'+username+';domain:'+domain )
+        logger.error('XXX DexterityContent Object added:' + content_path + ';comunitat:' + relative[0] + ';username:' + username + ';domain:' + domain)
     else:
         try:
-            logger.error('XXX DexterityContent Object added:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:'+domain )
+            logger.error('XXX DexterityContent Object added:' + content_path + ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:' + domain)
         except:
-            logger.error('XXX DexterityContent Object added:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:nodomain')
+            logger.error('XXX DexterityContent Object added:' + content_path + ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:nodomain')
 
 
 @grok.subscribe(IDexterityContent, IObjectModifiedEvent)
@@ -114,16 +115,15 @@ def objectModified(content, event):
     if username == None:
         username = ''
     if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
-        logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:'+relative[0]+';username:'+username+';domain:'+domain )
+        logger.error('XXX DexterityContent Object modified:' + content_path + ';comunitat:' + relative[0] + ';username:' + username + ';domain:' + domain)
     else:
         try:
-            logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:'+domain )
+            logger.error('XXX DexterityContent Object modified:' + content_path + ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:' + domain)
         except:
-            logger.error('XXX DexterityContent Object modified:'+ content_path +';comunitat:__NO_COMMUNITY;username:'+username+';domain:nodomain' )
+            logger.error('XXX DexterityContent Object modified:' + content_path + ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:nodomain')
 
-    if varnish_to_ban != '' :
-        resp = requests.request('BAN', varnish_to_ban, headers={'X-Ban': '.*/'.join(content.getPhysicalPath()[1:3])+'.*'}, timeout=1 )
-
+    if varnish_to_ban != '':
+        requests.request('BAN', varnish_to_ban, headers={'X-Ban': '.*/'.join(content.getPhysicalPath()[1:3]) + '.*'}, timeout=1)
 
 
 @grok.subscribe(ICommunity, IObjectAddedEvent)
@@ -183,7 +183,6 @@ def Added(content, event):
             return
         elif event.transition.id != 'publicaalaintranet':
             return
-
 
     username, oauth_token = getUserOauthToken(pm)
     maxclient = connectMaxclient(username, oauth_token)
@@ -278,6 +277,7 @@ def findContainerCommunity(content):
             return parent
 
     return None
+
 
 @ram.cache(lambda *args: time() // (60 * 60))
 def packages_installed():
@@ -398,6 +398,7 @@ def CreateThumbImage(content, event):
         content.thumbnail_image = thumb_image
     else:
         content.thumbnail_image = None
+
 
 @grok.subscribe(ICommunity, IObjectAddedEvent)
 @grok.subscribe(ICommunity, IObjectModifiedEvent)
