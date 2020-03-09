@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.66 (unreleased)
+0.66 (2020-03-09)
 -----------------
 
-- Nothing changed yet.
-
+* Traducción hook documento [Iago López Fernández]
 
 0.65 (2020-03-03)
 -----------------
