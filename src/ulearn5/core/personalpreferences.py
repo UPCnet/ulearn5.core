@@ -36,6 +36,13 @@ class IUlearnPersonalPreferences(Interface):
         default=True,
     )
 
+    timezone = schema.Choice(
+        title=_(u'label_event_timezone', default=u'Timezone'),
+        description=_(u'help_event_timezone', default=u'Select the Timezone, where this event happens.'),
+        required=True,
+        vocabulary="plone.app.vocabularies.AvailableTimezones"
+    )
+
 
 class UlearnPersonalPreferencesPanelAdapter(AccountPanelSchemaAdapter):
     schema = IUlearnPersonalPreferences
