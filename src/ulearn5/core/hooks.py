@@ -24,12 +24,11 @@ from plone.app.workflow.interfaces import ILocalrolesModifiedEvent
 from Products.CMFPlone.interfaces import IConfigurationChangedEvent
 from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 from plone.app.contenttypes.interfaces import IFolder
+from plone.app.contenttypes.interfaces import IEvent
 from plone.app.contenttypes.interfaces import INewsItem
 from zope.globalrequest import getRequest
 from plone.namedfile.file import NamedBlobImage
 from io import BytesIO as StringIO
-import io
-import PIL
 
 from mrs5.max.browser.controlpanel import IMAXUISettings
 from plone.registry.interfaces import IRegistry
@@ -39,10 +38,12 @@ from plone.dexterity.interfaces import IDexterityContent
 from plone.memoize import ram
 from time import time
 
-import requests
-import os
-
+import io
 import logging
+import os
+import PIL
+import pytz
+import requests
 import transaction
 
 logger = logging.getLogger(__name__)
@@ -441,4 +442,14 @@ def setLocallyAllowedTypesFolder(content, event):
         behavior = ISelectableConstrainTypes(content)
         behavior.setLocallyAllowedTypes(('Link',))
         behavior.setImmediatelyAddableTypes(('Link',))
+        transaction.commit()
+
+
+@grok.subscribe(IEvent, IObjectAddedEvent)
+@grok.subscribe(IEvent, IObjectModifiedEvent)
+def setEventTimezone(content, event):
+    if content.timezone:
+        content.start = content.start.replace(tzinfo=pytz.timezone(content.timezone))
+        content.end = content.end.replace(tzinfo=pytz.timezone(content.timezone))
+        content.reindexObject()
         transaction.commit()

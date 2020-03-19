@@ -23,6 +23,7 @@
   <element value="plone.app.event.dx.behaviors.IEventBasic"/>
   <element value="plone.app.event.dx.behaviors.IEventRecurrence"/>
   <element value="plone.app.event.dx.behaviors.IEventLocation"/>
+  <element value="ulearn5.core.behaviors.timezone.ITimezone"/>
   <element value="plone.app.event.dx.behaviors.IEventAttendees"/>
   <element value="plone.app.event.dx.behaviors.IEventContact"/>
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>

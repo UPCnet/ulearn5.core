@@ -20,4 +20,12 @@
       for="plone.dexterity.interfaces.IDexterityContent"
       />
 
+  <plone:behavior
+      title="Add timezone"
+      description="Add timezone"
+      provides=".behaviors.timezone.ITimezone"
+      factory=".behaviors.timezone.Timezone"
+      for="plone.dexterity.interfaces.IDexterityContent"
+      />
+
 </configure>
