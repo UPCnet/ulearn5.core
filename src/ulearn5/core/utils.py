@@ -7,20 +7,20 @@ from plone import api
 from plone.registry.interfaces import IRegistry
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
+from zope import schema
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component.hooks import getSite
+from zope.component import getMultiAdapter
+from zope.contentprovider.interfaces import IContentProvider
 
 from mrs5.max.utilities import IMAXClient
+from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
 import json
-import transaction
 import re
-from zope import schema
-
-from ulearn5.core import _
-
+import transaction
 
 RE_VALID_TWITTER_USERNAME = r'^\s*@?([a-zA-Z0-9_]{1,15})\s*$'
 
@@ -128,6 +128,13 @@ class ulearnUtils(BrowserView):
         else:
             return False
 
+
+    def formatted_date_user_timezone(self, occ):
+        provider = getMultiAdapter(
+            (self.context, self.request, self),
+            IContentProvider, name='formatted_date_user_timezone'
+        )
+        return provider(occ)
 
 def isInstalledProduct(self, package):
     qi = getToolByName(self, 'portal_quickinstaller')
