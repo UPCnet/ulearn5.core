@@ -166,6 +166,16 @@ def getSearchersFromUser():
     return res
 
 
+def getUserPytzTimezone():
+    """If the user does not have a timezone, the default portal is used.
+    """
+    timezone = api.user.get_current().getProperty('timezone', '')
+    if not timezone:
+        timezone = api.portal.get_registry_record('plone.portal_timezone')
+
+    return pytz.timezone(timezone)
+
+
 def construct_calendar_user_timezone(events, start=None, end=None):
     """Return a dictionary with dates in a given timeframe as keys and the
     actual occurrences for that date for building calendars.
@@ -205,7 +215,7 @@ def construct_calendar_user_timezone(events, start=None, end=None):
             cal_data[date_str].append(event)
         return cal_data
 
-    timezone = pytz.timezone(api.user.get_current().getProperty('timezone', api.portal.get_registry_record('plone.portal_timezone')))
+    timezone = getUserPytzTimezone()
     for event in events:
         acc = IEventAccessor(event)
         start_date = acc.start.astimezone(timezone).date()
