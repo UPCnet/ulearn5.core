@@ -23,6 +23,7 @@ from zope.component import providedBy
 from plone.app.workflow.interfaces import ILocalrolesModifiedEvent
 from Products.CMFPlone.interfaces import IConfigurationChangedEvent
 from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
+from plone.event.interfaces import IRecurrenceSupport
 from plone.app.contenttypes.interfaces import IFolder
 from plone.app.contenttypes.interfaces import IEvent
 from plone.app.contenttypes.interfaces import INewsItem
@@ -449,7 +450,10 @@ def setLocallyAllowedTypesFolder(content, event):
 @grok.subscribe(IEvent, IObjectModifiedEvent)
 def setEventTimezone(content, event):
     if content.timezone:
-        content.start = content.start.replace(tzinfo=pytz.timezone(content.timezone))
-        content.end = content.end.replace(tzinfo=pytz.timezone(content.timezone))
-        content.reindexObject()
+        adapter = IRecurrenceSupport(content, None)
+        if adapter:
+            for con in adapter.occurrences():
+                con.start = content.start.replace(tzinfo=pytz.timezone(content.timezone))
+                con.end = content.end.replace(tzinfo=pytz.timezone(content.timezone))
+                con.reindexObject()
         transaction.commit()
