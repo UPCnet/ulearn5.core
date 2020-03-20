@@ -2,11 +2,17 @@ Changelog
 =========
 
 
-0.67 (unreleased)
+0.67 (2020-03-20)
 -----------------
 
-- Nothing changed yet.
-
+* Añadir timezone a las ocurrencias de los eventos [Iago López Fernández]
+* Añadir timezone a las ocurrencias de los eventos [Iago López Fernández]
+* Quitar ipdb [Iago López Fernández]
+* Arreglar error timezone pytz [Iago López Fernández]
+* Utils -> Portlet calendar: tener en cuenta los timezone [Iago López Fernández]
+* Añadir timezone en los eventos [Iago López Fernández]
+* Ver evento con la timezone del usuario [Iago López Fernández]
+* Añadir timezone en la preferencias personales [Iago López Fernández]
 
 0.66 (2020-03-09)
 -----------------
