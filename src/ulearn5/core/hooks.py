@@ -450,10 +450,14 @@ def setLocallyAllowedTypesFolder(content, event):
 @grok.subscribe(IEvent, IObjectModifiedEvent)
 def setEventTimezone(content, event):
     if content.timezone:
-        adapter = IRecurrenceSupport(content, None)
-        if adapter:
-            for con in adapter.occurrences():
-                con.start = con.start.astimezone(pytz.timezone(content.timezone))
-                con.end = con.end.astimezone(pytz.timezone(content.timezone))
-                con.reindexObject()
-        transaction.commit()
+        if content.start.tzinfo.zone != content.timezone:
+            adapter = IRecurrenceSupport(content, None)
+            if adapter:
+                for con in adapter.occurrences():
+                    con.start = con.start.astimezone(pytz.timezone(content.timezone))
+                    con.end = con.end.astimezone(pytz.timezone(content.timezone))
+                    con.reindexObject()
+            transaction.commit()
+    else:
+        current_user = api.user.get_current()
+        content.timezone = current_user.getProperty('timezone')
