@@ -453,7 +453,7 @@ def setEventTimezone(content, event):
         adapter = IRecurrenceSupport(content, None)
         if adapter:
             for con in adapter.occurrences():
-                con.start = con.start.replace(tzinfo=pytz.timezone(content.timezone))
-                con.end = con.end.replace(tzinfo=pytz.timezone(content.timezone))
+                con.start = con.start.astimezone(pytz.timezone(content.timezone))
+                con.end = con.end.astimezone(pytz.timezone(content.timezone))
                 con.reindexObject()
         transaction.commit()
