@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from five import grok
+from plone import api
 from plone.app.contenttypes.interfaces import IEvent
 from plone.autoform import directives
 from plone.autoform.interfaces import IFormFieldProvider
@@ -12,9 +13,16 @@ from zope.component import adapts
 from zope.interface import alsoProvides
 from zope.interface import implements
 from zope.interface import provider
+from plone.app.event.base import default_timezone
 
 from ulearn5.core import _
 
+def timezone_user_or_default():
+    current_user = api.user.get_current()
+    if current_user.getProperty('timezone') == '':
+        return api.portal.get_registry_record('plone.portal_timezone')
+    else:
+        return current_user.getProperty('timezone')
 
 @provider(IFormFieldProvider)
 class ITimezone(model.Schema):
@@ -23,8 +31,9 @@ class ITimezone(model.Schema):
     timezone = schema.Choice(
         title=_(u'label_event_timezone', default=u'Timezone'),
         description=_(u'help_event_timezone', default=u'Select the Timezone, where this event happens.'),
-        required=False,
-        vocabulary="plone.app.vocabularies.AvailableTimezones"
+        required=True,
+        vocabulary="plone.app.vocabularies.AvailableTimezones",
+        defaultFactory=timezone_user_or_default,
     )
 
 

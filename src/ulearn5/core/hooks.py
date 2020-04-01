@@ -445,7 +445,6 @@ def setLocallyAllowedTypesFolder(content, event):
         behavior.setImmediatelyAddableTypes(('Link',))
         transaction.commit()
 
-
 @grok.subscribe(IEvent, IObjectAddedEvent)
 @grok.subscribe(IEvent, IObjectModifiedEvent)
 def setEventTimezone(content, event):
@@ -454,8 +453,10 @@ def setEventTimezone(content, event):
             adapter = IRecurrenceSupport(content, None)
             if adapter:
                 for con in adapter.occurrences():
-                    con.start = con.start.astimezone(pytz.timezone(content.timezone))
-                    con.end = con.end.astimezone(pytz.timezone(content.timezone))
+                    sintzinfo_start = con.start.replace(tzinfo=None)
+                    con.start = pytz.timezone(content.timezone).localize(sintzinfo_start)
+                    sintzinfo_end = con.end.replace(tzinfo=None)
+                    con.end = pytz.timezone(content.timezone).localize(sintzinfo_end)
                     con.reindexObject()
             transaction.commit()
     else:
