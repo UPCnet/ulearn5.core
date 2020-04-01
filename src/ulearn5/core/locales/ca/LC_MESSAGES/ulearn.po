@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2020-01-29 13:04+0000\n"
+"POT-Creation-Date: 2020-04-01 15:10+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -74,7 +74,11 @@ msgstr "Afegir fontawesome"
 msgid "Add the quick links by language"
 msgstr "Text que es mostrarà com a títol dels enllaços directes."
 
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:43
+#: ../behaviors.zcml:29
+msgid "Add timezone"
+msgstr "Afegir la zona horària"
+
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:46
 msgid "All dates"
 msgstr "Totes les dates"
 
@@ -91,7 +95,7 @@ msgstr "Blog"
 msgid "Buscar"
 msgstr "Cerca"
 
-#: ulearn5/theme/portlets/calendar.py:43
+#: ulearn5/theme/portlets/calendar.py:46
 #: ulearn5/theme/portlets/legacycalendar.py:33
 msgid "Calendar"
 msgstr "Calendari"
@@ -146,6 +150,10 @@ msgstr "Comentaris sobre l'última transició"
 #: ../controlpanel.py:98
 msgid "Communities"
 msgstr "Comunitats"
+
+#: ulearn5/theme/portlets/templates/thinnkers.pt:14
+msgid "Community members"
+msgstr "Membres comunitat"
 
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:46
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:219
@@ -307,7 +315,7 @@ msgstr "Icona Font Awesome"
 msgid "For external links use https:// or http://"
 msgstr "Per a enllaços externs utilitzar https:// o http://"
 
-#: ../setuphandlers.py:186
+#: ../setuphandlers.py:187
 msgid "Front page"
 msgstr "Pàgina principal"
 
@@ -374,7 +382,7 @@ msgstr "Instal·la el complement ulearn5.core"
 msgid "Intranet"
 msgstr "Intranet"
 
-#: ../utils.py:29
+#: ../utils.py:34
 msgid "Invalid twitter username."
 msgstr "Usuari de Twitter invàlid."
 
@@ -449,10 +457,6 @@ msgstr "El membre promociona el contingut del projecte públic"
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Member retracts submission"
 msgstr "El membre retreu la submissió"
-
-#: ulearn5/theme/portlets/templates/thinnkers.pt:14
-msgid "Community members"
-msgstr "Membres comunitat"
 
 #: ulearn5/theme/browser/viewlets_templates/header.pt:22
 msgid "Menu"
@@ -1163,17 +1167,17 @@ msgid "comunitat_modificada"
 msgstr "La comunitat ${comunitat} ha estat modificada."
 
 #. Default: "Attendees"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:86
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:89
 msgid "contact_attendees"
 msgstr "Assistents"
 
 #. Default: "Contact Name"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:73
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:76
 msgid "contact_name"
 msgstr "Nom de la persona de contacte"
 
 #. Default: "Contact Phone"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:81
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:84
 msgid "contact_phone"
 msgstr "Telèfon"
 
@@ -1231,7 +1235,7 @@ msgid "event_event"
 msgstr "Esdeveniment"
 
 #. Default: "Web"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:93
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:96
 msgid "event_url"
 msgstr "Web"
 
@@ -1248,7 +1252,7 @@ msgstr "Quan"
 
 #. Default: "Where"
 #: ulearn5/theme/templates/plone.app.contenttypes.browser.templates.listing_summary.pt:46
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:66
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:69
 msgid "event_where"
 msgstr "On"
 
@@ -1258,7 +1262,7 @@ msgid "exporta"
 msgstr "Exporta"
 
 #. Default: "Visit external website"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:95
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:98
 msgid "external_website"
 msgstr "Visita un lloc web extern"
 
@@ -1309,12 +1313,12 @@ msgid "hashtag_help"
 msgstr "El hashtag (per exemple: ulearn) que utilitzarà aquesta comunitat. No cal afegir el '#'."
 
 #. Default: "Add event to calendar"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:116
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:119
 msgid "heading_add_to_calendar"
 msgstr "Afegeix l'esdeveniment al calendari"
 
 #. Default: "Send event to attendees"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:103
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:106
 msgid "heading_send_event"
 msgstr "Envia la convocatòria als assistents"
 
@@ -1387,6 +1391,12 @@ msgstr "Aquest és el color per les comunitats obertes."
 #: ../controlpanel.py:335
 msgid "help_color_community_organizative"
 msgstr "Aquest és el color per les comunitats organitzatives."
+
+#. Default: "Select the Timezone, where this event happens."
+#: ../behaviors/timezone.py:33
+#: ../personalpreferences.py:41
+msgid "help_event_timezone"
+msgstr "Seleccioneu la zona horària, on es produeix aquest esdeveniment."
 
 #. Default: "Afegiu el títol del Ulearn. Podeu incloure tags HTML"
 #: ../controlpanel.py:108
@@ -1727,7 +1737,7 @@ msgid "label-toogle-list"
 msgstr "Llista"
 
 #. Default: "iCal"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:125
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:128
 msgid "label_add_to_ical"
 msgstr "iCal"
 
@@ -1742,6 +1752,12 @@ msgstr "Eliminar comunitat"
 #: ulearn5/theme/browser/views_templates/communities.pt:67
 msgid "label_edit_community"
 msgstr "Modificar comunitat"
+
+#. Default: "Timezone"
+#: ../behaviors/timezone.py:32
+#: ../personalpreferences.py:40
+msgid "label_event_timezone"
+msgstr "Zona horària"
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.pt:54
 msgid "label_go_subject"
@@ -1772,7 +1788,7 @@ msgid "label_password"
 msgstr "Contrasenya"
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:405
+#: ulearn5/theme/browser/views.py:424
 msgid "label_show_all"
 msgstr "Mostrar tots els elements"
 
@@ -2033,7 +2049,7 @@ msgid "quicklinks_icon"
 msgstr "Icona Font Awesome"
 
 #. Default: "Leer mas.."
-#: ulearn5/theme/browser/views_templates/collectionnews.pt:104
+#: ulearn5/theme/browser/views_templates/collectionnews.pt:105
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:177
 msgid "readmore"
 msgstr "Llegir més..."
@@ -2121,12 +2137,12 @@ msgid "seethinkers"
 msgstr "Veure tots els participants"
 
 #. Default: "Send invitation"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:107
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:110
 msgid "send_invitation_link"
 msgstr "Envia invitació"
 
 #. Default: "There are not attendees to send the message"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:111
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:114
 msgid "send_invitation_not_attendees"
 msgstr "No hi ha assistents per enviar el missatge."
 
@@ -2240,7 +2256,7 @@ msgid "thinnkers portlet"
 msgstr "Participants"
 
 #. Default: "Download this event in iCal format"
-#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:119
+#: ulearn5/theme/templates/plone.app.event.browser.event_summary.pt:122
 msgid "title_add_to_ical"
 msgstr "Descarrega aquest esdeveniment en format iCal"
 
@@ -2433,7 +2449,7 @@ msgstr "Desactivar la visualització d'aquest camp per aquells usuaris que nos s
 
 #. Default: "Use site default"
 #: ../patches.py:498
-#: ../personalpreferences.py:75
+#: ../personalpreferences.py:82
 msgid "vocabulary-available-editor-novalue"
 msgstr "Utilitza el lloc predeterminat"
 
