@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.68 (unreleased)
+0.68 (2020-04-06)
 -----------------
 
-- Nothing changed yet.
-
+* Traducciones timezone [Pilar Marinas]
+* Solucionar que evento se guarde en la hora de la timezone seleccionada [Pilar Marinas]
+* Add timezone user in event if not selected [Pilar Marinas]
+* Solucionar que guarde el evento con la timezone seleccionada [Pilar Marinas]
 
 0.67 (2020-03-20)
 -----------------
