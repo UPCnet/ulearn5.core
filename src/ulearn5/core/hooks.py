@@ -50,15 +50,15 @@ import transaction
 logger = logging.getLogger(__name__)
 
 articles = {
-    'ca': dict(Document=u'un', File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una'),
-    'es': dict(Document=u'un', File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una'),
-    'en': dict(Document=u'a', File=u'a', Image=u'an', Link=u'a', Event=u'an', NewsItem=u'a'),
+    'ca': dict(Document=u'un', File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una', ExternalContent=u'un'),
+    'es': dict(Document=u'un', File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una', ExternalContent=u'un'),
+    'en': dict(Document=u'a', File=u'a', Image=u'an', Link=u'a', Event=u'an', NewsItem=u'a', ExternalContent=u'a'),
 }
 
 tipus = {
-    'ca': dict(Document=u'document', File=u'document', Image=u'foto', Link=u'enllaç', Event=u'esdeveniment', NewsItem=u'notícia'),
-    'es': dict(Document=u'documento', File=u'documento', Image=u'foto', Link=u'enlace', Event=u'evento', NewsItem=u'noticia'),
-    'en': dict(Document=u'document', File=u'document', Image=u'photo', Link=u'link', Event=u'event', NewsItem=u'news item'),
+    'ca': dict(Document=u'document', File=u'document', Image=u'foto', Link=u'enllaç', Event=u'esdeveniment', NewsItem=u'notícia', ExternalContent=u'arxiu protegit'),
+    'es': dict(Document=u'documento', File=u'documento', Image=u'foto', Link=u'enlace', Event=u'evento', NewsItem=u'noticia', ExternalContent=u'archivo protegido'),
+    'en': dict(Document=u'document', File=u'document', Image=u'photo', Link=u'link', Event=u'event', NewsItem=u'news item', ExternalContent=u'protected file'),
 }
 
 varnish_to_ban = os.environ.get('varnish_to_ban', '')
