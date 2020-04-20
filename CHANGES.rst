@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.69 (unreleased)
+0.69 (2020-04-20)
 -----------------
 
-- Nothing changed yet.
-
+* Add message hook protected file [Pilar Marinas]
 
 0.68 (2020-04-06)
 -----------------
