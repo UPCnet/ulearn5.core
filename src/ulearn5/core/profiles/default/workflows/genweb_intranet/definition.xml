@@ -101,6 +101,7 @@
   <description i18n:translate="">
     Can only be seen and edited by the owner.
   </description>
+  <exit-transition transition_id="publishtointranet" />
   <exit-transition transition_id="show" />
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
