@@ -47,7 +47,7 @@ from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
-from ulearn5.core.utils import is_activate_owncloud
+from ulearn5.core.utils import is_activate_owncloud, is_activate_externalstorage
 from ulearn5.owncloud.api.owncloud import HTTPResponseError
 from ulearn5.owncloud.api.owncloud import OCSResponseError
 from ulearn5.owncloud.utilities import IOwncloudClient
@@ -1242,3 +1242,41 @@ class addAllCommunitiesAsFavoriteFromAllUsers(grok.View):
             for user in result['users']:
                 IFavorite(communityObj).add(user['id'].strip())
         return 'OK'
+
+class addProtectedFileInDocumentsCommunity(grok.View):
+    """ Si esta instalado el paquete ulearn5.externalstorage, esta vista añade en la carpeta documentos de todas las comunidades que se puedan crear archivos protegidos """
+    grok.name('add_protected_file_in_documents_community')
+    grok.context(IPloneSiteRoot)
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = api.portal.get()
+        if is_activate_externalstorage(portal):
+            pc = api.portal.get_tool('portal_catalog')
+            comunnities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
+            for community in comunnities:
+                com = community.getObject()
+                com = community.id
+                if 'documents' in portal[com]:
+                    documents = portal[com]['documents']
+
+                    behavior = ISelectableConstrainTypes(documents)
+                    # Obtengo los contenidos que se pueden añadir en la carpeta documents
+                    locallyAllowedTypes = behavior.getLocallyAllowedTypes()
+                    logger.info('LocallyAllowedTypes {} community_id: {} in the portal: {}.'.format(locallyAllowedTypes, com, portal.absolute_url()))
+                    if 'ExternalContent' not in locallyAllowedTypes:
+                        # Le añado el ExternalContent a los contenidos que se pueden añadir en la carpeta documents
+                        locallyAllowedTypes.append('ExternalContent')
+                        behavior.setLocallyAllowedTypes(locallyAllowedTypes)
+                        behavior.setImmediatelyAddableTypes(locallyAllowedTypes)
+                        logger.info('Add ExternalContent in LocallyAllowedTypes {} community_id: {} in the portal: {}.'.format(locallyAllowedTypes, com, portal.absolute_url()))
+            return "OK Add Protected File in Folder Documents Communities"
+
+        else:
+           return "ulearn5.externalstorage is not active in this site."
