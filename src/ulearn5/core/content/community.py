@@ -66,7 +66,7 @@ from ulearn5.core.interfaces import IDocumentFolder
 from ulearn5.core.interfaces import IEventsFolder
 from ulearn5.core.interfaces import INewsItemFolder
 from ulearn5.core.interfaces import IPhotosFolder
-from ulearn5.core.utils import is_activate_owncloud
+from ulearn5.core.utils import is_activate_owncloud, is_activate_externalstorage
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
 from ulearn5.core.widgets.terms_widget import TermsFieldWidget
@@ -1366,10 +1366,15 @@ class CommunityInitializeAdapter(object):
         behavior = ISelectableConstrainTypes(documents)
         behavior.setConstrainTypesMode(1)
 
-        if is_activate_owncloud(self.context):
+        if is_activate_owncloud(self.context) and is_activate_externalstorage(self.context):
+            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile', 'ExternalContent'))
+            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile', 'ExternalContent'))
+        elif is_activate_owncloud(self.context):
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
             behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
-
+        elif is_activate_externalstorage(self.context):
+            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ExternalContent'))
+            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ExternalContent'))
         else:
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder'))
             behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder'))

@@ -82,6 +82,9 @@ def is_activate_owncloud(self):
     """ Returns True id ulearn5.owncloud is installed """
     return isInstalledProduct(self, 'ulearn5.owncloud')
 
+def is_activate_externalstorage(self):
+    """ Returns True id ulearn5.externalstorage is installed """
+    return isInstalledProduct(self, 'ulearn5.externalstorage')
 
 class ulearnUtils(BrowserView):
     """ Convenience methods placeholder ulearn.utils view. """
