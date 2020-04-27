@@ -1160,6 +1160,36 @@ def get_date_options(request):
     }
 
 
+def get_datetime_options(request):
+    from plone import api
+    from zope.i18n import translate
+    from zope.i18nmessageid import MessageFactory
+    _ = MessageFactory('plone')
+
+    options = get_date_options(request)
+    current_user = api.user.get_current()
+    try:
+        format_time = current_user.getProperty('format_time')
+    except:
+        format_time = ''
+
+    # Si el usuario no tiene un formato seleccionado se pone la de por defecto del idioma como lo hace Plone.
+    if format_time == '' or format_time == None:
+        options['time'] = {
+            'format': translate(
+                _('pickadate_time_format', default='h:i a'),
+                context=request),
+            'placeholder': translate(_('Enter time...'), context=request),
+        }
+        #Hour in 24-hour format with a leading zero
+        #format_time = 'HH:i'
+    else:
+        options['time'] = {
+            'format': format_time,
+            'placeholder': translate(_('Enter time...'), context=request),
+        }
+    return options
+
 import unicodedata
 from zope import schema
 

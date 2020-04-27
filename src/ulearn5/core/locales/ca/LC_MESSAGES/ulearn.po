@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2020-04-01 15:10+0000\n"
+"POT-Creation-Date: 2020-04-24 12:14+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -87,7 +87,7 @@ msgstr "Totes les dates"
 msgid "Banner"
 msgstr "Bàner"
 
-#: ../content/community.py:1409
+#: ../content/community.py:1414
 msgid "Blog"
 msgstr "Blog"
 
@@ -285,6 +285,10 @@ msgstr "Introduir data ..."
 msgid "Enter the content of the JSON file given when the service account was created"
 msgstr "Introduïu el contingut del fitxer JSON donat quan es va crear el compte de servei"
 
+#: ../patches.py:1182
+msgid "Enter time..."
+msgstr ""
+
 #: ulearn5/theme/portlets/quicklinks/quicklinks.pt:51
 msgid "Error, the directory has been deleted."
 msgstr "Error, el directori ha sigut eliminat."
@@ -334,6 +338,10 @@ msgstr "Global"
 #: ../profiles/default/actions.xml
 msgid "Go to homepage"
 msgstr "Inici"
+
+#: ../personalpreferences.py:16
+msgid "HH:i"
+msgstr "HH:i - Hora en format de 24 hores (00 - 23)"
 
 #: ../controlpanel.py:509
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
@@ -540,7 +548,7 @@ msgstr "Notícies"
 msgid "Noticies"
 msgstr "Notícies"
 
-#: ../content/community.py:1410
+#: ../content/community.py:1415
 msgid "Noticies de la comunitat"
 msgstr "Blog de notícies de la comunitat"
 
@@ -1392,9 +1400,14 @@ msgstr "Aquest és el color per les comunitats obertes."
 msgid "help_color_community_organizative"
 msgstr "Aquest és el color per les comunitats organitzatives."
 
+#. Default: "Select the format to display the time in events."
+#: ../personalpreferences.py:54
+msgid "help_event_format_time"
+msgstr "Seleccioneu el format per mostrar l'hora en els esdeveniments."
+
 #. Default: "Select the Timezone, where this event happens."
 #: ../behaviors/timezone.py:33
-#: ../personalpreferences.py:41
+#: ../personalpreferences.py:47
 msgid "help_event_timezone"
 msgstr "Seleccioneu la zona horària, on es produeix aquest esdeveniment."
 
@@ -1414,7 +1427,7 @@ msgid "help_info_servei"
 msgstr "Enllaç al servei."
 
 #. Default: "Enter your language"
-#: ../personalpreferences.py:16
+#: ../personalpreferences.py:22
 msgid "help_language"
 msgstr "Idioma de l'espai."
 
@@ -1646,7 +1659,7 @@ msgid "help_url_terms"
 msgstr "URL per als termes d'ús"
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
-#: ../personalpreferences.py:34
+#: ../personalpreferences.py:40
 msgid "help_userprofile"
 msgstr "Mostra o oculta el portlet que mostra la teva foto i les insígnies."
 
@@ -1664,6 +1677,10 @@ msgstr "Token per a conectar-se al moodle."
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:23
 msgid "help_wsurl"
 msgstr "Url del moodle."
+
+#: ../personalpreferences.py:15
+msgid "hh:i A"
+msgstr "hh:i A - Hora en format de 12 hores (01 - 12) i període del dia AM PM"
 
 #. Default: "Títol del web amb HTML tags (negretes) [CA]"
 #: ../controlpanel.py:106
@@ -1753,9 +1770,14 @@ msgstr "Eliminar comunitat"
 msgid "label_edit_community"
 msgstr "Modificar comunitat"
 
+#. Default: "Format Time"
+#: ../personalpreferences.py:53
+msgid "label_event_format_time"
+msgstr "Format hora"
+
 #. Default: "Timezone"
 #: ../behaviors/timezone.py:32
-#: ../personalpreferences.py:40
+#: ../personalpreferences.py:46
 msgid "label_event_timezone"
 msgstr "Zona horària"
 
@@ -1768,7 +1790,7 @@ msgid "label_info_tasks"
 msgstr "Tasques"
 
 #. Default: "Language"
-#: ../personalpreferences.py:15
+#: ../personalpreferences.py:21
 msgid "label_language"
 msgstr "Idioma"
 
@@ -1788,7 +1810,7 @@ msgid "label_password"
 msgstr "Contrasenya"
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:424
+#: ulearn5/theme/browser/views.py:425
 msgid "label_show_all"
 msgstr "Mostrar tots els elements"
 
@@ -1797,7 +1819,7 @@ msgid "label_subscribe_to_community"
 msgstr "Subscriure's a la comunitat"
 
 #. Default: "See portlet user profile"
-#: ../personalpreferences.py:33
+#: ../personalpreferences.py:39
 msgid "label_userprofile"
 msgstr "Veure el portlet del perfil d'usuari"
 
@@ -2004,6 +2026,11 @@ msgstr "persones"
 #: ../patches.py:1154
 msgid "pickadate_date_format"
 msgstr "mmmm d, yyyy"
+
+#. Default: "h:i a"
+#: ../patches.py:1180
+msgid "pickadate_time_format"
+msgstr ""
 
 #. Default: "Habilitar portlet plone_portlet_static_Static"
 #: ../controlportlets.py:61
@@ -2449,7 +2476,7 @@ msgstr "Desactivar la visualització d'aquest camp per aquells usuaris que nos s
 
 #. Default: "Use site default"
 #: ../patches.py:498
-#: ../personalpreferences.py:82
+#: ../personalpreferences.py:95
 msgid "vocabulary-available-editor-novalue"
 msgstr "Utilitza el lloc predeterminat"
 

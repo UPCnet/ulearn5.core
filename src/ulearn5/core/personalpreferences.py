@@ -6,9 +6,15 @@ from plone.app.users.browser.account import AccountPanelForm
 from plone.app.users.browser.account import AccountPanelSchemaAdapter
 from zope import schema
 from zope.interface import Interface
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 from ulearn5.core import _
 
+format_timepicker = SimpleVocabulary([
+    SimpleTerm(value=u'hh:i A', title=_(u'hh:i A')),
+    SimpleTerm(value=u'HH:i', title=_(u'HH:i')),
+])
 
 class IUlearnPersonalPreferences(Interface):
     language = schema.Choice(
@@ -41,6 +47,13 @@ class IUlearnPersonalPreferences(Interface):
         description=_(u'help_event_timezone', default=u'Select the Timezone, where this event happens.'),
         required=True,
         vocabulary="plone.app.vocabularies.AvailableTimezones"
+    )
+
+    format_time = schema.Choice(
+        title=_(u'label_event_format_time', default=u'Format Time'),
+        description=_(u'help_event_format_time', default=u'Select the format to display the time in events.'),
+        required=False,
+        source=format_timepicker,
     )
 
 

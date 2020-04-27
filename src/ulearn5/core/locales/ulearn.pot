@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-04-01 15:10+0000\n"
+"POT-Creation-Date: 2020-04-24 12:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Banner"
 msgstr ""
 
-#: ../content/community.py:1409
+#: ../content/community.py:1414
 msgid "Blog"
 msgstr ""
 
@@ -286,6 +286,10 @@ msgstr ""
 msgid "Enter the content of the JSON file given when the service account was created"
 msgstr ""
 
+#: ../patches.py:1182
+msgid "Enter time..."
+msgstr ""
+
 #: ulearn5/theme/portlets/quicklinks/quicklinks.pt:51
 msgid "Error, the directory has been deleted."
 msgstr ""
@@ -334,6 +338,10 @@ msgstr ""
 
 #: ../profiles/default/actions.xml
 msgid "Go to homepage"
+msgstr ""
+
+#: ../personalpreferences.py:16
+msgid "HH:i"
 msgstr ""
 
 #: ../controlpanel.py:509
@@ -541,7 +549,7 @@ msgstr ""
 msgid "Noticies"
 msgstr ""
 
-#: ../content/community.py:1410
+#: ../content/community.py:1415
 msgid "Noticies de la comunitat"
 msgstr ""
 
@@ -1390,9 +1398,14 @@ msgstr ""
 msgid "help_color_community_organizative"
 msgstr ""
 
+#. Default: "Select the format to display the time in events."
+#: ../personalpreferences.py:54
+msgid "help_event_format_time"
+msgstr ""
+
 #. Default: "Select the Timezone, where this event happens."
 #: ../behaviors/timezone.py:33
-#: ../personalpreferences.py:41
+#: ../personalpreferences.py:47
 msgid "help_event_timezone"
 msgstr ""
 
@@ -1412,7 +1425,7 @@ msgid "help_info_servei"
 msgstr ""
 
 #. Default: "Enter your language"
-#: ../personalpreferences.py:16
+#: ../personalpreferences.py:22
 msgid "help_language"
 msgstr ""
 
@@ -1644,7 +1657,7 @@ msgid "help_url_terms"
 msgstr ""
 
 #. Default: "Show or hide the portlet that shows your profile picture and badges."
-#: ../personalpreferences.py:34
+#: ../personalpreferences.py:40
 msgid "help_userprofile"
 msgstr ""
 
@@ -1661,6 +1674,10 @@ msgstr ""
 #. Default: "Url on moodle."
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:23
 msgid "help_wsurl"
+msgstr ""
+
+#: ../personalpreferences.py:15
+msgid "hh:i A"
 msgstr ""
 
 #. Default: "Títol del web amb HTML tags (negretes) [CA]"
@@ -1751,9 +1768,14 @@ msgstr ""
 msgid "label_edit_community"
 msgstr ""
 
+#. Default: "Format Time"
+#: ../personalpreferences.py:53
+msgid "label_event_format_time"
+msgstr ""
+
 #. Default: "Timezone"
 #: ../behaviors/timezone.py:32
-#: ../personalpreferences.py:40
+#: ../personalpreferences.py:46
 msgid "label_event_timezone"
 msgstr ""
 
@@ -1766,7 +1788,7 @@ msgid "label_info_tasks"
 msgstr ""
 
 #. Default: "Language"
-#: ../personalpreferences.py:15
+#: ../personalpreferences.py:21
 msgid "label_language"
 msgstr ""
 
@@ -1786,7 +1808,7 @@ msgid "label_password"
 msgstr ""
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:424
+#: ulearn5/theme/browser/views.py:425
 msgid "label_show_all"
 msgstr ""
 
@@ -1795,7 +1817,7 @@ msgid "label_subscribe_to_community"
 msgstr ""
 
 #. Default: "See portlet user profile"
-#: ../personalpreferences.py:33
+#: ../personalpreferences.py:39
 msgid "label_userprofile"
 msgstr ""
 
@@ -2001,6 +2023,11 @@ msgstr ""
 #. Default: "mmmm d, yyyy"
 #: ../patches.py:1154
 msgid "pickadate_date_format"
+msgstr ""
+
+#. Default: "h:i a"
+#: ../patches.py:1180
+msgid "pickadate_time_format"
 msgstr ""
 
 #. Default: "Habilitar portlet plone_portlet_static_Static"
@@ -2444,7 +2471,7 @@ msgstr ""
 
 #. Default: "Use site default"
 #: ../patches.py:498
-#: ../personalpreferences.py:82
+#: ../personalpreferences.py:95
 msgid "vocabulary-available-editor-novalue"
 msgstr ""
 
