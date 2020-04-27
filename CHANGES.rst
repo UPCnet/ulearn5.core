@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.71 (unreleased)
+0.71 (2020-04-27)
 -----------------
 
-- Nothing changed yet.
-
+* Traduccion menu [Iago López Fernández]
 
 0.70 (2020-04-27)
 -----------------
