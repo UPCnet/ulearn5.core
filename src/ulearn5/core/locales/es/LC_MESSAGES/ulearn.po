@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2020-04-24 12:14+0000\n"
+"POT-Creation-Date: 2020-04-27 08:40+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -150,6 +150,10 @@ msgstr "Comentarios sobre la última transición"
 #: ../controlpanel.py:98
 msgid "Communities"
 msgstr "Comunidades"
+
+#: ulearn5/theme/browser/views_templates/users_communities.pt:32
+msgid "Community"
+msgstr "Comunidad"
 
 #: ulearn5/theme/portlets/templates/thinnkers.pt:14
 msgid "Community members"
@@ -301,6 +305,10 @@ msgstr "Eventos"
 msgid "Events"
 msgstr "Eventos"
 
+#: ulearn5/theme/browser/views_templates/users_communities.pt:33
+msgid "Export: All communities (This may take a while)"
+msgstr "Exportar: Todas la comunidades (Esta acción puede tardar un rato)"
+
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
 #: ../browser/stats_templates/statsview.pt:245
 msgid "Filtro por palabra clave"
@@ -352,6 +360,10 @@ msgstr "Has marcado la opción de compartir pero falta la URL del Elasticsearch.
 msgid "How many items to list."
 msgstr "Cuántos elementos quiere mostrar?"
 
+#: ulearn5/theme/browser/views_templates/users_communities.pt:59
+msgid "INFO:"
+msgstr "INFO:"
+
 #: ../behaviors/awicon.py:15
 msgid "Icon"
 msgstr "Icono"
@@ -371,6 +383,10 @@ msgstr "Imagen"
 #: ../content/community.py:220
 msgid "Imatge que defineix la comunitat"
 msgstr "Imagen que define la comunidad"
+
+#: ulearn5/theme/browser/views_templates/users_communities.pt:24
+msgid "Information for users and communities"
+msgstr "Información de usuarios y comunidades"
 
 #. Default: "Inicio <span class=\"formHelp\">x</span>"
 #: ../browser/stats_templates/statsview.pt:156
@@ -523,6 +539,10 @@ msgstr "Notícias importantes"
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "News intranet workflow"
 msgstr "News intranet workflow"
+
+#: ulearn5/theme/browser/views_templates/users_communities.pt:103
+msgid "No results"
+msgstr "Sin resultados"
 
 #: ../content/community.py:161
 msgid "Nom"
@@ -718,11 +738,23 @@ msgstr "Tareas del revisor"
 msgid "Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)."
 msgstr "Rol para las noticias dentro de la intranet (Permite el borrador y la revisión)."
 
+#: ulearn5/theme/browser/views_templates/users_communities.pt:70
+msgid "Role"
+msgstr "Rol"
+
 #: ../browser/sharing_templates/sharing.pt:124
 #: ../content/community_templates/editacl.pt:93
 #: ../controlpanel.py:473
 msgid "Save"
 msgstr "Guardar"
+
+#: ulearn5/theme/browser/views_templates/users_communities.pt:49
+msgid "Search"
+msgstr "Buscar"
+
+#: ulearn5/theme/browser/views_templates/users_communities.pt:54
+msgid "Search results"
+msgstr "Resultados de la búsqueda"
 
 #: ../controlpanel.py:211
 msgid "Select the active button in the button bar."
@@ -861,6 +893,10 @@ msgstr "Twitter hashtag"
 msgid "Type"
 msgstr "Tipo"
 
+#: ulearn5/theme/browser/views_templates/users_communities.pt:29
+msgid "Type of search"
+msgstr "Tipo de búsqueda"
+
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn AngularRouteView"
 msgstr "Ulearn AngularRouteView"
@@ -932,6 +968,14 @@ msgstr "Url"
 #: ulearn5/theme/portlets/rss/rss.py:283
 msgid "Url that links to more content."
 msgstr "Url a más contenido."
+
+#: ulearn5/theme/browser/views_templates/users_communities.pt:31
+msgid "User"
+msgstr "Usuario"
+
+#: ulearn5/theme/browser/views_templates/users_communities.pt:59
+msgid "User means `Fullname [Group] (User ID)`"
+msgstr "Usuario significa `Nombre completo [Grupo] (ID Usuario)`"
 
 #. Default: "Usuario <span class=\"formHelp\"></span>"
 #: ../browser/stats_templates/statsview.pt:226
@@ -1807,7 +1851,7 @@ msgid "label_password"
 msgstr "Contraseña"
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:425
+#: ulearn5/theme/browser/views.py:427
 msgid "label_show_all"
 msgstr "Muestra todos los elementos"
 
