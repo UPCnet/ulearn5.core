@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-04-27 08:40+0000\n"
+"POT-Creation-Date: 2020-04-27 14:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:189
+#: ulearn5/theme/browser/viewlets_templates/header.pt:195
 msgid "Buscar"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:193
+#: ulearn5/theme/browser/viewlets_templates/header.pt:199
 msgid "Cerca"
 msgstr ""
 
@@ -1746,7 +1746,7 @@ msgstr ""
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:184
+#: ulearn5/theme/browser/viewlets_templates/header.pt:190
 msgid "info"
 msgstr ""
 
@@ -1985,6 +1985,11 @@ msgstr ""
 msgid "menu-gestion-personal-banners"
 msgstr ""
 
+#. Default: "Information for users and communities"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:146
+msgid "menu-info-users-communities"
+msgstr ""
+
 #. Default: "Reset Menu"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:134
 msgid "menu-reset-menu"
@@ -2152,7 +2157,7 @@ msgstr ""
 msgid "search_communities"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:192
+#: ulearn5/theme/browser/viewlets_templates/header.pt:198
 msgid "search_site"
 msgstr ""
 

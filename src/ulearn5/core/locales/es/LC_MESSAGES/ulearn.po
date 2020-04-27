@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2020-04-27 08:40+0000\n"
+"POT-Creation-Date: 2020-04-27 14:10+0000\n"
 "PO-Revision-Date: 2018-06-25 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -91,7 +91,7 @@ msgstr "Banner"
 msgid "Blog"
 msgstr "Blog"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:189
+#: ulearn5/theme/browser/viewlets_templates/header.pt:195
 msgid "Buscar"
 msgstr "Buscar"
 
@@ -109,7 +109,7 @@ msgstr "Solo puede ser visto y editado por el propietario."
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:193
+#: ulearn5/theme/browser/viewlets_templates/header.pt:199
 msgid "Cerca"
 msgstr "Buscar"
 
@@ -1745,7 +1745,7 @@ msgstr "Notícias importantes"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:184
+#: ulearn5/theme/browser/viewlets_templates/header.pt:190
 msgid "info"
 msgstr "Info"
 
@@ -1984,6 +1984,11 @@ msgstr "Menú de gestión"
 msgid "menu-gestion-personal-banners"
 msgstr "Banners personales"
 
+#. Default: "Information for users and communities"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:146
+msgid "menu-info-users-communities"
+msgstr "Información de usuarios y comunidades"
+
 #. Default: "Reset Menu"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:134
 msgid "menu-reset-menu"
@@ -2151,7 +2156,7 @@ msgstr "Busca"
 msgid "search_communities"
 msgstr "Busca comunidades"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:192
+#: ulearn5/theme/browser/viewlets_templates/header.pt:198
 msgid "search_site"
 msgstr "Busca en el Sitio"
 

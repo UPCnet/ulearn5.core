@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2020-04-27 08:40+0000\n"
+"POT-Creation-Date: 2020-04-27 14:10+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -91,7 +91,7 @@ msgstr "Banner"
 msgid "Blog"
 msgstr "Blog"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:189
+#: ulearn5/theme/browser/viewlets_templates/header.pt:195
 msgid "Buscar"
 msgstr "Search"
 
@@ -109,7 +109,7 @@ msgstr "Can only be seen and edited by the owner."
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:193
+#: ulearn5/theme/browser/viewlets_templates/header.pt:199
 msgid "Cerca"
 msgstr "Search"
 
@@ -1751,7 +1751,7 @@ msgstr "Important News"
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:17
-#: ulearn5/theme/browser/viewlets_templates/header.pt:184
+#: ulearn5/theme/browser/viewlets_templates/header.pt:190
 msgid "info"
 msgstr "Info"
 
@@ -1990,6 +1990,11 @@ msgstr "Management menu"
 msgid "menu-gestion-personal-banners"
 msgstr "Personal banners"
 
+#. Default: "Information for users and communities"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:146
+msgid "menu-info-users-communities"
+msgstr "Information for users and communities"
+
 #. Default: "Reset Menu"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:134
 msgid "menu-reset-menu"
@@ -2157,7 +2162,7 @@ msgstr "Search"
 msgid "search_communities"
 msgstr "Search"
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:192
+#: ulearn5/theme/browser/viewlets_templates/header.pt:198
 msgid "search_site"
 msgstr "Search on the Site"
 
