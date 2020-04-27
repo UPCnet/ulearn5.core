@@ -27,4 +27,18 @@
           <element>plone.rightcolumn</element>
         </value>
     </record>
+
+    <record name="plone.patternoptions">
+      <field type="plone.registry.field.Dict">
+        <title>Patterns configuration</title>
+        <description>Base pattern configuration options</description>
+        <key_type type="plone.registry.field.ASCIILine" />
+        <value_type type="plone.registry.field.Text" />
+      </field>
+      <value>
+        <element key="pickadate">{"date": {"selectYears": 200}, "time": {"interval": 15 } }</element>
+        <element key="plone-modal">{"actionOptions": {"displayInModal": false}}</element>
+      </value>
+    </record>
+
 </registry>
