@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2020-04-27 07:15+0000\n"
+"POT-Creation-Date: 2020-04-27 07:39+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -158,10 +158,6 @@ msgstr "Community"
 #: ulearn5/theme/portlets/templates/thinnkers.pt:14
 msgid "Community members"
 msgstr "Community members"
-
-#: ulearn5/theme/browser/views_templates/users_communities.pt:24
-msgid "Community permissions"
-msgstr "Community permissions"
 
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:46
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:219
@@ -380,6 +376,10 @@ msgstr "Image"
 #: ../content/community.py:220
 msgid "Imatge que defineix la comunitat"
 msgstr "Image that defines the community"
+
+#: ulearn5/theme/browser/views_templates/users_communities.pt:24
+msgid "Information for users and communities"
+msgstr "Information for users and communities"
 
 #. Default: "Inicio <span class=\"formHelp\">x</span>"
 #: ../browser/stats_templates/statsview.pt:156
