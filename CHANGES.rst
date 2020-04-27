@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.70 (unreleased)
+0.70 (2020-04-27)
 -----------------
 
-- Nothing changed yet.
-
+* Modify time interval 15 events [Pilar Marinas]
+* TRaducciones [Iago López Fernández]
+* Modify format time events for user [Pilar Marinas]
+* Modificar workflow genweb_intranet para que de privado se pueda pasar a estado intranet [Pilar Marinas]
+* View in clouseau to add Protected File in folder documents to Communities [Pilar Marinas]
+* Si esta instalado el externalstorage que te muestre en documents de la comunidad archivo protegido [Pilar Marinas]
 
 0.69 (2020-04-20)
 -----------------
