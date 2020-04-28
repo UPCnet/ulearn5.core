@@ -289,7 +289,10 @@ class ElasticSharing(object):
             )
 
         def is_shared(item):
-            item_catalog = portal_catalog.unrestrictedSearchResults(gwuuid=str(item['uuid']))[0]
+            try:
+                item_catalog = portal_catalog.unrestrictedSearchResults(gwuuid=str(item['uuid']))[0]
+            except:
+                return False
 
             object = item_catalog._unrestrictedGetObject()
 
