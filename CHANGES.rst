@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.72 (unreleased)
+0.72 (2020-04-28)
 -----------------
 
-- Nothing changed yet.
-
+* Compartit amb mi si no encuentra obj en el catalogo return False para que no de error [Pilar Marinas]
 
 0.71 (2020-04-27)
 -----------------
