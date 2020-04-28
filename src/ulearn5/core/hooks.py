@@ -180,7 +180,7 @@ def Added(content, event):
         # or the content is created externaly through apps via the upload ws
         return
 
-    if content.portal_type == 'News Item':
+    if content.portal_type == 'News Item' or content.portal_type == 'ExternalContent':
         if event.transition is None:
             return
         elif event.transition.id != 'publicaalaintranet':
