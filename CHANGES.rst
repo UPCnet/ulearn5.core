@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.73 (unreleased)
+0.73 (2020-04-29)
 -----------------
 
-- Nothing changed yet.
-
+* Traducciones [Pilar Marinas]
+* Solucionar notificacion activity stream archivo protegido [Pilar Marinas]
+* Corregir error de codificación [Iago López Fernández]
+* Hook add protected file when intranet [Pilar Marinas]
 
 0.72 (2020-04-28)
 -----------------
