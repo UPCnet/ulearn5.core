@@ -350,7 +350,7 @@ msgstr "Go to homepage"
 
 #: ../personalpreferences.py:16
 msgid "HH:i"
-msgstr "HH:i - Hour at format of 24 hours (00 - 23)"
+msgstr "Hour at format of 24 hours (00 - 23)"
 
 #: ../controlpanel.py:509
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
@@ -1727,7 +1727,7 @@ msgstr "Url on moodle."
 
 #: ../personalpreferences.py:15
 msgid "hh:i A"
-msgstr "hh:i A - Hour at format of 12 hours (01 - 12) and period of the day AM PM"
+msgstr "Hour at format of 12 hours (01 - 12) and period of the day AM PM"
 
 #. Default: "Títol del web amb HTML tags (negretes) [CA]"
 #: ../controlpanel.py:106
