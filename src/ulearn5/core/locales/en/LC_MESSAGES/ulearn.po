@@ -1993,7 +1993,7 @@ msgstr "Personal banners"
 #. Default: "Information for users and communities"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:146
 msgid "menu-info-users-communities"
-msgstr "Information for users and communities"
+msgstr "Information of users and communities"
 
 #. Default: "Reset Menu"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:134
