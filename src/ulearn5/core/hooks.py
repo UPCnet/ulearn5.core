@@ -38,6 +38,8 @@ from plone.dexterity.interfaces import IDexterityContent
 
 from plone.memoize import ram
 from time import time
+# from ulearn5.core.formatting import formatMessageEntities
+# from plone.app.textfield.value import RichTextValue
 
 import io
 import logging
@@ -434,6 +436,20 @@ def CreateThumbImageCommunity(content, event):
         content.thumbnail_image = thumb_image
     else:
         content.thumbnail_image = None
+
+# Esto incluye el bitly en el contenido de las noticias
+# el problema es que cuando vas a modificar la url externa aparece el bitly
+# y pierdes lo que habias puesto
+# @grok.subscribe(INewsItem, IObjectAddedEvent)
+# @grok.subscribe(INewsItem, IObjectModifiedEvent)
+# def CreateBitlyURL(content, event):
+#     """ Create bitlyurl in text News Item
+#     """
+#     if getattr(content, 'text', None):
+#         text = formatMessageEntities(content.text.output)
+#         content.text = RichTextValue(text)
+#     else:
+#         content.text = None
 
 
 @grok.subscribe(IFolder, IObjectAddedEvent)

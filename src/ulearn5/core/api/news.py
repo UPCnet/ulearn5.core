@@ -12,6 +12,7 @@ from ulearn5.core.api import ObjectNotFound
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
+from ulearn5.core.formatting import formatMessageEntities
 
 from datetime import datetime
 
@@ -185,7 +186,8 @@ class New(REST):
                 else:
                     date = value.creation_date.strftime("%d/%m/%Y")
                 if value.text:
-                    text = value.text.output
+                    #text = value.text.output
+                    text = formatMessageEntities(value.text.output)
                 else:
                     text = ''
 

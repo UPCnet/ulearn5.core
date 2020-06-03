@@ -102,6 +102,10 @@ class IUlearnControlPanelSettings(model.Schema):
                    u'Google Analytics',
                    fields=['gAnalytics_enabled', 'gAnalytics_view_ID', 'gAnalytics_JSON_info'])
 
+    model.fieldset('Bitly',
+                   u'Bitly',
+                   fields=['bitly_username', 'bitly_api_key'])
+
     html_title_ca = schema.TextLine(
         title=_(u"html_title_ca",
                 default=u"Títol del web amb HTML tags (negretes) [CA]"),
@@ -454,6 +458,17 @@ class IUlearnControlPanelSettings(model.Schema):
         required=False
     )
 
+    bitly_username = schema.TextLine(
+        title=_(u"Bitly username"),
+        description=_(u"The bitly username"),
+        required=True,
+    )
+
+    bitly_api_key = schema.Password(
+        title=_(u'Bitly api key'),
+        description=_(u'The API Key Bitly'),
+        required=True,
+    )
 
 class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
     """ Ulearn settings form """
