@@ -7,6 +7,7 @@ from plone import api
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
 FIND_URL_REGEX = r'https?\:\/\/[^\"\']+'
+DELETE_TARGET_BLANK = r'target=\"_blank\"'
 
 def formatMessageEntities(text):
     """
@@ -21,7 +22,8 @@ def formatMessageEntities(text):
 
         return shortenURL(url, bitly_username, bitly_api_key, secure=False)
 
-    shortened = re.sub(FIND_URL_REGEX, shorten, text, flags=re.IGNORECASE)
+    shortened_bitly = re.sub(FIND_URL_REGEX, shorten, text, flags=re.IGNORECASE)
+    shortened = re.sub(DELETE_TARGET_BLANK, '', shortened_bitly, flags=re.IGNORECASE)
 
     return shortened
 
