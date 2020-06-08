@@ -106,6 +106,10 @@ class IUlearnControlPanelSettings(model.Schema):
                    u'Bitly',
                    fields=['bitly_username', 'bitly_api_key'])
 
+    model.fieldset('Etherpad',
+                   u'Etherpad',
+                   fields=['etherpad_url', 'etherpad_api_key'])
+
     html_title_ca = schema.TextLine(
         title=_(u"html_title_ca",
                 default=u"Títol del web amb HTML tags (negretes) [CA]"),
@@ -468,6 +472,18 @@ class IUlearnControlPanelSettings(model.Schema):
         title=_(u'Bitly api key'),
         description=_(u'The API Key Bitly'),
         required=True,
+    )
+
+    etherpad_url = schema.TextLine(
+        title=u'Etherpad URL',
+        description=u'The full address of your Etherpad server, e.g. http://127.0.0.1:9001',
+        required=False
+    )
+
+    etherpad_api_key = schema.TextLine(
+        title=u'Etherpad API Key',
+        description=u'The hexadecimal string taken from your Etherpad installation''s APIKEY.txt',
+        required=False
     )
 
 class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):

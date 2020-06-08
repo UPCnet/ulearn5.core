@@ -17,6 +17,10 @@
       <role name="Manager"/>
       <role name="Site Administrator"/>
     </permission>
+    <permission
+    id="ulearn.addPad"
+    title="Ulearn: Add Pad"
+    />
 
     <includeDependencies package="." />
     <grok:grok package="." />

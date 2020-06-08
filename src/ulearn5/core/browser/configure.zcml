@@ -8,5 +8,13 @@
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
 
+  <browser:page
+    name="pad_view"
+    for="*"
+    class=".pad.PadView"
+    permission="zope2.View"
+    template="templates/pad-view.pt"
+    />
+
 
 </configure>
