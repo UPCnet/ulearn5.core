@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.74 (unreleased)
+0.74 (2020-06-09)
 -----------------
 
-- Nothing changed yet.
-
+* Quitar target=_blank WS noticia porque da error en ios [Pilar Marinas]
+* Generar bitly respuesta webservice /api/news/{newid}?absolute_url={absolute_url} [Pilar Marinas]
+* Traducción [Iago López Fernández]
+* Traducción [Iago López Fernández]
 
 0.73 (2020-04-29)
 -----------------
