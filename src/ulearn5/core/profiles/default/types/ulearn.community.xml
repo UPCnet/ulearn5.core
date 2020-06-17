@@ -41,6 +41,7 @@
  <alias from="view" to="(selected layout)"/>
 
  <!-- Actions -->
+ <!-- string:${object_url/@@ulearn.utils/getCommunityTab} -->
  <action title="View" action_id="view" category="object" condition_expr=""
     url_expr="string:${object_url}" visible="True">
   <permission value="View"/>

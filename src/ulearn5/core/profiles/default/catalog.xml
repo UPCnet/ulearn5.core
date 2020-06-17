@@ -7,4 +7,5 @@
     <column value="community_hash"/>
     <column value="is_shared"/>
     <column value="gwuuid"/>
+    <column value="tab_view"/>
 </object>

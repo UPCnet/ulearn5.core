@@ -144,6 +144,19 @@ class ulearnUtils(BrowserView):
         )
         return provider(occ)
 
+    # def getCommunityTab(self):
+    #     portal = self.portal()
+    #     url = portal.absolute_url()        
+    #     path_url = portal.absolute_url_path()
+    #     path = path_url + self.context.replace(url, '')
+    #     community = api.content.find(path=path, depth=0)[0].getObject()
+    #     import ipdb; ipdb.set_trace()
+    #     if community.tab_view == 'Documents':
+    #         # string:${object_url/@@ulearn.utils/getCommunityTab}
+    #         #self.request.response.redirect(self.context + '/documents')      
+    #         return self.context + '/documents'      
+    #     return self.context
+
 def isInstalledProduct(self, package):
     qi = getToolByName(self, 'portal_quickinstaller')
     prods = qi.listInstalledProducts()

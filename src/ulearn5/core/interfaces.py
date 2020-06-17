@@ -59,3 +59,7 @@ class IUlearnUtils(Interface):
 
     def get_url_forget_password(self):
         """ return redirect url when forget user password """
+
+    # def getCommunityTab(self):
+    #     """return tab"""
+

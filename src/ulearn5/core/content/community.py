@@ -146,6 +146,18 @@ def communityActivityViews(context):
 
     return SimpleVocabulary(terms)
 
+@grok.provider(IContextSourceBinder)
+def communityTabViews(context):
+    terms = []
+
+    terms.append(SimpleVocabulary.createTerm(u'Activity', 'activity', _(u'Activity')))
+    terms.append(SimpleVocabulary.createTerm(u'Documents', 'documents', _(u'Documents')))
+
+    return SimpleVocabulary(terms)
+
+# @grok.provider(IContextSourceBinder)
+# def getCommunityTab(self):
+#     return self.portal_url()
 
 def isChecked(value):
     if not value:
@@ -184,6 +196,13 @@ class ICommunity(form.Schema):
         source=communityActivityViews,
         required=True,
         default=u'Darreres activitats')
+
+    tab_view = schema.Choice(
+        title=_(u'tab_view'),
+        description=_(u'help_tab_view'),
+        source=communityTabViews,
+        required=True,
+        default=u'Activity')
 
     form.omitted('readers', 'subscribed', 'owners')
     form.widget(readers=Select2MAXUserInputFieldWidget)
@@ -1115,6 +1134,7 @@ class communityAdder(form.SchemaForm):
         image = data['image']
         community_type = data['community_type']
         activity_view = data['activity_view']
+        tab_view = data['tab_view']
         show_news = data['show_news']
         show_events = data['show_events']
         twitter_hashtag = data['twitter_hashtag']
@@ -1149,6 +1169,7 @@ class communityAdder(form.SchemaForm):
                 image=image,
                 community_type=community_type,
                 activity_view=activity_view,
+                tab_view=tab_view,
                 show_news=show_news,
                 show_events=show_events,
                 twitter_hashtag=twitter_hashtag,
@@ -1194,6 +1215,7 @@ class communityEdit(form.SchemaForm):
         self.widgets['description'].value = self.context.description
         self.widgets['community_type'].value = [self.ctype_map[self.context.community_type]]
         self.widgets['activity_view'].value = [self.cview_map[self.context.activity_view]]
+        self.widgets['tab_view'].value = [self.cview_map[self.context.tab_view]]
         self.widgets['show_news'].value = self.context.show_news
         self.widgets['show_events'].value = self.context.show_events
         self.widgets['twitter_hashtag'].value = self.context.twitter_hashtag
@@ -1233,6 +1255,7 @@ class communityEdit(form.SchemaForm):
         image = data['image']
         community_type = data['community_type']
         activity_view = data['activity_view']
+        tab_view = data['tab_view']
         show_news = data['show_news']
         show_events = data['show_events']
         twitter_hashtag = data['twitter_hashtag']
@@ -1262,6 +1285,7 @@ class communityEdit(form.SchemaForm):
             self.context.owners = owners
             self.context.community_type = community_type
             self.context.activity_view = activity_view
+            self.context.tab_view = tab_view
             self.context.show_news = show_news
             self.context.show_events = show_events
             self.context.twitter_hashtag = twitter_hashtag
@@ -1594,3 +1618,14 @@ def community_hash(context):
 
 
 grok.global_adapter(community_hash, name='community_hash')
+
+
+
+@indexer(ICommunity)
+def tab_view(context):
+    """ Create a catalogue indexer, registered as an adapter, which can
+        populate the ``community_type`` value count it and index.
+    """
+    return context.tab_view
+
+grok.global_adapter(tab_view, name='tab_view')

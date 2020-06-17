@@ -30,6 +30,7 @@ INDEXES = (('subscribed_users', 'KeywordIndex'),
            ('community_hash', 'FieldIndex'),
            ('is_shared', 'BooleanIndex'),
            ('timezone', 'FieldIndex'),
+           ('tab_view', 'FieldIndex'),
            )
 
 

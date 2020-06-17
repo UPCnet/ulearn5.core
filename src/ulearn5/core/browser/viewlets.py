@@ -43,12 +43,14 @@ class CommunityNGDirective(grok.Viewlet):
         self.community_gwuuid = ''
         self.community_url = ''
         self.community_type = ''
+        self.community_tab_view = ''
         for obj in aq_chain(self.context):
             if ICommunity.providedBy(obj):
                 self.community_hash = sha1(obj.absolute_url()).hexdigest()
                 self.community_gwuuid = IGWUUID(obj).get()
                 self.community_url = obj.absolute_url()
                 self.community_type = obj.community_type
+                self.community_tab_view = obj.tab_view
 
 
 class ULearnNGDirectives(grok.Viewlet):

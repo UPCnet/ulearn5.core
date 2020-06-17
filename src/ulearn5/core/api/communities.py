@@ -141,10 +141,15 @@ class Communities(REST):
         result = []
         favorites = self.get_favorites()
         for brain in communities:
+            if brain.tab_view == 'Documents':
+                url = brain.getURL() + '/documents'
+            else:
+                url = brain.getURL()
             community = dict(id=brain.id,
                              title=brain.Title,
                              description=brain.Description,
                              url=brain.getURL(),
+                             url_tab_view=url,
                              gwuuid=brain.gwuuid,
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
@@ -162,6 +167,7 @@ class Communities(REST):
         params['description'] = self.params.pop('description', None)
         params['image'] = self.params.pop('image', None)
         params['activity_view'] = self.params.pop('activity_view', None)
+        params['tab_view'] = self.params.pop('tab_view', None)
         params['twitter_hashtag'] = self.params.pop('twitter_hashtag', None)
         params['notify_activity_via_push'] = self.params.pop('notify_activity_via_push', None)
         params['notify_activity_via_push_comments_too'] = self.params.pop('notify_activity_via_push_comments_too', None)
@@ -193,6 +199,7 @@ class Communities(REST):
                                                           image=imageObj,
                                                           community_type=params['community_type'],
                                                           activity_view=params['activity_view'],
+                                                          tab_view=params['tab_view'],
                                                           twitter_hashtag=params['twitter_hashtag'],
                                                           notify_activity_via_push=True if params['notify_activity_via_push'] == 'True' else None,
                                                           notify_activity_via_push_comments_too=True if params['notify_activity_via_push_comments_too'] == 'True' else None,
@@ -263,6 +270,7 @@ class Community(REST, CommunityMixin):
         params['description'] = self.params.pop('description', None)
         params['image'] = self.params.pop('image', None)
         params['activity_view'] = self.params.pop('activity_view', None)
+        params['tab_view'] = self.params.pop('tab_view', None)
         params['twitter_hashtag'] = self.params.pop('twitter_hashtag', None)
         params['notify_activity_via_push'] = self.params.pop('notify_activity_via_push', None)
         params['notify_activity_via_push_comments_too'] = self.params.pop('notify_activity_via_push_comments_too', None)
@@ -330,6 +338,8 @@ class Community(REST, CommunityMixin):
                 community.image = imageObj
             if properties['activity_view'] is not None:
                 community.activity_view = properties['activity_view']
+            if properties['tab_view'] is not None:
+                community.tab_view = properties['tab_view']
             if properties['twitter_hashtag'] is not None:
                 community.twitter_hashtag = properties['twitter_hashtag']
             if properties['notify_activity_via_push'] is not None:
