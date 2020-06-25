@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.75 (unreleased)
+0.75 (2020-06-25)
 -----------------
 
-- Nothing changed yet.
-
+* Configurable comunidad  si quieres ver activityStream o Documents [Pilar Marinas]
 
 0.74 (2020-06-09)
 -----------------
