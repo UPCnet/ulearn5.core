@@ -1302,6 +1302,7 @@ class notifyManualInCommunity(grok.View):
             com = community.getObject()
             if com.notify_activity_via_mail == True:
                 com.type_notify = u'Manual'
+                logger.info('Add Notify Manual in community_id: {} in the portal: {}.'.format(com.id, portal.absolute_url()))
                 com.reindexObject()
 
         transaction.commit()
