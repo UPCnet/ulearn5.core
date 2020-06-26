@@ -12,6 +12,7 @@ import z3c.form.widget
 import zope.interface
 import zope.schema.interfaces
 
+
 class SingleCheckBoxNotifyEmailWidget(SingleCheckBoxWidget):
     zope.interface.implementsOnly(ISingleCheckBoxNotifyEmailWidget)
 
@@ -26,6 +27,7 @@ class SingleCheckBoxNotifyEmailWidget(SingleCheckBoxWidget):
             return self.display_template(self)
         else:
             return self.input_template(self)
+
 
 @zope.component.adapter(zope.schema.interfaces.IBool, interfaces.IFormLayer)
 @zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
