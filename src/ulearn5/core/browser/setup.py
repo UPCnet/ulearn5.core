@@ -1280,3 +1280,29 @@ class addProtectedFileInDocumentsCommunity(grok.View):
 
         else:
            return "ulearn5.externalstorage is not active in this site."
+
+
+class notifyManualInCommunity(grok.View):
+    """ Somo por defecto la notificación por email es automatica esto te la cambia a manual para EBCN """
+    grok.name('notify_manual_in_community')
+    grok.context(IPloneSiteRoot)
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = api.portal.get()
+        pc = api.portal.get_tool('portal_catalog')
+        comunnities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
+        for community in comunnities:
+            com = community.getObject()
+            if com.notify_activity_via_mail == True:
+                com.type_notify = u'Manual'
+                com.reindexObject()
+
+        transaction.commit()
+        return "OK Add notify Manual in Communities"
