@@ -9,6 +9,8 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
+from Products.DCWorkflow.interfaces import IBeforeTransitionEvent
+
 from ulearn5.core.interfaces import IAppImage
 from ulearn5.core.interfaces import IAppFile
 from ulearn5.core.content.community import ICommunity
@@ -27,6 +29,11 @@ from plone.event.interfaces import IRecurrenceSupport
 from plone.app.contenttypes.interfaces import IFolder
 from plone.app.contenttypes.interfaces import IEvent
 from plone.app.contenttypes.interfaces import INewsItem
+from plone.app.contenttypes.interfaces import IDocument
+from plone.app.contenttypes.interfaces import IFile
+from plone.app.contenttypes.interfaces import IImage
+from plone.app.contenttypes.interfaces import ILink
+from ulearn5.externalstorage.content.external_content import IExternalContent
 from zope.globalrequest import getRequest
 from plone.namedfile.file import NamedBlobImage
 from io import BytesIO as StringIO
@@ -35,6 +42,11 @@ from mrs5.max.browser.controlpanel import IMAXUISettings
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
 from plone.dexterity.interfaces import IDexterityContent
+
+from email.header import Header
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.utils import formatdate
 
 from plone.memoize import ram
 from time import time
@@ -484,3 +496,67 @@ def setEventTimezone(content, event):
     else:
         current_user = api.user.get_current()
         content.timezone = current_user.getProperty('timezone')
+
+
+@grok.subscribe(IDocument, IObjectAddedEvent)
+@grok.subscribe(ILink, IObjectAddedEvent)
+@grok.subscribe(IFile, IObjectAddedEvent)
+@grok.subscribe(IImage, IObjectAddedEvent)
+@grok.subscribe(IEvent, IObjectAddedEvent)
+@grok.subscribe(INewsItem, IBeforeTransitionEvent)
+@grok.subscribe(IExternalContent, IObjectAddedEvent)
+def AddedSendMessage(content, event):
+    """ Send mail to notify add object in community
+    """
+    community = findContainerCommunity(content)
+
+    if not community or \
+       IAppFile.providedBy(content) or \
+       IAppImage.providedBy(content):
+        # For some reason the file we are creating is not inside a community
+        # or the content is created externaly through apps via the upload ws
+        return
+
+    if not hasattr(community, 'notify_activity_via_mail') or not community.notify_activity_via_mail:
+        return
+
+    if community.type_notify == "Automatic" and community.mails_users_community_lists == "":
+        return
+
+    if community.type_notify == "Manual" and community.distribution_lists == "":
+        return
+
+    if content.portal_type == 'News Item':
+        if event.transition is None:
+            return
+        elif event.transition.id != 'publicaalaintranet':
+            return
+
+    if community.type_notify == "Manual":
+        mails_users_to_notify = community.distribution_lists
+    else:
+        mails_users_to_notify = ','.join(community.mails_users_community_lists)
+
+    if mails_users_to_notify != None:
+
+        subject_template = main_color = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
+        message_template = main_color = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template')
+
+        map = {
+            'link': '{}/view'.format(content.absolute_url()),
+            'title': content.title.encode('utf-8')
+        }
+
+        portal = getSite()
+        mailhost = getToolByName(portal, 'MailHost')
+        body = message_template % map
+        subject = subject_template.format(community.title.encode('utf-8'))
+
+        msg = MIMEMultipart()
+        msg['From'] = api.portal.get_registry_record('plone.email_from_address')
+        msg['Bcc'] = mails_users_to_notify
+        msg['Date'] = formatdate(localtime=True)
+        msg['Subject'] = Header(subject, 'utf-8')
+
+        msg.attach(MIMEText(body.encode('utf-8'), 'html'))
+        mailhost.send(msg)

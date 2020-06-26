@@ -80,6 +80,8 @@ from plone.app.layout.navigation.root import getNavigationRootObject
 from ulearn5.owncloud.utils import get_domain
 from ulearn5.owncloud.utils import update_owncloud_permission
 from z3c.form.interfaces import IAddForm, IEditForm
+from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
+from ulearn5.core.widgets.single_checkbox_notify_email_widget import SingleCheckBoxNotifyEmailFieldWidget
 
 import json
 import logging
@@ -152,6 +154,16 @@ def communityTabViews(context):
 
     terms.append(SimpleVocabulary.createTerm(u'Activity', 'activity', _(u'Activity')))
     terms.append(SimpleVocabulary.createTerm(u'Documents', 'documents', _(u'Documents')))
+
+    return SimpleVocabulary(terms)
+
+
+@grok.provider(IContextSourceBinder)
+def communityTypeNotify(context):
+    terms = []
+
+    terms.append(SimpleVocabulary.createTerm(u'Automatic', 'automatic', _(u'Automatic')))
+    terms.append(SimpleVocabulary.createTerm(u'Manual', 'manual', _(u'Manual')))
 
     return SimpleVocabulary(terms)
 
@@ -269,6 +281,34 @@ class ICommunity(form.Schema):
     notify_activity_via_push_comments_too = schema.Bool(
         title=_(u'Notify activity and comments via push'),
         description=_(u'help_notify_activity_via_push_comments_too'),
+        required=False
+    )
+
+    form.widget(notify_activity_via_mail=SingleCheckBoxNotifyEmailFieldWidget)
+    notify_activity_via_mail = schema.Bool(
+        title=_(u'Notify activity via mail'),
+        description=_(u'notify_activity_via_mail_help'),
+        required=False
+    )
+
+    type_notify = schema.Choice(
+        title=_(u'type_notify'),
+        description=_(u'help_type_notify'),
+        source=communityTypeNotify,
+        required=True,
+        default=u'Automatic')
+
+    form.mode(IAddForm, mails_users_community_lists='hidden')
+    form.mode(IEditForm, mails_users_community_lists='hidden')
+    mails_users_community_lists = schema.Text(
+        title=_(u'Users comunnity lists'),
+        description=_(u'users_community_lists_help'),
+        required=False
+    )
+
+    distribution_lists = schema.Text(
+        title=_(u'Distribution lists'),
+        description=_(u'distribution_lists_help'),
         required=False
     )
 
@@ -607,6 +647,10 @@ class CommunityAdapterMixin(object):
         # Unfavorite
         IFavorite(self.context).remove(user_id)
 
+       # Remove mail user to mails_users_community_lists in community
+        self.context.mails_users_community_lists.remove(api.user.get(user_id).getProperty('email'))
+        self.context.reindexObject()
+
     def subscribe_user(self, user_id):
         """
             Adds a user both to max and plone, updating related permissions
@@ -624,9 +668,33 @@ class CommunityAdapterMixin(object):
         acl = self.get_acl()
         # Finally, we update the plone permissions
         self.set_plone_permissions(acl)
-
         if is_activate_owncloud(self.context):
             update_owncloud_permission(self.context, acl)
+
+        # Add mail user to mails_users_community_lists in community
+        self.context.mails_users_community_lists.append(api.user.get(user_id).getProperty('email'))
+        self.context.reindexObject()
+
+    def update_mails_users(self, obj, acl):
+        """
+            Add mails users to mails_users_community_lists in community
+        """
+        mails_users = []
+        if 'users' in acl:
+            for user in acl['users']:
+                mails_users.append(api.user.get(user['id']).getProperty('email'))
+
+        if 'groups' in acl:
+            for group in acl['groups']:
+                users = api.user.get_users(groupname=group['id'])
+                for user in users:
+                    mail = api.user.get(user['id']).getProperty('email')
+                    if mail not in mails_users:
+                        mails_users.append(mail)
+
+
+        obj.mails_users_community_lists = mails_users
+        obj.reindexObject()
 
 
 class OrganizativeCommunity(CommunityAdapterMixin):
@@ -1114,6 +1182,9 @@ class communityAdder(form.SchemaForm):
            self.widgets['terms'].mode = 'input'
            self.fields['terms'].mode = 'input'
 
+        self.widgets['mails_users_community_lists'].mode = 'hidden'
+        self.fields['mails_users_community_lists'].mode = 'hidden'
+
     @button.buttonAndHandler(_(u'Crea la comunitat'), name='save')
     def handleApply(self, action):
         data, errors = self.extractData()
@@ -1129,6 +1200,7 @@ class communityAdder(form.SchemaForm):
             messages.addStatusMessage(translated, type='error')
             return self.request.response.redirect(self.context.absolute_url())
 
+
         nom = data['title']
         description = data['description']
         image = data['image']
@@ -1140,6 +1212,11 @@ class communityAdder(form.SchemaForm):
         twitter_hashtag = data['twitter_hashtag']
         notify_activity_via_push = data['notify_activity_via_push']
         notify_activity_via_push_comments_too = data['notify_activity_via_push_comments_too']
+        notify_activity_via_mail = data['notify_activity_via_mail']
+        type_notify = data['type_notify']
+        mails_users_community_lists = data['mails_users_community_lists']
+        distribution_lists = data['distribution_lists']
+
         terms = data['terms']
 
         portal = api.portal.get()
@@ -1175,6 +1252,10 @@ class communityAdder(form.SchemaForm):
                 twitter_hashtag=twitter_hashtag,
                 notify_activity_via_push=notify_activity_via_push,
                 notify_activity_via_push_comments_too=notify_activity_via_push_comments_too,
+                notify_activity_via_mail=notify_activity_via_mail,
+                type_notify=type_notify,
+                mails_users_community_lists=mails_users_community_lists,
+                distribution_lists=distribution_lists,
                 terms=terms,
                 checkConstraints=False)
 
@@ -1219,6 +1300,10 @@ class communityEdit(form.SchemaForm):
         self.widgets['show_news'].value = self.context.show_news
         self.widgets['show_events'].value = self.context.show_events
         self.widgets['twitter_hashtag'].value = self.context.twitter_hashtag
+        self.widgets['notify_activity_via_mail'].value = [self.cview_map[self.context.notify_activity_via_mail]]
+        self.widgets['type_notify'].value = [self.cview_map[self.context.type_notify]]
+        self.widgets['mails_users_community_lists'].value = [self.cview_map[self.context.mails_users_community_lists]]
+        self.widgets['distribution_lists'].value = [self.cview_map[self.context.distribution_lists]]
         self.widgets['terms'].value = ['true']
 
         if self.context.notify_activity_via_push:
@@ -1230,6 +1315,7 @@ class communityEdit(form.SchemaForm):
             self.widgets['notify_activity_via_push_comments_too'].value = ['selected']
             # Bool widgets should call update() once modified
             self.widgets['notify_activity_via_push_comments_too'].update()
+
 
         converter = SelectWidgetConverter(self.fields['readers'].field, self.widgets['readers'])
         self.widgets['readers'].value = converter.toWidgetValue(self.context.readers)
@@ -1261,6 +1347,10 @@ class communityEdit(form.SchemaForm):
         twitter_hashtag = data['twitter_hashtag']
         notify_activity_via_push = data['notify_activity_via_push']
         notify_activity_via_push_comments_too = data['notify_activity_via_push_comments_too']
+        notify_activity_via_mail = data['notify_activity_via_mail']
+        type_notify = data['type_notify']
+        mails_users_community_lists = data['mails_users_community_lists']
+        distribution_lists = data['distribution_lists']
 
         portal = getSite()
         pc = getToolByName(portal, 'portal_catalog')
@@ -1291,6 +1381,10 @@ class communityEdit(form.SchemaForm):
             self.context.twitter_hashtag = twitter_hashtag
             self.context.notify_activity_via_push = notify_activity_via_push
             self.context.notify_activity_via_push_comments_too = notify_activity_via_push_comments_too
+            self.context.notify_activity_via_mail = notify_activity_via_mail
+            self.context.type_notify = type_notify
+            self.context.mails_users_community_lists = mails_users_community_lists
+            self.context.distribution_lists = distribution_lists
             self.context.terms = True
 
             if image:

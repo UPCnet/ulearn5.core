@@ -6,6 +6,10 @@
                  items python:list(items);
                  isActive view/isActive;
                  single_checkbox python:len(items) == 1">
+     <span tal:define="portal_state context/@@plone_portal_state;
+                    portal_url portal_state/portal_url;">
+       <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++notify_email.js"></script>
+    </span>            
 
     <span tal:attributes="id view/id"
           tal:omit-tag="single_checkbox"

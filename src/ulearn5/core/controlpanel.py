@@ -96,7 +96,7 @@ class IUlearnControlPanelSettings(model.Schema):
 
     model.fieldset('Communities',
                    _(u'Communities'),
-                   fields=['activity_view', 'show_literals', 'url_terms'])
+                   fields=['activity_view', 'show_literals', 'url_terms', 'subject_template', 'message_template'])
 
     model.fieldset('Google Analytics',
                    u'Google Analytics',
@@ -436,6 +436,24 @@ class IUlearnControlPanelSettings(model.Schema):
                 default=_(u"Url terms of use")),
         description=_(u'help_url_terms',
                       default=_(u"Url of the terms of use.")),
+        required=False,
+        default=u'',
+    )
+
+    subject_template = schema.TextLine(
+        title=_(u'subject_template',
+                default=_(u"Subject template")),
+        description=_(u'help_subject_template',
+                      default=_(u"Subject template to notify.")),
+        required=False,
+        default=u'',
+    )
+
+    message_template = schema.Text(
+        title=_(u'message_template',
+                default=_(u"Messate template")),
+        description=_(u'help_message_template',
+                      default=_(u"Message template to notify.")),
         required=False,
         default=u'',
     )

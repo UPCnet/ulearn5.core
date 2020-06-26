@@ -127,5 +127,10 @@
         file="javascripts/checkbox_info.js"
     />
 
+    <browser:resource
+        name="single_checkbox_notify_email.js"
+        file="javascripts/single_checkbox_notify_email.js"
+    />
+
 
 </configure>

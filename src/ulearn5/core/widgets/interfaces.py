@@ -35,3 +35,9 @@ class IVisibilityWidget(interfaces.ISingleCheckBoxWidget):
 
 class ICheckboxInfoWidget(interfaces.ICheckBoxWidget):
     """Checkbox Info widget."""
+
+class ISingleCheckBoxNotifyEmailWidget(interfaces.ISingleCheckBoxWidget):
+    """Single Checkbox Notify Email widget."""
+
+
+
