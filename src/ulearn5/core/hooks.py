@@ -47,7 +47,6 @@ from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formatdate
-from base5.core.utils import pref_lang
 
 from plone.memoize import ram
 from time import time
@@ -543,7 +542,7 @@ def AddedSendMessage(content, event):
         subject_template = main_color = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
         message_template = main_color = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template')
 
-        lang = pref_lang()
+        lang = api.portal.get_default_language()
 
         if subject_template == None or subject_template == '':
             if lang == 'ca':
