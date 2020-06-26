@@ -47,6 +47,7 @@ from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formatdate
+from base5.core.utils import pref_lang
 
 from plone.memoize import ram
 from time import time
@@ -542,6 +543,42 @@ def AddedSendMessage(content, event):
         subject_template = main_color = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
         message_template = main_color = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template')
 
+        lang = pref_lang()
+
+        if subject_template == None or subject_template == '':
+            if lang == 'ca':
+                subject_template = 'Nou contingut {} '
+            elif lang == 'es':
+                subject_template = 'Nuevo contenido {} '
+            else:
+                subject_template = 'New content {} '
+
+        if message_template == None or message_template == '':
+            if lang == 'ca':
+                message_template = """\
+                T’informem que s’ha generat nou contingut a la teva comunitat.<br>
+                <br>
+                ✓ <a target="_blank" href="%(link)s">%(title)s</a><br>
+                <br>
+                Cordialment,<br>
+                """
+            elif lang == 'es':
+                message_template = """\
+                Te informamos que se ha generado un nuevo contenido en tu comunidad.<br>
+                <br>
+                ✓ <a target="_blank" href="%(link)s">%(title)s</a><br>
+                <br>
+                Cordialmente,<br>
+                """
+            else:
+                message_template = """\
+                A new content has been created in your community.<br>
+                <br>
+                ✓ <a target="_blank" href="%(link)s">%(title)s</a><br>
+                <br>
+                Cordially,<br>
+                """
+
         map = {
             'link': '{}/view'.format(content.absolute_url()),
             'title': content.title.encode('utf-8')
@@ -558,5 +595,9 @@ def AddedSendMessage(content, event):
         msg['Date'] = formatdate(localtime=True)
         msg['Subject'] = Header(subject, 'utf-8')
 
-        msg.attach(MIMEText(body.encode('utf-8'), 'html'))
+        if isinstance(body, str):
+            msg.attach(MIMEText(body, 'html'))
+        else:
+            msg.attach(MIMEText(body.encode('utf-8'), 'html'))
         mailhost.send(msg)
+   
