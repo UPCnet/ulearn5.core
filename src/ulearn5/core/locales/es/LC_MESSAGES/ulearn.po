@@ -602,7 +602,7 @@ msgstr "Notificar actividad y comentarios via 'push'"
 
 #: ../content/community.py:286
 msgid "Notify activity via mail"
-msgstr "Notificar actividad vía email"
+msgstr "Notificar actividad via email"
 
 #: ../content/community.py:274
 msgid "Notify activity via push"
@@ -1644,7 +1644,7 @@ msgstr "Selecciona qué pestaña quieres mostrar al acceder a la comunidad"
 
 #: ../content/community.py:293
 msgid "help_type_notify"
-msgstr "Selecciona el tipo de notificación vía email (Automático enviará la notificación a todos los miembros de la comunidad y Manual enviará la notificación a las direcciones de correo que haya en el campo 'Destinatarios')"
+msgstr "Selecciona el tipo de notificación via email (Automático enviará la notificación a todos los miembros de la comunidad y Manual enviará la notificación a las direcciones de correo que haya en el campo 'Destinatarios')"
 
 #. Default: "Habilita el portlet angular per a poder fer ús de les rutes angularjs."
 #: ../controlportlets.py:113
@@ -2121,7 +2121,7 @@ msgstr "Desactivar la visualización de este campo para aquellos usuarios que no
 
 #: ../content/community.py:287
 msgid "notify_activity_via_mail_help"
-msgstr "Si se activa esta opción, se notificará la actividad (Documento, Enlace, Fichero, Imagen, Acontecimiento, Archivo protegido y Noticia) de esta comunidad a través de un mensaje al correo."
+msgstr "Si se activa esta opción, se notificará la actividad (Documento, Enlace, Fichero, Imagen, Evento, Archivo protegido y Noticia) de esta comunidad a través de un mensaje al correo electrónico."
 
 #: ../content/community.py:275
 msgid "notify_activity_via_push_help"
@@ -2431,7 +2431,7 @@ msgstr "Herramientas"
 
 #: ../content/community.py:292
 msgid "type_notify"
-msgstr "Tipo de notificación vía email"
+msgstr "Tipo de notificación via email"
 
 #: ../configure.zcml:80
 msgid "ulearn5.core"

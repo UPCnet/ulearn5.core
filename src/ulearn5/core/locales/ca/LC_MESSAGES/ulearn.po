@@ -2124,7 +2124,7 @@ msgstr "Activar la visualització d'aquest camp per a tots els usuaris."
 
 #: ../content/community.py:287
 msgid "notify_activity_via_mail_help"
-msgstr "Si s'activa aquesta opció, es notificarà l'activitat (Document, Enllaç, Fitxer, Imatge, Esdeveniment, Arxiu protegit i Notícia) d'aquesta comunitat a través d'un missatge al correu."
+msgstr "Si s'activa aquesta opció, es notificarà l'activitat (Document, Enllaç, Fitxer, Imatge, Esdeveniment, Arxiu protegit i Notícia) d'aquesta comunitat a través d'un missatge al correu electrònic."
 
 #: ../content/community.py:275
 msgid "notify_activity_via_push_help"
