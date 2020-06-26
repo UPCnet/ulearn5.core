@@ -535,7 +535,10 @@ def AddedSendMessage(content, event):
     if community.type_notify == "Manual":
         mails_users_to_notify = community.distribution_lists
     else:
-        mails_users_to_notify = ','.join(community.mails_users_community_lists)
+        if community.mails_users_community_lists == None:
+           mails_users_to_notify = community.mails_users_community_lists
+        else:
+           mails_users_to_notify = ','.join(community.mails_users_community_lists)
 
     if mails_users_to_notify != None:
 
