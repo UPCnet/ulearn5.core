@@ -2,11 +2,17 @@ Changelog
 =========
 
 
-0.76 (unreleased)
+0.76 (2020-06-29)
 -----------------
 
-- Nothing changed yet.
-
+* Notificar mail [Pilar Marinas]
+* Vista notify_manual_in_community para EBCN [Pilar Marinas]
+* Vista notify_manual_in_community para EBCN [Pilar Marinas]
+* Notificar por email [Iago López Fernández]
+* Traducciones [Pilar Marinas]
+* Notificacion mail idioma por defecto site si plantilla no definida [Pilar Marinas]
+* Plantilla notificacion mail idioma por defecto [Pilar Marinas]
+* Notificar por email [Pilar Marinas]
 
 0.75 (2020-06-25)
 -----------------
