@@ -581,15 +581,26 @@ def AddedSendMessage(content, event):
                 Cordially,<br>
                 """
 
-        map = {
-            'link': '{}/view'.format(content.absolute_url()),
-            'title': content.title.encode('utf-8')
-        }
-
         portal = getSite()
         mailhost = getToolByName(portal, 'MailHost')
-        body = message_template % map
-        subject = subject_template.format(community.title.encode('utf-8'))
+
+        if isinstance(message_template, str):
+            map = {
+                'link': '{}/view'.format(content.absolute_url()),
+                'title': content.title.encode('utf-8')
+            }
+            body = message_template % map
+        else:
+            map = {
+                'link': '{}/view'.format(content.absolute_url()),
+                'title': content.title
+            }
+            body = message_template % map
+
+        if isinstance(subject_template, str):
+            subject = subject_template.format(community.title.encode('utf-8'))
+        else:
+            subject = subject_template.format(community.title)
 
         msg = MIMEMultipart()
         msg['From'] = api.portal.get_registry_record('plone.email_from_address')
