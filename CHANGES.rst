@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.77 (unreleased)
+0.77 (2020-06-30)
 -----------------
 
-- Nothing changed yet.
-
+* Solucionar error notificar x mail [Pilar Marinas]
 
 0.76 (2020-06-29)
 -----------------
