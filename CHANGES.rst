@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.78 (unreleased)
+0.78 (2020-07-01)
 -----------------
 
-- Nothing changed yet.
-
+* Solucionar codificacion notificacion mail en outlook [Pilar Marinas]
 
 0.77 (2020-06-30)
 -----------------
