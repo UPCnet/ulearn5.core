@@ -584,23 +584,19 @@ def AddedSendMessage(content, event):
         portal = getSite()
         mailhost = getToolByName(portal, 'MailHost')
 
-        if isinstance(message_template, str):
-            map = {
-                'link': '{}/view'.format(content.absolute_url()),
-                'title': content.title.encode('utf-8')
-            }
-            body = message_template % map
-        else:
-            map = {
-                'link': '{}/view'.format(content.absolute_url()),
-                'title': content.title
-            }
-            body = message_template % map
+        if isinstance(message_template, unicode):
+            message_template = message_template.encode('utf-8')
 
-        if isinstance(subject_template, str):
-            subject = subject_template.format(community.title.encode('utf-8'))
-        else:
-            subject = subject_template.format(community.title)
+        if isinstance(subject_template, unicode):
+            subject_template = subject_template.encode('utf-8')
+
+
+        map = {
+            'link': '{}/view'.format(content.absolute_url()),
+            'title': content.title.encode('utf-8')
+        }
+        body = message_template % map
+        subject = subject_template.format(community.title.encode('utf-8'))
 
         msg = MIMEMultipart()
         msg['From'] = api.portal.get_registry_record('plone.email_from_address')
@@ -608,9 +604,6 @@ def AddedSendMessage(content, event):
         msg['Date'] = formatdate(localtime=True)
         msg['Subject'] = Header(subject, 'utf-8')
 
-        if isinstance(body, str):
-            msg.attach(MIMEText(body, 'html'))
-        else:
-            msg.attach(MIMEText(body.encode('utf-8'), 'html'))
+        msg.attach(MIMEText(body, 'html', 'utf-8'))
         mailhost.send(msg)
    
