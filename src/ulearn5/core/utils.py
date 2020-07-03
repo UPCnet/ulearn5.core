@@ -101,7 +101,7 @@ class ulearnUtils(BrowserView):
         if 'http' in settings.url_forget_password:
             return settings.url_forget_password
         else:
-            return base_path + settings.url_forget_password
+            return portal.absolute_url() + settings.url_forget_password
 
     def is_angularview(self):
         if IPloneSiteRoot.providedBy(self.context):

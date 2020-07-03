@@ -9,7 +9,7 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
-from Products.DCWorkflow.interfaces import IBeforeTransitionEvent
+from Products.DCWorkflow.interfaces import IBeforeTransitionEvent, IAfterTransitionEvent
 
 from ulearn5.core.interfaces import IAppImage
 from ulearn5.core.interfaces import IAppFile
@@ -503,7 +503,7 @@ def setEventTimezone(content, event):
 @grok.subscribe(IFile, IObjectAddedEvent)
 @grok.subscribe(IImage, IObjectAddedEvent)
 @grok.subscribe(IEvent, IObjectAddedEvent)
-@grok.subscribe(INewsItem, IBeforeTransitionEvent)
+@grok.subscribe(INewsItem, IAfterTransitionEvent)
 @grok.subscribe(IExternalContent, IObjectAddedEvent)
 def AddedSendMessage(content, event):
     """ Send mail to notify add object in community
@@ -538,7 +538,10 @@ def AddedSendMessage(content, event):
         if community.mails_users_community_lists == None:
            mails_users_to_notify = community.mails_users_community_lists
         else:
-           mails_users_to_notify = ','.join(community.mails_users_community_lists)
+            if isinstance(community.mails_users_community_lists, list):
+                mails_users_to_notify = ','.join(community.mails_users_community_lists)
+            else:
+                mails_users_to_notify = ','.join(eval(community.mails_users_community_lists))
 
     if mails_users_to_notify != None:
 
