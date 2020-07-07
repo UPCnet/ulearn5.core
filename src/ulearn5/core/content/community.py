@@ -672,7 +672,8 @@ class CommunityAdapterMixin(object):
             update_owncloud_permission(self.context, acl)
 
         # Add mail user to mails_users_community_lists in community
-        self.context.mails_users_community_lists.append(api.user.get(user_id).getProperty('email'))
+        if api.user.get(user_id).getProperty('email') != None:
+            self.context.mails_users_community_lists.append(api.user.get(user_id).getProperty('email'))
         self.context.reindexObject()
 
     def update_mails_users(self, obj, acl):
