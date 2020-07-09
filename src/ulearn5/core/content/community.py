@@ -683,19 +683,20 @@ class CommunityAdapterMixin(object):
         mails_users = []
         if 'users' in acl:
             for user in acl['users']:
-                try:
-                    if api.user.get(user['id']).getProperty('email') != None:
+                # Esto lo hago para los usuarios que no se han validado y no estan en el MemberData
+                if api.user.get(user['id']) != None:
+                    if api.user.get(user['id']).getProperty('email') != '':
                         mails_users.append(api.user.get(user['id']).getProperty('email'))
-                except:
-                    logger.error('The user {}'.format(str(user)))
+
 
         if 'groups' in acl:
             for group in acl['groups']:
                 users = api.user.get_users(groupname=group['id'])
                 for user in users:
-                    mail = api.user.get(user.id).getProperty('email')
-                    if mail != None and mail not in mails_users:
-                        mails_users.append(mail)
+                    if api.user.get(user.id) != None:
+                        mail = api.user.get(user.id).getProperty('email')
+                        if mail != '' and mail not in mails_users:
+                            mails_users.append(mail)
 
 
         obj.mails_users_community_lists = mails_users
