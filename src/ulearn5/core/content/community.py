@@ -683,14 +683,18 @@ class CommunityAdapterMixin(object):
         mails_users = []
         if 'users' in acl:
             for user in acl['users']:
-                mails_users.append(api.user.get(user['id']).getProperty('email'))
+                try:
+                    if api.user.get(user['id']).getProperty('email') != None:
+                        mails_users.append(api.user.get(user['id']).getProperty('email'))
+                except:
+                    logger.error('The user {}'.format(str(user)))
 
         if 'groups' in acl:
             for group in acl['groups']:
                 users = api.user.get_users(groupname=group['id'])
                 for user in users:
                     mail = api.user.get(user.id).getProperty('email')
-                    if mail not in mails_users:
+                    if mail != None and mail not in mails_users:
                         mails_users.append(mail)
 
 

@@ -567,7 +567,10 @@ def from_latin1(s):
         Replaces LDAPUserFolder origin from_utf8 to return unicode from
         Credit Andorrap LDAP iso-8859-1 encoded strings
     """
-    return s.decode('utf-8')
+    try:
+       return s.decode('utf-8')
+    except:
+       return s.decode('latin-1').encode("utf-8")  
 
 
 from plone.memoize.instance import clearafter
