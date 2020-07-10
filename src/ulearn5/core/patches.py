@@ -569,8 +569,22 @@ def from_latin1(s):
     """
     try:
        return s.decode('utf-8')
-    except:
+    except UnicodeDecodeError:
        return s.decode('latin-1').encode("utf-8")  
+
+
+def filter_format(filter_template,assertion_values):
+  """
+  filter_template
+        String containing %s as placeholder for assertion values.
+  assertion_values
+        List or tuple of assertion values. Length must match
+        count of %s in filter_template.
+  """
+  try:
+    return filter_template % tuple(escape_filter_chars(v) for v in assertion_values)
+  except UnicodeDecodeError:
+    return filter_template % tuple(escape_filter_chars(v).decode('utf-8', errors='ignore') for v in assertion_values)
 
 
 from plone.memoize.instance import clearafter

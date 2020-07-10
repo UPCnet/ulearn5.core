@@ -13,10 +13,12 @@ from Products.LDAPUserFolder.utils import from_utf8
 from Products.PortalTransforms.transforms.safe_html import hasScript as hasScript_original
 from plone.app.widgets.utils import get_date_options as get_date_options_original
 from plone.app.widgets.utils import get_datetime_options as get_datetime_options_original
+from ldap.filter import filter_format as filter_format_original
 from patches import from_latin1
 from patches import get_date_options
 from patches import get_datetime_options
 from patches import hasScript
+from patches import filter_format
 
 import inspect
 
@@ -36,6 +38,7 @@ marmoset_patch(from_utf8, from_latin1)
 marmoset_patch(get_date_options_original, get_date_options)
 marmoset_patch(get_datetime_options_original, get_datetime_options)
 marmoset_patch(hasScript_original, hasScript)
+marmoset_patch(filter_format_original, filter_format)
 
 
 def initialize(context):
