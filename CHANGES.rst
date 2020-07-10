@@ -2,11 +2,14 @@ Changelog
 =========
 
 
-0.80 (unreleased)
+0.80 (2020-07-10)
 -----------------
 
-- Nothing changed yet.
-
+* Marmoset filter format para que no den error usuarios en grupos Medichem [Pilar Marinas]
+* Marmoset filter format para que no den error usuarios en grupos Medichem [Pilar Marinas]
+* Para  no de error user no email [Pilar Marinas]
+* Para que no pete grupo accento y no de error user no email [Pilar Marinas]
+* Para que no de error la suscripcion a comunidad si el usuario no tiene email [Pilar Marinas]
 
 0.79 (2020-07-06)
 -----------------
