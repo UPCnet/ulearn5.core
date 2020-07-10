@@ -572,6 +572,7 @@ def from_latin1(s):
     except UnicodeDecodeError:
        return s.decode('latin-1').encode("utf-8")  
 
+from ldap.filter import escape_filter_chars
 
 def filter_format(filter_template,assertion_values):
   """
