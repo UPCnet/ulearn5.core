@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.82 (unreleased)
+0.82 (2020-07-14)
 -----------------
 
-- Nothing changed yet.
-
+* Remove mail user to mails_users_community_lists in community [Pilar Marinas]
 
 0.81 (2020-07-14)
 -----------------
