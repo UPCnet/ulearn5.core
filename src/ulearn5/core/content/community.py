@@ -648,8 +648,10 @@ class CommunityAdapterMixin(object):
         IFavorite(self.context).remove(user_id)
 
         # Remove mail user to mails_users_community_lists in community
-        if api.user.get(user_id).getProperty('email') in self.context.mails_users_community_lists:
-            self.context.mails_users_community_lists.remove(api.user.get(user_id).getProperty('email'))
+        if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
+            if self.context.mails_users_community_lists != None:
+                if api.user.get(user_id).getProperty('email') in self.context.mails_users_community_lists:
+                    self.context.mails_users_community_lists.remove(api.user.get(user_id).getProperty('email'))
         self.context.reindexObject()
 
     def subscribe_user(self, user_id):
