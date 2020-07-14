@@ -647,8 +647,9 @@ class CommunityAdapterMixin(object):
         # Unfavorite
         IFavorite(self.context).remove(user_id)
 
-       # Remove mail user to mails_users_community_lists in community
-        self.context.mails_users_community_lists.remove(api.user.get(user_id).getProperty('email'))
+        # Remove mail user to mails_users_community_lists in community
+        if api.user.get(user_id).getProperty('email') in self.context.mails_users_community_lists:
+            self.context.mails_users_community_lists.remove(api.user.get(user_id).getProperty('email'))
         self.context.reindexObject()
 
     def subscribe_user(self, user_id):
@@ -672,8 +673,12 @@ class CommunityAdapterMixin(object):
             update_owncloud_permission(self.context, acl)
 
         # Add mail user to mails_users_community_lists in community
-        if api.user.get(user_id).getProperty('email') != None:
-            self.context.mails_users_community_lists.append(api.user.get(user_id).getProperty('email'))
+        if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
+            mail = api.user.get(user_id).getProperty('email')
+            if mail != '' and mail != None:
+                if self.context.mails_users_community_lists == None:
+                    self.context.mails_users_community_lists = []
+                self.context.mails_users_community_lists.append(mail)
         self.context.reindexObject()
 
     def update_mails_users(self, obj, acl):
@@ -685,8 +690,9 @@ class CommunityAdapterMixin(object):
             for user in acl['users']:
                 # Esto lo hago para los usuarios que no se han validado y no estan en el MemberData
                 if api.user.get(user['id']) != None:
-                    if api.user.get(user['id']).getProperty('email') != '':
-                        mails_users.append(api.user.get(user['id']).getProperty('email'))
+                    mail = api.user.get(user['id']).getProperty('email')
+                    if mail != '' and mail != None and mail not in mails_users:
+                        mails_users.append(mail)
 
 
         if 'groups' in acl:
@@ -695,9 +701,8 @@ class CommunityAdapterMixin(object):
                 for user in users:
                     if api.user.get(user.id) != None:
                         mail = api.user.get(user.id).getProperty('email')
-                        if mail != '' and mail not in mails_users:
+                        if (mail != '' and mail != None) and mail not in mails_users:
                             mails_users.append(mail)
-
 
         obj.mails_users_community_lists = mails_users
         obj.reindexObject()
@@ -1589,7 +1594,9 @@ def edit_community(community, event):
         return
     adapter = community.adapted()
     adapter.update_max_context()
-
+    if ((community.notify_activity_via_mail == True) and (community.type_notify == 'Automatic')):
+        acl = adapter.get_acl()
+        adapter.update_mails_users(community, acl)
 
 @grok.subscribe(ICommunity, IObjectRemovedEvent)
 def delete_community(community, event):

@@ -91,7 +91,8 @@ class SaveEditACL(REST):
                 adapter.set_plone_permissions(acl)
                 adapter.update_hub_subscriptions()
                 obj = item.getObject()
-                adapter.update_mails_users(obj, acl)
+                if ((obj.notify_activity_via_mail == True) and (obj.type_notify == 'Automatic')):
+                    adapter.update_mails_users(obj, acl)
                 updated = 'Updated community subscriptions on: "{}" '.format(self.target.absolute_url())
                 logger.info(updated)
                 communities_ok.append(dict(url=self.target.absolute_url(),
@@ -499,7 +500,8 @@ class Subscriptions(REST, CommunityMixin):
         if is_activate_owncloud(self.context):
             update_owncloud_permission(obj, acl)
 
-        adapter.update_mails_users(obj, acl)
+        if ((obj.notify_activity_via_mail == True) and (obj.type_notify == 'Automatic')):
+            adapter.update_mails_users(obj, acl)
 
     def update_subscriptions(self):
         adapter = self.target.adapted(request=self.request)

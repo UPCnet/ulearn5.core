@@ -539,6 +539,8 @@ def AddedSendMessage(content, event):
            mails_users_to_notify = community.mails_users_community_lists
         else:
             if isinstance(community.mails_users_community_lists, list):
+                # if None in community.mails_users_community_lists:
+                #     community.mails_users_community_lists.remove(None)
                 mails_users_to_notify = ','.join(community.mails_users_community_lists)
             else:
                 mails_users_to_notify = ','.join(eval(community.mails_users_community_lists))
