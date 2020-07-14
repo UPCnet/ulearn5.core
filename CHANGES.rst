@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.81 (unreleased)
+0.81 (2020-07-14)
 -----------------
 
-- Nothing changed yet.
-
+* Guardar mails users si notificar automatic is true [Pilar Marinas]
 
 0.80 (2020-07-10)
 -----------------
