@@ -22,32 +22,46 @@ class Select2MAXUserInputWidget(textarea.TextAreaWidget):
     js_template = u"""\
     (function($) {
         $().ready(function() {
-            $('#'+'%(id)s').select2({
-                tags: [],
-                tokenSeparators: [","],
-                minimumInputLength: 3,
-                ajax: {
-                    url: portal_url + '/max.ajaxusersearch',
-                    quietMillis: 700,
-                    data: function (term, page) {
-                        return {
-                            q: term,
-                            page: page, // page number
-                        };
-                    },
-                    results: function (data, page) {
-                        return data;
-                    },
-                },
-                initSelection: function(element, callback) {
-                    var id=$(element).val();
-                    $.ajax(portal_url + '/ulearn.fromusername2displayname', {
-                        data: {
-                            q: id,
+            function loadSelect2Maxuser(){
+                $('#'+'%(id)s').select2({
+                    tags: [],
+                    tokenSeparators: [","],
+                    minimumInputLength: 3,
+                    ajax: {
+                        url: portal_url + '/max.ajaxusersearch',
+                        quietMillis: 700,
+                        data: function (term, page) {
+                            return {
+                                q: term,
+                                page: page, // page number
+                            };
                         },
-                    }).done(function(data) { callback(data); });
-                },
-            });
+                        results: function (data, page) {
+                            return data;
+                        },
+                    },
+                    initSelection: function(element, callback) {
+                        var id=$(element).val();
+                        $.ajax(portal_url + '/ulearn.fromusername2displayname', {
+                            data: {
+                                q: id,
+                            },
+                        }).done(function(data) { callback(data); });
+                    },
+                });
+            }
+
+            try {
+                loadSelect2Maxuser();
+            } catch(err) {
+                try {
+                    setTimeout(function(){
+                        loadSelect2Maxuser();
+                    }, 1000);
+                } catch(err) {
+                    console.log('select2 not initialized: ' + err);
+                }
+            }
         });
     })(jQuery);
     """
