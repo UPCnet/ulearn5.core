@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+from plone import api
+
 import json
 import re
 import requests
 import urllib2
-from plone import api
-from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
-FIND_URL_REGEX = r'https?\:\/\/[^\"\']+'
+FIND_URL_REGEX = r'(?<=href=\")https?\:\/\/[^\"\']+'
 DELETE_TARGET_BLANK = r'target=\"_blank\"'
+
 
 def formatMessageEntities(text):
     """
@@ -16,7 +17,7 @@ def formatMessageEntities(text):
     """
 
     def shorten(matchobj):
-        url = matchobj.group(0)        
+        url = matchobj.group(0)
         bitly_username = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.bitly_username')
         bitly_api_key = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.bitly_api_key')
 
@@ -37,7 +38,7 @@ def shortenURL(url, bitly_username, bitly_api_key, secure=False):
     # substitute with a fake domain
     # to allow bitly shortening in development environments
     # (localhost/ port not allowed in URI by bitly api)
-    
+
     shortened_url = re.sub(r'(.*://)(localhost:[0-9]{4,5})(.*)', r'\1foo.bar\3', url)
 
     params = {'api_url': 'http://api.bitly.com',
