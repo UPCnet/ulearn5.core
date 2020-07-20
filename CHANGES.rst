@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.83 (unreleased)
+0.83 (2020-07-20)
 -----------------
 
-- Nothing changed yet.
-
+* Solucionar error REGEX bitly [Iago López Fernández]
+* select2_maxuser_widget: dar un segundo intento de carga del select2 [Iago López Fernández]
 
 0.82 (2020-07-14)
 -----------------
