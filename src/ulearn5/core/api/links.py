@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
-from five import grok
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+
+from five import grok
 from plone import api
+from plone.app.contenttypes.interfaces import ILink
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
+
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-from plone.app.contenttypes.interfaces import ILink
+from ulearn5.core.hooks import packages_installed
 
 
 class Links(REST):
@@ -70,6 +74,29 @@ class Link(REST):
 
         # Links from controlpanel
         resultsControlPanel = []
+
+        installed = packages_installed()
+        if 'ulearn5.nomines' in installed:
+            dni = api.user.get_current().getProperty('dni')
+            if dni or dni != "":
+                JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
+
+                titleNomines = JSONproperties.getProperty('app_link_en')
+                if language == 'ca':
+                    titleNomines = JSONproperties.getProperty('app_link_ca')
+                elif language == 'es':
+                    titleNomines = JSONproperties.getProperty('app_link_es')
+
+                nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
+                urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni
+
+                nominesLink = dict(title=titleNomines,
+                                   url=urlNomines,
+                                   icon='fa-file-text-o',
+                                   )
+
+                resultsControlPanel.append(nominesLink)
+
         if settings.quicklinks_table:
             for item in settings.quicklinks_table:
                 quickLink = dict(title=item['text'],
