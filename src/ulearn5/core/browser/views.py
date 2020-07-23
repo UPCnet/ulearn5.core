@@ -24,6 +24,8 @@ from mrs5.max.utilities import IMAXClient
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.interfaces import IUlearn5CoreLayer
 from ulearn5.core.utils import getSearchersFromUser
+from ulearn5.core.browser.pad import API
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 import PIL
 import io
@@ -31,6 +33,7 @@ import json
 import logging
 import os
 import requests
+import transaction
 
 
 logger = logging.getLogger(__name__)
@@ -281,3 +284,42 @@ class ImagePortletImageView(grok.View):
         set_headers(image, self.request.response)
         # Push data to the downstream clients
         return stream_data(image)
+
+
+class etherpad_searchabletext(grok.View):
+    """ SearchableText Etherpad
+    """
+    grok.context(IPloneSiteRoot)
+    grok.name('etherpad_searchabletext')
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+        portal = api.portal.get()
+        pc = api.portal.get_tool('portal_catalog')
+        results = pc.unrestrictedSearchResults(portal_type='Pad')
+        eapi = API()
+
+        for result in results:
+            obj = result.getObject()
+            if eapi.valid:
+                self.valid = True
+                pad_id = getattr(obj, '_etherpad_pad_id', None)
+                if pad_id is None:
+                    return 'No pad found to render'
+                result = eapi('getText', padID=pad_id)
+                if result['code'] == 0:
+                    obj.text = result['data']['text']
+                    #self.context.textetherpad = IRichText['textetherpad'].fromUnicode(result['data']['text'])
+                    obj.reindexObject()
+                    transaction.commit()
+
+                    logger.info('Updated etherpad SearchableText {}'.format(obj.id))
+
+        logger.info('Finish etherpad_searchabletext portal {}'.format(portal))
+
+        return 'Done'

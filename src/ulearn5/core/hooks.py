@@ -5,7 +5,7 @@ from zope.component import getUtility
 
 from zope.component.hooks import getSite
 from zope.container.interfaces import IObjectAddedEvent
-from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+from zope.lifecycleevent.interfaces import IObjectModifiedEvent, IObjectRemovedEvent
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
@@ -38,6 +38,8 @@ from plone.dexterity.interfaces import IDexterityContent
 
 from plone.memoize import ram
 from time import time
+from ulearn5.core.content.etherpad import IEtherpad
+from ulearn5.core.browser.pad import API
 # from ulearn5.core.formatting import formatMessageEntities
 # from plone.app.textfield.value import RichTextValue
 
@@ -484,3 +486,19 @@ def setEventTimezone(content, event):
     else:
         current_user = api.user.get_current()
         content.timezone = current_user.getProperty('timezone')
+
+@grok.subscribe(IEtherpad, IObjectRemovedEvent)
+def removedExternalContent(content, event):
+    if 'zope.lifecycleevent.ObjectRemovedEvent' in str(event):
+        eapi = API()
+
+        if eapi.valid:
+            pad_id = getattr(content, '_etherpad_pad_id', None)
+            if pad_id is None:
+                return 'No pad found to render'
+            result = eapi('deletePad', padID=pad_id)
+            if result['code'] == 0:
+                logger.info('Etherpad ' +  content.absolute_url() + ' deleted' + result['message'])
+            elif result['code'] == 1:
+                logger.warning('Etherpad ' + content.absolute_url() + ' has not been removed in server ' + result['message'])
+

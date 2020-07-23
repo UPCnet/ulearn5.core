@@ -41,6 +41,12 @@
              Products.DCWorkflow.interfaces.IBeforeTransitionEvent"
         />
 
+    <subscriber
+        handler=".hooks.Added"
+        for="ulearn5.core.content.etherpad.IEtherpad
+             zope.container.interfaces.IObjectAddedEvent"
+        />
+
     <!-- Modified Event Subscriber -->
     <!-- <subscriber
         handler=".hooks.Modified"

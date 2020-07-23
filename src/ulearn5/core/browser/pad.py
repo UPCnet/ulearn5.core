@@ -7,6 +7,7 @@ from plone.uuid.interfaces import IUUID
 from Products.Five import BrowserView
 from zope.interface import alsoProvides
 from zope.security import checkPermission
+from plone.app.contenttypes.behaviors.richtext import IRichText
 
 
 class API(object):
@@ -41,6 +42,7 @@ class PadView(BrowserView):
         user = api.user.get_current()
         user_id = getattr(user, '_etherpad_id', None)
         writing = False
+
         if user_id is None:
             result = eapi('createAuthorIfNotExistsFor',
                           authorMapper=user.getId(),
@@ -101,11 +103,23 @@ class PadView(BrowserView):
         else:
             return 'Pad text can not be found'
 
+    # Comentado se hace en la vista etherpad_searchabletext del cron
+    # def get_searchabletext(self, eapi):
+    #     pad_id = getattr(self.context, '_etherpad_pad_id', None)
+    #     if pad_id is None:
+    #         return 'No pad found to render'
+    #     result = eapi('getText', padID=pad_id)
+    #     if result['code'] == 0:
+    #         self.context.text = result['data']['text']
+    #         #self.context.textetherpad = IRichText['textetherpad'].fromUnicode(result['data']['text'])
+    #         self.context.reindexObject()
+
     def __call__(self):
         eapi = API()
 
         if eapi.valid:
             self.valid = True
+            #self.get_searchabletext(eapi)
             if checkPermission('cmf.ModifyPortalContent', self.context):
                 self.contribute_url = self.get_iframe_url(eapi)
             else:

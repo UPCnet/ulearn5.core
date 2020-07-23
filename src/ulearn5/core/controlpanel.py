@@ -37,7 +37,8 @@ cronTasksVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'rebuild_user_catalog', title=_(u'rebuild_user_catalog')),
      SimpleTerm(value=u'delete_user_catalog', title=_(u'delete_user_catalog')),
      SimpleTerm(value=u'delete_local_roles', title=_(u'delete_local_roles')),
-     SimpleTerm(value=u'api/saveeditacl', title=_(u'api/saveeditacl'))]
+     SimpleTerm(value=u'api/saveeditacl', title=_(u'api/saveeditacl')),
+     SimpleTerm(value=u'etherpad_searchabletext', title=_(u'etherpad_searchabletext'))]
 )
 
 

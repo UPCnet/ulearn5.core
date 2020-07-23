@@ -19,16 +19,18 @@
  </property>
  <property name="default_view_fallback">True</property>
  <property name="add_permission">ulearn.addPad</property>
- <property name="klass">plone.dexterity.content.DexterityContent</property>
+ <property name="klass">ulearn5.core.content.etherpad.Etherpad</property>
  <property name="behaviors">
-  <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
-  <element value="plone.app.relationfield.behavior.IRelatedItems"/>
+  <element value="plone.app.content.interfaces.INameFromTitle" />
+  <element value="plone.app.dexterity.behaviors.id.IShortName" />
+  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
+  <element value="plone.app.relationfield.behavior.IRelatedItems" />
+  <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
  </property>
- <property name="schema"></property>
+ <property name="schema">ulearn5.core.content.etherpad.IEtherpad</property>
  <property name="model_source"></property>
- <property name="model_file">ulearn5.core.schema:pad.xml</property>
- <property name="schema_policy">dexterity</property>
+<!--  <property name="model_file">ulearn5.core.schema:pad.xml</property> -->
+<!--  <property name="schema_policy">dexterity</property> -->
  <alias from="(Default)" to="pad_view"/>
  <alias from="edit" to="@@edit"/>
  <alias from="sharing" to="@@sharing"/>
