@@ -63,7 +63,7 @@
       <role name="Site Administrator"/>
       <role name="WebMaster"/>
     </permission>
-    <permission name="Ulearn: Add Pad" acquire="True">
+    <permission name="Ulearn: Add Etherpad" acquire="True">
       <role name="Manager" />
       <role name="Site Administrator" />
       <role name="Owner"/>

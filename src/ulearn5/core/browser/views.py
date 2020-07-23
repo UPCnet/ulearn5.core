@@ -24,7 +24,7 @@ from mrs5.max.utilities import IMAXClient
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.interfaces import IUlearn5CoreLayer
 from ulearn5.core.utils import getSearchersFromUser
-from ulearn5.core.browser.pad import API
+from ulearn5.core.browser.etherpad import API
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 import PIL
@@ -301,7 +301,7 @@ class etherpad_searchabletext(grok.View):
             pass
         portal = api.portal.get()
         pc = api.portal.get_tool('portal_catalog')
-        results = pc.unrestrictedSearchResults(portal_type='Pad')
+        results = pc.unrestrictedSearchResults(portal_type='Etherpad')
         eapi = API()
 
         for result in results:

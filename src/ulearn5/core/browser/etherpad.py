@@ -27,7 +27,7 @@ class API(object):
         return resp.json()
 
 
-class PadView(BrowserView):
+class EtherpadView(BrowserView):
     contribute_url = None
     text = None
 

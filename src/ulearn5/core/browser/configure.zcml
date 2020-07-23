@@ -9,11 +9,11 @@
   <include package="z3c.jbot" file="meta.zcml" />
 
   <browser:page
-    name="pad_view"
+    name="etherpad_view"
     for="*"
-    class=".pad.PadView"
+    class=".etherpad.EtherpadView"
     permission="zope2.View"
-    template="templates/pad-view.pt"
+    template="templates/etherpad-view.pt"
     />
 
 

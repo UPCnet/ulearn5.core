@@ -18,8 +18,8 @@
       <role name="Site Administrator"/>
     </permission>
     <permission
-    id="ulearn.addPad"
-    title="Ulearn: Add Pad"
+    id="ulearn.addEtherpad"
+    title="Ulearn: Add Etherpad"
     />
 
     <includeDependencies package="." />
