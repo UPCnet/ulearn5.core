@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.84 (unreleased)
+0.84 (2020-07-23)
 -----------------
 
-- Nothing changed yet.
-
+* Añadir enlace a las nominas en la APP [Iago López Fernández]
 
 0.83 (2020-07-20)
 -----------------
