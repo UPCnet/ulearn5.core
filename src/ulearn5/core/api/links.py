@@ -44,6 +44,28 @@ class Link(REST):
         portal = api.portal.get()
 
         resultsGestion = {}
+
+        installed = packages_installed()
+        if 'ulearn5.nomines' in installed:
+            dni = api.user.get_current().getProperty('dni')
+            if dni or dni != "":
+                JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
+
+                titleNomines = JSONproperties.getProperty('app_link_en')
+                if language == 'ca':
+                    titleNomines = JSONproperties.getProperty('app_link_ca')
+                elif language == 'es':
+                    titleNomines = JSONproperties.getProperty('app_link_es')
+
+                nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
+                urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni
+
+                nominesLink = dict(title=titleNomines,
+                                   url=urlNomines
+                                   )
+
+                resultsGestion[titleNomines].append(nominesLink)
+
         try:
             path = portal['gestion']['menu'][language]  # fixed en code... always in this path
             folders = api.content.find(context=path, portal_type=('Folder', 'privateFolder'), depth=1)
@@ -75,27 +97,27 @@ class Link(REST):
         # Links from controlpanel
         resultsControlPanel = []
 
-        installed = packages_installed()
-        if 'ulearn5.nomines' in installed:
-            dni = api.user.get_current().getProperty('dni')
-            if dni or dni != "":
-                JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
+        # installed = packages_installed()
+        # if 'ulearn5.nomines' in installed:
+        #     dni = api.user.get_current().getProperty('dni')
+        #     if dni or dni != "":
+        #         JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
 
-                titleNomines = JSONproperties.getProperty('app_link_en')
-                if language == 'ca':
-                    titleNomines = JSONproperties.getProperty('app_link_ca')
-                elif language == 'es':
-                    titleNomines = JSONproperties.getProperty('app_link_es')
+        #         titleNomines = JSONproperties.getProperty('app_link_en')
+        #         if language == 'ca':
+        #             titleNomines = JSONproperties.getProperty('app_link_ca')
+        #         elif language == 'es':
+        #             titleNomines = JSONproperties.getProperty('app_link_es')
 
-                nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
-                urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni
+        #         nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
+        #         urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni
 
-                nominesLink = dict(title=titleNomines,
-                                   url=urlNomines,
-                                   icon='fa-file-text-o',
-                                   )
+        #         nominesLink = dict(title=titleNomines,
+        #                            url=urlNomines,
+        #                            icon='fa-file-text-o',
+        #                            )
 
-                resultsControlPanel.append(nominesLink)
+        #         resultsControlPanel.append(nominesLink)
 
         if settings.quicklinks_table:
             for item in settings.quicklinks_table:
