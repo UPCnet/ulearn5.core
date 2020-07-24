@@ -64,6 +64,7 @@ class Link(REST):
                                    url=urlNomines
                                    )
 
+                resultsGestion[titleNomines] = []
                 resultsGestion[titleNomines].append(nominesLink)
 
         try:
