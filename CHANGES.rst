@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.85 (unreleased)
+0.85 (2020-07-24)
 -----------------
 
-- Nothing changed yet.
-
+* Gestionar errores auto_import_from_FTP para cron [Iago López Fernández]
+* Cambiar enlace a las nominas de la APP [Iago López Fernández]
 
 0.84 (2020-07-23)
 -----------------
