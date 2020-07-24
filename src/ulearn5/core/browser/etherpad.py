@@ -38,11 +38,15 @@ class EtherpadView(BrowserView):
             2. create group for pad. One group for every pad
             3. create pad for group
             4. create session for user
+
+            Para revisar lo que tiene creado un usuario en etherpad
+            user_obj1 = api.user.get('ulearn.user1')
+            user_id_1 = getattr(user_obj1, '_etherpad_id', None)
+            pads1 = eapi('listPadsOfAuthor', authorID=user_id_1)
         """       
         user = api.user.get_current()
         user_id = getattr(user, '_etherpad_id', None)
         writing = False
-
         if user_id is None:
             result = eapi('createAuthorIfNotExistsFor',
                           authorMapper=user.getId(),

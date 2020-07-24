@@ -40,6 +40,9 @@ from plone.memoize import ram
 from time import time
 from ulearn5.core.content.etherpad import IEtherpad
 from ulearn5.core.browser.pad import API
+from plone.protect.interfaces import IDisableCSRFProtection
+from plone.uuid.interfaces import IUUID
+from zope.interface import alsoProvides
 # from ulearn5.core.formatting import formatMessageEntities
 # from plone.app.textfield.value import RichTextValue
 
@@ -488,7 +491,7 @@ def setEventTimezone(content, event):
         content.timezone = current_user.getProperty('timezone')
 
 @grok.subscribe(IEtherpad, IObjectRemovedEvent)
-def removedExternalContent(content, event):
+def removedEtherpadContent(content, event):
     if 'zope.lifecycleevent.ObjectRemovedEvent' in str(event):
         eapi = API()
 
@@ -502,3 +505,70 @@ def removedExternalContent(content, event):
             elif result['code'] == 1:
                 logger.warning('Etherpad ' + content.absolute_url() + ' has not been removed in server ' + result['message'])
 
+@grok.subscribe(IEtherpad, IObjectAddedEvent)
+def copiedEtherpadContent(content, event):
+    pad_id_old = getattr(content, '_etherpad_pad_id', None)
+    group_id_old = getattr(content, '_etherpad_group_id', None)
+    if 'zope.lifecycleevent.ObjectAddedEvent' in str(event) and pad_id_old:
+        eapi = API()
+
+        if eapi.valid:
+            user = api.user.get_current()
+            user_id = getattr(user, '_etherpad_id', None)
+            pads = eapi('listPadsOfAuthor', authorID=user_id)
+            if user_id is None:
+                result = eapi('createAuthorIfNotExistsFor',
+                              authorMapper=user.getId(),
+                              name=user.getProperty('fullname') or user.getId())
+                user._etherpad_id = user_id = result['data']['authorID']
+
+            pad_uid = IUUID(content)
+            result = eapi('createGroupIfNotExistsFor',
+                           groupMapper=pad_uid)
+            content._etherpad_group_id = group_id = result['data']['groupID']
+
+            result = eapi('createGroupPad',
+                          groupID=group_id,
+                          padName=content.id)
+
+            if result.get('code') == 1 and result['data'] is None:
+                result = eapi('listPads',
+                              groupID=group_id)
+                content._etherpad_pad_id = pad_id = result['data']['padIDs'][0]
+            else:
+                content._etherpad_pad_id = pad_id = result['data']['padID']
+
+            result_old = eapi('getText', padID=pad_id_old)
+            if result_old['code'] == 0:
+                text_old = result_old['data']['text']
+                result = eapi('setText', padID=pad_id, text=text_old)
+                if result['code'] == 0:
+                    content.text = text_old
+                    logger.info('Etherpad ' +  content.absolute_url() + ' copied text ' + result['message'])
+
+            result = eapi('createSession',
+                      groupID=group_id,
+                      authorID=user_id,
+                      validUntil=str(int(time() + 24 * 60 * 60)))
+
+            session_id = result['data']['sessionID']
+            content.reindexObject()
+            transaction.commit()
+
+            # Para comprobar que tiene creado cada usuario en etherpad
+            # user_obj1 = api.user.get('ulearn.user1')
+            # user_id_1 = getattr(user_obj1, '_etherpad_id', None)
+            # pads1 = eapi('listPadsOfAuthor', authorID=user_id_1)
+
+            # user_obj2 = api.user.get('ulearn.user2')
+            # user_id_2 = getattr(user_obj2, '_etherpad_id', None)
+            # pads2 = eapi('listPadsOfAuthor', authorID=user_id_2)
+
+            # user_obj3 = api.user.get('ulearn.user3')
+            # user_id_3 = getattr(user_obj3, '_etherpad_id', None)
+            # pads3 = eapi('listPadsOfAuthor', authorID=user_id_3)
+
+            # user_obj4 = api.user.get('ulearn.user4')
+            # user_id_4 = getattr(user_obj4, '_etherpad_id', None)
+            # pads4 = eapi('listPadsOfAuthor', authorID=user_id_4)
+            # print pads1, pads2, pads3, pads4
