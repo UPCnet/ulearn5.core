@@ -67,6 +67,29 @@ class Link(REST):
                 resultsGestion[titleNomines] = []
                 resultsGestion[titleNomines].append(nominesLink)
 
+        if 'ulearn5.nominesmedichem' in installed:
+            from ulearn5.nominesmedichem.utils import get_str_hash
+            dni = api.user.get_current().getProperty('dni')
+            if dni or dni != "":
+                dni_hashed = get_str_hash(dni.upper())
+                JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
+
+                titleNomines = JSONproperties.getProperty('app_link_en')
+                if language == 'ca':
+                    titleNomines = JSONproperties.getProperty('app_link_ca')
+                elif language == 'es':
+                    titleNomines = JSONproperties.getProperty('app_link_es')
+
+                nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
+                urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni_hashed
+
+                nominesLink = dict(title=titleNomines,
+                                   url=urlNomines
+                                   )
+
+                resultsGestion[titleNomines] = []
+                resultsGestion[titleNomines].append(nominesLink)
+
         try:
             path = portal['gestion']['menu'][language]  # fixed en code... always in this path
             folders = api.content.find(context=path, portal_type=('Folder', 'privateFolder'), depth=1)
