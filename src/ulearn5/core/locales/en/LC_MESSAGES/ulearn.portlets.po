@@ -119,6 +119,9 @@ msgstr "Portlet Ulearn Quicklinks"
 msgid "ulearn_portlets_bannernomines"
 msgstr "Portlet Ulearn Payment sheet banner"
 
+msgid "ulearn_portlets_controlpermissionsnominesmedichem"
+msgstr "Portlet Ulearn Payment sheet"
+
 msgid "ulearn_portlets_mysubscribednews"
 msgstr "Portlet Ulearn Subscribed News"
 
