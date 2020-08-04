@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.86 (unreleased)
+0.86 (2020-08-04)
 -----------------
 
-- Nothing changed yet.
-
+* api/links customized for new paysheets [alberto.duran]
+* Traduccion portlet [Iago López Fernández]
 
 0.85 (2020-07-24)
 -----------------
