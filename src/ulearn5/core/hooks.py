@@ -39,7 +39,7 @@ from plone.dexterity.interfaces import IDexterityContent
 from plone.memoize import ram
 from time import time
 from ulearn5.core.content.etherpad import IEtherpad
-from ulearn5.core.browser.pad import API
+from ulearn5.core.browser.etherpad import API
 from plone.protect.interfaces import IDisableCSRFProtection
 from plone.uuid.interfaces import IUUID
 from zope.interface import alsoProvides
