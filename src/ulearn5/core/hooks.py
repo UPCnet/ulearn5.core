@@ -501,7 +501,6 @@ def setEventTimezone(content, event):
 @grok.subscribe(IDocument, IObjectAddedEvent)
 @grok.subscribe(ILink, IObjectAddedEvent)
 @grok.subscribe(IFile, IObjectAddedEvent)
-@grok.subscribe(IImage, IObjectAddedEvent)
 @grok.subscribe(IEvent, IObjectAddedEvent)
 @grok.subscribe(INewsItem, IAfterTransitionEvent)
 @grok.subscribe(IExternalContent, IObjectAddedEvent)
@@ -611,4 +610,4 @@ def AddedSendMessage(content, event):
 
         msg.attach(MIMEText(body, 'html', 'utf-8'))
         mailhost.send(msg)
-   
+
