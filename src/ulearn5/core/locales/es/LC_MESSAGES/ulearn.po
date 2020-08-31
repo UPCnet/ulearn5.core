@@ -1631,7 +1631,7 @@ msgstr "Este es el idioma del sitio."
 #. Default: "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
 #: ../controlpanel.py:181
 msgid "help_stats_button"
-msgstr "Mostar o no el botón de acceso a estadísticas diarias a stats/activity y stats/chats"
+msgstr "Mostrar o no el botón de acceso a estadísticas diarias a stats/activity y stats/chats"
 
 #. Default: "Subject template to notify."
 #: ../controlpanel.py:446
