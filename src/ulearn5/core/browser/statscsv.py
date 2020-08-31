@@ -53,9 +53,10 @@ def ListLastLoginCSV():
     output = []
     for user in pmd._members.items():
         user_memberdata = api.user.get(username=user[0])
-    if user_memberdata:
-        userProfile = get_user_properties_stats(user_memberdata)
-        output.append(userProfile)
+
+        if user_memberdata:
+            userProfile = get_user_properties_stats(user_memberdata)
+            output.append(userProfile)
     return output
 
 
@@ -219,7 +220,7 @@ class GenerateReport(StatsQueryBase):
 
     def printCSV(self, rows, type_info):
         lines = []
-        if type_info == 'actividad':
+        if type_info in ['activitat', 'actividad', 'activity']:
             HEADER_CSV.extend(['community', 'activity', 'comments', 'documents', 'links', 'media'])
         elif type_info == 'chats':
             HEADER_CSV.extend(['chat', 'number of messages'])
