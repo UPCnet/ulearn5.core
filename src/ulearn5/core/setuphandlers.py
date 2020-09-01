@@ -203,8 +203,11 @@ def setupVarious(context):
     settings = registry.forInterface(IUlearnControlPanelSettings, check=False)
 
     pl = getToolByName(portal, 'portal_languages')
-    pl.setDefaultLanguage(settings.language)
-    pl.addSupportedLanguage(settings.language)
+    language = settings.language
+    if isinstance(language, str):
+        language = language.decode('UTF-8')
+    pl.setDefaultLanguage(language)
+    pl.addSupportedLanguage(language)
 
     # Remove right column portlets programatically because now don't use them
     portal = getSite()
