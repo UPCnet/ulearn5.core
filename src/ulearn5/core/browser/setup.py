@@ -1307,3 +1307,37 @@ class notifyManualInCommunity(grok.View):
 
         transaction.commit()
         return "OK Add notify Manual in Communities"
+
+class deleteNominasMes(grok.View):
+    """ Aquesta vista esborra les nomines de tots els usuaris d'un mes en concret """
+    grok.name('deletenominasmes')
+    grok.template('deletenominasmes')
+    grok.context(IPloneSiteRoot)
+
+    #render = ViewPageTemplateFile('views_templates/deletenominasmes.pt')
+
+    def update(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            pc = api.portal.get_tool('portal_catalog')
+            portal = api.portal.get()
+            JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
+            nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
+            path = '/'.join(api.portal.get().getPhysicalPath()) + '/' + nominas_folder_name
+            nominas = pc.unrestrictedSearchResults(portal_type='File', path=path)
+
+            if self.request.form['mes'] != '':
+                mes_a_borrar = self.request.form['mes']
+
+                for brain in nominas:
+                    obj = brain.getObject()
+                    if mes_a_borrar in obj.id:
+                        parent = obj.aq_parent
+                        parent.manage_delObjects([obj.id])
+                        logger.info('Nómina {} borrada'.format(obj.id))
+
+                logger.info('Se han borrado las nóminas del mes {}'.format(mes_a_borrar))
