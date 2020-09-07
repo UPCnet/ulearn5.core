@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-06-23 06:29+0000\n"
+"POT-Creation-Date: 2020-09-07 11:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,17 +25,17 @@ msgstr ""
 msgid "/mail_password_form?userid="
 msgstr ""
 
-#: ../content/community.py:145
+#: ../content/community.py:147
 #: ../controlpanel.py:25
 msgid "Activitats destacades"
 msgstr ""
 
-#: ../content/community.py:144
+#: ../content/community.py:146
 #: ../controlpanel.py:24
 msgid "Activitats mes valorades"
 msgstr ""
 
-#: ../content/community.py:153
+#: ../content/community.py:155
 msgid "Activity"
 msgstr ""
 
@@ -87,7 +87,7 @@ msgstr ""
 msgid "All dates"
 msgstr ""
 
-#: ../content/community.py:163
+#: ../content/community.py:165
 msgid "Automatic"
 msgstr ""
 
@@ -104,7 +104,7 @@ msgstr ""
 msgid "Bitly username"
 msgstr ""
 
-#: ../content/community.py:1522
+#: ../content/community.py:1545
 msgid "Blog"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "Cerca"
 msgstr ""
 
-#: ../patches.py:1009
+#: ../patches.py:1027
 msgid "Changes made."
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Changes saved."
 msgstr ""
 
-#: ../patches.py:1159
+#: ../patches.py:1177
 msgid "Clear"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Click to enable the icalendar import feature on this context."
 msgstr ""
 
-#: ../content/community.py:129
+#: ../content/community.py:131
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:35
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:64
 msgid "Closed"
@@ -181,6 +181,11 @@ msgstr ""
 msgid "Compartido por"
 msgstr ""
 
+#: ulearn5/theme/browser/user_profile.py:97
+#: ulearn5/theme/portlets/profile/profile.py:145
+msgid "Complete the profile"
+msgstr ""
+
 #: ../profiles/default/types/ulearn.community.xml
 #: ulearn5/theme/portlets/banners/banners.py:32
 msgid "Comunitat"
@@ -191,7 +196,7 @@ msgstr ""
 msgid "Comunitat_stats"
 msgstr ""
 
-#: ../content/community.py:1180
+#: ../content/community.py:1201
 msgid "Crea la comunitat"
 msgstr ""
 
@@ -199,12 +204,12 @@ msgstr ""
 msgid "Create thumb of News images for show in app"
 msgstr ""
 
-#: ../content/community.py:143
+#: ../content/community.py:145
 #: ../controlpanel.py:23
 msgid "Darreres activitats"
 msgstr ""
 
-#: ../content/community.py:189
+#: ../content/community.py:191
 msgid "Descripcio"
 msgstr ""
 
@@ -236,11 +241,11 @@ msgstr ""
 msgid "Display images"
 msgstr ""
 
-#: ../content/community.py:305
+#: ../content/community.py:310
 msgid "Distribution lists"
 msgstr ""
 
-#: ../content/community.py:154
+#: ../content/community.py:156
 msgid "Documents"
 msgstr ""
 
@@ -282,11 +287,11 @@ msgstr ""
 msgid "Edit cancelled"
 msgstr ""
 
-#: ../content/community.py:1319
+#: ../content/community.py:1342
 msgid "Edita la comunitat"
 msgstr ""
 
-#: ../content/community.py:231
+#: ../content/community.py:233
 msgid "Editors"
 msgstr ""
 
@@ -302,7 +307,7 @@ msgstr ""
 msgid "Enable querying Google Analytics' servers"
 msgstr ""
 
-#: ../patches.py:1156
+#: ../patches.py:1174
 msgid "Enter date..."
 msgstr ""
 
@@ -310,7 +315,7 @@ msgstr ""
 msgid "Enter the content of the JSON file given when the service account was created"
 msgstr ""
 
-#: ../patches.py:1182
+#: ../patches.py:1200
 msgid "Enter time..."
 msgstr ""
 
@@ -318,7 +323,7 @@ msgstr ""
 msgid "Error, the directory has been deleted."
 msgstr ""
 
-#: ../content/community.py:1458
+#: ../content/community.py:1481
 msgid "Esdeveniments"
 msgstr ""
 
@@ -397,11 +402,11 @@ msgstr ""
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
 msgstr ""
 
-#: ../content/community.py:248
+#: ../content/community.py:250
 msgid "Imatge"
 msgstr ""
 
-#: ../content/community.py:249
+#: ../content/community.py:251
 msgid "Imatge que defineix la comunitat"
 msgstr ""
 
@@ -439,7 +444,7 @@ msgstr ""
 msgid "JSON encoded user info"
 msgstr ""
 
-#: ../content/community.py:190
+#: ../content/community.py:192
 msgid "La descripcio de la comunitat"
 msgstr ""
 
@@ -483,12 +488,12 @@ msgstr ""
 msgid "Manage Nomines"
 msgstr ""
 
-#: ../content/community.py:164
+#: ../content/community.py:166
 msgid "Manual"
 msgstr ""
 
 #: ../browser/migrations.py:179
-#: ../content/community.py:1457
+#: ../content/community.py:1480
 msgid "Media"
 msgstr ""
 
@@ -569,11 +574,11 @@ msgstr ""
 msgid "No results"
 msgstr ""
 
-#: ../content/community.py:183
+#: ../content/community.py:185
 msgid "Nom"
 msgstr ""
 
-#: ../content/community.py:184
+#: ../content/community.py:186
 msgid "Nom de la comunitat"
 msgstr ""
 
@@ -589,23 +594,23 @@ msgstr ""
 msgid "Noticias"
 msgstr ""
 
-#: ../content/community.py:1459
+#: ../content/community.py:1482
 msgid "Noticies"
 msgstr ""
 
-#: ../content/community.py:1523
+#: ../content/community.py:1546
 msgid "Noticies de la comunitat"
 msgstr ""
 
-#: ../content/community.py:280
+#: ../content/community.py:282
 msgid "Notify activity and comments via push"
 msgstr ""
 
-#: ../content/community.py:286
+#: ../content/community.py:289
 msgid "Notify activity via mail"
 msgstr ""
 
-#: ../content/community.py:274
+#: ../content/community.py:276
 msgid "Notify activity via push"
 msgstr ""
 
@@ -618,7 +623,7 @@ msgstr ""
 msgid "Obtainable from the View Settings panel on Google Analytics Admin control panel"
 msgstr ""
 
-#: ../content/community.py:124
+#: ../content/community.py:126
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:36
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:65
 msgid "Open"
@@ -628,13 +633,13 @@ msgstr ""
 msgid "Open in new tab"
 msgstr ""
 
-#: ../content/community.py:134
+#: ../content/community.py:136
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:37
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:66
 msgid "Organizative"
 msgstr ""
 
-#: ../content/community.py:240
+#: ../content/community.py:242
 msgid "Owners"
 msgstr ""
 
@@ -652,7 +657,7 @@ msgstr ""
 msgid "Personal"
 msgstr ""
 
-#: ../patches.py:1109
+#: ../patches.py:1127
 msgid "Personal Preferences"
 msgstr ""
 
@@ -719,7 +724,7 @@ msgstr ""
 msgid "Quicklinks"
 msgstr ""
 
-#: ../content/community.py:220
+#: ../content/community.py:222
 msgid "Readers"
 msgstr ""
 
@@ -798,19 +803,19 @@ msgstr ""
 msgid "Shared With Me"
 msgstr ""
 
-#: ../content/community.py:267
+#: ../content/community.py:269
 msgid "Show events"
 msgstr ""
 
-#: ../content/community.py:268
+#: ../content/community.py:270
 msgid "Show events in the central area of the main community page."
 msgstr ""
 
-#: ../content/community.py:260
+#: ../content/community.py:262
 msgid "Show news"
 msgstr ""
 
-#: ../content/community.py:261
+#: ../content/community.py:263
 msgid "Show news in the central area of the main community page"
 msgstr ""
 
@@ -824,15 +829,15 @@ msgstr ""
 msgid "Submit for publication"
 msgstr ""
 
-#: ../content/community.py:232
+#: ../content/community.py:234
 msgid "Subscribed people with editor permissions"
 msgstr ""
 
-#: ../content/community.py:241
+#: ../content/community.py:243
 msgid "Subscribed people with owner permissions"
 msgstr ""
 
-#: ../content/community.py:221
+#: ../content/community.py:223
 msgid "Subscribed people with read-only permissions"
 msgstr ""
 
@@ -904,7 +909,7 @@ msgstr ""
 msgid "Time of the last transition"
 msgstr ""
 
-#: ../content/community.py:196
+#: ../content/community.py:198
 msgid "Tipus de comunitat"
 msgstr ""
 
@@ -914,7 +919,7 @@ msgstr ""
 msgid "Todas las comunidades"
 msgstr ""
 
-#: ../patches.py:1158
+#: ../patches.py:1176
 msgid "Today"
 msgstr ""
 
@@ -922,7 +927,7 @@ msgstr ""
 msgid "Todo el contenido"
 msgstr ""
 
-#: ../content/community.py:254
+#: ../content/community.py:256
 msgid "Twitter hashtag"
 msgstr ""
 
@@ -1014,7 +1019,7 @@ msgstr ""
 msgid "User means `Fullname [Group] (User ID)`"
 msgstr ""
 
-#: ../content/community.py:299
+#: ../content/community.py:304
 msgid "Users comunnity lists"
 msgstr ""
 
@@ -1082,7 +1087,7 @@ msgstr ""
 msgid "activate_sharedwithme"
 msgstr ""
 
-#: ../content/community.py:204
+#: ../content/community.py:206
 #: ../controlpanel.py:390
 msgid "activity_view"
 msgstr ""
@@ -1125,6 +1130,12 @@ msgstr ""
 #. Default: "Propietat de fons global"
 #: ../controlpanel.py:292
 msgid "background_property"
+msgstr ""
+
+#. Default: "Contribute ${num} posts"
+#: ulearn5/theme/browser/user_profile.py:101
+#: ulearn5/theme/portlets/profile/profile.py:149
+msgid "badge_title"
 msgstr ""
 
 #. Default: "Banners (Comunitats)"
@@ -1237,22 +1248,22 @@ msgstr ""
 msgid "community_open_and_no_subscribed"
 msgstr ""
 
-#: ../content/community.py:197
+#: ../content/community.py:199
 msgid "community_type_description"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1255
+#: ../content/community.py:1277
 msgid "comunitat_creada"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1223
+#: ../content/community.py:1245
 msgid "comunitat_existeix"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1387
+#: ../content/community.py:1410
 msgid "comunitat_modificada"
 msgstr ""
 
@@ -1290,7 +1301,7 @@ msgstr ""
 msgid "delete_user_catalog"
 msgstr ""
 
-#: ../content/community.py:315
+#: ../content/community.py:320
 msgid "description_terms_of_user"
 msgstr ""
 
@@ -1304,7 +1315,7 @@ msgstr ""
 msgid "discussion"
 msgstr ""
 
-#: ../content/community.py:306
+#: ../content/community.py:311
 msgid "distribution_lists_help"
 msgstr ""
 
@@ -1319,7 +1330,7 @@ msgid "entrades"
 msgstr ""
 
 #. Default: "Falta omplir algun camp obligatori."
-#: ../content/community.py:1189
+#: ../content/community.py:1210
 msgid "error"
 msgstr ""
 
@@ -1361,12 +1372,12 @@ msgid "external_website"
 msgstr ""
 
 #. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
-#: ../content/community.py:174
+#: ../content/community.py:176
 msgid "falta_condicions"
 msgstr ""
 
 #. Default: "No es pot crear una comunitat sense titol"
-#: ../content/community.py:1185
+#: ../content/community.py:1206
 msgid "falta_titol"
 msgstr ""
 
@@ -1402,7 +1413,7 @@ msgstr ""
 msgid "gotolibrary"
 msgstr ""
 
-#: ../content/community.py:255
+#: ../content/community.py:257
 msgid "hashtag_help"
 msgstr ""
 
@@ -1426,7 +1437,7 @@ msgstr ""
 msgid "help_activate_sharedwithme"
 msgstr ""
 
-#: ../content/community.py:205
+#: ../content/community.py:207
 #: ../controlpanel.py:391
 msgid "help_activity_view"
 msgstr ""
@@ -1567,7 +1578,7 @@ msgstr ""
 msgid "help_navigation_title"
 msgstr ""
 
-#: ../content/community.py:281
+#: ../content/community.py:283
 msgid "help_notify_activity_via_push_comments_too"
 msgstr ""
 
@@ -1639,11 +1650,11 @@ msgstr ""
 msgid "help_subject_template"
 msgstr ""
 
-#: ../content/community.py:212
+#: ../content/community.py:214
 msgid "help_tab_view"
 msgstr ""
 
-#: ../content/community.py:293
+#: ../content/community.py:296
 msgid "help_type_notify"
 msgstr ""
 
@@ -1813,17 +1824,17 @@ msgid "info"
 msgstr ""
 
 #. Default: "Internal information"
-#: ulearn5/theme/browser/views_templates/user_profile.pt:115
+#: ulearn5/theme/browser/views_templates/user_profile.pt:126
 msgid "info_private"
 msgstr ""
 
 #. Default: "These fields are only visible by administrators if necessary."
-#: ulearn5/theme/browser/views_templates/user_profile.pt:116
+#: ulearn5/theme/browser/views_templates/user_profile.pt:127
 msgid "info_private_help"
 msgstr ""
 
 #. Default: "Public information (directory)"
-#: ulearn5/theme/browser/views_templates/user_profile.pt:105
+#: ulearn5/theme/browser/views_templates/user_profile.pt:116
 msgid "info_public"
 msgstr ""
 
@@ -1909,7 +1920,7 @@ msgid "label_not_subjects"
 msgstr ""
 
 #. Default: "Password"
-#: ../patches.py:1118
+#: ../patches.py:1136
 msgid "label_password"
 msgstr ""
 
@@ -2116,15 +2127,15 @@ msgstr ""
 msgid "no_visibles"
 msgstr ""
 
-#: ../widgets/templates/visibility.pt:79
+#: ../widgets/templates/visibility.pt:83
 msgid "not_visibility_widget_title"
 msgstr ""
 
-#: ../content/community.py:287
+#: ../content/community.py:290
 msgid "notify_activity_via_mail_help"
 msgstr ""
 
-#: ../content/community.py:275
+#: ../content/community.py:277
 msgid "notify_activity_via_push_help"
 msgstr ""
 
@@ -2141,12 +2152,12 @@ msgid "persones"
 msgstr ""
 
 #. Default: "mmmm d, yyyy"
-#: ../patches.py:1154
+#: ../patches.py:1172
 msgid "pickadate_date_format"
 msgstr ""
 
 #. Default: "h:i a"
-#: ../patches.py:1180
+#: ../patches.py:1198
 msgid "pickadate_time_format"
 msgstr ""
 
@@ -2374,7 +2385,7 @@ msgstr ""
 msgid "syncldapgroups"
 msgstr ""
 
-#: ../content/community.py:211
+#: ../content/community.py:213
 msgid "tab_view"
 msgstr ""
 
@@ -2412,11 +2423,11 @@ msgid "title_add_to_ical"
 msgstr ""
 
 #. Default: "Personal Information"
-#: ../patches.py:1100
+#: ../patches.py:1118
 msgid "title_personal_information_form"
 msgstr ""
 
-#: ../content/community.py:314
+#: ../content/community.py:319
 msgid "title_terms_of_user"
 msgstr ""
 
@@ -2429,7 +2440,7 @@ msgstr ""
 msgid "tools"
 msgstr ""
 
-#: ../content/community.py:292
+#: ../content/community.py:295
 msgid "type_notify"
 msgstr ""
 
@@ -2580,7 +2591,7 @@ msgstr ""
 msgid "url_terms"
 msgstr ""
 
-#: ../content/community.py:300
+#: ../content/community.py:305
 msgid "users_community_lists_help"
 msgstr ""
 
@@ -2602,7 +2613,7 @@ msgstr ""
 msgid "video_url_description"
 msgstr ""
 
-#: ../widgets/templates/visibility.pt:78
+#: ../widgets/templates/visibility.pt:82
 msgid "visibility_widget_title"
 msgstr ""
 
