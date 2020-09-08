@@ -2,11 +2,16 @@ Changelog
 =========
 
 
-0.87 (unreleased)
+0.87 (2020-09-08)
 -----------------
 
-- Nothing changed yet.
-
+* Delete Nominas Mes [Pilar Marinas]
+* Traducciones [Iago López Fernández]
+* Modificado workflow para que WebMaster pueda pasar de borrador a intranet [Pilar Marinas]
+* Solucionar que no pete al reinstalar paquete ulearn5.core en unite [Pilar Marinas]
+* Fix statscsv_view [Iago López Fernández]
+* Quitar notificación por correo al crear una imagen [Iago López Fernández]
+* Traducción [Iago López Fernández]
 
 0.86 (2020-08-04)
 -----------------
