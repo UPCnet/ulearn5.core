@@ -66,7 +66,7 @@ from ulearn5.core.interfaces import IDocumentFolder
 from ulearn5.core.interfaces import IEventsFolder
 from ulearn5.core.interfaces import INewsItemFolder
 from ulearn5.core.interfaces import IPhotosFolder
-from ulearn5.core.utils import is_activate_owncloud, is_activate_externalstorage
+from ulearn5.core.utils import is_activate_owncloud, is_activate_externalstorage, is_activate_etherpad
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
 from ulearn5.core.widgets.terms_widget import TermsFieldWidget
@@ -1500,12 +1500,18 @@ class CommunityInitializeAdapter(object):
         if is_activate_owncloud(self.context) and is_activate_externalstorage(self.context):
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile', 'ExternalContent'))
             behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile', 'ExternalContent'))
+        elif is_activate_etherpad(self.context) and is_activate_externalstorage(self.context):
+            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'Etherpad', 'ExternalContent'))
+            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'Etherpad', 'ExternalContent'))
         elif is_activate_owncloud(self.context):
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
             behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
         elif is_activate_externalstorage(self.context):
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ExternalContent'))
             behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ExternalContent'))
+        elif is_activate_etherpad(self.context):
+            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'Etherpad'))
+            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'Etherpad'))
         else:
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder'))
             behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder'))

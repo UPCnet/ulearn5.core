@@ -1281,6 +1281,43 @@ class addProtectedFileInDocumentsCommunity(grok.View):
         else:
            return "ulearn5.externalstorage is not active in this site."
 
+class addEtherpadInDocumentsCommunity(grok.View):
+    """ Si esta instalado el paquete ulearn5.etherpad, esta vista añade en la carpeta documentos de todas las comunidades que se puedan crear documentos etherpad """
+    grok.name('add_etherpad_in_documents_community')
+    grok.context(IPloneSiteRoot)
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = api.portal.get()
+        if is_activate_externalstorage(portal):
+            pc = api.portal.get_tool('portal_catalog')
+            comunnities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
+            for community in comunnities:
+                com = community.getObject()
+                com = community.id
+                if 'documents' in portal[com]:
+                    documents = portal[com]['documents']
+
+                    behavior = ISelectableConstrainTypes(documents)
+                    # Obtengo los contenidos que se pueden añadir en la carpeta documents
+                    locallyAllowedTypes = behavior.getLocallyAllowedTypes()
+                    logger.info('LocallyAllowedTypes {} community_id: {} in the portal: {}.'.format(locallyAllowedTypes, com, portal.absolute_url()))
+                    if 'Etherpad' not in locallyAllowedTypes:
+                        # Le añado el ExternalContent a los contenidos que se pueden añadir en la carpeta documents
+                        locallyAllowedTypes.append('Etherpad')
+                        behavior.setLocallyAllowedTypes(locallyAllowedTypes)
+                        behavior.setImmediatelyAddableTypes(locallyAllowedTypes)
+                        logger.info('Add Etherpad in LocallyAllowedTypes {} community_id: {} in the portal: {}.'.format(locallyAllowedTypes, com, portal.absolute_url()))
+            return "OK Add Etherpad in Folder Documents Communities"
+
+        else:
+           return "ulearn5.ethepad is not active in this site."
 
 class notifyManualInCommunity(grok.View):
     """ Somo por defecto la notificación por email es automatica esto te la cambia a manual para EBCN """
