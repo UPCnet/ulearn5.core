@@ -482,11 +482,14 @@ class IUlearnControlPanelSettings(model.Schema):
         required=True,
     )
 
-    bitly_api_key = schema.Password(
+    dexterity.read_permission(bitly_api_key='zope2.ViewManagementScreens')
+    dexterity.write_permission(bitly_api_key='zope2.ViewManagementScreens')
+    bitly_api_key = schema.TextLine(
         title=_(u'Bitly api key'),
         description=_(u'The API Key Bitly'),
         required=True,
     )
+
 
 class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
     """ Ulearn settings form """
