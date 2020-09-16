@@ -47,7 +47,7 @@ from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
-from ulearn5.core.utils import is_activate_owncloud, is_activate_externalstorage
+from ulearn5.core.utils import is_activate_owncloud, is_activate_externalstorage, is_activate_etherpad
 from ulearn5.owncloud.api.owncloud import HTTPResponseError
 from ulearn5.owncloud.api.owncloud import OCSResponseError
 from ulearn5.owncloud.utilities import IOwncloudClient
@@ -1295,7 +1295,7 @@ class addEtherpadInDocumentsCommunity(grok.View):
             pass
 
         portal = api.portal.get()
-        if is_activate_externalstorage(portal):
+        if is_activate_etherpad(portal):
             pc = api.portal.get_tool('portal_catalog')
             comunnities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
             for community in comunnities:
