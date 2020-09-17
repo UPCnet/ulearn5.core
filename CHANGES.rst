@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.88 (unreleased)
+0.88 (2020-09-17)
 -----------------
 
-- Nothing changed yet.
-
+* Vista activar etherpad en las comunidades [root]
+* Vista que añade en la carpeta documentos de todas las comunidades que se puedan crear documentos etherpad [Pilar Marinas]
+* Fix bitly_api_key [Iago López Fernández]
 
 0.87 (2020-09-08)
 -----------------
