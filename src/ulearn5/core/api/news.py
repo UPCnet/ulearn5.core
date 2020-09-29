@@ -67,6 +67,8 @@ class News(REST):
                 news = news[0:news_per_page]
                 if news_per_page < total_news:
                     more_items = True
+
+            portal = api.portal.get()
             for item in news:
                 value = item.getObject()
                 if value.effective_date:
@@ -103,6 +105,7 @@ class News(REST):
                            id=value.id,
                            description=value.description,
                            path=item.getURL(),
+                           url_site=portal.absolute_url(),
                            absolute_url=value.absolute_url_path(),
                            text=text,
                            filename=filename,
@@ -212,10 +215,12 @@ class New(REST):
                     contentType = value.image.contentType
                     raw_image = value.absolute_url() + '/thumbnail-image'
 
+                portal = api.portal.get()
                 new = dict(title=value.title,
                            id=value.id,
                            description=value.description,
                            path=value.absolute_url(),
+                           url_site=portal.absolute_url(),
                            absolute_url=value.absolute_url_path(),
                            text=text,
                            filename=filename,
