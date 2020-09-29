@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.89 (unreleased)
+0.89 (2020-09-29)
 -----------------
 
-- Nothing changed yet.
-
+* api/news url_site [Iago López Fernández]
+* Fix url [Iago López Fernández]
 
 0.88 (2020-09-17)
 -----------------
