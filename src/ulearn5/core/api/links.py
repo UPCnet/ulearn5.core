@@ -101,12 +101,13 @@ class Link(REST):
 
         if found:
             # Links from gestion folder
+            instance_name = portal.absolute_url()
             for folder in folders:
                 resultsGestion[folder.Title] = []
                 menufolder = folder.getObject().items()
                 for item in menufolder:
                     if ILink.providedBy(item[1]):
-                        menuLink = dict(url=item[1].remoteUrl,
+                        menuLink = dict(url=item[1].remoteUrl.replace('${portal_url}', instance_name),
                                         title=item[1].title,
                                         )
                         resultsGestion[folder.Title].append(menuLink)
