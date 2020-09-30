@@ -1243,6 +1243,37 @@ class addAllCommunitiesAsFavoriteFromAllUsers(grok.View):
                 IFavorite(communityObj).add(user['id'].strip())
         return 'OK'
 
+
+class addCommunityAsFavoriteFromAllUsers(grok.View):
+    """ Añade a favorito a todos los usuarios usuarios subcritos a X comunidad, si esta en un grupo no funciona actualmente """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if 'community' in self.request.form:
+            portal = getSite()
+            pc = getToolByName(portal, "portal_catalog")
+            communities = pc.unrestrictedSearchResults(object_provides=ICommunity.__identifier__,
+                                                       id=self.request.form['community'])
+            if communities:
+                for community in communities:
+                    communityObj = community.getObject()
+                    result = ICommunityACL(communityObj)().attrs.get('acl', '')
+                    for user in result['users']:
+                        IFavorite(communityObj).add(user['id'].strip())
+                return 'OK'
+            else:
+                return 'Community ' + self.request.form['community'] + ' not exist'
+        else:
+            return 'Error add community parameter - /addcommunityasfavoritefromallusers?community=community.id'
+
+
 class addProtectedFileInDocumentsCommunity(grok.View):
     """ Si esta instalado el paquete ulearn5.externalstorage, esta vista añade en la carpeta documentos de todas las comunidades que se puedan crear archivos protegidos """
     grok.name('add_protected_file_in_documents_community')
