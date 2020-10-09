@@ -8,12 +8,16 @@ from mrs5.max.utilities import IMAXClient
 from ulearn5.theme.interfaces import IUlearn5ThemeLayer
 from base5.core.adapters.portrait import IPortraitUploadAdapter
 from zope.component import getUtility
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
+from souper.soup import Record
+from plone import api
 
 import logging
 import PIL
 from zope.interface import implements
 from zope.component import adapts
-from base5.core.utils import portal_url
+from base5.core.utils import portal_url, convertSquareImage, get_safe_member_by_id
 import requests
 import io
 
@@ -38,6 +42,32 @@ class PortraitUploadAdapter(object):
                 membertool = getToolByName(self.context, 'portal_memberdata')
                 membertool._setPortrait(portrait, safe_id)
 
+                # Comprobamos si es la imagen por defecto o no y actualizamos el soup
+                member_info = get_safe_member_by_id(safe_id)
+                if member_info.get('fullname', False) \
+                   and member_info.get('fullname', False) != safe_id \
+                   and member_info.get('email', False) \
+                   and isinstance(portrait, Image) and portrait.size != 3566 and portrait.size != 6186:
+                    portrait_user = True
+                else:
+                    portrait_user = False
+
+                portal = api.portal.get()
+                soup_users_portrait = get_soup('users_portrait', portal)
+                exist = [r for r in soup_users_portrait.query(Eq('id_username', safe_id))]
+                if exist:
+                    user_record = exist[0]
+                    user_record.attrs['id_username'] = safe_id
+                    user_record.attrs['portrait'] = portrait_user
+                else:
+                    record = Record()
+                    record_id = soup_users_portrait.add(record)
+                    user_record = soup_users_portrait.get(record_id)
+                    user_record.attrs['id_username'] = safe_id
+                    user_record.attrs['portrait'] = portrait_user
+                soup_users_portrait.reindex(records=[user_record])
+
+
                 # Update the user's avatar on MAX
                 # the next line to user's that have '-' in id
                 safe_id = safe_id.replace('--', '-')
@@ -51,29 +81,3 @@ class PortraitUploadAdapter(object):
                     maxclient.people[safe_id].avatar.post(upload_file=scaled)
                 except Exception as exc:
                     logger.error(exc.message)
-
-
-def convertSquareImage(image_file):
-    CONVERT_SIZE = (250, 250)
-    try:
-        image = PIL.Image.open(image_file)
-    except:
-        portrait_url = portal_url() + '/++theme++ulearn5/assets/images/defaultUser.png'
-        imgData = requests.get(portrait_url).content
-        image = PIL.Image.open(io.BytesIO(imgData))
-        image.filename = 'defaultUser'
-
-    format = image.format
-    mimetype = 'image/%s' % format.lower()
-
-    result = ImageOps.fit(image, CONVERT_SIZE, method=PIL.Image.ANTIALIAS, centering=(0.5, 0.5))
-
-    # Bypass CMYK problem in conversion
-    if result.mode not in ["1", "L", "P", "RGB", "RGBA"]:
-        result = result.convert("RGB")
-
-    new_file = StringIO()
-    result.save(new_file, format, quality=88)
-    new_file.seek(0)
-
-    return new_file, mimetype

@@ -504,7 +504,7 @@ default_portrait = '/++theme++ulearn5/assets/images/defaultUser.png'
 from zope.interface import alsoProvides
 from zope.component import getUtility
 from mrs5.max.utilities import IMAXClient
-from ulearn5.core.adapters.portrait import convertSquareImage
+from base5.core.utils import convertSquareImage
 import urllib
 from OFS.Image import Image
 from Products.CMFCore.utils import getToolByName
