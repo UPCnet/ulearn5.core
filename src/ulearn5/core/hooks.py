@@ -535,7 +535,7 @@ def AddedSendMessage(content, event):
         mails_users_to_notify = community.distribution_lists
     else:
         if community.mails_users_community_lists == None:
-           mails_users_to_notify = community.mails_users_community_lists
+            mails_users_to_notify = community.mails_users_community_lists
         else:
             if isinstance(community.mails_users_community_lists, list):
                 # if None in community.mails_users_community_lists:
@@ -546,18 +546,19 @@ def AddedSendMessage(content, event):
 
     if mails_users_to_notify != None:
 
-        subject_template = main_color = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
-        message_template = main_color = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template')
+        subject_template = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
+
+        message_template = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template')
 
         lang = api.portal.get_default_language()
 
         if subject_template == None or subject_template == '':
             if lang == 'ca':
-                subject_template = 'Nou contingut {} '
+                subject_template = 'Nou contingut %(community)s '
             elif lang == 'es':
-                subject_template = 'Nuevo contenido {} '
+                subject_template = 'Nuevo contenido %(community)s '
             else:
-                subject_template = 'New content {} '
+                subject_template = 'New content %(community)s '
 
         if message_template == None or message_template == '':
             if lang == 'ca':
@@ -594,13 +595,15 @@ def AddedSendMessage(content, event):
         if isinstance(subject_template, unicode):
             subject_template = subject_template.encode('utf-8')
 
-
         map = {
+            'community': community.title.encode('utf-8'),
             'link': '{}/view'.format(content.absolute_url()),
-            'title': content.title.encode('utf-8')
+            'title': content.title.encode('utf-8'),
+            'description': content.title.encode('utf-8')
         }
+
         body = message_template % map
-        subject = subject_template.format(community.title.encode('utf-8'))
+        subject = subject_template % map
 
         msg = MIMEMultipart()
         msg['From'] = api.portal.get_registry_record('plone.email_from_address')
@@ -610,4 +613,3 @@ def AddedSendMessage(content, event):
 
         msg.attach(MIMEText(body, 'html', 'utf-8'))
         mailhost.send(msg)
-
