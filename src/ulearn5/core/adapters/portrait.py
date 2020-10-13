@@ -46,7 +46,6 @@ class PortraitUploadAdapter(object):
                 member_info = get_safe_member_by_id(safe_id)
                 if member_info.get('fullname', False) \
                    and member_info.get('fullname', False) != safe_id \
-                   and member_info.get('email', False) \
                    and isinstance(portrait, Image) and portrait.size != 3566 and portrait.size != 6186:
                     portrait_user = True
                 else:
