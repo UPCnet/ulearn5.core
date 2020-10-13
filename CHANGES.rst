@@ -2,11 +2,14 @@ Changelog
 =========
 
 
-0.90 (unreleased)
+0.90 (2020-10-13)
 -----------------
 
-- Nothing changed yet.
-
+* Que el campo mail no se mire para el badget de la foto [Pilar Marinas]
+* Add description notify by mail [Pilar Marinas]
+* Modificar codigo para el badget de la imagen lo mire del soup y no actualize siempre foto [Pilar Marinas]
+* Ampliar variables que se pueden utilizar en los templates de los mensajes [Iago López Fernández]
+* Añadir vista addcommunityasfavoritefromallusers [Iago López Fernández]
 
 0.89 (2020-09-29)
 -----------------
