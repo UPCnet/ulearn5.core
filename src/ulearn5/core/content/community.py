@@ -1157,11 +1157,11 @@ class ToggleNotNotifyPush(grok.View):
             current_user = api.user.get_current().id
             if current_user in INotNotifyPush(self.context).get():
                 INotNotifyPush(self.context).remove(current_user)
-                adapter.unsubscribe_user_push(current_user)
+                adapter.subscribe_user_push(current_user)
                 return dict(message='Active notify push', status_code=200)
             else:
                 INotNotifyPush(self.context).add(current_user)
-                adapter.subscribe_user_push(current_user)
+                adapter.unsubscribe_user_push(current_user)
                 return dict(message='Desactive notify push', status_code=200)
 
         if self.request.method != 'POST':
