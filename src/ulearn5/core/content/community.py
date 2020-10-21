@@ -55,6 +55,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
 
 from base5.core.adapters.favorites import IFavorite
+from base5.core.adapters.notnotifypush import INotNotifyPush
 from base5.core.utils import json_response
 from mrs5.max.utilities import IHubClient
 from mrs5.max.utilities import IMAXClient
@@ -647,6 +648,8 @@ class CommunityAdapterMixin(object):
         # Unfavorite
         IFavorite(self.context).remove(user_id)
 
+        INotNotifyPush(self.context).remove(user_id)
+
         # Remove mail user to mails_users_community_lists in community
         if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
             if self.context.mails_users_community_lists != None:
@@ -663,6 +666,8 @@ class CommunityAdapterMixin(object):
 
         # Subscribe to context
         self.add_max_subscription_atomic(user_id)
+
+        INotNotifyPush(self.context).add(user_id)
 
         # For this use case, the user is able to auto-subscribe to the
         # community with write permissions
@@ -682,6 +687,12 @@ class CommunityAdapterMixin(object):
                     self.context.mails_users_community_lists = []
                 self.context.mails_users_community_lists.append(mail)
         self.context.reindexObject()
+
+    def subscribe_user_push(self, user_id):
+        self.maxclient.contexts[sha1(self.context.absolute_url()).hexdigest()].subscriptionpush[user_id].delete()
+
+    def unsubscribe_user_push(self, user_id):
+        self.maxclient.contexts[sha1(self.context.absolute_url()).hexdigest()].unsubscriptionpush[user_id].post()
 
     def update_mails_users(self, obj, acl):
         """
@@ -1128,6 +1139,30 @@ class ToggleFavorite(grok.View):
             else:
                 IFavorite(self.context).add(current_user)
                 return dict(message='Favorited', status_code=200)
+
+        if self.request.method != 'POST':
+            return dict(error='Bad request. POST request expected.',
+                        status_code=400)
+
+
+class ToggleNotNotifyPush(grok.View):
+    grok.context(IDexterityContent)
+    grok.name('toggle-notnotifypush')
+
+    @json_response
+    def render(self):
+        if self.request.method == 'POST':
+            community = self.context
+            adapter = community.adapted()
+            current_user = api.user.get_current().id
+            if current_user in INotNotifyPush(self.context).get():
+                INotNotifyPush(self.context).remove(current_user)
+                adapter.unsubscribe_user_push(current_user)
+                return dict(message='Active notify push', status_code=200)
+            else:
+                INotNotifyPush(self.context).add(current_user)
+                adapter.subscribe_user_push(current_user)
+                return dict(message='Desactive notify push', status_code=200)
 
         if self.request.method != 'POST':
             return dict(error='Bad request. POST request expected.',

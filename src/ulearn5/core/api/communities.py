@@ -131,7 +131,7 @@ class Communities(REST):
         # Get all communities for the current user
         pc = api.portal.get_tool('portal_catalog')
         r_results_organizative = pc.searchResults(portal_type="ulearn.community", community_type=u"Organizative", sort_on="sortable_title")
-        r_results_closed= pc.searchResults(portal_type="ulearn.community", community_type=u"Closed", sort_on="sortable_title")
+        r_results_closed = pc.searchResults(portal_type="ulearn.community", community_type=u"Closed", sort_on="sortable_title")
         ur_results_open = pc.unrestrictedSearchResults(portal_type="ulearn.community", community_type=u"Open", sort_on="sortable_title")
         communities = r_results_organizative + r_results_closed + ur_results_open
 
@@ -143,11 +143,13 @@ class Communities(REST):
 
         result = []
         favorites = self.get_favorites()
+        notnotifypush = self.get_notnotifypush()
         for brain in communities:
             if brain.tab_view == 'Documents':
                 url = brain.getURL() + '/documents'
             else:
                 url = brain.getURL()
+            brainObj = brain.getObject()
             community = dict(id=brain.id,
                              title=brain.Title,
                              description=brain.Description,
@@ -157,6 +159,8 @@ class Communities(REST):
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
                              favorited=brain.id in favorites,
+                             activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
+                             not_notify_push=brain.id in notnotifypush,
                              can_manage=self.is_community_manager(brain))
             result.append(community)
 
@@ -218,6 +222,12 @@ class Communities(REST):
 
         results = pc.unrestrictedSearchResults(favoritedBy=self.username)
         return [favorites.id for favorites in results]
+
+    def get_notnotifypush(self):
+        pc = api.portal.get_tool('portal_catalog')
+
+        results = pc.unrestrictedSearchResults(notNotifyPushBy=self.username)
+        return [notnotifypush.id for notnotifypush in results]
 
     def is_community_manager(self, community):
         # The user has role Manager
