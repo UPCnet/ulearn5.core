@@ -149,7 +149,7 @@ class Communities(REST):
                 url = brain.getURL() + '/documents'
             else:
                 url = brain.getURL()
-            brainObj = brain.getObject()
+            brainObj = self.context.unrestrictedTraverse(brain.getPath())
             community = dict(id=brain.id,
                              title=brain.Title,
                              description=brain.Description,
