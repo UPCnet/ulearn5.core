@@ -53,6 +53,7 @@ from time import time
 # from ulearn5.core.formatting import formatMessageEntities
 # from plone.app.textfield.value import RichTextValue
 
+import ast
 import io
 import logging
 import os
@@ -537,14 +538,22 @@ def AddedSendMessage(content, event):
         if community.mails_users_community_lists == None:
             mails_users_to_notify = community.mails_users_community_lists
         else:
+            if community.mails_users_community_black_lists is None:
+                community.mails_users_community_black_lists = {}
+            elif not isinstance(community.mails_users_community_black_lists, dict):
+                community.mails_users_community_black_lists = ast.literal_eval(community.mails_users_community_black_lists)
+
+            black_list_mails_users_to_notify = community.mails_users_community_black_lists.values()
             if isinstance(community.mails_users_community_lists, list):
                 # if None in community.mails_users_community_lists:
                 #     community.mails_users_community_lists.remove(None)
-                mails_users_to_notify = ','.join(community.mails_users_community_lists)
+                list_to_send = [email for email in community.mails_users_community_lists if email not in black_list_mails_users_to_notify]
+                mails_users_to_notify = ','.join(list_to_send)
             else:
-                mails_users_to_notify = ','.join(eval(community.mails_users_community_lists))
+                list_to_send = [email for email in ast.literal_eval(community.mails_users_community_lists) if email not in black_list_mails_users_to_notify]
+                mails_users_to_notify = ','.join(list_to_send)
 
-    if mails_users_to_notify != None:
+    if mails_users_to_notify:
 
         subject_template = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
 

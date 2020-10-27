@@ -55,6 +55,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
 
 from base5.core.adapters.favorites import IFavorite
+from base5.core.adapters.notnotifymail import INotNotifyMail
 from base5.core.adapters.notnotifypush import INotNotifyPush
 from base5.core.utils import json_response
 from mrs5.max.utilities import IHubClient
@@ -84,6 +85,7 @@ from z3c.form.interfaces import IAddForm, IEditForm
 from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from ulearn5.core.widgets.single_checkbox_notify_email_widget import SingleCheckBoxNotifyEmailFieldWidget
 
+import ast
 import json
 import logging
 import mimetypes
@@ -304,6 +306,14 @@ class ICommunity(form.Schema):
     mails_users_community_lists = schema.Text(
         title=_(u'Users comunnity lists'),
         description=_(u'users_community_lists_help'),
+        required=False
+    )
+
+    form.mode(IAddForm, mails_users_community_black_lists='hidden')
+    form.mode(IEditForm, mails_users_community_black_lists='hidden')
+    mails_users_community_black_lists = schema.Text(
+        title=_(u'Users comunnity black lists'),
+        description=_(u'users_community_black_lists_help'),
         required=False
     )
 
@@ -649,12 +659,22 @@ class CommunityAdapterMixin(object):
         IFavorite(self.context).remove(user_id)
 
         INotNotifyPush(self.context).remove(user_id)
+        INotNotifyMail(self.context).remove(user_id)
 
         # Remove mail user to mails_users_community_lists in community
         if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
             if self.context.mails_users_community_lists != None:
                 if api.user.get(user_id).getProperty('email') in self.context.mails_users_community_lists:
-                    self.context.mails_users_community_lists.remove(api.user.get(user_id).getProperty('email'))
+                    self.context.mails_users_community_lists.pop(api.user.get(user_id).getProperty('email'))
+
+            if self.context.mails_users_community_black_lists is None:
+                self.context.mails_users_community_black_lists = {}
+            elif not isinstance(self.context.mails_users_community_black_lists, dict):
+                self.context.mails_users_community_black_lists = ast.literal_eval(self.context.mails_users_community_black_lists)
+
+            if user_id in self.context.mails_users_community_black_lists:
+                self.context.mails_users_community_black_lists.pop(user_id)
+
         self.context.reindexObject()
 
     def subscribe_user(self, user_id):
@@ -696,7 +716,7 @@ class CommunityAdapterMixin(object):
 
     def update_mails_users(self, obj, acl):
         """
-            Add mails users to mails_users_community_lists in community
+            Add mails users to mails_users_community_lists and mails_users_community_black_lists in community
         """
         mails_users = []
         if 'users' in acl:
@@ -718,6 +738,14 @@ class CommunityAdapterMixin(object):
                             mails_users.append(mail)
 
         obj.mails_users_community_lists = mails_users
+
+        for userid in obj.mails_users_community_black_lists.keys():
+            user = api.user.get(userid)
+            if user is not None:
+                mail = user.getProperty('email')
+                if (mail != '' and mail is not None):
+                    obj.mails_users_community_black_lists[userid] = mail
+
         obj.reindexObject()
 
 
@@ -1169,6 +1197,40 @@ class ToggleNotNotifyPush(grok.View):
                         status_code=400)
 
 
+class ToggleNotNotifyMail(grok.View):
+    grok.context(IDexterityContent)
+    grok.name('toggle-notnotifymail')
+
+    @json_response
+    def render(self):
+        if self.request.method == 'POST':
+            current_user = api.user.get_current()
+            user_id = current_user.id
+
+            if self.context.mails_users_community_black_lists is None:
+                self.context.mails_users_community_black_lists = {}
+            elif not isinstance(self.context.mails_users_community_black_lists, dict):
+                self.context.mails_users_community_black_lists = ast.literal_eval(self.context.mails_users_community_black_lists)
+
+            if user_id in self.context.mails_users_community_black_lists:
+                self.context.mails_users_community_black_lists.pop(user_id)
+                self.context.reindexObject()
+                return dict(message='Active notify push', status_code=200)
+            else:
+                mail = current_user.getProperty('email')
+                if mail is not None and mail != '':
+                    self.context.mails_users_community_black_lists.update({user_id: mail})
+                    self.context.reindexObject()
+                    return dict(message='Desactive notify push', status_code=200)
+                else:
+                    return dict(error='Bad request. User not have email.',
+                                status_code=400)
+
+        if self.request.method != 'POST':
+            return dict(error='Bad request. POST request expected.',
+                        status_code=400)
+
+
 class Subscribe(grok.View):
     """" Subscribe a requester user to an open community """
     grok.context(ICommunity)
@@ -1201,6 +1263,24 @@ class UnSubscribe(grok.View):
         if self.request.method == 'POST':
             adapter = self.context.adapted()
             adapter.unsubscribe_user(current_user.id)
+
+            community = self.context
+            adapter = community.adapted()
+            if current_user in INotNotifyPush(self.context).get():
+                INotNotifyPush(self.context).remove(current_user)
+                adapter.subscribe_user_push(current_user)
+
+            if current_user in INotNotifyMail(self.context).get():
+                INotNotifyMail(self.context).remove(current_user)
+
+                if self.context.mails_users_community_black_lists is None:
+                    self.context.mails_users_community_black_lists = {}
+                elif not isinstance(self.context.mails_users_community_black_lists, dict):
+                    self.context.mails_users_community_black_lists = ast.literal_eval(self.context.mails_users_community_black_lists)
+
+                if current_user.id in self.context.mails_users_community_black_lists:
+                    self.context.mails_users_community_black_lists.pop(current_user.id)
+
             return dict(message='Successfully unsubscribed')
         else:
             return dict(error='Bad request. POST request expected.',
@@ -1233,6 +1313,9 @@ class communityAdder(form.SchemaForm):
         self.widgets['mails_users_community_lists'].mode = 'hidden'
         self.fields['mails_users_community_lists'].mode = 'hidden'
 
+        self.widgets['mails_users_community_black_lists'].mode = 'hidden'
+        self.fields['mails_users_community_black_lists'].mode = 'hidden'
+
     @button.buttonAndHandler(_(u'Crea la comunitat'), name='save')
     def handleApply(self, action):
         data, errors = self.extractData()
@@ -1248,7 +1331,6 @@ class communityAdder(form.SchemaForm):
             messages.addStatusMessage(translated, type='error')
             return self.request.response.redirect(self.context.absolute_url())
 
-
         nom = data['title']
         description = data['description']
         image = data['image']
@@ -1263,6 +1345,7 @@ class communityAdder(form.SchemaForm):
         notify_activity_via_mail = data['notify_activity_via_mail']
         type_notify = data['type_notify']
         mails_users_community_lists = data['mails_users_community_lists']
+        mails_users_community_black_lists = data['mails_users_community_black_lists']
         distribution_lists = data['distribution_lists']
 
         terms = data['terms']
@@ -1303,6 +1386,7 @@ class communityAdder(form.SchemaForm):
                 notify_activity_via_mail=notify_activity_via_mail,
                 type_notify=type_notify,
                 mails_users_community_lists=mails_users_community_lists,
+                mails_users_community_black_lists=mails_users_community_black_lists,
                 distribution_lists=distribution_lists,
                 terms=terms,
                 checkConstraints=False)
@@ -1351,6 +1435,7 @@ class communityEdit(form.SchemaForm):
         self.widgets['notify_activity_via_mail'].value = [self.cview_map[self.context.notify_activity_via_mail]]
         self.widgets['type_notify'].value = [self.cview_map[self.context.type_notify]]
         self.widgets['mails_users_community_lists'].value = [self.cview_map[self.context.mails_users_community_lists]]
+        self.widgets['mails_users_community_black_lists'].value = [self.cview_map[self.context.mails_users_community_black_lists]]
         self.widgets['distribution_lists'].value = [self.cview_map[self.context.distribution_lists]]
         self.widgets['terms'].value = ['true']
 
@@ -1363,7 +1448,6 @@ class communityEdit(form.SchemaForm):
             self.widgets['notify_activity_via_push_comments_too'].value = ['selected']
             # Bool widgets should call update() once modified
             self.widgets['notify_activity_via_push_comments_too'].update()
-
 
         converter = SelectWidgetConverter(self.fields['readers'].field, self.widgets['readers'])
         self.widgets['readers'].value = converter.toWidgetValue(self.context.readers)
@@ -1398,6 +1482,7 @@ class communityEdit(form.SchemaForm):
         notify_activity_via_mail = data['notify_activity_via_mail']
         type_notify = data['type_notify']
         mails_users_community_lists = data['mails_users_community_lists']
+        mails_users_community_black_lists = data['mails_users_community_black_lists']
         distribution_lists = data['distribution_lists']
 
         portal = getSite()
@@ -1432,6 +1517,7 @@ class communityEdit(form.SchemaForm):
             self.context.notify_activity_via_mail = notify_activity_via_mail
             self.context.type_notify = type_notify
             self.context.mails_users_community_lists = mails_users_community_lists
+            self.context.mails_users_community_black_lists = mails_users_community_black_lists
             self.context.distribution_lists = distribution_lists
             self.context.terms = True
 
