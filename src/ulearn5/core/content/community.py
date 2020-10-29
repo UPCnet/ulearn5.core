@@ -55,7 +55,6 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
 
 from base5.core.adapters.favorites import IFavorite
-from base5.core.adapters.notnotifymail import INotNotifyMail
 from base5.core.adapters.notnotifypush import INotNotifyPush
 from base5.core.utils import json_response
 from mrs5.max.utilities import IHubClient
@@ -659,7 +658,6 @@ class CommunityAdapterMixin(object):
         IFavorite(self.context).remove(user_id)
 
         INotNotifyPush(self.context).remove(user_id)
-        INotNotifyMail(self.context).remove(user_id)
 
         # Remove mail user to mails_users_community_lists in community
         if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
@@ -1270,16 +1268,13 @@ class UnSubscribe(grok.View):
                 INotNotifyPush(self.context).remove(current_user)
                 adapter.subscribe_user_push(current_user)
 
-            if current_user in INotNotifyMail(self.context).get():
-                INotNotifyMail(self.context).remove(current_user)
+            if self.context.mails_users_community_black_lists is None:
+                self.context.mails_users_community_black_lists = {}
+            elif not isinstance(self.context.mails_users_community_black_lists, dict):
+                self.context.mails_users_community_black_lists = ast.literal_eval(self.context.mails_users_community_black_lists)
 
-                if self.context.mails_users_community_black_lists is None:
-                    self.context.mails_users_community_black_lists = {}
-                elif not isinstance(self.context.mails_users_community_black_lists, dict):
-                    self.context.mails_users_community_black_lists = ast.literal_eval(self.context.mails_users_community_black_lists)
-
-                if current_user.id in self.context.mails_users_community_black_lists:
-                    self.context.mails_users_community_black_lists.pop(current_user.id)
+            if current_user.id in self.context.mails_users_community_black_lists:
+                self.context.mails_users_community_black_lists.pop(current_user.id)
 
             return dict(message='Successfully unsubscribed')
         else:
