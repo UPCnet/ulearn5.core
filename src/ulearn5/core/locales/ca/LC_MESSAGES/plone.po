@@ -463,3 +463,6 @@ msgstr "Afegir un esdeveniment"
 #: plone.app.users/plone/app/users/upgrades.py:77
 msgid "help_portrait_ulearn"
 msgstr "Per a afegir o modificar una fotografia d'usuari, seleccioneu-la utilitzant el botó. La mida recomanada és de 75 píxels d'amplada per 100 píxels d'alçària. Els formats acceptats són .PNG i .JPG."
+
+msgid "Etherpad collaborative space."
+msgstr "Afegir un document col·laboratiu Etherpad"

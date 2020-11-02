@@ -18,3 +18,6 @@ msgstr ""
 #: plone/app/event/dx/behaviors.py:222
 msgid "help_event_attendees"
 msgstr "List of attendees, in order to send the invitation to the attendees correctly, an email must be added per line."
+
+msgid "Etherpad collaborative space."
+msgstr "Add Etherpad collaborative space"

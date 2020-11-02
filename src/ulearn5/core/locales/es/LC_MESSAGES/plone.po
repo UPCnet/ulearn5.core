@@ -439,3 +439,6 @@ msgstr "Añadir una noticia"
 #: ../../../../ulearn5.core/ulearn/core/profiles/default/types/Event.xml:5
 msgid "Add a new event"
 msgstr "Añadir un evento"
+
+msgid "Etherpad collaborative space."
+msgstr "Añadir un documento colaborativo Etherpad"
