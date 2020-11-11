@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.91 (unreleased)
+0.91 (2020-11-11)
 -----------------
 
-- Nothing changed yet.
-
+* Traducciones etherpad [Iago López Fernández]
 
 0.90 (2020-10-13)
 -----------------
