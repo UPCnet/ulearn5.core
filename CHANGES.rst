@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.92 (unreleased)
+0.92 (2020-11-12)
 -----------------
 
-- Nothing changed yet.
-
+* Modificar saveeditacl para que se pueda hacer por puerto necesario url_site en ulearn settings [Pilar Marinas]
 
 0.91 (2020-11-11)
 -----------------
