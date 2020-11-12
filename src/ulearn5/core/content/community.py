@@ -530,11 +530,17 @@ class CommunityAdapterMixin(object):
     def update_hub_subscriptions(self):
         max_permission_mappings = {role: mappings['max'] for role, mappings in self.community_role_mappings.items()}
         portal = api.portal.get()
+        registry = queryUtility(IRegistry)
+        ulearn_settings = registry.forInterface(IUlearnControlPanelSettings)
+        if ulearn_settings.url_site != None:
+            url_site = ulearn_settings.url_site
+        else:
+            url_site = portal.absolute_url()
         subscribe_request = {}
-        subscribe_request['component'] = dict(type='communities', id=portal.absolute_url())
+        subscribe_request['component'] = dict(type='communities', id=url_site)
         subscribe_request['permission_mapping'] = max_permission_mappings
         subscribe_request['ignore_grants_and_vetos'] = True
-        subscribe_request['context'] = self.context.absolute_url()
+        subscribe_request['context'] = url_site + '/' + '/'.join(self.context.absolute_url().split('/')[-1:])
         subscribe_request['acl'] = self.get_acl()
 
         self.hubclient.api.domains[self.settings.domain].services['syncacl'].post(**subscribe_request)
