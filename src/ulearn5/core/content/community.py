@@ -743,6 +743,11 @@ class CommunityAdapterMixin(object):
 
         obj.mails_users_community_lists = mails_users
 
+        if obj.mails_users_community_black_lists is None:
+            obj.mails_users_community_black_lists = {}
+        elif not isinstance(obj.mails_users_community_black_lists, dict):
+            obj.mails_users_community_black_lists = ast.literal_eval(obj.mails_users_community_black_lists)
+
         for userid in obj.mails_users_community_black_lists.keys():
             user = api.user.get(userid)
             if user is not None:
