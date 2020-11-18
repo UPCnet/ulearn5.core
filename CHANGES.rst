@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.93 (unreleased)
+0.93 (2020-11-18)
 -----------------
 
-- Nothing changed yet.
-
+* Fix mails_users_community_black_lists [Iago López Fernández]
+* Merge remote-tracking branch 'origin/notificaciones' into develop [pilar.marinas]
 
 0.92 (2020-11-12)
 -----------------
