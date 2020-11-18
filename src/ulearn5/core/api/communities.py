@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
-from five import grok
-from hashlib import sha1
-
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+
+from five import grok
+from hashlib import sha1
 from plone import api
 from zope.component import queryUtility
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
+from plone.namedfile.file import NamedBlobImage
+from mimetypes import MimeTypes
 
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import BadParameters
@@ -15,14 +19,11 @@ from ulearn5.core.api import api_resource
 from ulearn5.core.api import logger
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.content.community import ICommunityACL
-
-from repoze.catalog.query import Eq
-from souper.soup import get_soup
-import requests
-from plone.namedfile.file import NamedBlobImage
-from mimetypes import MimeTypes
 from ulearn5.core.utils import is_activate_owncloud
 from ulearn5.owncloud.utils import update_owncloud_permission
+
+import ast
+import requests
 
 
 class CommunityMixin(object):
@@ -131,7 +132,7 @@ class Communities(REST):
         # Get all communities for the current user
         pc = api.portal.get_tool('portal_catalog')
         r_results_organizative = pc.searchResults(portal_type="ulearn.community", community_type=u"Organizative", sort_on="sortable_title")
-        r_results_closed= pc.searchResults(portal_type="ulearn.community", community_type=u"Closed", sort_on="sortable_title")
+        r_results_closed = pc.searchResults(portal_type="ulearn.community", community_type=u"Closed", sort_on="sortable_title")
         ur_results_open = pc.unrestrictedSearchResults(portal_type="ulearn.community", community_type=u"Open", sort_on="sortable_title")
         communities = r_results_organizative + r_results_closed + ur_results_open
 
@@ -143,11 +144,19 @@ class Communities(REST):
 
         result = []
         favorites = self.get_favorites()
+        notnotifypush = self.get_notnotifypush()
         for brain in communities:
             if brain.tab_view == 'Documents':
                 url = brain.getURL() + '/documents'
             else:
                 url = brain.getURL()
+            brainObj = self.context.unrestrictedTraverse(brain.getPath())
+
+            if brainObj.mails_users_community_black_lists is None:
+                brainObj.mails_users_community_black_lists = {}
+            elif not isinstance(brainObj.mails_users_community_black_lists, dict):
+                brainObj.mails_users_community_black_lists = ast.literal_eval(brainObj.mails_users_community_black_lists)
+
             community = dict(id=brain.id,
                              title=brain.Title,
                              description=brain.Description,
@@ -157,6 +166,10 @@ class Communities(REST):
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
                              favorited=brain.id in favorites,
+                             activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
+                             activate_notify_mail=brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
+                             not_notify_push=brain.id in notnotifypush,
+                             not_notify_mail=self.username in brainObj.mails_users_community_black_lists,
                              can_manage=self.is_community_manager(brain))
             result.append(community)
 
@@ -218,6 +231,12 @@ class Communities(REST):
 
         results = pc.unrestrictedSearchResults(favoritedBy=self.username)
         return [favorites.id for favorites in results]
+
+    def get_notnotifypush(self):
+        pc = api.portal.get_tool('portal_catalog')
+
+        results = pc.unrestrictedSearchResults(notNotifyPushBy=self.username)
+        return [notnotifypush.id for notnotifypush in results]
 
     def is_community_manager(self, community):
         # The user has role Manager
