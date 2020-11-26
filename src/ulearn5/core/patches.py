@@ -1097,6 +1097,7 @@ def aggregateIndex(self, view_name, req, req_names, local_keys):
 
 
 def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
+    context = self.context
     mt = api.portal.get_tool(name='portal_membership')
     tabs = []
     navigation_root_url = context.absolute_url()
