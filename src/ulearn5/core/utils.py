@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser import BrowserView
 
@@ -82,13 +81,16 @@ def is_activate_owncloud(self):
     """ Returns True id ulearn5.owncloud is installed """
     return isInstalledProduct(self, 'ulearn5.owncloud')
 
+
 def is_activate_externalstorage(self):
     """ Returns True id ulearn5.externalstorage is installed """
     return isInstalledProduct(self, 'ulearn5.externalstorage')
 
+
 def is_activate_etherpad(self):
     """ Returns True id ulearn5.etherpad is installed """
     return isInstalledProduct(self, 'ulearn5.etherpad')
+
 
 class ulearnUtils(BrowserView):
     """ Convenience methods placeholder ulearn.utils view. """
@@ -98,7 +100,7 @@ class ulearnUtils(BrowserView):
 
     def get_url_forget_password(self, context):
         """ return redirect url when forget user password """
-        portal = getToolByName(context, 'portal_url').getPortalObject()
+        portal = api.portal.get_tool(name='portal_url').getPortalObject()
         base_path = '/'.join(portal.getPhysicalPath())
         registry = queryUtility(IRegistry)
         settings = registry.forInterface(IUlearnControlPanelSettings)
@@ -135,11 +137,10 @@ class ulearnUtils(BrowserView):
             return False
 
     def is_activate_news(self):
-        if api.portal.get_registry_record('ulearn5.core.controlpanel.IUlearnControlPanelSettings.activate_news') == True:
+        if api.portal.get_registry_record('ulearn5.core.controlpanel.IUlearnControlPanelSettings.activate_news') is True:
             return True
         else:
             return False
-
 
     def formatted_date_user_timezone(self, occ):
         provider = getMultiAdapter(
@@ -150,19 +151,20 @@ class ulearnUtils(BrowserView):
 
     # def getCommunityTab(self):
     #     portal = self.portal()
-    #     url = portal.absolute_url()        
+    #     url = portal.absolute_url()
     #     path_url = portal.absolute_url_path()
     #     path = path_url + self.context.replace(url, '')
     #     community = api.content.find(path=path, depth=0)[0].getObject()
     #     import ipdb; ipdb.set_trace()
     #     if community.tab_view == 'Documents':
     #         # string:${object_url/@@ulearn.utils/getCommunityTab}
-    #         #self.request.response.redirect(self.context + '/documents')      
-    #         return self.context + '/documents'      
+    #         #self.request.response.redirect(self.context + '/documents')
+    #         return self.context + '/documents'
     #     return self.context
 
+
 def isInstalledProduct(self, package):
-    qi = getToolByName(self, 'portal_quickinstaller')
+    qi = api.portal.get_tool(name='portal_quickinstaller')
     prods = qi.listInstalledProducts()
     for prod in prods:
         if prod['id'] == package:

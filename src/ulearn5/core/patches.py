@@ -17,7 +17,6 @@ from Acquisition import aq_inner
 from zExceptions import Forbidden
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.permissions import View
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from Products.CMFPlone.interfaces import ILanguageSchema
 from mrs5.max.utilities import IMAXClient
@@ -88,12 +87,11 @@ def enumerateUsers(self, id=None, login=None, exact_match=False, **kw):
             return None
 
 
-
 def deleteMembers(self, member_ids):
     # this method exists to bypass the 'Manage Users' permission check
     # in the CMF member tool's version
     context = aq_inner(self.context)
-    mtool = getToolByName(self.context, 'portal_membership')
+    mtool = api.portal.get_tool(name='portal_membership')
 
     # Delete members in acl_users.
     acl_users = context.acl_users
@@ -155,7 +153,7 @@ def deleteMembers(self, member_ids):
                     continue
 
     # Delete member data in portal_memberdata.
-    mdtool = getToolByName(context, 'portal_memberdata', None)
+    mdtool = api.portal.get_tool(name='portal_memberdata')
     if mdtool is not None:
         for member_id in member_ids:
             mdtool.deleteMemberData(member_id)
@@ -507,7 +505,6 @@ from mrs5.max.utilities import IMAXClient
 from base5.core.utils import convertSquareImage
 import urllib
 from OFS.Image import Image
-from Products.CMFCore.utils import getToolByName
 from plone.memoize import ram
 from time import time
 
@@ -536,12 +533,12 @@ def getPersonalPortrait(self, id=None, verifyPermission=0):
         scaled, mimetype = convertSquareImage(portrait[0])
         portrait = Image(id=id, file=scaled, title=id)
 
-        membertool = getToolByName(self, 'portal_memberdata')
+        membertool = api.portal.get_tool(name='portal_memberdata')
         membertool._setPortrait(portrait, id)
         import transaction
         transaction.commit()
 
-    membertool = getToolByName(self, 'portal_memberdata')
+    membertool = api.portal.get_tool(name='portal_memberdata')
     portrait = membertool._getPortrait(id)
     if isinstance(portrait, str):
         portrait = None
@@ -552,7 +549,7 @@ def getPersonalPortrait(self, id=None, verifyPermission=0):
             # Don't return the portrait if the user can't get to it
             portrait = None
     if portrait is None:
-        portal = getToolByName(self, 'portal_url').getPortalObject()
+        portal = api.portal.get_tool(name='portal_url').getPortalObject()
         portrait = getattr(portal, default_portrait, None)
 
     return portrait
@@ -570,7 +567,7 @@ def from_latin1(s):
     try:
        return s.decode('utf-8')
     except UnicodeDecodeError:
-       return s.decode('latin-1').encode("utf-8")  
+       return s.decode('latin-1').encode("utf-8")
 
 from ldap.filter import escape_filter_chars
 
@@ -990,13 +987,14 @@ def getRolesForPrincipal(self, principal, request=None):
             roles.update(self._principal_roles.get(pid.encode('utf-8'), ()))
         return tuple(roles)
 
-from Products.CMFCore.utils import getToolByName
+
 from Products.CMFPlone.utils import normalizeString
+
 
 def update(self):
         self.groupname = getattr(self.request, 'groupname')
-        self.gtool = getToolByName(self, 'portal_groups')
-        self.mtool = getToolByName(self, 'portal_membership')
+        self.gtool = api.portal.get_tool(name='portal_groups')
+        self.mtool = api.portal.get_tool(name='portal_membership')
         self.group = self.gtool.getGroupById(self.groupname.decode('utf-8'))
         self.grouptitle = self.group.getGroupTitleOrName() or self.groupname
 
@@ -1099,46 +1097,45 @@ def aggregateIndex(self, view_name, req, req_names, local_keys):
 
 
 def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
-        context = self.context
-        mt = getToolByName(context, 'portal_membership')
-        tabs = []
-        navigation_root_url = context.absolute_url()
+    mt = api.portal.get_tool(name='portal_membership')
+    tabs = []
+    navigation_root_url = context.absolute_url()
 
-        def _check_allowed(context, request, name):
-            """Check, if user has required permissions on view.
-            """
-            view = getMultiAdapter((context, request), name=name)
-            allowed = True
-            for perm in view.__ac_permissions__:
-                allowed = allowed and mt.checkPermission(perm[0], context)
-            return allowed
+    def _check_allowed(context, request, name):
+        """Check, if user has required permissions on view.
+        """
+        view = getMultiAdapter((context, request), name=name)
+        allowed = True
+        for perm in view.__ac_permissions__:
+            allowed = allowed and mt.checkPermission(perm[0], context)
+        return allowed
 
-        if _check_allowed(context, self.request, 'personal-information'):
-            tabs.append({
-                'title': _('title_personal_information_form',
-                           u'Personal Information'),
-                'url': navigation_root_url + '/@@personal-information',
-                'selected': (self.__name__ == 'personal-information'),
-                'id': 'user_data-personal-information',
-            })
+    if _check_allowed(context, self.request, 'personal-information'):
+        tabs.append({
+            'title': _('title_personal_information_form',
+                       u'Personal Information'),
+            'url': navigation_root_url + '/@@personal-information',
+            'selected': (self.__name__ == 'personal-information'),
+            'id': 'user_data-personal-information',
+        })
 
-        if _check_allowed(context, self.request, 'ulearn-personal-preferences'):
-            tabs.append({
-                'title': _(u'Personal Preferences'),
-                'url': navigation_root_url + '/@@ulearn-personal-preferences',
-                'selected': (self.__name__ == 'ulearn-personal-preferences'),
-                'id': 'user_data-ulearn-personal-preferences',
-            })
+    if _check_allowed(context, self.request, 'ulearn-personal-preferences'):
+        tabs.append({
+            'title': _(u'Personal Preferences'),
+            'url': navigation_root_url + '/@@ulearn-personal-preferences',
+            'selected': (self.__name__ == 'ulearn-personal-preferences'),
+            'id': 'user_data-ulearn-personal-preferences',
+        })
 
-        member = mt.getAuthenticatedMember()
-        if member.canPasswordSet():
-            tabs.append({
-                'title': _('label_password', u'Password'),
-                'url': navigation_root_url + '/@@change-password',
-                'selected': (self.__name__ == 'change-password'),
-                'id': 'user_data-change-password',
-            })
-        return tabs
+    member = mt.getAuthenticatedMember()
+    if member.canPasswordSet():
+        tabs.append({
+            'title': _('label_password', u'Password'),
+            'url': navigation_root_url + '/@@change-password',
+            'selected': (self.__name__ == 'change-password'),
+            'id': 'user_data-change-password',
+        })
+    return tabs
 
 
 def get_date_options(request):
@@ -1309,15 +1306,15 @@ from plone.app.content.browser.contents.workflow import WorkflowActionView
 
 
 def workflowActionViewCall(self):
-    self.pworkflow = getToolByName(self.context, 'portal_workflow')
-    self.putils = getToolByName(self.context, 'plone_utils')
+    self.pworkflow = api.portal.get_tool(name='portal_workflow')
+    self.putils = api.portal.get_tool(name='plone_utils')
     self.transition_id = self.request.form.get('transition', None)
     self.comments = self.request.form.get('comments', '')
     self.recurse = self.request.form.get('recurse', 'no') == 'yes'
     if self.request.form.get('render') == 'yes':
         # asking for render information
         selection = self.get_selection()
-        catalog = getToolByName(self.context, 'portal_catalog')
+        catalog = api.portal.get_tool(name='portal_catalog')
         brains = catalog(UID=selection, show_inactive=True)
         transitions = []
 

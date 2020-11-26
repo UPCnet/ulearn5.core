@@ -11,7 +11,6 @@ from zope.component import getAdapter
 from plone.app.testing import login
 from plone.app.testing import logout
 
-from Products.CMFCore.utils import getToolByName
 
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
@@ -40,7 +39,7 @@ class TestExample(uLearnTestBase):
         self.app = self.layer['app']
         self.portal = self.layer['portal']
         self.request = self.layer['request']
-        self.qi_tool = getToolByName(self.portal, 'portal_quickinstaller')
+        self.qi_tool = api.portal.get_tool(name='portal_quickinstaller')
 
         self.maxclient, self.settings = getUtility(IMAXClient)()
         self.username = self.settings.max_restricted_username

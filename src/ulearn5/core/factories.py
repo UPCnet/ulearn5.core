@@ -1,12 +1,12 @@
 import transaction
 from thread import allocate_lock
 
+from plone import api
 from zope.component import getMultiAdapter
 from zope.component import adapts
 from zope.container.interfaces import INameChooser
 from zope.interface import implements
 
-from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.interfaces._content import IFolderish
 
 try:
@@ -33,7 +33,7 @@ class DXFileFactory(object):
         # contextual import to prevent ImportError
         from plone.dexterity.utils import createContentInContainer
 
-        ctr = getToolByName(self.context, 'content_type_registry')
+        ctr = api.portal.get_tool(name='content_type_registry')
         type_ = ctr.findTypeName(name.lower(), '', '') or 'File'
 
         name = name.decode('utf8')

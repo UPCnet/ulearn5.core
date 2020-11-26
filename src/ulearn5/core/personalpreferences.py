@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _PMF
 
+from plone import api
 from plone.app.users.browser.account import AccountPanelForm
 from plone.app.users.browser.account import AccountPanelSchemaAdapter
 from zope import schema
@@ -15,6 +15,7 @@ format_timepicker = SimpleVocabulary([
     SimpleTerm(value=u'hh:i A', title=_(u'hh:i A')),
     SimpleTerm(value=u'HH:i', title=_(u'HH:i')),
 ])
+
 
 class IUlearnPersonalPreferences(Interface):
     language = schema.Choice(
@@ -70,7 +71,7 @@ class UlearnPersonalPreferencesPanel(AccountPanelForm):
     @property
     def description(self):
         userid = self.request.form.get('userid')
-        mt = getToolByName(self.context, 'portal_membership')
+        mt = api.portal.get_tool(name='portal_membership')
         if userid and (userid != mt.getAuthenticatedMember().getId()):
             # editing someone else's profile
             return _PMF(

@@ -6,7 +6,6 @@ from zope.component import getUtility
 from zope.component.hooks import getSite
 from zope.container.interfaces import IObjectAddedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 from Products.DCWorkflow.interfaces import IBeforeTransitionEvent, IAfterTransitionEvent
@@ -83,7 +82,7 @@ varnish_to_ban = os.environ.get('varnish_to_ban', '')
 def objectAdded(content, event):
     """ DextirityContent modified """
     portal = getSite()
-    pm = getToolByName(portal, 'portal_membership')
+    pm = api.portal.get_tool(name='portal_membership')
     if pm.isAnonymousUser():  # the user has not logged in
         username = ''
         return
@@ -113,7 +112,7 @@ def objectAdded(content, event):
 def objectModified(content, event):
     """ DextirityContent modified """
     portal = getSite()
-    pm = getToolByName(portal, 'portal_membership')
+    pm = api.portal.get_tool(name='portal_membership')
     if pm.isAnonymousUser():  # the user has not logged in
         username = ''
         return
@@ -147,9 +146,8 @@ def objectModified(content, event):
 def communityAdded(content, event):
     """ Community added handler
     """
-    portal = getSite()
-    pm = getToolByName(portal, 'portal_membership')
-    pl = getToolByName(portal, 'portal_languages')
+    pm = api.portal.get_tool(name='portal_membership')
+    pl = api.portal.get_tool(name='portal_languages')
     default_lang = pl.getDefaultLanguage()
 
     if pm.isAnonymousUser():  # the user has not logged in
@@ -181,9 +179,8 @@ def communityAdded(content, event):
 def Added(content, event):
     """ MAX hooks main handler
     """
-    portal = getSite()
-    pm = getToolByName(portal, 'portal_membership')
-    pl = getToolByName(portal, 'portal_languages')
+    pm = api.portal.get_tool(name='portal_membership')
+    pl = api.portal.get_tool(name='portal_languages')
     default_lang = pl.getDefaultLanguage()
 
     community = findContainerCommunity(content)
@@ -247,9 +244,8 @@ def Modified(content, event):
     if is_sharing_event:
         return
 
-    portal = getSite()
-    pm = getToolByName(portal, 'portal_membership')
-    pl = getToolByName(portal, 'portal_languages')
+    pm = api.portal.get_tool(name='portal_membership')
+    pl = api.portal.get_tool(name='portal_languages')
     default_lang = pl.getDefaultLanguage()
 
     community = findContainerCommunity(content)
@@ -304,9 +300,7 @@ def findContainerCommunity(content):
 
 @ram.cache(lambda *args: time() // (60 * 60))
 def packages_installed():
-    portal = getSite()
-
-    qi_tool = getToolByName(portal, 'portal_quickinstaller')
+    qi_tool = api.portal.get_tool(name='portal_quickinstaller')
     installed = [p['id'] for p in qi_tool.listInstalledProducts()]
     return installed
 
@@ -595,8 +589,7 @@ def AddedSendMessage(content, event):
                 Cordially,<br>
                 """
 
-        portal = getSite()
-        mailhost = getToolByName(portal, 'MailHost')
+        mailhost = api.portal.get_tool(name='MailHost')
 
         if isinstance(message_template, unicode):
             message_template = message_template.encode('utf-8')

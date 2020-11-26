@@ -23,7 +23,6 @@ from plone.dexterity.utils import createContentInContainer
 from plone.subrequest import subrequest
 from plone.uuid.interfaces import IUUIDGenerator
 
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from ulearn5.core.interfaces import IDocumentFolder, ILinksFolder, IPhotosFolder, IEventsFolder, INewsItemFolder
@@ -64,7 +63,7 @@ class portletfix(grok.View):
 
     def render(self):
         portal = getSite()
-        pc = getToolByName(portal, 'portal_catalog')
+        pc = api.portal.get_tool(name='portal_catalog')
         communities = pc.searchResults(portal_type='ulearn.community')
 
         for community in communities:
@@ -86,7 +85,7 @@ class linkFolderFix(grok.View):
 
     def render(self):
         portal = getSite()
-        pc = getToolByName(portal, 'portal_catalog')
+        pc = api.portal.get_tool(name='portal_catalog')
         folder_ifaces = {IDocumentFolder.__identifier__: 'documents',
                          ILinksFolder.__identifier__: 'links',
                          IPhotosFolder.__identifier__: 'media',
@@ -126,7 +125,7 @@ class createMAXUserForAllExistingUsers(grok.View):
     grok.require('zope2.ViewManagementScreens')
 
     def render(self):
-        mtool = getToolByName(self, 'portal_membership')
+        mtool = api.portal.get_tool(name='portal_membership')
 
         searchView = getMultiAdapter((aq_inner(self.context), self.request), name='pas_search')
 
@@ -259,7 +258,7 @@ class ReinstalluLearn(grok.View):
     def render(self):
         context = aq_inner(self.context)
         output = []
-        qi = getToolByName(context, 'portal_quickinstaller')
+        qi = api.portal.get_tool(name='portal_quickinstaller')
 
         if qi.isProductInstalled('ulearn5.core'):
             qi.reinstallProducts(['ulearn5.core'])
@@ -465,7 +464,7 @@ class BulkRestrictTransformuLearn(grok.View):
     grok.require('cmf.ManagePortal')
 
     def setup_safe_html_transform(self, portal):
-        transforms = getToolByName(portal, 'portal_transforms')
+        transforms = api.portal.get_tool(name='portal_transforms')
         transform = getattr(transforms, 'safe_html')
 
         valid = transform.get_parameter_value('valid_tags')

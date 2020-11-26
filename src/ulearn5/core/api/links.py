@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from five import grok
@@ -49,7 +48,7 @@ class Link(REST):
         if 'ulearn5.nomines' in installed:
             dni = api.user.get_current().getProperty('dni')
             if dni or dni != "":
-                JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
+                JSONproperties = api.portal.get_tool(name='portal_properties').nomines_properties
 
                 titleNomines = JSONproperties.getProperty('app_link_en')
                 if language == 'ca':
@@ -72,7 +71,7 @@ class Link(REST):
             dni = api.user.get_current().getProperty('dni')
             if dni or dni != "":
                 dni_hashed = get_str_hash(dni.upper())
-                JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
+                JSONproperties = api.portal.get_tool(name='portal_properties').nomines_properties
 
                 titleNomines = JSONproperties.getProperty('app_link_en')
                 if language == 'ca':
@@ -126,7 +125,7 @@ class Link(REST):
         # if 'ulearn5.nomines' in installed:
         #     dni = api.user.get_current().getProperty('dni')
         #     if dni or dni != "":
-        #         JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
+        #         JSONproperties = api.portal.get_tool(name='portal_properties').nomines_properties
 
         #         titleNomines = JSONproperties.getProperty('app_link_en')
         #         if language == 'ca':

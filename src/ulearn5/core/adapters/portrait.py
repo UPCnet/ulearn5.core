@@ -1,7 +1,6 @@
 from cStringIO import StringIO
 from OFS.Image import Image
 from PIL import ImageOps
-from Products.CMFCore.utils import getToolByName
 from Products.PlonePAS.interfaces.membership import IMembershipTool
 
 from mrs5.max.utilities import IMAXClient
@@ -39,7 +38,7 @@ class PortraitUploadAdapter(object):
             scaled, mimetype = convertSquareImage(portrait)
             if scaled:
                 portrait = Image(id=safe_id, file=scaled, title='')
-                membertool = getToolByName(self.context, 'portal_memberdata')
+                membertool = api.portal.get_tool(name='portal_memberdata')
                 membertool._setPortrait(portrait, safe_id)
 
                 # Comprobamos si es la imagen por defecto o no y actualizamos el soup

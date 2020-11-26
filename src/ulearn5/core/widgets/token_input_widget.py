@@ -1,11 +1,10 @@
-from zope.component.hooks import getSite
+from plone import api
 from z3c.form import interfaces
 from z3c.form import widget
 from z3c.form.browser import textarea
 
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 
-from Products.CMFCore.utils import getToolByName
 
 from ulearn5.core.widgets.interfaces import ITokenInputWidget
 
@@ -81,8 +80,7 @@ class UsersTokenInputWidget(KeywordsTokenInputWidget):
     """ Site's user list selection tokenized widget """
 
     def js(self):
-        portal = getSite()
-        mutable_properties = getToolByName(portal, 'acl_users').mutable_properties
+        mutable_properties = api.portal.get_tool(name='acl_users').mutable_properties
         values = [userinfo.get('login') for userinfo in mutable_properties.enumerateUsers()]
         if getattr(self.context, 'subscribed', False):
             old_values = self.context.subscribed

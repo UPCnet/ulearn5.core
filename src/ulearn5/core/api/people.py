@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
 from Products.CMFCore.interfaces import ISiteRoot
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from StringIO import StringIO
 
@@ -309,7 +308,7 @@ class Person(REST):
             # Save the image into the Plone user profile if provided
             if avatar:
                 portal = api.portal.get()
-                membership_tool = getToolByName(portal, 'portal_membership')
+                membership_tool = api.portal.get_tool(name='portal_membership')
                 imgName = (avatar.split('/')[-1]).decode('utf-8')
                 imgData = requests.get(avatar).content
                 image = StringIO(imgData)
@@ -335,7 +334,7 @@ class Person(REST):
 
             if avatar:
                 portal = api.portal.get()
-                membership_tool = getToolByName(portal, 'portal_membership')
+                membership_tool = api.portal.get_tool(name='portal_membership')
                 imgName = (avatar.split('/')[-1]).decode('utf-8')
                 imgData = requests.get(avatar).content
                 image = StringIO(imgData)

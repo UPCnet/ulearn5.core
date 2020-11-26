@@ -4,7 +4,6 @@ from plone import api
 from zope.interface import Interface
 from Acquisition import aq_inner
 
-from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 
 from datetime import datetime
@@ -79,7 +78,7 @@ def getDestinationFolder(stats_folder):
     portal = portal.get(stats_folder)
     today = datetime.now()
     context = aq_inner(portal)
-    tool = getToolByName(context, 'translation_service')
+    tool = api.portal.get_tool(name='translation_service')
     month = tool.translate(today.strftime("%B"), 'ulearn', context=context).encode()
     month = month.lower()
     year = today.strftime("%G")

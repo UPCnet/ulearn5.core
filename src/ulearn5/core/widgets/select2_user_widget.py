@@ -1,14 +1,13 @@
+from plone import api
 from five import grok
 from zope.interface import Interface
 from zope.component import adapts
-from zope.component.hooks import getSite
 from z3c.form import interfaces
 from z3c.form import widget
 from z3c.form.browser import textarea
 from z3c.form.converter import BaseDataConverter
 from zope.schema.interfaces import IList
 
-from Products.CMFCore.utils import getToolByName
 
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 
@@ -122,8 +121,7 @@ class fromUsername2DisplayName(grok.View):
         query = self.request.form.get('q', '')
 
         if query:
-            portal = getSite()
-            pm = getToolByName(portal, 'portal_membership')
+            pm = api.portal.get_tool(name='portal_membership')
 
             usernames = [username for username in query.split(',')]
             to_fullnames = []

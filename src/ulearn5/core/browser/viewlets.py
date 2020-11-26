@@ -1,6 +1,5 @@
 from Acquisition import aq_chain
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 
 from five import grok
 from hashlib import sha1
@@ -67,7 +66,7 @@ class ULearnNGDirectives(grok.Viewlet):
             lang = 'ca'
 
         pc = api.portal.get_tool('portal_catalog')
-        tool = getToolByName(self, 'translation_service')
+        tool = api.portal.get_tool(name='translation_service')
         all_communities = [{'hash': 'all', 'title': tool.translate(_(u'Todas las comunidades'), 'ulearn5.core', target_language=lang)}]
         all_communities += [{'hash': community.community_hash, 'title': community.Title} for community in pc.searchResults(portal_type='ulearn.community')]
         return json.dumps(all_communities)
@@ -79,7 +78,7 @@ class ULearnNGDirectives(grok.Viewlet):
         if lang not in ['ca', 'en', 'es']:
             lang = 'ca'
 
-        tool = getToolByName(self, 'translation_service')
+        tool = api.portal.get_tool(name='translation_service')
         info = [{'hash': 'site', 'title': tool.translate(_(u'Todo el contenido'), 'ulearn5.core', target_language=lang)}]
         info += [{'hash': 'news', 'title': tool.translate(_(u'Noticias'), 'ulearn5.core', target_language=lang)}]
         communities = json.loads(self.get_communities())
@@ -121,7 +120,7 @@ class viewletBase(grok.Viewlet):
     def pref_lang(self):
         """ Extracts the current language for the current user
         """
-        lt = getToolByName(self.portal(), 'portal_languages')
+        lt = api.portal.get_tool(name='portal_languages')
         return lt.getPreferredLanguage()
 
 

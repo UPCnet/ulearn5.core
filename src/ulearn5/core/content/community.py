@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 from DateTime.DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.utils import safe_unicode
@@ -906,7 +905,7 @@ class View(grok.View):
         return getSite()
 
     def is_user_subscribed(self):
-        pm = getToolByName(self.context, 'portal_membership')
+        pm = api.portal.get_tool(name='portal_membership')
         current_user = pm.getAuthenticatedMember().getUserName()
         return current_user in self.context.readers or \
             current_user in self.context.subscribed or \
@@ -924,7 +923,7 @@ class View(grok.View):
             converted to an open one, the users with reader role stays with that
             role, but are allowed to 'upgrade' it to writer.
         """
-        pm = getToolByName(self.context, 'portal_membership')
+        pm = api.portal.get_tool(name='portal_membership')
         current_user = pm.getAuthenticatedMember().getUserName()
         if self.context.community_type == 'Open' and \
            current_user in self.context.readers and \
@@ -1142,7 +1141,7 @@ class UploadFile(grok.View):
         filename = input_file.filename
         activity_text = self.request.get('activity', '')
 
-        ctr = getToolByName(self.context, 'content_type_registry')
+        ctr = api.portal.get_tool(name='content_type_registry')
         type_ = ctr.findTypeName(filename.lower(), '', '') or 'File'
         if type_ == 'File':
             container = self.get_documents_folder()
@@ -1492,7 +1491,7 @@ class communityEdit(form.SchemaForm):
         distribution_lists = data['distribution_lists']
 
         portal = getSite()
-        pc = getToolByName(portal, 'portal_catalog')
+        pc = api.portal.get_tool(name='portal_catalog')
         result = pc.unrestrictedSearchResults(portal_type='ulearn.community', Title=nom)
 
         if result and self.context.title != nom:

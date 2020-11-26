@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import ILanguageSchema
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces import ISearchSchema
@@ -118,7 +117,7 @@ class setupHomePage(grok.View):
         frontpage.description = u''
         from plone.app.textfield.value import RichTextValue
         frontpage.text = RichTextValue(u'', 'text/plain', 'text/html')
-        wftool = getToolByName(frontpage, 'portal_workflow')
+        wftool = api.portal.get_tool(name='portal_workflow')
         wftool.doActionFor(frontpage, 'reject')
         wftool.doActionFor(frontpage, 'publishtointranet')
         frontpage._Delete_objects_Permission = ('Site Administrator','Manager',)
@@ -287,7 +286,7 @@ class createMenuFolders(grok.View):
         enlaces_cabecera._Delete_objects_Permission = ('Site Administrator', 'Manager',)
         enlaces_cabecera.reindexObject()
 
-        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
+        for language in api.portal.get_tool(name='portal_languages').getSupportedLanguages():
             language_folder = newPrivateFolder(enlaces_cabecera, language, language)
             language_folder.exclude_from_nav = False
             language_folder._Delete_objects_Permission = ('Site Administrator', 'Manager',)
@@ -334,7 +333,7 @@ class createCustomizedHeaderFolder(grok.View):
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
         header._Delete_objects_Permission = ('Site Administrator','Manager',)
 
-        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
+        for language in api.portal.get_tool(name='portal_languages').getSupportedLanguages():
             language_folder = newPrivateFolder(header, language, language)
             language_folder.exclude_from_nav = False
             language_folder.setLayout('folder_listing')
@@ -384,7 +383,7 @@ class createCustomizedFooterFolder(grok.View):
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
         footer._Delete_objects_Permission = ('Site Administrator','Manager',)
 
-        for language in getToolByName(portal, 'portal_languages').getSupportedLanguages():
+        for language in api.portal.get_tool(name='portal_languages').getSupportedLanguages():
             language_folder = newPrivateFolder(footer, language, language)
             language_folder.exclude_from_nav = False
             language_folder.setLayout('folder_listing')
@@ -697,7 +696,7 @@ def getDestinationFolder(stats_folder,create_month=True):
     portal = portal.get(stats_folder)
     today = datetime.now()
     context = aq_inner(portal)
-#    tool = getToolByName(context, 'translation_service')
+#    tool = api.portal.get_tool(name='translation_service')
 #    month = tool.translate(today.strftime("%B"), 'ulearn', context=context).encode()
     month = 'march'
     month = month.lower()
@@ -946,7 +945,7 @@ class viewUsersWithNotUpdatedPhoto(grok.View):
         for record in records:
             userID = record[1].attrs['id']
             if userID != 'admin':
-                mtool = getToolByName(self.context, 'portal_membership')
+                mtool = api.portal.get_tool(name='portal_membership')
                 portrait = mtool.getPersonalPortrait(userID)
                 typePortrait = portrait.__class__.__name__
                 if typePortrait == 'FSImage' or (typePortrait == 'Image' and portrait.size == 9715 or portrait.size == 4831):
@@ -1139,7 +1138,7 @@ class changePermissionsToContent(grok.View):
 
     def render(self):
         portal = getSite()
-        langs = getToolByName(portal, 'portal_languages').getSupportedLanguages()
+        langs = api.portal.get_tool(name='portal_languages').getSupportedLanguages()
         delete_permission = ('Site Administrator', 'Manager',)
         edit_permission = ('Site Administrator', 'Manager', 'WebMaster', 'Owner')
 
@@ -1232,8 +1231,7 @@ class addAllCommunitiesAsFavoriteFromAllUsers(grok.View):
         except:
             pass
 
-        portal = getSite()
-        pc = getToolByName(portal, "portal_catalog")
+        pc = api.portal.get_tool(name="portal_catalog")
         communities = pc.unrestrictedSearchResults(object_provides=ICommunity.__identifier__)
 
         for community in communities:
@@ -1257,8 +1255,7 @@ class addCommunityAsFavoriteFromAllUsers(grok.View):
             pass
 
         if 'community' in self.request.form:
-            portal = getSite()
-            pc = getToolByName(portal, "portal_catalog")
+            pc = api.portal.get_tool(name="portal_catalog")
             communities = pc.unrestrictedSearchResults(object_provides=ICommunity.__identifier__,
                                                        id=self.request.form['community'])
             if communities:
@@ -1392,8 +1389,7 @@ class deleteNominasMes(grok.View):
             pass
         if self.request.environ['REQUEST_METHOD'] == 'POST':
             pc = api.portal.get_tool('portal_catalog')
-            portal = api.portal.get()
-            JSONproperties = getToolByName(self, 'portal_properties').nomines_properties
+            JSONproperties = api.portal.get_tool(name='portal_properties').nomines_properties
             nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
             path = '/'.join(api.portal.get().getPhysicalPath()) + '/' + nominas_folder_name
             nominas = pc.unrestrictedSearchResults(portal_type='File', path=path)

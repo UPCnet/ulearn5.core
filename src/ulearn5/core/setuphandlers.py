@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
 from Products.CMFPlone.interfaces import ITinyMCESchema
 from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
@@ -76,10 +75,10 @@ def add_catalog_indexes(context, logger=None):
     # code makes this method usable as upgrade step as well.  Note that
     # this silently does nothing when there is no catalog.xml, so it
     # is quite safe.
-    setup = getToolByName(context, 'portal_setup')
+    setup = api.portal.get_tool(name='portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'catalog')
 
-    catalog = getToolByName(context, 'portal_catalog')
+    catalog = api.portal.get_tool(name='portal_catalog')
     indexes = catalog.indexes()
 
     indexables = []
@@ -189,7 +188,7 @@ def setupVarious(context):
     portal['front-page'].reindexObject()
 
     # Set mailhost
-    mh = getToolByName(portal, 'MailHost')
+    mh = api.portal.get_tool(name='MailHost')
     mh.smtp_host = 'localhost'
     portal.email_from_name = 'uLearn Administrator'
     portal.email_from_address = 'no-reply@upcnet.es'
@@ -202,7 +201,7 @@ def setupVarious(context):
     registry = queryUtility(IRegistry)
     settings = registry.forInterface(IUlearnControlPanelSettings, check=False)
 
-    pl = getToolByName(portal, 'portal_languages')
+    pl = api.portal.get_tool(name='portal_languages')
     language = settings.language
     if isinstance(language, str):
         language = language.decode('UTF-8')

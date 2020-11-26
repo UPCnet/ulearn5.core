@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from plone.app.event.base import localized_now
-from Products.CMFCore.utils import getToolByName
 from ulearn5.theme.portlets import calendar as portlet_calendar
 from ulearn5.core.testing import ULEARN5_CORE_INTEGRATION_TESTING
+
+from plone import api
 from plone.app.testing import login
 from plone.app.testing import logout
 from plone.app.testing import TEST_USER_ID
@@ -17,7 +18,6 @@ from ulearn5.core.tests import uLearnTestBase
 from mrs5.max.utilities import IMAXClient
 
 from datetime import timedelta
-from plone.app.event.dx.behaviors import EventAccessor
 from plone.dexterity.utils import createContentInContainer
 
 TZNAME = 'Europe/Vienna'
@@ -30,7 +30,7 @@ class RendererTest(uLearnTestBase):
         portal = self.layer['portal']
         self.portal = portal
         self.request = self.layer['request']
-        self.wft = getToolByName(self.portal, 'portal_workflow')
+        self.wft = api.portal.get_tool(name='portal_workflow')
         setRoles(portal, TEST_USER_ID, ['Manager'])
         setHooks()
         setSite(portal)

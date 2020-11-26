@@ -5,7 +5,6 @@ from zope.interface import Interface
 from Acquisition import aq_chain
 from collections import Counter
 
-from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
@@ -64,7 +63,7 @@ class StatsView(grok.View):
 
     def __init__(self, context, request):
         super(StatsView, self).__init__(context, request)
-        self.catalog = getToolByName(self.portal(), 'portal_catalog')
+        self.catalog = api.portal.get_tool(name='portal_catalog')
 
     @memoize_contextless
     def portal(self):
@@ -110,7 +109,7 @@ class StatsQueryBase(grok.View):
 
     def update(self):
         super(StatsQueryBase, self).update()
-        catalog = getToolByName(self.portal(), 'portal_catalog')
+        catalog = api.portal.get_tool(name='portal_catalog')
         self.plone_stats = PloneStats(catalog)
         self.max_stats = MaxStats(self.get_max_client())
         self.analytic_data = AnalyticsData(catalog)
@@ -145,7 +144,7 @@ class StatsQueryBase(grok.View):
     def get_month_by_num(self, num):
         """
         """
-        ts = getToolByName(self.context, 'translation_service')
+        ts = api.portal.get_tool(name='translation_service')
         vocab = getUtility(IVocabularyFactory, name='plone.app.vocabularies.Month')
         month_name = {a.value + 1: a.title for a in vocab(self.context)}[num]
         return ts.translate(month_name, context=self.request)

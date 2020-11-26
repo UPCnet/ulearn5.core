@@ -5,7 +5,6 @@ from zope.component import queryUtility
 from zope.component.hooks import getSite
 from zope.interface import Interface
 
-from Products.CMFCore.utils import getToolByName
 from plone import api
 from plone.dexterity.interfaces import IDexterityContent
 from plone.indexer import indexer
@@ -252,7 +251,7 @@ class ElasticSharing(object):
             Returns a list of all items shared on a specific community
         """
         base_path = '/'.join(object.getPhysicalPath())
-        portal_catalog = getToolByName(getSite(), 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
         shared_items = portal_catalog.searchResults(is_shared=True)
 
         return [item for item in shared_items if item.getPath().startswith(base_path)]
@@ -265,7 +264,7 @@ class ElasticSharing(object):
         user_groups = []
         principals = user_groups + [username]
         # portal = api.portal.get()
-        portal_catalog = getToolByName(getSite(), 'portal_catalog')
+        portal_catalog = api.portal.get_tool(name='portal_catalog')
 
         communities_by_path = {a.getPath(): a for a in portal_catalog.unrestrictedSearchResults(portal_type='ulearn.community')}
 
