@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.95 (unreleased)
+0.95 (2021-01-08)
 -----------------
 
-- Nothing changed yet.
-
+* Quitar notificacion fichero para Provital [Pilar Marinas]
 
 0.94 (2020-11-26)
 -----------------
