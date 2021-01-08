@@ -311,6 +311,10 @@ def addActivityPost(content):
         if content.portal_type == 'Event':
             return False
 
+    if 'ulearn5.provital' in installed:
+        if content.portal_type == 'File':
+            return False
+
     for parent in aq_chain(content):
         if parent.portal_type == 'privateFolder':
             return False
