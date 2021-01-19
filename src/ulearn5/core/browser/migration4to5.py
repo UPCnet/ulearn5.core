@@ -14,6 +14,8 @@ from base5.core.utils import add_user_to_catalog
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.utils import is_activate_owncloud
 from ulearn5.owncloud.utils import update_owncloud_permission
+from ulearn5.generali.utilities import ScoresUtility
+from persistent.dict import PersistentDict
 
 import base64
 import json
@@ -24,6 +26,7 @@ import shutil
 import subprocess
 import time
 import transaction
+import ast
 
 
 ATTRIBUTE_NAME_FAVORITE = '_favoritedBy'
@@ -616,3 +619,75 @@ Seguidament podem veure la llista de continguts en:
                     if hasattr(itemObj, '__ac_local_roles_block__') and itemObj.__ac_local_roles_block__:
                         result += item.getPath() + "\n"
         return result
+
+def set_score(self, username, content, score, date):
+    # If username is admin, do nothing
+    if username == 'admin':
+        return False
+
+    scores = api.portal.get_tool(name="generali_scores")
+
+    # Create the user record if not present
+    if not scores._store.get(username, False):
+        scores._store.setdefault(username, PersistentDict())
+        scores._store[username]['scores'] = PersistentDict()
+
+    # Check if there are an existing score for this username and content
+    if not scores._store.get(username).get('scores').get(content, False):
+        # Store the value
+        scores._store.get(username).get('scores')[content] = PersistentDict()
+        scores._store.get(username).get('scores')[content]['date'] = date
+        scores._store.get(username).get('scores')[content]['score'] = score
+        return True
+    else:
+        # There is already an existing score for this content check if it
+        # changed by any reason
+        if not scores._store.get(username).get('scores').get(content)['score'] == score:
+            # Update the score record, as it seems that it changed
+            scores._store.get(username).get('scores')[content]['score'] = score
+            return True
+        else:
+            return False
+
+
+class migrationGeneraliScores(grok.View):
+    """ Aquesta vista migra les les puntuacions dels usuaris de Plone 4 generali_scores a la nova versió en Plone 5 """
+    grok.name('migrationgeneraliscores')
+    grok.template('migrationgeneraliscores')
+    grok.context(IPloneSiteRoot)
+    grok.require('cmf.ManagePortal')
+
+    def update(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            hscope = 'widgetcli'
+
+            if self.request.form['url_instance_v4'] != '':
+                url_instance_v4 = self.request.form['url_instance_v4']
+                husernamev4 = self.request.form['husernamev4']
+                htokenv4 = self.request.form['htokenv4']
+
+                json_scores = requests.get(url_instance_v4 + '/apigenerali/scores', headers={'X-Oauth-Username': husernamev4, 'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                logger.info('Buscant puntuacions dels usuaris per migrar')
+                export_scores = json.loads(json_scores.content)
+
+                score_utility = api.portal.get_tool(name='generali_scores')
+
+                for user_score in export_scores:
+                    try:
+                        username = str(user_score['username'])
+                        scores = str(user_score['scores'])
+                        dict_scores = ast.literal_eval(scores)
+                        for content in dict_scores:
+                            info = dict_scores[content]
+                            set_score(self, username, content, info['score'], info['date'])
+                        logger.error('Puntuacions Usuari migrades: ' + username)
+                    except:
+                        logger.error('Puntuacions Usuari NO migrades: ' + username)
+
+        logger.info('Ha finalitzat la migració de les puntuacions dels usuaris.')
