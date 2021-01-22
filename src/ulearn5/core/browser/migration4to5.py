@@ -85,7 +85,10 @@ class migrationCommunities(grok.View):
                             if community['image']:
                                 mime = MimeTypes()
                                 mime_type = mime.guess_type(community['image'])
-                                imgName = (community['image'].split('/')[-1]).decode('utf-8')
+                                try:
+                                    imgName = (community['image'].split('/')[-1]).decode('utf-8')
+                                except:
+                                    imgName = (community['image'].split('/')[-1])
                                 imgData = base64.decodestring(str(community['rawimage']))
                                 imageObj = NamedBlobImage(data=imgData,
                                                           filename=imgName,
@@ -216,7 +219,7 @@ class migrationDocumentsCommunities(grok.View):
                                 cmd = 'cp -r ' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
                             else:
                                 # produccion
-                                cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+                                cmd = 'scp -i ' + os.path.join(os.environ.get('ZOPE_HOME', ''), certificado_maquina_comunitats_V4) + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
 
                             subprocess.Popen([cmd], shell=True).wait()
                             # mv content to allcontent on V5 machine, and then recreates content
@@ -235,7 +238,10 @@ class migrationDocumentsCommunities(grok.View):
                                         + ' ' + path_guardar_export_dexterity_comunitats_V5 + '/content/'
                                 subprocess.Popen([cmd_mv], shell=True).wait()
 
-                                migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
+                                if remote_username == '152936e':
+                                    migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import')
+                                else:
+                                    migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
                                 shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
                                 transaction.commit()
 
@@ -260,10 +266,13 @@ class migrationDocumentsCommunities(grok.View):
                                 cmd = 'cp -r ' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
                             else:
                                 # produccion
-                                cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+                                cmd = 'scp -i ' + os.path.join(os.environ.get('ZOPE_HOME', ''), certificado_maquina_comunitats_V4) + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
 
                             subprocess.Popen([cmd], shell=True).wait()
-                            migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/events/comunitats_import', auth=(remote_username, remote_password))
+                            if remote_username == '152936e':
+                                migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/events/comunitats_import')
+                            else:
+                                migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/events/comunitats_import', auth=(remote_username, remote_password))
                             transaction.commit()
 
                             if migrat.ok:
@@ -324,7 +333,7 @@ class migrationPath(grok.View):
                         cmd = 'scp -r ' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
                     else:
                         # produccion
-                        cmd = 'scp -i ' + certificado_maquina_comunitats_V4 + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
+                        cmd = 'scp -i ' + os.path.join(os.environ.get('ZOPE_HOME', ''), certificado_maquina_comunitats_V4) + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
 
                     # pre
                     # cmd = 'scp -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content'  + ' ' + path_guardar_export_dexterity_comunitats_V5
@@ -348,7 +357,10 @@ class migrationPath(grok.View):
                                 + ' ' + path_guardar_export_dexterity_comunitats_V5 + '/content/'
                         subprocess.Popen([cmd_mv], shell=True).wait()
 
-                        migrat = requests.get(url_instance_v5 + '/comunitats_import', auth=(remote_username, remote_password))
+                        if remote_username == '152936e':
+                            migrat = requests.get(url_instance_v5 + '/comunitats_import')
+                        else:
+                            migrat = requests.get(url_instance_v5 + '/comunitats_import', auth=(remote_username, remote_password))
                         shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
                         transaction.commit()
                         logger.info('He migrat el elem: ' + elem)
