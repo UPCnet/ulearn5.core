@@ -55,3 +55,6 @@ msgstr "Llista d'esdeveniments"
 
 msgid "grid_events_view"
 msgstr "Vista esdeveniments"
+
+msgid "grid_future_events_view"
+msgstr "Vista propers esdeveniments"

@@ -56,6 +56,7 @@
   <element value="tabular_view"/>
   <element value="full_view"/>
   <element value="grid_events_view"/>
+  <element value="grid_future_events_view"/>
   <element value="filtered_contents_search_view"/>
   <element value="contents_pretty_view"/>
  </property>

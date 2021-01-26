@@ -55,3 +55,6 @@ msgstr "Listado de eventos"
 
 msgid "grid_events_view"
 msgstr "Vista de eventos"
+
+msgid "grid_future_events_view"
+msgstr "Vista próximos eventos"
