@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.96 (unreleased)
+0.96 (2021-01-27)
 -----------------
 
-- Nothing changed yet.
-
+* Add view future events [Pilar Marinas]
+* Cambios migrador para generali [Pilar Marinas]
+* Migrador de las puntuaciones de generali generali_scores [Pilar Marinas]
 
 0.95 (2021-01-08)
 -----------------
