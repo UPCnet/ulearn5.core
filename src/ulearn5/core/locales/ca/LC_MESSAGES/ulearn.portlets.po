@@ -127,3 +127,6 @@ msgstr "Portlet Ulearn Notícies Subscrites"
 
 msgid "ulearn_portlets_mycommunities"
 msgstr "Portlet Ulearn Les meves comunitats"
+
+msgid "ulearn_portlets_zoom"
+msgstr "Portlet Ulearn Zoom"
