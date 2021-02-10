@@ -169,6 +169,13 @@
         />
 
     <monkey:patch
+        description="Para que funcione la creacion de grupos ldap"
+        class="Products.PloneLDAP.mixins.groupmgmt.GroupManagementMixin"
+        original="addGroup"
+        replacement=".patches.addGroup"
+        />
+
+    <monkey:patch
         description="Modificar el nombre de resultats per pàgina en el livesearch"
         class="Products.CMFPlone.browser.search.AjaxSearch"
         original="__call__"

@@ -678,15 +678,21 @@ def getGroups(self, dn='*', attr=None, pwd=''):
 
     return group_list
 
+
+def addGroup(self, id, **kw):
+    return self.acl_users.manage_addGroup(id)
+
+
 from base5.core.directory.views import get_create_group_type
 from Products.LDAPUserFolder.utils import GROUP_MEMBER_MAP
+from Acquisition import aq_parent
 def manage_addGroup( self
                    , newgroup_name
                    , newgroup_type='groupOfUniqueNames'
                    , REQUEST=None
                    ):
     """ Add a new group in groups_base """
-    newgroup_type = get_create_group_type()
+    newgroup_type = str(get_create_group_type())
 
     if self._local_groups and newgroup_name:
         add_groups = self._additional_groups
@@ -719,12 +725,23 @@ def manage_addGroup( self
                                        )
         msg = err_msg or 'Added new group %s' % (newgroup_name)
 
+        # Invalido la RAMCache que hay guardada del ldap
+        # La puedo ver en el manage - RAMCache - Statistics
+        # /imo/acl_users/ldapexterns
+        # con esto fuerzo que se vuelva a llamar al ldap
+        # y no muestre solo los grupos del enumerateGroups que estan en el RAMCache
+        ldap = aq_parent(self)
+        if ldap.ZCacheable_enabled():
+            ldap.ZCacheable_invalidate()
     else:
         msg = 'No group name specified'
 
     if REQUEST:
         return self.manage_grouprecords(manage_tabs_message=msg)
-
+    elif 'Added new group' in msg:
+        return True
+    else:
+        return False
 
 from Products.LDAPUserFolder.utils import VALID_GROUP_ATTRIBUTES
 from Products.LDAPUserFolder.utils import guid2string
