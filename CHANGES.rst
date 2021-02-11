@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.98 (unreleased)
+0.98 (2021-02-11)
 -----------------
 
-- Nothing changed yet.
-
+* Comentar paquete generali que no esta en PRO [Pilar Marinas]
 
 0.97 (2021-02-11)
 -----------------
