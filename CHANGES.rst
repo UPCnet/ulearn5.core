@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.97 (unreleased)
+0.97 (2021-02-11)
 -----------------
 
-- Nothing changed yet.
-
+* Parche para que funcione la creacion de grupos ldap desde usuarios y grupos [Pilar Marinas]
+* Traduccion de nuevo portlet ulearn5.zoom [Iago López Fernández]
 
 0.96 (2021-01-27)
 -----------------
