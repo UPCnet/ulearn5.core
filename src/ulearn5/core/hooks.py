@@ -605,7 +605,8 @@ def AddedSendMessage(content, event):
             'community': community.title.encode('utf-8'),
             'link': '{}/view'.format(content.absolute_url()),
             'title': content.title.encode('utf-8'),
-            'description': content.description.encode('utf-8')
+            'description': content.description.encode('utf-8'),
+            'type': tipus[lang].get(content.portal_type.replace(" ", ""), '').encode('utf-8')
         }
 
         body = message_template % map
