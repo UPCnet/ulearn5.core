@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.99 (unreleased)
+0.99 (2021-02-15)
 -----------------
 
-- Nothing changed yet.
-
+* Add variable type for email notification [Pilar Marinas]
 
 0.98 (2021-02-11)
 -----------------
