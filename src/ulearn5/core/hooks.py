@@ -530,6 +530,10 @@ def AddedSendMessage(content, event):
         elif event.transition.id != 'publicaalaintranet':
             return
 
+    if content.portal_type == 'Event':
+        if len(content.attendees) != 0:
+            return
+
     if community.type_notify == "Manual":
         mails_users_to_notify = community.distribution_lists
     else:
