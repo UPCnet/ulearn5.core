@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.100 (unreleased)
+0.100 (2021-02-16)
 ------------------
 
-- Nothing changed yet.
-
+* No notificar por mail evento si hay asistentes [Pilar Marinas]
 
 0.99 (2021-02-15)
 -----------------
