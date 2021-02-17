@@ -331,8 +331,8 @@ msgid "Events"
 msgstr "Agenda"
 
 #: ulearn5/theme/browser/views_templates/users_communities.pt:33
-msgid "Export: All communities (This may take a while)"
-msgstr "Exportar: Totes les comunitats (Això pot trigar una estona)"
+msgid "Export: All communities (File generated the night before)"
+msgstr "Exportar: Totes les comunitats (Fitxer generat la nit anterior)"
 
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
 #: ../browser/stats_templates/statsview.pt:245
