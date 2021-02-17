@@ -27,6 +27,7 @@ from zope.component import queryUtility
 from zope.component.hooks import getSite
 from zope.interface import Interface
 from zope.interface import alsoProvides
+from hashlib import sha1
 
 from base5.core.adapters.favorites import IFavorite
 from base5.core.utilities import IElasticSearch
@@ -1220,7 +1221,7 @@ class changePermissionsToContent(grok.View):
 
 
 class addAllCommunitiesAsFavoriteFromAllUsers(grok.View):
-    """ Añade a favorito todas las comunidades a las que esta suscrito los usuarios, si esta en un grupo no funciona actualmente """
+    """ Añade a favorito todas las comunidades a las que esta suscrito los usuarios """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
@@ -1234,16 +1235,21 @@ class addAllCommunitiesAsFavoriteFromAllUsers(grok.View):
         pc = api.portal.get_tool(name="portal_catalog")
         communities = pc.unrestrictedSearchResults(object_provides=ICommunity.__identifier__)
 
+        maxclient, settings = getUtility(IMAXClient)()
+        maxclient.setActor(settings.max_restricted_username)
+        maxclient.setToken(settings.max_restricted_token)
+
         for community in communities:
-            communityObj = community.getObject()
-            result = ICommunityACL(communityObj)().attrs.get('acl', '')
-            for user in result['users']:
-                IFavorite(communityObj).add(user['id'].strip())
+            communityObj = community._unrestrictedGetObject()
+            community_hash = sha1(communityObj.absolute_url()).hexdigest()
+            users_subscription = maxclient.contexts[community_hash].subscriptions.get(qs={'limit': 0})
+            for user in users_subscription:
+                IFavorite(communityObj).add(user['username'].strip())
         return 'OK'
 
 
 class addCommunityAsFavoriteFromAllUsers(grok.View):
-    """ Añade a favorito a todos los usuarios usuarios subcritos a X comunidad, si esta en un grupo no funciona actualmente """
+    """ Añade a favorito a todos los usuarios usuarios subcritos a X comunidad """
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')
 
@@ -1255,15 +1261,20 @@ class addCommunityAsFavoriteFromAllUsers(grok.View):
             pass
 
         if 'community' in self.request.form:
+            maxclient, settings = getUtility(IMAXClient)()
+            maxclient.setActor(settings.max_restricted_username)
+            maxclient.setToken(settings.max_restricted_token)
+
             pc = api.portal.get_tool(name="portal_catalog")
             communities = pc.unrestrictedSearchResults(object_provides=ICommunity.__identifier__,
                                                        id=self.request.form['community'])
             if communities:
                 for community in communities:
-                    communityObj = community.getObject()
-                    result = ICommunityACL(communityObj)().attrs.get('acl', '')
-                    for user in result['users']:
-                        IFavorite(communityObj).add(user['id'].strip())
+                    communityObj = community._unrestrictedGetObject()
+                    community_hash = sha1(communityObj.absolute_url()).hexdigest()
+                    users_subscription = maxclient.contexts[community_hash].subscriptions.get(qs={'limit': 0})
+                    for user in users_subscription:
+                        IFavorite(communityObj).add(user['username'].strip())
                 return 'OK'
             else:
                 return 'Community ' + self.request.form['community'] + ' not exist'
