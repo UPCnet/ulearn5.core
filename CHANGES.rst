@@ -2,11 +2,14 @@ Changelog
 =========
 
 
-0.101 (unreleased)
+0.101 (2021-02-18)
 ------------------
 
-- Nothing changed yet.
-
+* Tocador para comunitats [Pilar Marinas]
+* Traducciones export_users_communities [Pilar Marinas]
+* Traducciones Añadir comunidad como favorita a todos los usuarios [Pilar Marinas]
+* Añade a favorito a todos los usuarios inluidos usuarios de grupos subcritos a X comunidad [Pilar Marinas]
+* Añadir nueva tarea del cron export_users_communities [Iago López Fernández]
 
 0.100 (2021-02-16)
 ------------------
