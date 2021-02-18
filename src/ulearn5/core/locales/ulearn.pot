@@ -336,7 +336,7 @@ msgid "Events"
 msgstr ""
 
 #: ulearn5/theme/browser/views_templates/users_communities.pt:33
-msgid "Export: All communities (This may take a while)"
+msgid "Export: All communities (File generated the night before)"
 msgstr ""
 
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
