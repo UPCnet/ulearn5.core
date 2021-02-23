@@ -1020,7 +1020,7 @@ msgstr "Usuari"
 
 #: ulearn5/theme/browser/views_templates/users_communities.pt:64
 msgid "User means `Fullname [Group] (User ID)`"
-msgstr "Usuari significa `Nom complet [Grup] (ID Usuari)`"
+msgstr "Usuari significa `Nom complet (ID Usuari)`"
 
 #: ../content/community.py:313
 msgid "Users comunnity black lists"
