@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.102 (unreleased)
+0.102 (2021-03-08)
 ------------------
 
-- Nothing changed yet.
-
+* Traducciones [Pilar Marinas]
 
 0.101 (2021-02-18)
 ------------------
