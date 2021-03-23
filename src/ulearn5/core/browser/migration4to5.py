@@ -237,11 +237,8 @@ class migrationDocumentsCommunities(grok.View):
                                 cmd_mv = 'mv ' + path_guardar_export_dexterity_comunitats_V5 + '/allcontent/'+elem \
                                         + ' ' + path_guardar_export_dexterity_comunitats_V5 + '/content/'
                                 subprocess.Popen([cmd_mv], shell=True).wait()
-
-                                if remote_username == '152936e':
-                                    migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import')
-                                else:
-                                    migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
+                                
+                                migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/documents/comunitats_import', auth=(remote_username, remote_password))
                                 shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
                                 transaction.commit()
 
@@ -269,10 +266,8 @@ class migrationDocumentsCommunities(grok.View):
                                 cmd = 'scp -i ' + os.path.join(os.environ.get('ZOPE_HOME', ''), certificado_maquina_comunitats_V4) + ' -r root@' + servidor_comunitats_V4 + ':' + path_guardar_export_dexterity_comunitats_V4 + '/content' + ' ' + path_guardar_export_dexterity_comunitats_V5
 
                             subprocess.Popen([cmd], shell=True).wait()
-                            if remote_username == '152936e':
-                                migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/events/comunitats_import')
-                            else:
-                                migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/events/comunitats_import', auth=(remote_username, remote_password))
+                           
+                            migrat = requests.get(url_instance_v5 + '/' + community['id'] + '/events/comunitats_import', auth=(remote_username, remote_password))
                             transaction.commit()
 
                             if migrat.ok:
@@ -357,10 +352,7 @@ class migrationPath(grok.View):
                                 + ' ' + path_guardar_export_dexterity_comunitats_V5 + '/content/'
                         subprocess.Popen([cmd_mv], shell=True).wait()
 
-                        if remote_username == '152936e':
-                            migrat = requests.get(url_instance_v5 + '/comunitats_import')
-                        else:
-                            migrat = requests.get(url_instance_v5 + '/comunitats_import', auth=(remote_username, remote_password))
+                        migrat = requests.get(url_instance_v5 + '/comunitats_import', auth=(remote_username, remote_password))
                         shutil.rmtree(path_guardar_export_dexterity_comunitats_V5 + '/content')
                         transaction.commit()
                         logger.info('He migrat el elem: ' + elem)

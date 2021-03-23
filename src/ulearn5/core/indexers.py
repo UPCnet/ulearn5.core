@@ -28,6 +28,44 @@ grok.global_utility(MenuQuickLinksCatalogFactory, name="menu_soup")
 
 
 @implementer(ICatalogFactory)
+class HeaderSoupCatalog(object):
+    """ Les dades del header que es mostraran segons language
+        :index id_headersoup: TextIndex - id_headersoup = user_language
+        :index dades: FieldIndex - Les dades del header per aquest language
+    """
+
+    def __call__(self, context):
+        catalog = Catalog()
+        idindexer = NodeAttributeIndexer('id_headersoup')
+        catalog['id_headersoup'] = CatalogTextIndex(idindexer)
+        containerindexer = NodeAttributeIndexer('dades')
+        catalog['dades'] = CatalogFieldIndex(containerindexer)
+        return catalog
+
+
+grok.global_utility(HeaderSoupCatalog, name="header_soup")
+
+
+@implementer(ICatalogFactory)
+class FooterSoupCatalog(object):
+    """ Les dades del footer que es mostraran segons language
+        :index id_footersoup: TextIndex - id_footersoup = user_language
+        :index dades: FieldIndex - Les dades del footer per aquest language
+    """
+
+    def __call__(self, context):
+        catalog = Catalog()
+        idindexer = NodeAttributeIndexer('id_footersoup')
+        catalog['id_footersoup'] = CatalogTextIndex(idindexer)
+        containerindexer = NodeAttributeIndexer('dades')
+        catalog['dades'] = CatalogFieldIndex(containerindexer)
+        return catalog
+
+
+grok.global_utility(FooterSoupCatalog, name="footer_soup")
+
+
+@implementer(ICatalogFactory)
 class UserSubscribedTagsSoupCatalog(object):
     def __call__(self, context):
         catalog = Catalog()
