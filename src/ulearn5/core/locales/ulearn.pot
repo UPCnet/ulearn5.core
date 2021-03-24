@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-02-17 16:21+0000\n"
+"POT-Creation-Date: 2021-03-24 13:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,11 +43,11 @@ msgstr ""
 msgid "Add Banners Portlet"
 msgstr ""
 
-#: ulearn5/theme/browser/views_templates/users_communities.pt:50
+#: ulearn5/theme/browser/views_templates/users_communities.pt:51
 msgid "Add Favorite"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:151
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
 msgid "Add Flashes Informativos Portlet"
 msgstr ""
 
@@ -55,7 +55,7 @@ msgstr ""
 msgid "Add My Subjects Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:147
+#: ulearn5/theme/portlets/importantnews/importantnews.py:146
 msgid "Add News Portlet"
 msgstr ""
 
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Add Recent Changes Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:199
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:198
 msgid "Add Subscribed News Portlet"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:195
+#: ulearn5/theme/browser/viewlets_templates/header.pt:209
 msgid "Buscar"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:199
+#: ulearn5/theme/browser/viewlets_templates/header.pt:213
 msgid "Cerca"
 msgstr ""
 
@@ -262,7 +262,7 @@ msgstr ""
 msgid "Edit Banners Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:160
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:161
 msgid "Edit Flashes Informativos portlet"
 msgstr ""
 
@@ -270,7 +270,7 @@ msgstr ""
 msgid "Edit My Subjects Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:157
+#: ulearn5/theme/portlets/importantnews/importantnews.py:156
 msgid "Edit News Portlet"
 msgstr ""
 
@@ -282,7 +282,7 @@ msgstr ""
 msgid "Edit Recent Changes Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:209
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:208
 msgid "Edit Subscribed News Portlet"
 msgstr ""
 
@@ -390,7 +390,7 @@ msgstr ""
 msgid "How many items to list."
 msgstr ""
 
-#: ulearn5/theme/browser/views_templates/users_communities.pt:64
+#: ulearn5/theme/browser/views_templates/users_communities.pt:61
 msgid "INFO:"
 msgstr ""
 
@@ -574,7 +574,7 @@ msgstr ""
 msgid "News intranet workflow"
 msgstr ""
 
-#: ulearn5/theme/browser/views_templates/users_communities.pt:108
+#: ulearn5/theme/browser/views_templates/users_communities.pt:105
 msgid "No results"
 msgstr ""
 
@@ -776,7 +776,7 @@ msgstr ""
 msgid "Rol per a les notícies a dintre de la intranet (Permet el esborrany i la revisió)."
 msgstr ""
 
-#: ulearn5/theme/browser/views_templates/users_communities.pt:75
+#: ulearn5/theme/browser/views_templates/users_communities.pt:72
 msgid "Role"
 msgstr ""
 
@@ -786,11 +786,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: ulearn5/theme/browser/views_templates/users_communities.pt:54
+#: ulearn5/theme/browser/views_templates/users_communities.pt:50
 msgid "Search"
 msgstr ""
 
-#: ulearn5/theme/browser/views_templates/users_communities.pt:59
+#: ulearn5/theme/browser/views_templates/users_communities.pt:56
 msgid "Search results"
 msgstr ""
 
@@ -873,7 +873,7 @@ msgstr ""
 msgid "The bitly username"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:153
 msgid "This portlet displays Flashes Informativos."
 msgstr ""
 
@@ -889,7 +889,7 @@ msgstr ""
 msgid "This portlet displays quicklinks."
 msgstr ""
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:148
+#: ulearn5/theme/portlets/importantnews/importantnews.py:147
 msgid "This portlet displays recent News Items."
 msgstr ""
 
@@ -897,7 +897,7 @@ msgstr ""
 msgid "This portlet displays recently modified content."
 msgstr ""
 
-#: ulearn5/theme/portlets/buttonbar/buttonbar.py:200
+#: ulearn5/theme/portlets/buttonbar/buttonbar.py:199
 msgid "This portlet displays subscribed News Items."
 msgstr ""
 
@@ -1019,7 +1019,7 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: ulearn5/theme/browser/views_templates/users_communities.pt:64
+#: ulearn5/theme/browser/views_templates/users_communities.pt:61
 msgid "User means `Fullname [Group] (User ID)`"
 msgstr ""
 
@@ -1835,7 +1835,7 @@ msgstr ""
 
 #. Default: "Info"
 #: ../content/community_templates/view.pt:18
-#: ulearn5/theme/browser/viewlets_templates/header.pt:190
+#: ulearn5/theme/browser/viewlets_templates/header.pt:204
 msgid "info"
 msgstr ""
 
@@ -1941,7 +1941,7 @@ msgid "label_password"
 msgstr ""
 
 #. Default: "Show all items"
-#: ulearn5/theme/browser/views.py:466
+#: ulearn5/theme/browser/views.py:474
 msgid "label_show_all"
 msgstr ""
 
@@ -2035,52 +2035,62 @@ msgid "maxui_form_bg"
 msgstr ""
 
 #. Default: "Estadistiques"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:140
+#: ulearn5/theme/browser/viewlets_templates/header.pt:154
 msgid "menu-gestio-estadistiques"
 msgstr ""
 
 #. Default: "Noticies"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:98
+#: ulearn5/theme/browser/viewlets_templates/header.pt:100
 msgid "menu-gestio-noticies"
 msgstr ""
 
 #. Default: "Management"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:90
+#: ulearn5/theme/browser/viewlets_templates/header.pt:92
 msgid "menu-gestion"
 msgstr ""
 
 #. Default: "Management footer"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:122
+#: ulearn5/theme/browser/viewlets_templates/header.pt:130
 msgid "menu-gestion-footer"
 msgstr ""
 
 #. Default: "Global banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:110
+#: ulearn5/theme/browser/viewlets_templates/header.pt:112
 msgid "menu-gestion-global-banners"
 msgstr ""
 
 #. Default: "Management header"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:116
+#: ulearn5/theme/browser/viewlets_templates/header.pt:118
 msgid "menu-gestion-header"
 msgstr ""
 
 #. Default: "Management menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:128
+#: ulearn5/theme/browser/viewlets_templates/header.pt:142
 msgid "menu-gestion-menu"
 msgstr ""
 
 #. Default: "Personal banners"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:104
+#: ulearn5/theme/browser/viewlets_templates/header.pt:106
 msgid "menu-gestion-personal-banners"
 msgstr ""
 
 #. Default: "Information for users and communities"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:146
+#: ulearn5/theme/browser/viewlets_templates/header.pt:160
 msgid "menu-info-users-communities"
 msgstr ""
 
+#. Default: "Reset Footer"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:136
+msgid "menu-reset-footer"
+msgstr ""
+
+#. Default: "Reset Header"
+#: ulearn5/theme/browser/viewlets_templates/header.pt:124
+msgid "menu-reset-header"
+msgstr ""
+
 #. Default: "Reset Menu"
-#: ulearn5/theme/browser/viewlets_templates/header.pt:134
+#: ulearn5/theme/browser/viewlets_templates/header.pt:148
 msgid "menu-reset-menu"
 msgstr ""
 
@@ -2259,7 +2269,7 @@ msgstr ""
 msgid "search_communities"
 msgstr ""
 
-#: ulearn5/theme/browser/viewlets_templates/header.pt:198
+#: ulearn5/theme/browser/viewlets_templates/header.pt:212
 msgid "search_site"
 msgstr ""
 
