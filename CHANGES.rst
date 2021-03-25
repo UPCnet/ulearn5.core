@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.103 (unreleased)
+0.103 (2021-03-25)
 ------------------
 
-- Nothing changed yet.
-
+* Traducciones [Pilar Marinas]
+* Soup Header and Footer [Pilar Marinas]
 
 0.102 (2021-03-08)
 ------------------
