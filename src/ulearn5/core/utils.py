@@ -21,9 +21,6 @@ from mrs5.max.utilities import IMAXClient
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
-from plone.memoize import ram
-from time import time
-
 import json
 import pytz
 import re
@@ -165,7 +162,6 @@ class ulearnUtils(BrowserView):
     #         return self.context + '/documents'
     #     return self.context
 
-@ram.cache(lambda *args: time() // (60 * 60))
 def isInstalledProduct(self, package):
     qi = api.portal.get_tool(name='portal_quickinstaller')
     prods = qi.listInstalledProducts()
