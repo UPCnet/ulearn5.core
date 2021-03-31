@@ -21,6 +21,9 @@ from mrs5.max.utilities import IMAXClient
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
+from plone.memoize import ram
+from time import time
+
 import json
 import pytz
 import re
@@ -77,19 +80,35 @@ def json_response(func):
     return decorator
 
 
+@ram.cache(lambda *args: time() // (60 * 60))
+def packages_installed():
+    qi_tool = api.portal.get_tool(name='portal_quickinstaller')
+    installed = [p['id'] for p in qi_tool.listInstalledProducts()]
+    return installed
+
+
 def is_activate_owncloud(self):
     """ Returns True id ulearn5.owncloud is installed """
-    return isInstalledProduct(self, 'ulearn5.owncloud')
+    installed = packages_installed()
+    if 'ulearn5.owncloud' in installed:
+        return True
+    return False
 
 
 def is_activate_externalstorage(self):
     """ Returns True id ulearn5.externalstorage is installed """
-    return isInstalledProduct(self, 'ulearn5.externalstorage')
+    installed = packages_installed()
+    if 'ulearn5.externalstorage' in installed:
+        return True
+    return False
 
 
 def is_activate_etherpad(self):
     """ Returns True id ulearn5.etherpad is installed """
-    return isInstalledProduct(self, 'ulearn5.etherpad')
+    installed = packages_installed()
+    if 'ulearn5.etherpad' in installed:
+        return True
+    return False
 
 
 class ulearnUtils(BrowserView):
@@ -162,13 +181,13 @@ class ulearnUtils(BrowserView):
     #         return self.context + '/documents'
     #     return self.context
 
-def isInstalledProduct(self, package):
-    qi = api.portal.get_tool(name='portal_quickinstaller')
-    prods = qi.listInstalledProducts()
-    for prod in prods:
-        if prod['id'] == package:
-            return True
-    return False
+# def isInstalledProduct(self, package):
+#     qi = api.portal.get_tool(name='portal_quickinstaller')
+#     prods = qi.listInstalledProducts()
+#     for prod in prods:
+#         if prod['id'] == package:
+#             return True
+#     return False
 
 
 def getSearchersFromUser():
