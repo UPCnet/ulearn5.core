@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2021-03-24 13:40+0000\n"
+"POT-Creation-Date: 2021-04-06 15:03+0000\n"
 "PO-Revision-Date: 2018-06-25 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <>\n"
@@ -46,7 +46,7 @@ msgstr "Add Banners Portlet"
 msgid "Add Favorite"
 msgstr "Set community as favorite to all subscribed users"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:154
 msgid "Add Flashes Informativos Portlet"
 msgstr "Add Flashes Informativos Portlet"
 
@@ -54,7 +54,7 @@ msgstr "Add Flashes Informativos Portlet"
 msgid "Add My Subjects Portlet"
 msgstr "Add My Subjects Portlet"
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:146
+#: ulearn5/theme/portlets/importantnews/importantnews.py:148
 msgid "Add News Portlet"
 msgstr "Add News Portlet"
 
@@ -261,7 +261,7 @@ msgstr "Draft"
 msgid "Edit Banners Portlet"
 msgstr "Edit Banners Portlet"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:161
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:163
 msgid "Edit Flashes Informativos portlet"
 msgstr "Edit Flashes Informativos Portlet"
 
@@ -269,7 +269,7 @@ msgstr "Edit Flashes Informativos Portlet"
 msgid "Edit My Subjects Portlet"
 msgstr "Edit My Subjects Portlet"
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:156
+#: ulearn5/theme/portlets/importantnews/importantnews.py:158
 msgid "Edit News Portlet"
 msgstr "Edit News Portlet"
 
@@ -436,7 +436,7 @@ msgstr "Installs the ulearn5.core add-on."
 msgid "Intranet"
 msgstr "Intranet"
 
-#: ../utils.py:33
+#: ../utils.py:36
 msgid "Invalid twitter username."
 msgstr "Invalid Twitter username."
 
@@ -875,7 +875,7 @@ msgstr "The ID of the user who performed the last transition"
 msgid "The bitly username"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:153
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:155
 msgid "This portlet displays Flashes Informativos."
 msgstr "This portlet displays Flashes Informativos."
 
@@ -891,7 +891,7 @@ msgstr "This portlet displays my subjects on moodle."
 msgid "This portlet displays quicklinks."
 msgstr "This portlet displays quicklinks."
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:147
+#: ulearn5/theme/portlets/importantnews/importantnews.py:149
 msgid "This portlet displays recent News Items."
 msgstr "This portlet displays recent News Items."
 
@@ -2098,6 +2098,11 @@ msgstr "Reset header"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:148
 msgid "menu-reset-menu"
 msgstr "Reset menu"
+
+#. Default: "Your password has been set successfully. You may now ${login_url} with your new password."
+#: ulearn5/theme/templates/Products.CMFPlone.browser.templates.pwreset_finish.pt:23
+msgid "message_pwreset_success"
+msgstr "Your password has been set successfully. You may now log in with your new password."
 
 #. Default: "Messate template"
 #: ../controlpanel.py:457

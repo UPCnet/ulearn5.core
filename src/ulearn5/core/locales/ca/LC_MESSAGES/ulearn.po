@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulearn\n"
-"POT-Creation-Date: 2021-03-24 13:40+0000\n"
+"POT-Creation-Date: 2021-04-06 15:03+0000\n"
 "PO-Revision-Date: 2018-06-25 11:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Plone Team@UPCnet <plone.team@upcnet.es>\n"
@@ -46,7 +46,7 @@ msgstr "Afegir portlet Bàners"
 msgid "Add Favorite"
 msgstr "Afegir comunitat com a favorita a tots els usuaris subscrits"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:154
 msgid "Add Flashes Informativos Portlet"
 msgstr "Afegir flash informatius"
 
@@ -54,7 +54,7 @@ msgstr "Afegir flash informatius"
 msgid "Add My Subjects Portlet"
 msgstr "Afegir portlet Les meves assignatures"
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:146
+#: ulearn5/theme/portlets/importantnews/importantnews.py:148
 msgid "Add News Portlet"
 msgstr "Afegir portlet Notícies"
 
@@ -261,7 +261,7 @@ msgstr "Esborrany"
 msgid "Edit Banners Portlet"
 msgstr "Editar portlet bàners"
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:161
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:163
 msgid "Edit Flashes Informativos portlet"
 msgstr "Editar portlet Flash informatiu"
 
@@ -269,7 +269,7 @@ msgstr "Editar portlet Flash informatiu"
 msgid "Edit My Subjects Portlet"
 msgstr "Editar portlet Le meves assignatures"
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:156
+#: ulearn5/theme/portlets/importantnews/importantnews.py:158
 msgid "Edit News Portlet"
 msgstr "Edita portlet de notícies"
 
@@ -435,7 +435,7 @@ msgstr "Instal·la el complement ulearn5.core"
 msgid "Intranet"
 msgstr "Intranet"
 
-#: ../utils.py:33
+#: ../utils.py:36
 msgid "Invalid twitter username."
 msgstr "Usuari de Twitter invàlid."
 
@@ -872,7 +872,7 @@ msgstr "La identificació de l'usuari que va realitzar l'última transició"
 msgid "The bitly username"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:153
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:155
 msgid "This portlet displays Flashes Informativos."
 msgstr "Aquest portlet mostra Flashes informatius."
 
@@ -888,7 +888,7 @@ msgstr "Aquest portlet mostra le meves assignatures al moodle."
 msgid "This portlet displays quicklinks."
 msgstr "Aquest portlet mostra enllaços directes."
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:147
+#: ulearn5/theme/portlets/importantnews/importantnews.py:149
 msgid "This portlet displays recent News Items."
 msgstr "El portlet mostra les noticies més recents."
 
@@ -2095,6 +2095,11 @@ msgstr "Reinicia capçalera"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:148
 msgid "menu-reset-menu"
 msgstr "Reinicia el menú"
+
+#. Default: "Your password has been set successfully. You may now ${login_url} with your new password."
+#: ulearn5/theme/templates/Products.CMFPlone.browser.templates.pwreset_finish.pt:23
+msgid "message_pwreset_success"
+msgstr "La vostra contrasenya s'ha establert correctament. Ara podeu entrar amb la vostra contrasenya nova."
 
 #. Default: "Messate template"
 #: ../controlpanel.py:457

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-03-24 13:40+0000\n"
+"POT-Creation-Date: 2021-04-06 15:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Add Favorite"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:152
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:154
 msgid "Add Flashes Informativos Portlet"
 msgstr ""
 
@@ -55,7 +55,7 @@ msgstr ""
 msgid "Add My Subjects Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:146
+#: ulearn5/theme/portlets/importantnews/importantnews.py:148
 msgid "Add News Portlet"
 msgstr ""
 
@@ -262,7 +262,7 @@ msgstr ""
 msgid "Edit Banners Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:161
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:163
 msgid "Edit Flashes Informativos portlet"
 msgstr ""
 
@@ -270,7 +270,7 @@ msgstr ""
 msgid "Edit My Subjects Portlet"
 msgstr ""
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:156
+#: ulearn5/theme/portlets/importantnews/importantnews.py:158
 msgid "Edit News Portlet"
 msgstr ""
 
@@ -436,7 +436,7 @@ msgstr ""
 msgid "Intranet"
 msgstr ""
 
-#: ../utils.py:33
+#: ../utils.py:36
 msgid "Invalid twitter username."
 msgstr ""
 
@@ -873,7 +873,7 @@ msgstr ""
 msgid "The bitly username"
 msgstr ""
 
-#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:153
+#: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:155
 msgid "This portlet displays Flashes Informativos."
 msgstr ""
 
@@ -889,7 +889,7 @@ msgstr ""
 msgid "This portlet displays quicklinks."
 msgstr ""
 
-#: ulearn5/theme/portlets/importantnews/importantnews.py:147
+#: ulearn5/theme/portlets/importantnews/importantnews.py:149
 msgid "This portlet displays recent News Items."
 msgstr ""
 
@@ -2092,6 +2092,11 @@ msgstr ""
 #. Default: "Reset Menu"
 #: ulearn5/theme/browser/viewlets_templates/header.pt:148
 msgid "menu-reset-menu"
+msgstr ""
+
+#. Default: "Your password has been set successfully. You may now ${login_url} with your new password."
+#: ulearn5/theme/templates/Products.CMFPlone.browser.templates.pwreset_finish.pt:23
+msgid "message_pwreset_success"
 msgstr ""
 
 #. Default: "Messate template"
