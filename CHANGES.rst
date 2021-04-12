@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.104 (unreleased)
+0.104 (2021-04-12)
 ------------------
 
-- Nothing changed yet.
-
+* Translate types notify mail [Pilar Marinas]
+* Types notify mail [Pilar Marinas]
+* Traducciones [Pilar Marinas]
+* Optimizar codigo funcion ram cache [Pilar Marinas]
+* Quitar cache no funciona [Pilar Marinas]
+* Cache paquetes instalados [Pilar Marinas]
 
 0.103 (2021-03-25)
 ------------------
