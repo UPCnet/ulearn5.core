@@ -304,7 +304,6 @@ def packages_installed():
     installed = [p['id'] for p in qi_tool.listInstalledProducts()]
     return installed
 
-
 def addActivityPost(content):
     installed = packages_installed()
     if 'ulearn5.abacus' in installed:
@@ -516,6 +515,10 @@ def AddedSendMessage(content, event):
         return
 
     if not hasattr(community, 'notify_activity_via_mail') or not community.notify_activity_via_mail:
+        return
+
+    types_notify_mail = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.types_notify_mail')
+    if content.portal_type not in types_notify_mail:
         return
 
     if community.type_notify == "Automatic" and community.mails_users_community_lists == "":

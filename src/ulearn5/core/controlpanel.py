@@ -44,6 +44,15 @@ cronTasksVocabulary = SimpleVocabulary(
      ]
 )
 
+typesNotifyMailVocabulary = SimpleVocabulary(
+    [SimpleTerm(value=u'Document', title=_(u'Document')),
+     SimpleTerm(value=u'Link', title=_(u'Link')),
+     SimpleTerm(value=u'File', title=_(u'File')),
+     SimpleTerm(value=u'Event', title=_(u'Event')),
+     SimpleTerm(value=u'News Item', title=_(u'News Item')),
+     SimpleTerm(value=u'ExternalContent', title=_(u'ExternalContent')),
+     ]
+)
 
 class ILiteralQuickLinks(form.Schema):
     language = schema.Choice(
@@ -100,7 +109,7 @@ class IUlearnControlPanelSettings(model.Schema):
 
     model.fieldset('Communities',
                    _(u'Communities'),
-                   fields=['activity_view', 'show_literals', 'url_terms', 'subject_template', 'message_template'])
+                   fields=['activity_view', 'show_literals', 'url_terms', 'types_notify_mail', 'subject_template', 'message_template'])
 
     model.fieldset('Google Analytics',
                    u'Google Analytics',
@@ -460,6 +469,14 @@ class IUlearnControlPanelSettings(model.Schema):
                       default=_(u"Message template to notify.")),
         required=False,
         default=u'',
+    )
+
+    types_notify_mail = schema.List(
+        title=_(u"types_notify_mail", default=u"Types to notify mail"),
+        description=_(u'Select de types to notify mail'),
+        value_type=schema.Choice(source=typesNotifyMailVocabulary),
+        required=False,
+        default=[u'Document', u'Link', u'File', u'Event', u'News Item', u'ExternalContent']
     )
 
     gAnalytics_enabled = schema.Bool(
