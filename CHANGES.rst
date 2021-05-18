@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.105 (unreleased)
+0.105 (2021-05-18)
 ------------------
 
-- Nothing changed yet.
-
+* Solucionar notificaciones mail automaticas enginyersbcn [Pilar Marinas]
 
 0.104 (2021-04-12)
 ------------------
