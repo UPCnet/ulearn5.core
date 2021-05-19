@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.106 (unreleased)
+0.106 (2021-05-19)
 ------------------
 
-- Nothing changed yet.
-
+* No notificar por mail si contenido esta dentro carpeta privada [Pilar Marinas]
 
 0.105 (2021-05-18)
 ------------------
