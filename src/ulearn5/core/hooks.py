@@ -537,6 +537,12 @@ def AddedSendMessage(content, event):
         if len(content.attendees) != 0:
             return
 
+    for parent in aq_chain(content):
+        if parent.id == 'documents' or parent.id == 'news' or parent.id == 'events':
+            break
+        if parent.portal_type == 'privateFolder':
+            return
+
     if community.type_notify == "Manual":
         mails_users_to_notify = community.distribution_lists
     else:
