@@ -121,12 +121,12 @@ class setupHomePage(grok.View):
         wftool = api.portal.get_tool(name='portal_workflow')
         wftool.doActionFor(frontpage, 'reject')
         wftool.doActionFor(frontpage, 'publishtointranet')
-        frontpage._Delete_objects_Permission = ('Site Administrator','Manager',)
+        frontpage._Delete_objects_Permission = ('Site Administrator', 'Manager',)
         transaction.commit()
 
         # Delete original 'aggregator' collection from 'News' folder
         if getattr(portal['news'], 'aggregator', False):
-                api.content.delete(obj=portal['news']['aggregator'])
+            api.content.delete(obj=portal['news']['aggregator'])
 
         # Create the aggregator with new criteria
         col_news = self.create_content(portal['news'], 'Collection', 'aggregator', title='aggregator', description=u'Site news')
@@ -135,7 +135,7 @@ class setupHomePage(grok.View):
         col_news.sort_on = QUERY_SORT_ON
         col_news.sort_reversed = True
         col_news.item_count = 10
-        col_news._Delete_objects_Permission = ('Site Administrator','Manager',)
+        col_news._Delete_objects_Permission = ('Site Administrator', 'Manager',)
         col_news.reindexObject()
 
         # Set default view from aggregator
@@ -143,7 +143,7 @@ class setupHomePage(grok.View):
 
         # Set default page from 'News' folder
         portal['news'].setDefaultPage('aggregator')
-        portal['news']._Delete_objects_Permission = ('Site Administrator','Manager',)
+        portal['news']._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         from plone.portlets.interfaces import ILocalPortletAssignmentManager
         from plone.portlets.constants import CONTEXT_CATEGORY
@@ -321,7 +321,7 @@ class createCustomizedHeaderFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        gestion._Delete_objects_Permission = ('Site Administrator','Manager',)
+        gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         description = u'La capçalera utilitzarà la primera imatge del directori, aquesta imatge ha de tenir una alçada de 83px. \nLa cabecera utilizará la primera imagen del directorio, esta imagen tiene que tener una altura de 83px. \nThe header will use the first image of the directory, this image must have a height of 83px.'
 
@@ -332,14 +332,14 @@ class createCustomizedHeaderFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        header._Delete_objects_Permission = ('Site Administrator','Manager',)
+        header._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         for language in api.portal.get_tool(name='portal_languages').getSupportedLanguages():
             language_folder = newPrivateFolder(header, language, language)
             language_folder.exclude_from_nav = False
             language_folder.setLayout('folder_listing')
             language_folder.description = description
-            language_folder._Delete_objects_Permission = ('Site Administrator','Manager',)
+            language_folder._Delete_objects_Permission = ('Site Administrator', 'Manager',)
             language_folder.reindexObject()
             behavior = ISelectableConstrainTypes(language_folder)
             behavior.setConstrainTypesMode(1)
@@ -348,7 +348,6 @@ class createCustomizedHeaderFolder(grok.View):
 
         header.reindexObject()
         return 'Done'
-
 
 
 class createCustomizedFooterFolder(grok.View):
@@ -373,7 +372,7 @@ class createCustomizedFooterFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        gestion._Delete_objects_Permission = ('Site Administrator','Manager',)
+        gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         footer = newPrivateFolder(gestion, 'footer', u'Footer')
         footer.exclude_from_nav = False
@@ -382,14 +381,14 @@ class createCustomizedFooterFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        footer._Delete_objects_Permission = ('Site Administrator','Manager',)
+        footer._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         for language in api.portal.get_tool(name='portal_languages').getSupportedLanguages():
             language_folder = newPrivateFolder(footer, language, language)
             language_folder.exclude_from_nav = False
             language_folder.setLayout('folder_listing')
             language_folder.description = description
-            language_folder._Delete_objects_Permission = ('Site Administrator','Manager',)
+            language_folder._Delete_objects_Permission = ('Site Administrator', 'Manager',)
             language_folder.reindexObject()
             behavior = ISelectableConstrainTypes(language_folder)
             behavior.setConstrainTypesMode(1)
@@ -420,7 +419,7 @@ class createBannersFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
-        gestion._Delete_objects_Permission = ('Site Administrator','Manager',)
+        gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         banners = newPrivateFolder(gestion, 'banners', u'Banners')
         banners.exclude_from_nav = False
@@ -429,7 +428,7 @@ class createBannersFolder(grok.View):
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('ulearn.banner',))
         behavior.setImmediatelyAddableTypes(('ulearn.banner',))
-        banners._Delete_objects_Permission = ('Site Administrator','Manager',)
+        banners._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         transaction.commit()
         return 'Done'
@@ -471,7 +470,7 @@ class createPersonalBannerFolder(grok.View):
                 behavior.setConstrainTypesMode(1)
                 behavior.setLocallyAllowedTypes(('Folder',))
                 behavior.setImmediatelyAddableTypes(('Folder',))
-                perFolder._Delete_objects_Permission = ('Site Administrator','Manager',)
+                perFolder._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
                 api.content.disable_roles_acquisition(perFolder)
                 for username, roles in perFolder.get_local_roles():
@@ -485,7 +484,7 @@ class createPersonalBannerFolder(grok.View):
                 behavior.setConstrainTypesMode(1)
                 behavior.setLocallyAllowedTypes(('ulearn.banner',))
                 behavior.setImmediatelyAddableTypes(('ulearn.banner',))
-                banFolder._Delete_objects_Permission = ('Site Administrator','Manager',)
+                banFolder._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
                 transaction.commit()
                 return 'Done' + ', ' + userid + '.'
@@ -527,7 +526,7 @@ class changeURLCommunities(grok.View):
     grok.template('changeurlcommunities')
     grok.context(IPloneSiteRoot)
 
-    #render = ViewPageTemplateFile('views_templates/changeurlcommunities.pt')
+    # render = ViewPageTemplateFile('views_templates/changeurlcommunities.pt')
 
     def update(self):
         try:
@@ -561,7 +560,7 @@ class deleteUsers(grok.View):
     grok.template('deleteusers')
     grok.context(IPloneSiteRoot)
 
-    #render = ViewPageTemplateFile('views_templates/deleteusers.pt')
+    # render = ViewPageTemplateFile('views_templates/deleteusers.pt')
 
     def update(self):
         try:
@@ -629,6 +628,7 @@ class deleteUsers(grok.View):
 
                 logger.info('Finished deleted users: {}'.format(users))
 
+
 class deleteUsersInCommunities(grok.View):
     """ Delete users from the plone & max & communities """
     grok.name('deleteusersincommunities')
@@ -684,13 +684,13 @@ class deleteUsersInCommunities(grok.View):
                 logger.info('Finished deleted users in communities: {}'.format(users))
 
 
-def getDestinationFolder(stats_folder,create_month=True):
+def getDestinationFolder(stats_folder, create_month=True):
     """
     This function creates if it doesn't exist a folder in <stats_folder>/<year>/<month>.
     If  create_month is False, then only the <year> folder is created
     """
     portal = api.portal.get()
-    #setSite(portal)
+    # setSite(portal)
     # Create 'stats_folder' folder if not exists
     if portal.get(stats_folder) is None:
         makeFolder(portal, stats_folder)
@@ -754,7 +754,7 @@ r = requests.get('http://localhost:8080/Plone/importfiletofolder', params=payloa
             data=content,
             filename=u'{}'.format(local_file),
             contentType='application/xls'
-            )
+        )
         obj = createContentInContainer(
             plone_folder,
             'AppFile',
@@ -762,7 +762,7 @@ r = requests.get('http://localhost:8080/Plone/importfiletofolder', params=payloa
             title='{}'.format(local_file.split('/')[-1]),
             file=file,
             checkConstraints=False
-            )
+        )
         self.response.setBody('OK')
 
 
@@ -840,6 +840,7 @@ class listAllCommunitiesObjects(grok.View):
                        }
             result_list.append(new_com)
         return json.dumps(result_list)
+
 
 class updateSharingCommunitiesElastic(grok.View):
     """ Aquesta vista actualitza el sharing de tots els objectes de totes les comunitats al elasticsearch """
@@ -951,10 +952,11 @@ class viewUsersWithNotUpdatedPhoto(grok.View):
                 typePortrait = portrait.__class__.__name__
                 if typePortrait == 'FSImage' or (typePortrait == 'Image' and portrait.size == 9715 or portrait.size == 4831):
                     fullname = record[1].attrs['fullname'] if 'fullname' in record[1].attrs else ''
-                    userInfo = {'fullname' : fullname}
+                    userInfo = {'fullname': fullname}
                     result[userID] = userInfo
 
         return result
+
 
 class deletePhotoFromUser(grok.View):
     """ Delete photo from user, add parameter ?user=nom.cognom """
@@ -1003,7 +1005,7 @@ class syncPlatformsPermissions(grok.View):
                 url = portal.absolute_url() + '/api/communities/' + gwuuid + '/subscriptions'
                 response = requests.get(url, auth=(username, password))
                 payload = response.json()
-                headers = {"Content-Type":"application/json"}
+                headers = {"Content-Type": "application/json"}
                 r = requests.post(url, auth=(username, password), headers=headers, json=payload)
 
             return "Done"
@@ -1194,7 +1196,7 @@ class changePermissionsToContent(grok.View):
         for community in communities:
             com = community.getObject()
             com.manage_delLocalRoles(['AuthenticatedUsers'])
-            #community.getObject().manage_setLocalRoles('AuthenticatedUsers', ['Reader'])
+            # community.getObject().manage_setLocalRoles('AuthenticatedUsers', ['Reader'])
 
             com._Delete_objects_Permission = ('Site Administrator', 'Manager', 'WebMaster', 'Owner')
             com._Modify_portal_content_Permission = edit_permission
@@ -1318,7 +1320,8 @@ class addProtectedFileInDocumentsCommunity(grok.View):
             return "OK Add Protected File in Folder Documents Communities"
 
         else:
-           return "ulearn5.externalstorage is not active in this site."
+            return "ulearn5.externalstorage is not active in this site."
+
 
 class addEtherpadInDocumentsCommunity(grok.View):
     """ Si esta instalado el paquete ulearn5.etherpad, esta vista añade en la carpeta documentos de todas las comunidades que se puedan crear documentos etherpad """
@@ -1356,7 +1359,8 @@ class addEtherpadInDocumentsCommunity(grok.View):
             return "OK Add Etherpad in Folder Documents Communities"
 
         else:
-           return "ulearn5.ethepad is not active in this site."
+            return "ulearn5.ethepad is not active in this site."
+
 
 class notifyManualInCommunity(grok.View):
     """ Somo por defecto la notificación por email es automatica esto te la cambia a manual para EBCN """
@@ -1384,13 +1388,14 @@ class notifyManualInCommunity(grok.View):
         transaction.commit()
         return "OK Add notify Manual in Communities"
 
+
 class deleteNominasMes(grok.View):
     """ Aquesta vista esborra les nomines de tots els usuaris d'un mes en concret """
     grok.name('deletenominasmes')
     grok.template('deletenominasmes')
     grok.context(IPloneSiteRoot)
 
-    #render = ViewPageTemplateFile('views_templates/deletenominasmes.pt')
+    # render = ViewPageTemplateFile('views_templates/deletenominasmes.pt')
 
     def update(self):
         try:
