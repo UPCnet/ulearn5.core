@@ -221,9 +221,7 @@ def Added(content, event):
     addPost = addActivityPost(content)
 
     if addPost:
-        if (content.portal_type == 'Image' or
-           content.portal_type == 'File') and \
-           content.description:
+        if content.portal_type == 'File' and content.description:
             activity_text = u'{} {}'.format(content.title, u'{}/view'.format(content.absolute_url()))
 
             try:

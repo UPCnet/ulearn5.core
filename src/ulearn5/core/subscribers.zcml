@@ -23,11 +23,11 @@
              zope.container.interfaces.IObjectAddedEvent"
         />
 
-    <subscriber
+    <!-- <subscriber
         handler=".hooks.Added"
         for="plone.app.contenttypes.interfaces.IImage
              zope.container.interfaces.IObjectAddedEvent"
-        />
+        /> -->
 
     <subscriber
         handler=".hooks.Added"
