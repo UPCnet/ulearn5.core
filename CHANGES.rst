@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.107 (unreleased)
+0.107 (2021-06-14)
 ------------------
 
-- Nothing changed yet.
-
+* Notify by mail activity and comment [Pilar Marinas]
+* Quitar hook imagen [Iago López Fernández]
+* PEP-8 [Iago López Fernández]
 
 0.106 (2021-05-19)
 ------------------
