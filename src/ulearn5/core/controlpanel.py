@@ -51,6 +51,8 @@ typesNotifyMailVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'Event', title=_(u'Event')),
      SimpleTerm(value=u'News Item', title=_(u'News Item')),
      SimpleTerm(value=u'ExternalContent', title=_(u'ExternalContent')),
+     SimpleTerm(value=u'Activity', title=_(u'Activity')),
+     SimpleTerm(value=u'Comment', title=_(u'Comment')),
      ]
 )
 
@@ -109,7 +111,7 @@ class IUlearnControlPanelSettings(model.Schema):
 
     model.fieldset('Communities',
                    _(u'Communities'),
-                   fields=['activity_view', 'show_literals', 'url_terms', 'types_notify_mail', 'subject_template', 'message_template'])
+                   fields=['activity_view', 'show_literals', 'url_terms', 'types_notify_mail', 'subject_template', 'message_template', 'message_template_activity_comment'])
 
     model.fieldset('Google Analytics',
                    u'Google Analytics',
@@ -467,6 +469,15 @@ class IUlearnControlPanelSettings(model.Schema):
                 default=_(u"Messate template")),
         description=_(u'help_message_template',
                       default=_(u"Message template to notify.")),
+        required=False,
+        default=u'',
+    )
+
+    message_template_activity_comment = schema.Text(
+        title=_(u'message_template_activity_comment',
+                default=_(u"Message template Activity and Comment")),
+        description=_(u'help_message_template_activity_comment',
+                      default=_(u"Message template to notify activity and comment.")),
         required=False,
         default=u'',
     )

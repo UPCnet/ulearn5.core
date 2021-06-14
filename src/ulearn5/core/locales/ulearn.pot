@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-04-12 13:55+0000\n"
+"POT-Creation-Date: 2021-06-08 13:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,21 +21,22 @@ msgstr ""
 msgid " ."
 msgstr ""
 
-#: ../controlpanel.py:426
+#: ../controlpanel.py:428
 msgid "/mail_password_form?userid="
 msgstr ""
 
-#: ../content/community.py:148
+#: ../content/community.py:156
 #: ../controlpanel.py:25
 msgid "Activitats destacades"
 msgstr ""
 
-#: ../content/community.py:147
+#: ../content/community.py:155
 #: ../controlpanel.py:24
 msgid "Activitats mes valorades"
 msgstr ""
 
-#: ../content/community.py:156
+#: ../content/community.py:164
+#: ../controlpanel.py:54
 msgid "Activity"
 msgstr ""
 
@@ -79,7 +80,7 @@ msgstr ""
 msgid "Add awesome icon"
 msgstr ""
 
-#: ../controlpanel.py:384
+#: ../controlpanel.py:386
 msgid "Add the quick links by language"
 msgstr ""
 
@@ -91,7 +92,7 @@ msgstr ""
 msgid "All dates"
 msgstr ""
 
-#: ../content/community.py:166
+#: ../content/community.py:174
 msgid "Automatic"
 msgstr ""
 
@@ -100,15 +101,15 @@ msgstr ""
 msgid "Banner"
 msgstr ""
 
-#: ../controlpanel.py:509
+#: ../controlpanel.py:520
 msgid "Bitly api key"
 msgstr ""
 
-#: ../controlpanel.py:501
+#: ../controlpanel.py:512
 msgid "Bitly username"
 msgstr ""
 
-#: ../content/community.py:1677
+#: ../content/community.py:1711
 msgid "Blog"
 msgstr ""
 
@@ -125,7 +126,7 @@ msgstr ""
 msgid "Can only be seen and edited by the owner."
 msgstr ""
 
-#: ../controlpanel.py:578
+#: ../controlpanel.py:589
 #: ../controlportlets.py:332
 msgid "Cancel"
 msgstr ""
@@ -138,7 +139,7 @@ msgstr ""
 msgid "Changes made."
 msgstr ""
 
-#: ../controlpanel.py:575
+#: ../controlpanel.py:586
 msgid "Changes saved"
 msgstr ""
 
@@ -158,17 +159,21 @@ msgstr ""
 msgid "Click to enable the icalendar import feature on this context."
 msgstr ""
 
-#: ../content/community.py:132
+#: ../content/community.py:140
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:35
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:64
 msgid "Closed"
+msgstr ""
+
+#: ../controlpanel.py:55
+msgid "Comment"
 msgstr ""
 
 #: ../profiles/default/workflows/news_intranet/definition.xml
 msgid "Comments about the last transition"
 msgstr ""
 
-#: ../controlpanel.py:111
+#: ../controlpanel.py:113
 msgid "Communities"
 msgstr ""
 
@@ -200,7 +205,7 @@ msgstr ""
 msgid "Comunitat_stats"
 msgstr ""
 
-#: ../content/community.py:1324
+#: ../content/community.py:1358
 msgid "Crea la comunitat"
 msgstr ""
 
@@ -208,16 +213,16 @@ msgstr ""
 msgid "Create thumb of News images for show in app"
 msgstr ""
 
-#: ../content/community.py:146
+#: ../content/community.py:154
 #: ../controlpanel.py:23
 msgid "Darreres activitats"
 msgstr ""
 
-#: ../content/community.py:192
+#: ../content/community.py:200
 msgid "Descripcio"
 msgstr ""
 
-#: ../controlpanel.py:93
+#: ../controlpanel.py:95
 msgid "Design"
 msgstr ""
 
@@ -245,7 +250,7 @@ msgstr ""
 msgid "Display images"
 msgstr ""
 
-#: ../content/community.py:319
+#: ../content/community.py:327
 msgid "Distribution lists"
 msgstr ""
 
@@ -253,7 +258,7 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
-#: ../content/community.py:157
+#: ../content/community.py:165
 msgid "Documents"
 msgstr ""
 
@@ -290,16 +295,16 @@ msgstr ""
 msgid "Edit Subscribed News Portlet"
 msgstr ""
 
-#: ../controlpanel.py:580
+#: ../controlpanel.py:591
 #: ../controlportlets.py:334
 msgid "Edit cancelled"
 msgstr ""
 
-#: ../content/community.py:1466
+#: ../content/community.py:1500
 msgid "Edita la comunitat"
 msgstr ""
 
-#: ../content/community.py:234
+#: ../content/community.py:242
 msgid "Editors"
 msgstr ""
 
@@ -311,7 +316,7 @@ msgstr ""
 msgid "Enable icalendar import"
 msgstr ""
 
-#: ../controlpanel.py:483
+#: ../controlpanel.py:494
 msgid "Enable querying Google Analytics' servers"
 msgstr ""
 
@@ -319,7 +324,7 @@ msgstr ""
 msgid "Enter date..."
 msgstr ""
 
-#: ../controlpanel.py:496
+#: ../controlpanel.py:507
 msgid "Enter the content of the JSON file given when the service account was created"
 msgstr ""
 
@@ -331,7 +336,7 @@ msgstr ""
 msgid "Error, the directory has been deleted."
 msgstr ""
 
-#: ../content/community.py:1607
+#: ../content/community.py:1641
 msgid "Esdeveniments"
 msgstr ""
 
@@ -365,7 +370,7 @@ msgstr ""
 msgid "Fin_stats"
 msgstr ""
 
-#: ../controlpanel.py:74
+#: ../controlpanel.py:76
 msgid "Font Awesome Icon"
 msgstr ""
 
@@ -377,7 +382,7 @@ msgstr ""
 msgid "Front page"
 msgstr ""
 
-#: ../controlpanel.py:85
+#: ../controlpanel.py:87
 msgid "General"
 msgstr ""
 
@@ -397,7 +402,7 @@ msgstr ""
 msgid "HH:i"
 msgstr ""
 
-#: ../controlpanel.py:566
+#: ../controlpanel.py:577
 msgid "Has marcat el comparteix pero falta la url del elasticsearch"
 msgstr ""
 
@@ -422,11 +427,11 @@ msgstr ""
 msgid "If you submitted the item by mistake or want to perform additional edits, this will take it back."
 msgstr ""
 
-#: ../content/community.py:251
+#: ../content/community.py:259
 msgid "Imatge"
 msgstr ""
 
-#: ../content/community.py:252
+#: ../content/community.py:260
 msgid "Imatge que defineix la comunitat"
 msgstr ""
 
@@ -460,15 +465,15 @@ msgstr ""
 msgid "Items in which workflow state to show."
 msgstr ""
 
-#: ../controlpanel.py:495
+#: ../controlpanel.py:506
 msgid "JSON encoded user info"
 msgstr ""
 
-#: ../content/community.py:193
+#: ../content/community.py:201
 msgid "La descripcio de la comunitat"
 msgstr ""
 
-#: ../controlpanel.py:59
+#: ../controlpanel.py:61
 msgid "Language"
 msgstr ""
 
@@ -476,11 +481,11 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: ../controlpanel.py:377
+#: ../controlpanel.py:379
 msgid "Literals que identifiquen als usuaris de les comunitats i les seves aportacions."
 msgstr ""
 
-#: ../controlpanel.py:370
+#: ../controlpanel.py:372
 msgid "Llista amb les persones que no han de sortir a les cerques i que tenen acces restringit per la resta de persones."
 msgstr ""
 
@@ -508,12 +513,12 @@ msgstr ""
 msgid "Manage Nomines"
 msgstr ""
 
-#: ../content/community.py:167
+#: ../content/community.py:175
 msgid "Manual"
 msgstr ""
 
 #: ../browser/migrations.py:178
-#: ../content/community.py:1606
+#: ../content/community.py:1640
 msgid "Media"
 msgstr ""
 
@@ -570,7 +575,7 @@ msgstr ""
 msgid "Name of the Font Awesome class to use as an icon. It is only visible in the menu."
 msgstr ""
 
-#: ../controlpanel.py:75
+#: ../controlpanel.py:77
 msgid "New window"
 msgstr ""
 
@@ -598,11 +603,11 @@ msgstr ""
 msgid "No results"
 msgstr ""
 
-#: ../content/community.py:186
+#: ../content/community.py:194
 msgid "Nom"
 msgstr ""
 
-#: ../content/community.py:187
+#: ../content/community.py:195
 msgid "Nom de la comunitat"
 msgstr ""
 
@@ -618,23 +623,23 @@ msgstr ""
 msgid "Noticias"
 msgstr ""
 
-#: ../content/community.py:1608
+#: ../content/community.py:1642
 msgid "Noticies"
 msgstr ""
 
-#: ../content/community.py:1678
+#: ../content/community.py:1712
 msgid "Noticies de la comunitat"
 msgstr ""
 
-#: ../content/community.py:283
+#: ../content/community.py:291
 msgid "Notify activity and comments via push"
 msgstr ""
 
-#: ../content/community.py:290
+#: ../content/community.py:298
 msgid "Notify activity via mail"
 msgstr ""
 
-#: ../content/community.py:277
+#: ../content/community.py:285
 msgid "Notify activity via push"
 msgstr ""
 
@@ -643,11 +648,11 @@ msgstr ""
 msgid "Number of items to display"
 msgstr ""
 
-#: ../controlpanel.py:490
+#: ../controlpanel.py:501
 msgid "Obtainable from the View Settings panel on Google Analytics Admin control panel"
 msgstr ""
 
-#: ../content/community.py:127
+#: ../content/community.py:135
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:36
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:65
 msgid "Open"
@@ -657,13 +662,13 @@ msgstr ""
 msgid "Open in new tab"
 msgstr ""
 
-#: ../content/community.py:137
+#: ../content/community.py:145
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:37
 #: ulearn5/theme/portlets/buttonbar/buttonbar.pt:66
 msgid "Organizative"
 msgstr ""
 
-#: ../content/community.py:243
+#: ../content/community.py:251
 msgid "Owners"
 msgstr ""
 
@@ -740,7 +745,7 @@ msgstr ""
 msgid "Puts your item in a review queue, so it can be published on the site."
 msgstr ""
 
-#: ../controlpanel.py:107
+#: ../controlpanel.py:109
 msgid "QuickLinks"
 msgstr ""
 
@@ -748,7 +753,7 @@ msgstr ""
 msgid "Quicklinks"
 msgstr ""
 
-#: ../content/community.py:223
+#: ../content/community.py:231
 msgid "Readers"
 msgstr ""
 
@@ -802,7 +807,7 @@ msgstr ""
 
 #: ../browser/sharing_templates/sharing.pt:124
 #: ../content/community_templates/editacl.pt:93
-#: ../controlpanel.py:530
+#: ../controlpanel.py:541
 msgid "Save"
 msgstr ""
 
@@ -814,11 +819,11 @@ msgstr ""
 msgid "Search results"
 msgstr ""
 
-#: ../controlpanel.py:476
+#: ../controlpanel.py:487
 msgid "Select de types to notify mail"
 msgstr ""
 
-#: ../controlpanel.py:228
+#: ../controlpanel.py:230
 msgid "Select the active button in the button bar."
 msgstr ""
 
@@ -831,19 +836,19 @@ msgstr ""
 msgid "Shared With Me"
 msgstr ""
 
-#: ../content/community.py:270
+#: ../content/community.py:278
 msgid "Show events"
 msgstr ""
 
-#: ../content/community.py:271
+#: ../content/community.py:279
 msgid "Show events in the central area of the main community page."
 msgstr ""
 
-#: ../content/community.py:263
+#: ../content/community.py:271
 msgid "Show news"
 msgstr ""
 
-#: ../content/community.py:264
+#: ../content/community.py:272
 msgid "Show news in the central area of the main community page"
 msgstr ""
 
@@ -857,27 +862,27 @@ msgstr ""
 msgid "Submit for publication"
 msgstr ""
 
-#: ../content/community.py:235
+#: ../content/community.py:243
 msgid "Subscribed people with editor permissions"
 msgstr ""
 
-#: ../content/community.py:244
+#: ../content/community.py:252
 msgid "Subscribed people with owner permissions"
 msgstr ""
 
-#: ../content/community.py:224
+#: ../content/community.py:232
 msgid "Subscribed people with read-only permissions"
 msgstr ""
 
-#: ../controlpanel.py:236
+#: ../controlpanel.py:238
 msgid "Tasques que s'executaran per la nit"
 msgstr ""
 
-#: ../controlpanel.py:63
+#: ../controlpanel.py:65
 msgid "Text"
 msgstr ""
 
-#: ../controlpanel.py:383
+#: ../controlpanel.py:385
 msgid "Text Quick Links"
 msgstr ""
 
@@ -885,7 +890,7 @@ msgstr ""
 msgid "Text to show more content."
 msgstr ""
 
-#: ../controlpanel.py:510
+#: ../controlpanel.py:521
 msgid "The API Key Bitly"
 msgstr ""
 
@@ -893,7 +898,7 @@ msgstr ""
 msgid "The ID of the user who performed the last transition"
 msgstr ""
 
-#: ../controlpanel.py:502
+#: ../controlpanel.py:513
 msgid "The bitly username"
 msgstr ""
 
@@ -937,7 +942,7 @@ msgstr ""
 msgid "Time of the last transition"
 msgstr ""
 
-#: ../content/community.py:199
+#: ../content/community.py:207
 msgid "Tipus de comunitat"
 msgstr ""
 
@@ -955,7 +960,7 @@ msgstr ""
 msgid "Todo el contenido"
 msgstr ""
 
-#: ../content/community.py:257
+#: ../content/community.py:265
 msgid "Twitter hashtag"
 msgstr ""
 
@@ -1011,7 +1016,7 @@ msgstr ""
 msgid "Ulearn discussion"
 msgstr ""
 
-#: ../controlpanel.py:520
+#: ../controlpanel.py:531
 msgid "Ulearn settings"
 msgstr ""
 
@@ -1047,11 +1052,11 @@ msgstr ""
 msgid "User means `Fullname [Group] (User ID)`"
 msgstr ""
 
-#: ../content/community.py:313
+#: ../content/community.py:321
 msgid "Users comunnity black lists"
 msgstr ""
 
-#: ../content/community.py:305
+#: ../content/community.py:313
 msgid "Users comunnity lists"
 msgstr ""
 
@@ -1060,7 +1065,7 @@ msgstr ""
 msgid "Usuario_stats"
 msgstr ""
 
-#: ../controlpanel.py:489
+#: ../controlpanel.py:500
 msgid "View ID"
 msgstr ""
 
@@ -1068,7 +1073,7 @@ msgstr ""
 msgid "View loginfo"
 msgstr ""
 
-#: ../controlpanel.py:103
+#: ../controlpanel.py:105
 msgid "Visibility"
 msgstr ""
 
@@ -1110,17 +1115,17 @@ msgid "accepto_politica_2"
 msgstr ""
 
 #. Default: "Mostra les noticies a les que estic subscrit"
-#: ../controlpanel.py:209
+#: ../controlpanel.py:211
 msgid "activate_news"
 msgstr ""
 
 #. Default: "Mostra el que hi ha compartit amb mi"
-#: ../controlpanel.py:218
+#: ../controlpanel.py:220
 msgid "activate_sharedwithme"
 msgstr ""
 
-#: ../content/community.py:207
-#: ../controlpanel.py:403
+#: ../content/community.py:215
+#: ../controlpanel.py:405
 msgid "activity_view"
 msgstr ""
 
@@ -1136,12 +1141,12 @@ msgid "allcommunities"
 msgstr ""
 
 #. Default: "Color final dels gradients"
-#: ../controlpanel.py:296
+#: ../controlpanel.py:298
 msgid "alt_gradient_end_color"
 msgstr ""
 
 #. Default: "Color inicial dels gradients."
-#: ../controlpanel.py:287
+#: ../controlpanel.py:289
 msgid "alt_gradient_start_color"
 msgstr ""
 
@@ -1155,12 +1160,12 @@ msgid "api/saveeditacl"
 msgstr ""
 
 #. Default: "Color de fons global"
-#: ../controlpanel.py:314
+#: ../controlpanel.py:316
 msgid "background_color"
 msgstr ""
 
 #. Default: "Propietat de fons global"
-#: ../controlpanel.py:305
+#: ../controlpanel.py:307
 msgid "background_property"
 msgstr ""
 
@@ -1213,22 +1218,22 @@ msgstr ""
 msgid "buttonbar"
 msgstr ""
 
-#: ../controlpanel.py:227
+#: ../controlpanel.py:229
 msgid "buttonbar_selected"
 msgstr ""
 
 #. Default: "Color primari dels botons"
-#: ../controlpanel.py:323
+#: ../controlpanel.py:325
 msgid "buttons_color_primary"
 msgstr ""
 
 #. Default: "Color secundari dels botons"
-#: ../controlpanel.py:332
+#: ../controlpanel.py:334
 msgid "buttons_color_secondary"
 msgstr ""
 
 #. Default: "URL del campus"
-#: ../controlpanel.py:147
+#: ../controlpanel.py:149
 msgid "campus_url"
 msgstr ""
 
@@ -1245,22 +1250,22 @@ msgstr ""
 msgid "collective_polls_VotePortlet"
 msgstr ""
 
-#: ../controlpanel.py:378
+#: ../controlpanel.py:380
 msgid "collegiates"
 msgstr ""
 
 #. Default: "Color comunitat tancada"
-#: ../controlpanel.py:341
+#: ../controlpanel.py:343
 msgid "color_community_closed"
 msgstr ""
 
 #. Default: "Color comunitat oberta"
-#: ../controlpanel.py:359
+#: ../controlpanel.py:361
 msgid "color_community_open"
 msgstr ""
 
 #. Default: "Color comunitat organitzativa"
-#: ../controlpanel.py:350
+#: ../controlpanel.py:352
 msgid "color_community_organizative"
 msgstr ""
 
@@ -1280,22 +1285,22 @@ msgstr ""
 msgid "community_open_and_no_subscribed"
 msgstr ""
 
-#: ../content/community.py:200
+#: ../content/community.py:208
 msgid "community_type_description"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat creada."
-#: ../content/community.py:1401
+#: ../content/community.py:1435
 msgid "comunitat_creada"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom."
-#: ../content/community.py:1368
+#: ../content/community.py:1402
 msgid "comunitat_existeix"
 msgstr ""
 
 #. Default: "La comunitat ${comunitat} ha estat modificada."
-#: ../content/community.py:1536
+#: ../content/community.py:1570
 msgid "comunitat_modificada"
 msgstr ""
 
@@ -1321,7 +1326,7 @@ msgid "createcommunity"
 msgstr ""
 
 #. Default: "Cron tasks"
-#: ../controlpanel.py:235
+#: ../controlpanel.py:237
 msgid "cron_tasks"
 msgstr ""
 
@@ -1333,7 +1338,7 @@ msgstr ""
 msgid "delete_user_catalog"
 msgstr ""
 
-#: ../content/community.py:329
+#: ../content/community.py:337
 msgid "description_terms_of_user"
 msgstr ""
 
@@ -1347,7 +1352,7 @@ msgstr ""
 msgid "discussion"
 msgstr ""
 
-#: ../content/community.py:320
+#: ../content/community.py:328
 msgid "distribution_lists_help"
 msgstr ""
 
@@ -1362,7 +1367,7 @@ msgid "entrades"
 msgstr ""
 
 #. Default: "Falta omplir algun camp obligatori."
-#: ../content/community.py:1333
+#: ../content/community.py:1367
 msgid "error"
 msgstr ""
 
@@ -1412,12 +1417,12 @@ msgid "external_website"
 msgstr ""
 
 #. Default: "Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
-#: ../content/community.py:177
+#: ../content/community.py:185
 msgid "falta_condicions"
 msgstr ""
 
 #. Default: "No es pot crear una comunitat sense titol"
-#: ../content/community.py:1329
+#: ../content/community.py:1363
 msgid "falta_titol"
 msgstr ""
 
@@ -1453,7 +1458,7 @@ msgstr ""
 msgid "gotolibrary"
 msgstr ""
 
-#: ../content/community.py:258
+#: ../content/community.py:266
 msgid "hashtag_help"
 msgstr ""
 
@@ -1468,52 +1473,52 @@ msgid "heading_send_event"
 msgstr ""
 
 #. Default: "Mostra o no el botó de Noticies a la tile central de les comunitats"
-#: ../controlpanel.py:211
+#: ../controlpanel.py:213
 msgid "help_activate_news"
 msgstr ""
 
 #. Default: "Mostra o no el botó del que hi ha compartit amb mi i el que hi ha compartit a les comunitats"
-#: ../controlpanel.py:220
+#: ../controlpanel.py:222
 msgid "help_activate_sharedwithme"
 msgstr ""
 
-#: ../content/community.py:208
-#: ../controlpanel.py:404
+#: ../content/community.py:216
+#: ../controlpanel.py:406
 msgid "help_activity_view"
 msgstr ""
 
 #. Default: "Aquest és el color final dels gradients."
-#: ../controlpanel.py:298
+#: ../controlpanel.py:300
 msgid "help_alt_gradient_end_color"
 msgstr ""
 
 #. Default: "Aquest és el color inicial dels gradients."
-#: ../controlpanel.py:289
+#: ../controlpanel.py:291
 msgid "help_alt_gradient_start_color"
 msgstr ""
 
 #. Default: "Aquest és el color de fons global o la propietat corresponent."
-#: ../controlpanel.py:316
+#: ../controlpanel.py:318
 msgid "help_background_color"
 msgstr ""
 
 #. Default: "Aquest és la propietat de CSS de background."
-#: ../controlpanel.py:307
+#: ../controlpanel.py:309
 msgid "help_background_property"
 msgstr ""
 
 #. Default: "Aquest és el color primari dels botons."
-#: ../controlpanel.py:325
+#: ../controlpanel.py:327
 msgid "help_buttons_color_primary"
 msgstr ""
 
 #. Default: "Aquest és el color secundari dels botons."
-#: ../controlpanel.py:334
+#: ../controlpanel.py:336
 msgid "help_buttons_color_secondary"
 msgstr ""
 
 #. Default: "Afegiu la URL del campus associat a aquestes comunitats."
-#: ../controlpanel.py:149
+#: ../controlpanel.py:151
 msgid "help_campus_url"
 msgstr ""
 
@@ -1523,17 +1528,17 @@ msgid "help_collective_polls_VotePortlet"
 msgstr ""
 
 #. Default: "Aquest és el color per les comunitats tancades."
-#: ../controlpanel.py:343
+#: ../controlpanel.py:345
 msgid "help_color_community_closed"
 msgstr ""
 
 #. Default: "Aquest és el color per les comunitats obertes."
-#: ../controlpanel.py:361
+#: ../controlpanel.py:363
 msgid "help_color_community_open"
 msgstr ""
 
 #. Default: "Aquest és el color per les comunitats organitzatives."
-#: ../controlpanel.py:352
+#: ../controlpanel.py:354
 msgid "help_color_community_organizative"
 msgstr ""
 
@@ -1549,7 +1554,7 @@ msgid "help_event_timezone"
 msgstr ""
 
 #. Default: "Afegiu el títol del Ulearn. Podeu incloure tags HTML"
-#: ../controlpanel.py:125
+#: ../controlpanel.py:127
 msgid "help_html_title"
 msgstr ""
 
@@ -1559,7 +1564,7 @@ msgid "help_include_contained_objects"
 msgstr ""
 
 #. Default: "Aquest és l'enllaç al servei."
-#: ../controlpanel.py:203
+#: ../controlpanel.py:205
 msgid "help_info_servei"
 msgstr ""
 
@@ -1569,38 +1574,43 @@ msgid "help_language"
 msgstr ""
 
 #. Default: "Afegiu la URL de la biblioteca associada a aquestes comunitats."
-#: ../controlpanel.py:158
+#: ../controlpanel.py:160
 msgid "help_library_url"
 msgstr ""
 
 #. Default: "Aquest és el llindar del winwin #1."
-#: ../controlpanel.py:167
+#: ../controlpanel.py:169
 msgid "help_llindar_winwin1"
 msgstr ""
 
 #. Default: "Aquest és el llindar del winwin #2."
-#: ../controlpanel.py:176
+#: ../controlpanel.py:178
 msgid "help_llindar_winwin2"
 msgstr ""
 
 #. Default: "Aquest és el llindar del winwin #3."
-#: ../controlpanel.py:185
+#: ../controlpanel.py:187
 msgid "help_llindar_winwin3"
 msgstr ""
 
 #. Default: "Aquest és el color principal de l'espai."
-#: ../controlpanel.py:262
+#: ../controlpanel.py:264
 msgid "help_main_color"
 msgstr ""
 
 #. Default: "Aquest és el color del fons del widget de MAX."
-#: ../controlpanel.py:280
+#: ../controlpanel.py:282
 msgid "help_maxui_form_bg"
 msgstr ""
 
 #. Default: "Message template to notify."
-#: ../controlpanel.py:468
+#: ../controlpanel.py:470
 msgid "help_message_template"
+msgstr ""
+
+#. Default: "Message template to notify activity and comment."
+#: ../controlpanel.py:479
+msgid "help_message_template_activity_comment"
 msgstr ""
 
 #. Default: "Habilita el portlet del max para poder ver la actividad y si se quiere los chats."
@@ -1618,7 +1628,7 @@ msgstr ""
 msgid "help_navigation_title"
 msgstr ""
 
-#: ../content/community.py:284
+#: ../content/community.py:292
 msgid "help_notify_activity_via_push_comments_too"
 msgstr ""
 
@@ -1648,53 +1658,53 @@ msgid "help_portlets_settings_editform"
 msgstr ""
 
 #. Default: "Afegiu la icona del Font Awesome que voleu que es mostri"
-#: ../controlpanel.py:391
+#: ../controlpanel.py:393
 msgid "help_quicklinks_icon"
 msgstr ""
 
-#: ../controlpanel.py:385
+#: ../controlpanel.py:387
 msgid "help_quicklinks_literal"
 msgstr ""
 
-#: ../controlpanel.py:400
+#: ../controlpanel.py:402
 msgid "help_quicklinks_table"
 msgstr ""
 
 #. Default: "Aquest és el color secundari de l'espai."
-#: ../controlpanel.py:271
+#: ../controlpanel.py:273
 msgid "help_secondary_color"
 msgstr ""
 
 #. Default: "Disable or enable the display of community types in the portlet."
-#: ../controlpanel.py:441
+#: ../controlpanel.py:443
 msgid "help_show_literals"
 msgstr ""
 
 #. Default: "If selected, then gives the option to show the News Items in Mobile App."
-#: ../controlpanel.py:432
+#: ../controlpanel.py:434
 msgid "help_show_news_in_app"
 msgstr ""
 
 #. Default: "Aquest és l'idioma de l'espai, que es configura quan el paquet es reinstala."
-#: ../controlpanel.py:413
+#: ../controlpanel.py:415
 msgid "help_site_language"
 msgstr ""
 
 #. Default: "Mostra o no el botó d'accés a estadístiques diàries a stats/activity i stats/chats"
-#: ../controlpanel.py:194
+#: ../controlpanel.py:196
 msgid "help_stats_button"
 msgstr ""
 
 #. Default: "Subject template to notify."
-#: ../controlpanel.py:459
+#: ../controlpanel.py:461
 msgid "help_subject_template"
 msgstr ""
 
-#: ../content/community.py:215
+#: ../content/community.py:223
 msgid "help_tab_view"
 msgstr ""
 
-#: ../content/community.py:297
+#: ../content/community.py:305
 msgid "help_type_notify"
 msgstr ""
 
@@ -1774,7 +1784,7 @@ msgid "help_ulearn_recentchanges"
 msgstr ""
 
 #. Default: "uLearn configuration registry."
-#: ../controlpanel.py:521
+#: ../controlpanel.py:532
 msgid "help_ulearn_settings_editform"
 msgstr ""
 
@@ -1794,22 +1804,22 @@ msgid "help_ulearn_thinkers"
 msgstr ""
 
 #. Default: "Url per defecte: \"/mail_password_form?userid=\". Per a dominis externs indiqueu la url completa, \"http://www.domini.cat\""
-#: ../controlpanel.py:423
+#: ../controlpanel.py:425
 msgid "help_url_forget_password"
 msgstr ""
 
 #. Default: "Url of the private policy."
-#: ../controlpanel.py:244
+#: ../controlpanel.py:246
 msgid "help_url_private_policy"
 msgstr ""
 
 #. Default: "Url of the site."
-#: ../controlpanel.py:253
+#: ../controlpanel.py:255
 msgid "help_url_site"
 msgstr ""
 
 #. Default: "Url of the terms of use."
-#: ../controlpanel.py:450
+#: ../controlpanel.py:452
 msgid "help_url_terms"
 msgstr ""
 
@@ -1838,17 +1848,17 @@ msgid "hh:i A"
 msgstr ""
 
 #. Default: "Títol del web amb HTML tags (negretes) [CA]"
-#: ../controlpanel.py:123
+#: ../controlpanel.py:125
 msgid "html_title_ca"
 msgstr ""
 
 #. Default: "Títol del web amb HTML tags (negretes) [EN]"
-#: ../controlpanel.py:139
+#: ../controlpanel.py:141
 msgid "html_title_en"
 msgstr ""
 
 #. Default: "Títol del web amb HTML tags (negretes) [ES]"
-#: ../controlpanel.py:131
+#: ../controlpanel.py:133
 msgid "html_title_es"
 msgstr ""
 
@@ -1879,7 +1889,7 @@ msgid "info_public"
 msgstr ""
 
 #. Default: "Informació del servei"
-#: ../controlpanel.py:201
+#: ../controlpanel.py:203
 msgid "info_servei"
 msgstr ""
 
@@ -1994,32 +2004,32 @@ msgid "label_wsurl"
 msgstr ""
 
 #. Default: "Idioma de l'espai"
-#: ../controlpanel.py:411
+#: ../controlpanel.py:413
 msgid "language"
 msgstr ""
 
 #. Default: "URL de la biblioteca"
-#: ../controlpanel.py:156
+#: ../controlpanel.py:158
 msgid "library_url"
 msgstr ""
 
 #. Default: "Llindar del winwin 1"
-#: ../controlpanel.py:165
+#: ../controlpanel.py:167
 msgid "llindar_winwin1"
 msgstr ""
 
 #. Default: "Llindar del winwin 2"
-#: ../controlpanel.py:174
+#: ../controlpanel.py:176
 msgid "llindar_winwin2"
 msgstr ""
 
 #. Default: "Llindar del winwin 3"
-#: ../controlpanel.py:183
+#: ../controlpanel.py:185
 msgid "llindar_winwin3"
 msgstr ""
 
 #. Default: "Color principal"
-#: ../controlpanel.py:260
+#: ../controlpanel.py:262
 msgid "main_color"
 msgstr ""
 
@@ -2054,7 +2064,7 @@ msgid "manage_right_portlets_title"
 msgstr ""
 
 #. Default: "Color del fons del widget de MAX."
-#: ../controlpanel.py:278
+#: ../controlpanel.py:280
 msgid "maxui_form_bg"
 msgstr ""
 
@@ -2124,8 +2134,13 @@ msgid "message_pwreset_success"
 msgstr ""
 
 #. Default: "Messate template"
-#: ../controlpanel.py:466
+#: ../controlpanel.py:468
 msgid "message_template"
+msgstr ""
+
+#. Default: "Message template Activity and Comment"
+#: ../controlpanel.py:477
+msgid "message_template_activity_comment"
 msgstr ""
 
 #. Default: "Habilitar portlet mrs_max_widget"
@@ -2178,7 +2193,7 @@ msgstr ""
 msgid "no_content_shared_user"
 msgstr ""
 
-#: ../controlpanel.py:369
+#: ../controlpanel.py:371
 msgid "no_visibles"
 msgstr ""
 
@@ -2186,23 +2201,23 @@ msgstr ""
 msgid "not_visibility_widget_title"
 msgstr ""
 
-#: ../content/community.py:291
+#: ../content/community.py:299
 msgid "notify_activity_via_mail_help"
 msgstr ""
 
-#: ../content/community.py:278
+#: ../content/community.py:286
 msgid "notify_activity_via_push_help"
 msgstr ""
 
-#: ../controlpanel.py:378
+#: ../controlpanel.py:380
 msgid "participants"
 msgstr ""
 
-#: ../controlpanel.py:376
+#: ../controlpanel.py:378
 msgid "people_literal"
 msgstr ""
 
-#: ../controlpanel.py:378
+#: ../controlpanel.py:380
 msgid "persones"
 msgstr ""
 
@@ -2255,7 +2270,7 @@ msgid "publicaalaintranet"
 msgstr ""
 
 #. Default: "icon-link"
-#: ../controlpanel.py:389
+#: ../controlpanel.py:391
 msgid "quicklinks_icon"
 msgstr ""
 
@@ -2308,7 +2323,7 @@ msgid "search_users"
 msgstr ""
 
 #. Default: "Color secundari"
-#: ../controlpanel.py:269
+#: ../controlpanel.py:271
 msgid "secondary_color"
 msgstr ""
 
@@ -2381,12 +2396,12 @@ msgid "shared_with_me"
 msgstr ""
 
 #. Default: "Show literal"
-#: ../controlpanel.py:439
+#: ../controlpanel.py:441
 msgid "show_literals"
 msgstr ""
 
 #. Default: "Show News Items in App"
-#: ../controlpanel.py:430
+#: ../controlpanel.py:432
 msgid "show_news_in_app"
 msgstr ""
 
@@ -2406,7 +2421,7 @@ msgid "statsCommunityName"
 msgstr ""
 
 #. Default: "Mostrar botó d'accés a estadístiques diàries"
-#: ../controlpanel.py:192
+#: ../controlpanel.py:194
 msgid "stats_button"
 msgstr ""
 
@@ -2421,7 +2436,7 @@ msgid "student"
 msgstr ""
 
 #. Default: "Subject template"
-#: ../controlpanel.py:457
+#: ../controlpanel.py:459
 msgid "subject_template"
 msgstr ""
 
@@ -2444,7 +2459,7 @@ msgstr ""
 msgid "syncldapgroups"
 msgstr ""
 
-#: ../content/community.py:214
+#: ../content/community.py:222
 msgid "tab_view"
 msgstr ""
 
@@ -2468,7 +2483,7 @@ msgstr ""
 msgid "text_form_resubmit_message"
 msgstr ""
 
-#: ../controlpanel.py:378
+#: ../controlpanel.py:380
 msgid "thinnkers"
 msgstr ""
 
@@ -2486,7 +2501,7 @@ msgstr ""
 msgid "title_personal_information_form"
 msgstr ""
 
-#: ../content/community.py:328
+#: ../content/community.py:336
 msgid "title_terms_of_user"
 msgstr ""
 
@@ -2499,12 +2514,12 @@ msgstr ""
 msgid "tools"
 msgstr ""
 
-#: ../content/community.py:296
+#: ../content/community.py:304
 msgid "type_notify"
 msgstr ""
 
 #. Default: "Types to notify mail"
-#: ../controlpanel.py:475
+#: ../controlpanel.py:486
 msgid "types_notify_mail"
 msgstr ""
 
@@ -2636,30 +2651,30 @@ msgid "ulearn_thinkers"
 msgstr ""
 
 #. Default: "URL contrasenya oblidada"
-#: ../controlpanel.py:421
+#: ../controlpanel.py:423
 msgid "url_forget_password"
 msgstr ""
 
 #. Default: "Url private policy"
-#: ../controlpanel.py:242
+#: ../controlpanel.py:244
 msgid "url_private_policy"
 msgstr ""
 
 #. Default: "Url site"
-#: ../controlpanel.py:251
+#: ../controlpanel.py:253
 msgid "url_site"
 msgstr ""
 
 #. Default: "Url terms of use"
-#: ../controlpanel.py:448
+#: ../controlpanel.py:450
 msgid "url_terms"
 msgstr ""
 
-#: ../content/community.py:314
+#: ../content/community.py:322
 msgid "users_community_black_lists_help"
 msgstr ""
 
-#: ../content/community.py:306
+#: ../content/community.py:314
 msgid "users_community_lists_help"
 msgstr ""
 
@@ -2696,7 +2711,7 @@ msgstr ""
 msgid "vocabulary-missing-single-value-for-edit"
 msgstr ""
 
-#: ../controlpanel.py:378
+#: ../controlpanel.py:380
 msgid "who_is_who"
 msgstr ""
 

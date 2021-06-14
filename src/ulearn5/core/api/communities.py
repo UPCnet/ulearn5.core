@@ -22,6 +22,11 @@ from ulearn5.core.content.community import ICommunityACL
 from ulearn5.core.utils import is_activate_owncloud
 from ulearn5.owncloud.utils import update_owncloud_permission
 
+from email.header import Header
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.utils import formatdate
+
 import ast
 import requests
 
@@ -551,3 +556,168 @@ class Subscriptions(REST, CommunityMixin):
         acl = adapter.get_acl()
         adapter.set_plone_permissions(acl)
         adapter.update_hub_subscriptions()
+
+
+class Notifymail(REST, CommunityMixin):
+    """
+        /api/notifymail
+
+    """
+    placeholder_type = 'notifymail'
+    placeholder_id = 'notifymail'
+
+    grok.adapts(APIRoot, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    @api_resource()
+    def POST(self):
+        """
+            Subscribes a bunch of users to a community the security is given an
+            initial soft check for authenticated users at the view level and
+            then by checking explicitly if the requester user has permission on
+            the target community.
+        """
+        params = {}
+        #params['community_url'] = self.params.pop('community_url')
+        #params['community_name'] = self.params.pop('community_name')
+        #params['actor_displayName'] = self.params.pop('actor_displayName')
+        #params['activity_content'] = self.params.pop('activity_content')
+        params['community_url'] = self.request.form['community_url']
+        params['community_name'] = self.request.form['community_name']
+        params['actor_displayName'] = self.request.form['actor_displayName']
+        params['activity_content'] = self.request.form['activity_content']
+        params['content_type'] = self.request.form['content_type']
+
+        pc = api.portal.get_tool('portal_catalog')
+        communities = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=params['community_url'].split('/')[-1])
+        for item in communities:
+            community = item.getObject()
+            if not hasattr(community, 'notify_activity_via_mail') or not community.notify_activity_via_mail:
+                success_response = 'Not notifymail'
+                return ApiResponse.from_string(success_response)
+
+            types_notify_mail = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.types_notify_mail')
+            if params['content_type'] == 'activity' and 'Activity' in types_notify_mail:
+                notifymail = True
+            elif params['content_type'] == 'comment' and 'Comment' in types_notify_mail:
+                notifymail = True
+            else:
+                notifymail = False
+                success_response = 'Not notifymail'
+                return ApiResponse.from_string(success_response)
+
+            if notifymail:
+
+                if community.type_notify == "Automatic" and community.mails_users_community_lists == "":
+                    success_response = 'Not notifymail Automatic by not mails users'
+                    return ApiResponse.from_string(success_response)
+
+                if community.type_notify == "Manual" and community.distribution_lists == "":
+                    success_response = 'Not notifymail Manual by not mails users'
+                    return ApiResponse.from_string(success_response)
+
+                if community.type_notify == "Manual":
+                    mails_users_to_notify = community.distribution_lists
+                else:
+                    if community.mails_users_community_lists == None:
+                        mails_users_to_notify = community.mails_users_community_lists
+                    else:
+                        if community.mails_users_community_black_lists is None:
+                            community.mails_users_community_black_lists = {}
+                        elif not isinstance(community.mails_users_community_black_lists, dict):
+                            community.mails_users_community_black_lists = ast.literal_eval(community.mails_users_community_black_lists)
+
+                        black_list_mails_users_to_notify = community.mails_users_community_black_lists.values()
+                        if isinstance(community.mails_users_community_lists, list):
+                            # if None in community.mails_users_community_lists:
+                            #     community.mails_users_community_lists.remove(None)
+                            list_to_send = [email for email in community.mails_users_community_lists if email not in black_list_mails_users_to_notify]
+                            mails_users_to_notify = ','.join(list_to_send)
+                        else:
+                            list_to_send = [email for email in ast.literal_eval(community.mails_users_community_lists) if email not in black_list_mails_users_to_notify]
+                            mails_users_to_notify = ','.join(list_to_send)
+
+                if mails_users_to_notify:
+
+                    subject_template = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
+
+                    message_template = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template_activity_comment')
+
+                    lang = api.portal.get_default_language()
+
+                    if subject_template == None or subject_template == '':
+                        if lang == 'ca':
+                            subject_template = 'Nou contingut %(community)s '
+                        elif lang == 'es':
+                            subject_template = 'Nuevo contenido %(community)s '
+                        else:
+                            subject_template = 'New content %(community)s '
+
+                    if message_template == None or message_template == '':
+                        if lang == 'ca':
+                            message_template = """\
+                            T’informem que l'usuari %(author)s ha publicat: <br>
+                            %(description)s
+                            <br>
+                            a la teva comunitat <br><br>
+                            ✓ <a target="_blank" href="%(link)s">%(title)s</a><br>
+                            <br>
+                            Cordialment,<br>
+                            """
+                        elif lang == 'es':
+                            message_template = """\
+                            Te informamos que el usuario %(author)s ha publicado: <br>
+                            %(description)s
+                            <br>
+                            en tu comunidad <br><br>
+                            ✓ <a target="_blank" href="%(link)s">%(title)s</a><br>
+                            <br>
+                            Cordialmente,<br>
+                            """
+                        else:
+                            message_template = """\
+                            We inform you that the user %(author)s has published: <br>
+                            %(description)s
+                            <br>
+                            in your community <br><br>
+                            ✓ <a target="_blank" href="%(link)s">%(title)s</a><br>
+                            <br>
+                            Cordially,<br>
+                            """
+
+                    mailhost = api.portal.get_tool(name='MailHost')
+
+                    if isinstance(message_template, unicode):
+                        message_template = message_template.encode('utf-8')
+
+                    if isinstance(subject_template, unicode):
+                        subject_template = subject_template.encode('utf-8')
+
+                    html_activity_content = "<p>" + params['activity_content'].replace("\n", "<br>") + "</p>"
+                    map = {
+                        'community': params['community_name'].encode('utf-8'),
+                        'link': '{}'.format(params['community_url']),
+                        'title': params['community_name'].encode('utf-8'),
+                        'description': html_activity_content,
+                        'type': '',
+                        'author': params['actor_displayName'],
+                    }
+
+                    body = message_template % map
+                    subject = subject_template % map
+
+                    msg = MIMEMultipart()
+                    msg['From'] = api.portal.get_registry_record('plone.email_from_address')
+                    msg['Bcc'] = mails_users_to_notify
+                    msg['Date'] = formatdate(localtime=True)
+                    msg['Subject'] = Header(subject, 'utf-8')
+
+                    msg.attach(MIMEText(body, 'html', 'utf-8'))
+                    mailhost.send(msg)
+
+
+            # Response successful
+
+            success_response = 'OK notifymail'
+            logger.info(success_response)
+            return ApiResponse.from_string(success_response)
