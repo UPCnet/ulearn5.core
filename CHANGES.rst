@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.108 (unreleased)
+0.108 (2021-06-21)
 ------------------
 
-- Nothing changed yet.
-
+* Notify by mail text and image in activity [Pilar Marinas]
 
 0.107 (2021-06-14)
 ------------------
