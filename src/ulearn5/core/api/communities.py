@@ -6,12 +6,14 @@ from five import grok
 from hashlib import sha1
 from plone import api
 from zope.component import queryUtility
+from zope.component import getUtility
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
 from plone.namedfile.file import NamedBlobImage
 from mimetypes import MimeTypes
 
+from mrs5.max.utilities import IMAXClient
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import BadParameters
 from ulearn5.core.api import REST
@@ -25,6 +27,7 @@ from ulearn5.owncloud.utils import update_owncloud_permission
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.MIMEImage import MIMEImage
 from email.utils import formatdate
 
 import ast
@@ -557,7 +560,6 @@ class Subscriptions(REST, CommunityMixin):
         adapter.set_plone_permissions(acl)
         adapter.update_hub_subscriptions()
 
-
 class Notifymail(REST, CommunityMixin):
     """
         /api/notifymail
@@ -587,6 +589,10 @@ class Notifymail(REST, CommunityMixin):
         params['actor_displayName'] = self.request.form['actor_displayName']
         params['activity_content'] = self.request.form['activity_content']
         params['content_type'] = self.request.form['content_type']
+        params['thumbURL'] = self.request.form['thumbURL']
+        params['filename'] = self.request.form['filename']
+        params['mimetye'] = self.request.form['mimetye']
+        params['objectType'] = self.request.form['objectType']
 
         pc = api.portal.get_tool('portal_catalog')
         communities = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=params['community_url'].split('/')[-1])
@@ -686,14 +692,32 @@ class Notifymail(REST, CommunityMixin):
                             """
 
                     mailhost = api.portal.get_tool(name='MailHost')
-
+                    msg = MIMEMultipart()
                     if isinstance(message_template, unicode):
                         message_template = message_template.encode('utf-8')
 
                     if isinstance(subject_template, unicode):
                         subject_template = subject_template.encode('utf-8')
 
-                    html_activity_content = "<p>" + params['activity_content'].replace("\n", "<br>") + "</p>"
+                        if params['objectType'] == 'image':
+                           self.maxclient, self.settings = getUtility(IMAXClient)()
+                           self.maxclient.setActor(self.settings.max_restricted_username)
+                           self.maxclient.setToken(self.settings.max_restricted_token)
+
+                           headers={'X-Oauth-Username': self.settings.max_restricted_username,
+                                    'X-Oauth-Token': self.settings.max_restricted_token,
+                                    'X-Oauth-Scope': 'widgetcli'}
+
+                           image = requests.get(self.maxclient.url + params['thumbURL'], headers=headers, verify=False)
+
+                           msgImage = MIMEImage(image.content)
+                           msgImage.add_header('Content-ID', '<image1>')
+                           msg.attach(msgImage)
+                           html_activity_content = "<p>" + params['activity_content'].replace("\n", "<br>") + "</p>" + "<p><img src=cid:image1><br></p>"
+
+                        else:
+                           html_activity_content = "<p>" + params['activity_content'].replace("\n", "<br>") + "</p>"
+
                     map = {
                         'community': params['community_name'].encode('utf-8'),
                         'link': '{}'.format(params['community_url']),
@@ -706,7 +730,6 @@ class Notifymail(REST, CommunityMixin):
                     body = message_template % map
                     subject = subject_template % map
 
-                    msg = MIMEMultipart()
                     msg['From'] = api.portal.get_registry_record('plone.email_from_address')
                     msg['Bcc'] = mails_users_to_notify
                     msg['Date'] = formatdate(localtime=True)
@@ -714,7 +737,6 @@ class Notifymail(REST, CommunityMixin):
 
                     msg.attach(MIMEText(body, 'html', 'utf-8'))
                     mailhost.send(msg)
-
 
             # Response successful
 
