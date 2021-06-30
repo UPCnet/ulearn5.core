@@ -558,6 +558,45 @@ class migrationUsersProfiles(grok.View):
         logger.info('Ha finalitzat la migració dels usuaris.')
 
 
+class migrationUsersProfilesSoup(grok.View):
+    """ Aquesta vista migra les properties dels usuaris de Plone 4 que estan en el soup a la nova versió en Plone 5 i ho afegeix al soup de Plone 5"""
+    grok.name('migrationusersprofilesoup')
+    grok.template('migrationusersprofilesoup')
+    grok.context(IPloneSiteRoot)
+    grok.require('cmf.ManagePortal')
+
+    def update(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            hscope = 'widgetcli'
+
+            if self.request.form['url_instance_v4'] != '':
+                url_instance_v4 = self.request.form['url_instance_v4']
+                husernamev4 = self.request.form['husernamev4']
+                htokenv4 = self.request.form['htokenv4']
+
+                json_users = requests.get(url_instance_v4 + '/api/userspropertiesmigrationsoup', headers={'X-Oauth-Username': husernamev4, 'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                logger.info('Buscant users per migrar')
+                users = json.loads(json_users.content)
+
+                for user in users:
+                    try:
+                        existing_user = api.user.get(user['id'])
+                        existing_user.setMemberProperties(user['properties'])
+                        # properties = get_all_user_properties(existing_user)
+                        add_user_to_catalog(existing_user, user['properties'], overwrite=True)
+                        logger.info('Usuari migrat: ' + user['id'])
+                    except:
+                        logger.error('Usuari NO migrat: ' + user['id'])
+
+        logger.info('Ha finalitzat la migració dels usuaris.')
+
+
 class migrationFixFolderViews(grok.View):
     """ Aquesta vista canvia totes les vistes folder_extended de les carpetes per listing_view. La vista folder_extender no existeix en Plone 5
 
