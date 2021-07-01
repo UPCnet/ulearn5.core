@@ -276,3 +276,16 @@ def construct_calendar_user_timezone(events, start=None, end=None):
 
             _add_to_cal(cal, event, next_start_date)
     return cal
+
+# Función que convierte cualquier objeto JSON decodificado de usar cadenas Unicode
+# a cadenas de bytes codificadas en UTF-8
+def byteify(input):
+    if isinstance(input, dict):
+        return {byteify(key): byteify(value)
+                for key, value in input.iteritems()}
+    elif isinstance(input, list):
+        return [byteify(element) for element in input]
+    elif isinstance(input, unicode):
+        return input.encode('utf-8')
+    else:
+        return inpu

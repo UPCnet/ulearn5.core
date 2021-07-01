@@ -12,7 +12,7 @@ from base5.core.adapters import IImportant
 from base5.core.adapters import IShowInApp
 from base5.core.utils import add_user_to_catalog
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
-from ulearn5.core.utils import is_activate_owncloud
+from ulearn5.core.utils import is_activate_owncloud, byteify
 from ulearn5.owncloud.utils import update_owncloud_permission
 #from ulearn5.generali.utilities import ScoresUtility
 from persistent.dict import PersistentDict
@@ -582,7 +582,8 @@ class migrationUsersProfilesSoup(grok.View):
 
                 json_users = requests.get(url_instance_v4 + '/api/userspropertiesmigrationsoup', headers={'X-Oauth-Username': husernamev4, 'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                 logger.info('Buscant users per migrar')
-                users = json.loads(json_users.content)
+                users_json = json.loads(json_users.content)
+                users = byteify(users_json)
 
                 for user in users:
                     try:
