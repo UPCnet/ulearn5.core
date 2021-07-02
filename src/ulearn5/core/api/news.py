@@ -13,6 +13,7 @@ from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.formatting import formatMessageEntities
+from lxml import html
 
 from datetime import datetime
 
@@ -190,7 +191,7 @@ class New(REST):
                     date = value.creation_date.strftime("%d/%m/%Y")
                 if value.text:
                     #text = value.text.output
-                    text = formatMessageEntities(value.text.output)
+                    text = formatMessageEntities(html.tostring(html.fromstring(value.text.output)))
                 else:
                     text = ''
 
