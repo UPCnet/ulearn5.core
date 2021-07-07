@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.109 (unreleased)
+0.109 (2021-07-07)
 ------------------
 
-- Nothing changed yet.
-
+* ScoresUtility migration generali [Pilar Marinas]
+* Solucionar iframe si no hay texto [Pilar Marinas]
+* Solucionar error migrationUsersProfilesSoup [Pilar Marinas]
+* migrationUsersProfilesSoup [Pilar Marinas]
 
 0.108 (2021-06-21)
 ------------------
