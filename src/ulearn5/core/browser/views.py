@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from PIL import ImageOps
+from Products.statusmessages.interfaces import IStatusMessage
 from cStringIO import StringIO
 
 from five import grok
@@ -19,10 +20,14 @@ from zope.component import queryUtility
 from zope.component.hooks import getSite
 from zope.interface import Interface
 
+from base5.core.utils import json_response
 from base5.core.utils import portal_url
 from mrs5.max.utilities import IMAXClient
+
+from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.interfaces import IUlearn5CoreLayer
+from ulearn5.core.utils import getAnnotationNotifyPopup
 from ulearn5.core.utils import getSearchersFromUser
 
 import PIL
@@ -31,6 +36,7 @@ import json
 import logging
 import os
 import requests
+import transaction
 
 
 logger = logging.getLogger(__name__)
@@ -281,3 +287,58 @@ class ImagePortletImageView(grok.View):
         set_headers(image, self.request.response)
         # Push data to the downstream clients
         return stream_data(image)
+
+
+class ResetNotify(grok.View):
+    grok.name('reset_notify')
+    grok.context(Interface)
+    grok.template('reset_notify')
+    grok.require('base.webmaster')
+    grok.layer(IUlearn5CoreLayer)
+
+    def update(self):
+        if 'confirm' in self.request.form:
+            aNotify = getAnnotationNotifyPopup()
+            aNotify['users_notify'] = []
+            transaction.commit()
+
+            IStatusMessage(self.request).addStatusMessage(_(u'Reset notify from all users'), type='info')
+            self.request.response.redirect(getSite().absolute_url() + '/@@ulearn-control-popup')
+
+
+class ViewAnnotationNotifyPopup(grok.View):
+    grok.name('view_annotation_notify_popup')
+    grok.context(Interface)
+    grok.require('cmf.ManagePortal')
+    grok.layer(IUlearn5CoreLayer)
+
+    @json_response
+    def render(self):
+        aNotify = getAnnotationNotifyPopup()
+        return aNotify
+
+
+class CloseNotifyPopup(grok.View):
+    grok.name('close_notify_popup')
+    grok.context(Interface)
+    grok.require('zope2.View')
+    grok.layer(IUlearn5CoreLayer)
+
+    def render(self):
+        user = api.user.get_current()
+        aNotify = getAnnotationNotifyPopup()
+        aNotify['users_notify'].append(user.id)
+        transaction.commit()
+
+
+class CloseNotifyPopupBirthday(grok.View):
+    grok.name('close_notify_popup_birthday')
+    grok.context(Interface)
+    grok.require('zope2.View')
+    grok.layer(IUlearn5CoreLayer)
+
+    def render(self):
+        user = api.user.get_current()
+        aNotify = getAnnotationNotifyPopup()
+        aNotify['users_birthday'].remove(user.id)
+        transaction.commit()

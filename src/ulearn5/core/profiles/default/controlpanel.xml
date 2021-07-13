@@ -12,4 +12,10 @@
     url_expr="string:${portal_url}/@@ulearn-control-portlets" visible="True">
   <permission>Manage portal</permission>
  </configlet>
+ <configlet title="uLearn Popup settings" action_id="ulearnPopup"
+    appId="ulearn5.core" category="Products" condition_expr=""
+    icon_expr="string:${portal_url}/++maxui++static/simbol_MAX_16.png"
+    url_expr="string:${portal_url}/@@ulearn-control-popup" visible="True">
+  <permission>Plone Site Setup: uLearn</permission>
+ </configlet>
 </object>

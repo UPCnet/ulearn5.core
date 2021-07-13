@@ -2,6 +2,7 @@
 <registry>
     <records interface="ulearn5.core.controlpanel.IUlearnControlPanelSettings" purge="False" />
     <records interface="ulearn5.core.controlportlets.IPortletsSettings" purge="False"/>
+    <records interface="ulearn5.core.controlpopup.IPopupSettings" purge="False"/>
 
     <record name="plone.app.portlets.PortletManagerBlacklist">
         <field type="plone.registry.field.List">

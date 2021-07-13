@@ -62,6 +62,13 @@
         permission="cmf.ManagePortal"
         />
 
+    <browser:page
+        name="ulearn-control-popup"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpopup.PopupSettingsForm"
+        permission="ulearn5.core.setup"
+        />
+
     <adapter factory=".factories.DXFileFactory" />
 
     <genericsetup:importStep

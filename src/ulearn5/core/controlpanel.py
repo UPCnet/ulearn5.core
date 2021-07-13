@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+from Products.statusmessages.interfaces import IStatusMessage
+
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
+from plone import api
 from plone.app.registry.browser import controlpanel
 from plone.directives import dexterity, form
 from plone.supermodel import model
-from plone import api
-from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form import button
 from zope import schema
 from zope.component import getUtility
@@ -55,6 +56,7 @@ typesNotifyMailVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'Comment', title=_(u'Comment')),
      ]
 )
+
 
 class ILiteralQuickLinks(form.Schema):
     language = schema.Choice(
@@ -565,22 +567,22 @@ class UlearnControlPanelSettingsForm(controlpanel.RegistryEditForm):
                 maxclient.admin.security.roles['NonVisible'].users[user].post()
 
         if data.get('activate_sharedwithme', True):
-            if api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.elasticsearch') != None:
+            if api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.elasticsearch') is not None:
                 portal = api.portal.get()
-                if portal.portal_actions.object.local_roles.visible == False:
+                if portal.portal_actions.object.local_roles.visible is False:
                     portal.portal_actions.object.local_roles.visible = True
                 portal.portal_actions.object.local_roles.manage_changeProperties(
-                available_expr = "python:here.portal_type not in ['ulearn.community']")
+                    available_expr="python:here.portal_type not in ['ulearn.community']")
                 transaction.commit()
 
             else:
                 IStatusMessage(self.request).addStatusMessage(_(u'Has marcat el comparteix pero falta la url del elasticsearch'), 'info')
         else:
             portal = api.portal.get()
-            if portal.portal_actions.object.local_roles.visible == False:
+            if portal.portal_actions.object.local_roles.visible is False:
                 portal.portal_actions.object.local_roles.visible = True
             portal.portal_actions.object.local_roles.manage_changeProperties(
-            available_expr = "python:here.portal_type in ['privateFolder']")
+                available_expr="python:here.portal_type in ['privateFolder']")
             transaction.commit()
 
         IStatusMessage(self.request).addStatusMessage(_(u'Changes saved'), 'info')

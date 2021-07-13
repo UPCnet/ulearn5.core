@@ -9,15 +9,19 @@ from plone.event.utils import is_datetime
 from plone.event.utils import is_date
 from plone.registry.interfaces import IRegistry
 from repoze.catalog.query import Eq
+from souper.interfaces import ICatalogFactory
 from souper.soup import get_soup
 from zope import schema
+from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.component import queryUtility
-from zope.component.hooks import getSite
 from zope.component import getMultiAdapter
+from zope.component import getUtilitiesFor
+from zope.component.hooks import getSite
 from zope.contentprovider.interfaces import IContentProvider
 
 from mrs5.max.utilities import IMAXClient
+from base5.core.directory import METADATA_USER_ATTRS
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
@@ -277,6 +281,7 @@ def construct_calendar_user_timezone(events, start=None, end=None):
             _add_to_cal(cal, event, next_start_date)
     return cal
 
+
 # Función que convierte cualquier objeto JSON decodificado de usar cadenas Unicode
 # a cadenas de bytes codificadas en UTF-8
 def byteify(input):
@@ -288,4 +293,51 @@ def byteify(input):
     elif isinstance(input, unicode):
         return input.encode('utf-8')
     else:
-        return inpu
+        return input
+
+
+def getAnnotationNotifyPopup():
+    KEY = 'notify.popup'
+    portal = api.portal.get()
+    annotations = IAnnotations(portal)
+
+    if annotations is not None:
+        try:
+            # Get data and append values
+            if annotations.get(KEY) is not None:
+                data = annotations.get(KEY)
+            else:
+                data = {}
+        except:
+            # If it's empty, initialize data
+            data = {}
+
+        if data == {}:
+            data = {
+                'activate_notify': False,
+                'activate_birthday': False,
+                'users_notify': [],
+                'users_birthday': []
+            }
+
+        annotations[KEY] = data
+
+        return annotations[KEY]
+
+
+@ram.cache(lambda *args: time() // (60 * 60))
+def isBirthdayInProfile():
+    user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+    attributes = user_properties_utility.properties + METADATA_USER_ATTRS
+
+    try:
+        extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+    except:
+        extender_name = ''
+
+    if extender_name:
+        if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
+            extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+            attributes.extend([element for element in extended_user_properties_utility.properties if element not in attributes])
+
+    return 'birthday' in attributes
