@@ -2,7 +2,6 @@
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone.app.registry.browser import controlpanel
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 # from plone.registry.interfaces import IRegistry
 from plone.supermodel import model
@@ -40,7 +39,7 @@ class IPopupSettings(model.Schema):
         default=False,
     )
 
-    directives.widget('message_notify', WysiwygFieldWidget)
+    directives.widget('message_notify', klass='pat-tinymce')
     message_notify = schema.Text(
         title=_(u"Message notify"),
         description=_(u"message_notify_description"),
@@ -69,7 +68,7 @@ class IPopupSettings(model.Schema):
         constraint=checkActivateBirthday,
     )
 
-    directives.widget('message_birthday', WysiwygFieldWidget)
+    directives.widget('message_birthday', klass='pat-tinymce')
     message_birthday = schema.Text(
         title=_(u"Message birthday"),
         description=_(u"message_birthday_description"),
