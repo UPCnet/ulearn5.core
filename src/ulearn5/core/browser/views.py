@@ -342,3 +342,31 @@ class CloseNotifyPopupBirthday(grok.View):
         aNotify = getAnnotationNotifyPopup()
         aNotify['users_birthday'].remove(user.id)
         transaction.commit()
+
+
+class UpdateBirthdayProfileByMail(grok.View):
+    grok.name('update_birthday_profile_by_mail')
+    grok.context(Interface)
+    grok.require('cmf.ManagePortal')
+    grok.layer(IUlearn5CoreLayer)
+
+    def render(self):
+        email = self.request.form.get('email', '')
+        birthday = self.request.form.get('birthday', '')
+        if email == '' or birthday == '':
+            return 'Es necessario pasar los parámetros email y birthday'
+
+        portal = api.portal.get()
+        soup = get_soup('user_properties', portal)
+        records = [r for r in soup.query(Eq('email', email))]
+        if records:
+            if len(records) > 1:
+                return 'KO ' + email + '. Más de un usuario tiene este correo'
+
+            username = records[0].attrs.get('username')
+            if username:
+                user = api.user.get(userid=username)
+                user.setMemberProperties({'birthday': birthday})
+                return 'OK ' + email
+
+        return 'KO ' + email + '. No se encontro ningún usuario con este correo'
