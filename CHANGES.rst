@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.110 (unreleased)
+0.110 (2021-07-15)
 ------------------
 
-- Nothing changed yet.
-
+* controlpopup tinymce [Iago López Fernández]
+* update_birthday_profile_by_mail [Iago López Fernández]
+* Popups notificaciones [Iago López Fernández]
 
 0.109 (2021-07-07)
 ------------------
