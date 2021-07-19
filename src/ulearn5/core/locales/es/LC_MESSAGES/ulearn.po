@@ -2193,11 +2193,11 @@ msgstr "Reinicia el menú"
 
 #: ../controlpopup.py:75
 msgid "message_birthday_description"
-msgstr "Puede modificar la plantilla desde el siguiente <a target=\"_blink\" href=\"gestion/popup/birthday/edit\">enlace</a>.<br><br>Variables:<br>%(fullname)s: Muestra el nombre completo del usuario<br>%(years)s: Muestra el número de años que cumple el usuario"
+msgstr "Puede modificar la plantilla desde el siguiente <a target=\"_blank\" href=\"gestion/popup/birthday/edit\">enlace</a>.<br><br>Variables:<br>%(fullname)s: Muestra el nombre completo del usuario<br>%(years)s: Muestra el número de años que cumple el usuario"
 
 #: ../controlpopup.py:46
 msgid "message_notify_description"
-msgstr "Puede modificar la plantilla desde el siguiente <a target=\"_blink\" href=\"gestion/popup/notify/edit\">enlace</a>.<br><br>Variables:<br>%(fullname)s: Muestra el nombre completo del usuario"
+msgstr "Puede modificar la plantilla desde el siguiente <a target=\"_blank\" href=\"gestion/popup/notify/edit\">enlace</a>.<br><br>Variables:<br>%(fullname)s: Muestra el nombre completo del usuario"
 
 #. Default: "Your password has been set successfully. You may now ${login_url} with your new password."
 #: ulearn5/theme/templates/Products.CMFPlone.browser.templates.pwreset_finish.pt:23
