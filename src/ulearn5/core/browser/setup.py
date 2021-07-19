@@ -494,6 +494,46 @@ class createPersonalBannerFolder(grok.View):
             return 'Error add user parameter - /createPersonalBannerFolder?user=user.name'
 
 
+class createPopupStructure(grok.View):
+    """ Create the directory structure of the popup menu """
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.ViewManagementScreens')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        portal = getSite()
+        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion.exclude_from_nav = False
+        gestion.setLayout('folder_listing')
+        behavior = ISelectableConstrainTypes(gestion)
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Folder', 'privateFolder',))
+        behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
+        gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
+
+        popup = newPrivateFolder(gestion, 'popup', u'Popup')
+        popup.exclude_from_nav = False
+        behavior.setConstrainTypesMode(1)
+        behavior.setLocallyAllowedTypes(('Document', 'Image',))
+        behavior.setImmediatelyAddableTypes(('Document', 'Image',))
+        popup._Delete_objects_Permission = ('Site Administrator', 'Manager',)
+        popup.description = u'Important: no modificar el nom curt d\'aquest document.\nImportante: no modificar el nombre corto de estos documentos.\nImportant: do not modify the short name of these documents.'
+
+        notify = createOrGetObject(popup, 'notify', u'Notify', u'Document')
+        notify._Delete_objects_Permission = ('Site Administrator', 'Manager',)
+
+        birthday = createOrGetObject(popup, 'birthday', u'Birthday', u'Document')
+        birthday._Delete_objects_Permission = ('Site Administrator', 'Manager',)
+
+        transaction.commit()
+        return 'Done'
+
+
 class ldapkillah(grok.View):
     grok.context(IPloneSiteRoot)
     grok.require('zope2.ViewManagementScreens')

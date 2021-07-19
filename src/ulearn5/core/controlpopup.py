@@ -39,7 +39,7 @@ class IPopupSettings(model.Schema):
         default=False,
     )
 
-    directives.widget('message_notify', klass='pat-tinymce')
+    directives.mode(message_notify="display")
     message_notify = schema.Text(
         title=_(u"Message notify"),
         description=_(u"message_notify_description"),
@@ -68,7 +68,7 @@ class IPopupSettings(model.Schema):
         constraint=checkActivateBirthday,
     )
 
-    directives.widget('message_birthday', klass='pat-tinymce')
+    directives.mode(message_birthday="display")
     message_birthday = schema.Text(
         title=_(u"Message birthday"),
         description=_(u"message_birthday_description"),

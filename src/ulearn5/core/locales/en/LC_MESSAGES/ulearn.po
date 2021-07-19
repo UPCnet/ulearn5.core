@@ -2199,11 +2199,11 @@ msgstr "Reset menu"
 
 #: ../controlpopup.py:75
 msgid "message_birthday_description"
-msgstr "Variables:<br>%(fullname)s: Displays the full name of the user<br>%(years)s: Displays the number of years the user is"
+msgstr "You can modify the template from the following <a target=\"_blink\" href=\"gestion/popup/birthday/edit\">link</a>.<br><br>Variables:<br>%(fullname)s: Displays the full name of the user<br>%(years)s: Displays the number of years the user is"
 
 #: ../controlpopup.py:46
 msgid "message_notify_description"
-msgstr "Variables:<br>%(fullname)s: Displays the full name of the user"
+msgstr "You can modify the template from the following <a target=\"_blink\" href=\"gestion/popup/notify/edit\">link</a>.<br><br>Variables:<br>%(fullname)s: Displays the full name of the user"
 
 #. Default: "Your password has been set successfully. You may now ${login_url} with your new password."
 #: ulearn5/theme/templates/Products.CMFPlone.browser.templates.pwreset_finish.pt:23
