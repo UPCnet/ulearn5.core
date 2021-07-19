@@ -14,7 +14,6 @@ from base5.core.utils import add_user_to_catalog
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.utils import is_activate_owncloud, byteify
 from ulearn5.owncloud.utils import update_owncloud_permission
-from ulearn5.generali.utilities import ScoresUtility
 from persistent.dict import PersistentDict
 
 import base64
