@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.111 (unreleased)
+0.111 (2021-07-19)
 ------------------
 
-- Nothing changed yet.
-
+* Quitar ScoresUtility generali no se utiliza [Pilar Marinas]
+* blink -> blank [Iago López Fernández]
+* Notificacions popup [Iago López Fernández]
 
 0.110 (2021-07-15)
 ------------------
