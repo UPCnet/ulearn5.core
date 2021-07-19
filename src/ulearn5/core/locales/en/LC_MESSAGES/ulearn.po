@@ -791,7 +791,7 @@ msgstr "Recent changes"
 
 #: ../controlpopup.py:53
 msgid "Reset notify"
-msgstr "Reset notify"
+msgstr "Reset notify:"
 
 #: ../browser/views.py:305
 msgid "Reset notify from all users"
@@ -940,7 +940,7 @@ msgstr "Bitly username"
 
 #: ../controlpopup.py:23
 msgid "The profile not have birthday field, contact to implement this functionality, uncheck field and save to continue."
-msgstr "The profile not have birthday field, contact to implement this functionality, uncheck field and save to continue."
+msgstr "The profile not have birthday date field, contact to implement this functionality, uncheck field and save to continue."
 
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:155
 msgid "This portlet displays Flashes Informativos."
@@ -987,12 +987,12 @@ msgid "Tipus de comunitat"
 msgstr "Type of community"
 
 #: ../controlpopup.py:61
-msgid "To activate this functionality you have to request the addition of the birthday field in the profile, it has a cost."
-msgstr "To activate this functionality you have to request the addition of the birthday field in the profile, it has a cost."
+msgid "To activate this functionality you have to request the addition of the birthday field in the profile."
+msgstr "To activate this functionality you have to request the addition of the birthday field in the user profile."
 
 #: ../controlpopup.py:54
 msgid "To reset the notify access the following <a href=\"@@reset_notify\">link</a>."
-msgstr "To reset the notify access the following <a href=\"@@reset_notify\">link</a>."
+msgstr "You must reset notify eveytime that message is modified. Visit that <a href=\"@@reset_notify\">link</a>."
 
 #: ../browser/stats.py:73
 #: ../browser/viewlets.py:70
@@ -2199,7 +2199,7 @@ msgstr "Reset menu"
 
 #: ../controlpopup.py:75
 msgid "message_birthday_description"
-msgstr "You can modify the template from the following <a target=\"_blank\" href=\"gestion/popup/birthday/edit\">link</a>.<br><br>Variables:<br>%(fullname)s: Displays the full name of the user<br>%(years)s: Displays the number of years the user is"
+msgstr "You can modify the template from the following <a target=\"_blank\" href=\"gestion/popup/birthday/edit\">link</a>.<br><br>Variable:<br>%(fullname)s: Displays the full name of the user<br>%(years)s: Displays the number of years the user is"
 
 #: ../controlpopup.py:46
 msgid "message_notify_description"

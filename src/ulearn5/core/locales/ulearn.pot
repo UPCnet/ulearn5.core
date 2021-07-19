@@ -985,7 +985,7 @@ msgid "Tipus de comunitat"
 msgstr ""
 
 #: ../controlpopup.py:61
-msgid "To activate this functionality you have to request the addition of the birthday field in the profile, it has a cost."
+msgid "To activate this functionality you have to request the addition of the birthday field in the profile."
 msgstr ""
 
 #: ../controlpopup.py:54

@@ -57,7 +57,7 @@ class IPopupSettings(model.Schema):
     directives.mode(warning_birthday="display")
     warning_birthday = schema.Text(
         title=_(u"Warning birthday"),
-        description=_(u'To activate this functionality you have to request the addition of the birthday field in the profile, it has a cost.'),
+        description=_(u'To activate this functionality you have to request the addition of the birthday field in the profile.'),
         required=False,
     )
 
