@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.112 (unreleased)
+0.112 (2021-07-19)
 ------------------
 
-- Nothing changed yet.
-
+* Traducciones [Iago López Fernández]
 
 0.111 (2021-07-19)
 ------------------
