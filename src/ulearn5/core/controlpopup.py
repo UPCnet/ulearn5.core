@@ -11,10 +11,7 @@ from zope import schema
 from zope.interface import Invalid
 
 from ulearn5.core import _
-from ulearn5.core.utils import getAnnotationNotifyPopup
 from ulearn5.core.utils import isBirthdayInProfile
-
-import transaction
 
 
 def checkActivateBirthday(value):
@@ -97,13 +94,6 @@ class PopupSettingsForm(controlpanel.RegistryEditForm):
             self.status = self.formErrorsMessage
             return
         self.applyChanges(data)
-
-        aNotify = getAnnotationNotifyPopup()
-
-        aNotify['activate_notify'] = data['activate_notify']
-        aNotify['activate_birthday'] = data['activate_birthday']
-
-        transaction.commit()
 
     @button.buttonAndHandler(_('Cancel'), name='cancel')
     def handleCancel(self, action):
