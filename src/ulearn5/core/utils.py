@@ -296,32 +296,6 @@ def byteify(input):
         return input
 
 
-def getAnnotationNotifyPopup():
-    KEY = 'notify.popup'
-    portal = api.portal.get()
-    annotations = IAnnotations(portal)
-
-    if annotations is not None:
-        try:
-            # Get data and append values
-            if annotations.get(KEY) is not None:
-                data = annotations.get(KEY)
-            else:
-                data = {}
-        except:
-            # If it's empty, initialize data
-            data = {}
-
-        if data == {}:
-            data = {
-                'users_notify': [],
-            }
-
-            annotations[KEY] = data
-
-        return annotations[KEY]
-
-
 @ram.cache(lambda *args: time() // (60 * 60))
 def isBirthdayInProfile():
     user_properties_utility = getUtility(ICatalogFactory, name='user_properties')

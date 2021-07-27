@@ -27,7 +27,6 @@ from mrs5.max.utilities import IMAXClient
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.interfaces import IUlearn5CoreLayer
-from ulearn5.core.utils import getAnnotationNotifyPopup
 from ulearn5.core.utils import getSearchersFromUser
 
 import PIL
@@ -36,7 +35,6 @@ import json
 import logging
 import os
 import requests
-import transaction
 
 
 logger = logging.getLogger(__name__)
@@ -298,9 +296,9 @@ class ResetNotify(grok.View):
 
     def update(self):
         if 'confirm' in self.request.form:
-            aNotify = getAnnotationNotifyPopup()
-            aNotify['users_notify'] = []
-            transaction.commit()
+            portal = api.portal.get()
+            soup = get_soup('notify_popup', portal)
+            soup.clear()
 
             IStatusMessage(self.request).addStatusMessage(_(u'Reset notify from all users'), type='info')
             self.request.response.redirect(getSite().absolute_url() + '/@@ulearn-control-popup')
@@ -314,8 +312,13 @@ class ViewAnnotationNotifyPopup(grok.View):
 
     @json_response
     def render(self):
-        aNotify = getAnnotationNotifyPopup()
-        return aNotify
+        portal = api.portal.get()
+        soup = get_soup('notify_popup', portal)
+        records = [r for r in soup.data.items()]
+        result = []
+        for record in records:
+            result.append(record[1].attrs['id'])
+        return result
 
 
 class CloseNotifyPopup(grok.View):
@@ -326,9 +329,14 @@ class CloseNotifyPopup(grok.View):
 
     def render(self):
         user = api.user.get_current()
-        aNotify = getAnnotationNotifyPopup()
-        aNotify['users_notify'].append(user.id)
-        transaction.commit()
+        portal = api.portal.get()
+        soup = get_soup('notify_popup', portal)
+        exist = [r for r in soup.query(Eq('id', user.id))]
+        if not exist:
+            record = Record()
+            record.attrs['id'] = user.id
+            soup.add(record)
+            soup.reindex()
 
 
 class CloseNotifyPopupBirthday(grok.View):

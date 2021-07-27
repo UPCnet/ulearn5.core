@@ -73,8 +73,19 @@ class UserSubscribedTagsSoupCatalog(object):
         catalog['id'] = CatalogFieldIndex(idindexer)
         hashindex = NodeAttributeIndexer('tags')
         catalog['tags'] = CatalogKeywordIndex(hashindex)
-
         return catalog
 
 
 grok.global_utility(UserSubscribedTagsSoupCatalog, name='user_subscribed_tags')
+
+
+@implementer(ICatalogFactory)
+class NotifyPopupSoupCatalog(object):
+    def __call__(self, context):
+        catalog = Catalog()
+        idindexer = NodeAttributeIndexer('id')
+        catalog['id'] = CatalogFieldIndex(idindexer)
+        return catalog
+
+
+grok.global_utility(NotifyPopupSoupCatalog, name='notify_popup')
