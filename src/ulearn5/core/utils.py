@@ -315,7 +315,6 @@ def getAnnotationNotifyPopup():
         if data == {}:
             data = {
                 'users_notify': [],
-                'users_birthday': []
             }
 
             annotations[KEY] = data

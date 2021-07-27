@@ -338,10 +338,7 @@ class CloseNotifyPopupBirthday(grok.View):
     grok.layer(IUlearn5CoreLayer)
 
     def render(self):
-        user = api.user.get_current()
-        aNotify = getAnnotationNotifyPopup()
-        aNotify['users_birthday'].remove(user.id)
-        transaction.commit()
+        self.request.response.expireCookie('popup_birthday', path='/')
 
 
 class UpdateBirthdayProfileByMail(grok.View):
