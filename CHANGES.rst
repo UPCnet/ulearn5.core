@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.113 (unreleased)
+0.113 (2021-07-28)
 ------------------
 
-- Nothing changed yet.
-
+* Notificaciones popup, cambiar annotation por soup [Iago López Fernández]
+* Quitar annotation popup aniversario y hacer control con cookie [Iago López Fernández]
+* Mejora para no llamar tanto al annotation de los popup [Iago López Fernández]
 
 0.112 (2021-07-19)
 ------------------
