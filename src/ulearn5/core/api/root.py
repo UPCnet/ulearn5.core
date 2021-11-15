@@ -35,5 +35,5 @@ class APIRoot(grok.View):
         return view
 
     def render(self):
-        return 'ULearn Communities REST Api'
+        return 'uShare Communities REST Api'
         return lookupREST(self.context, self.request, 'api_root')
