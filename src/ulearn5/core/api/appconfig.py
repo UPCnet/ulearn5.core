@@ -22,6 +22,85 @@ class Appconfig(REST):
     grok.adapts(APIRoot, IPloneSiteRoot)
     grok.require('base.authenticated')
 
+    __restapi_doc_definition__ = {
+        "Appconfig": {
+            "properties": {
+                "domain": {
+                    "type": "string"
+                },
+                "hub_server": {
+                    "type": "string"
+                },
+                "max_oauth_server": {
+                    "type": "string"
+                },
+                "max_server": {
+                    "type": "string"
+                },
+                "max_server_alias": {
+                    "type": "string"
+                },
+                "oauth_server": {
+                    "type": "string"
+                },
+                "language": {
+                    "type": "string"
+                },
+                "main_color": {
+                    "type": "string"
+                },
+                "secondary_color": {
+                    "type": "string"
+                },
+                "show_news_in_app": {
+                    "type": "boolean",
+                    "description": "Mostrar la vista de noticias o no en la APP"
+                },
+                "buttonbar_selected": {
+                    "type": "string",
+                    "description": "Vista principal de la APP",
+                    "enum": [
+                        "news",
+                        "stream",
+                        "mycommunities",
+                        "sharedwithme"
+                    ]
+                }
+            }
+        }
+    }
+
+    __restapi_doc_service__ = {
+        "/api/appconfig": {
+            "get": {
+                "tags": [
+                    "appconfig"
+                ],
+                "summary": "Retorna la personalització del client per l'APP uTalk",
+                "description": "Quina es la vista principal, colors, si mostra noticies, etc.",
+                "operationId": "get_appconfig",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Appconfig"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization information is missing or invalid."
+                    },
+                    "5XX": {
+                        "description": "Unexpected error."
+                    }
+                }
+            }
+        }
+    }
+
     @api_resource()
     def GET(self):
         main_color = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.main_color')
