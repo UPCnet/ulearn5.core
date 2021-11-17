@@ -328,17 +328,17 @@ class Community(REST, CommunityMixin):
             if params['community_type'] in ['Open', 'Closed', 'Organizative']:
                 adapter = self.target.adapted(name=params['community_type'])
             else:
-                return ApiResponse.from_string({"error": "Bad request, wrong community type"}, code=400)
+                return ApiResponse.from_string({"error": "Bad request, wrong community type."}, code=400)
 
             if params['community_type'] == self.target.community_type:
-                return ApiResponse.from_string({"error": "Bad request, already that community type"}, code=400)
+                return ApiResponse.from_string({"error": "Bad request, already that community type."}, code=400)
 
             # Everything is ok, proceed
             adapter.update_community_type()
 
         modified = self.update_community(params)
         if modified:
-            success_response = 'Updated community "{}"'.format(self.target.absolute_url())
+            success_response = 'Updated community "{}".'.format(self.target.absolute_url())
         else:
             success_response = 'Error with change values "{}".'.format(self.target.absolute_url())
 
