@@ -174,6 +174,8 @@ class Communities(REST):
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
                              favorited=brain.id in favorites,
+                             show_news=brain.show_news,
+                             show_events=brain.show_events,
                              activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
                              activate_notify_mail=brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
                              not_notify_push=brain.id in notnotifypush,
@@ -193,8 +195,13 @@ class Communities(REST):
         params['activity_view'] = self.params.pop('activity_view', None)
         params['tab_view'] = self.params.pop('tab_view', None)
         params['twitter_hashtag'] = self.params.pop('twitter_hashtag', None)
+        params['show_news'] = self.params.pop('show_news', None)
+        params['show_events'] = self.params.pop('show_events', None)
         params['notify_activity_via_push'] = self.params.pop('notify_activity_via_push', None)
         params['notify_activity_via_push_comments_too'] = self.params.pop('notify_activity_via_push_comments_too', None)
+        params['notify_activity_via_mail'] = self.params.pop('notify_activity_via_mail', None)
+        params['type_notify'] = self.params.pop('type_notify', None)
+        params['distribution_lists'] = self.params.pop('distribution_lists', None)
 
         pc = api.portal.get_tool('portal_catalog')
         nom = safe_unicode(params['nom'])
@@ -214,7 +221,7 @@ class Communities(REST):
                                       contentType=mime_type[0])
 
         if result:
-            success_response = 'community already exists.'
+            success_response = 'Community already exists.'
             status = 200
         else:
             new_community_id = self.context.invokeFactory('ulearn.community', id_normalized,
@@ -225,8 +232,13 @@ class Communities(REST):
                                                           activity_view=params['activity_view'],
                                                           tab_view=params['tab_view'],
                                                           twitter_hashtag=params['twitter_hashtag'],
+                                                          show_news=True if params['show_news'] == 'True' else None,
+                                                          show_events=True if params['show_events'] == 'True' else None,
                                                           notify_activity_via_push=True if params['notify_activity_via_push'] == 'True' else None,
                                                           notify_activity_via_push_comments_too=True if params['notify_activity_via_push_comments_too'] == 'True' else None,
+                                                          notify_activity_via_mail=True if params['notify_activity_via_mail'] == 'True' else None,
+                                                          type_notify=params['type_notify'],
+                                                          distribution_lists=params['distribution_lists'],
                                                           checkConstraints=False)
             new_community = self.context[new_community_id]
             success_response = 'Created community "{}" with hash "{}".'.format(new_community.absolute_url(), sha1(new_community.absolute_url()).hexdigest())
@@ -302,8 +314,13 @@ class Community(REST, CommunityMixin):
         params['activity_view'] = self.params.pop('activity_view', None)
         params['tab_view'] = self.params.pop('tab_view', None)
         params['twitter_hashtag'] = self.params.pop('twitter_hashtag', None)
+        params['show_news'] = self.params.pop('show_news', None)
+        params['show_events'] = self.params.pop('show_events', None)
         params['notify_activity_via_push'] = self.params.pop('notify_activity_via_push', None)
         params['notify_activity_via_push_comments_too'] = self.params.pop('notify_activity_via_push_comments_too', None)
+        params['notify_activity_via_mail'] = self.params.pop('notify_activity_via_mail', None)
+        params['type_notify'] = self.params.pop('type_notify', None)
+        params['distribution_lists'] = self.params.pop('distribution_lists', None)
 
         if params['community_type']:
             # We are changing the type of the community
@@ -372,10 +389,20 @@ class Community(REST, CommunityMixin):
                 community.tab_view = properties['tab_view']
             if properties['twitter_hashtag'] is not None:
                 community.twitter_hashtag = properties['twitter_hashtag']
+            if properties['show_news'] is not None:
+                community.show_news = True if properties['show_news'] == 'True' else None
+            if properties['show_events'] is not None:
+                community.show_events = True if properties['show_events'] == 'True' else None
             if properties['notify_activity_via_push'] is not None:
                 community.notify_activity_via_push = True if properties['notify_activity_via_push'] == 'True' else None
             if properties['notify_activity_via_push_comments_too'] is not None:
                 community.notify_activity_via_push_comments_too = True if properties['notify_activity_via_push_comments_too'] == 'True' else None
+            if properties['notify_activity_via_mail'] is not None:
+                community.notify_activity_via_mail = True if properties['notify_activity_via_mail'] == 'True' else None
+            if properties['type_notify'] is not None:
+                community.type_notify = properties['type_notify']
+            if properties['distribution_lists'] is not None:
+                community.distribution_lists = properties['distribution_lists']
             community.reindexObject()
             return True
         else:
