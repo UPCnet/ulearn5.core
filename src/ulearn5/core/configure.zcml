@@ -23,6 +23,7 @@
     <i18n:registerTranslations directory="locales" />
     <include package=".widgets" />
     <include package=".browser" />
+    <include package=".services" />
     <include file="subscribers.zcml" />
     <include file="patches.zcml" />
     <include file="behaviors.zcml" />
