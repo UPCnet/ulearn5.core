@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.114 (unreleased)
+0.114 (2021-11-26)
 ------------------
 
-- Nothing changed yet.
-
+* ULearn -> uShare [Iago López Fernández]
 
 0.113 (2021-07-28)
 ------------------
