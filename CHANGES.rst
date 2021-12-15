@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.115 (unreleased)
+0.115 (2021-12-15)
 ------------------
 
-- Nothing changed yet.
-
+* Utils user_id [ilopezsmx]
 
 0.114 (2021-11-26)
 ------------------
