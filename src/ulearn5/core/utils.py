@@ -172,6 +172,16 @@ class ulearnUtils(BrowserView):
         )
         return provider(occ)
 
+    def user_id(self):
+        portal_state = getMultiAdapter((self.context, self.request), name='plone_portal_state')
+        self.anonymous = portal_state.anonymous()
+        if not self.anonymous:
+            member = portal_state.member()
+            user_id = member.getId()
+            if user_id != 'admin':
+                return user_id
+        return None
+
     # def getCommunityTab(self):
     #     portal = self.portal()
     #     url = portal.absolute_url()
