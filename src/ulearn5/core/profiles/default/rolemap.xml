@@ -35,6 +35,15 @@
       <role name="Site Administrator"/>
       <role name="WebMaster"/>
     </permission>
+    <permission name="PloneFormGen: Add Content" acquire="True">
+      <role name="Owner"/>
+      <role name="WebMaster"/>
+    </permission>
+    <permission name="PloneFormGen: Download Saved Input" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="WebMaster"/>
+    </permission>
     <permission name="Ulearn: API Access" acquire="True">
       <role name="Api"/>
     </permission>
