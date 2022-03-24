@@ -549,7 +549,7 @@ class CommunityAdapterMixin(object):
         portal = api.portal.get()
         registry = queryUtility(IRegistry)
         ulearn_settings = registry.forInterface(IUlearnControlPanelSettings)
-        if ulearn_settings.url_site != None:
+        if ulearn_settings.url_site != None and ulearn_settings.url_site != '':
             url_site = ulearn_settings.url_site
         else:
             url_site = portal.absolute_url()
