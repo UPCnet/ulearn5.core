@@ -1461,3 +1461,28 @@ class deleteNominasMes(grok.View):
                         logger.info('Nómina {} borrada'.format(obj.id))
 
                 logger.info('Se han borrado las nóminas del mes {}'.format(mes_a_borrar))
+
+class parcheReordenarCarpetas(grok.View):
+    """ When new content is created, the default folders for news, events and Members get the ordering attribute set to unordered
+        Este parche hace que si las carpertas tienen marcado que no sean ordenables, lo quita y las permite ordenar  """
+    grok.name('parche_reordenar_carpetas')
+    grok.context(IPloneSiteRoot)
+    grok.require('cmf.ManagePortal')
+
+    def render(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        pc = api.portal.get_tool('portal_catalog')
+        for brain in pc(portal_type='Folder'):
+            obj = brain.getObject()
+            if obj._ordering == 'unordered':
+                obj.setOrdering(u'')
+                order = obj.getOrdering()
+                for id in obj._tree:
+                    if id not in order._order():
+                        order.notifyAdded(id)
+                logger.info('Reordenada carpeta con id: {} .'.format(obj.id))
