@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.116 (unreleased)
+0.116 (2022-03-28)
 ------------------
 
-- Nothing changed yet.
-
+* Delete avatar user [Pilar Marinas]
+* Parche para reordenar carpetas que no son ordenables (news, events, members) [Pilar Marinas]
+* Solucionar error si ulearn_settings.url_site esta en blanco [Pilar Marinas]
+* Add permission PloneFormGen [Pilar Marinas]
 
 0.115 (2021-12-15)
 ------------------
