@@ -27,6 +27,7 @@ from repoze.catalog.query import Eq
 from souper.soup import get_soup
 from souper.soup import Record
 
+from base5.core.patches import deletePersonalPortrait
 from base5.core.utils import remove_user_from_catalog
 from ulearn5.core.gwuuid import IGWUUID
 
@@ -99,6 +100,9 @@ def deleteMembers(self, member_ids):
         member_ids = (member_ids,)
     member_ids = list(member_ids)
     for member_id in member_ids[:]:
+        mtool.deletePersonalPortrait(str(member_id))
+        logger.info('Eliminat avatar usuari {}'.format(member_id))
+
         member = mtool.getMemberById(member_id)
         if member is None:
             member_ids.remove(member_id)
