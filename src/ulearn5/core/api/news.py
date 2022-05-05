@@ -27,6 +27,8 @@ class News(REST):
         /api/news/NEW_ID
 
         Get all News by "X-Oauth-Username"
+        :param path: community_name
+        :param external_or_internal: ['zoom_in', 'zoom_out']
     """
 
     placeholder_type = 'new'
@@ -37,6 +39,7 @@ class News(REST):
 
     @api_resource(required=[])
     def GET(self):
+        portal = api.portal.get()
         show_news_in_app = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
         results = []
         news_per_page = 10  # Default items per page
@@ -44,15 +47,22 @@ class News(REST):
         more_items = False
         total_news = 0
         if show_news_in_app:
-            news = api.content.find(
-                portal_type="News Item",
-                review_state=['intranet', 'published'],
-                sort_order='descending',
-                sort_on='effective',
-                is_inapp=True)
-
+            query = {
+                'portal_type': 'News Item',
+                'review_state': ['intranet', 'published'],
+                'sort_order': 'descending',
+                'sort_on': 'effective',
+                'is_inapp': 'True',
+            }
+            for k in self.params.keys():
+                if k == 'path':
+                    query[k] = ('/').join(portal.getPhysicalPath()) + '/' + self.params.pop(k, None)
+                else:
+                    query[k] = self.params.pop(k, None)
+            news = api.content.find(**query)
             total_news = len(news)
-
+            print(query)
+            print(total_news)
             if pagination_page:
                 # Si page = 0, devolvemos la ?page=1 (que es lo mismo)
                 if pagination_page == '0':
@@ -67,9 +77,8 @@ class News(REST):
                 # No paginammos, solo devolvemos 10 primeras => ?page=1
                 news = news[0:news_per_page]
                 if news_per_page < total_news:
-                    more_items = True
+                    more_items = False
 
-            portal = api.portal.get()
             for item in news:
                 value = item.getObject()
                 if value.effective_date:
