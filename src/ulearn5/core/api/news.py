@@ -77,7 +77,7 @@ class News(REST):
                 # No paginammos, solo devolvemos 10 primeras => ?page=1
                 news = news[0:news_per_page]
                 if news_per_page < total_news:
-                    more_items = False
+                    more_items = True
 
             for item in news:
                 value = item.getObject()
