@@ -159,7 +159,7 @@ class Communities(REST):
             else:
                 url = brain.getURL()
             brainObj = self.context.unrestrictedTraverse(brain.getPath())
-
+            
             if brainObj.mails_users_community_black_lists is None:
                 brainObj.mails_users_community_black_lists = {}
             elif not isinstance(brainObj.mails_users_community_black_lists, dict):
@@ -178,7 +178,10 @@ class Communities(REST):
                              activate_notify_mail=brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
                              not_notify_push=brain.id in notnotifypush,
                              not_notify_mail=self.username in brainObj.mails_users_community_black_lists,
-                             can_manage=self.is_community_manager(brain))
+                             can_manage=self.is_community_manager(brain),
+                             show_events_tab=brainObj.show_events,
+                             show_news_tab=brainObj.show_news
+                             )
             result.append(community)
 
         return ApiResponse(result)

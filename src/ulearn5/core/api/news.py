@@ -137,9 +137,6 @@ class News(REST):
 
 
 class New(REST):
-    """
-        /api/news/{newid}
-    """
     grok.adapts(News, IPloneSiteRoot)
     grok.require('base.authenticated')
 
@@ -148,6 +145,9 @@ class New(REST):
 
     @api_resource(required=['newid', 'title', 'description', 'body', 'start'])
     def POST(self):
+        """
+            /api/news/{newid}
+        """
         imgName = ''
         imgData = ''
         newid = self.params.pop('newid')
@@ -172,9 +172,12 @@ class New(REST):
 
         return result
 
-    # /api/news/{newid}?absolute_url={absolute_url}
+
     @api_resource(required=['newid'])
     def GET(self):
+        """
+            /api/news/{newid}?absolute_url={absolute_url}
+        """
         show_news_in_app = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
         if show_news_in_app:
             newid = self.params['newid']
