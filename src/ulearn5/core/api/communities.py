@@ -173,6 +173,7 @@ class Communities(REST):
                              gwuuid=brain.gwuuid,
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
+                             image_community=brain.getURL() + '/thumbnail-image',
                              favorited=brain.id in favorites,
                              activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
                              activate_notify_mail=brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
@@ -284,12 +285,15 @@ class Community(REST, CommunityMixin):
 
         result = []
         for brain in communities:
+            brainObj = self.context.unrestrictedTraverse(brain.getPath())
             community = dict(id=brain.id,
                              title=brain.Title,
                              description=brain.Description,
                              url=brain.getURL(),
                              gwuuid=brain.gwuuid,
-                             type=brain.community_type)
+                             type=brain.community_type,
+                             show_events_tab=brainObj.show_events,
+                             show_news_tab=brainObj.show_news)
             result.append(community)
 
         return ApiResponse(result)
