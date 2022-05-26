@@ -18,7 +18,22 @@ from lxml import html
 from datetime import datetime
 
 import requests
+from ulearn5.core.content.community import ICommunity
+from plone.app.layout.navigation.root import getNavigationRootObject
+from Acquisition import aq_inner
 
+
+def getCommunityNameFromObj(self, value):
+    portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
+    root = getNavigationRootObject(self.context, portal_state.portal())
+    physical_path = value.getPhysicalPath()
+    relative = physical_path[len(root.getPhysicalPath()):]
+    for i in range(len(relative)):
+        now = relative[:i + 1]
+        obj = aq_inner(root.unrestrictedTraverse(now))
+        if (ICommunity.providedBy(obj)):
+            return obj.title
+    return ''
 
 class News(REST):
     """
@@ -110,7 +125,9 @@ class News(REST):
                     filename = value.image.filename
                     contentType = value.image.contentType
                     raw_image = value.absolute_url() + '/thumbnail-image'
-
+                
+                communityName = getCommunityNameFromObj(self, value)
+                
                 new = dict(title=value.title,
                            id=value.id,
                            description=value.description,
@@ -128,6 +145,7 @@ class News(REST):
                            creators=value.creators,
                            raw_image=raw_image,
                            content_type=contentType,
+                           community=communityName
                            )
                 results.append(new)
         values = dict(items=results,
