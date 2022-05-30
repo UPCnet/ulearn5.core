@@ -246,6 +246,7 @@ class New(REST):
                     contentType = value.image.contentType
                     raw_image = value.absolute_url() + '/thumbnail-image'
 
+                communityName = getCommunityNameFromObj(self, value)
                 portal = api.portal.get()
                 new = dict(title=value.title,
                            id=value.id,
@@ -264,6 +265,7 @@ class New(REST):
                            creators=value.creators,
                            content_type=contentType,
                            raw_image=raw_image,
+                           community=communityName
                            )
             else:
                 raise ObjectNotFound('News Item not found')
