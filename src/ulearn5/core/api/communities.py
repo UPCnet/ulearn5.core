@@ -171,6 +171,7 @@ class Communities(REST):
                              url=brain.getURL(),
                              url_tab_view=url,
                              gwuuid=brain.gwuuid,
+                             hash=sha1(brain.getURL()).hexdigest(),
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
                              image_community=brain.getURL() + '/thumbnail-image',
@@ -291,6 +292,7 @@ class Community(REST, CommunityMixin):
                              description=brain.Description,
                              url=brain.getURL(),
                              gwuuid=brain.gwuuid,
+                             hash=sha1(brain.getURL()).hexdigest(),
                              type=brain.community_type,
                              show_events_tab=brainObj.show_events,
                              show_news_tab=brainObj.show_news)
