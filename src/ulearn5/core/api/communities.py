@@ -752,3 +752,103 @@ class Notifymail(REST, CommunityMixin):
             success_response = 'OK notifymail'
             logger.info(success_response)
             return ApiResponse.from_string(success_response)
+
+
+order_by_type = {"Folder": 1, "Document": 2, "File": 3, "Link": 4, "Image": 5}
+
+class Documents(REST):
+    """
+        /api/communities/{community}/documents
+        
+        :param path: object_path_in_documents_folder
+    """
+    
+    placeholder_type = 'documents'
+    placeholder_id = 'documents'
+
+    grok.adapts(Community, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    @api_resource(required_roles=['Member', 'Manager', 'Api'])
+    def GET(self):
+        """ Returns navigation for required context. """
+        portal = api.portal.get()
+        doc_path = portal.absolute_url_path() + '/' + self.params.pop('community', None) + '/documents'
+        for k in self.params.keys():
+            if k == 'path':
+                doc_path = self.params.pop(k, None)
+        query = {
+            'path': {'query': doc_path, 'depth': 1},
+            'review_state': ['intranet', 'published'],
+            'sort_order': 'ascending',
+            'sort_on': 'sortable_title',
+        }
+        brains = api.content.find(**query)
+        items_favorites = self.favorites_items(doc_path)
+        items_nofavorites = self.exclude_favorites(brains)
+        items = self.sort_results(items_favorites, items_nofavorites)
+        result = []
+        fav = items[0]['favorite']
+        nofav = items[0]['nofavorite']
+        for f in fav:
+            self.addObjectToResult(f, result)
+        for nf in nofav:
+            self.addObjectToResult(nf, result)
+        return ApiResponse(result)
+    
+    def addObjectToResult(self, sortedObj, result):
+        brain = sortedObj['obj'].getObject()
+        community = dict(id=brain.id,
+                        title=brain.title,
+                        url=sortedObj['obj'].getURL(),
+                        path=brain.absolute_url_path(),
+                        type=brain.Type(),
+                        state=sortedObj['obj'].review_state
+                        )
+        result.append(community)
+
+
+    def favorites_items(self, path):
+        """ Devuelve todos los favoritos del usuario y le asigna un valor al tipus
+            segun este orden: (order_by_type = {"Folder": 1, "Document": 2, "File": 3, "Link": 4, "Image": 5}) """
+        current_user = api.user.get_current().id
+        query = {
+            'path': {'query': path},
+            'favoritedBy': current_user,
+            'sort_order': 'ascending',
+            'sort_on': 'sortable_title',
+        }
+        results = api.content.find(**query)
+
+        favorite = [{'obj': r, 'tipus': order_by_type[r.portal_type] if r.portal_type in order_by_type else 6} for r in results]
+        return favorite
+    
+    def exclude_favorites(self, r_results):
+        """ De los resultados obtenidos devuelve una lista con los que NO son FAVORITOS y le asigna un valor al tipus
+            segun este orden: (order_by_type = {"Folder": 1, "Document": 2, "File": 3, "Link": 4, "Image": 5}) """
+        current_user = api.user.get_current().id
+        nofavorite = []
+        for r in r_results:
+            if current_user not in r.favoritedBy:
+                if r.portal_type in order_by_type:
+                    nofavorite += [{'obj': r, 'tipus': order_by_type[r.portal_type]}]
+                else:
+                    if r.portal_type == 'CloudFile':
+                        included = self.include_cloudfile(r)
+                        if included:
+                            nofavorite += [{'obj': r, 'tipus': 6}]
+                    else:
+                        nofavorite += [{'obj': r, 'tipus': 6}]
+        return nofavorite
+    
+
+    def sort_results(self, items_favorites, items_nofavorites):
+        """ Ordena los resultados segun el tipo (portal_type)
+            segun este orden: (order_by_type = {"Folder": 1, "Document": 2, "File": 3, "Link": 4, "Image": 5})
+            y devuelve el diccionario con los favoritos y no favoritos. """
+        items_favorites_by_tipus = sorted(items_favorites, key=lambda item: item['tipus'])
+        items_nofavorites_by_tipus = sorted(items_nofavorites, key=lambda item: item['tipus'])
+
+        items = [dict(favorite=items_favorites_by_tipus,
+                      nofavorite=items_nofavorites_by_tipus)]
+        return items
