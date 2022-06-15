@@ -852,3 +852,63 @@ class Documents(REST):
         items = [dict(favorite=items_favorites_by_tipus,
                       nofavorite=items_nofavorites_by_tipus)]
         return items
+    
+
+class Search(REST):
+    """
+        /api/communities/{community}/search
+        
+        :param q: text
+    """
+    
+    placeholder_type = 'search'
+    placeholder_id = 'search'
+
+    grok.adapts(Community, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    @api_resource(required_roles=['Member', 'Manager', 'Api'])
+    def GET(self):
+        """ Returns navigation for required context. """
+        portal = api.portal.get()
+        path = portal.absolute_url_path() + '/' + self.params.pop('community', None) + '/documents'
+
+        def quotestring(s):
+            return '"%s"' % s
+
+        def quote_bad_chars(s):
+            bad_chars = ["(", ")"]
+            for char in bad_chars:
+                s = s.replace(char, quotestring(char))
+            return s
+
+        text = self.params.pop('q', None)
+        multispace = u'\u3000'.encode('utf-8')
+        result = []
+        if text is not None:
+            for char in ('?', '-', '+', '*', multispace):
+                text = text.replace(char, ' ')
+
+            text = text.split()
+            text = " AND ".join(text)
+            text = quote_bad_chars(text) + '*'
+            
+            query = {
+                'path': {'query': path},
+                'SearchableText': text,
+                'sort_order': 'ascending',
+                'sort_on': 'sortable_title',
+            }
+            items = api.content.find(**query)
+            for item in items:
+                brain = item.getObject()
+                obj = dict(id=brain.id,
+                        title=brain.title,
+                        url=item.getURL(),
+                        path=brain.absolute_url_path(),
+                        type=brain.Type(),
+                        state=item.review_state
+                        )
+                result.append(obj)
+
+        return ApiResponse(result)
