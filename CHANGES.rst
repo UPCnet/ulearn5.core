@@ -2,11 +2,17 @@ Changelog
 =========
 
 
-0.117 (unreleased)
+0.117 (2022-06-15)
 ------------------
 
-- Nothing changed yet.
-
+* Endpoint that returns community structure [alberto.duran]
+* Add hash to community and community detail endpoint [alberto.duran]
+* Afegir a quina comunitat pertany la noticia (al detall de la noticia) [alberto.duran]
+* Afegir a quina comunitat pertany la noticia [alberto.duran]
+* Add image community to endpoint and if tabs must be showed or not [alberto.duran]
+* Add booleans to be able to show customized community tabs in App [alberto.duran]
+* More items a False [alberto.duran]
+* API news: añadidos filtros por categoria y comunidad [alberto.duran]
 
 0.116 (2022-03-28)
 ------------------
