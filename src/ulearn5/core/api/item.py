@@ -51,43 +51,49 @@ class Item(REST):
 
             try:
                 # Check if value deleted / moved --> NOT FOUND!
-                item_found = api.content.find(path=item_path)[0]
+                item_found = api.content.get(path=item_path.encode('utf-8'))
             except:
                 item_found = False
-
             if item_found:
                 value = item_found
-                item = value.getObject()
                 text = image = image_caption = ''
-                raw_image = content_type = ''
-
+                raw_image = raw_file = content_type = ''
                 external_url = False
                 if value.portal_type == 'News Item':
-                    text = item.text.output
-                    image_caption = item.image_caption
-                    image = item.image.filename
+                    text = value.text.output
+                    image_caption = value.image_caption
+                    image = value.image.filename
                 elif value.portal_type == 'Image':
-                    image = item.image.filename
-                    raw_image = b64encode(item.image.data),
-                    content_type = item.image.contentType
+                    image = value.image.filename
+                    raw_image = b64encode(value.image.data),
+                    content_type = value.image.contentType
                 elif value.portal_type == 'Document':
-                    text = item.text.output
+                    text = value.text.output
                 elif value.portal_type == 'Link':
-                    text = item.remoteUrl
+                    text = value.remoteUrl
+                    external_url = True
+                elif value.portal_type == 'Banner':
+                    text = value.url
                     external_url = True
                 elif value.portal_type == 'Event':
-                    text = item.text.output
+                    text = value.text.output
                     external_url = True
                 elif value.portal_type == 'File':
                     text = ''
+                    external_url = True #To delete
+                    raw_file = b64encode(value.file.data)
+                    content_type = value.file.contentType
+                elif value.portal_type == 'ExternalContent':
+                    text = ''
                     external_url = True
+                    expanded = value.absolute_url() + '/@@download/' + value.filename
                 else:
                     text = ''
                     external_url = True
 
-                new = dict(title=value.Title,
+                new = dict(title=value.Title(),
                            id=value.id,
-                           description=value.Description,
+                           description=value.Description(),
                            portal_type=value.portal_type,
                            external_url=external_url,
                            absolute_url=expanded,
@@ -96,6 +102,7 @@ class Item(REST):
                            image_caption=image_caption,
                            image=image,
                            raw_image=raw_image,
+                           raw_file=raw_file,
                            content_type=content_type
                            )
                 results.append(new)
