@@ -759,7 +759,7 @@ order_by_type = {"Folder": 1, "Document": 2, "File": 3, "Link": 4, "Image": 5}
 class Documents(REST):
     """
         /api/communities/{community}/documents
-        
+        :slug community: id key returned from /api/communities/{community}  
         :param path: object_path_in_documents_folder
     """
     
@@ -773,7 +773,7 @@ class Documents(REST):
     def GET(self):
         """ Returns navigation for required context. """
         portal = api.portal.get()
-        doc_path = portal.absolute_url_path() + '/' + self.params.pop('community', None) + '/documents'
+        doc_path = '/'.join(portal.getPhysicalPath()) + '/' + self.params.pop('community', None) + '/documents'
         for k in self.params.keys():
             if k == 'path':
                 doc_path = self.params.pop(k, None)
@@ -871,7 +871,7 @@ class Search(REST):
     def GET(self):
         """ Returns navigation for required context. """
         portal = api.portal.get()
-        path = portal.absolute_url_path() + '/' + self.params.pop('community', None) + '/documents'
+        path = '/'.join(portal.getPhysicalPath()) + '/' + self.params.pop('community', None) + '/documents'
 
         def quotestring(s):
             return '"%s"' % s
