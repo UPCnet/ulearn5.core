@@ -801,7 +801,7 @@ class Documents(REST):
         community = dict(id=brain.id,
                         title=brain.title,
                         url=sortedObj['obj'].getURL(),
-                        path=brain.absolute_url_path(),
+                        path='/'.join(brain.getPhysicalPath()),
                         type=brain.Type(),
                         state=sortedObj['obj'].review_state
                         )

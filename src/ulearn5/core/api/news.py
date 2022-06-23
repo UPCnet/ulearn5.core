@@ -42,6 +42,7 @@ class News(REST):
         /api/news/NEW_ID
 
         Get all News by "X-Oauth-Username"
+        :param page
         :param path: community_name
         :param external_or_internal: ['zoom_in', 'zoom_out']
     """
