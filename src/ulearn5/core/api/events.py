@@ -77,7 +77,7 @@ class Events(REST):
         }
         for k in self.params.keys():
             if k == 'path':
-                query[k] = ('/').join(portal.getPhysicalPath()) + '/' + self.params.pop(k, None)
+                query[k] = '/'.join(portal.getPhysicalPath()) + '/' + self.params.pop(k, None)
             else:
                 query[k] = self.params.pop(k, None)
         
@@ -106,11 +106,13 @@ class Events(REST):
             communityName = getCommunityNameFromObj(self, value)
             
             event = dict(
-                title=value.title.encode('utf-8'),
-                start=value.start.strftime('%Y-%m-%dT%H:%M:%S'),
-                end=value.end.strftime('%Y-%m-%dT%H:%M:%S') if value.end else None,
                 community=communityName,
-                id=value.id
+                end=value.end.strftime('%Y-%m-%dT%H:%M:%S') if value.end else None,
+                id=value.id,
+                portal_type=value.portal_type,
+                start=value.start.strftime('%Y-%m-%dT%H:%M:%S'),
+                title=value.title.encode('utf-8'),
+                uid=item.UID
             )
             results.append(event)
         values = dict(items=results,
@@ -121,20 +123,46 @@ class Events(REST):
 
 class Event(REST):
     """
-        /api/events/{eventid}
+        /api/events/eventuid?eventuid={uuid}
+        
+        :param eventuid: uuid
     """
+    
+    placeholder_type = 'event'
+    placeholder_id = 'eventuid'
+    
     grok.adapts(Events, IPloneSiteRoot)
     grok.require('base.authenticated')
 
-    def __init__(self, context, request):
-        super(Event, self).__init__(context, request)
-        
-    @api_resource(required=['eventid'])
+    @api_resource(required=['eventuid'])
     def GET(self):
-        eventid = self.params.pop('eventid')
-        portal = api.portal.get()
-        local_url = portal.absolute_url()
         results = []
+        eventuid = self.params.pop('eventuid')
+        content = api.content.get(UID=eventuid)
+        communityName = getCommunityNameFromObj(self, content)
+        attendees = [a.encode('utf-8') for a in content.attendees]
+        # import ipdb; ipdb.set_trace()
+        event = dict(
+            attendees=attendees,
+            community=communityName.encode('utf-8'),
+            contact_email=content.contact_email,
+            contact_name=content.contact_name.encode('utf-8') if content.contact_name else None,
+            contact_phone=content.contact_phone,
+            description=content.description.encode('utf-8') if content.description else None,
+            end=content.end.strftime('%Y-%m-%dT%H:%M:%S') if content.end else None,
+            event_url=content.event_url,
+            id=content.id,
+            location=content.location,
+            open_end=content.open_end,
+            portal_type=content.portal_type,
+            start=content.start.strftime('%Y-%m-%dT%H:%M:%S'),
+            text=content.text.raw if content.text else None,
+            timezone=content.timezone,
+            title=content.title.encode('utf-8'),
+            whole_day=content.whole_day
+            )
+        results.append(event)
+        return ApiResponse(results)
         
 
     @api_resource(required=['eventid', 'title', 'description', 'body', 'start', 'end'])
