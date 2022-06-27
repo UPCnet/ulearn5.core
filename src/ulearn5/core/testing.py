@@ -93,8 +93,8 @@ class Ulearn5CoreLayer(PloneSandboxLayer):
         api.user.get('janet.dura').setMemberProperties(mapping={'fullname': u'Janet Durà', 'location': u'Barcelona', 'email': u'janet.dura@upcnet.es'})
 
         login(portal, 'admin')
-        setup_max(u'ulearn.testuser1', '99994183a')
-        setup_user_max('ulearn.testuser2', '99994184a')
+        setup_max(u'ulearn.testuser1', '99994183aB')
+        setup_user_max('ulearn.testuser2', '99994184aB')
         portal.portal_workflow.setDefaultChain('genweb_intranet')
         logout()
         # setRoles(portal, TEST_USER_ID, ['Manager'])
