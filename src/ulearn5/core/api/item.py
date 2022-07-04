@@ -77,19 +77,17 @@ class Item(REST):
                     external_url = True
                 elif value.portal_type == 'Event':
                     text = value.text.output
-                    external_url = True
+                    external_url = True # To delete, mantain compatibility with uTalk
                 elif value.portal_type == 'File':
-                    text = ''
-                    external_url = True #To delete
+                    external_url = True # To delete, mantain compatibility with uTalk
                     raw_file = b64encode(value.file.data)
                     content_type = value.file.contentType
                 elif value.portal_type == 'ExternalContent':
-                    text = ''
                     external_url = True
                     expanded = value.absolute_url() + '/@@download/' + value.filename
                 else:
                     text = ''
-                    external_url = True
+                    external_url = True # To delete, mantain compatibility with uTalk
 
                 new = dict(title=value.Title(),
                            id=value.id,
