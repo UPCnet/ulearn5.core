@@ -3,6 +3,7 @@ from datetime import datetime
 from five import grok
 from plone import api
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+import re
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
 from ulearn5.core.api import ApiResponse
@@ -43,16 +44,28 @@ class Notifications(REST):
     grok.adapts(APIRoot, IPloneSiteRoot)
     grok.require('base.authenticated')
     
+    def replaceImagePathByURL(self, msg):
+        uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
+        srcs = re.findall('src="([^"]+)"', msg)
+        for i in range(len(uids)):
+            uid = uids[i]
+            thumb_url = api.content.get(UID=uid).absolute_url() + '/thumbnail-image'
+            plone_url = srcs[i]
+            msg = re.sub(plone_url, thumb_url, msg)
+        return msg
+    
     def getGeneralInformationNotification(self, result, portal, user):
         active = True if api.portal.get_registry_record('ulearn5.core.controlpopup.IPopupSettings.activate_notify') else False
         map = {
             'fullname': user.getProperty('fullname', user.id),
-        }   
+        }
         try:
             msg = portal['gestion']['popup']['notify'].text.raw % map
+            msg = self.replaceImagePathByURL(msg)
         except:
             try:
                 msg = portal['gestion']['popup']['notify'].text.raw
+                msg = self.replaceImagePathByURL(msg)
             except:
                 msg = ''
         if active:
@@ -80,9 +93,11 @@ class Notifications(REST):
         }
         try:
             msg = portal['gestion']['popup']['birthday'].text.raw % map
+            msg = self.replaceImagePathByURL(msg)
         except:
             try:
                 msg = portal['gestion']['popup']['birthday'].text.raw
+                msg = self.replaceImagePathByURL(msg)
             except:
                 msg = ''
         if active:
@@ -97,7 +112,6 @@ class Notifications(REST):
     def GET(self):
         """ Return the notification object. """
         # TODO:
-        #   - Buscar las imagenes internas y añadirles /thumbnail-image
         #   - Implementar la lógica en frontend para que a partir de la fecha de nacimiento del usuario, del día actual y de 
         #       si está activa la notificación de cumpleaños, muestre un pop-up por pantalla. Sólo 1 vez al día.
         #   - Añadir endpoint POST para dismiss de notificación general
