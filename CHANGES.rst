@@ -2,11 +2,18 @@ Changelog
 =========
 
 
-0.118 (unreleased)
+0.118 (2022-07-06)
 ------------------
 
-- Nothing changed yet.
-
+* Buscar las imagenes internas y añadirles /thumbnail-image [alberto.duran]
+* Get Notificaciones pop-up [alberto.duran]
+* Endpoint to get an Event [alberto.duran]
+* Endpoint that returns all events in community from start to end [alberto.duran]
+* Canvi user test [Pilar Marinas]
+* Solve some bugs [alberto.duran]
+* Resolver bug al hacer la query al catalogo [alberto.duran]
+* Vista del detalle de un objecto [alberto.duran]
+* Search endpoint for documents folder inside communities [alberto.duran]
 
 0.117 (2022-06-15)
 ------------------
