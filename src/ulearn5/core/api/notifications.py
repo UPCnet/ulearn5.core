@@ -6,12 +6,12 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 import re
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
+from souper.soup import Record
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import api_resource
 from ulearn5.core.api import BadParameters
 from ulearn5.core.api import REST
 from ulearn5.core.api.root import APIRoot
-
 
 
 class Notifications(REST):
@@ -115,7 +115,6 @@ class Notifications(REST):
         #   - Implementar la lógica en frontend para que a partir de la fecha de nacimiento del usuario, del día actual y de 
         #       si está activa la notificación de cumpleaños, muestre un pop-up por pantalla. Sólo 1 vez al día.
         #   - Añadir endpoint POST para dismiss de notificación general
-        
         user = api.user.get(username=self.params['username'])
         if not user:
             raise BadParameters(self.params['username'])
@@ -130,3 +129,20 @@ class Notifications(REST):
         self.getBirthdayInformationNotification(result, portal, user)
         
         return ApiResponse(result)
+    
+    @api_resource(required=['username'])
+    def POST(self):
+        """ Dismiss notification. """
+        user = api.user.get(username=self.params['username'])
+        if not user:
+            raise BadParameters(self.params['username'])
+        portal = api.portal.get()
+        soup = get_soup('notify_popup', portal)
+        exist = [r for r in soup.query(Eq('id', user.id))]
+        if not exist:
+            record = Record()
+            record.attrs['id'] = user.id
+            soup.add(record)
+            soup.reindex()
+        
+        return ApiResponse({"success": "Notificació tancada amb èxit."})
