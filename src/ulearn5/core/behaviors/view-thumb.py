@@ -19,7 +19,7 @@ class Thumbnail(BrowserView):
 
             self.request.response.setHeader('content-type', contentType)
             self.request.response.setHeader(
-                'content-disposition', 'inline; filename=' + str(filename))
+                'content-disposition', 'inline; filename=' + str(filename.encode('utf-8')))
             self.request.response.setHeader('content-length', len(img_data))
         else:
             # Si no te la Thumb, que no peti i doni la gran...
@@ -29,7 +29,7 @@ class Thumbnail(BrowserView):
 
             self.request.response.setHeader('content-type', contentType)
             self.request.response.setHeader(
-                'content-disposition', 'inline; filename=' + str(filename))
+                'content-disposition', 'inline; filename=' + str(filename.encode('utf-8')))
             self.request.response.setHeader('content-length', len(img_data))
 
         return img_data
