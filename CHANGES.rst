@@ -2,11 +2,14 @@ Changelog
 =========
 
 
-0.119 (unreleased)
+0.119 (2022-07-14)
 ------------------
 
-- Nothing changed yet.
-
+* Resolve bug when special items don't have state [alberto.duran]
+* Corregir tabulación erronia [alberto.duran]
+* Solucionar UnicodeEncodeError thumbnail-image [Pilar Marinas]
+* Merge branch 'develop' of github.com:UPCnet/ulearn5.core into develop [alberto.duran]
+* Add post for notifications [alberto.duran]
 
 0.118 (2022-07-06)
 ------------------
