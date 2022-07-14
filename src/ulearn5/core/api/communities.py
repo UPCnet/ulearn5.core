@@ -907,7 +907,7 @@ class Search(REST):
                         url=item.getURL(),
                         path=brain.absolute_url_path(),
                         type=brain.Type(),
-                        state=item.review_state
+                        state=item.review_state if item.review_state else None
                         )
                 result.append(obj)
 
