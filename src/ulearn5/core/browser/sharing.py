@@ -89,7 +89,6 @@ class ElasticSharing(object):
         elastic_index = self.get_index_name().lower()
         record = dict(
             index=elastic_index,
-            doc_type='sharing',
             id=str(uuid.uuid1()),
             body=dict(
                 path=path,
@@ -113,28 +112,26 @@ class ElasticSharing(object):
             if principal is None:
                 # Change to query elastic for a register matching principal and path
                 # and return a list of items or None if query empty
-                es_results = self.elastic().search(index=elastic_index,
-                                                   doc_type='sharing',
+                es_results = self.elastic().search(index=elastic_index,                                            
                                                    body={'query': {'match': {'uuid': IGWUUID(object).get()}}}
                                                    )
                 result = []
-                if es_results['hits']['total'] > 0:
+                if es_results['hits']['total']['value'] > 0:
                     # result = [es_results['hits']['hits'][0]['_source']]
-                    for i in range(es_results['hits']['total']):
+                    for i in range(es_results['hits']['total']['value']):
                         result.append(es_results['hits']['hits'][i]['_source'])
 
             else:
                 # Change to Query elastic for all registers matching path
                 # and returm ONE item
-                es_results = self.elastic().search(index=elastic_index,
-                                                   doc_type='sharing',
+                es_results = self.elastic().search(index=elastic_index,                                                   
                                                    body={'query': {
                                                          'bool': {
                                                             'must': [{'match': {'principal': principal}},
                                                                      {'match': {'uuid': IGWUUID(object).get()}}]
                                                          }}})
                 result = []
-                if es_results['hits']['total'] > 0:
+                if es_results['hits']['total']['value'] > 0:
                     result = [es_results['hits']['hits'][0]['_source']]
 
             return result
@@ -184,7 +181,6 @@ class ElasticSharing(object):
                                 pass
                 else:
                     es_record = self.get(object, principal)
-
                     if not es_record:
                         self.add(object, principal)
                     elif es_record[0]['roles'] != roles:
@@ -212,8 +208,7 @@ class ElasticSharing(object):
         # path = self.relative_path(object)
         self.elastic = getUtility(IElasticSearch)
         elastic_index = ElasticSharing().get_index_name().lower()
-        result = self.elastic().search(index=elastic_index,
-                                       doc_type='sharing',
+        result = self.elastic().search(index=elastic_index,                                       
                                        body={'query': {
                                                 'bool': {
                                                     'must': [{'match': {'principal': principal}},
@@ -221,7 +216,6 @@ class ElasticSharing(object):
                                                 }}})
 
         self.elastic().update(index=elastic_index,
-                              doc_type='sharing',
                               id=result['hits']['hits'][0]['_id'],
                               body={'doc': { 'roles': attributes}})
 
@@ -235,7 +229,6 @@ class ElasticSharing(object):
         self.elastic = getUtility(IElasticSearch)
         elastic_index = ElasticSharing().get_index_name().lower()
         result = self.elastic().search(index=elastic_index,
-                                       doc_type='sharing',
                                        body={'query': {
                                                 'bool': {
                                                     'must': [{'match': {'principal': principal}},
@@ -243,7 +236,6 @@ class ElasticSharing(object):
                                                 }}})
 
         self.elastic().delete(index=elastic_index,
-                              doc_type='sharing',
                               id=result['hits']['hits'][0]['_id'])
 
     def shared_on(self, object):
@@ -323,7 +315,6 @@ class ElasticSharing(object):
         self.elastic = getUtility(IElasticSearch)
         elastic_index = ElasticSharing().get_index_name().lower()
         shared_items = self.elastic().search(index=elastic_index,
-                                             doc_type='sharing',
                                              body={'query': {
                                                     'bool': {
                                                        'must': {'match_all': {}
@@ -460,3 +451,4 @@ def sharedIndexerAT(context):
     return IShared(context).is_shared()
 
 grok.global_adapter(sharedIndexerAT, name='is_shared')
+

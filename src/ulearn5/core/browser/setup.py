@@ -824,7 +824,6 @@ class updateSharingCommunityElastic(grok.View):
             pc = api.portal.get_tool('portal_catalog')
             portal = getSite()
             absolute_path = '/'.join(portal.getPhysicalPath())
-
             if self.request.form['id'] != '':
                 id_community = absolute_path + '/' + self.request.form['id']
                 logger.info('Actualitzant elasticsearch dades comunitat {}'.format(id_community))
@@ -841,14 +840,12 @@ class updateSharingCommunityElastic(grok.View):
                     self.elastic().indices.create(
                         index=elastic_index,
                         body={
-                            'mappings': {
-                                'sharing': {
-                                    'properties': {
-                                        'path': {'type': 'string'},
-                                        'principal': {'type': 'string', 'index': 'not_analyzed' },
-                                        'roles': {'type': 'string'},
-                                        'uuid': {'type': 'string'}
-                                        }
+                            'mappings': {                      
+                                'properties': {
+                                    'path': {'type': 'text'},
+                                    'principal': {'type': 'keyword', 'index': 'true' },
+                                    'roles': {'type': 'text'},
+                                    'uuid': {'type': 'text'}
                                     }
                                 }
                             }
@@ -910,20 +907,18 @@ class updateSharingCommunitiesElastic(grok.View):
                 self.elastic().search(index=elastic_index)
             except:
                 self.elastic().indices.create(
-                    index=elastic_index,
-                    body={
-                        'mappings': {
-                            'sharing': {
+                        index=elastic_index,
+                        body={
+                            'mappings': {                       
                                 'properties': {
-                                    'path': {'type': 'string'},
-                                    'principal': {'type': 'string', 'index': 'not_analyzed' },
-                                    'roles': {'type': 'string'},
-                                    'uuid': {'type': 'string'}
+                                    'path': {'type': 'text'},
+                                    'principal': {'type': 'keyword', 'index': 'true' },
+                                    'roles': {'type': 'text'},
+                                    'uuid': {'type': 'text'}
                                     }
                                 }
                             }
-                        }
-                    )
+                        )
 
             for brain in community:
                 obj = brain._unrestrictedGetObject()
@@ -953,18 +948,17 @@ class createElasticSharing(grok.View):
             self.elastic = getUtility(IElasticSearch)
             self.elastic().search(index=elastic_index)
         except:
+           
             self.elastic().indices.create(
                 index=elastic_index,
-                body={
+		body={
                     'mappings': {
-                        'sharing': {
                             'properties': {
-                                'path': {'type': 'string'},
-                                'principal': {'type': 'string', 'index': 'not_analyzed' },
-                                'roles': {'type': 'string'},
-                                'uuid': {'type': 'string'}
+                                'path': {'type': 'text'},
+                                'principal': {'type': 'keyword', 'index': 'true'},
+                                'roles': {'type': 'text'},
+                                'uuid': {'type': 'text'}
                                 }
-                            }
                         }
                     }
                 )
