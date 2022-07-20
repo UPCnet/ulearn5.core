@@ -3,7 +3,7 @@ from Acquisition import aq_inner
 import calendar
 from datetime import datetime
 from five import grok
-
+import re
 from plone import api
 from plone.app.contenttypes.behaviors.richtext import IRichText
 from plone.app.layout.navigation.root import getNavigationRootObject
@@ -109,10 +109,12 @@ class Events(REST):
                 community=communityName,
                 end=value.end.strftime('%Y-%m-%dT%H:%M:%S') if value.end else None,
                 id=value.id,
+                open_end=value.open_end,
                 portal_type=value.portal_type,
                 start=value.start.strftime('%Y-%m-%dT%H:%M:%S'),
                 title=value.title.encode('utf-8'),
-                uid=item.UID
+                uid=item.UID,
+                whole_day=value.whole_day
             )
             results.append(event)
         values = dict(items=results,
@@ -133,6 +135,16 @@ class Event(REST):
     
     grok.adapts(Events, IPloneSiteRoot)
     grok.require('base.authenticated')
+    
+    def replaceImagePathByURL(self, msg):
+        uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
+        srcs = re.findall('src="([^"]+)"', msg)
+        for i in range(len(uids)):
+            uid = uids[i]
+            thumb_url = api.content.get(UID=uid).absolute_url() + '/thumbnail-image'
+            plone_url = srcs[i]
+            msg = re.sub(plone_url, thumb_url, msg)
+        return msg
 
     @api_resource(required=['eventuid'])
     def GET(self):
@@ -141,6 +153,8 @@ class Event(REST):
         content = api.content.get(UID=eventuid)
         communityName = getCommunityNameFromObj(self, content)
         attendees = [a.encode('utf-8') for a in content.attendees]
+        body = content.text.raw if content.text else None
+        body = self.replaceImagePathByURL(body)
         # import ipdb; ipdb.set_trace()
         event = dict(
             attendees=attendees,
@@ -156,7 +170,7 @@ class Event(REST):
             open_end=content.open_end,
             portal_type=content.portal_type,
             start=content.start.strftime('%Y-%m-%dT%H:%M:%S'),
-            text=content.text.raw if content.text else None,
+            text=body,
             timezone=content.timezone,
             title=content.title.encode('utf-8'),
             whole_day=content.whole_day
