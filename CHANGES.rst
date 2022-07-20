@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.120 (unreleased)
+0.120 (2022-07-20)
 ------------------
 
-- Nothing changed yet.
-
+* Cambios nueva version elasticsearch 7.12.0 [root]
+* Replace internal urls in events detail and add whole_day and open_end to events listing [alberto.duran]
 
 0.119 (2022-07-14)
 ------------------
