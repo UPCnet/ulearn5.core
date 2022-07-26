@@ -14,7 +14,7 @@ from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.formatting import formatMessageEntities
 from lxml import html
-
+import re
 from datetime import datetime
 
 import requests
@@ -34,6 +34,18 @@ def getCommunityNameFromObj(self, value):
         if (ICommunity.providedBy(obj)):
             return obj.title
     return ''
+
+
+def replaceImagePathByURL(self, msg):
+        uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
+        srcs = re.findall('src="([^"]+)"', msg)
+        for i in range(len(uids)):
+            uid = uids[i]
+            thumb_url = api.content.get(UID=uid).absolute_url() + '/thumbnail-image'
+            plone_url = srcs[i]
+            msg = re.sub(plone_url, thumb_url, msg)
+        return msg
+
 
 class News(REST):
     """
@@ -223,6 +235,7 @@ class New(REST):
                 if value.text:
                     #text = value.text.output
                     text = formatMessageEntities(html.tostring(html.fromstring(value.text.output)))
+                    text = self.replaceImagePathByURL(text)
                 else:
                     text = ''
 
