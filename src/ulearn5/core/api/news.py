@@ -235,7 +235,8 @@ class New(REST):
                 if value.text:
                     #text = value.text.output
                     text = formatMessageEntities(html.tostring(html.fromstring(value.text.output)))
-                    text = self.replaceImagePathByURL(text)
+                    if text is not None:
+                        text = self.replaceImagePathByURL(text)
                 else:
                     text = ''
 
