@@ -13,6 +13,7 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
+from ulearn5.core.api import ObjectNotFound
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.content.community import ICommunity
 
@@ -151,30 +152,33 @@ class Event(REST):
         results = []
         eventuid = self.params.pop('eventuid')
         content = api.content.get(UID=eventuid)
-        communityName = getCommunityNameFromObj(self, content)
-        attendees = [a.encode('utf-8') for a in content.attendees]
-        body = content.text.raw if content.text else None
-        body = self.replaceImagePathByURL(body)
-        # import ipdb; ipdb.set_trace()
-        event = dict(
-            attendees=attendees,
-            community=communityName.encode('utf-8'),
-            contact_email=content.contact_email,
-            contact_name=content.contact_name.encode('utf-8') if content.contact_name else None,
-            contact_phone=content.contact_phone,
-            description=content.description.encode('utf-8') if content.description else None,
-            end=content.end.strftime('%Y-%m-%dT%H:%M:%S') if content.end else None,
-            event_url=content.event_url,
-            id=content.id,
-            location=content.location,
-            open_end=content.open_end,
-            portal_type=content.portal_type,
-            start=content.start.strftime('%Y-%m-%dT%H:%M:%S'),
-            text=body,
-            timezone=content.timezone,
-            title=content.title.encode('utf-8'),
-            whole_day=content.whole_day
-            )
+        if content:
+            communityName = getCommunityNameFromObj(self, content)
+            attendees = [a.encode('utf-8') for a in content.attendees]
+            body = content.text.raw if content.text else None
+            if body is not None:
+                body = self.replaceImagePathByURL(body)
+            event = dict(
+                attendees=attendees,
+                community=communityName.encode('utf-8'),
+                contact_email=content.contact_email,
+                contact_name=content.contact_name.encode('utf-8') if content.contact_name else None,
+                contact_phone=content.contact_phone,
+                description=content.description.encode('utf-8') if content.description else None,
+                end=content.end.strftime('%Y-%m-%dT%H:%M:%S') if content.end else None,
+                event_url=content.event_url,
+                id=content.id,
+                location=content.location,
+                open_end=content.open_end,
+                portal_type=content.portal_type,
+                start=content.start.strftime('%Y-%m-%dT%H:%M:%S'),
+                text=body,
+                timezone=content.timezone,
+                title=content.title.encode('utf-8'),
+                whole_day=content.whole_day
+                )
+        else:
+            raise ObjectNotFound('Event Item with uid {0} not found'.format(eventuid))
         results.append(event)
         return ApiResponse(results)
         
