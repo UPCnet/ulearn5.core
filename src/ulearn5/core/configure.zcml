@@ -64,7 +64,7 @@
 
     <browser:page
         name="ulearn-control-popup"
-        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        for="*"
         class=".controlpopup.PopupSettingsForm"
         permission="ulearn5.core.setup"
         />
