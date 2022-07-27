@@ -36,15 +36,21 @@ def getCommunityNameFromObj(self, value):
     return ''
 
 
-def replaceImagePathByURL(self, msg):
-        uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
-        srcs = re.findall('src="([^"]+)"', msg)
-        for i in range(len(uids)):
-            uid = uids[i]
-            thumb_url = api.content.get(UID=uid).absolute_url() + '/thumbnail-image'
-            plone_url = srcs[i]
-            msg = re.sub(plone_url, thumb_url, msg)
-        return msg
+def replaceImagePathByURL(msg):
+    srcs = re.findall('src="([^"]+)"', msg)
+    
+    # Transformamos imagenes contra la propia web
+    images = re.findall(r"/@@images/.*?\"", msg)
+    for i in range(len(images)):
+        msg = re.sub(images[i], '/thumbnail-image"', msg)
+    
+    # Transformamos imagenes internas
+    uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
+    for i in range(len(uids)):
+        thumb_url = api.content.get(UID=uids[i]).absolute_url() + '/thumbnail-image'
+        plone_url = srcs[i]
+        msg = re.sub(plone_url, thumb_url, msg)
+    return msg
 
 
 class News(REST):
@@ -236,7 +242,7 @@ class New(REST):
                     #text = value.text.output
                     text = formatMessageEntities(html.tostring(html.fromstring(value.text.output)))
                     if text is not None:
-                        text = self.replaceImagePathByURL(text)
+                        text = replaceImagePathByURL(text)
                 else:
                     text = ''
 
