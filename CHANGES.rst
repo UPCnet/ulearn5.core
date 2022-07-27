@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.121 (unreleased)
+0.121 (2022-07-27)
 ------------------
 
-- Nothing changed yet.
-
+* Reemplazar imágenes en notícias sólo si hay body [alberto.duran]
+* Asegurar que el uid existe y reemplazar imágenes sólo si hay body [alberto.duran]
+* Merge branch 'develop' of github.com:UPCnet/ulearn5.core into develop [alberto.duran]
+* Replace resolve uids by external url to be able to load in app [alberto.duran]
 
 0.120 (2022-07-20)
 ------------------
