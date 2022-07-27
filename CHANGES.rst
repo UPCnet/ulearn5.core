@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.122 (unreleased)
+0.122 (2022-07-27)
 ------------------
 
-- Nothing changed yet.
-
+* Corregir errores al renderizar imagen [alberto.duran]
 
 0.121 (2022-07-27)
 ------------------
