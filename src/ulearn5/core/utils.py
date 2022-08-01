@@ -148,7 +148,6 @@ class ulearnUtils(BrowserView):
         self.maxclient, self.settings = getUtility(IMAXClient)()
         return self.settings.max_server
 
-
     def is_activate_sharedwithme(self):
         if (api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.elasticsearch') != None) and (api.portal.get_registry_record('ulearn5.core.controlpanel.IUlearnControlPanelSettings.activate_sharedwithme') == True):
             portal = api.portal.get()
