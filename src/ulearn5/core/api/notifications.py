@@ -22,6 +22,9 @@ class Notifications(REST):
         
         :param user: username of user
         
+        * general tiene un soup donde leer y guardar información
+        * birthday en web funciona con una cookie y no tiene soup asociado
+        
         Returns
 
         {
@@ -47,17 +50,18 @@ class Notifications(REST):
     def replaceImagePathByURL(self, msg):
         srcs = re.findall('src="([^"]+)"', msg)
     
-        # Transformamos imagenes contra la propia web
-        images = re.findall(r"/@@images/.*?\"", msg)
-        for i in range(len(images)):
-            msg = re.sub(images[i], '/thumbnail-image"', msg)
-        
         # Transformamos imagenes internas
         uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
         for i in range(len(uids)):
             thumb_url = api.content.get(UID=uids[i]).absolute_url() + '/thumbnail-image'
             plone_url = srcs[i]
             msg = re.sub(plone_url, thumb_url, msg)
+    
+        # Transformamos imagenes contra la propia web
+        images = re.findall(r"/@@images/.*?\"", msg)
+        for i in range(len(images)):
+            msg = re.sub(images[i], '/thumbnail-image"', msg)
+        
         return msg
     
     def getGeneralInformationNotification(self, result, portal, user):
@@ -117,10 +121,6 @@ class Notifications(REST):
     @api_resource(required=['username'])
     def GET(self):
         """ Return the notification object. """
-        # TODO:
-        #   - Implementar la lógica en frontend para que a partir de la fecha de nacimiento del usuario, del día actual y de 
-        #       si está activa la notificación de cumpleaños, muestre un pop-up por pantalla. Sólo 1 vez al día.
-        #   - Añadir endpoint POST para dismiss de notificación general
         user = api.user.get(username=self.params['username'])
         if not user:
             raise BadParameters(self.params['username'])
@@ -151,4 +151,4 @@ class Notifications(REST):
             soup.add(record)
             soup.reindex()
         
-        return ApiResponse({"success": "Notificació tancada amb èxit."})
+        return ApiResponse({"success": "Notificació general tancada amb èxit."})
