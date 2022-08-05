@@ -798,11 +798,16 @@ class Documents(REST):
     
     def addObjectToResult(self, sortedObj, result):
         brain = sortedObj['obj'].getObject()
+        obj_type = brain.Type()
+        if (obj_type == u'External Content'):
+            obj_url = brain.absolute_url() + '/@@download/' + brain.filename
+        else:
+            obj_url = sortedObj['obj'].getURL(),
         community = dict(id=brain.id,
                         title=brain.title,
-                        url=sortedObj['obj'].getURL(),
+                        url=obj_url,
                         path='/'.join(brain.getPhysicalPath()),
-                        type=brain.Type(),
+                        type=obj_type,
                         state=sortedObj['obj'].review_state
                         )
         result.append(community)
