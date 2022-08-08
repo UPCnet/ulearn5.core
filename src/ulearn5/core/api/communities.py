@@ -798,17 +798,25 @@ class Documents(REST):
     
     def addObjectToResult(self, sortedObj, result):
         brain = sortedObj['obj'].getObject()
+        obj_url = sortedObj['obj'].getURL()
         obj_type = brain.Type()
-        if (obj_type == u'External Content'):
+        internal = None
+        type_next_obj = None
+        if (obj_type == u'Link'):
+            internal = True if brain.remoteUrl.startswith('${portal_url}/resolveuid/') else False
+            if internal:
+                uid = brain.remoteUrl.split('/resolveuid/')[1]
+                type_next_obj = api.content.get(UID=uid.encode('utf-8')).Type()
+        elif (obj_type == u'External Content'):
             obj_url = brain.absolute_url() + '/@@download/' + brain.filename
-        else:
-            obj_url = sortedObj['obj'].getURL(),
         community = dict(id=brain.id,
                         title=brain.title,
                         url=obj_url,
                         path='/'.join(brain.getPhysicalPath()),
                         type=obj_type,
-                        state=sortedObj['obj'].review_state
+                        state=sortedObj['obj'].review_state,
+                        internal=internal,
+                        type_when_follow_url=type_next_obj
                         )
         result.append(community)
 
