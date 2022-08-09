@@ -806,7 +806,9 @@ class Documents(REST):
             internal = True if brain.remoteUrl.startswith('${portal_url}/resolveuid/') else False
             if internal:
                 uid = brain.remoteUrl.split('/resolveuid/')[1]
-                type_next_obj = api.content.get(UID=uid.encode('utf-8')).Type()
+                next_obj = api.content.get(UID=uid.encode('utf-8'))
+                type_next_obj = next_obj.Type()
+                obj_url = next_obj.absolute_url()
         elif (obj_type == u'External Content'):
             obj_url = brain.absolute_url() + '/@@download/' + brain.filename
         community = dict(id=brain.id,
