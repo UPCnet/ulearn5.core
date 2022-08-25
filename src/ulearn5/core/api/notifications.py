@@ -66,19 +66,19 @@ class Notifications(REST):
     
     def getGeneralInformationNotification(self, result, portal, user):
         active = True if api.portal.get_registry_record('ulearn5.core.controlpopup.IPopupSettings.activate_notify') else False
-        map = {
+        if active:
+            map = {
             'fullname': user.getProperty('fullname', user.id),
-        }
-        try:
-            msg = portal['gestion']['popup']['notify'].text.raw % map
-            msg = self.replaceImagePathByURL(msg)
-        except:
+            }
             try:
-                msg = portal['gestion']['popup']['notify'].text.raw
+                msg = portal['gestion']['popup']['notify'].text.raw % map
                 msg = self.replaceImagePathByURL(msg)
             except:
-                msg = ''
-        if active:
+                try:
+                    msg = portal['gestion']['popup']['notify'].text.raw
+                    msg = self.replaceImagePathByURL(msg)
+                except:
+                    msg = ''
             soup = get_soup('notify_popup', portal)
             user_soup = [r for r in soup.query(Eq('id', user.id))]
             object = dict(
@@ -86,35 +86,43 @@ class Notifications(REST):
                 is_dismissed=False if not user_soup else True,
                 message=msg
             )
+        else:
+            object = dict(
+                is_active=False,
+            )
         result['general'] = object
         
     def getBirthdayInformationNotification(self, result, portal, user):
         active = True if api.portal.get_registry_record('ulearn5.core.controlpopup.IPopupSettings.activate_birthday') else False
-        birthday = user.getProperty('birthday')
-        if "/" in birthday:
-            birthday = datetime.strptime(birthday, '%d/%m/%Y')
-        elif "-" in birthday:
-            birthday = datetime.strptime(birthday, '%d-%m-%Y')
-        user_year = int(birthday.strftime('%Y'))
-        current_year = int(datetime.now().strftime('%Y'))
-        map = {
-            'fullname': user.getProperty('fullname', user.id),
-            'years': current_year - user_year
-        }
-        try:
-            msg = portal['gestion']['popup']['birthday'].text.raw % map
-            msg = self.replaceImagePathByURL(msg)
-        except:
+        if active:
+            birthday = user.getProperty('birthday')
+            if "/" in birthday:
+                birthday = datetime.strptime(birthday, '%d/%m/%Y')
+            elif "-" in birthday:
+                birthday = datetime.strptime(birthday, '%d-%m-%Y')
+            user_year = int(birthday.strftime('%Y'))
+            current_year = int(datetime.now().strftime('%Y'))
+            map = {
+                'fullname': user.getProperty('fullname', user.id),
+                'years': current_year - user_year
+            }
             try:
-                msg = portal['gestion']['popup']['birthday'].text.raw
+                msg = portal['gestion']['popup']['birthday'].text.raw % map
                 msg = self.replaceImagePathByURL(msg)
             except:
-                msg = ''
-        if active:
+                try:
+                    msg = portal['gestion']['popup']['birthday'].text.raw
+                    msg = self.replaceImagePathByURL(msg)
+                except:
+                    msg = ''
             object = dict(
                 is_active=True,
                 is_dismissed=False,
                 message=msg
+            )
+        else:
+            object = dict(
+                is_active=False,
             )
         result['birthday'] = object
 
