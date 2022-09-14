@@ -2,11 +2,16 @@ Changelog
 =========
 
 
-0.123 (unreleased)
+0.123 (2022-09-14)
 ------------------
 
-- Nothing changed yet.
-
+* Fix bug when notifications are off [alberto.duran]
+* Set correct url destination for internal links [alberto.duran]
+* Give destination information for internal links [alberto.duran]
+* Devolver un enlace descargable cuando se consulta un ExternalContent [alberto.duran]
+* Change order of transformations in replaceImagePathByURL [alberto.duran]
+* Testing agent 2 [alberto.duran]
+* Remove whitespace, testing agent [alberto.duran]
 
 0.122 (2022-07-27)
 ------------------
