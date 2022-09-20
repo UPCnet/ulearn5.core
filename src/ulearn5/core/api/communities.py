@@ -600,7 +600,7 @@ class Notifymail(REST, CommunityMixin):
         params['content_type'] = self.request.form['content_type']
         params['thumbURL'] = self.request.form['thumbURL']
         params['filename'] = self.request.form['filename']
-        params['mimetye'] = self.request.form['mimetye']
+        # params['mimetye'] = self.request.form['mimetye']
         params['objectType'] = self.request.form['objectType']
 
         pc = api.portal.get_tool('portal_catalog')
