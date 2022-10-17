@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.124 (unreleased)
+0.124 (2022-10-17)
 ------------------
 
-- Nothing changed yet.
-
+* Como no se utiliza y en el max 5.3.25 en las actividades esta bien escrito y en los comentarios no lo comento para que no de error [Pilar Marinas]
 
 0.123 (2022-09-14)
 ------------------
