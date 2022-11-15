@@ -21,6 +21,7 @@ from ulearn5.core.api import api_resource
 from ulearn5.core.api import logger
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.content.community import ICommunityACL
+from ulearn5.core.hooks import packages_installed
 from ulearn5.core.utils import is_activate_owncloud
 from ulearn5.owncloud.utils import update_owncloud_permission
 
@@ -568,6 +569,61 @@ class Subscriptions(REST, CommunityMixin):
         acl = adapter.get_acl()
         adapter.set_plone_permissions(acl)
         adapter.update_hub_subscriptions()
+
+class Notnotifymail(REST, CommunityMixin):
+    """
+        /api/notnotifymail
+
+        data={'username':'XXXX', 'community':'XXXX'}
+
+    """
+    placeholder_type = 'notnotifymail'
+    placeholder_id = 'notnotifymail'
+
+    grok.adapts(APIRoot, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    @api_resource(required=['username', 'community'])
+    def POST(self):
+        """
+           Se encarga de mirar si esta marcado o desmarcado y hacer lo que toca
+
+           requests.post('url/api/notnotifymail', data={'username':'XXXX', 'community':'XXXX'}, headers={'X-Oauth-Username': husername,'X-Oauth-Token': htoken, 'X-Oauth-Scope': hscope})
+
+        """
+        community_id = self.params.pop('community')
+        pc = api.portal.get_tool('portal_catalog')
+        community = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=community_id)
+
+        user_id = self.params.pop('username')
+        user = api.user.get(username=user_id)
+        if user_id and community:
+            obj = community[0].getObject()
+            if obj.mails_users_community_black_lists is None:
+                obj.mails_users_community_black_lists = {}
+            elif not isinstance(obj.mails_users_community_black_lists, dict):
+                obj.mails_users_community_black_lists = ast.literal_eval(obj.mails_users_community_black_lists)
+
+            if user_id in obj.mails_users_community_black_lists:
+                obj.mails_users_community_black_lists.pop(user_id)
+                obj.reindexObject()
+                response = 'Active notify push user "{}" community "{}"'.format(user_id, community_id)
+            else:
+                installed = packages_installed()
+                if 'ulearn5.enginyersbcn' in installed:
+                    mail = user.getProperty('email_ebcn')
+                else:
+                    mail = user.getProperty('email')
+                if mail is not None and mail != '':
+                    obj.mails_users_community_black_lists.update({user_id: mail})
+                    obj.reindexObject()
+                    response = 'Desactive notify push user "{}" community "{}"'.format(user_id, community_id)
+                else:
+                    response = 'Bad request. User "{}" not have email.'.format(user_id)
+
+        # Response
+        logger.info(response)
+        return ApiResponse.from_string(response)
 
 class Notifymail(REST, CommunityMixin):
     """
