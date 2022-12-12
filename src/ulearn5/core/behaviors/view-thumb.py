@@ -11,8 +11,7 @@ class Thumbnail(BrowserView):
 
     def __call__(self):
         context = self.context
-
-        if getattr(context, 'thumbnail_image', None):
+        if getattr(context, 'thumbnail_image', None) and context.portal_type != 'Image':
             img_data = context.thumbnail_image.open().read()
             contentType = context.thumbnail_image.contentType
             filename = unicodedata.normalize('NFKD', context.thumbnail_image.filename).encode("ascii", "ignore").decode("ascii")
