@@ -625,6 +625,50 @@ class Notnotifymail(REST, CommunityMixin):
         logger.info(response)
         return ApiResponse.from_string(response)
 
+class Notnotifypush(REST, CommunityMixin):
+    """
+        /api/notnotifypush
+
+        data={'username':'XXXX', 'community':'XXXX'}
+
+    """
+    placeholder_type = 'notnotifypush'
+    placeholder_id = 'notnotifypush'
+
+    grok.adapts(APIRoot, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    @api_resource(required=['username', 'community'])
+    def POST(self):
+        """
+           Se encarga de mirar si esta marcado o desmarcado y hacer lo que toca
+
+           requests.post('url/api/notnotifypush', data={'username':'XXXX', 'community':'XXXX'}, headers={'X-Oauth-Username': husername,'X-Oauth-Token': htoken, 'X-Oauth-Scope': hscope})
+
+        """
+        community_id = self.params.pop('community')
+        pc = api.portal.get_tool('portal_catalog')
+        community = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=community_id)
+
+        user_id = self.params.pop('username')
+        user = api.user.get(username=user_id)
+        if user_id and community:
+            obj = community[0].getObject()
+            adapter = obj.adapted()
+            if user_id in INotNotifyPush(obj).get():
+                INotNotifyPush(obj).remove(user_id)
+                adapter.subscribe_user_push(user_id)
+                response = 'Active notify push user "{}" community "{}"'.format(user_id, community_id)
+            else:
+                INotNotifyPush(obj).add(user_id)
+                adapter.unsubscribe_user_push(user_id)
+                response = 'Desactive notify push user "{}" community "{}"'.format(user_id, community_id)
+
+        # Response
+        logger.info(response)
+        return ApiResponse.from_string(response)
+
+
 class Notifymail(REST, CommunityMixin):
     """
         /api/notifymail
