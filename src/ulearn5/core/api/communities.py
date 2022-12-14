@@ -24,6 +24,7 @@ from ulearn5.core.content.community import ICommunityACL
 from ulearn5.core.hooks import packages_installed
 from ulearn5.core.utils import is_activate_owncloud
 from ulearn5.owncloud.utils import update_owncloud_permission
+from base5.core.adapters.notnotifypush import INotNotifyPush
 
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
