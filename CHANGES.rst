@@ -2,11 +2,13 @@ Changelog
 =========
 
 
-0.125 (unreleased)
+0.125 (2022-12-15)
 ------------------
 
-- Nothing changed yet.
-
+* WS Notnotifypush para marcar y desmarcar la notificacion por mail de usuario - comunidad [Pilar Marinas]
+* WS Notnotifypush para marcar y desmarcar la notificacion por mail de usuario - comunidad [Pilar Marinas]
+* thumbnail-image fix error contenttype Image [Iago López]
+* WS Notnotifymail para marcar y desmarcar la notificacion por mail de usuario - comunidad [Pilar Marinas]
 
 0.124 (2022-10-17)
 ------------------
