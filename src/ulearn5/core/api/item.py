@@ -85,6 +85,9 @@ class Item(REST):
                 elif value.portal_type == 'ExternalContent':
                     external_url = True
                     expanded = value.absolute_url() + '/@@download/' + value.filename
+                    # error = 'Este tipo de documento solo se puede descargar via web'
+                    # results.append(dict(error=error))
+                    # return ApiResponse(results)
                 else:
                     text = ''
                     external_url = True # To delete, mantain compatibility with uTalk

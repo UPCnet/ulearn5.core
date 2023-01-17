@@ -138,6 +138,8 @@ class StatsQueryBase(grok.View):
         elif hasattr(self.analytic_data, stat_method):
             if stat_method == 'stat_pageviews':
                 return getattr(self.analytic_data, stat_method)(filters, start, end)
+            elif stat_method == 'stat_appviews':
+                return getattr(self.analytic_data, stat_method)(filters, start, end)
         else:
             return 0
 
@@ -246,6 +248,25 @@ class StatsQuery(StatsQueryBase):
                        dict(value=typeContent, link=None, show_drilldown=False),
                        dict(value=views, link=None, show_drilldown=False)]
                 results['rows'].append(row)
+        elif 'appviews' in self.params['stats_requested']:
+            stats = getattr(self.analytic_data, 'stat_appviews')(
+                self.params['search_filters'],
+                first_moment_of_month(current),
+                last_moment_of_month(self.params['end']))
+
+            portal_url = self.portal_url()
+            for line in stats:
+                event_category = line[0]
+                event_action = line[1]
+                event_label = line[2]
+                total_events = line[3]
+
+                row = [dict(value='', link=None, show_drilldown=False),
+                       dict(value=event_category, link=None, show_drilldown=False),
+                       dict(value=event_action, link=None, show_drilldown=False),
+                       dict(value=event_label, link=None, show_drilldown=False),
+                       dict(value=total_events, link=None, show_drilldown=False)]
+                results['rows'].append(row)
         else:
             while current <= self.params['end']:
                 row = [dict(value=self.get_month_by_num(current.month) + u' ' + unicode(current.year),
@@ -274,7 +295,8 @@ class StatsQuery(StatsQueryBase):
             self.request.response.setHeader('Content-type', 'application/csv')
             self.request.response.setHeader('Content-disposition', 'attachment; filename=ulearn-stats-{}.csv'.format(datetime.now().strftime('%Y%m%d%H%M%S')))
             pageviews = 'pageviews' in self.params['stats_requested']
-            if not pageviews:
+            appviews = 'appviews' in self.params['stats_requested']
+            if not pageviews and not appviews:
                 lines = [','.join(['Fecha'] + self.params['stats_requested'])]
                 for row in results['rows']:
                     lines.append(','.join([str(col['value']) for col in row]))
@@ -667,3 +689,54 @@ class AnalyticsData(object):
         """
         """
         return self.stat_by_folder('pageviews', filters, start, end)
+
+    def stat_by_app(self, search_folder, filters, start, end=None):
+        """
+        """
+        settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
+        if settings is None or \
+           settings.gAnalytics_view_ID is None or \
+           settings.gAnalytics_JSON_info is None or \
+           settings.gAnalytics_enabled is None or \
+           settings.gAnalytics_enabled == False:
+            return {}
+        gAnalytics_view_ID = settings.gAnalytics_view_ID
+        gAnalytics_JSON_info = settings.gAnalytics_JSON_info
+
+        credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+                        json.loads(gAnalytics_JSON_info),
+                        scopes=['https://www.googleapis.com/auth/analytics.readonly'])
+        service = build('analytics', 'v3', credentials=credentials)
+
+        if filters['community'] == 'site':
+            gaFilters = 'ga:eventCategory=~/'
+        elif filters['community'] == 'news':
+            gaFilters = 'ga:eventCategory=~/news'
+        else:
+            catalog_filters = dict(portal_type='ulearn.community')
+            if filters['community']:
+                catalog_filters['community_hash'] = filters['community']
+            communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
+            gaFilters = ','.join('ga:eventCategory=~/' + community.id for community in communities)
+
+        analyticsData = service.data().ga().get(**{
+            'ids': 'ga:' + gAnalytics_view_ID,
+            'start_date': str(datetime.date(start)),
+            'end_date': str(datetime.date(end)),
+            'metrics': 'ga:totalEvents',
+            'dimensions': 'ga:eventCategory,ga:eventAction,ga:eventLabel',
+            'filters': gaFilters,
+            'max_results': '40',
+            'sort': '-ga:totalEvents'
+        }).execute()
+
+        if 'rows' in analyticsData:
+            return analyticsData['rows']
+        else:
+            return []
+        #return [[u'/comunitats/centro-albacete-1', u'COMUNIDAD', u'Centro: Albacete', u'2'], [u'/comunitats/centro-albacete-1', u'SECCION_docu', u'Centro: Albacete', u'1']]
+
+    def stat_appviews(self, filters, start, end=None):
+        """
+        """
+        return self.stat_by_app('appviews', filters, start, end)

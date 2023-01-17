@@ -1,4 +1,5 @@
 <statsinfo tal:attributes="pageviews_info viewlet/get_pageviews_info;
+                           appviews_info viewlet/get_appviews_info;
                            communities viewlet/get_communities;
                            extended_report viewlet/show_extended">
 </statsinfo>

@@ -84,6 +84,19 @@ class ULearnNGDirectives(grok.Viewlet):
         communities = json.loads(self.get_communities())
         return json.dumps(info + communities)
 
+    def get_appviews_info(self):
+        """ Gets the another options to show in the stats/appviews selectize dropdown
+        """
+        lang = api.user.get_current().getProperty('language')
+        if lang not in ['ca', 'en', 'es']:
+            lang = 'ca'
+
+        tool = api.portal.get_tool(name='translation_service')
+        info = [{'hash': 'site', 'title': tool.translate(_(u'Todo el contenido'), 'ulearn5.core', target_language=lang)}]
+        info += [{'hash': 'news', 'title': tool.translate(_(u'Noticias'), 'ulearn5.core', target_language=lang)}]
+        communities = json.loads(self.get_communities())
+        return json.dumps(info + communities)
+
     def show_extended(self):
         """ This attribute from the directive is used to show special buttons or
             links in the stats tabs. This is common in client packages.
