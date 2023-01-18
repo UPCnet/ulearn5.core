@@ -672,17 +672,12 @@ class CommunityAdapterMixin(object):
 
         INotNotifyPush(self.context).remove(user_id)
 
-        installed = packages_installed()
 
         # Remove mail user to mails_users_community_lists in community
         if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
             if self.context.mails_users_community_lists != None:
-                if 'ulearn5.enginyersbcn' in installed:
-                    if api.user.get(user_id).getProperty('email_ebcn') in self.context.mails_users_community_lists:
-                        self.context.mails_users_community_lists.pop(api.user.get(user_id).getProperty('email_ebcn'))
-                else:
-                    if api.user.get(user_id).getProperty('email') in self.context.mails_users_community_lists:
-                        self.context.mails_users_community_lists.pop(api.user.get(user_id).getProperty('email'))
+                if api.user.get(user_id).getProperty('email') in self.context.mails_users_community_lists:
+                    self.context.mails_users_community_lists.pop(api.user.get(user_id).getProperty('email'))
 
             if self.context.mails_users_community_black_lists is None:
                 self.context.mails_users_community_black_lists = {}
@@ -716,14 +711,9 @@ class CommunityAdapterMixin(object):
         if is_activate_owncloud(self.context):
             update_owncloud_permission(self.context, acl)
 
-        installed = packages_installed()
-
         # Add mail user to mails_users_community_lists in community
         if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
-            if 'ulearn5.enginyersbcn' in installed:
-                mail = api.user.get(user_id).getProperty('email_ebcn')
-            else:
-                mail = api.user.get(user_id).getProperty('email')
+            mail = api.user.get(user_id).getProperty('email')
             if mail != '' and mail != None:
                 if self.context.mails_users_community_lists == None:
                     self.context.mails_users_community_lists = []
@@ -740,17 +730,12 @@ class CommunityAdapterMixin(object):
         """
             Add mails users to mails_users_community_lists and mails_users_community_black_lists in community
         """
-        installed = packages_installed()
         mails_users = []
         if 'users' in acl:
             for user in acl['users']:
                 # Esto lo hago para los usuarios que no se han validado y no estan en el MemberData
                 if api.user.get(user['id']) != None:
-                    if 'ulearn5.enginyersbcn' in installed:
-                        mail = api.user.get(user['id']).getProperty('email_ebcn')
-                    else:
-                        mail = api.user.get(user['id']).getProperty('email')
-
+                    mail = api.user.get(user['id']).getProperty('email')
                     if mail != '' and mail != None and mail not in mails_users:
                         mails_users.append(mail)
 
@@ -760,10 +745,7 @@ class CommunityAdapterMixin(object):
                 users = api.user.get_users(groupname=group['id'])
                 for user in users:
                     if api.user.get(user.id) != None:
-                        if 'ulearn5.enginyersbcn' in installed:
-                            mail = api.user.get(user.id).getProperty('email_ebcn')
-                        else:
-                            mail = api.user.get(user.id).getProperty('email')
+                        mail = api.user.get(user.id).getProperty('email')
                         if (mail != '' and mail != None) and mail not in mails_users:
                             mails_users.append(mail)
 
@@ -777,10 +759,7 @@ class CommunityAdapterMixin(object):
         for userid in obj.mails_users_community_black_lists.keys():
             user = api.user.get(userid)
             if user is not None:
-                if 'ulearn5.enginyersbcn' in installed:
-                    mail = user.getProperty('email_ebcn')
-                else:
-                    mail = user.getProperty('email')
+                mail = user.getProperty('email')
                 if (mail != '' and mail is not None):
                     obj.mails_users_community_black_lists[userid] = mail
 
@@ -1255,11 +1234,7 @@ class ToggleNotNotifyMail(grok.View):
                 self.context.reindexObject()
                 return dict(message='Active notify push', status_code=200)
             else:
-                installed = packages_installed()
-                if 'ulearn5.enginyersbcn' in installed:
-                    mail = current_user.getProperty('email_ebcn')
-                else:
-                    mail = current_user.getProperty('email')
+                mail = current_user.getProperty('email')
                 if mail is not None and mail != '':
                     self.context.mails_users_community_black_lists.update({user_id: mail})
                     self.context.reindexObject()

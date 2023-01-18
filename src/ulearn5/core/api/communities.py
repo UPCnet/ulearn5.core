@@ -610,11 +610,7 @@ class Notnotifymail(REST, CommunityMixin):
                 obj.reindexObject()
                 response = 'Active notify push user "{}" community "{}"'.format(user_id, community_id)
             else:
-                installed = packages_installed()
-                if 'ulearn5.enginyersbcn' in installed:
-                    mail = user.getProperty('email_ebcn')
-                else:
-                    mail = user.getProperty('email')
+                mail = user.getProperty('email')
                 if mail is not None and mail != '':
                     obj.mails_users_community_black_lists.update({user_id: mail})
                     obj.reindexObject()
