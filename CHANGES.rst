@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.126 (unreleased)
+0.126 (2023-01-18)
 ------------------
 
-- Nothing changed yet.
-
+* Modificado parche notificacion automatica por mail enginyers campo email y no email_ebcn [Pilar Marinas]
+* Añadir vista estadisticas app solo para miranza [Pilar Marinas]
 
 0.125 (2022-12-15)
 ------------------
