@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.127 (unreleased)
+0.127 (2023-02-15)
 ------------------
 
-- Nothing changed yet.
-
+* Can write in community [Pilar Marinas]
 
 0.126 (2023-01-18)
 ------------------
