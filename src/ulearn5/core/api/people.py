@@ -591,9 +591,21 @@ class Subscriptions(REST):
         if 'Manager' in global_roles:
             self.is_role_manager = True
 
+        maxclient, settings = getUtility(IMAXClient)()
+        maxclient.setActor(settings.max_restricted_username)
+        maxclient.setToken(settings.max_restricted_token)
+
+        communities_subscription = maxclient.people[self.username].subscriptions.get()
+
         result = []
         favorites = self.get_favorites()
         for brain in communities:
+            user_permission = []
+            can_write = False
+            user_permission = [i for i in communities_subscription if i['hash'] == brain.community_hash]
+            if user_permission != [] and 'write' in user_permission[0]['permissions']:
+                can_write = True
+
             community = dict(id=brain.id,
                              title=brain.Title,
                              description=brain.Description,
@@ -602,7 +614,8 @@ class Subscriptions(REST):
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
                              favorited=brain.id in favorites,
-                             can_manage=self.is_community_manager(brain))
+                             can_manage=self.is_community_manager(brain),
+                             can_write=can_write)
             result.append(community)
 
         return ApiResponse(result)
