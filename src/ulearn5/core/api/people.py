@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
+from DateTime.DateTime import DateTime
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from StringIO import StringIO
@@ -13,6 +14,7 @@ from souper.soup import Record
 from zExceptions import Forbidden
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
+from hashlib import sha1
 
 from base5.core.patches import changeMemberPortrait
 from base5.core.utils import add_user_to_catalog
@@ -611,9 +613,12 @@ class Subscriptions(REST):
                              description=brain.Description,
                              url=brain.getURL(),
                              gwuuid=brain.gwuuid,
+                             hash=sha1(brain.getURL()).hexdigest(),
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
+                             image_url=brain.getURL() + '/thumbnail-image' if brain.image_filename else False,
                              favorited=brain.id in favorites,
+                             pending=self.get_pending_community_user(brain, self.username),
                              can_manage=self.is_community_manager(brain),
                              can_write=can_write)
             result.append(community)
@@ -638,3 +643,70 @@ class Subscriptions(REST):
         records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
         if records:
             return self.username in [a['id'] for a in records[0].attrs['acl']['users'] if a['role'] == u'owner']
+
+    @staticmethod
+    def get_pending_community_user(community, user):
+        """ Returns the number of pending objects to see in the community. """
+        def get_data_acces_community_user():
+            """ Returns the date of user access to the community. """
+            user_community = user + '_' + community.id
+            portal = api.portal.get()
+
+            soup_access = get_soup('user_community_access', portal)
+            exist = [r for r in soup_access.query(Eq('user_community', user_community))]
+            if not exist:
+                return DateTime()
+            else:
+                return exist[0].attrs['data_access']
+
+        data_access = get_data_acces_community_user() + 0.001   # Suma 0.001 para que no muestre los que acaba de crear el usuario
+        now = DateTime() + 0.001  # Suma 0.001 para que no muestre los que acaba de crear el usuario
+        pc = api.portal.get_tool(name="portal_catalog")
+
+        date_range_query = {'query': (data_access, now), 'range': 'min:max'}
+
+        results = pc.searchResults(path=community.getPath(),
+                                   created=date_range_query)
+        valor = len(results)
+        if valor > 0:
+            return valor
+        else:
+            return 0
+
+        
+class Visualizations(REST):
+    """
+        /api/people/{username}/visualizations
+        
+        Quan accedeixes a la comunitat, actualitza la data d'accés de l'usuari
+        i per tant, el comptador de visualitzacions pendents queda a 0.
+    """
+    grok.adapts(Person, IPloneSiteRoot)
+    
+    @api_resource(required=['username'])
+    def PUT(self):
+        """ Update pending visualitzations. """
+        body = self.request.get('BODY', False)
+        if not body:
+            return self.error("Bad Request", "Body are required.", 400)
+        
+        data = json.loads(body)
+        community = data.get('community', False)
+        if not community:
+            return self.error("Bad Request", "Community id in body are required.", 400)
+
+        portal = api.portal.get()
+        current_user = self.params['username'].lower()
+        user_community = current_user + '_' + community
+        soup_access = get_soup('user_community_access', portal)
+        exist = [r for r in soup_access.query(Eq('user_community', user_community))]
+        if not exist:
+            record = Record()
+            record.attrs['user_community'] = user_community
+            record.attrs['data_access'] = DateTime()
+            soup_access.add(record)
+        else:
+            exist[0].attrs['data_access'] = DateTime()
+        soup_access.reindex()
+
+        return ApiResponse({"success": "Visualitzacions pendents actualitzades."})
