@@ -6,8 +6,10 @@ from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
+from ulearn5.core.utils import replaceImagePathByURL
 from plone import api
 from base64 import b64encode
+import re
 
 
 class Item(REST):
@@ -51,78 +53,84 @@ class Item(REST):
 
             try:
                 # Check if value deleted / moved --> NOT FOUND!
-                item_found = api.content.get(path=item_path.encode('utf-8'))
+                item = api.content.get(path=item_path.encode('utf-8'))
             except:
-                item_found = False
-            if item_found:
-                value = item_found
-                text = image = image_caption = ''
-                raw_image = raw_file = content_type = ''
+                item = False
+
+            if item:
+                text = image = image_caption = raw_image = raw_file = content_type = type_when_follow_url = ''
                 external_url = False
-                if value.portal_type == 'News Item': 
-                    text = value.text.output
-                    image_caption = value.image_caption
-                    image = value.image.filename if value.image else ''
-                elif value.portal_type == 'Image':
-                    image = value.image.filename
-                    raw_image = b64encode(value.image.data),
-                    content_type = value.image.contentType
-                elif value.portal_type == 'Document':
-                    text = value.text.output
-                elif value.portal_type == 'Link':
-                    text = value.remoteUrl
+                if item.portal_type == 'News Item':
+                    text = replaceImagePathByURL(
+                        item.text.raw) if item.text else None
+                    image = item.image.filename if item.image else None
+                    image_caption = item.image_caption
+                    raw_image = b64encode(item.image.data) if item.image.data else None
+                elif item.portal_type == 'Image':
+                    image = item.image.filename
+                    raw_image = b64encode(item.image.data) if item.image.data else None
+                    content_type = item.image.contentType
+                elif item.portal_type == 'Document':
+                    text = replaceImagePathByURL(
+                        item.text.raw) if item.text else None
+                elif item.portal_type == 'Link':
+                    if 'resolveuid' in item.remoteUrl:
+                        # Intern
+                        uid = item.remoteUrl.encode('utf-8').split('/')[-1]
+                        next_obj = api.content.get(UID=uid)
+                        text = next_obj.absolute_url()
+                        type_when_follow_url = next_obj.Type()
+                    else:
+                        # Extern
+                        text = item.remoteUrl
+                        external_url = True
+                elif item.portal_type == 'Event':
+                    text = replaceImagePathByURL(
+                        item.text.raw) if item.text else None
+                    external_url = True  # To delete, mantain compatibility with uTalk
+                elif item.portal_type == 'File':
+                    raw_file = b64encode(item.file.data) if item.file.data else None
+                    content_type = item.file.contentType
+                    external_url = True  # To delete, mantain compatibility with uTalk
+                elif item.portal_type == 'ExternalContent':
+                    expanded = item.absolute_url() + '/@@download/' + item.filename
                     external_url = True
-                elif value.portal_type == 'Banner':
-                    text = value.url
-                    external_url = True
-                elif value.portal_type == 'Event':
-                    text = value.text.output
-                    external_url = True # To delete, mantain compatibility with uTalk
-                elif value.portal_type == 'File':
-                    external_url = True # To delete, mantain compatibility with uTalk
-                    raw_file = b64encode(value.file.data)
-                    content_type = value.file.contentType
-                elif value.portal_type == 'ExternalContent':
-                    external_url = True
-                    expanded = value.absolute_url() + '/@@download/' + value.filename
                     # error = 'Este tipo de documento solo se puede descargar via web'
                     # results.append(dict(error=error))
                     # return ApiResponse(results)
-                else:
-                    text = ''
-                    external_url = True # To delete, mantain compatibility with uTalk
 
-                new = dict(title=value.Title(),
-                           id=value.id,
-                           description=value.Description(),
-                           portal_type=value.portal_type,
+                new = dict(absolute_url=expanded,
+                           content_type=content_type,
+                           description=item.Description(),
                            external_url=external_url,
-                           absolute_url=expanded,
-                           text=text,
-                           item_not_found=False,
-                           image_caption=image_caption,
+                           id=item.id,
                            image=image,
-                           raw_image=raw_image,
+                           image_caption=image_caption,
+                           portal_type=item.portal_type,
                            raw_file=raw_file,
-                           content_type=content_type
+                           raw_image=raw_image,
+                           title=item.Title(),
+                           text=text,
+                           type_when_follow_url=type_when_follow_url,
+                           uid=item.UID(),  # per accedir al detall de l'event a l'app
                            )
                 results.append(new)
         else:
             # Bit.ly object linked is from outside this Community
             # Only reports url
-            value = api.content.find(path=local_url)
-            new = dict(title='',
-                       id='',
+            new = dict(absolute_url=expanded,
+                       content_type='',
                        description='',
-                       portal_type='',
                        external_url=True,
-                       absolute_url=expanded,
-                       text='',
-                       item_not_found=False,
-                       image_caption='',
+                       id='',
                        image='',
+                       image_caption='',
+                       portal_type='',
+                       raw_file='',
                        raw_image='',
-                       content_type=''
+                       title='',
+                       text='',
+                       uid='',
                        )
             results.append(new)
 

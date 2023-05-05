@@ -94,7 +94,8 @@ class SaveEditACL(REST):
                 for user in users:
                     try:
                         adapter.update_acl_atomic(user['id'], user['role'])
-                        users_checked.append(str(user['id']) + ' as role ' + str(user['role']))
+                        users_checked.append(
+                            str(user['id']) + ' as role ' + str(user['role']))
                     except:
                         raise BadParameters(user)
 
@@ -104,12 +105,14 @@ class SaveEditACL(REST):
                 obj = item.getObject()
                 if ((obj.notify_activity_via_mail == True) and (obj.type_notify == 'Automatic')):
                     adapter.update_mails_users(obj, acl)
-                updated = 'Updated community subscriptions on: "{}" '.format(self.target.absolute_url())
+                updated = 'Updated community subscriptions on: "{}" '.format(
+                    self.target.absolute_url())
                 logger.info(updated)
                 communities_ok.append(dict(url=self.target.absolute_url(),
                                            users_checked=users_checked))
             except:
-                error = 'Error updating community subscriptions on: "{}" '.format(self.target.absolute_url())
+                error = 'Error updating community subscriptions on: "{}" '.format(
+                    self.target.absolute_url())
                 logger.error(error)
                 communities_error.append(self.target.absolute_url())
 
@@ -141,9 +144,15 @@ class Communities(REST):
 
         # Get all communities for the current user
         pc = api.portal.get_tool('portal_catalog')
-        r_results_organizative = pc.searchResults(portal_type="ulearn.community", community_type=u"Organizative", sort_on="sortable_title")
-        r_results_closed = pc.searchResults(portal_type="ulearn.community", community_type=u"Closed", sort_on="sortable_title")
-        ur_results_open = pc.unrestrictedSearchResults(portal_type="ulearn.community", community_type=u"Open", sort_on="sortable_title")
+        r_results_organizative = pc.searchResults(
+            portal_type="ulearn.community", community_type=u"Organizative",
+            sort_on="sortable_title")
+        r_results_closed = pc.searchResults(
+            portal_type="ulearn.community", community_type=u"Closed",
+            sort_on="sortable_title")
+        ur_results_open = pc.unrestrictedSearchResults(
+            portal_type="ulearn.community", community_type=u"Open",
+            sort_on="sortable_title")
         communities = r_results_organizative + r_results_closed + ur_results_open
 
         self.is_role_manager = False
@@ -161,11 +170,12 @@ class Communities(REST):
             else:
                 url = brain.getURL()
             brainObj = self.context.unrestrictedTraverse(brain.getPath())
-            
+
             if brainObj.mails_users_community_black_lists is None:
                 brainObj.mails_users_community_black_lists = {}
             elif not isinstance(brainObj.mails_users_community_black_lists, dict):
-                brainObj.mails_users_community_black_lists = ast.literal_eval(brainObj.mails_users_community_black_lists)
+                brainObj.mails_users_community_black_lists = ast.literal_eval(
+                    brainObj.mails_users_community_black_lists)
 
             community = dict(id=brain.id,
                              title=brain.Title,
@@ -200,8 +210,10 @@ class Communities(REST):
         params['activity_view'] = self.params.pop('activity_view', None)
         params['tab_view'] = self.params.pop('tab_view', None)
         params['twitter_hashtag'] = self.params.pop('twitter_hashtag', None)
-        params['notify_activity_via_push'] = self.params.pop('notify_activity_via_push', None)
-        params['notify_activity_via_push_comments_too'] = self.params.pop('notify_activity_via_push_comments_too', None)
+        params['notify_activity_via_push'] = self.params.pop(
+            'notify_activity_via_push', None)
+        params['notify_activity_via_push_comments_too'] = self.params.pop(
+            'notify_activity_via_push_comments_too', None)
 
         pc = api.portal.get_tool('portal_catalog')
         nom = safe_unicode(params['nom'])
@@ -224,19 +236,21 @@ class Communities(REST):
             success_response = 'community already exists.'
             status = 200
         else:
-            new_community_id = self.context.invokeFactory('ulearn.community', id_normalized,
-                                                          title=params['nom'],
-                                                          description=params['description'],
-                                                          image=imageObj,
-                                                          community_type=params['community_type'],
-                                                          activity_view=params['activity_view'],
-                                                          tab_view=params['tab_view'],
-                                                          twitter_hashtag=params['twitter_hashtag'],
-                                                          notify_activity_via_push=True if params['notify_activity_via_push'] == 'True' else None,
-                                                          notify_activity_via_push_comments_too=True if params['notify_activity_via_push_comments_too'] == 'True' else None,
-                                                          checkConstraints=False)
+            new_community_id = self.context.invokeFactory(
+                'ulearn.community', id_normalized, title=params['nom'],
+                description=params['description'],
+                image=imageObj, community_type=params['community_type'],
+                activity_view=params['activity_view'],
+                tab_view=params['tab_view'],
+                twitter_hashtag=params['twitter_hashtag'],
+                notify_activity_via_push=True
+                if params['notify_activity_via_push'] == 'True' else None,
+                notify_activity_via_push_comments_too=True
+                if params['notify_activity_via_push_comments_too'] == 'True' else None,
+                checkConstraints=False)
             new_community = self.context[new_community_id]
-            success_response = 'Created community "{}" with hash "{}".'.format(new_community.absolute_url(), sha1(new_community.absolute_url()).hexdigest())
+            success_response = 'Created community "{}" with hash "{}".'.format(
+                new_community.absolute_url(), sha1(new_community.absolute_url()).hexdigest())
             status = 201
         logger.info(success_response)
         return ApiResponse.from_string(success_response, code=status)
@@ -264,7 +278,9 @@ class Communities(REST):
 
         records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
         if records:
-            return self.username in [a['id'] for a in records[0].attrs['acl']['users'] if a['role'] == u'owner']
+            return self.username in [
+                a['id'] for a in records[0].attrs['acl']['users']
+                if a['role'] == u'owner']
 
 
 class Community(REST, CommunityMixin):
@@ -284,7 +300,8 @@ class Community(REST, CommunityMixin):
 
         community = self.params.pop('community')
         pc = api.portal.get_tool('portal_catalog')
-        communities = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=community)
+        communities = pc.unrestrictedSearchResults(
+            portal_type='ulearn.community', id=community)
 
         result = []
         for brain in communities:
@@ -313,8 +330,10 @@ class Community(REST, CommunityMixin):
         params['activity_view'] = self.params.pop('activity_view', None)
         params['tab_view'] = self.params.pop('tab_view', None)
         params['twitter_hashtag'] = self.params.pop('twitter_hashtag', None)
-        params['notify_activity_via_push'] = self.params.pop('notify_activity_via_push', None)
-        params['notify_activity_via_push_comments_too'] = self.params.pop('notify_activity_via_push_comments_too', None)
+        params['notify_activity_via_push'] = self.params.pop(
+            'notify_activity_via_push', None)
+        params['notify_activity_via_push_comments_too'] = self.params.pop(
+            'notify_activity_via_push_comments_too', None)
 
         if params['community_type']:
             # We are changing the type of the community
@@ -322,19 +341,25 @@ class Community(REST, CommunityMixin):
             if params['community_type'] in ['Open', 'Closed', 'Organizative']:
                 adapter = self.target.adapted(name=params['community_type'])
             else:
-                return ApiResponse.from_string({"error": "Bad request, wrong community type"}, code=400)
+                return ApiResponse.from_string(
+                    {"error": "Bad request, wrong community type"},
+                    code=400)
 
             if params['community_type'] == self.target.community_type:
-                return ApiResponse.from_string({"error": "Bad request, already that community type"}, code=400)
+                return ApiResponse.from_string(
+                    {"error": "Bad request, already that community type"},
+                    code=400)
 
             # Everything is ok, proceed
             adapter.update_community_type()
 
         modified = self.update_community(params)
         if modified:
-            success_response = 'Updated community "{}"'.format(self.target.absolute_url())
+            success_response = 'Updated community "{}"'.format(
+                self.target.absolute_url())
         else:
-            success_response = 'Error with change values "{}".'.format(self.target.absolute_url())
+            success_response = 'Error with change values "{}".'.format(
+                self.target.absolute_url())
 
         logger.info(success_response)
         return ApiResponse.from_string(success_response)
@@ -384,9 +409,11 @@ class Community(REST, CommunityMixin):
             if properties['twitter_hashtag'] is not None:
                 community.twitter_hashtag = properties['twitter_hashtag']
             if properties['notify_activity_via_push'] is not None:
-                community.notify_activity_via_push = True if properties['notify_activity_via_push'] == 'True' else None
+                community.notify_activity_via_push = True if properties[
+                    'notify_activity_via_push'] == 'True' else None
             if properties['notify_activity_via_push_comments_too'] is not None:
-                community.notify_activity_via_push_comments_too = True if properties['notify_activity_via_push_comments_too'] == 'True' else None
+                community.notify_activity_via_push_comments_too = True if properties[
+                    'notify_activity_via_push_comments_too'] == 'True' else None
             community.reindexObject()
             return True
         else:
@@ -413,7 +440,8 @@ class Count(REST, CommunityMixin):
         pc = api.portal.get_tool('portal_catalog')
         community_type = self.params.pop('community_type', None)
         if community_type != None:
-            results = pc.unrestrictedSearchResults(portal_type='ulearn.community', community_type=community_type)
+            results = pc.unrestrictedSearchResults(
+                portal_type='ulearn.community', community_type=community_type)
         else:
             results = pc.unrestrictedSearchResults(portal_type='ulearn.community')
 
@@ -480,7 +508,8 @@ class Subscriptions(REST, CommunityMixin):
         self.set_subscriptions(obj)
 
         # Response successful
-        success_response = 'Updated community "{}" subscriptions'.format(self.target.absolute_url())
+        success_response = 'Updated community "{}" subscriptions'.format(
+            self.target.absolute_url())
         logger.info(success_response)
         return ApiResponse.from_string(success_response)
 
@@ -499,7 +528,8 @@ class Subscriptions(REST, CommunityMixin):
         self.update_subscriptions()
 
         # Response successful
-        success_response = 'Updated community "{}" subscriptions'.format(self.target.absolute_url())
+        success_response = 'Updated community "{}" subscriptions'.format(
+            self.target.absolute_url())
         logger.info(success_response)
         return ApiResponse.from_string(success_response)
 
@@ -571,6 +601,7 @@ class Subscriptions(REST, CommunityMixin):
         adapter.set_plone_permissions(acl)
         adapter.update_hub_subscriptions()
 
+
 class Notnotifymail(REST, CommunityMixin):
     """
         /api/notnotifymail
@@ -594,7 +625,8 @@ class Notnotifymail(REST, CommunityMixin):
         """
         community_id = self.params.pop('community')
         pc = api.portal.get_tool('portal_catalog')
-        community = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=community_id)
+        community = pc.unrestrictedSearchResults(
+            portal_type='ulearn.community', id=community_id)
 
         user_id = self.params.pop('username')
         user = api.user.get(username=user_id)
@@ -603,24 +635,29 @@ class Notnotifymail(REST, CommunityMixin):
             if obj.mails_users_community_black_lists is None:
                 obj.mails_users_community_black_lists = {}
             elif not isinstance(obj.mails_users_community_black_lists, dict):
-                obj.mails_users_community_black_lists = ast.literal_eval(obj.mails_users_community_black_lists)
+                obj.mails_users_community_black_lists = ast.literal_eval(
+                    obj.mails_users_community_black_lists)
 
             if user_id in obj.mails_users_community_black_lists:
                 obj.mails_users_community_black_lists.pop(user_id)
                 obj.reindexObject()
-                response = 'Active notify push user "{}" community "{}"'.format(user_id, community_id)
+                response = 'Active notify push user "{}" community "{}"'.format(
+                    user_id, community_id)
             else:
                 mail = user.getProperty('email')
                 if mail is not None and mail != '':
                     obj.mails_users_community_black_lists.update({user_id: mail})
                     obj.reindexObject()
-                    response = 'Desactive notify push user "{}" community "{}"'.format(user_id, community_id)
+                    response = 'Desactive notify push user "{}" community "{}"'.format(
+                        user_id,
+                        community_id)
                 else:
                     response = 'Bad request. User "{}" not have email.'.format(user_id)
 
         # Response
         logger.info(response)
         return ApiResponse.from_string(response)
+
 
 class Notnotifypush(REST, CommunityMixin):
     """
@@ -645,7 +682,8 @@ class Notnotifypush(REST, CommunityMixin):
         """
         community_id = self.params.pop('community')
         pc = api.portal.get_tool('portal_catalog')
-        community = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=community_id)
+        community = pc.unrestrictedSearchResults(
+            portal_type='ulearn.community', id=community_id)
 
         user_id = self.params.pop('username')
         user = api.user.get(username=user_id)
@@ -655,11 +693,14 @@ class Notnotifypush(REST, CommunityMixin):
             if user_id in INotNotifyPush(obj).get():
                 INotNotifyPush(obj).remove(user_id)
                 adapter.subscribe_user_push(user_id)
-                response = 'Active notify push user "{}" community "{}"'.format(user_id, community_id)
+                response = 'Active notify push user "{}" community "{}"'.format(
+                    user_id, community_id)
             else:
                 INotNotifyPush(obj).add(user_id)
                 adapter.unsubscribe_user_push(user_id)
-                response = 'Desactive notify push user "{}" community "{}"'.format(user_id, community_id)
+                response = 'Desactive notify push user "{}" community "{}"'.format(
+                    user_id,
+                    community_id)
 
         # Response
         logger.info(response)
@@ -686,10 +727,10 @@ class Notifymail(REST, CommunityMixin):
             the target community.
         """
         params = {}
-        #params['community_url'] = self.params.pop('community_url')
-        #params['community_name'] = self.params.pop('community_name')
-        #params['actor_displayName'] = self.params.pop('actor_displayName')
-        #params['activity_content'] = self.params.pop('activity_content')
+        # params['community_url'] = self.params.pop('community_url')
+        # params['community_name'] = self.params.pop('community_name')
+        # params['actor_displayName'] = self.params.pop('actor_displayName')
+        # params['activity_content'] = self.params.pop('activity_content')
         params['community_url'] = self.request.form['community_url']
         params['community_name'] = self.request.form['community_name']
         params['actor_displayName'] = self.request.form['actor_displayName']
@@ -701,14 +742,16 @@ class Notifymail(REST, CommunityMixin):
         params['objectType'] = self.request.form['objectType']
 
         pc = api.portal.get_tool('portal_catalog')
-        communities = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=params['community_url'].split('/')[-1])
+        communities = pc.unrestrictedSearchResults(
+            portal_type='ulearn.community', id=params['community_url'].split('/')[-1])
         for item in communities:
             community = item.getObject()
             if not hasattr(community, 'notify_activity_via_mail') or not community.notify_activity_via_mail:
                 success_response = 'Not notifymail'
                 return ApiResponse.from_string(success_response)
 
-            types_notify_mail = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.types_notify_mail')
+            types_notify_mail = api.portal.get_registry_record(
+                name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.types_notify_mail')
             if params['content_type'] == 'activity' and 'Activity' in types_notify_mail:
                 notifymail = True
             elif params['content_type'] == 'comment' and 'Comment' in types_notify_mail:
@@ -737,23 +780,33 @@ class Notifymail(REST, CommunityMixin):
                         if community.mails_users_community_black_lists is None:
                             community.mails_users_community_black_lists = {}
                         elif not isinstance(community.mails_users_community_black_lists, dict):
-                            community.mails_users_community_black_lists = ast.literal_eval(community.mails_users_community_black_lists)
+                            community.mails_users_community_black_lists = ast.literal_eval(
+                                community.mails_users_community_black_lists)
 
                         black_list_mails_users_to_notify = community.mails_users_community_black_lists.values()
                         if isinstance(community.mails_users_community_lists, list):
                             # if None in community.mails_users_community_lists:
                             #     community.mails_users_community_lists.remove(None)
-                            list_to_send = [email for email in community.mails_users_community_lists if email not in black_list_mails_users_to_notify]
+                            list_to_send = [email
+                                            for email in community.mails_users_community_lists
+                                            if email
+                                            not in black_list_mails_users_to_notify]
                             mails_users_to_notify = ','.join(list_to_send)
                         else:
-                            list_to_send = [email for email in ast.literal_eval(community.mails_users_community_lists) if email not in black_list_mails_users_to_notify]
+                            list_to_send = [
+                                email
+                                for email in ast.literal_eval(
+                                    community.mails_users_community_lists)
+                                if email not in black_list_mails_users_to_notify]
                             mails_users_to_notify = ','.join(list_to_send)
 
                 if mails_users_to_notify:
 
-                    subject_template = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
+                    subject_template = api.portal.get_registry_record(
+                        name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
 
-                    message_template = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template_activity_comment')
+                    message_template = api.portal.get_registry_record(
+                        name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template_activity_comment')
 
                     lang = api.portal.get_default_language()
 
@@ -806,23 +859,28 @@ class Notifymail(REST, CommunityMixin):
                         subject_template = subject_template.encode('utf-8')
 
                         if params['objectType'] == 'image':
-                           self.maxclient, self.settings = getUtility(IMAXClient)()
-                           self.maxclient.setActor(self.settings.max_restricted_username)
-                           self.maxclient.setToken(self.settings.max_restricted_token)
+                            self.maxclient, self.settings = getUtility(IMAXClient)()
+                            self.maxclient.setActor(
+                                self.settings.max_restricted_username)
+                            self.maxclient.setToken(self.settings.max_restricted_token)
 
-                           headers={'X-Oauth-Username': self.settings.max_restricted_username,
-                                    'X-Oauth-Token': self.settings.max_restricted_token,
-                                    'X-Oauth-Scope': 'widgetcli'}
+                            headers = {'X-Oauth-Username': self.settings.max_restricted_username,
+                                       'X-Oauth-Token': self.settings.max_restricted_token,
+                                       'X-Oauth-Scope': 'widgetcli'}
 
-                           image = requests.get(self.maxclient.url + params['thumbURL'], headers=headers, verify=False)
+                            image = requests.get(
+                                self.maxclient.url + params['thumbURL'],
+                                headers=headers, verify=False)
 
-                           msgImage = MIMEImage(image.content)
-                           msgImage.add_header('Content-ID', '<image1>')
-                           msg.attach(msgImage)
-                           html_activity_content = "<p>" + params['activity_content'].replace("\n", "<br>") + "</p>" + "<p><img src=cid:image1><br></p>"
+                            msgImage = MIMEImage(image.content)
+                            msgImage.add_header('Content-ID', '<image1>')
+                            msg.attach(msgImage)
+                            html_activity_content = "<p>" + params['activity_content'].replace(
+                                "\n", "<br>") + "</p>" + "<p><img src=cid:image1><br></p>"
 
                         else:
-                           html_activity_content = "<p>" + params['activity_content'].replace("\n", "<br>") + "</p>"
+                            html_activity_content = "<p>" + \
+                                params['activity_content'].replace("\n", "<br>") + "</p>"
 
                     map = {
                         'community': params['community_name'].encode('utf-8'),
@@ -836,7 +894,8 @@ class Notifymail(REST, CommunityMixin):
                     body = message_template % map
                     subject = subject_template % map
 
-                    msg['From'] = api.portal.get_registry_record('plone.email_from_address')
+                    msg['From'] = api.portal.get_registry_record(
+                        'plone.email_from_address')
                     msg['Bcc'] = mails_users_to_notify
                     msg['Date'] = formatdate(localtime=True)
                     msg['Subject'] = Header(subject, 'utf-8')
@@ -853,13 +912,14 @@ class Notifymail(REST, CommunityMixin):
 
 order_by_type = {"Folder": 1, "Document": 2, "File": 3, "Link": 4, "Image": 5}
 
+
 class Documents(REST):
     """
         /api/communities/{community}/documents
         :slug community: id key returned from /api/communities/{community}  
         :param path: object_path_in_documents_folder
     """
-    
+
     placeholder_type = 'documents'
     placeholder_id = 'documents'
 
@@ -870,7 +930,8 @@ class Documents(REST):
     def GET(self):
         """ Returns navigation for required context. """
         portal = api.portal.get()
-        doc_path = '/'.join(portal.getPhysicalPath()) + '/' + self.params.pop('community', None) + '/documents'
+        doc_path = '/'.join(portal.getPhysicalPath()
+                            ) + '/' + self.params.pop('community', None) + '/documents'
         for k in self.params.keys():
             if k == 'path':
                 doc_path = self.params.pop(k, None)
@@ -892,7 +953,7 @@ class Documents(REST):
         for nf in nofav:
             self.addObjectToResult(nf, result)
         return ApiResponse(result)
-    
+
     def addObjectToResult(self, sortedObj, result):
         brain = sortedObj['obj'].getObject()
         obj_url = sortedObj['obj'].getURL()
@@ -900,7 +961,7 @@ class Documents(REST):
         internal = None
         type_next_obj = None
         if (obj_type == u'Link'):
-            internal = True if brain.remoteUrl.startswith('${portal_url}/resolveuid/') else False
+            internal = True if 'resolveuid' in brain.remoteUrl else False
             if internal:
                 uid = brain.remoteUrl.split('/resolveuid/')[1]
                 next_obj = api.content.get(UID=uid.encode('utf-8'))
@@ -909,16 +970,15 @@ class Documents(REST):
         elif (obj_type == u'External Content'):
             obj_url = brain.absolute_url() + '/@@download/' + brain.filename
         community = dict(id=brain.id,
-                        title=brain.title,
-                        url=obj_url,
-                        path='/'.join(brain.getPhysicalPath()),
-                        type=obj_type,
-                        state=sortedObj['obj'].review_state,
-                        internal=internal,
-                        type_when_follow_url=type_next_obj
-                        )
+                         title=brain.title,
+                         url=obj_url,
+                         path='/'.join(brain.getPhysicalPath()),
+                         type=obj_type,
+                         state=sortedObj['obj'].review_state,
+                         internal=internal,
+                         type_when_follow_url=type_next_obj
+                         )
         result.append(community)
-
 
     def favorites_items(self, path):
         """ Devuelve todos los favoritos del usuario y le asigna un valor al tipus
@@ -932,9 +992,10 @@ class Documents(REST):
         }
         results = api.content.find(**query)
 
-        favorite = [{'obj': r, 'tipus': order_by_type[r.portal_type] if r.portal_type in order_by_type else 6} for r in results]
+        favorite = [{'obj': r, 'tipus': order_by_type[r.portal_type]
+                     if r.portal_type in order_by_type else 6} for r in results]
         return favorite
-    
+
     def exclude_favorites(self, r_results):
         """ De los resultados obtenidos devuelve una lista con los que NO son FAVORITOS y le asigna un valor al tipus
             segun este orden: (order_by_type = {"Folder": 1, "Document": 2, "File": 3, "Link": 4, "Image": 5}) """
@@ -952,27 +1013,28 @@ class Documents(REST):
                     else:
                         nofavorite += [{'obj': r, 'tipus': 6}]
         return nofavorite
-    
 
     def sort_results(self, items_favorites, items_nofavorites):
         """ Ordena los resultados segun el tipo (portal_type)
             segun este orden: (order_by_type = {"Folder": 1, "Document": 2, "File": 3, "Link": 4, "Image": 5})
             y devuelve el diccionario con los favoritos y no favoritos. """
-        items_favorites_by_tipus = sorted(items_favorites, key=lambda item: item['tipus'])
-        items_nofavorites_by_tipus = sorted(items_nofavorites, key=lambda item: item['tipus'])
+        items_favorites_by_tipus = sorted(
+            items_favorites, key=lambda item: item['tipus'])
+        items_nofavorites_by_tipus = sorted(
+            items_nofavorites, key=lambda item: item['tipus'])
 
         items = [dict(favorite=items_favorites_by_tipus,
                       nofavorite=items_nofavorites_by_tipus)]
         return items
-    
+
 
 class Search(REST):
     """
         /api/communities/{community}/search
-        
+
         :param q: text
     """
-    
+
     placeholder_type = 'search'
     placeholder_id = 'search'
 
@@ -983,7 +1045,8 @@ class Search(REST):
     def GET(self):
         """ Returns navigation for required context. """
         portal = api.portal.get()
-        path = '/'.join(portal.getPhysicalPath()) + '/' + self.params.pop('community', None) + '/documents'
+        path = '/'.join(portal.getPhysicalPath()
+                        ) + '/' + self.params.pop('community', None) + '/documents'
 
         def quotestring(s):
             return '"%s"' % s
@@ -1004,7 +1067,7 @@ class Search(REST):
             text = text.split()
             text = " AND ".join(text)
             text = quote_bad_chars(text) + '*'
-            
+
             query = {
                 'path': {'query': path},
                 'SearchableText': text,
@@ -1015,12 +1078,12 @@ class Search(REST):
             for item in items:
                 brain = item.getObject()
                 obj = dict(id=brain.id,
-                        title=brain.title,
-                        url=item.getURL(),
-                        path=brain.absolute_url_path(),
-                        type=brain.Type(),
-                        state=item.review_state if item.review_state else None
-                        )
+                           title=brain.title,
+                           url=item.getURL(),
+                           path=brain.absolute_url_path(),
+                           type=brain.Type(),
+                           state=item.review_state if item.review_state else None
+                           )
                 result.append(obj)
 
         return ApiResponse(result)

@@ -172,7 +172,9 @@ class ulearnUtils(BrowserView):
         return provider(occ)
 
     def user_id(self):
-        portal_state = getMultiAdapter((self.context, self.request), name='plone_portal_state')
+        portal_state = getMultiAdapter(
+            (self.context, self.request),
+            name='plone_portal_state')
         self.anonymous = portal_state.anonymous()
         if not self.anonymous:
             member = portal_state.member()
@@ -311,13 +313,35 @@ def isBirthdayInProfile():
     attributes = user_properties_utility.properties + METADATA_USER_ATTRS
 
     try:
-        extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+        extender_name = api.portal.get_registry_record(
+            'base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
     except:
         extender_name = ''
 
     if extender_name:
         if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
-            extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
-            attributes.extend([element for element in extended_user_properties_utility.properties if element not in attributes])
+            extended_user_properties_utility = getUtility(
+                ICatalogFactory, name=extender_name)
+            attributes.extend([element
+                               for element in extended_user_properties_utility.properties
+                               if element not in attributes])
 
     return 'birthday' in attributes
+
+
+def replaceImagePathByURL(msg):
+    srcs = re.findall('src="([^"]+)"', msg)
+
+    # Transformamos imagenes internas
+    uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
+    for i in range(len(uids)):
+        thumb_url = api.content.get(UID=uids[i]).absolute_url() + '/thumbnail-image'
+        plone_url = srcs[i]
+        msg = re.sub(plone_url, thumb_url, msg)
+
+    # Transformamos imagenes contra la propia web
+    images = re.findall(r"/@@images/.*?\"", msg)
+    for i in range(len(images)):
+        msg = re.sub(images[i], '/thumbnail-image"', msg)
+
+    return msg
