@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.128 (unreleased)
+0.128 (2023-05-08)
 ------------------
 
-- Nothing changed yet.
-
+* Add functionality to api/item to be able to manage push [Alberto Durán]
+* [UPD] api/people/{username}/visualizations add import [Iago López]
+* [UPD] api/people/{username}/subscriptions añadir nueva información de resultado, hash | image_url | pending + [ADD] api/people/{username}/visualizations [Iago López]
 
 0.127 (2023-02-15)
 ------------------
