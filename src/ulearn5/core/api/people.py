@@ -620,6 +620,10 @@ class Subscriptions(REST):
                              image_url=brain.getURL() + '/thumbnail-image' if brain.image_filename else False,
                              favorited=brain.id in favorites,
                              pending=self.get_pending_community_user(brain, self.username),
+                             activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
+                             activate_notify_mail=brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
+                             not_notify_push=brain.id in notnotifypush,
+                             not_notify_mail=self.username in brainObj.mails_users_community_black_lists,
                              can_manage=self.is_community_manager(brain),
                              can_write=can_write)
             result.append(community)
