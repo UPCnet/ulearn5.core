@@ -602,12 +602,20 @@ class Subscriptions(REST):
 
         result = []
         favorites = self.get_favorites()
+        notnotifypush = self.get_notnotifypush()
         for brain in communities:
             user_permission = []
             can_write = False
             user_permission = [i for i in communities_subscription if i['hash'] == brain.community_hash]
             if user_permission != [] and 'write' in user_permission[0]['permissions']:
                 can_write = True
+
+            brainObj = self.context.unrestrictedTraverse(brain.getPath())
+
+            if brainObj.mails_users_community_black_lists is None:
+                brainObj.mails_users_community_black_lists = {}
+            elif not isinstance(brainObj.mails_users_community_black_lists, dict):
+                brainObj.mails_users_community_black_lists = ast.literal_eval(brainObj.mails_users_community_black_lists)
 
             community = dict(id=brain.id,
                              title=brain.Title,
@@ -635,6 +643,13 @@ class Subscriptions(REST):
 
         results = pc.unrestrictedSearchResults(favoritedBy=self.username)
         return [favorites.id for favorites in results]
+
+
+    def get_notnotifypush(self):
+        pc = api.portal.get_tool('portal_catalog')
+
+        results = pc.unrestrictedSearchResults(notNotifyPushBy=self.username)
+        return [notnotifypush.id for notnotifypush in results]
 
     def is_community_manager(self, community):
         # The user has role Manager
@@ -678,23 +693,23 @@ class Subscriptions(REST):
         else:
             return 0
 
-        
+
 class Visualizations(REST):
     """
         /api/people/{username}/visualizations
-        
+
         Quan accedeixes a la comunitat, actualitza la data d'accés de l'usuari
         i per tant, el comptador de visualitzacions pendents queda a 0.
     """
     grok.adapts(Person, IPloneSiteRoot)
-    
+
     @api_resource(required=['username'])
     def PUT(self):
         """ Update pending visualitzations. """
         body = self.request.get('BODY', False)
         if not body:
             return self.error("Bad Request", "Body are required.", 400)
-        
+
         data = json.loads(body)
         community = data.get('community', False)
         if not community:
