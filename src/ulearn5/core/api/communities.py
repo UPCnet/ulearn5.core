@@ -858,29 +858,29 @@ class Notifymail(REST, CommunityMixin):
                     if isinstance(subject_template, unicode):
                         subject_template = subject_template.encode('utf-8')
 
-                        if params['objectType'] == 'image':
-                            self.maxclient, self.settings = getUtility(IMAXClient)()
-                            self.maxclient.setActor(
-                                self.settings.max_restricted_username)
-                            self.maxclient.setToken(self.settings.max_restricted_token)
+                    if params['objectType'] == 'image':
+                        self.maxclient, self.settings = getUtility(IMAXClient)()
+                        self.maxclient.setActor(
+                            self.settings.max_restricted_username)
+                        self.maxclient.setToken(self.settings.max_restricted_token)
 
-                            headers = {'X-Oauth-Username': self.settings.max_restricted_username,
-                                       'X-Oauth-Token': self.settings.max_restricted_token,
-                                       'X-Oauth-Scope': 'widgetcli'}
+                        headers = {'X-Oauth-Username': self.settings.max_restricted_username,
+                                   'X-Oauth-Token': self.settings.max_restricted_token,
+                                   'X-Oauth-Scope': 'widgetcli'}
 
-                            image = requests.get(
-                                self.maxclient.url + params['thumbURL'],
-                                headers=headers, verify=False)
+                        image = requests.get(
+                            self.maxclient.url + params['thumbURL'],
+                            headers=headers, verify=False)
 
-                            msgImage = MIMEImage(image.content)
-                            msgImage.add_header('Content-ID', '<image1>')
-                            msg.attach(msgImage)
-                            html_activity_content = "<p>" + params['activity_content'].replace(
-                                "\n", "<br>") + "</p>" + "<p><img src=cid:image1><br></p>"
+                        msgImage = MIMEImage(image.content)
+                        msgImage.add_header('Content-ID', '<image1>')
+                        msg.attach(msgImage)
+                        html_activity_content = "<p>" + params['activity_content'].replace(
+                            "\n", "<br>") + "</p>" + "<p><img src=cid:image1><br></p>"
 
-                        else:
-                            html_activity_content = "<p>" + \
-                                params['activity_content'].replace("\n", "<br>") + "</p>"
+                    else:
+                        html_activity_content = "<p>" + \
+                            params['activity_content'].replace("\n", "<br>") + "</p>"
 
                     map = {
                         'community': params['community_name'].encode('utf-8'),
