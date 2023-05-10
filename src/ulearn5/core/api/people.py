@@ -29,6 +29,7 @@ from ulearn5.core.api.root import APIRoot
 from ulearn5.core.browser.security import execute_under_special_role
 from ulearn5.core.gwuuid import IGWUUID
 
+import ast
 import json
 import logging
 import requests
