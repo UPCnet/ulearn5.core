@@ -21,7 +21,6 @@ from ulearn5.core.api import api_resource
 from ulearn5.core.api import logger
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.content.community import ICommunityACL
-from ulearn5.core.hooks import packages_installed
 from ulearn5.core.utils import is_activate_owncloud
 from ulearn5.owncloud.utils import update_owncloud_permission
 from base5.core.adapters.notnotifypush import INotNotifyPush
@@ -34,6 +33,7 @@ from email.utils import formatdate
 
 import ast
 import requests
+from base64 import b64encode
 
 
 class CommunityMixin(object):
@@ -957,26 +957,44 @@ class Documents(REST):
     def addObjectToResult(self, sortedObj, result):
         brain = sortedObj['obj'].getObject()
         obj_url = sortedObj['obj'].getURL()
-        obj_type = brain.Type()
-        internal = None
-        type_next_obj = None
-        if (obj_type == u'Link'):
+        internal = True
+        content_type = image = raw_file = raw_image = type_next_obj = None
+        if brain.portal_type == u'Link':
             internal = True if 'resolveuid' in brain.remoteUrl else False
             if internal:
                 uid = brain.remoteUrl.split('/resolveuid/')[1]
                 next_obj = api.content.get(UID=uid.encode('utf-8'))
                 type_next_obj = next_obj.Type()
                 obj_url = next_obj.absolute_url()
-        elif (obj_type == u'External Content'):
+            else:
+                obj_url = brain.remoteUrl
+        elif brain.portal_type == 'Image':
+            image = brain.image.filename
+            raw_image = b64encode(brain.image.data) if brain.image.data else None
+            content_type = brain.image.contentType
+        elif brain.portal_type == 'File':
+            raw_file = b64encode(brain.file.data) if brain.file.data else None
+            content_type = brain.file.contentType
+        elif brain.portal_type == u'External Content':
             obj_url = brain.absolute_url() + '/@@download/' + brain.filename
-        community = dict(id=brain.id,
-                         title=brain.title,
-                         url=obj_url,
+        # TODO: eliminar campos duplicados cuando se deje de usar uTalk
+        community = dict(absolute_url=obj_url,
+                         content_type=content_type,
+                         description=brain.Description(),
+                         id=brain.id,
+                         external_url=not internal,
+                         image=image,
+                         internal=internal,  # Delete
                          path='/'.join(brain.getPhysicalPath()),
-                         type=obj_type,
+                         portal_type=brain.portal_type,
+                         raw_file=raw_file,
+                         raw_image=raw_image,
                          state=sortedObj['obj'].review_state,
-                         internal=internal,
-                         type_when_follow_url=type_next_obj
+                         title=brain.title,
+                         type=brain.portal_type,  # Delete
+                         type_when_follow_url=type_next_obj,
+                         uid=brain.UID(),
+                         url=obj_url,  # Delete
                          )
         result.append(community)
 

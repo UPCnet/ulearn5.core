@@ -33,10 +33,8 @@ class Item(REST):
         url = self.params['url']
         session = requests.Session()
         resp = session.head(url, allow_redirects=True)
-        if 'came_from' in resp.url:
-            expanded = resp.url.split('came_from=')[1].replace('%3A', ':')
-        else:
-            expanded = resp.url
+        expanded = resp.url.split('came_from=')[1].replace(
+            '%3A', ':') if 'came_from' in resp.url else resp.url
 
         portal = api.portal.get()
         local_url = portal.absolute_url()
@@ -88,7 +86,7 @@ class Item(REST):
                     text = replaceImagePathByURL(
                         item.text.raw) if item.text else None
                     external_url = True  # To delete, mantain compatibility with uTalk
-                elif item.portal_type == 'File':
+                elif item.portal_type == 'File' or item.portal_type == 'ulearn.video':
                     raw_file = b64encode(item.file.data) if item.file.data else None
                     content_type = item.file.contentType
                     external_url = True  # To delete, mantain compatibility with uTalk

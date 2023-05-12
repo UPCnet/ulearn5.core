@@ -32,6 +32,7 @@ from plone.app.contenttypes.interfaces import IDocument
 from plone.app.contenttypes.interfaces import IFile
 from plone.app.contenttypes.interfaces import IImage
 from plone.app.contenttypes.interfaces import ILink
+from ulearn5.core.interfaces import IVideo
 from ulearn5.externalstorage.content.external_content import IExternalContent
 from zope.globalrequest import getRequest
 from plone.namedfile.file import NamedBlobImage
@@ -64,16 +65,25 @@ import transaction
 logger = logging.getLogger(__name__)
 
 articles = {
-    'ca': dict(Document=u'un', File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una', ExternalContent=u'un'),
-    'es': dict(Document=u'un', File=u'un', Image=u'una', Link=u'un', Event=u'un', NewsItem=u'una', ExternalContent=u'un'),
-    'en': dict(Document=u'a', File=u'a', Image=u'an', Link=u'a', Event=u'an', NewsItem=u'a', ExternalContent=u'a'),
+    'ca': {'Document': u'un', 'File': u'un', 'Image': u'una', 'Link': u'un', 'Event': u'un', 'News Item': u'una', 'External Content': u'un', 'ulearn.video': u'un'},
+    'es': {'Document': u'un', 'File': u'un', 'Image': u'una', 'Link': u'un', 'Event': u'un', 'News Item': u'una', 'External Content': u'un', 'ulearn.video': u'un'},
+    'en': {'Document': u'a', 'File': u'a', 'Image': u'a', 'Link': u'a', 'Event': u'an', 'News Item': u'a', 'External Content': u'an', 'ulearn.video': u'a'}
 }
 
 tipus = {
-    'ca': dict(Document=u'document', File=u'document', Image=u'foto', Link=u'enllaç', Event=u'esdeveniment', NewsItem=u'notícia', ExternalContent=u'arxiu protegit'),
-    'es': dict(Document=u'documento', File=u'documento', Image=u'foto', Link=u'enlace', Event=u'evento', NewsItem=u'noticia', ExternalContent=u'archivo protegido'),
-    'en': dict(Document=u'document', File=u'document', Image=u'photo', Link=u'link', Event=u'event', NewsItem=u'news item', ExternalContent=u'protected file'),
-}
+    'ca':
+    {'Document': u'document', 'File': u'fitxer', 'Image': u'foto', 'Link': u'enllaç',
+     'Event': u'esdeveniment', 'News Item': u'notícia',
+     'External Content': u'arxiu protegit', 'ulearn.video': u'video'},
+    'es':
+    {'Document': u'document', 'File': u'fichero', 'Image': u'foto', 'Link': u'enlace',
+     'Event': u'evento', 'News Item': u'noticia',
+     'External Content': u'archivo protegido', 'ulearn.video': u'video'},
+    'en':
+    {'Document': u'document', 'File': u'file', 'Image': u'photo', 'Link': u'link',
+     'Event': u'event', 'News Item': u'news item',
+     'External Content': u'protected file', 'ulearn.video': u'video'}}
+
 
 varnish_to_ban = os.environ.get('varnish_to_ban', '')
 
@@ -100,12 +110,18 @@ def objectAdded(content, event):
     relative = physical_path[len(portal.getPhysicalPath()):]
 
     if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
-        logger.error('XXX DexterityContent Object added:' + content_path + ';comunitat:' + relative[0] + ';username:' + username + ';domain:' + domain)
+        logger.error(
+            'XXX DexterityContent Object added:' + content_path + ';comunitat:' +
+            relative[0] + ';username:' + username + ';domain:' + domain)
     else:
         try:
-            logger.error('XXX DexterityContent Object added:' + content_path + ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:' + domain)
+            logger.error(
+                'XXX DexterityContent Object added:' + content_path +
+                ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:' + domain)
         except:
-            logger.error('XXX DexterityContent Object added:' + content_path + ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:nodomain')
+            logger.error(
+                'XXX DexterityContent Object added:' + content_path +
+                ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:nodomain')
 
 
 @grok.subscribe(IDexterityContent, IObjectModifiedEvent)
@@ -131,15 +147,24 @@ def objectModified(content, event):
     if username == None:
         username = ''
     if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
-        logger.error('XXX DexterityContent Object modified:' + content_path + ';comunitat:' + relative[0] + ';username:' + username + ';domain:' + domain)
+        logger.error(
+            'XXX DexterityContent Object modified:' + content_path + ';comunitat:' +
+            relative[0] + ';username:' + username + ';domain:' + domain)
     else:
         try:
-            logger.error('XXX DexterityContent Object modified:' + content_path + ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:' + domain)
+            logger.error(
+                'XXX DexterityContent Object modified:' + content_path +
+                ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:' + domain)
         except:
-            logger.error('XXX DexterityContent Object modified:' + content_path + ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:nodomain')
+            logger.error(
+                'XXX DexterityContent Object modified:' + content_path +
+                ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:nodomain')
 
     if varnish_to_ban != '':
-        requests.request('BAN', varnish_to_ban, headers={'X-Ban': '.*/'.join(content.getPhysicalPath()[1:3]) + '.*'}, timeout=1)
+        requests.request(
+            'BAN', varnish_to_ban,
+            headers={'X-Ban': '.*/'.join(content.getPhysicalPath()[1: 3]) + '.*'},
+            timeout=1)
 
 
 @grok.subscribe(ICommunity, IObjectAddedEvent)
@@ -171,9 +196,14 @@ def communityAdded(content, event):
     }
 
     try:
-        maxclient.people[username].activities.post(object_content=activity_text[default_lang].format(content.Title().decode('utf-8')), contexts=[dict(url=content.absolute_url(), objectType="context")])
+        maxclient.people[username].activities.post(
+            object_content=activity_text[default_lang].format(
+                content.Title().decode('utf-8')),
+            contexts=[dict(url=content.absolute_url(),
+                           objectType="context")])
     except:
-        logger.warning('The username {} has been unable to post the default community creation message'.format(username))
+        logger.warning(
+            'The username {} has been unable to post the default community creation message'.format(username))
 
 
 def Added(content, event):
@@ -184,7 +214,6 @@ def Added(content, event):
     default_lang = pl.getDefaultLanguage()
 
     community = findContainerCommunity(content)
-
     if not community or \
        IAppFile.providedBy(content) or \
        IAppImage.providedBy(content):
@@ -207,10 +236,11 @@ def Added(content, event):
     username, oauth_token = getUserOauthToken(pm)
     maxclient = connectMaxclient(username, oauth_token)
 
-    parts = dict(type=tipus[default_lang].get(content.portal_type.replace(" ", ""), ''),
-                 name=content.Title().decode('utf-8') or getattr(getattr(content, 'file', u''), 'filename', u'').decode('utf-8') or getattr(getattr(content, 'image', u''), 'filename', u'').decode('utf-8'),
-                 link='{}/view'.format(content.absolute_url()),
-                 un=articles[default_lang].get(content.portal_type.replace(" ", ""), 'un'))
+    parts = dict(
+        un=articles[default_lang][content.portal_type],
+        type=tipus[default_lang][content.portal_type],
+        name=content.Title().decode('utf-8') or getattr(getattr(content, 'file', u''),'filename', u'').decode('utf-8') or getattr(getattr(content, 'image', u''),'filename', u'').decode('utf-8'),
+        link='{}/view'.format(content.absolute_url()))
 
     activity_text = {
         'ca': u'He afegit {un} {type} "{name}" a {link}',
@@ -221,71 +251,16 @@ def Added(content, event):
     addPost = addActivityPost(content)
 
     if addPost:
-        if content.portal_type == 'File' and content.description:
-            activity_text = u'{} {}'.format(content.title, u'{}/view'.format(content.absolute_url()))
-
-            try:
-                maxclient.people[username].activities.post(object_content=activity_text, contexts=[dict(url=community.absolute_url(), objectType='context')])
-            except:
-                logger.warning('The username {} has been unable to post the default object creation message'.format(username))
-        else:
-            try:
-                maxclient.people[username].activities.post(object_content=activity_text[default_lang].format(**parts), contexts=[dict(url=community.absolute_url(), objectType='context')])
-            except:
-                logger.warning('The username {} has been unable to post the default object creation message'.format(username))
-
-
-def Modified(content, event):
-    """ Max hooks modified handler """
-    # Avoid execution when trigered on sharing changes
-    is_sharing_event = providedBy(event)(ILocalrolesModifiedEvent)
-    if is_sharing_event:
-        return
-
-    pm = api.portal.get_tool(name='portal_membership')
-    pl = api.portal.get_tool(name='portal_languages')
-    default_lang = pl.getDefaultLanguage()
-
-    community = findContainerCommunity(content)
-
-    if not community or \
-       IAppFile.providedBy(content) or \
-       IAppImage.providedBy(content):
-        # For some reason the file we are creating is not inside a community
-        # or the content is created externaly through apps via the upload ws
-        return
-
-    username, oauth_token = getUserOauthToken(pm)
-    maxclient = connectMaxclient(username, oauth_token)
-
-    parts = dict(type=tipus[default_lang].get(content.portal_type, ''),
-                 name=content.Title().decode('utf-8') or getattr(getattr(content, 'file', u''), 'filename', u'').decode('utf-8') or getattr(getattr(content, 'image', u''), 'filename', u'').decode('utf-8'),
-                 link='{}/view'.format(content.absolute_url()),
-                 un=articles[default_lang].get(content.portal_type, 'un'))
-
-    activity_text = {
-        'ca': u'He modificat {un} {type} "{name}" a {link}',
-        'es': u'He modificado {un} {type} "{name}" a {link}',
-        'en': u'I\'ve modified {un} {type} "{name}" a {link}',
-    }
-
-    addPost = addActivityPost(content)
-
-    if addPost:
-        if (content.portal_type == 'Image' or
-           content.portal_type == 'File') and \
-           content.description:
-            activity_text = u'{} {}'.format(content.title, u'{}/view'.format(content.absolute_url()))
-
-            try:
-                maxclient.people[username].activities.post(object_content=activity_text, contexts=[dict(url=community.absolute_url(), objectType='context')])
-            except:
-                logger.warning('The username {} has been unable to post the default object creation message'.format(username))
-        else:
-            try:
-                maxclient.people[username].activities.post(object_content=activity_text[default_lang].format(**parts), contexts=[dict(url=community.absolute_url(), objectType='context')])
-            except:
-                logger.warning('The username {} has been unable to post the default object creation message'.format(username))
+        try:
+            maxclient.people[username].activities.post(
+                object_content=activity_text[default_lang].format(**parts),
+                contexts=[
+                    dict(
+                        url=community.absolute_url(),
+                        objectType='context')])
+        except:
+            logger.warning(
+                'The username {} has been unable to post the default object creation message'.format(username))
 
 
 def findContainerCommunity(content):
@@ -301,6 +276,7 @@ def packages_installed():
     qi_tool = api.portal.get_tool(name='portal_quickinstaller')
     installed = [p['id'] for p in qi_tool.listInstalledProducts()]
     return installed
+
 
 def addActivityPost(content):
     installed = packages_installed()
@@ -372,8 +348,10 @@ def updateCustomLangCookie(event):
     """
     if 'language' in event.data:
         if event.data['language']:
-            event.context.request.response.setCookie('I18N_LANGUAGE', event.data['language'], path='/')
-            event.context.request.response.redirect(event.context.context.absolute_url() + '/@@personal-information')
+            event.context.request.response.setCookie(
+                'I18N_LANGUAGE', event.data['language'], path='/')
+            event.context.request.response.redirect(
+                event.context.context.absolute_url() + '/@@personal-information')
 
 
 @grok.subscribe(IUserLoggedInEvent)
@@ -475,6 +453,7 @@ def setLocallyAllowedTypesFolder(content, event):
         behavior.setImmediatelyAddableTypes(('Link',))
         transaction.commit()
 
+
 @grok.subscribe(IEvent, IObjectAddedEvent)
 @grok.subscribe(IEvent, IObjectModifiedEvent)
 def setEventTimezone(content, event):
@@ -484,7 +463,8 @@ def setEventTimezone(content, event):
             if adapter:
                 for con in adapter.occurrences():
                     sintzinfo_start = con.start.replace(tzinfo=None)
-                    con.start = pytz.timezone(content.timezone).localize(sintzinfo_start)
+                    con.start = pytz.timezone(
+                        content.timezone).localize(sintzinfo_start)
                     sintzinfo_end = con.end.replace(tzinfo=None)
                     con.end = pytz.timezone(content.timezone).localize(sintzinfo_end)
                     con.reindexObject()
@@ -500,6 +480,7 @@ def setEventTimezone(content, event):
 @grok.subscribe(IEvent, IObjectAddedEvent)
 @grok.subscribe(INewsItem, IAfterTransitionEvent)
 @grok.subscribe(IExternalContent, IObjectAddedEvent)
+@grok.subscribe(IVideo, IObjectAddedEvent)
 def AddedSendMessage(content, event):
     """ Send mail to notify add object in community
     """
@@ -515,7 +496,8 @@ def AddedSendMessage(content, event):
     if not hasattr(community, 'notify_activity_via_mail') or not community.notify_activity_via_mail:
         return
 
-    types_notify_mail = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.types_notify_mail')
+    types_notify_mail = api.portal.get_registry_record(
+        name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.types_notify_mail')
     if content.portal_type not in types_notify_mail:
         return
 
@@ -550,23 +532,32 @@ def AddedSendMessage(content, event):
             if community.mails_users_community_black_lists is None:
                 community.mails_users_community_black_lists = {}
             elif not isinstance(community.mails_users_community_black_lists, dict):
-                community.mails_users_community_black_lists = ast.literal_eval(community.mails_users_community_black_lists)
+                community.mails_users_community_black_lists = ast.literal_eval(
+                    community.mails_users_community_black_lists)
 
             black_list_mails_users_to_notify = community.mails_users_community_black_lists.values()
             if isinstance(community.mails_users_community_lists, list):
                 # if None in community.mails_users_community_lists:
                 #     community.mails_users_community_lists.remove(None)
-                list_to_send = [email for email in community.mails_users_community_lists if email not in black_list_mails_users_to_notify]
+                list_to_send = [
+                    email for email in community.mails_users_community_lists
+                    if email not in black_list_mails_users_to_notify]
                 mails_users_to_notify = ','.join(list_to_send)
             else:
-                list_to_send = [email for email in ast.literal_eval(community.mails_users_community_lists) if email not in black_list_mails_users_to_notify]
+                list_to_send = [
+                    email
+                    for email in ast.literal_eval(
+                        community.mails_users_community_lists)
+                    if email not in black_list_mails_users_to_notify]
                 mails_users_to_notify = ','.join(list_to_send)
 
     if mails_users_to_notify:
 
-        subject_template = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
+        subject_template = api.portal.get_registry_record(
+            name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.subject_template')
 
-        message_template = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template')
+        message_template = api.portal.get_registry_record(
+            name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.message_template')
 
         lang = api.portal.get_default_language()
 
