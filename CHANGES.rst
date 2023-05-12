@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.129 (unreleased)
+0.129 (2023-05-12)
 ------------------
 
-- Nothing changed yet.
-
+* Push & AS with same message for all content types [Alberto Durán]
+* [UPD] Add import [Iago López]
+* [UPD] Añadir parametros de salida /api/people/{username}/subscriptions [Iago López]
+* [UPD] Añadir parametros de salida /api/people/{username}/subscriptions [Iago López]
+* [UPD] Arreglar indentacion /api/notifymail [Iago López]
+* [UPD] Mantener transparencia en las imagenes del thumbnail-image [Iago López]
 
 0.128 (2023-05-08)
 ------------------
