@@ -76,20 +76,17 @@ class Item(REST):
                         # Intern
                         uid = item.remoteUrl.encode('utf-8').split('/')[-1]
                         next_obj = api.content.get(UID=uid)
-                        text = next_obj.absolute_url()
+                        text = next_obj.absolute_url() # expanded = next_obj.absolute_url()
                         type_when_follow_url = next_obj.Type()
                     else:
                         # Extern
                         text = item.remoteUrl
                         external_url = True
                 elif item.portal_type == 'Event':
-                    text = replaceImagePathByURL(
-                        item.text.raw) if item.text else None
-                    external_url = True  # To delete, mantain compatibility with uTalk
+                    text = replaceImagePathByURL(item.text.raw) if item.text else None
                 elif item.portal_type == 'File' or item.portal_type == 'ulearn.video':
                     raw_file = b64encode(item.file.data) if item.file.data else None
                     content_type = item.file.contentType
-                    external_url = True  # To delete, mantain compatibility with uTalk
                 elif item.portal_type == 'ExternalContent':
                     expanded = item.absolute_url() + '/@@download/' + item.filename
                     external_url = True
