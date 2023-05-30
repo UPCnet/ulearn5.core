@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.130 (unreleased)
+0.130 (2023-05-30)
 ------------------
 
-- Nothing changed yet.
-
+* Update external_url for Files and videos [Alberto Durán]
 
 0.129 (2023-05-12)
 ------------------
