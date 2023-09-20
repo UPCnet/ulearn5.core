@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.131 (unreleased)
+0.131 (2023-09-20)
 ------------------
 
-- Nothing changed yet.
-
+* Hook add, add Etherpad [Iago López]
 
 0.130 (2023-05-30)
 ------------------
