@@ -65,23 +65,23 @@ import transaction
 logger = logging.getLogger(__name__)
 
 articles = {
-    'ca': {'Document': u'un', 'File': u'un', 'Image': u'una', 'Link': u'un', 'Event': u'un', 'News Item': u'una', 'External Content': u'un', 'ulearn.video': u'un'},
-    'es': {'Document': u'un', 'File': u'un', 'Image': u'una', 'Link': u'un', 'Event': u'un', 'News Item': u'una', 'External Content': u'un', 'ulearn.video': u'un'},
-    'en': {'Document': u'a', 'File': u'a', 'Image': u'a', 'Link': u'a', 'Event': u'an', 'News Item': u'a', 'External Content': u'an', 'ulearn.video': u'a'}
+    'ca': {'Document': u'un', 'File': u'un', 'Image': u'una', 'Link': u'un', 'Event': u'un', 'News Item': u'una', 'External Content': u'un', 'ulearn.video': u'un', 'Etherpad':  u'un'},
+    'es': {'Document': u'un', 'File': u'un', 'Image': u'una', 'Link': u'un', 'Event': u'un', 'News Item': u'una', 'External Content': u'un', 'ulearn.video': u'un', 'Etherpad':  u'un'},
+    'en': {'Document': u'a', 'File': u'a', 'Image': u'a', 'Link': u'a', 'Event': u'an', 'News Item': u'a', 'External Content': u'an', 'ulearn.video': u'a', 'Etherpad': u'a'}
 }
 
 tipus = {
     'ca':
     {'Document': u'document', 'File': u'fitxer', 'Image': u'foto', 'Link': u'enllaç',
-     'Event': u'esdeveniment', 'News Item': u'notícia',
+     'Event': u'esdeveniment', 'News Item': u'notícia', 'Etherpad': u'etherpad',
      'External Content': u'arxiu protegit', 'ulearn.video': u'video'},
     'es':
     {'Document': u'document', 'File': u'fichero', 'Image': u'foto', 'Link': u'enlace',
-     'Event': u'evento', 'News Item': u'noticia',
+     'Event': u'evento', 'News Item': u'noticia', 'Etherpad': u'etherpad',
      'External Content': u'archivo protegido', 'ulearn.video': u'video'},
     'en':
     {'Document': u'document', 'File': u'file', 'Image': u'photo', 'Link': u'link',
-     'Event': u'event', 'News Item': u'news item',
+     'Event': u'event', 'News Item': u'news item', 'Etherpad': u'etherpad',
      'External Content': u'protected file', 'ulearn.video': u'video'}}
 
 
