@@ -564,6 +564,73 @@ class All(REST):
             raise ObjectNotFound('User not found')
 
 
+class Ushare(REST):
+    """
+        /api/people/{username}/ushare
+
+        Returns the user properties values for ushare.
+
+        :param domain
+    """
+
+    grok.adapts(Person, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    @api_resource(required=['username'])
+    def GET(self):
+        """ Returns the user all profile values. """
+        username = self.params['username']
+        user = api.user.get(username=username)
+        if user:
+            ts = api.portal.get_tool(name='translation_service')
+            domain = self.params.pop('domain', None)
+            domain = 'ulearn5.' + domain if domain else 'ulearn'
+
+            current = api.user.get_current()
+            lang = current.getProperty('language')
+
+            user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+
+            rendered_properties = []
+            try:
+                extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+                if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
+                    user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+
+                hasPublicProp = hasattr(user_properties_utility, 'public_properties')
+                for prop in user_properties_utility.directory_properties:
+                    try:
+                        if not hasPublicProp or (hasPublicProp and prop in user_properties_utility.public_properties):
+                            userProp = user.getProperty(prop, '')
+                            if userProp:
+                                check = user.getProperty('check_' + prop, '')
+                                if check == '' or check:
+                                    rendered_properties.append(dict(
+                                        key=prop,
+                                        name=ts.translate(prop, context=self.request, domain=domain, target_language=lang),
+                                        value=userProp,
+                                    ))
+                    except:
+                        # Some users has @ in the username and is not valid...
+                        pass
+
+                result = {
+                    'fullname': user.getProperty('fullname', ''),
+                    'email': user.getProperty('email', ''),
+                    'language': user.getProperty('language', 'ca'),
+                    'fields_readonly': user_properties_utility.profile_properties_ushare_readonly if hasattr(user_properties_utility, 'profile_properties_ushare_readonly') else [],
+                    'fields_novisible': user_properties_utility.profile_properties_ushare_novisible if hasattr(user_properties_utility, 'profile_properties_ushare_novisible') else [],
+                    'more_info': rendered_properties
+                }
+
+            except:
+                raise ObjectNotFound('User not found')
+
+            return ApiResponse(result)
+        else:
+            raise ObjectNotFound('User not found')
+
+
 class Subscriptions(REST):
     """
         /api/people/{username}/subscriptions
