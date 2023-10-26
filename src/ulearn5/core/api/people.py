@@ -1,20 +1,19 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
 from DateTime.DateTime import DateTime
-from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from StringIO import StringIO
 
 from five import grok
+from hashlib import sha1
 from plone import api
 from repoze.catalog.query import Eq
 from souper.interfaces import ICatalogFactory
-from souper.soup import get_soup
 from souper.soup import Record
+from souper.soup import get_soup
 from zExceptions import Forbidden
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
-from hashlib import sha1
 
 from base5.core.patches import changeMemberPortrait
 from base5.core.utils import add_user_to_catalog
@@ -615,11 +614,10 @@ class Ushare(REST):
                         pass
 
                 result = {
+                    'username':  user.id,
                     'fullname': user.getProperty('fullname', ''),
                     'email': user.getProperty('email', ''),
                     'language': user.getProperty('language', 'ca'),
-                    'fields_readonly': user_properties_utility.profile_properties_ushare_readonly if hasattr(user_properties_utility, 'profile_properties_ushare_readonly') else [],
-                    'fields_novisible': user_properties_utility.profile_properties_ushare_novisible if hasattr(user_properties_utility, 'profile_properties_ushare_novisible') else [],
                     'more_info': rendered_properties
                 }
 
