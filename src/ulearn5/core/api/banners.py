@@ -57,12 +57,17 @@ class Banners(REST):
 
         for result in results:
             obj = result.getObject()
-            if '/search' in obj.url:
+            obj_url = obj.url
+
+            if '/search' in obj_url:
                 continue
 
-            internal = True if obj.url.startswith(portal_url) else False
+            if obj_url.startswith('/'):
+                obj_url = portal_url + obj_url
 
-            link = obj.url.replace('#', '') if internal else obj.url
+            internal = True if obj_url.startswith(portal_url) else False
+
+            link = obj_url.replace('#', '') if internal else obj_url
             obj_type = calculatePortalTypeOfInternalPath(link, portal_url) if internal else None
             banner = dict(
                 id=result.id,
