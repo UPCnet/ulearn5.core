@@ -11,20 +11,7 @@ from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-
-
-def calculatePortalTypeOfInternalPath(url, portal_url):
-    site = api.portal.get()
-    base_path = '/'.join(site.getPhysicalPath())
-    partial_path = url.split(portal_url)[1]
-    partial_path.replace('#', '') # Sanitize if necessary
-    if partial_path.endswith('/view/'):
-        partial_path = partial_path.split('/view/')[0]
-    elif partial_path.endswith('/view'):
-        partial_path = partial_path.split('/view')[0]
-    custom_path = base_path + partial_path.encode('utf-8')
-    nextObj = api.content.get(path=custom_path)
-    return nextObj.Type()
+from ulearn5.core.utils import calculatePortalTypeOfInternalPath
 
 
 class Banners(REST):

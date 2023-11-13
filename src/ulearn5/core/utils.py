@@ -345,3 +345,20 @@ def replaceImagePathByURL(msg):
         msg = re.sub(images[i], '/thumbnail-image"', msg)
 
     return msg
+
+
+def calculatePortalTypeOfInternalPath(url, portal_url):
+    site = api.portal.get()
+    base_path = '/'.join(site.getPhysicalPath())
+    partial_path = url.split(portal_url)[1]
+    partial_path.replace('#', '') # Sanitize if necessary
+    if partial_path.endswith('/view/'):
+        partial_path = partial_path.split('/view/')[0]
+    elif partial_path.endswith('/view'):
+        partial_path = partial_path.split('/view')[0]
+    custom_path = base_path + partial_path.encode('utf-8')
+    nextObj = api.content.get(path=custom_path)
+    try:
+        return nextObj.Type()
+    except:
+        return None

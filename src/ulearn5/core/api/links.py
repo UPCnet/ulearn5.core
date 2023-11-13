@@ -6,6 +6,7 @@ from plone import api
 from plone.app.contenttypes.interfaces import ILink
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
+from zope.component import queryUtility
 
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
@@ -13,6 +14,8 @@ from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.hooks import packages_installed
+from ulearn5.core.utils import calculatePortalTypeOfInternalPath
+
 
 
 class Links(REST):
@@ -41,6 +44,12 @@ class Link(REST):
         """ Return the links from Menu Gestion folder and Menu ControlPanel """
         language = self.params['language']
         portal = api.portal.get()
+        registry = queryUtility(IRegistry)
+        ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
+        if ulearn_tool.url_site == None or ulearn_tool.url_site == '':
+            portal_url = portal.absolute_url()
+        else:
+            portal_url = ulearn_tool.url_site
 
         resultsGestion = {}
 
@@ -100,15 +109,23 @@ class Link(REST):
 
         if found:
             # Links from gestion folder
-            instance_name = portal.absolute_url()
             for folder in folders:
                 resultsGestion[folder.Title] = []
                 menufolder = folder.getObject().items()
                 for item in menufolder:
-                    if ILink.providedBy(item[1]):
-                        menuLink = dict(url=item[1].remoteUrl.replace('${portal_url}', instance_name),
-                                        title=item[1].title,
-                                        )
+                    id, obj = item
+                    internal = True if obj.remoteUrl.startswith(portal_url) else False
+                    url = obj.remoteUrl.replace('#', '') if internal else obj.remoteUrl
+                    obj_type = calculatePortalTypeOfInternalPath(url, portal_url) if internal else None
+                    if ILink.providedBy(obj):
+                        menuLink = dict(
+                            id=id,
+                            internal=internal,
+                            link=url,
+                            title=obj.title,
+                            type_when_follow_url=obj_type,
+                            url=url, # UTALK, Miranza APP
+                        )
                         resultsGestion[folder.Title].append(menuLink)
 
             if not resultsGestion:
@@ -121,34 +138,18 @@ class Link(REST):
         # Links from controlpanel
         resultsControlPanel = []
 
-        # installed = packages_installed()
-        # if 'ulearn5.nomines' in installed:
-        #     dni = api.user.get_current().getProperty('dni')
-        #     if dni or dni != "":
-        #         JSONproperties = api.portal.get_tool(name='portal_properties').nomines_properties
-
-        #         titleNomines = JSONproperties.getProperty('app_link_en')
-        #         if language == 'ca':
-        #             titleNomines = JSONproperties.getProperty('app_link_ca')
-        #         elif language == 'es':
-        #             titleNomines = JSONproperties.getProperty('app_link_es')
-
-        #         nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
-        #         urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni
-
-        #         nominesLink = dict(title=titleNomines,
-        #                            url=urlNomines,
-        #                            icon='fa-file-text-o',
-        #                            )
-
-        #         resultsControlPanel.append(nominesLink)
-
+        # Candidato a eliminar en futura migración igual que la funcionalidad en el controlpanel.
         if settings.quicklinks_table:
             for item in settings.quicklinks_table:
-                quickLink = dict(title=item['text'],
-                                 url=item['link'],
-                                 icon=item['icon'],
-                                 )
+                quickLink = dict(
+                    id=None,
+                    internal=internal,
+                    icon=item['icon'],
+                    link=item['link'],
+                    title=item['text'],
+                    type_when_follow_url=obj_type,
+                    url=item['link'], # UTALK, Miranza APP
+                )
                 resultsControlPanel.append(quickLink)
 
         if not resultsControlPanel:
