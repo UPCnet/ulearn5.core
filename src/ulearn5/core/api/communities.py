@@ -161,6 +161,8 @@ class Communities(REST):
         if 'Manager' in global_roles:
             self.is_role_manager = True
 
+        portal_url = api.portal.get().absolute_url()
+
         result = []
         favorites = self.get_favorites()
         notnotifypush = self.get_notnotifypush()
@@ -186,7 +188,7 @@ class Communities(REST):
                              hash=sha1(brain.getURL()).hexdigest(),
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
-                             image_community=brain.getURL() + '/thumbnail-image',
+                             image_community=brain.getURL() + '/thumbnail-image' if brain.image_filename else portal_url + '/++theme++ulearn5/assets/images/avatar_default.png',
                              favorited=brain.id in favorites,
                              activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
                              activate_notify_mail=brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
@@ -916,7 +918,7 @@ order_by_type = {"Folder": 1, "Document": 2, "File": 3, "Link": 4, "Image": 5}
 class Documents(REST):
     """
         /api/communities/{community}/documents
-        :slug community: id key returned from /api/communities/{community}  
+        :slug community: id key returned from /api/communities/{community}
         :param path: object_path_in_documents_folder
     """
 

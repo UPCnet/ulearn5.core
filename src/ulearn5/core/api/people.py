@@ -660,6 +660,8 @@ class Subscriptions(REST):
         if 'Manager' in global_roles:
             self.is_role_manager = True
 
+        portal_url = api.portal.get().absolute_url()
+
         maxclient, settings = getUtility(IMAXClient)()
         maxclient.setActor(settings.max_restricted_username)
         maxclient.setToken(settings.max_restricted_token)
@@ -691,7 +693,7 @@ class Subscriptions(REST):
                              hash=sha1(brain.getURL()).hexdigest(),
                              type=brain.community_type,
                              image=brain.image_filename if brain.image_filename else False,
-                             image_url=brain.getURL() + '/thumbnail-image' if brain.image_filename else False,
+                             image_url=brain.getURL() + '/thumbnail-image' if brain.image_filename else portal_url + '/++theme++ulearn5/assets/images/avatar_default.png',
                              favorited=brain.id in favorites,
                              pending=self.get_pending_community_user(brain, self.username),
                              activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
