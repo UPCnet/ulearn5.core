@@ -2,11 +2,18 @@ Changelog
 =========
 
 
-0.132 (unreleased)
+0.132 (2023-11-15)
 ------------------
 
-- Nothing changed yet.
-
+* [FIX] thumbnail-url imagenes png con transparencia [Iago López]
+* [UPD] API /api/communities & /api/people/x/subscriptions para añadir url de la imagen por defecto de las comunidades [Iago López]
+* [UPD] API /api/links/{lang} [Alberto Durán]
+* API /api/profile [Iago López]
+* [UPD] API api/banners [Iago López]
+* API api/banners [Iago López]
+* API /api/profilesettings [Iago López]
+* [UPD] API /api/people/{username}/ushare [Iago López]
+* API /api/people/{username}/ushare [Iago López]
 
 0.131 (2023-09-20)
 ------------------
