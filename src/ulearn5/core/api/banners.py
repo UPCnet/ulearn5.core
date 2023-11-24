@@ -27,10 +27,11 @@ class Banners(REST):
         """ Return all banners. """
         results = api.content.find(
             portal_type="ulearn.banner",
+            path='/'.join(api.portal.get().getPhysicalPath()) + "/gestion/banners",
             review_state=['intranet'],
             sort_order='descending',
             sort_on='getObjPositionInParent',
-            )
+        )
 
         banners = []
 
@@ -55,7 +56,8 @@ class Banners(REST):
             internal = True if obj_url.startswith(portal_url) else False
 
             link = obj_url.replace('#', '') if internal else obj_url
-            obj_type = calculatePortalTypeOfInternalPath(link, portal_url) if internal else None
+            obj_type = calculatePortalTypeOfInternalPath(
+                link, portal_url) if internal else None
             banner = dict(
                 id=result.id,
                 internal=internal,
