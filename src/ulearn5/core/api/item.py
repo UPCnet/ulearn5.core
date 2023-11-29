@@ -56,7 +56,8 @@ class Item(REST):
                 item = False
 
             if item:
-                text = image = image_caption = raw_image = raw_file = content_type = type_when_follow_url = ''
+                text = image = image_caption = raw_image = raw_file = content_type = ''
+                type_when_follow_url = item.portal_type
                 external_url = False
                 if item.portal_type == 'News Item':
                     text = replaceImagePathByURL(
@@ -76,7 +77,7 @@ class Item(REST):
                         # Intern
                         uid = item.remoteUrl.encode('utf-8').split('/')[-1]
                         next_obj = api.content.get(UID=uid)
-                        text = next_obj.absolute_url() # expanded = next_obj.absolute_url()
+                        text = next_obj.absolute_url()  # expanded = next_obj.absolute_url()
                         type_when_follow_url = next_obj.Type()
                     else:
                         # Extern
