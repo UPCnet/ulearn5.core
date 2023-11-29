@@ -179,25 +179,27 @@ class Communities(REST):
                 brainObj.mails_users_community_black_lists = ast.literal_eval(
                     brainObj.mails_users_community_black_lists)
 
-            community = dict(id=brain.id,
-                             title=brain.Title,
-                             description=brain.Description,
-                             url=brain.getURL(),
-                             url_tab_view=url,
-                             gwuuid=brain.gwuuid,
-                             hash=sha1(brain.getURL()).hexdigest(),
-                             type=brain.community_type,
-                             image=brain.image_filename if brain.image_filename else False,
-                             image_community=brain.getURL() + '/thumbnail-image' if brain.image_filename else portal_url + '/++theme++ulearn5/assets/images/avatar_default.png',
-                             favorited=brain.id in favorites,
-                             activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
-                             activate_notify_mail=brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
-                             not_notify_push=brain.id in notnotifypush,
-                             not_notify_mail=self.username in brainObj.mails_users_community_black_lists,
-                             can_manage=self.is_community_manager(brain),
-                             show_events_tab=brainObj.show_events,
-                             show_news_tab=brainObj.show_news
-                             )
+            community = dict(
+                id=brain.id, title=brain.Title, description=brain.Description,
+                url=brain.getURL(),
+                url_tab_view=url, gwuuid=brain.gwuuid,
+                hash=sha1(brain.getURL()).hexdigest(),
+                type=brain.community_type, image=brain.image_filename
+                if brain.image_filename else False, image_community=brain.getURL() +
+                '/thumbnail-image'
+                if brain.image_filename else portal_url
+                + '/++theme++ulearn5/assets/images/avatar_default.png',
+                favorited=brain.id in favorites,
+                activate_notify_push=brainObj.
+                notify_activity_via_push
+                or brainObj.notify_activity_via_push_comments_too,
+                activate_notify_mail=brainObj.
+                notify_activity_via_mail and brainObj.type_notify == 'Automatic',
+                not_notify_push=brain.id in notnotifypush,
+                not_notify_mail=self.
+                username in brainObj.mails_users_community_black_lists,
+                can_manage=self.is_community_manager(brain),
+                show_events_tab=brainObj.show_events, show_news_tab=brainObj.show_news)
             result.append(community)
 
         return ApiResponse(result)
@@ -304,11 +306,24 @@ class Community(REST, CommunityMixin):
         pc = api.portal.get_tool('portal_catalog')
         communities = pc.unrestrictedSearchResults(
             portal_type='ulearn.community', id=community)
+        self.username = api.user.get_current().id
+        maxclient, settings = getUtility(IMAXClient)()
+        maxclient.setActor(settings.max_restricted_username)
+        maxclient.setToken(settings.max_restricted_token)
+        communities_subscription = maxclient.people[self.username].subscriptions.get()
 
         result = []
         for brain in communities:
+            can_write = False
+            user_permission = [
+                i for i in communities_subscription
+                if i['hash'] == brain.community_hash]
+            if user_permission != [] and 'write' in user_permission[0]['permissions']:
+                can_write = True
+
             brainObj = self.context.unrestrictedTraverse(brain.getPath())
             community = dict(id=brain.id,
+                             can_write=can_write,
                              title=brain.Title,
                              description=brain.Description,
                              url=brain.getURL(),
@@ -866,9 +881,10 @@ class Notifymail(REST, CommunityMixin):
                             self.settings.max_restricted_username)
                         self.maxclient.setToken(self.settings.max_restricted_token)
 
-                        headers = {'X-Oauth-Username': self.settings.max_restricted_username,
-                                   'X-Oauth-Token': self.settings.max_restricted_token,
-                                   'X-Oauth-Scope': 'widgetcli'}
+                        headers = {
+                            'X-Oauth-Username': self.settings.max_restricted_username,
+                            'X-Oauth-Token': self.settings.max_restricted_token,
+                            'X-Oauth-Scope': 'widgetcli'}
 
                         image = requests.get(
                             self.maxclient.url + params['thumbURL'],
