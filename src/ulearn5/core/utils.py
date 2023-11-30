@@ -357,8 +357,11 @@ def calculatePortalTypeOfInternalPath(url, portal_url):
     elif partial_path.endswith('/view'):
         partial_path = partial_path.split('/view')[0]
     custom_path = base_path + partial_path.encode('utf-8')
-    nextObj = api.content.get(path=custom_path)
     try:
+        if 'resolveuid' in custom_path:
+            nextObj = api.content.get(UID=custom_path.split('resolveuid/')[-1])
+        else:
+            nextObj = api.content.get(path=custom_path)
         return nextObj.Type()
     except:
         return None
