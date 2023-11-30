@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.134 (unreleased)
+0.134 (2023-11-30)
 ------------------
 
-- Nothing changed yet.
-
+* Merge remote-tracking branch 'origin/develop' [Alberto Durán]
+* [FIX] /api/people/{user}/subscriptions - Que no pete si no esta suscrito a ninguna comunidad [Iago López]
+* [FIX] /api/people/{user}/subscriptions - Que no pete si no esta suscrito a ninguna comunidad [Iago López]
 
 0.133 (2023-11-30)
 ------------------
