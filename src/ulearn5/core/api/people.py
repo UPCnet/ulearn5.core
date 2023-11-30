@@ -731,6 +731,7 @@ class Subscriptions(REST):
         for obj in communities_subscription:
             brain = [i for i in communities if i.community_hash == obj['hash']]
             if brain:
+                brain = brain[0]
                 can_write = True if 'write' in obj['permissions'] else False
                 brainObj = self.context.unrestrictedTraverse(brain.getPath())
 
