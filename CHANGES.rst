@@ -2,11 +2,14 @@ Changelog
 =========
 
 
-0.133 (unreleased)
+0.133 (2023-11-30)
 ------------------
 
-- Nothing changed yet.
-
+* Merge remote-tracking branch 'origin/develop' [Alberto Durán]
+* [UPD] /api/item?url=... type_when_follow_url = item.portal_type for all content types [Alberto Durán]
+* [UPD] /api/people/{username}/subscriptions to return only communities_subscribed_by_user [Alberto Durán]
+* [ADD] can_write property to /api/communities/{community} [Alberto Durán]
+* [UPD] Only show global banners in api calls [Alberto Durán]
 
 0.132 (2023-11-15)
 ------------------
