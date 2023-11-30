@@ -729,34 +729,36 @@ class Subscriptions(REST):
         favorites = self.get_favorites()
         notnotifypush = self.get_notnotifypush()
         for obj in communities_subscription:
-            brain = [i for i in communities if i.community_hash == obj['hash']][0]
-            can_write = True if 'write' in obj['permissions'] else False
-            brainObj = self.context.unrestrictedTraverse(brain.getPath())
+            brain = [i for i in communities if i.community_hash == obj['hash']]
+            if brain:
+                brain = brain[0]
+                can_write = True if 'write' in obj['permissions'] else False
+                brainObj = self.context.unrestrictedTraverse(brain.getPath())
 
-            if brainObj.mails_users_community_black_lists is None:
-                brainObj.mails_users_community_black_lists = {}
-            elif not isinstance(brainObj.mails_users_community_black_lists, dict):
-                brainObj.mails_users_community_black_lists = ast.literal_eval(
-                    brainObj.mails_users_community_black_lists)
+                if brainObj.mails_users_community_black_lists is None:
+                    brainObj.mails_users_community_black_lists = {}
+                elif not isinstance(brainObj.mails_users_community_black_lists, dict):
+                    brainObj.mails_users_community_black_lists = ast.literal_eval(
+                        brainObj.mails_users_community_black_lists)
 
-            community = dict(id=brain.id,
-                             title=brain.Title,
-                             description=brain.Description,
-                             url=brain.getURL(),
-                             gwuuid=brain.gwuuid,
-                             hash=sha1(brain.getURL()).hexdigest(),
-                             type=brain.community_type,
-                             image=brain.image_filename if brain.image_filename else False,
-                             image_url=brain.getURL() + '/thumbnail-image' if brain.image_filename else portal_url + '/++theme++ulearn5/assets/images/avatar_default.png',
-                             favorited=brain.id in favorites,
-                             pending=self.get_pending_community_user(brain, self.username),
-                             activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
-                             activate_notify_mail=brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
-                             not_notify_push=brain.id in notnotifypush,
-                             not_notify_mail=self.username in brainObj.mails_users_community_black_lists,
-                             can_manage=self.is_community_manager(brain),
-                             can_write=can_write)
-            result.append(community)
+                community = dict(id=brain.id,
+                                title=brain.Title,
+                                description=brain.Description,
+                                url=brain.getURL(),
+                                gwuuid=brain.gwuuid,
+                                hash=sha1(brain.getURL()).hexdigest(),
+                                type=brain.community_type,
+                                image=brain.image_filename if brain.image_filename else False,
+                                image_url=brain.getURL() + '/thumbnail-image' if brain.image_filename else portal_url + '/++theme++ulearn5/assets/images/avatar_default.png',
+                                favorited=brain.id in favorites,
+                                pending=self.get_pending_community_user(brain, self.username),
+                                activate_notify_push=brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
+                                activate_notify_mail=brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
+                                not_notify_push=brain.id in notnotifypush,
+                                not_notify_mail=self.username in brainObj.mails_users_community_black_lists,
+                                can_manage=self.is_community_manager(brain),
+                                can_write=can_write)
+                result.append(community)
 
         return ApiResponse(result)
 
