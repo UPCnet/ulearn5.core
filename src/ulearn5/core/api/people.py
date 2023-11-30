@@ -56,17 +56,23 @@ class People(REST):
 
         result = {}
         user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
-        extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+        extender_name = api.portal.get_registry_record(
+            'base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
         for record in records:
             username = record[1].attrs['username']
             user = api.user.get(username=username)
             if user:
                 rendered_properties = []
                 if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
-                    extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
-                    hasPublicProp = hasattr(extended_user_properties_utility, 'public_properties')
+                    extended_user_properties_utility = getUtility(
+                        ICatalogFactory, name=extender_name)
+                    hasPublicProp = hasattr(
+                        extended_user_properties_utility, 'public_properties')
                     for prop in extended_user_properties_utility.directory_properties:
-                        if not hasPublicProp or (hasPublicProp and prop in extended_user_properties_utility.public_properties):
+                        if not hasPublicProp or (
+                                hasPublicProp
+                                and prop
+                                in extended_user_properties_utility.public_properties):
                             userProp = user.getProperty(prop, '')
                             if userProp:
                                 check = user.getProperty('check_' + prop, '')
@@ -79,10 +85,13 @@ class People(REST):
                 else:
                     # If it's not extended, then return the simple set of data we know
                     # about the user using also the directory_properties field
-                    hasPublicProp = hasattr(user_properties_utility, 'public_properties')
+                    hasPublicProp = hasattr(
+                        user_properties_utility, 'public_properties')
                     for prop in user_properties_utility.directory_properties:
                         try:
-                            if not hasPublicProp or (hasPublicProp and prop in user_properties_utility.public_properties):
+                            if not hasPublicProp or (
+                                    hasPublicProp
+                                    and prop in user_properties_utility.public_properties):
                                 userProp = user.getProperty(prop, '')
                                 if userProp:
                                     check = user.getProperty('check_' + prop, '')
@@ -99,6 +108,7 @@ class People(REST):
             result[record[1].attrs['id']] = rendered_properties
 
         return ApiResponse(result)
+
 
 class Users(REST):
     """
@@ -151,12 +161,14 @@ class Sync(REST):
 
         for userid in users:
             username = userid.lower()
-            logger.info('- API REQUEST /api/people/sync: Synchronize user {}'.format(username))
+            logger.info(
+                '- API REQUEST /api/people/sync: Synchronize user {}'.format(username))
             user_memberdata = api.user.get(username=username)
             try:
                 plone_user = user_memberdata.getUser()
             except:
-                logger.info('- API REQUEST /api/people/sync: ERROR sync user {}'.format(username))
+                logger.info(
+                    '- API REQUEST /api/people/sync: ERROR sync user {}'.format(username))
                 notfound_errors.append(username)
                 continue
 
@@ -177,13 +189,15 @@ class Sync(REST):
                 plone_user = user_memberdata.getUser()
             except:
                 notfound_errors.append(username)
-                logger.error('User {} cannot be found in LDAP repository'.format(username))
+                logger.error(
+                    'User {} cannot be found in LDAP repository'.format(username))
             else:
                 try:
                     properties = get_all_user_properties(plone_user)
                     add_user_to_catalog(plone_user, properties, overwrite=True)
                 except:
-                    logger.error('Cannot update properties catalog for user {}'.format(username))
+                    logger.error(
+                        'Cannot update properties catalog for user {}'.format(username))
                     properties_errors.append(username)
 
                 try:
@@ -194,9 +208,12 @@ class Sync(REST):
                     if maxclient.last_response_code == 200:
                         maxclient.people[username].put(displayName=fullname)
                     users_sync.append(username)
-                    logger.info('- API REQUEST /api/people/sync: OK sync user {}'.format(username))
+                    logger.info(
+                        '- API REQUEST /api/people/sync: OK sync user {}'.format(username))
                 except:
-                    logger.error('User {} couldn\'t be created or updated on max'.format(username))
+                    logger.error(
+                        'User {} couldn\'t be created or updated on max'.format(
+                            username))
                     max_errors.append(username)
 
         response = {}
@@ -261,10 +278,13 @@ class Person(REST):
         if communities_subscription != []:
 
             for num, community_subscription in enumerate(communities_subscription):
-                community = pc.unrestrictedSearchResults(portal_type="ulearn.community", community_hash=community_subscription['hash'])
+                community = pc.unrestrictedSearchResults(
+                    portal_type="ulearn.community",
+                    community_hash=community_subscription['hash'])
                 try:
                     obj = community[0]._unrestrictedGetObject()
-                    logger.info('Processant {} de {}. Comunitat {}'.format(num, len(communities_subscription), obj))
+                    logger.info('Processant {} de {}. Comunitat {}'.format(
+                        num, len(communities_subscription), obj))
                     gwuuid = IGWUUID(obj).get()
                     portal = api.portal.get()
                     soup = get_soup('communities_acl', portal)
@@ -275,7 +295,8 @@ class Person(REST):
                     if records:
                         acl_record = records[0]
                         acl = acl_record.attrs['acl']
-                        exist = [a for a in acl['users'] if a['id'] == unicode(username)]
+                        exist = [a for a in acl['users']
+                                 if a['id'] == unicode(username)]
                         if exist:
                             acl['users'].remove(exist[0])
                             acl_record.attrs['acl'] = acl
@@ -331,7 +352,8 @@ class Person(REST):
             existing_user.setMemberProperties(properties)
 
             # Update MAX properties
-            maxclient.people[username].post()  # Just to make sure user exists (in case it was only on ldap)
+            # Just to make sure user exists (in case it was only on ldap)
+            maxclient.people[username].post()
             status = maxclient.last_response_code
             maxclient.people[username].put(displayName=properties['fullname'])
 
@@ -350,7 +372,9 @@ class Person(REST):
                                            username)
 
         if status == 201:
-            return ApiResponse.from_string('User {} created'.format(username), code=status)
+            return ApiResponse.from_string(
+                'User {} created'.format(username),
+                code=status)
         else:
             return ApiResponse.from_string('User {} updated'.format(username), code=200)
 
@@ -389,7 +413,8 @@ class Person(REST):
                 # Guardamos el username en el soup para borrar el usuario del local roles
                 portal = api.portal.get()
                 soup_users_delete = get_soup('users_delete_local_roles', portal)
-                exist = [r for r in soup_users_delete.query(Eq('id_username', member_id))]
+                exist = [r for r in soup_users_delete.query(
+                    Eq('id_username', member_id))]
 
                 if not exist:
                     record = Record()
@@ -431,10 +456,11 @@ class Person(REST):
         if existing_user:
             if 'displayName' in self.params:
                 # Update portal membership user properties
-                existing_user.setMemberProperties({'fullname': self.params['displayName']})
+                existing_user.setMemberProperties(
+                    {'fullname': self.params['displayName']})
                 properties = get_all_user_properties(existing_user)
                 add_user_to_catalog(existing_user, properties, overwrite=True)
-                username=self.params['username'].lower()
+                username = self.params['username'].lower()
                 # Update max
                 maxclient.people[username].put(displayName=properties['fullname'])
                 status = maxclient.last_response_code
@@ -444,12 +470,18 @@ class Person(REST):
             status = 404
 
         if status == 404:
-            return ApiResponse.from_string('User {} not found'.format(self.params['username'].lower()), code=status)
+            return ApiResponse.from_string(
+                'User {} not found'.format(self.params['username'].lower()),
+                code=status)
         elif status == 200:
-            return ApiResponse.from_string('User {} updated'.format(self.params['username'].lower()), code=status)
+            return ApiResponse.from_string(
+                'User {} updated'.format(self.params['username'].lower()),
+                code=status)
         elif status == 500:
-            return ApiResponse.from_string('User {} not updated. Not displayName.'.format(self.params['username'].lower()), code=status)
-
+            return ApiResponse.from_string(
+                'User {} not updated. Not displayName.'.format(
+                    self.params['username'].lower()),
+                code=status)
 
     # @api_resource(required=['username', 'email'])
     # def PUT(self):
@@ -477,16 +509,23 @@ class Person(REST):
         username = self.params['username']
         user = api.user.get(username=username)
         if user:
-            user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+            user_properties_utility = getUtility(
+                ICatalogFactory, name='user_properties')
 
             rendered_properties = []
             try:
-                extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+                extender_name = api.portal.get_registry_record(
+                    'base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
                 if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
-                    extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
-                    hasPublicProp = hasattr(extended_user_properties_utility, 'public_properties')
+                    extended_user_properties_utility = getUtility(
+                        ICatalogFactory, name=extender_name)
+                    hasPublicProp = hasattr(
+                        extended_user_properties_utility, 'public_properties')
                     for prop in extended_user_properties_utility.directory_properties:
-                        if not hasPublicProp or (hasPublicProp and prop in extended_user_properties_utility.public_properties):
+                        if not hasPublicProp or (
+                                hasPublicProp
+                                and prop
+                                in extended_user_properties_utility.public_properties):
                             userProp = user.getProperty(prop, '')
                             if userProp:
                                 check = user.getProperty('check_' + prop, '')
@@ -499,10 +538,13 @@ class Person(REST):
                 else:
                     # If it's not extended, then return the simple set of data we know
                     # about the user using also the directory_properties field
-                    hasPublicProp = hasattr(user_properties_utility, 'public_properties')
+                    hasPublicProp = hasattr(
+                        user_properties_utility, 'public_properties')
                     for prop in user_properties_utility.directory_properties:
                         try:
-                            if not hasPublicProp or (hasPublicProp and prop in user_properties_utility.public_properties):
+                            if not hasPublicProp or (
+                                    hasPublicProp
+                                    and prop in user_properties_utility.public_properties):
                                 userProp = user.getProperty(prop, '')
                                 if userProp:
                                     check = user.getProperty('check_' + prop, '')
@@ -540,12 +582,15 @@ class All(REST):
         user = api.user.get(username=username)
         if user:
             userid = user.id.lower()
-            user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+            user_properties_utility = getUtility(
+                ICatalogFactory, name='user_properties')
             rendered_properties = {userid: {}}
             try:
-                extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+                extender_name = api.portal.get_registry_record(
+                    'base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
                 if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
-                    extended_user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+                    extended_user_properties_utility = getUtility(
+                        ICatalogFactory, name=extender_name)
                     for prop in extended_user_properties_utility.properties:
                         userProp = user.getProperty(prop, '')
                         if userProp:
@@ -588,27 +633,33 @@ class Ushare(REST):
             current = api.user.get_current()
             lang = current.getProperty('language')
 
-            user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
+            user_properties_utility = getUtility(
+                ICatalogFactory, name='user_properties')
 
             rendered_properties = []
             try:
-                extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+                extender_name = api.portal.get_registry_record(
+                    'base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
                 if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
-                    user_properties_utility = getUtility(ICatalogFactory, name=extender_name)
+                    user_properties_utility = getUtility(
+                        ICatalogFactory, name=extender_name)
 
                 hasPublicProp = hasattr(user_properties_utility, 'public_properties')
                 for prop in user_properties_utility.directory_properties:
                     try:
-                        if not hasPublicProp or (hasPublicProp and prop in user_properties_utility.public_properties):
+                        if not hasPublicProp or (
+                                hasPublicProp
+                                and prop in user_properties_utility.public_properties):
                             userProp = user.getProperty(prop, '')
                             if userProp:
                                 check = user.getProperty('check_' + prop, '')
                                 if check == '' or check:
-                                    rendered_properties.append(dict(
-                                        key=prop,
-                                        name=ts.translate(prop, context=self.request, domain=domain, target_language=lang),
-                                        value=userProp,
-                                    ))
+                                    rendered_properties.append(
+                                        dict(
+                                            key=prop, name=ts.translate(
+                                                prop, context=self.request,
+                                                domain=domain, target_language=lang),
+                                            value=userProp,))
                     except:
                         # Some users has @ in the username and is not valid...
                         pass
@@ -649,9 +700,15 @@ class Subscriptions(REST):
 
         # Get all communities for the current user
         pc = api.portal.get_tool('portal_catalog')
-        r_results_organizative = pc.searchResults(portal_type="ulearn.community", community_type=u"Organizative", sort_on="sortable_title")
-        r_results_closed= pc.searchResults(portal_type="ulearn.community", community_type=u"Closed", sort_on="sortable_title")
-        ur_results_open = pc.unrestrictedSearchResults(portal_type="ulearn.community", community_type=u"Open", sort_on="sortable_title")
+        r_results_organizative = pc.searchResults(
+            portal_type="ulearn.community", community_type=u"Organizative",
+            sort_on="sortable_title")
+        r_results_closed = pc.searchResults(
+            portal_type="ulearn.community", community_type=u"Closed",
+            sort_on="sortable_title")
+        ur_results_open = pc.unrestrictedSearchResults(
+            portal_type="ulearn.community", community_type=u"Open",
+            sort_on="sortable_title")
         communities = r_results_organizative + r_results_closed + ur_results_open
 
         self.is_role_manager = False
@@ -671,19 +728,16 @@ class Subscriptions(REST):
         result = []
         favorites = self.get_favorites()
         notnotifypush = self.get_notnotifypush()
-        for brain in communities:
-            user_permission = []
-            can_write = False
-            user_permission = [i for i in communities_subscription if i['hash'] == brain.community_hash]
-            if user_permission != [] and 'write' in user_permission[0]['permissions']:
-                can_write = True
-
+        for obj in communities_subscription:
+            brain = [i for i in communities if i.community_hash == obj['hash']][0]
+            can_write = True if 'write' in obj['permissions'] else False
             brainObj = self.context.unrestrictedTraverse(brain.getPath())
 
             if brainObj.mails_users_community_black_lists is None:
                 brainObj.mails_users_community_black_lists = {}
             elif not isinstance(brainObj.mails_users_community_black_lists, dict):
-                brainObj.mails_users_community_black_lists = ast.literal_eval(brainObj.mails_users_community_black_lists)
+                brainObj.mails_users_community_black_lists = ast.literal_eval(
+                    brainObj.mails_users_community_black_lists)
 
             community = dict(id=brain.id,
                              title=brain.Title,
@@ -712,7 +766,6 @@ class Subscriptions(REST):
         results = pc.unrestrictedSearchResults(favoritedBy=self.username)
         return [favorites.id for favorites in results]
 
-
     def get_notnotifypush(self):
         pc = api.portal.get_tool('portal_catalog')
 
@@ -730,7 +783,9 @@ class Subscriptions(REST):
 
         records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
         if records:
-            return self.username in [a['id'] for a in records[0].attrs['acl']['users'] if a['role'] == u'owner']
+            return self.username in [
+                a['id'] for a in records[0].attrs['acl']['users']
+                if a['role'] == u'owner']
 
     @staticmethod
     def get_pending_community_user(community, user):
@@ -747,7 +802,8 @@ class Subscriptions(REST):
             else:
                 return exist[0].attrs['data_access']
 
-        data_access = get_data_acces_community_user() + 0.001   # Suma 0.001 para que no muestre los que acaba de crear el usuario
+        # Suma 0.001 para que no muestre los que acaba de crear el usuario
+        data_access = get_data_acces_community_user() + 0.001
         now = DateTime() + 0.001  # Suma 0.001 para que no muestre los que acaba de crear el usuario
         pc = api.portal.get_tool(name="portal_catalog")
 
