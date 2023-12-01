@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+import requests
+
+from datetime import datetime
 from five import grok
+from lxml import html
 
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from plone import api
@@ -13,45 +17,9 @@ from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.formatting import formatMessageEntities
-from lxml import html
-import re
-from datetime import datetime
-
-import requests
-from ulearn5.core.content.community import ICommunity
-from plone.app.layout.navigation.root import getNavigationRootObject
-from Acquisition import aq_inner
-
-
-def getCommunityNameFromObj(self, value):
-    portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
-    root = getNavigationRootObject(self.context, portal_state.portal())
-    physical_path = value.getPhysicalPath()
-    relative = physical_path[len(root.getPhysicalPath()):]
-    for i in range(len(relative)):
-        now = relative[:i + 1]
-        obj = aq_inner(root.unrestrictedTraverse(now))
-        if (ICommunity.providedBy(obj)):
-            return obj.title
-    return ''
-
-
-def replaceImagePathByURL(msg):
-    srcs = re.findall('src="([^"]+)"', msg)
-
-    # Transformamos imagenes internas
-    uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
-    for i in range(len(uids)):
-        thumb_url = api.content.get(UID=uids[i]).absolute_url() + '/thumbnail-image'
-        plone_url = srcs[i]
-        msg = re.sub(plone_url, thumb_url, msg)
-
-    # Transformamos imagenes contra la propia web
-    images = re.findall(r"/@@images/.*?\"", msg)
-    for i in range(len(images)):
-        msg = re.sub(images[i], '/thumbnail-image"', msg)
-    
-    return msg
+from ulearn5.core.utils import getCommunityNameFromObj
+from ulearn5.core.utils import HTMLParser
+from ulearn5.core.utils import replaceImagePathByURL
 
 
 class News(REST):
@@ -75,7 +43,8 @@ class News(REST):
     @api_resource(required=[])
     def GET(self):
         portal = api.portal.get()
-        show_news_in_app = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
+        show_news_in_app = api.portal.get_registry_record(
+            name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
         results = []
         news_per_page = 10  # Default items per page
         pagination_page = self.params.pop('page', None)
@@ -91,7 +60,8 @@ class News(REST):
             }
             for k in self.params.keys():
                 if k == 'path':
-                    query[k] = ('/').join(portal.getPhysicalPath()) + '/' + self.params.pop(k, None)
+                    query[k] = ('/').join(portal.getPhysicalPath()
+                                          ) + '/' + self.params.pop(k, None)
                 else:
                     query[k] = self.params.pop(k, None)
             news = api.content.find(**query)
@@ -120,10 +90,11 @@ class News(REST):
                     date = value.effective_date.strftime("%d/%m/%Y")
                 else:
                     date = value.creation_date.strftime("%d/%m/%Y")
-                if value.text:
-                    text = value.text.output
+                if item.text:
+                    text = replaceImagePathByURL(value.text.output)
+                    text = HTMLParser(text)
                 else:
-                    text = ''
+                    text = None
 
                 is_inapp = None
                 is_outoflist = None
@@ -145,9 +116,9 @@ class News(REST):
                     filename = value.image.filename
                     contentType = value.image.contentType
                     raw_image = value.absolute_url() + '/thumbnail-image'
-                
+
                 communityName = getCommunityNameFromObj(self, value)
-                
+
                 new = dict(title=value.title,
                            id=value.id,
                            description=value.description,
@@ -210,13 +181,13 @@ class New(REST):
 
         return result
 
-
     @api_resource(required=['newid'])
     def GET(self):
         """
             /api/news/{newid}?absolute_url={absolute_url}
         """
-        show_news_in_app = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
+        show_news_in_app = api.portal.get_registry_record(
+            name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
         if show_news_in_app:
             newid = self.params['newid']
             mountpoint_id = self.context.getPhysicalPath()[1]
@@ -225,13 +196,16 @@ class New(REST):
                 if mountpoint_id == self.context.id:
                     default_path = '/'.join(absolute_url.split('/')[:-1])
                 else:
-                    default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/'.join(absolute_url.split('/')[:-1])
+                    default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/'.join(absolute_url.split('/')
+                                                                                              [:-1])
             else:
                 if mountpoint_id == self.context.id:
-                    default_path = '/'.join(api.portal.get().getPhysicalPath()) + '/news'
+                    default_path = '/'.join(api.portal.get().getPhysicalPath()
+                                            ) + '/news'
                 else:
                     default_path = '/' + mountpoint_id + '/' + api.portal.get().id + '/news'
-            item = api.content.find(portal_type="News Item", path=default_path, id=newid)
+            item = api.content.find(portal_type="News Item",
+                                    path=default_path, id=newid)
             if item:
                 newitem = item[0]
                 value = newitem.getObject()
@@ -240,10 +214,13 @@ class New(REST):
                 else:
                     date = value.creation_date.strftime("%d/%m/%Y")
                 if value.text:
-                    #text = value.text.output
-                    text = formatMessageEntities(html.tostring(html.fromstring(value.text.output)))
+                    text = formatMessageEntities(html.tostring(
+                        html.fromstring(value.text.output)))
                     if text is not None:
                         text = replaceImagePathByURL(text)
+                        text = HTMLParser(text)
+                    else:
+                        text = None
                 else:
                     text = ''
 
@@ -293,9 +270,11 @@ class New(REST):
                 raise ObjectNotFound('News Item not found')
             return ApiResponse(new)
         else:
-            return ApiResponse.from_string('Show in App not enabled on this site', code=404)
+            return ApiResponse.from_string(
+                'Show in App not enabled on this site', code=404)
 
-    def create_new(self, newid, title, desc, body, imgData, imgName, date_start, date_end):
+    def create_new(
+            self, newid, title, desc, body, imgData, imgName, date_start, date_end):
         date_start = date_start.split('/')
         time_start = date_start[3].split(':')
 
@@ -305,15 +284,11 @@ class New(REST):
         brains = pc.unrestrictedSearchResults(portal_type='News Item', id=newid)
         if not brains:
             if imgName != '':
-                new_new = createContentInContainer(news_url,
-                                                   'News Item',
-                                                   title=newid,
-                                                   image=NamedBlobImage(data=imgData,
-                                                                        filename=imgName,
-                                                                        contentType='image/jpeg'),
-                                                   description=desc,
-                                                   timezone="Europe/Madrid",
-                                                   checkConstraints=False)
+                new_new = createContentInContainer(
+                    news_url, 'News Item', title=newid,
+                    image=NamedBlobImage(
+                        data=imgData, filename=imgName, contentType='image/jpeg'),
+                    description=desc, timezone="Europe/Madrid", checkConstraints=False)
             else:
                 new_new = createContentInContainer(news_url,
                                                    'News Item',
@@ -341,7 +316,8 @@ class New(REST):
                                           )
             new_new.text = IRichText['text'].fromUnicode(body)
             new_new.reindexObject()
-            resp = ApiResponse.from_string('News Item {} created'.format(newid), code=201)
+            resp = ApiResponse.from_string(
+                'News Item {} created'.format(newid), code=201)
         else:
             new = brains[0].getObject()
             new.title = title
@@ -367,6 +343,7 @@ class New(REST):
                                            contentType='image/jpeg')
             new.text = IRichText['text'].fromUnicode(body)
             new.reindexObject()
-            resp = ApiResponse.from_string('News Item {} updated'.format(newid), code=200)
+            resp = ApiResponse.from_string(
+                'News Item {} updated'.format(newid), code=200)
 
         return resp

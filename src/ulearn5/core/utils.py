@@ -1,18 +1,29 @@
 # -*- coding: utf-8 -*-
+import json
+import pytz
+import re
+import transaction
+
+from bs4.element import Tag, NavigableString
+from bs4 import BeautifulSoup
+from datetime import timedelta
+from time import time
+
+from Acquisition import aq_inner
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser import BrowserView
 
-from datetime import timedelta
 from plone import api
+from plone.app.layout.navigation.root import getNavigationRootObject
 from plone.event.interfaces import IEventAccessor
 from plone.event.utils import is_datetime
 from plone.event.utils import is_date
+from plone.memoize import ram
 from plone.registry.interfaces import IRegistry
 from repoze.catalog.query import Eq
 from souper.interfaces import ICatalogFactory
 from souper.soup import get_soup
 from zope import schema
-from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import getMultiAdapter
@@ -23,15 +34,9 @@ from zope.contentprovider.interfaces import IContentProvider
 from mrs5.max.utilities import IMAXClient
 from base5.core.directory import METADATA_USER_ATTRS
 from ulearn5.core import _
+from ulearn5.core.content.community import ICommunity
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
-from plone.memoize import ram
-from time import time
-
-import json
-import pytz
-import re
-import transaction
 
 RE_VALID_TWITTER_USERNAME = r'^\s*@?([a-zA-Z0-9_]{1,15})\s*$'
 
@@ -124,7 +129,6 @@ class ulearnUtils(BrowserView):
     def get_url_forget_password(self, context):
         """ return redirect url when forget user password """
         portal = api.portal.get_tool(name='portal_url').getPortalObject()
-        base_path = '/'.join(portal.getPhysicalPath())
         registry = queryUtility(IRegistry)
         settings = registry.forInterface(IUlearnControlPanelSettings)
         if 'http' in settings.url_forget_password:
@@ -329,6 +333,19 @@ def isBirthdayInProfile():
     return 'birthday' in attributes
 
 
+def getCommunityNameFromObj(self, value):
+    portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
+    root = getNavigationRootObject(self.context, portal_state.portal())
+    physical_path = value.getPhysicalPath()
+    relative = physical_path[len(root.getPhysicalPath()):]
+    for i in range(len(relative)):
+        now = relative[:i + 1]
+        obj = aq_inner(root.unrestrictedTraverse(now))
+        if (ICommunity.providedBy(obj)):
+            return obj.title
+    return ''
+
+
 def replaceImagePathByURL(msg):
     srcs = re.findall('src="([^"]+)"', msg)
 
@@ -351,7 +368,7 @@ def calculatePortalTypeOfInternalPath(url, portal_url):
     site = api.portal.get()
     base_path = '/'.join(site.getPhysicalPath())
     partial_path = url.split(portal_url)[1]
-    partial_path.replace('#', '') # Sanitize if necessary
+    partial_path.replace('#', '')  # Sanitize if necessary
     if partial_path.endswith('/view/'):
         partial_path = partial_path.split('/view/')[0]
     elif partial_path.endswith('/view'):
@@ -365,3 +382,67 @@ def calculatePortalTypeOfInternalPath(url, portal_url):
         return nextObj.Type()
     except:
         return None
+
+
+# HTML Parser
+ATTRS_TO_REMOVE = [
+    'lang', 'language', 'onmouseover', 'onmouseout', 'script', 'style', 'font',
+    'dir', 'face', 'size', 'color', 'style', 'class', 'width', 'height', 'hspace',
+    'border', 'valign', 'align', 'background', 'bgcolor', 'text', 'link', 'vlink',
+    'alink', 'cellpadding', 'cellspacing']
+
+TAGS_TO_REMOVE = [
+    "article", "aside", "audio", "bdo", "big", "canvas", "col", "colgroup",
+    "command", "datalist", "dd", "del", "details", "dfn", "dialog", "dl",
+    "dt", "footer", "head", "header", "hgroup", "ins", "kbd", "keygen",
+    "map", "mark", "meter", "nav", "output", "progress", "rp", "rt",
+    "ruby", "samp", "section", "sub", "sup", "var",
+    "video", "script"]
+
+# These are empty elements, but they are relevant for the visualization of the html
+TAGS_TO_KEEP = ["br", "iframe", "img", "input"]
+
+
+def HTMLParser(html):
+    soup = BeautifulSoup(html, "html.parser")
+
+    """ Remove specific tags """
+    for tag_name in TAGS_TO_REMOVE:
+        tags = soup.find_all(tag_name)
+        for TAG in tags:
+            TAG.decompose()
+
+    """ Remove useless attrs """
+    for tag in soup.find_all():
+        for attr in list(tag.attrs):
+            if attr in ATTRS_TO_REMOVE:
+                del tag[attr]
+
+    """ Remove empty tags. Separated from the other loop for readability """
+    for tag in soup.find_all():
+        remove_empty_tags(tag)
+
+    return soup.prettify()
+
+
+def remove_empty_tags(el):
+    if el.can_be_empty_element:
+        return
+
+    if (not el.contents or is_whitespace_content(el.contents)) and el.name not in TAGS_TO_KEEP:
+        if el.parent:
+            parent = el.parent
+            el.decompose()
+            remove_empty_tags(parent)
+            return
+
+        el.decompose()
+        return
+
+    for child in el.children:
+        if isinstance(child, Tag):
+            remove_empty_tags(child)
+
+
+def is_whitespace_content(content):
+    return all(isinstance(item, NavigableString) and not item.strip() for item in content)

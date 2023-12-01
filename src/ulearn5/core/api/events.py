@@ -1,39 +1,27 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_inner
-import calendar
 from datetime import datetime
 from five import grok
-import re
+
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+
 from plone import api
 from plone.app.contenttypes.behaviors.richtext import IRichText
-from plone.app.layout.navigation.root import getNavigationRootObject
-from plone.app.event.base import localized_now
 from plone.dexterity.utils import createContentInContainer
-from Products.CMFPlone.interfaces import IPloneSiteRoot
+
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api import ObjectNotFound
 from ulearn5.core.api.root import APIRoot
-from ulearn5.core.content.community import ICommunity
+from ulearn5.core.utils import getCommunityNameFromObj
+from ulearn5.core.utils import HTMLParser
+from ulearn5.core.utils import replaceImagePathByURL
 
-
-def getCommunityNameFromObj(self, value):
-    portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
-    root = getNavigationRootObject(self.context, portal_state.portal())
-    physical_path = value.getPhysicalPath()
-    relative = physical_path[len(root.getPhysicalPath()):]
-    for i in range(len(relative)):
-        now = relative[:i + 1]
-        obj = aq_inner(root.unrestrictedTraverse(now))
-        if (ICommunity.providedBy(obj)):
-            return obj.title
-    return ''
 
 class Events(REST):
     """
         /api/events
-        
+
         :param page
         :param path: community_name
         :param start: start_date(timestamp)
@@ -62,8 +50,8 @@ class Events(REST):
                 'query': (
                     datetime.fromtimestamp(float(start)),
                     datetime.fromtimestamp(float(end)),
-                    #datetime(now.year, now.month, 1, 00, 00, 00),
-                    #datetime(now.year, now.month, last_day_of_month, 23, 59, 59),
+                    # datetime(now.year, now.month, 1, 00, 00, 00),
+                    # datetime(now.year, now.month, last_day_of_month, 23, 59, 59),
                 ),
                 'range': 'min:max',
             }
@@ -78,10 +66,11 @@ class Events(REST):
         }
         for k in self.params.keys():
             if k == 'path':
-                query[k] = '/'.join(portal.getPhysicalPath()) + '/' + self.params.pop(k, None)
+                query[k] = '/'.join(portal.getPhysicalPath()
+                                    ) + '/' + self.params.pop(k, None)
             else:
                 query[k] = self.params.pop(k, None)
-        
+
         events = api.content.find(**query)
         total_events = len(events)
         print(query)
@@ -105,7 +94,7 @@ class Events(REST):
         for item in events:
             value = item.getObject()
             communityName = getCommunityNameFromObj(self, value)
-            
+
             event = dict(
                 community=communityName,
                 end=value.end.strftime('%Y-%m-%dT%H:%M:%S') if value.end else None,
@@ -127,32 +116,15 @@ class Events(REST):
 class Event(REST):
     """
         /api/events/eventuid?eventuid={uuid}
-        
+
         :param eventuid: uuid
     """
-    
+
     placeholder_type = 'event'
     placeholder_id = 'eventuid'
-    
+
     grok.adapts(Events, IPloneSiteRoot)
     grok.require('base.authenticated')
-    
-    def replaceImagePathByURL(self, msg):
-        srcs = re.findall('src="([^"]+)"', msg)
-
-        # Transformamos imagenes internas
-        uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
-        for i in range(len(uids)):
-            thumb_url = api.content.get(UID=uids[i]).absolute_url() + '/thumbnail-image'
-            plone_url = srcs[i]
-            msg = re.sub(plone_url, thumb_url, msg)
-
-        # Transformamos imagenes contra la propia web
-        images = re.findall(r"/@@images/.*?\"", msg)
-        for i in range(len(images)):
-            msg = re.sub(images[i], '/thumbnail-image"', msg)
-        
-        return msg
 
     @api_resource(required=['eventuid'])
     def GET(self):
@@ -162,33 +134,29 @@ class Event(REST):
         if content:
             communityName = getCommunityNameFromObj(self, content)
             attendees = [a.encode('utf-8') for a in content.attendees]
-            body = content.text.raw if content.text else None
-            if body is not None:
-                body = self.replaceImagePathByURL(body)
+            if content.text:
+                text = replaceImagePathByURL(content.text.raw)
+                text = HTMLParser(text)
+            else:
+                text = None
             event = dict(
-                attendees=attendees,
-                community=communityName.encode('utf-8'),
+                attendees=attendees, community=communityName.encode('utf-8'),
                 contact_email=content.contact_email,
-                contact_name=content.contact_name.encode('utf-8') if content.contact_name else None,
-                contact_phone=content.contact_phone,
-                description=content.description.encode('utf-8') if content.description else None,
-                end=content.end.strftime('%Y-%m-%dT%H:%M:%S') if content.end else None,
-                event_url=content.event_url,
-                id=content.id,
-                location=content.location,
-                open_end=content.open_end,
-                portal_type=content.portal_type,
+                contact_name=content.contact_name.encode('utf-8')
+                if content.contact_name else None, contact_phone=content.contact_phone,
+                description=content.description.encode('utf-8')
+                if content.description else None, end=content.end.strftime(
+                    '%Y-%m-%dT%H:%M:%S') if content.end else None,
+                event_url=content.event_url, id=content.id, location=content.location,
+                open_end=content.open_end, portal_type=content.portal_type,
                 start=content.start.strftime('%Y-%m-%dT%H:%M:%S'),
-                text=body,
-                timezone=content.timezone,
-                title=content.title.encode('utf-8'),
-                whole_day=content.whole_day
-                )
+                text=text, timezone=content.timezone, title=content.title.encode(
+                    'utf-8'),
+                whole_day=content.whole_day)
         else:
             raise ObjectNotFound('Event Item with uid {0} not found'.format(eventuid))
         results.append(event)
         return ApiResponse(results)
-        
 
     @api_resource(required=['eventid', 'title', 'description', 'body', 'start', 'end'])
     def POST(self):
