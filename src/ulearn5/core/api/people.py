@@ -506,7 +506,7 @@ class Person(REST):
     @api_resource(required=['username'])
     def GET(self):
         """ Returns the user profile values. """
-        username = self.params['username']
+        username = self.params['username'].lower()
         user = api.user.get(username=username)
         if user:
             user_properties_utility = getUtility(
@@ -578,7 +578,7 @@ class All(REST):
     @api_resource(required=['username'])
     def GET(self):
         """ Returns the user all profile values. """
-        username = self.params['username']
+        username = self.params['username'].lower()
         user = api.user.get(username=username)
         if user:
             userid = user.id.lower()
@@ -623,7 +623,7 @@ class Ushare(REST):
     @api_resource(required=['username'])
     def GET(self):
         """ Returns the user all profile values. """
-        username = self.params['username']
+        username = self.params['username'].lower()
         user = api.user.get(username=username)
         if user:
             ts = api.portal.get_tool(name='translation_service')
