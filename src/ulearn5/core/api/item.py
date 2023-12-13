@@ -6,10 +6,10 @@ from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
-from ulearn5.core.utils import HTMLParser, replaceImagePathByURL
+from ulearn5.core.html_parser import HTMLParser
+from ulearn5.core.html_parser import replaceImagePathByURL
 from plone import api
 from base64 import b64encode
-import re
 
 
 class Item(REST):

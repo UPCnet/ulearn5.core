@@ -13,9 +13,9 @@ from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api import ObjectNotFound
 from ulearn5.core.api.root import APIRoot
-from ulearn5.core.utils import getCommunityNameFromObj
-from ulearn5.core.utils import HTMLParser
-from ulearn5.core.utils import replaceImagePathByURL
+from ulearn5.core.html_parser import getCommunityNameFromObj
+from ulearn5.core.html_parser import HTMLParser
+from ulearn5.core.html_parser import replaceImagePathByURL
 
 
 class Events(REST):
