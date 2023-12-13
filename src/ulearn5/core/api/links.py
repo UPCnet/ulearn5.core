@@ -69,12 +69,12 @@ class Link(REST):
                     'nominas_folder_name').lower()
                 urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni
                 nominesLink = dict(
-                    id="",
+                    id=dni,
                     internal=True,
                     link=urlNomines,
                     title=titleNomines,
                     type_when_follow_url="privateFolder",
-                    url=urlNomines
+                    url=urlNomines  # UTALK, Miranza APP
                 )
 
                 resultsGestion[titleNomines] = []
@@ -99,12 +99,12 @@ class Link(REST):
                 urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni_hashed
 
                 nominesLink = dict(
-                    id="",
+                    id=dni_hashed,
                     internal=True,
                     link=urlNomines,
                     title=titleNomines,
                     type_when_follow_url="privateFolder",
-                    url=urlNomines
+                    url=urlNomines  # UTALK, Miranza APP
                 )
 
                 resultsGestion[titleNomines] = []
