@@ -29,7 +29,6 @@ class Banners(REST):
             portal_type="ulearn.banner",
             path='/'.join(api.portal.get().getPhysicalPath()) + "/gestion/banners",
             review_state=['intranet'],
-            sort_order='descending',
             sort_on='getObjPositionInParent',
         )
 
