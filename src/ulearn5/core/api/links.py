@@ -13,6 +13,7 @@ from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from ulearn5.core.html_parser import getCommunityNameFromObj
 from ulearn5.core.hooks import packages_installed
 from ulearn5.core.utils import calculatePortalTypeOfInternalPath
 
@@ -71,6 +72,7 @@ class Link(REST):
                 nominesLink = dict(
                     id=dni,
                     internal=True,
+                    is_community_belonged=False,
                     link=urlNomines,
                     title=titleNomines,
                     type_when_follow_url="privateFolder",
@@ -101,6 +103,7 @@ class Link(REST):
                 nominesLink = dict(
                     id=dni_hashed,
                     internal=True,
+                    is_community_belonged=False,
                     link=urlNomines,
                     title=titleNomines,
                     type_when_follow_url="privateFolder",
@@ -132,10 +135,12 @@ class Link(REST):
                     url = obj.remoteUrl.replace('#', '') if internal else obj.remoteUrl
                     obj_type = calculatePortalTypeOfInternalPath(
                         url, portal_url) if internal else None
+                    belong = bool(getCommunityNameFromObj(self, obj))
                     if ILink.providedBy(obj):
                         menuLink = dict(
                             id=id,
                             internal=internal,
+                            is_community_belonged=belong,
                             link=url,
                             title=obj.title,
                             type_when_follow_url=obj_type,
