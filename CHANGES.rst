@@ -2,11 +2,19 @@ Changelog
 =========
 
 
-0.135 (unreleased)
+0.135 (2023-12-18)
 ------------------
 
-- Nothing changed yet.
-
+* Merge remote-tracking branch 'origin/develop' [Alberto Durán]
+* [UPD] /api/links/{lang} added parameter is_community_belonged to each object [Alberto Durán]
+* [FIX] api/people/x/ushare, no repetir campos fullname y email [Iago López]
+* [UPD] /api/links/{lang} per a que retorni un objecte igual que la resta d'enllaços [Iago López]
+* [UPD] /api/links/{lang} per a que retorni un objecte igual que la resta d'enllaços [Alberto Durán]
+* [UPD] HTML Parser in different file [Alberto Durán]
+* [FIX] api/banners orden [Iago López]
+* [FIX] Api lower username [Iago López]
+* [ADD] HTML Parser for text in API and reorganize imports [Alberto Durán]
+* [FIX] util calculatePortalTypeOfInternalPath - Resolve UID [Iago López]
 
 0.134 (2023-11-30)
 ------------------
