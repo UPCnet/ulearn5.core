@@ -34,7 +34,7 @@ class Appconfig(REST):
         buttonbar_selected = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.buttonbar_selected')
 
         if 'username' in self.params:
-            username = self.params['username']
+            username = self.params['username'].lower()
             user = api.user.get(username=username)
             if hasattr(user, 'language') and user.getProperty('language') != '':
                 language = user.getProperty('language')

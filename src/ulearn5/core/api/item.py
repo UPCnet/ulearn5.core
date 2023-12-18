@@ -6,10 +6,10 @@ from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
-from ulearn5.core.utils import replaceImagePathByURL
+from ulearn5.core.html_parser import HTMLParser
+from ulearn5.core.html_parser import replaceImagePathByURL
 from plone import api
 from base64 import b64encode
-import re
 
 
 class Item(REST):
@@ -60,8 +60,11 @@ class Item(REST):
                 type_when_follow_url = item.portal_type
                 external_url = False
                 if item.portal_type == 'News Item':
-                    text = replaceImagePathByURL(
-                        item.text.raw) if item.text else None
+                    if item.text:
+                        text = replaceImagePathByURL(item.text.raw)
+                        text = HTMLParser(text)
+                    else:
+                        text = None
                     image = item.image.filename if item.image else None
                     image_caption = item.image_caption
                     raw_image = b64encode(item.image.data) if item.image.data else None
@@ -70,8 +73,11 @@ class Item(REST):
                     raw_image = b64encode(item.image.data) if item.image.data else None
                     content_type = item.image.contentType
                 elif item.portal_type == 'Document':
-                    text = replaceImagePathByURL(
-                        item.text.raw) if item.text else None
+                    if item.text:
+                        text = replaceImagePathByURL(item.text.raw)
+                        text = HTMLParser(text)
+                    else:
+                        text = None
                 elif item.portal_type == 'Link':
                     if 'resolveuid' in item.remoteUrl:
                         # Intern
@@ -84,7 +90,11 @@ class Item(REST):
                         text = item.remoteUrl
                         external_url = True
                 elif item.portal_type == 'Event':
-                    text = replaceImagePathByURL(item.text.raw) if item.text else None
+                    if item.text:
+                        text = replaceImagePathByURL(item.text.raw)
+                        text = HTMLParser(text)
+                    else:
+                        text = None
                 elif item.portal_type == 'File' or item.portal_type == 'ulearn.video':
                     raw_file = b64encode(item.file.data) if item.file.data else None
                     content_type = item.file.contentType

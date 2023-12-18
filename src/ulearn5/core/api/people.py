@@ -506,7 +506,7 @@ class Person(REST):
     @api_resource(required=['username'])
     def GET(self):
         """ Returns the user profile values. """
-        username = self.params['username']
+        username = self.params['username'].lower()
         user = api.user.get(username=username)
         if user:
             user_properties_utility = getUtility(
@@ -578,7 +578,7 @@ class All(REST):
     @api_resource(required=['username'])
     def GET(self):
         """ Returns the user all profile values. """
-        username = self.params['username']
+        username = self.params['username'].lower()
         user = api.user.get(username=username)
         if user:
             userid = user.id.lower()
@@ -623,7 +623,7 @@ class Ushare(REST):
     @api_resource(required=['username'])
     def GET(self):
         """ Returns the user all profile values. """
-        username = self.params['username']
+        username = self.params['username'].lower()
         user = api.user.get(username=username)
         if user:
             ts = api.portal.get_tool(name='translation_service')
@@ -647,19 +647,20 @@ class Ushare(REST):
                 hasPublicProp = hasattr(user_properties_utility, 'public_properties')
                 for prop in user_properties_utility.directory_properties:
                     try:
-                        if not hasPublicProp or (
-                                hasPublicProp
-                                and prop in user_properties_utility.public_properties):
-                            userProp = user.getProperty(prop, '')
-                            if userProp:
-                                check = user.getProperty('check_' + prop, '')
-                                if check == '' or check:
-                                    rendered_properties.append(
-                                        dict(
-                                            key=prop, name=ts.translate(
-                                                prop, context=self.request,
-                                                domain=domain, target_language=lang),
-                                            value=userProp,))
+                        if prop not in ['fullname', 'email']:
+                            if not hasPublicProp or (
+                                    hasPublicProp
+                                    and prop in user_properties_utility.public_properties):
+                                userProp = user.getProperty(prop, '')
+                                if userProp:
+                                    check = user.getProperty('check_' + prop, '')
+                                    if check == '' or check:
+                                        rendered_properties.append(
+                                            dict(
+                                                key=prop, name=ts.translate(
+                                                    prop, context=self.request,
+                                                    domain=domain, target_language=lang),
+                                                value=userProp,))
                     except:
                         # Some users has @ in the username and is not valid...
                         pass

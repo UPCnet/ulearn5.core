@@ -1,18 +1,25 @@
 # -*- coding: utf-8 -*-
+import json
+import pytz
+import re
+import transaction
+
+from datetime import timedelta
+from time import time
+
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser import BrowserView
 
-from datetime import timedelta
 from plone import api
 from plone.event.interfaces import IEventAccessor
 from plone.event.utils import is_datetime
 from plone.event.utils import is_date
+from plone.memoize import ram
 from plone.registry.interfaces import IRegistry
 from repoze.catalog.query import Eq
 from souper.interfaces import ICatalogFactory
 from souper.soup import get_soup
 from zope import schema
-from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import getMultiAdapter
@@ -25,13 +32,6 @@ from base5.core.directory import METADATA_USER_ATTRS
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
-from plone.memoize import ram
-from time import time
-
-import json
-import pytz
-import re
-import transaction
 
 RE_VALID_TWITTER_USERNAME = r'^\s*@?([a-zA-Z0-9_]{1,15})\s*$'
 
@@ -124,7 +124,6 @@ class ulearnUtils(BrowserView):
     def get_url_forget_password(self, context):
         """ return redirect url when forget user password """
         portal = api.portal.get_tool(name='portal_url').getPortalObject()
-        base_path = '/'.join(portal.getPhysicalPath())
         registry = queryUtility(IRegistry)
         settings = registry.forInterface(IUlearnControlPanelSettings)
         if 'http' in settings.url_forget_password:
@@ -329,36 +328,21 @@ def isBirthdayInProfile():
     return 'birthday' in attributes
 
 
-def replaceImagePathByURL(msg):
-    srcs = re.findall('src="([^"]+)"', msg)
-
-    # Transformamos imagenes internas
-    uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
-    for i in range(len(uids)):
-        thumb_url = api.content.get(UID=uids[i]).absolute_url() + '/thumbnail-image'
-        plone_url = srcs[i]
-        msg = re.sub(plone_url, thumb_url, msg)
-
-    # Transformamos imagenes contra la propia web
-    images = re.findall(r"/@@images/.*?\"", msg)
-    for i in range(len(images)):
-        msg = re.sub(images[i], '/thumbnail-image"', msg)
-
-    return msg
-
-
 def calculatePortalTypeOfInternalPath(url, portal_url):
     site = api.portal.get()
     base_path = '/'.join(site.getPhysicalPath())
     partial_path = url.split(portal_url)[1]
-    partial_path.replace('#', '') # Sanitize if necessary
+    partial_path.replace('#', '')  # Sanitize if necessary
     if partial_path.endswith('/view/'):
         partial_path = partial_path.split('/view/')[0]
     elif partial_path.endswith('/view'):
         partial_path = partial_path.split('/view')[0]
     custom_path = base_path + partial_path.encode('utf-8')
-    nextObj = api.content.get(path=custom_path)
     try:
+        if 'resolveuid' in custom_path:
+            nextObj = api.content.get(UID=custom_path.split('resolveuid/')[-1])
+        else:
+            nextObj = api.content.get(path=custom_path)
         return nextObj.Type()
     except:
         return None

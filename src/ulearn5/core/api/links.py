@@ -13,9 +13,9 @@ from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from ulearn5.core.html_parser import getCommunityNameFromObj
 from ulearn5.core.hooks import packages_installed
 from ulearn5.core.utils import calculatePortalTypeOfInternalPath
-
 
 
 class Links(REST):
@@ -57,7 +57,8 @@ class Link(REST):
         if 'ulearn5.nomines' in installed:
             dni = api.user.get_current().getProperty('dni')
             if dni or dni != "":
-                JSONproperties = api.portal.get_tool(name='portal_properties').nomines_properties
+                JSONproperties = api.portal.get_tool(
+                    name='portal_properties').nomines_properties
 
                 titleNomines = JSONproperties.getProperty('app_link_en')
                 if language == 'ca':
@@ -65,12 +66,18 @@ class Link(REST):
                 elif language == 'es':
                     titleNomines = JSONproperties.getProperty('app_link_es')
 
-                nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
+                nominas_folder_name = JSONproperties.getProperty(
+                    'nominas_folder_name').lower()
                 urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni
-
-                nominesLink = dict(title=titleNomines,
-                                   url=urlNomines
-                                   )
+                nominesLink = dict(
+                    id=dni,
+                    internal=True,
+                    is_community_belonged=False,
+                    link=urlNomines,
+                    title=titleNomines,
+                    type_when_follow_url="privateFolder",
+                    url=urlNomines  # UTALK, Miranza APP
+                )
 
                 resultsGestion[titleNomines] = []
                 resultsGestion[titleNomines].append(nominesLink)
@@ -80,7 +87,8 @@ class Link(REST):
             dni = api.user.get_current().getProperty('dni')
             if dni or dni != "":
                 dni_hashed = get_str_hash(dni.upper())
-                JSONproperties = api.portal.get_tool(name='portal_properties').nomines_properties
+                JSONproperties = api.portal.get_tool(
+                    name='portal_properties').nomines_properties
 
                 titleNomines = JSONproperties.getProperty('app_link_en')
                 if language == 'ca':
@@ -88,19 +96,28 @@ class Link(REST):
                 elif language == 'es':
                     titleNomines = JSONproperties.getProperty('app_link_es')
 
-                nominas_folder_name = JSONproperties.getProperty('nominas_folder_name').lower()
+                nominas_folder_name = JSONproperties.getProperty(
+                    'nominas_folder_name').lower()
                 urlNomines = api.portal.get().absolute_url() + '/' + nominas_folder_name + '/' + dni_hashed
 
-                nominesLink = dict(title=titleNomines,
-                                   url=urlNomines
-                                   )
+                nominesLink = dict(
+                    id=dni_hashed,
+                    internal=True,
+                    is_community_belonged=False,
+                    link=urlNomines,
+                    title=titleNomines,
+                    type_when_follow_url="privateFolder",
+                    url=urlNomines  # UTALK, Miranza APP
+                )
 
                 resultsGestion[titleNomines] = []
                 resultsGestion[titleNomines].append(nominesLink)
 
         try:
-            path = portal['gestion']['menu'][language]  # fixed en code... always in this path
-            folders = api.content.find(context=path, portal_type=('Folder', 'privateFolder'), depth=1)
+            # fixed en code... always in this path
+            path = portal['gestion']['menu'][language]
+            folders = api.content.find(context=path, portal_type=(
+                'Folder', 'privateFolder'), depth=1)
             found = True
         except:
             # 'Menu Gestion not configured or Language not found.'
@@ -116,15 +133,18 @@ class Link(REST):
                     id, obj = item
                     internal = True if obj.remoteUrl.startswith(portal_url) else False
                     url = obj.remoteUrl.replace('#', '') if internal else obj.remoteUrl
-                    obj_type = calculatePortalTypeOfInternalPath(url, portal_url) if internal else None
+                    obj_type = calculatePortalTypeOfInternalPath(
+                        url, portal_url) if internal else None
+                    belong = bool(getCommunityNameFromObj(self, obj))
                     if ILink.providedBy(obj):
                         menuLink = dict(
                             id=id,
                             internal=internal,
+                            is_community_belonged=belong,
                             link=url,
                             title=obj.title,
                             type_when_follow_url=obj_type,
-                            url=url, # UTALK, Miranza APP
+                            url=url,  # UTALK, Miranza APP
                         )
                         resultsGestion[folder.Title].append(menuLink)
 
@@ -148,7 +168,7 @@ class Link(REST):
                     link=item['link'],
                     title=item['text'],
                     type_when_follow_url=obj_type,
-                    url=item['link'], # UTALK, Miranza APP
+                    url=item['link'],  # UTALK, Miranza APP
                 )
                 resultsControlPanel.append(quickLink)
 
@@ -156,6 +176,7 @@ class Link(REST):
             # 'Menu Quicklinks not configured in the ControlPanel.'
             resultsControlPanel = ''
 
-        values = {'Menu_Gestion': resultsGestion, 'Menu_Controlpanel': resultsControlPanel}
+        values = {'Menu_Gestion': resultsGestion,
+                  'Menu_Controlpanel': resultsControlPanel}
 
         return ApiResponse(values)
