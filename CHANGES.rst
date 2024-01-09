@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.136 (unreleased)
+0.136 (2024-01-09)
 ------------------
 
-- Nothing changed yet.
-
+* Merge remote-tracking branch 'origin/develop' [Alberto Durán]
+* [ADD] /api/folders?path=... used when items belong outside communities [Alberto Durán]
+* [FIX] /api/links/{lang} is_community_belonged param [Alberto Durán]
+* [UPD] /api/item to expand resolveuid urls [Alberto Durán]
+* [FIX] Speed up /api/communities/{com}/documents without heavy unused properties [Alberto Durán]
+* [FIX] HTML Parser for text in API and reorganize imports [Iago López]
 
 0.135 (2023-12-18)
 ------------------
