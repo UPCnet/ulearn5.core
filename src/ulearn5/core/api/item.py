@@ -35,6 +35,9 @@ class Item(REST):
         resp = session.head(url, allow_redirects=True)
         expanded = resp.url.split('came_from=')[1].replace(
             '%3A', ':') if 'came_from' in resp.url else resp.url
+        if 'resolveuid' in expanded:
+            from plone.app.uuid.utils import uuidToURL
+            expanded = uuidToURL(expanded.split('/')[-1])
 
         portal = api.portal.get()
         local_url = portal.absolute_url()
