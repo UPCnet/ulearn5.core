@@ -90,7 +90,7 @@ class News(REST):
                     date = value.effective_date.strftime("%d/%m/%Y")
                 else:
                     date = value.creation_date.strftime("%d/%m/%Y")
-                if item.text:
+                if value.text:
                     text = replaceImagePathByURL(value.text.output)
                     text = HTMLParser(text)
                 else:

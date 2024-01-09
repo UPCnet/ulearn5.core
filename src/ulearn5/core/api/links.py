@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+from Acquisition import aq_inner
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from five import grok
 from plone import api
 from plone.app.contenttypes.interfaces import ILink
+from plone.app.layout.navigation.root import getNavigationRootObject
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -12,8 +14,8 @@ from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
 from ulearn5.core.api.root import APIRoot
+from ulearn5.core.content.community import ICommunity
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-from ulearn5.core.html_parser import getCommunityNameFromObj
 from ulearn5.core.hooks import packages_installed
 from ulearn5.core.utils import calculatePortalTypeOfInternalPath
 
@@ -132,10 +134,14 @@ class Link(REST):
                 for item in menufolder:
                     id, obj = item
                     internal = True if obj.remoteUrl.startswith(portal_url) else False
-                    url = obj.remoteUrl.replace('#', '') if internal else obj.remoteUrl
-                    obj_type = calculatePortalTypeOfInternalPath(
-                        url, portal_url) if internal else None
-                    belong = bool(getCommunityNameFromObj(self, obj))
+                    if internal:
+                        url = obj.remoteUrl.replace('#', '')
+                        obj_type = calculatePortalTypeOfInternalPath(url, portal_url)
+                        belong = self.urlBelongsToCommunity(url, portal_url)
+                    else:
+                        url = obj.remoteUrl
+                        obj_type = None
+                        belong = False
                     if ILink.providedBy(obj):
                         menuLink = dict(
                             id=id,
@@ -180,3 +186,24 @@ class Link(REST):
                   'Menu_Controlpanel': resultsControlPanel}
 
         return ApiResponse(values)
+
+    def urlBelongsToCommunity(self, url, portal_url):
+        url_belong_to_community = False
+        tree_site = api.portal.get()
+        partial_path = url.split(portal_url)[1]
+        partial_path.replace('#', '')  # Sanitize if necessary
+        if partial_path.endswith('/view/'):
+            partial_path = partial_path.split('/view/')[0]
+        elif partial_path.endswith('/view'):
+            partial_path = partial_path.split('/view')[0]
+        partial_path = partial_path.encode('utf-8')
+        segments = partial_path.split('/')
+        leafs = [segment for segment in segments if segment]
+        for leaf in leafs:
+            obj = aq_inner(tree_site.unrestrictedTraverse(leaf))
+            if (ICommunity.providedBy(obj)):
+                return True
+            else:
+                tree_site = obj
+
+        return url_belong_to_community
