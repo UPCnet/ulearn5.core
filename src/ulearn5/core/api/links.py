@@ -18,6 +18,10 @@ from ulearn5.core.content.community import ICommunity
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.hooks import packages_installed
 from ulearn5.core.utils import calculatePortalTypeOfInternalPath
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class Links(REST):
@@ -174,7 +178,7 @@ class Link(REST):
                     link=item['link'],
                     title=item['text'],
                     type_when_follow_url=obj_type,
-                    url=item['link'],  # UTALK, Miranza APP
+                    url=item['link'],  # UTALK, Miranza APlogger = logging.getLogger(__name__)P
                 )
                 resultsControlPanel.append(quickLink)
 
@@ -188,7 +192,6 @@ class Link(REST):
         return ApiResponse(values)
 
     def urlBelongsToCommunity(self, url, portal_url):
-        url_belong_to_community = False
         tree_site = api.portal.get()
         partial_path = url.split(portal_url)[1]
         partial_path.replace('#', '')  # Sanitize if necessary
@@ -200,10 +203,13 @@ class Link(REST):
         segments = partial_path.split('/')
         leafs = [segment for segment in segments if segment]
         for leaf in leafs:
-            obj = aq_inner(tree_site.unrestrictedTraverse(leaf))
+            try:
+                obj = aq_inner(tree_site.unrestrictedTraverse(leaf))
+            except:
+                logger.error('Error in retrieving object: %s' % url)
             if (ICommunity.providedBy(obj)):
                 return True
             else:
                 tree_site = obj
 
-        return url_belong_to_community
+        return False
