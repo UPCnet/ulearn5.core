@@ -178,7 +178,8 @@ class Link(REST):
                     link=item['link'],
                     title=item['text'],
                     type_when_follow_url=obj_type,
-                    url=item['link'],  # UTALK, Miranza APlogger = logging.getLogger(__name__)P
+                    # UTALK, Miranza APP
+                    url=item['link'],
                 )
                 resultsControlPanel.append(quickLink)
 
@@ -205,11 +206,11 @@ class Link(REST):
         for leaf in leafs:
             try:
                 obj = aq_inner(tree_site.unrestrictedTraverse(leaf))
+                if (ICommunity.providedBy(obj)):
+                    return True
+                else:
+                    tree_site = obj
             except:
                 logger.error('Error in retrieving object: %s' % url)
-            if (ICommunity.providedBy(obj)):
-                return True
-            else:
-                tree_site = obj
 
         return False

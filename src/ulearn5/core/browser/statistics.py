@@ -15,15 +15,17 @@ from zope.component import getUtility
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-
 datePoints = ["1d", "15d", "1m", "3m", "6m", "1y"]
 dataSet = []
+
 
 def globGetDatePoints():
     return datePoints + ['+' + datePoints[-1]]
 
+
 def globGetDataset():
     return json.dumps(dataSet, separators=(',', ':'))
+
 
 def globGetAccumulatedTable(table):
     accTable = []
@@ -34,6 +36,7 @@ def globGetAccumulatedTable(table):
         for i in xrange(1, len(datePoints) + 1):
             accTable[-1][i + 1] += accTable[-1][i]
     return accTable
+
 
 def globGetDateIntervals():
 
@@ -46,13 +49,13 @@ def globGetDateIntervals():
             'y': 'years'
         }
         date = datetime.today() + \
-               relativedelta(**{
-                 dateAbb[unit]: value
-               })
+            relativedelta(**{
+                dateAbb[unit]: value
+            })
         return date
 
     return [textToDate(point) for point in datePoints] \
-         + [datetime.min]
+        + [datetime.min]
 
 
 class statsAccessed(grok.View):
@@ -94,7 +97,7 @@ class statsAccessed(grok.View):
                settings.gAnalytics_JSON_info is None or \
                settings.gAnalytics_enabled is None or \
                settings.gAnalytics_enabled == False:
-               return {}
+                return {}
             gAnalytics_view_ID = settings.gAnalytics_view_ID
             gAnalytics_JSON_info = settings.gAnalytics_JSON_info
 
@@ -105,9 +108,29 @@ class statsAccessed(grok.View):
             falsePrefixes = []
 
             credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-                           json.loads(gAnalytics_JSON_info),
-                           scopes=['https://www.googleapis.com/auth/analytics.readonly'])
+                json.loads(gAnalytics_JSON_info),
+                scopes=['https://www.googleapis.com/auth/analytics.readonly'])
             service = build('analytics', 'v3', credentials=credentials)
+
+            # https://ga-dev-tools.google/ga4/query-explorer/
+            # {"dimensions":[
+            #   {"name":"pageTitle"},
+            #   {"name":"customEvent:acces"},
+            #   {"name":"customEvent:domain"},
+            #   {"name":"customEvent:route"}
+            # ],
+            # "metrics":[
+            #   {"name":"screenPageViews"}
+            # ],
+            # "dateRanges":[
+            #   {"startDate":"30daysAgo","endDate":"today"}
+            # ],
+            # "orderBys":[
+            #   {"metric":
+            #       {"metricName":"screenPageViews"},
+            #       "desc":true
+            #   }
+            # ]}
 
             gaFilters = ','.join('ga:pagePath=~/' + communityShortpath
                                  for communityShortpath in communityShortpaths)
@@ -128,7 +151,7 @@ class statsAccessed(grok.View):
                     'sort': 'ga:dateHourMinute'
                 }).execute()
                 numResults += len(analyticsData['rows'])
-                if not(first) and totalResults != int(analyticsData['totalResults']):
+                if not (first) and totalResults != int(analyticsData['totalResults']):
                     numResults = 0
                     totalResults = 0
                     first = True
@@ -156,16 +179,17 @@ class statsAccessed(grok.View):
 
         communityTitles = {}
         communityShortpaths = []
-        for community in api.portal.get_tool(name='portal_catalog').unrestrictedSearchResults(portal_type='ulearn.community'):
+        for community in api.portal.get_tool(
+                name='portal_catalog').unrestrictedSearchResults(
+                portal_type='ulearn.community'):
             communityShortpath = community.getPath().split('/')[2]
             communityShortpaths.append(communityShortpath)
             communityTitles[communityShortpath] = community.Title
 
-
         if True:
             data = getUpToDateAnalytics(communityShortpaths)
         else:
-            #data = getStoredAnalytics()
+            # data = getStoredAnalytics()
             data = {}
 
         accessedTable = []
@@ -214,7 +238,7 @@ class statsModified(grok.View):
         modifiedTable = []
         catalog = api.portal.get_tool(name='portal_catalog')
         for community in catalog.unrestrictedSearchResults(
-            portal_type='ulearn.community'):
+                portal_type='ulearn.community'):
             modifiedTable.append([community.Title] + [0]*(len(datePoints) + 1))
             for file in catalog.unrestrictedSearchResults(
                     path=community.getPath()):
@@ -231,6 +255,7 @@ class statsModified(grok.View):
         dataSet = self.getAllModifiedTables()
         return ViewPageTemplateFile('statisticsTemplate.pt')(self)
 
+
 class statsAccessed(grok.View):
     grok.context(IPloneSiteRoot)
     grok.require('cmf.ManagePortal')
@@ -245,7 +270,6 @@ class statsAccessed(grok.View):
 
     def getDataset(self):
         return json.dumps(dataSet)
-
 
     def getDateIntervals(self):
         return globGetDateIntervals()
@@ -271,7 +295,7 @@ class statsAccessed(grok.View):
                settings.gAnalytics_JSON_info is None or \
                settings.gAnalytics_enabled is None or \
                settings.gAnalytics_enabled == False:
-               return {}
+                return {}
             gAnalytics_view_ID = settings.gAnalytics_view_ID
             gAnalytics_JSON_info = settings.gAnalytics_JSON_info
 
@@ -282,8 +306,8 @@ class statsAccessed(grok.View):
             falsePrefixes = []
 
             credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-                           json.loads(gAnalytics_JSON_info),
-                           scopes=['https://www.googleapis.com/auth/analytics.readonly'])
+                json.loads(gAnalytics_JSON_info),
+                scopes=['https://www.googleapis.com/auth/analytics.readonly'])
             service = build('analytics', 'v3', credentials=credentials)
 
             gaFilters = ','.join('ga:pagePath=~/' + communityShortpath
@@ -293,16 +317,14 @@ class statsAccessed(grok.View):
             first = True
             data = {}
             while numResults < totalResults or first:
-                analyticsData = service.data().ga().get(**{
-                    'ids': 'ga:' + gAnalytics_view_ID,
-                    'start_date': '2005-01-01',
-                    'end_date': '9999-12-31',
-                    'metrics': 'ga:pageviews',
-                    'dimensions': 'ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1,ga:dateHourMinute',
-                    'filters': gaFilters,
-                    'max_results': '20',
-                    'sort': '-ga:pageviews'
-                }).execute()
+                analyticsData = service.data().ga().get(
+                    **
+                    {'ids': 'ga:' + gAnalytics_view_ID, 'start_date': '2005-01-01',
+                     'end_date': '9999-12-31', 'metrics': 'ga:pageviews',
+                     'dimensions':
+                     'ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1,ga:dateHourMinute',
+                     'filters': gaFilters, 'max_results': '20',
+                     'sort': '-ga:pageviews'}).execute()
                 numResults += len(analyticsData['rows'])
                 # if not(first) and totalResults != int(analyticsData['totalResults']):
                 #     numResults = 0
@@ -331,16 +353,17 @@ class statsAccessed(grok.View):
 
         communityTitles = {}
         communityShortpaths = []
-        for community in api.portal.get_tool(name='portal_catalog').unrestrictedSearchResults(portal_type='ulearn.community'):
+        for community in api.portal.get_tool(
+                name='portal_catalog').unrestrictedSearchResults(
+                portal_type='ulearn.community'):
             communityShortpath = community.getPath().split('/')[2]
             communityShortpaths.append(communityShortpath)
             communityTitles[communityShortpath] = community.Title
 
-
         if True:
             data = getUpToDateAnalytics(communityShortpaths)
         else:
-            #data = getStoredAnalytics()
+            # data = getStoredAnalytics()
             data = {}
 
         # accessedTable = []
