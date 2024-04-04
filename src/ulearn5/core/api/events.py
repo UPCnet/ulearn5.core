@@ -44,7 +44,6 @@ class Events(REST):
         end = self.params.pop('end', None)
         more_items = False
         total_events = 0
-        # TODO: No hemos revisado la recurrencia
         if start and end:
             date_range = {
                 'query': (
@@ -101,6 +100,7 @@ class Events(REST):
                 id=value.id,
                 open_end=value.open_end,
                 portal_type=value.portal_type,
+                recurrence=value.recurrence,
                 start=value.start.strftime('%Y-%m-%dT%H:%M:%S'),
                 title=value.title.encode('utf-8'),
                 uid=item.UID,
