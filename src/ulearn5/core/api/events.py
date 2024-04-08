@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from five import grok
-
+import pytz
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from plone import api
@@ -47,8 +47,12 @@ class Events(REST):
         if start and end:
             date_range = {
                 'query': (
-                    datetime.fromtimestamp(float(start)),
-                    datetime.fromtimestamp(float(end)),
+                    datetime.fromtimestamp(
+                        float(start)).replace(
+                        tzinfo=pytz.timezone("Europe/Madrid")),
+                    datetime.fromtimestamp(
+                        float(end)).replace(
+                        tzinfo=pytz.timezone("Europe/Madrid")),
                     # datetime(now.year, now.month, 1, 00, 00, 00),
                     # datetime(now.year, now.month, last_day_of_month, 23, 59, 59),
                 ),
