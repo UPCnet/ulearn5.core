@@ -71,7 +71,8 @@ class StatsView(grok.View):
 
     def get_communities(self):
         all_communities = [{'hash': 'all', 'title': _(u'Todas las comunidades')}]
-        all_communities += [{'hash': community.community_hash, 'title': community.Title} for community in self.catalog.searchResults(portal_type='ulearn.community')]
+        all_communities += [{'hash': community.community_hash, 'title': community.Title}
+                            for community in self.catalog.searchResults(portal_type='ulearn.community')]
         return json.dumps(all_communities)
 
     def get_months(self, position):
@@ -85,7 +86,8 @@ class StatsView(grok.View):
         for field in vocab(self.context):
             month_number = field.value + 1
             selected = month_number == current_month_day
-            all_months += [{'value': month_number, 'title': field.title, 'selected': selected}]
+            all_months += [{'value': month_number,
+                            'title': field.title, 'selected': selected}]
 
         return all_months
 
@@ -164,7 +166,8 @@ class StatsQueryBase(grok.View):
         params['search_filters']['is_drilldown'] = False
         params['stats_requested'] = self.request.form.get('stats_requested', None)
         params['search_filters']['keywords'] = self.request.form.get('keywords', [])
-        params['search_filters']['access_type'] = self.request.form.get('access_type', None)
+        params['search_filters']['access_type'] = self.request.form.get(
+            'access_type', None)
 
         community = self.request.form.get('community', None)
         params['search_filters']['community'] = None if community == 'all' else community
@@ -196,7 +199,8 @@ class StatsQueryBase(grok.View):
             drilldown_year = int(drilldown_year)
             drilldown_month = int(drilldown_month)
             drilldown_day = int(drilldown_day)
-            params['drilldown_date'] = datetime(drilldown_year, drilldown_month, drilldown_day)
+            params['drilldown_date'] = datetime(
+                drilldown_year, drilldown_month, drilldown_day)
             params['search_filters']['is_drilldown'] = True
 
         params['start'] = datetime(startyear, startmonth, startday)
@@ -269,9 +273,11 @@ class StatsQuery(StatsQueryBase):
                 results['rows'].append(row)
         else:
             while current <= self.params['end']:
-                row = [dict(value=self.get_month_by_num(current.month) + u' ' + unicode(current.year),
-                            link=None,
-                            show_drilldown=False)]
+                row = [
+                    dict(
+                        value=self.get_month_by_num(current.month) + u' ' +
+                        unicode(current.year),
+                        link=None, show_drilldown=False)]
 
                 for stat_type in self.params['stats_requested']:
                     value = self.get_stats(
@@ -293,7 +299,8 @@ class StatsQuery(StatsQueryBase):
             return json.dumps(results)
         elif output_format == 'csv':
             self.request.response.setHeader('Content-type', 'application/csv')
-            self.request.response.setHeader('Content-disposition', 'attachment; filename=ulearn-stats-{}.csv'.format(datetime.now().strftime('%Y%m%d%H%M%S')))
+            self.request.response.setHeader(
+                'Content-disposition', 'attachment; filename=ulearn-stats-{}.csv'.format(datetime.now().strftime('%Y%m%d%H%M%S')))
             pageviews = 'pageviews' in self.params['stats_requested']
             appviews = 'appviews' in self.params['stats_requested']
             if not pageviews and not appviews:
@@ -303,7 +310,8 @@ class StatsQuery(StatsQueryBase):
             else:
                 lines = [','.join([''] + self.params['stats_requested'])]
                 for row in results['rows']:
-                    lines.append(','.join([str(col['value'].encode('utf-8')) for col in row]))
+                    lines.append(
+                        ','.join([str(col['value'].encode('utf-8')) for col in row]))
             return '\n'.join(lines)
 
 
@@ -330,6 +338,7 @@ class StatsQueryDrilldown(StatsQueryBase):
 class PloneStats(object):
     """
     """
+
     def __init__(self, catalog):
         self.catalog = catalog
 
@@ -352,13 +361,15 @@ class PloneStats(object):
                     user_displayName = api.user.get(doc.Creator).getProperty('fullname')
                     if not user_displayName:
                         user_displayName = doc.Creator
-                    count_dict[community_path]['users'][doc.Creator] = dict(count=1, displayName=user_displayName)
+                    count_dict[community_path]['users'][doc.Creator] = dict(
+                        count=1, displayName=user_displayName)
             else:
                 count_dict[community_path] = dict(users={}, displayName=community.title)
                 user_displayName = api.user.get(doc.Creator).getProperty('fullname')
                 if not user_displayName:
                     user_displayName = doc.Creator
-                count_dict[community_path]['users'][doc.Creator] = dict(count=1, displayName=user_displayName)
+                count_dict[community_path]['users'][doc.Creator] = dict(
+                    count=1, displayName=user_displayName)
 
         rows = []
 
@@ -383,7 +394,8 @@ class PloneStats(object):
 
         # List all paths of the resulting comunities
         communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
-        folder_paths = ['{}/{}'.format(community.getPath(), search_folder) for community in communities]
+        folder_paths = ['{}/{}'.format(community.getPath(), search_folder)
+                        for community in communities]
 
         # Prepare filters for the final search
         catalog_filters = dict(
@@ -395,7 +407,8 @@ class PloneStats(object):
             catalog_filters['Creator'] = filters['user']
 
         if filters['keywords']:
-            catalog_filters['SearchableText'] = {'query': filters['keywords'], 'operator': 'or'}
+            catalog_filters['SearchableText'] = {
+                'query': filters['keywords'], 'operator': 'or'}
 
         if filters['portal_type']:
             catalog_filters['portal_type'] = filters['portal_type']
@@ -426,7 +439,8 @@ class PloneStats(object):
     def stat_media(self, filters, start, end=None):
         """
         """
-        filters['portal_type'] = ['Image', 'AppImage', 'ulearn.video', 'ulearn.video_embed']
+        filters['portal_type'] = ['Image', 'AppImage',
+                                  'ulearn.video', 'ulearn.video_embed']
         return self.stat_by_folder('documents', filters, start, end)
 
 
@@ -446,14 +460,20 @@ class MaxStats(object):
         for activity in activities:
             if activity.get('contexts', False):
                 if count_dict.get(activity['contexts'][0]['url'], False):
-                    if count_dict[activity['contexts'][0]['url']]['users'].get(activity['actor']['username']):
-                        count_dict[activity['contexts'][0]['url']]['users'][activity['actor']['username']]['count'] += 1
+                    if count_dict[activity['contexts'][0]['url']]['users'].get(
+                            activity['actor']['username']):
+                        count_dict[activity['contexts'][0]['url']]['users'][
+                            activity['actor']['username']]['count'] += 1
                     else:
-                        count_dict[activity['contexts'][0]['url']]['users'][activity['actor']['username']] = dict(count=1, displayName=activity['actor']['displayName'])
+                        count_dict[activity['contexts'][0]['url']]['users'][
+                            activity['actor']['username']] = dict(count=1,
+                                                                  displayName=activity['actor']['displayName'])
                 else:
-                    count_dict[activity['contexts'][0]['url']] = dict(displayName=activity['contexts'][0]['displayName'],
-                                                                      users={})
-                    count_dict[activity['contexts'][0]['url']]['users'][activity['actor']['username']] = dict(count=1, displayName=activity['actor']['displayName'])
+                    count_dict[activity['contexts'][0]['url']] = dict(
+                        displayName=activity['contexts'][0]['displayName'], users={})
+                    count_dict[activity['contexts'][0]['url']]['users'][
+                        activity['actor']['username']] = dict(count=1,
+                                                              displayName=activity['actor']['displayName'])
 
         rows = []
 
@@ -471,13 +491,20 @@ class MaxStats(object):
 
         for comment in comments:
             if count_dict.get(comment['object']['inReplyTo'][0]['contexts'][0], False):
-                if count_dict[comment['object']['inReplyTo'][0]['contexts'][0]]['users'].get(comment['actor']['username']):
-                    count_dict[comment['object']['inReplyTo'][0]['contexts'][0]]['users'][comment['actor']['username']]['count'] += 1
+                if count_dict[comment['object']['inReplyTo'][0]['contexts'][0]][
+                        'users'].get(comment['actor']['username']):
+                    count_dict[comment['object']['inReplyTo'][0]['contexts'][0]][
+                        'users'][comment['actor']['username']]['count'] += 1
                 else:
-                    count_dict[comment['object']['inReplyTo'][0]['contexts'][0]]['users'][comment['actor']['username']] = dict(count=1, displayName=comment['actor']['displayName'])
+                    count_dict[comment['object']['inReplyTo'][0]['contexts'][0]][
+                        'users'][comment['actor']['username']] = dict(count=1,
+                                                                      displayName=comment['actor']['displayName'])
             else:
-                count_dict[comment['object']['inReplyTo'][0]['contexts'][0]] = dict(users={})
-                count_dict[comment['object']['inReplyTo'][0]['contexts'][0]]['users'][comment['actor']['username']] = dict(count=1, displayName=comment['actor']['displayName'])
+                count_dict[comment['object']['inReplyTo']
+                           [0]['contexts'][0]] = dict(users={})
+                count_dict[comment['object']['inReplyTo'][0]['contexts'][0]][
+                    'users'][comment['actor']['username']] = dict(count=1,
+                                                                  displayName=comment['actor']['displayName'])
 
         rows = []
         for key in sorted([key for key in count_dict]):
@@ -512,10 +539,12 @@ class MaxStats(object):
             if not message['contexts'][0]['id'] in counter:
                 counter[message['contexts'][0]['id']] = []
 
-            counter[message['contexts'][0]['id']].append(message['actor']['displayName'])
+            counter[message['contexts'][0]['id']].append(
+                message['actor']['displayName'])
             # Save the conversation displayName or id
             if message['contexts'][0].get('displayName', False):
-                conversations[message['contexts'][0]['id']] = message['contexts'][0]['displayName']
+                conversations[message['contexts'][0]['id']
+                              ] = message['contexts'][0]['displayName']
             else:
                 # We have a private conversation
                 conversations[message['contexts'][0]['id']] = u'Conversación privada'
@@ -636,10 +665,11 @@ class MaxStats(object):
 class AnalyticsData(object):
     """
     """
+
     def __init__(self, catalog):
         self.catalog = catalog
 
-    def stat_by_folder(self, search_folder, filters, start, end=None):
+    def count_visits(self, search_folder, filters, start, end=None):
         """
         """
         settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
@@ -647,48 +677,108 @@ class AnalyticsData(object):
            settings.gAnalytics_view_ID is None or \
            settings.gAnalytics_JSON_info is None or \
            settings.gAnalytics_enabled is None or \
-           settings.gAnalytics_enabled == False:
+           settings.gAnalytics_enabled is False:
             return {}
         gAnalytics_view_ID = settings.gAnalytics_view_ID
         gAnalytics_JSON_info = settings.gAnalytics_JSON_info
 
         credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-                        json.loads(gAnalytics_JSON_info),
-                        scopes=['https://www.googleapis.com/auth/analytics.readonly'])
-        service = build('analytics', 'v3', credentials=credentials)
+            json.loads(gAnalytics_JSON_info),
+            scopes=['https://www.googleapis.com/auth/analytics.readonly'])
+        service = build('analyticsreporting', 'v4', credentials=credentials)
 
         if filters['community'] == 'site':
-            gaFilters = 'ga:pagePathLevel1=~/;ga:dimension1!~plone-site;ga:pagePathLevel1!=/;ga:pagePath!@/++'
+            gaFilters = {
+                'filters': [
+                    {
+                        'dimensionName': 'ga:pagePathLevel1',
+                        'operator': 'REGEXP',
+                        'expressions': ['^/']
+                    },
+                    {
+                        'dimensionName': 'ga:dimension1',
+                        'operator': 'REGEXP',
+                        'not': True,
+                        'expressions': ['plone-site']
+                    },
+                    {
+                        'dimensionName': 'ga:pagePathLevel1',
+                        'operator': 'REGEXP',
+                        'not': True,
+                        'expressions': ['/']
+                    },
+                    {
+                        'dimensionName': 'ga:pagePath',
+                        'operator': 'PARTIAL',
+                        'expressions': ['/++']
+                    }
+                ]
+            }
         elif filters['community'] == 'news':
-            gaFilters = 'ga:pagePathLevel1=~/news;ga:dimension1=~news-item'
+            gaFilters = {
+                'filters': [
+                    {
+                        'dimensionName': 'ga:pagePathLevel1',
+                        'operator': 'REGEXP',
+                        'expressions': ['^/news']
+                    },
+                    {
+                        'dimensionName': 'ga:dimension1',
+                        'operator': 'REGEXP',
+                        'expressions': ['news-item']
+                    },
+                ]
+            }
         else:
             catalog_filters = dict(portal_type='ulearn.community')
             if filters['community']:
                 catalog_filters['community_hash'] = filters['community']
             communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
-            gaFilters = ','.join('ga:pagePathLevel1=~/' + community.id for community in communities)
+            gaFilters = {
+                'filters': [
+                    {
+                        'dimensionName': 'ga:pagePathLevel1',
+                        'operator': 'REGEXP',
+                        'expressions': ['^/' + community.id]
+                    }
+                    for community in communities
+                ]
+            }
 
-        analyticsData = service.data().ga().get(**{
-            'ids': 'ga:' + gAnalytics_view_ID,
-            'start_date': str(datetime.date(start)),
-            'end_date': str(datetime.date(end)),
-            'metrics': 'ga:pageviews',
-            'dimensions': 'ga:pagePathLevel1,ga:pagePath,ga:pageTitle,ga:dimension1',
-            'filters': gaFilters,
-            'max_results': '40',
-            'sort': '-ga:pageviews'
-        }).execute()
+        request = {
+            'viewId': 'ga:' + gAnalytics_view_ID,
+            'dateRanges': [
+                {'startDate': str(datetime.date(start)),
+                 'endDate': str(datetime.date(end))}
+            ],
+            'metrics': [{'expression': 'ga:pageviews'}],
+            'dimensions': [
+                {'name': 'ga:pagePathLevel1'},
+                {'name': 'ga:pagePath'},
+                {'name': 'ga:pageTitle'},
+                {'name': 'ga:dimension1'}
+            ],
+            'dimensionFilterClauses': [
+                gaFilters
+            ],
+            'orderBys': [
+                {'fieldName': 'ga:pageviews',
+                 'sortOrder': 'DESCENDING'}],
+            'pageSize': 40
+        }
+        response = service.reports().batchGet(
+            body={'reportRequests': [request]}).execute()
 
-        if 'rows' in analyticsData:
-            return analyticsData['rows']
+        if 'reports' in response:
+            return response['reports'][0]['data']['rows']
         else:
             return []
-        # return [[u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'7'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'5'], [u'/prova-push/', u'/prova/prova-push/documents/agenda-de-formacio', u'Agenda de Formaci\xf3 - Ulearn Comunitats', u'document', u'4'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'document', u'4'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'4'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/doc-2', u'doc 2 - Ulearn Comunitats', u'content_type', u'3'], [u'/prova-push/', u'/prova/prova-push/documents/enllacos/view', u'Enlla\xe7os - Ulearn Comunitats', u'link', u'3'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'3'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'folder', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/carles.png/view', u'carles.png - Ulearn Comunitats', u'image', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/informacio-api-ebcnv1.pdf/view', u'INFORMACIO API-EBCNv1.pdf - Ulearn Comunitats', u'file', u'2'], [u'/prova-push/', u'/prova/prova-push/documents/prova-pageviews', u'Prova pageviews - Ulearn Comunitats', u'document', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'2'], [u'/test/', u'/prova/test/documents/training-agenda', u'Training Agenda - Ulearn Comunitats', u'content_type', u'2'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'1'], [u'/prova-push', u'/prova/prova-push', u'Prova Push - Ulearn Comunitats', u'ulearn-community', u'1'], [u'/prova-push/', u'/prova/prova-push/documents', u'Documents - Ulearn Comunitats', u'content_type', u'1']]
+        # return [{u'metrics': [{u'values': [u'1275']}], u'dimensions': [u'/miranza', u'/miranza', u'MIRANZA - Miranzalia', u'ulearn-community']}, {u'metrics': [{u'values': [u'267']}], u'dimensions': [u'/miranza/', u'/miranza/news/retomamos-los-eventos/view', u'\xa1Retomamos los eventos! - Miranzalia', u'news-item']}]
 
     def stat_pageviews(self, filters, start, end=None):
         """
         """
-        return self.stat_by_folder('pageviews', filters, start, end)
+        return self.count_visits('pageviews', filters, start, end)
 
     def stat_by_app(self, search_folder, filters, start, end=None):
         """
@@ -698,43 +788,63 @@ class AnalyticsData(object):
            settings.gAnalytics_view_ID is None or \
            settings.gAnalytics_JSON_info is None or \
            settings.gAnalytics_enabled is None or \
-           settings.gAnalytics_enabled == False:
+           settings.gAnalytics_enabled is False:
             return {}
         gAnalytics_view_ID = settings.gAnalytics_view_ID
         gAnalytics_JSON_info = settings.gAnalytics_JSON_info
 
         credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-                        json.loads(gAnalytics_JSON_info),
-                        scopes=['https://www.googleapis.com/auth/analytics.readonly'])
-        service = build('analytics', 'v3', credentials=credentials)
+            json.loads(gAnalytics_JSON_info),
+            scopes=['https://www.googleapis.com/auth/analytics.readonly'])
+        service = build('analyticsreporting', 'v4', credentials=credentials)
 
         if filters['community'] == 'site':
-            gaFilters = 'ga:eventCategory=~/'
+            expression = '/$'
         elif filters['community'] == 'news':
-            gaFilters = 'ga:eventCategory=~/news'
+            expression = '/news'
         else:
             catalog_filters = dict(portal_type='ulearn.community')
             if filters['community']:
                 catalog_filters['community_hash'] = filters['community']
             communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
-            gaFilters = ','.join('ga:eventCategory=~/' + community.id for community in communities)
+            expression = '/(' + '|'.join(community.id for community in communities) + ')'
 
-        analyticsData = service.data().ga().get(**{
-            'ids': 'ga:' + gAnalytics_view_ID,
-            'start_date': str(datetime.date(start)),
-            'end_date': str(datetime.date(end)),
-            'metrics': 'ga:totalEvents',
-            'dimensions': 'ga:eventCategory,ga:eventAction,ga:eventLabel',
-            'filters': gaFilters,
-            'max_results': '40',
-            'sort': '-ga:totalEvents'
-        }).execute()
+        request = {
+            'viewId': 'ga:' + gAnalytics_view_ID,
+            'dateRanges': [
+                {'startDate': str(datetime.date(start)),
+                 'endDate': str(datetime.date(end))}
+            ],
+            'metrics': [{'expression': 'ga:totalEvents'}],
+            'dimensions': [
+                {'name': 'ga:eventCategory'},
+                {'name': 'ga:eventAction'},
+                {'name': 'ga:eventLabel'}],
+            'dimensionFilterClauses': [
+                {
+                    'filters': [
+                        {
+                            'dimensionName': 'ga:eventCategory',
+                            'operator': 'REGEXP',
+                            'expressions': [expression]
+                        }
+                    ]
+                }
+            ],
+            'orderBys': [
+                {'fieldName': 'ga:totalEvents',
+                 'sortOrder': 'DESCENDING'}],
+            'pageSize': 40
+        }
 
-        if 'rows' in analyticsData:
-            return analyticsData['rows']
+        response = service.reports().batchGet(
+            body={'reportRequests': [request]}).execute()
+        if 'reports' in response:
+            return response['reports'][0]['data']['rows']
         else:
             return []
-        #return [[u'/comunitats/centro-albacete-1', u'COMUNIDAD', u'Centro: Albacete', u'2'], [u'/comunitats/centro-albacete-1', u'SECCION_docu', u'Centro: Albacete', u'1']]
+
+        # return [[{u'metrics': [{u'values': [u'10']}], u'dimensions': [u'/comunitats/test', u'COMUNIDAD', u'Test']}, {u'metrics': [{u'values': [u'3']}], u'dimensions': [u'/comunitats/test', u'SECCION_docu', u'Test']},]]
 
     def stat_appviews(self, filters, start, end=None):
         """
