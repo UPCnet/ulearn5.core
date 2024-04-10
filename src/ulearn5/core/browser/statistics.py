@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-
 import json
 from os import path
 from apiclient.discovery import build
+from oauth2client.service_account import ServiceAccountCredentials
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from five import grok
@@ -12,7 +13,6 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from zope.component import getUtility
-from oauth2client.service_account import ServiceAccountCredentials
 
 
 datePoints = ["1d", "15d", "1m", "3m", "6m", "1y"]
@@ -96,7 +96,7 @@ class statsAccessed(grok.View):
                settings.gAnalytics_view_ID is None or \
                settings.gAnalytics_JSON_info is None or \
                settings.gAnalytics_enabled is None or \
-               settings.gAnalytics_enabled == False:
+               settings.gAnalytics_enabled is False:
                 return {}
             gAnalytics_view_ID = settings.gAnalytics_view_ID
             gAnalytics_JSON_info = settings.gAnalytics_JSON_info
@@ -111,26 +111,6 @@ class statsAccessed(grok.View):
                 json.loads(gAnalytics_JSON_info),
                 scopes=['https://www.googleapis.com/auth/analytics.readonly'])
             service = build('analytics', 'v3', credentials=credentials)
-
-            # https://ga-dev-tools.google/ga4/query-explorer/
-            # {"dimensions":[
-            #   {"name":"pageTitle"},
-            #   {"name":"customEvent:acces"},
-            #   {"name":"customEvent:domain"},
-            #   {"name":"customEvent:route"}
-            # ],
-            # "metrics":[
-            #   {"name":"screenPageViews"}
-            # ],
-            # "dateRanges":[
-            #   {"startDate":"30daysAgo","endDate":"today"}
-            # ],
-            # "orderBys":[
-            #   {"metric":
-            #       {"metricName":"screenPageViews"},
-            #       "desc":true
-            #   }
-            # ]}
 
             gaFilters = ','.join('ga:pagePath=~/' + communityShortpath
                                  for communityShortpath in communityShortpaths)
@@ -294,7 +274,7 @@ class statsAccessed(grok.View):
                settings.gAnalytics_view_ID is None or \
                settings.gAnalytics_JSON_info is None or \
                settings.gAnalytics_enabled is None or \
-               settings.gAnalytics_enabled == False:
+               settings.gAnalytics_enabled is False:
                 return {}
             gAnalytics_view_ID = settings.gAnalytics_view_ID
             gAnalytics_JSON_info = settings.gAnalytics_JSON_info

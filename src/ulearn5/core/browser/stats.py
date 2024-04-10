@@ -228,7 +228,6 @@ class StatsQuery(StatsQueryBase):
 
         current = self.params['start']
         if 'pageviews' in self.params['stats_requested']:
-
             stats = getattr(self.analytic_data, 'stat_pageviews')(
                 self.params['search_filters'],
                 first_moment_of_month(current),
@@ -236,15 +235,15 @@ class StatsQuery(StatsQueryBase):
 
             portal_url = self.portal_url()
             for line in stats:
-                community = line[0].replace('/', '')
+                community = line['dimensions'][0].replace('/', '')
                 if '?' in community:
                     pos = community.find('?')
                     community = community[0:pos]
-                communityLink = portal_url + line[0]
-                title = line[2][0:line[2].rfind(' -')]
-                titleLink = line[1]
-                typeContent = line[3]
-                views = line[4]
+                communityLink = portal_url + line['dimensions'][0]
+                title = line['dimensions'][2][0:line['dimensions'][2].rfind(' -')]
+                titleLink = line['dimensions'][1]
+                typeContent = line['dimensions'][3]
+                views = line['metrics'][0]['values'][0]
 
                 row = [dict(value='', link=None, show_drilldown=False),
                        dict(value=community, link=communityLink, show_drilldown=False),
@@ -260,10 +259,10 @@ class StatsQuery(StatsQueryBase):
 
             portal_url = self.portal_url()
             for line in stats:
-                event_category = line[0]
-                event_action = line[1]
-                event_label = line[2]
-                total_events = line[3]
+                event_category = line['dimensions'][0]
+                event_action = line['dimensions'][1]
+                event_label = line['dimensions'][2]
+                total_events = line['metrics'][0]['values'][0]
 
                 row = [dict(value='', link=None, show_drilldown=False),
                        dict(value=event_category, link=None, show_drilldown=False),
@@ -769,7 +768,7 @@ class AnalyticsData(object):
         response = service.reports().batchGet(
             body={'reportRequests': [request]}).execute()
 
-        if 'reports' in response:
+        if int(response['reports'][0]['data']['totals'][0]['values'][0]) > 0:
             return response['reports'][0]['data']['rows']
         else:
             return []
@@ -839,11 +838,10 @@ class AnalyticsData(object):
 
         response = service.reports().batchGet(
             body={'reportRequests': [request]}).execute()
-        if 'reports' in response:
+        if int(response['reports'][0]['data']['totals'][0]['values'][0]) > 0:
             return response['reports'][0]['data']['rows']
         else:
             return []
-
         # return [[{u'metrics': [{u'values': [u'10']}], u'dimensions': [u'/comunitats/test', u'COMUNIDAD', u'Test']}, {u'metrics': [{u'values': [u'3']}], u'dimensions': [u'/comunitats/test', u'SECCION_docu', u'Test']},]]
 
     def stat_appviews(self, filters, start, end=None):
