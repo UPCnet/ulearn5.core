@@ -137,16 +137,18 @@ class Link(REST):
                 menufolder = folder.getObject().items()
                 for item in menufolder:
                     id, obj = item
-                    internal = True if obj.remoteUrl.startswith(portal_url) else False
-                    if internal:
-                        url = obj.remoteUrl.replace('#', '')
-                        obj_type = calculatePortalTypeOfInternalPath(url, portal_url)
-                        belong = self.urlBelongsToCommunity(url, portal_url)
-                    else:
-                        url = obj.remoteUrl
-                        obj_type = None
-                        belong = False
                     if ILink.providedBy(obj):
+                        internal = True if obj.remoteUrl.startswith(
+                            portal_url) else False
+                        if internal:
+                            url = obj.remoteUrl.replace('#', '')
+                            obj_type = calculatePortalTypeOfInternalPath(
+                                url, portal_url)
+                            belong = self.urlBelongsToCommunity(url, portal_url)
+                        else:
+                            url = obj.remoteUrl
+                            obj_type = None
+                            belong = False
                         menuLink = dict(
                             id=id,
                             internal=internal,
@@ -156,7 +158,27 @@ class Link(REST):
                             type_when_follow_url=obj_type,
                             url=url,  # UTALK, Miranza APP
                         )
-                        resultsGestion[folder.Title].append(menuLink)
+                    else:
+                        internal = True if obj.absolute_url().startswith(portal_url) else False
+                        if internal:
+                            url = obj.absolute_url().replace('#', '')
+                            obj_type = calculatePortalTypeOfInternalPath(
+                                url, portal_url)
+                            belong = self.urlBelongsToCommunity(url, portal_url)
+                        else:
+                            url = obj.absolute_url()
+                            obj_type = None
+                            belong = False
+                        menuLink = dict(
+                            id=id,
+                            internal=internal,
+                            is_community_belonged=belong,
+                            link=url,
+                            title=obj.title,
+                            type_when_follow_url=obj_type,
+                            url=url,  # UTALK, Miranza APP
+                        )
+                    resultsGestion[folder.Title].append(menuLink)
 
             if not resultsGestion:
                 # 'No Menu Gestion configured in this Site.'
