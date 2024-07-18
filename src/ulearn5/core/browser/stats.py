@@ -690,24 +690,24 @@ class AnalyticsData(object):
             gaFilters = {
                 'filters': [
                     {
-                        'dimensionName': 'ga:pagePathLevel1',
+                        'dimensionName': 'pagePath',
                         'operator': 'REGEXP',
                         'expressions': ['^/']
                     },
                     {
-                        'dimensionName': 'ga:dimension1',
+                        'dimensionName': 'customEvent:content_type',
                         'operator': 'REGEXP',
                         'not': True,
                         'expressions': ['plone-site']
                     },
                     {
-                        'dimensionName': 'ga:pagePathLevel1',
+                        'dimensionName': 'pagePath',
                         'operator': 'REGEXP',
                         'not': True,
                         'expressions': ['/']
                     },
                     {
-                        'dimensionName': 'ga:pagePath',
+                        'dimensionName': 'pagePath',
                         'operator': 'PARTIAL',
                         'expressions': ['/++']
                     }
@@ -717,12 +717,12 @@ class AnalyticsData(object):
             gaFilters = {
                 'filters': [
                     {
-                        'dimensionName': 'ga:pagePathLevel1',
+                        'dimensionName': 'pagePath',
                         'operator': 'REGEXP',
                         'expressions': ['^/news']
                     },
                     {
-                        'dimensionName': 'ga:dimension1',
+                        'dimensionName': 'customEvent:content_type',
                         'operator': 'REGEXP',
                         'expressions': ['news-item']
                     },
@@ -736,7 +736,7 @@ class AnalyticsData(object):
             gaFilters = {
                 'filters': [
                     {
-                        'dimensionName': 'ga:pagePathLevel1',
+                        'dimensionName': 'pagePath',
                         'operator': 'REGEXP',
                         'expressions': ['^/' + community.id]
                     }
@@ -750,21 +750,22 @@ class AnalyticsData(object):
                 {'startDate': str(datetime.date(start)),
                  'endDate': str(datetime.date(end))}
             ],
-            'metrics': [{'expression': 'ga:pageviews'}],
+            'metrics': [{'expression': 'screenPageViews'}],
             'dimensions': [
-                {'name': 'ga:pagePathLevel1'},
-                {'name': 'ga:pagePath'},
-                {'name': 'ga:pageTitle'},
-                {'name': 'ga:dimension1'}
+                {'name': 'pagePath'},
+                {'name': 'pageTitle'},
+                {'name': 'customEvent:content_type'},
             ],
             'dimensionFilterClauses': [
                 gaFilters
             ],
             'orderBys': [
-                {'fieldName': 'ga:pageviews',
+                {'fieldName': 'screenPageViews',
                  'sortOrder': 'DESCENDING'}],
             'pageSize': 40
         }
+        import ipdb
+        ipdb.set_trace()
         response = service.reports().batchGet(
             body={'reportRequests': [request]}).execute()
 
@@ -814,30 +815,32 @@ class AnalyticsData(object):
                 {'startDate': str(datetime.date(start)),
                  'endDate': str(datetime.date(end))}
             ],
-            'metrics': [{'expression': 'ga:totalEvents'}],
+            'metrics': [{'expression': 'conversions:screen_view'}],
             'dimensions': [
-                {'name': 'ga:eventCategory'},
-                {'name': 'ga:eventAction'},
-                {'name': 'ga:eventLabel'}],
+                {'name': 'pageTitle'},
+                {'name': 'customEvent:acces'},
+                {'name': 'customEvent:domain'},
+                {'name': 'customEvent:route'}
+            ],
             'dimensionFilterClauses': [
                 {
                     'filters': [
                         {
-                            'dimensionName': 'ga:eventCategory',
+                            'dimensionName': 'customEvent:route',
                             'operator': 'REGEXP',
                             'expressions': [expression]
                         }
                     ]
                 }
             ],
-            'orderBys': [
-                {'fieldName': 'ga:totalEvents',
-                 'sortOrder': 'DESCENDING'}],
             'pageSize': 40
         }
 
+        import ipdb
+        ipdb.set_trace()
         response = service.reports().batchGet(
             body={'reportRequests': [request]}).execute()
+
         if int(response['reports'][0]['data']['totals'][0]['values'][0]) > 0:
             return response['reports'][0]['data']['rows']
         else:

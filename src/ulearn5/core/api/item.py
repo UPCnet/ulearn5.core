@@ -5,7 +5,7 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
-from ulearn5.core.api.root import APIRoot
+from ulearn5.core.api.root import APIRoot, urlBelongsToCommunity
 from ulearn5.core.html_parser import HTMLParser
 from ulearn5.core.html_parser import replaceImagePathByURL
 from plone import api
@@ -62,6 +62,7 @@ class Item(REST):
                 text = image = image_caption = raw_image = raw_file = content_type = ''
                 type_when_follow_url = item.portal_type
                 external_url = False
+                belong = urlBelongsToCommunity(url, local_url)
                 if item.portal_type == 'News Item':
                     if item.text:
                         text = replaceImagePathByURL(item.text.raw)
@@ -115,6 +116,7 @@ class Item(REST):
                            id=item.id,
                            image=image,
                            image_caption=image_caption,
+                           is_community_belonged=belong,
                            portal_type=item.portal_type,
                            raw_file=raw_file,
                            raw_image=raw_image,
@@ -134,6 +136,7 @@ class Item(REST):
                        id='',
                        image='',
                        image_caption='',
+                       is_community_belonged=False,
                        portal_type='',
                        raw_file='',
                        raw_image='',

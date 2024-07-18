@@ -1,20 +1,16 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_inner
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-
 from five import grok
 from plone import api
 from plone.app.contenttypes.interfaces import ILink
-from plone.app.layout.navigation.root import getNavigationRootObject
 from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from zope.component import getUtility
 from zope.component import queryUtility
 
 from ulearn5.core.api import ApiResponse
 from ulearn5.core.api import REST
 from ulearn5.core.api import api_resource
-from ulearn5.core.api.root import APIRoot
-from ulearn5.core.content.community import ICommunity
+from ulearn5.core.api.root import APIRoot, urlBelongsToCommunity
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.hooks import packages_installed
 from ulearn5.core.utils import calculatePortalTypeOfInternalPath
@@ -144,7 +140,7 @@ class Link(REST):
                             url = obj.remoteUrl.replace('#', '')
                             obj_type = calculatePortalTypeOfInternalPath(
                                 url, portal_url)
-                            belong = self.urlBelongsToCommunity(url, portal_url)
+                            belong = urlBelongsToCommunity(url, portal_url)
                         else:
                             url = obj.remoteUrl
                             obj_type = None
@@ -213,26 +209,3 @@ class Link(REST):
                   'Menu_Controlpanel': resultsControlPanel}
 
         return ApiResponse(values)
-
-    def urlBelongsToCommunity(self, url, portal_url):
-        tree_site = api.portal.get()
-        partial_path = url.split(portal_url)[1]
-        partial_path.replace('#', '')  # Sanitize if necessary
-        if partial_path.endswith('/view/'):
-            partial_path = partial_path.split('/view/')[0]
-        elif partial_path.endswith('/view'):
-            partial_path = partial_path.split('/view')[0]
-        partial_path = partial_path.encode('utf-8')
-        segments = partial_path.split('/')
-        leafs = [segment for segment in segments if segment]
-        for leaf in leafs:
-            try:
-                obj = aq_inner(tree_site.unrestrictedTraverse(leaf))
-                if (ICommunity.providedBy(obj)):
-                    return True
-                else:
-                    tree_site = obj
-            except:
-                logger.error('Error in retrieving object: %s' % url)
-
-        return False

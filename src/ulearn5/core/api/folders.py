@@ -32,7 +32,7 @@ class Folders(REST):
                 folder_path = self.params.pop(k, None)
         query = {
             'path': {'query': folder_path, 'depth': 1},
-            'review_state': ['intranet', 'published'],
+            'review_state': ['private', 'intranet', 'published'],
             'sort_order': 'ascending',
             'sort_on': 'sortable_title',
         }
