@@ -49,12 +49,11 @@ ATTRS_TO_REMOVE = [
     'alink', 'cellpadding', 'cellspacing']
 
 TAGS_TO_REMOVE = [
-    "article", "aside", "audio", "bdo", "big", "canvas", "col", "colgroup",
+    "aside", "audio", "bdo", "big", "canvas", "col", "colgroup",
     "command", "datalist", "dd", "del", "details", "dfn", "dialog", "dl",
     "dt", "footer", "head", "header", "hgroup", "ins", "kbd", "keygen",
     "map", "mark", "meter", "nav", "output", "progress", "rp", "rt",
-    "ruby", "samp", "section", "sub", "sup", "var",
-    "video", "script"]
+    "ruby", "samp", "sub", "sup", "var", "video", "script"]
 
 # These are empty elements, but they are relevant for the visualization of the html
 TAGS_TO_KEEP = ["br", "iframe", "img", "input"]
@@ -79,7 +78,10 @@ def HTMLParser(html):
     for tag in soup.find_all():
         remove_empty_tags(tag)
 
-    return soup.prettify()
+    try:
+        return soup.prettify()
+    except:
+        return None
 
 
 def remove_empty_tags(el):
