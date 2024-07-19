@@ -764,8 +764,7 @@ class AnalyticsData(object):
                  'sortOrder': 'DESCENDING'}],
             'pageSize': 40
         }
-        import ipdb
-        ipdb.set_trace()
+
         response = service.reports().batchGet(
             body={'reportRequests': [request]}).execute()
 
