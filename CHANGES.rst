@@ -2,11 +2,21 @@ Changelog
 =========
 
 
-0.137 (unreleased)
+0.137 (2024-07-22)
 ------------------
 
-- Nothing changed yet.
-
+* Update patches.py ADD administrador3 enginyersbcn [pmarinas]
+* [FIX] Recovering old stats [Alberto Durán]
+* [REMOVE] ipdb [Iago López]
+* [ADD] urlBelongsToCommunity function to api/item [Alberto Durán]
+* [FIX] html_parser evitar que pete si se limpia todo el html [Iago López]
+* [FIX] Allow all contenttypes in menugestio links [Alberto Durán]
+* [UPD] print stats with ga4 [Alberto Durán]
+* [UPD] stats with ga4 [Alberto Durán]
+* [FIX] timezone in api/events [Alberto Durán]
+* [FIX] Returning if link belongs to community [Alberto Durán]
+* [ADD] Recurrence to events endpoint [Alberto Durán]
+* [UPD] api/links to get info when link is unaffordable [Alberto Durán]
 
 0.136 (2024-01-09)
 ------------------
