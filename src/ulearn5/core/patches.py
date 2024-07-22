@@ -279,7 +279,7 @@ def authenticateCredentials(self, credentials):
 
     installed = packages_installed()
     if 'ulearn5.enginyersbcn' in installed:
-         ldap_users = ['ulearn.user1', 'ulearn.user2', 'ulearn.user3', 'administrador1', 'administrador2', 'comunicacio1', 'comunicacio2', 'dega', 'sac', 'sot', 'saj', 'formacio', 'sopp']
+         ldap_users = ['ulearn.user1', 'ulearn.user2', 'ulearn.user3', 'administrador1', 'administrador2', 'administrador3', 'comunicacio1', 'comunicacio2', 'dega', 'sac', 'sot', 'saj', 'formacio', 'sopp']
          if login not in ldap_users:
              return None
 
