@@ -305,12 +305,11 @@ class StatsQuery(StatsQueryBase):
             if not pageviews and not appviews:
                 lines = [','.join(['Fecha'] + self.params['stats_requested'])]
                 for row in results['rows']:
-                    lines.append(','.join([str(col['value']) for col in row]))
+                    lines.append(','.join([str(col['value']) if isinstance(col['value'], (int, float)) else col['value'].encode('utf-8') for col in row]))
             else:
                 lines = [','.join([''] + self.params['stats_requested'])]
                 for row in results['rows']:
-                    lines.append(
-                        ','.join([str(col['value'].encode('utf-8')) for col in row]))
+                    lines.append(','.join([str(col['value']) if isinstance(col['value'], (int, float)) else col['value'].encode('utf-8') for col in row]))
             return '\n'.join(lines)
 
 
