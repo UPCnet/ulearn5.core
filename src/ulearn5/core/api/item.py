@@ -54,7 +54,7 @@ class Item(REST):
 
             try:
                 # Check if value deleted / moved --> NOT FOUND!
-                item = api.content.get(path=item_path.encode('utf-8'))
+                item = api.content.find(path=item_path, depth=0)[0].getObject()
             except:
                 item = False
 
