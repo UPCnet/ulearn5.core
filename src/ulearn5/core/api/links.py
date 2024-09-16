@@ -160,7 +160,7 @@ class Link(REST):
                             url = obj.absolute_url().replace('#', '')
                             obj_type = calculatePortalTypeOfInternalPath(
                                 url, portal_url)
-                            belong = self.urlBelongsToCommunity(url, portal_url)
+                            belong = urlBelongsToCommunity(url, portal_url)
                         else:
                             url = obj.absolute_url()
                             obj_type = None
