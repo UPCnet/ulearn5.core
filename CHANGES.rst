@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.139 (unreleased)
+0.139 (2024-09-16)
 ------------------
 
-- Nothing changed yet.
-
+* Merge remote-tracking branch 'origin/develop' [Iago López]
+* [FIX] api/item [Iago López]
+* [FIX] api/links - self.urlBelongsToCommunity(url, portal_url) -> urlBelongsToCommunity(url, portal_url) [Iago López]
 
 0.138 (2024-08-06)
 ------------------
