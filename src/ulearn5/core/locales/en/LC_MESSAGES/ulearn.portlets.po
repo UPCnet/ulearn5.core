@@ -130,3 +130,6 @@ msgstr "Portlet Ulearn My Communities"
 
 msgid "ulearn_portlets_zoom"
 msgstr "Portlet Ulearn Zoom"
+
+msgid "ulearn_portlets_folderview"
+msgstr "Portlet Ulearn Folder View"

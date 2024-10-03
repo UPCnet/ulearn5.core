@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-08-06 11:55+0000\n"
+"POT-Creation-Date: 2024-10-03 13:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,6 +58,10 @@ msgstr ""
 
 #: ulearn5/theme/portlets/flashesinformativos/flashesinformativos.py:154
 msgid "Add Flashes Informativos Portlet"
+msgstr ""
+
+#: ulearn5/theme/portlets/folderview/folderview.py:121
+msgid "Add Folder view Portlet"
 msgstr ""
 
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:90
@@ -214,7 +218,7 @@ msgid "Comunitat"
 msgstr ""
 
 #. Default: "Comunidad <span class=\"formHelp\"></span>"
-#: ../browser/stats_templates/statsview.pt:207
+#: ../browser/stats_templates/statsview.pt:208
 msgid "Comunitat_stats"
 msgstr ""
 
@@ -288,6 +292,10 @@ msgstr ""
 msgid "Edit Flashes Informativos portlet"
 msgstr ""
 
+#: ulearn5/theme/portlets/folderview/folderview.py:131
+msgid "Edit Folder view Portlet"
+msgstr ""
+
 #: ulearn5/theme/portlets/mysubjects/mysubjects.py:101
 msgid "Edit My Subjects Portlet"
 msgstr ""
@@ -350,10 +358,6 @@ msgstr ""
 msgid "Error, the directory has been deleted."
 msgstr ""
 
-#: ../browser/stats.py:231
-msgid "Es necesario hacer una busqueda antes"
-msgstr ""
-
 #: ../content/community.py:1616
 msgid "Esdeveniments"
 msgstr ""
@@ -379,13 +383,17 @@ msgid "File"
 msgstr ""
 
 #. Default: "Filtro por palabra clave <span class=\"formHelp\"></span>"
-#: ../browser/stats_templates/statsview.pt:244
+#: ../browser/stats_templates/statsview.pt:245
 msgid "Filtro por palabra clave"
 msgstr ""
 
 #. Default: "Fin <span class=\"formHelp\">x</span>"
-#: ../browser/stats_templates/statsview.pt:179
+#: ../browser/stats_templates/statsview.pt:180
 msgid "Fin_stats"
+msgstr ""
+
+#: ulearn5/theme/portlets/folderview/folderview.py:51
+msgid "Folder View Portlet"
 msgstr ""
 
 #: ../controlpanel.py:78
@@ -458,7 +466,7 @@ msgid "Information for users and communities"
 msgstr ""
 
 #. Default: "Inicio <span class=\"formHelp\">x</span>"
-#: ../browser/stats_templates/statsview.pt:155
+#: ../browser/stats_templates/statsview.pt:156
 msgid "Inicio_stats"
 msgstr ""
 
@@ -560,12 +568,12 @@ msgid "Menu"
 msgstr ""
 
 #. Default: "Mes final"
-#: ../browser/stats_templates/statsview.pt:179
+#: ../browser/stats_templates/statsview.pt:180
 msgid "Mes_final"
 msgstr ""
 
 #. Default: "Mes inicial"
-#: ../browser/stats_templates/statsview.pt:155
+#: ../browser/stats_templates/statsview.pt:156
 msgid "Mes_inicial"
 msgstr ""
 
@@ -808,7 +816,7 @@ msgstr ""
 msgid "Restricted to managers"
 msgstr ""
 
-#: ../browser/stats_templates/statsview.pt:288
+#: ../browser/stats_templates/statsview.pt:289
 msgid "Resultados"
 msgstr ""
 
@@ -948,6 +956,10 @@ msgstr ""
 msgid "This portlet displays Flashes Informativos."
 msgstr ""
 
+#: ulearn5/theme/portlets/folderview/folderview.py:122
+msgid "This portlet displays a folder view."
+msgstr ""
+
 #: ulearn5/theme/portlets/banners/banners.py:157
 msgid "This portlet displays banners."
 msgstr ""
@@ -988,6 +1000,14 @@ msgstr ""
 msgid "Tipus de comunitat"
 msgstr ""
 
+#: ulearn5/theme/portlets/folderview/folderview.py:20
+msgid "Title"
+msgstr ""
+
+#: ulearn5/theme/portlets/folderview/folderview.py:21
+msgid "Title of the portlet."
+msgstr ""
+
 #: ../controlpopup.py:57
 msgid "To activate this functionality you have to request the addition of the birthday field in the profile."
 msgstr ""
@@ -996,7 +1016,7 @@ msgstr ""
 msgid "To reset the notify access the following <a href=\"@@reset_notify\">link</a>."
 msgstr ""
 
-#: ../browser/stats.py:74
+#: ../browser/stats.py:73
 #: ../browser/viewlets.py:70
 #: ulearn5/theme/browser/views_templates/allcommunities.pt:34
 msgid "Todas las comunidades"
@@ -1040,6 +1060,10 @@ msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
 msgid "Ulearn Communities"
+msgstr ""
+
+#: ulearn5/theme/profiles/default/portlets.xml
+msgid "Ulearn Folder View"
 msgstr ""
 
 #: ulearn5/theme/profiles/default/portlets.xml
@@ -1115,7 +1139,7 @@ msgid "Users comunnity lists"
 msgstr ""
 
 #. Default: "Usuario <span class=\"formHelp\"></span>"
-#: ../browser/stats_templates/statsview.pt:225
+#: ../browser/stats_templates/statsview.pt:226
 msgid "Usuario_stats"
 msgstr ""
 
@@ -1255,7 +1279,7 @@ msgid "btnAclCommunity"
 msgstr ""
 
 #. Default: "Cancela"
-#: ../browser/stats_templates/statsview.pt:280
+#: ../browser/stats_templates/statsview.pt:281
 msgid "btnCancel"
 msgstr ""
 
@@ -1475,7 +1499,7 @@ msgid "export_users_communities"
 msgstr ""
 
 #. Default: "Exporta"
-#: ../browser/stats_templates/statsview.pt:279
+#: ../browser/stats_templates/statsview.pt:280
 msgid "exporta"
 msgstr ""
 
@@ -2328,7 +2352,7 @@ msgid "retiraalaintranet"
 msgstr ""
 
 #. Default: "Cerca"
-#: ../browser/stats_templates/statsview.pt:278
+#: ../browser/stats_templates/statsview.pt:279
 #: ulearn5/theme/browser/views_templates/sharedwithme.pt:25
 msgid "search"
 msgstr ""
@@ -2432,7 +2456,7 @@ msgid "show_news_in_app"
 msgstr ""
 
 #. Default: "Stats"
-#: ../browser/stats_templates/statsview.pt:142
+#: ../browser/stats_templates/statsview.pt:143
 #: ulearn5/theme/portlets/stats.py:23
 #: ulearn5/theme/portlets/templates/stats.pt:7
 msgid "stats"
