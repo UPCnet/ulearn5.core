@@ -2,11 +2,10 @@ Changelog
 =========
 
 
-0.140 (unreleased)
+0.140 (2024-10-07)
 ------------------
 
-- Nothing changed yet.
-
+* [UPD] Traducciones nuevo portlet [Iago López]
 
 0.139 (2024-09-16)
 ------------------
