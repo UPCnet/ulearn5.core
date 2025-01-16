@@ -52,18 +52,18 @@ class TestExample(uLearnTestBase):
 
     def create_default_test_users(self):
         for suffix in range(1, 15):
-            api.user.create(email='test@upcnet.es', username='victor.fernandez.' + unicode(suffix),
-                            properties=dict(fullname=u'Víctor' + unicode(suffix),
-                                            location=u'Barcelona',
-                                            ubicacio=u'NX',
-                                            email=u'test@upcnet.es'))
+            api.user.create(email='test@upcnet.es', username='victor.fernandez.' + str(suffix),
+                            properties=dict(fullname='Víctor' + str(suffix),
+                                            location='Barcelona',
+                                            ubicacio='NX',
+                                            email='test@upcnet.es'))
 
     def delete_default_test_users(self):
         for suffix in range(1, 15):
-            api.user.delete(username='victor.fernandez.' + unicode(suffix))
+            api.user.delete(username='victor.fernandez.' + str(suffix))
 
     def test_default_search(self):
-        login(self.portal, u'ulearn.testuser1')
+        login(self.portal, 'ulearn.testuser1')
         users = searchUsersFunction(self.portal, self.request, '')
         logout()
 
@@ -71,39 +71,39 @@ class TestExample(uLearnTestBase):
 
     def test_search_portal_with_search_string(self):
         search_string = 'janet'
-        login(self.portal, u'ulearn.testuser1')
+        login(self.portal, 'ulearn.testuser1')
         users = searchUsersFunction(self.portal, self.request, search_string)
         logout()
 
         self.assertTrue(len(users['content']) == 1)
-        self.assertEqual(users['content'][0]['id'], u'janet.dura')
+        self.assertEqual(users['content'][0]['id'], 'janet.dura')
 
     def test_search_portal_with_search_string_not_username(self):
-        search_string = u'Janet'
-        login(self.portal, u'ulearn.testuser1')
+        search_string = 'Janet'
+        login(self.portal, 'ulearn.testuser1')
         users = searchUsersFunction(self.portal, self.request, search_string)
         logout()
 
         self.assertTrue(len(users['content']) == 1)
-        self.assertEqual(users['content'][0]['id'], u'janet.dura')
+        self.assertEqual(users['content'][0]['id'], 'janet.dura')
 
     def test_search_portal_with_search_string_unicode(self):
-        search_string = u'Durà'
-        login(self.portal, u'ulearn.testuser1')
+        search_string = 'Durà'
+        login(self.portal, 'ulearn.testuser1')
         users = searchUsersFunction(self.portal, self.request, search_string)
         logout()
 
         self.assertTrue(len(users['content']) == 1)
-        self.assertEqual(users['content'][0]['id'], u'janet.dura')
+        self.assertEqual(users['content'][0]['id'], 'janet.dura')
 
     def test_search_community(self):
-        login(self.portal, u'ulearn.testuser1')
+        login(self.portal, 'ulearn.testuser1')
         community = self.create_test_community(id='community-testsearch', community_type='Closed')
 
         users = searchUsersFunction(community, self.request, '')
 
         self.assertTrue(len(users['content']) == 1)
-        self.assertEqual(users['content'][0]['id'], u'ulearn.testuser1')
+        self.assertEqual(users['content'][0]['id'], 'ulearn.testuser1')
 
         users = searchUsersFunction(community, self.request, 'janet')
 
@@ -121,34 +121,34 @@ class TestExample(uLearnTestBase):
 
     def test_search_community_with_additional_fields_on_community_no_query(self):
         """ This is the case when a client has customized user properties """
-        login(self.portal, u'ulearn.testuser1')
+        login(self.portal, 'ulearn.testuser1')
         community = self.create_test_community(id='community-testsearch', community_type='Closed')
 
         users = searchUsersFunction(community, self.request, '')
 
         self.assertTrue(len(users['content']) == 1)
-        self.assertEqual(users['content'][0]['id'], u'ulearn.testuser1')
+        self.assertEqual(users['content'][0]['id'], 'ulearn.testuser1')
 
         logout()
 
     def test_search_community_with_additional_fields_on_portal_with_query(self):
         """ This is the case when a client has customized user properties """
-        login(self.portal, u'ulearn.testuser1')
+        login(self.portal, 'ulearn.testuser1')
         # We provide here the required initialization for a user custom properties catalog
         provideUtility(TestUserExtendedPropertiesSoupCatalogFactory(), name='user_properties_exttest')
-        api.portal.set_registry_record(name='base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender', value=u'user_properties_exttest')
+        api.portal.set_registry_record(name='base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender', value='user_properties_exttest')
 
         # Modify an user to accomodate new properties from extended catalog
         # Force it as we are not faking the extension of the user properties
         # (Plone side utility overriding blabla)
-        add_user_to_catalog('ulearn.testuser1', {'position': u'Jefe', 'unit_organizational': u'Finance'})
+        add_user_to_catalog('ulearn.testuser1', {'position': 'Jefe', 'unit_organizational': 'Finance'})
 
         users = searchUsersFunction(self.portal, self.request, 'ulearn.testuser1')
 
         self.assertTrue(len(users['content']) == 1)
-        self.assertEqual(users['content'][0]['id'], u'ulearn.testuser1')
-        self.assertEqual(users['content'][0]['position'], u'Jefe')
-        self.assertEqual(users['content'][0]['unit_organizational'], u'Finance')
+        self.assertEqual(users['content'][0]['id'], 'ulearn.testuser1')
+        self.assertEqual(users['content'][0]['position'], 'Jefe')
+        self.assertEqual(users['content'][0]['unit_organizational'], 'Finance')
 
         logout()
 
@@ -167,9 +167,9 @@ class TestExample(uLearnTestBase):
         """
         self.create_default_test_users()
         reset_user_catalog()
-        add_user_to_catalog(u'victor.fernandez', dict(fullname=u'Víctor'))
+        add_user_to_catalog('victor.fernandez', dict(fullname='Víctor'))
 
-        login(self.portal, u'ulearn.testuser1')
+        login(self.portal, 'ulearn.testuser1')
 
         search_view = getMultiAdapter((self.portal, self.request), name='omega13usersearch')
         self.request.form = dict(q='v')
@@ -190,13 +190,13 @@ class TestExample(uLearnTestBase):
         self.assertTrue(len([r for r in soup.query(Eq('username', 'victor fer*'))]) > 5)
 
         # Amb un altre usuari (janet)
-        add_user_to_catalog(u'janet.dura', dict(fullname=u'Janet'))
+        add_user_to_catalog('janet.dura', dict(fullname='Janet'))
         self.request.form = dict(q='janet', last_query='', last_query_count=0)
         result = search_view.render()
         result = json.loads(result)
 
         self.assertEqual(result['last_query_count'], 1)
-        self.assertEqual(result['results'], [{u'displayName': u'Janet', u'id': u'janet.dura'}])
+        self.assertEqual(result['results'], [{'displayName': 'Janet', 'id': 'janet.dura'}])
 
         self.request.form = dict(q='janeth', last_query='janet', last_query_count=1)
         result = search_view.render()
@@ -223,9 +223,9 @@ class TestExample(uLearnTestBase):
         """
         self.create_default_test_users()
         reset_user_catalog()
-        add_user_to_catalog(u'victor.fernandez', dict(fullname=u'Víctor Fernández de Alba', location='Nexus'))
+        add_user_to_catalog('victor.fernandez', dict(fullname='Víctor Fernández de Alba', location='Nexus'))
 
-        login(self.portal, u'ulearn.testuser1')
+        login(self.portal, 'ulearn.testuser1')
 
         soup = get_soup('user_properties', self.portal)
         self.assertTrue([r for r in soup.query(Eq('searchable_text', 'victor Nex*'))])
@@ -237,13 +237,13 @@ class TestExample(uLearnTestBase):
 
     @unittest.skipUnless(os.environ.get('LDAP_TEST', False), 'Skipping due to lack of LDAP access')
     def test_group_search_on_acl(self):
-        setRoles(self.portal, u'ulearn.testuser1', ['Manager'])
-        login(self.portal, u'ulearn.testuser1')
+        setRoles(self.portal, 'ulearn.testuser1', ['Manager'])
+        login(self.portal, 'ulearn.testuser1')
         sync_view = getMultiAdapter((self.portal, self.request), name='syncldapgroups')
         sync_view.render()
         logout()
 
-        login(self.portal, u'ulearn.testuser2')
+        login(self.portal, 'ulearn.testuser2')
         search_view = getMultiAdapter((self.portal, self.request), name='omega13groupsearch')
         self.request.form = dict(q='pas')
         result = search_view.render()
@@ -254,13 +254,13 @@ class TestExample(uLearnTestBase):
 
     @unittest.skipUnless(os.environ.get('LDAP_TEST', False), 'Skipping due to lack of LDAP access')
     def test_group_search_on_acl_with_dashes(self):
-        setRoles(self.portal, u'ulearn.testuser1', ['Manager'])
-        login(self.portal, u'ulearn.testuser1')
+        setRoles(self.portal, 'ulearn.testuser1', ['Manager'])
+        login(self.portal, 'ulearn.testuser1')
         sync_view = getMultiAdapter((self.portal, self.request), name='syncldapgroups')
         sync_view.render()
         logout()
 
-        login(self.portal, u'ulearn.testuser2')
+        login(self.portal, 'ulearn.testuser2')
         search_view = getMultiAdapter((self.portal, self.request), name='omega13groupsearch')
         self.request.form = dict(q='pas-188')
         result = search_view.render()
@@ -274,7 +274,7 @@ class TestExample(uLearnTestBase):
         self.create_default_test_users()
         reset_user_catalog()
         # Add a legit user
-        add_user_to_catalog(u'victor.fernandez', dict(fullname=u'Víctor'))
+        add_user_to_catalog('victor.fernandez', dict(fullname='Víctor'))
         normalized_query = 'victor fer*'
         soup = get_soup('user_properties', self.portal)
 
@@ -284,7 +284,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(len(result), 1)
 
         # Add a non legit user from the initial set
-        add_user_to_catalog(u'victor.fernandez.1', dict(fullname=u'Víctor'), notlegit=True)
+        add_user_to_catalog('victor.fernandez.1', dict(fullname='Víctor'), notlegit=True)
 
         # The result is still the legit one alone
         result = [r for r in soup.query(Eq('searchable_text', normalized_query))]
@@ -304,7 +304,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(len(result), 1)
 
         # If the non legit became legit at some point of time via a subscriber
-        api.user.get('victor.fernandez.1').setMemberProperties(mapping={'fullname': u'Test', 'location': u'Barcelona', 'telefon': u'654321 123 123'})
+        api.user.get('victor.fernandez.1').setMemberProperties(mapping={'fullname': 'Test', 'location': 'Barcelona', 'telefon': '654321 123 123'})
 
         # Then it does not show as not legit
         result = [r for r in soup.query(And(Or(Eq('username', normalized_query), Eq('fullname', normalized_query)), Eq('notlegit', True)))]
@@ -316,10 +316,10 @@ class TestExample(uLearnTestBase):
 
     def test_rebuild_user_catalog_with_user_extended_properties(self):
         """ This is the case when a client has customized user properties """
-        login(self.portal, u'ulearn.testuser1')
+        login(self.portal, 'ulearn.testuser1')
         # We provide here the required initialization for a user custom properties catalog
         provideUtility(TestUserExtendedPropertiesSoupCatalogFactory(), name='user_properties_exttest')
-        api.portal.set_registry_record(name='base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender', value=u'user_properties_exttest')
+        api.portal.set_registry_record(name='base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender', value='user_properties_exttest')
 
         # Fake extended Plone user properties
         pmd = api.portal.get_tool('portal_memberdata')
@@ -327,7 +327,7 @@ class TestExample(uLearnTestBase):
         pmd._setProperty('unit_organizational', '')
 
         # Modify user
-        api.user.get('ulearn.testuser1').setMemberProperties(mapping={'position': u'Jefe', 'unit_organizational': u'Finance'})
+        api.user.get('ulearn.testuser1').setMemberProperties(mapping={'position': 'Jefe', 'unit_organizational': 'Finance'})
 
         rebuild_view = getMultiAdapter((self.portal, self.request), name='rebuild_user_catalog')
         rebuild_view.render()

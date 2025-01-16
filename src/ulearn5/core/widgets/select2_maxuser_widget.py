@@ -14,12 +14,12 @@ import zope.schema
 class Select2MAXUserInputWidget(textarea.TextAreaWidget):
     """Widget for select site users"""
     zope.interface.implementsOnly(IAjaxSelectWidget)
-    klass = u'user-token-input-widget'
+    klass = 'user-token-input-widget'
     display_template = ViewPageTemplateFile('templates/select2_maxuser_display.pt')
     input_template = ViewPageTemplateFile('templates/select2_maxuser_input.pt')
 
     # JavaScript template
-    js_template = u"""\
+    js_template = """\
     (function($) {
         $().ready(function() {
             function loadSelect2Maxuser(){

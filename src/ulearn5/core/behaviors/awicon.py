@@ -12,13 +12,13 @@ class IAwIcon(form.Schema):
     """
     form.fieldset(
         'awsome_icon',
-        label=_(u'Icon'),
+        label=_('Icon'),
         fields=('awicon',),
     )
 
     awicon = schema.TextLine(
-        title=_(u"Icon"),
-        description=_(u"Name of the Font Awesome class to use as an icon. It is only visible in the menu."),
+        title=_("Icon"),
+        description=_("Name of the Font Awesome class to use as an icon. It is only visible in the menu."),
         required=False,
     )
 

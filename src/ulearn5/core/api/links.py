@@ -130,7 +130,7 @@ class Link(REST):
             # Links from gestion folder
             for folder in folders:
                 resultsGestion[folder.Title] = []
-                menufolder = folder.getObject().items()
+                menufolder = list(folder.getObject().items())
                 for item in menufolder:
                     id, obj = item
                     if ILink.providedBy(obj):

@@ -16,8 +16,8 @@ class IThumbimage(model.Schema):
 
     directives.read_permission(thumbnail_image='Zope2.View')
     thumbnail_image = namedfile.NamedBlobImage(
-        title=_(u"Thumbnail Image"),
-        description=u"Image used in api, for App.",
+        title=_("Thumbnail Image"),
+        description="Image used in api, for App.",
         required=False,
     )
 

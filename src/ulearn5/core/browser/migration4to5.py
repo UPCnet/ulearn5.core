@@ -140,7 +140,7 @@ class migrationCommunities(grok.View):
                                 try:
                                     adapter.set_plone_permissions(acl)
                                 except:
-                                    if acl['groups'] == u'':
+                                    if acl['groups'] == '':
                                         acl['groups'] = []
                                         adapter.set_plone_permissions(acl)
 

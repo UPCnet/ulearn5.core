@@ -37,7 +37,7 @@ RE_VALID_TWITTER_USERNAME = r'^\s*@?([a-zA-Z0-9_]{1,15})\s*$'
 
 
 class InvalidTwitterUsernameError(schema.ValidationError):
-    __doc__ = _(u"Invalid twitter username.")
+    __doc__ = _("Invalid twitter username.")
 
 
 def isValidTwitterUsername(text):
@@ -297,10 +297,10 @@ def construct_calendar_user_timezone(events, start=None, end=None):
 def byteify(input):
     if isinstance(input, dict):
         return {byteify(key): byteify(value)
-                for key, value in input.iteritems()}
+                for key, value in input.items()}
     elif isinstance(input, list):
         return [byteify(element) for element in input]
-    elif isinstance(input, unicode):
+    elif isinstance(input, str):
         return input.encode('utf-8')
     else:
         return input

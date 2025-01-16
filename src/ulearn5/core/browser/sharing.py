@@ -60,7 +60,7 @@ class ElasticSharing(object):
             Remap local roles to exclude Owner roles
         """
         current_local_roles = {}
-        for principal, roles in object.__ac_local_roles__.items():
+        for principal, roles in list(object.__ac_local_roles__.items()):
             effective_roles = [role for role in roles if role not in ['Owner']]
             if effective_roles:
                 current_local_roles[principal] = effective_roles
@@ -148,7 +148,7 @@ class ElasticSharing(object):
 
             existing_principals = [aa['principal'] for aa in existing_records]
 
-            current_principals = current_local_roles.keys()
+            current_principals = list(current_local_roles.keys())
             current_principals_in_groups = []
 
             for cprincipal in current_principals:
@@ -162,7 +162,7 @@ class ElasticSharing(object):
                 self.remove(object, principal)
 
             # Add new records or modify existing ones
-            for principal, roles in current_local_roles.items():
+            for principal, roles in list(current_local_roles.items()):
 
                 if api.group.get(groupname=principal):
                     users = api.user.get_users(groupname=principal)
@@ -292,13 +292,13 @@ class ElasticSharing(object):
             if groups_user:
                 groups = [group.id for group in groups_user]
 
-            if [group for group in groups if group in object.__ac_local_roles__.keys()]:
+            if [group for group in groups if group in list(object.__ac_local_roles__.keys())]:
                 owner = object.getOwner()._id
                 if username != owner:
                     return True
                 else:
                     return False
-            elif username in object.__ac_local_roles__.keys():
+            elif username in list(object.__ac_local_roles__.keys()):
                 is_Owner = [a for a in object.__ac_local_roles__[username] if a in ['Owner']]
                 if is_Owner:
                     return False
@@ -412,18 +412,18 @@ class SharedMarker(grok.Adapter):
         if not self.is_shared():
             setattr(self.context, '_shared', True)
             self.context.indexObject()
-            print
-            print 'Shared'
-            print
+            print()
+            print('Shared')
+            print()
 
     def unshare(self):
         """ Sets the shared status of the object """
         if self.is_shared():
             setattr(self.context, '_shared', False)
             self.context.indexObject()
-            print
-            print 'Unshared'
-            print
+            print()
+            print('Unshared')
+            print()
 
 def SharingChanged(content, event):
     """ Hook to store shared mark on object & elastic """

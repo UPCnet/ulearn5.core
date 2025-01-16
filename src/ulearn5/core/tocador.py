@@ -10,7 +10,7 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFCore.utils import getToolByName
 from zope.interface import alsoProvides
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 
 class installPloneProduct(grok.View):
@@ -103,9 +103,9 @@ class uninstallPloneProduct(grok.View):
 def listPloneSites(zope):
     """ List the available plonesites to be used by other function """
     out = []
-    for item in zope.values():
+    for item in list(zope.values()):
         if IFolder.providedBy(item) and not IPloneSiteRoot.providedBy(item):
-            for site in item.values():
+            for site in list(item.values()):
                 if IPloneSiteRoot.providedBy(site):
                     out.append(site)
         elif IPloneSiteRoot.providedBy(item):
@@ -137,9 +137,9 @@ class bulkExecuteScriptView(grok.View):
         for plonesite in plonesites:
             if plonesite.id not in exclude_sites:
                 print('======================')
-                print('Executing view in {}'.format(plonesite.id))
+                print(('Executing view in {}'.format(plonesite.id)))
                 print('======================')
-                quoted_args = urllib.urlencode(args)
+                quoted_args = urllib.parse.urlencode(args)
                 response = subrequest('/'.join(plonesite.getPhysicalPath()) + '/{}?{}'.format(view_name, quoted_args))
                 output.append("""<br/>-- Executed view {} in site {} --""".format(view_name, plonesite.id))
                 output.append(response.getBody())

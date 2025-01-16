@@ -65,24 +65,24 @@ import transaction
 logger = logging.getLogger(__name__)
 
 articles = {
-    'ca': {'Document': u'un', 'File': u'un', 'Image': u'una', 'Link': u'un', 'Event': u'un', 'News Item': u'una', 'External Content': u'un', 'ulearn.video': u'un', 'Etherpad':  u'un'},
-    'es': {'Document': u'un', 'File': u'un', 'Image': u'una', 'Link': u'un', 'Event': u'un', 'News Item': u'una', 'External Content': u'un', 'ulearn.video': u'un', 'Etherpad':  u'un'},
-    'en': {'Document': u'a', 'File': u'a', 'Image': u'a', 'Link': u'a', 'Event': u'an', 'News Item': u'a', 'External Content': u'an', 'ulearn.video': u'a', 'Etherpad': u'a'}
+    'ca': {'Document': 'un', 'File': 'un', 'Image': 'una', 'Link': 'un', 'Event': 'un', 'News Item': 'una', 'External Content': 'un', 'ulearn.video': 'un', 'Etherpad':  'un'},
+    'es': {'Document': 'un', 'File': 'un', 'Image': 'una', 'Link': 'un', 'Event': 'un', 'News Item': 'una', 'External Content': 'un', 'ulearn.video': 'un', 'Etherpad':  'un'},
+    'en': {'Document': 'a', 'File': 'a', 'Image': 'a', 'Link': 'a', 'Event': 'an', 'News Item': 'a', 'External Content': 'an', 'ulearn.video': 'a', 'Etherpad': 'a'}
 }
 
 tipus = {
     'ca':
-    {'Document': u'document', 'File': u'fitxer', 'Image': u'foto', 'Link': u'enllaç',
-     'Event': u'esdeveniment', 'News Item': u'notícia', 'Etherpad': u'etherpad',
-     'External Content': u'arxiu protegit', 'ulearn.video': u'video'},
+    {'Document': 'document', 'File': 'fitxer', 'Image': 'foto', 'Link': 'enllaç',
+     'Event': 'esdeveniment', 'News Item': 'notícia', 'Etherpad': 'etherpad',
+     'External Content': 'arxiu protegit', 'ulearn.video': 'video'},
     'es':
-    {'Document': u'document', 'File': u'fichero', 'Image': u'foto', 'Link': u'enlace',
-     'Event': u'evento', 'News Item': u'noticia', 'Etherpad': u'etherpad',
-     'External Content': u'archivo protegido', 'ulearn.video': u'video'},
+    {'Document': 'document', 'File': 'fichero', 'Image': 'foto', 'Link': 'enlace',
+     'Event': 'evento', 'News Item': 'noticia', 'Etherpad': 'etherpad',
+     'External Content': 'archivo protegido', 'ulearn.video': 'video'},
     'en':
-    {'Document': u'document', 'File': u'file', 'Image': u'photo', 'Link': u'link',
-     'Event': u'event', 'News Item': u'news item', 'Etherpad': u'etherpad',
-     'External Content': u'protected file', 'ulearn.video': u'video'}}
+    {'Document': 'document', 'File': 'file', 'Image': 'photo', 'Link': 'link',
+     'Event': 'event', 'News Item': 'news item', 'Etherpad': 'etherpad',
+     'External Content': 'protected file', 'ulearn.video': 'video'}}
 
 
 varnish_to_ban = os.environ.get('varnish_to_ban', '')
@@ -109,7 +109,7 @@ def objectAdded(content, event):
     physical_path = content.getPhysicalPath()
     relative = physical_path[len(portal.getPhysicalPath()):]
 
-    if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
+    if portal.unrestrictedTraverse(relative[0]).Type() == 'Comunitat':
         logger.error(
             'XXX DexterityContent Object added:' + content_path + ';comunitat:' +
             relative[0] + ';username:' + username + ';domain:' + domain)
@@ -146,7 +146,7 @@ def objectModified(content, event):
     relative = physical_path[len(portal.getPhysicalPath()):]
     if username == None:
         username = ''
-    if portal.unrestrictedTraverse(relative[0]).Type() == u'Comunitat':
+    if portal.unrestrictedTraverse(relative[0]).Type() == 'Comunitat':
         logger.error(
             'XXX DexterityContent Object modified:' + content_path + ';comunitat:' +
             relative[0] + ';username:' + username + ';domain:' + domain)
@@ -190,9 +190,9 @@ def communityAdded(content, event):
     maxclient.setToken(oauth_token)
 
     activity_text = {
-        'ca': u'He creat una nova comunitat: {}',
-        'es': u'He creado una comunidad nueva: {}',
-        'en': u'I\'ve just created a new community: {}',
+        'ca': 'He creat una nova comunitat: {}',
+        'es': 'He creado una comunidad nueva: {}',
+        'en': 'I\'ve just created a new community: {}',
     }
 
     try:
@@ -239,13 +239,13 @@ def Added(content, event):
     parts = dict(
         un=articles[default_lang][content.portal_type],
         type=tipus[default_lang][content.portal_type],
-        name=content.Title().decode('utf-8') or getattr(getattr(content, 'file', u''),'filename', u'').decode('utf-8') or getattr(getattr(content, 'image', u''),'filename', u'').decode('utf-8'),
+        name=content.Title().decode('utf-8') or getattr(getattr(content, 'file', ''),'filename', '').decode('utf-8') or getattr(getattr(content, 'image', ''),'filename', '').decode('utf-8'),
         link='{}/view'.format(content.absolute_url()))
 
     activity_text = {
-        'ca': u'He afegit {un} {type} "{name}" a {link}',
-        'es': u'He añadido {un} {type} "{name}" a {link}',
-        'en': u'I\'ve added {un} {type} "{name}" a {link}',
+        'ca': 'He afegit {un} {type} "{name}" a {link}',
+        'es': 'He añadido {un} {type} "{name}" a {link}',
+        'en': 'I\'ve added {un} {type} "{name}" a {link}',
     }
 
     addPost = addActivityPost(content)
@@ -535,7 +535,7 @@ def AddedSendMessage(content, event):
                 community.mails_users_community_black_lists = ast.literal_eval(
                     community.mails_users_community_black_lists)
 
-            black_list_mails_users_to_notify = community.mails_users_community_black_lists.values()
+            black_list_mails_users_to_notify = list(community.mails_users_community_black_lists.values())
             if isinstance(community.mails_users_community_lists, list):
                 # if None in community.mails_users_community_lists:
                 #     community.mails_users_community_lists.remove(None)
@@ -597,10 +597,10 @@ def AddedSendMessage(content, event):
 
         mailhost = api.portal.get_tool(name='MailHost')
 
-        if isinstance(message_template, unicode):
+        if isinstance(message_template, str):
             message_template = message_template.encode('utf-8')
 
-        if isinstance(subject_template, unicode):
+        if isinstance(subject_template, str):
             subject_template = subject_template.encode('utf-8')
 
         map = {

@@ -14,11 +14,11 @@ from Products.PortalTransforms.transforms.safe_html import hasScript as hasScrip
 from plone.app.widgets.utils import get_date_options as get_date_options_original
 from plone.app.widgets.utils import get_datetime_options as get_datetime_options_original
 from ldap.filter import filter_format as filter_format_original
-from patches import from_latin1
-from patches import get_date_options
-from patches import get_datetime_options
-from patches import hasScript
-from patches import filter_format
+from .patches import from_latin1
+from .patches import get_date_options
+from .patches import get_datetime_options
+from .patches import hasScript
+from .patches import filter_format
 
 import inspect
 
@@ -27,11 +27,11 @@ def marmoset_patch(old, new, extra_globals={}):  # pragma: no cover
     """
         Hot patching memory-loaded code
     """
-    g = old.func_globals
+    g = old.__globals__
     g.update(extra_globals)
     c = inspect.getsource(new)
-    exec c in g
-    old.func_code = g[new.__name__].func_code
+    exec(c, g)
+    old.__code__ = g[new.__name__].__code__
 
 
 marmoset_patch(from_utf8, from_latin1)

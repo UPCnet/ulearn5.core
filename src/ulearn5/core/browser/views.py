@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from PIL import ImageOps
 from Products.statusmessages.interfaces import IStatusMessage
-from cStringIO import StringIO
+from io import StringIO
 
 from five import grok
 from itertools import chain
@@ -67,7 +67,7 @@ class AjaxUserSearch(grok.View):
             portal = getSite()
             hunter = getMultiAdapter((portal, self.request), name='pas_search')
             fulluserinfo = hunter.merge(chain(*[hunter.searchUsers(**{field: query}) for field in ['fullname', 'name']]), 'userid')
-            values = [dict(id=userinfo.get('login'), text=u'{} ({})'.format(userinfo.get('title').decode('utf-8'), userinfo.get('login'))) for userinfo in fulluserinfo]
+            values = [dict(id=userinfo.get('login'), text='{} ({})'.format(userinfo.get('title').decode('utf-8'), userinfo.get('login'))) for userinfo in fulluserinfo]
 
             if settings.nonvisibles:
                 if query in settings.nonvisibles:
@@ -300,7 +300,7 @@ class ResetNotify(grok.View):
             soup = get_soup('notify_popup', portal)
             soup.clear()
 
-            IStatusMessage(self.request).addStatusMessage(_(u'Reset notify from all users'), type='info')
+            IStatusMessage(self.request).addStatusMessage(_('Reset notify from all users'), type='info')
             self.request.response.redirect(getSite().absolute_url() + '/@@ulearn-control-popup')
 
 
@@ -314,7 +314,7 @@ class ViewAnnotationNotifyPopup(grok.View):
     def render(self):
         portal = api.portal.get()
         soup = get_soup('notify_popup', portal)
-        records = [r for r in soup.data.items()]
+        records = [r for r in list(soup.data.items())]
         result = []
         for record in records:
             result.append(record[1].attrs['id'])

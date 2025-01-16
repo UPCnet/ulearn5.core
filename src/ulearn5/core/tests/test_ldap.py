@@ -35,4 +35,4 @@ class TestExample(uLearnTestBase):
 
         soup = get_soup('ldap_groups', self.portal)
 
-        self.assertTrue(len(soup.data.keys()) > 0)
+        self.assertTrue(len(list(soup.data.keys())) > 0)

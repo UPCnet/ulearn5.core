@@ -96,10 +96,10 @@ def setup_ulearn_icon_set():
     # The list is composed of up to four rows of icons, each row being a string
     # with the name (comma separated) of each icon. There should be all four
     # rows in place, even if they are empty
-    ulearn_custom_icons = [u'fullscreen,|,code,|,save,|,plonetemplates,|,bold,italic,underline,strikethrough,|,forecolor,|,justifyleft,justifycenter,justifyright,|,cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor',
-                           u'formatselect,style,|,cleanup,removeformat,|,image,media,|,tablecontrols,styleprops,|,visualaid,|,sub,sup,|,charmap',
-                           u'',
-                           u''
+    ulearn_custom_icons = ['fullscreen,|,code,|,save,|,plonetemplates,|,bold,italic,underline,strikethrough,|,forecolor,|,justifyleft,justifycenter,justifyright,|,cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor',
+                           'formatselect,style,|,cleanup,removeformat,|,image,media,|,tablecontrols,styleprops,|,visualaid,|,sub,sup,|,charmap',
+                           '',
+                           ''
                            ]
 
     api.portal.set_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.custom_editor_icons', ulearn_custom_icons)
@@ -119,11 +119,11 @@ def setup_ulearn_portlets():
         if 'ContentWellPortlets' in manager_name:
             manager = getUtility(IPortletManager, name=manager_name, context=site['front-page'])
             mapping = getMultiAdapter((site['front-page'], manager), IPortletAssignmentMapping)
-            [activate_portlets.append(item[1].title) for item in mapping.items()]
+            [activate_portlets.append(item[1].title) for item in list(mapping.items())]
         else:
             manager = getUtility(IPortletManager, name=manager_name, context=site)
             mapping = getMultiAdapter((site, manager), IPortletAssignmentMapping)
-            [activate_portlets.append(item[1].title) for item in mapping.items()]
+            [activate_portlets.append(item[1].title) for item in list(mapping.items())]
 
     registry = queryUtility(IRegistry)
     portlets_tool = registry.forInterface(IPortletsSettings, check=False)
@@ -150,8 +150,8 @@ def setup_ulearn_portlets():
                 unregisterPortletType(site, idPortlet)
 
     lessvars = registry.get('plone.lessvariables', {})
-    lessvars['plone-screen-sm-min'] = u'300px'
-    lessvars['plone-screen-xs-min'] = u'300px'
+    lessvars['plone-screen-sm-min'] = '300px'
+    lessvars['plone-screen-xs-min'] = '300px'
 
     import transaction
     transaction.commit()
@@ -184,7 +184,7 @@ def setupVarious(context):
     portal['front-page']._Delete_objects_Permission = ('Manager',)
 
     # Rename front-page
-    portal['front-page'].setTitle(portal.translate(_(u'Front page')))
+    portal['front-page'].setTitle(portal.translate(_('Front page')))
     portal['front-page'].reindexObject()
 
     # Set mailhost
@@ -214,7 +214,7 @@ def setupVarious(context):
     target_manager_assignments = getMultiAdapter((portal, target_manager), IPortletAssignmentMapping)
 
     # purge existing portlets
-    for portlet in target_manager_assignments.keys():
+    for portlet in list(target_manager_assignments.keys()):
         del target_manager_assignments[portlet]
 
     # Set default TimeZone (p.a.event)
@@ -228,8 +228,8 @@ def setupVarious(context):
     tiny_settings = registry.forInterface(ITinyMCESchema, prefix="plone", check=False)
     tiny_settings.resizing = True
     tiny_settings.autoresize = False
-    tiny_settings.editor_width = u'100%'
-    tiny_settings.editor_height = u'500'
+    tiny_settings.editor_width = '100%'
+    tiny_settings.editor_height = '500'
 
     # Permisos para añadir etiquetas
     site_tool = registry.forInterface(ISiteSchema, prefix='plone')
@@ -240,7 +240,7 @@ def setupVarious(context):
     try:
         site_properties.manage_addProperty('typesUseViewActionInListings', 'ulearn.video\nVideo\nImage', 'lines')
     except:
-        print "La propietat 'typesUseViewActionInListings' ja estava afegida al portal site_properties"
+        print("La propietat 'typesUseViewActionInListings' ja estava afegida al portal site_properties")
 
     import transaction
     transaction.commit()

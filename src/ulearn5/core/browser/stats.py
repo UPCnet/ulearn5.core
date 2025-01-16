@@ -70,7 +70,7 @@ class StatsView(grok.View):
         return getSite()
 
     def get_communities(self):
-        all_communities = [{'hash': 'all', 'title': _(u'Todas las comunidades')}]
+        all_communities = [{'hash': 'all', 'title': _('Todas las comunidades')}]
         all_communities += [{'hash': community.community_hash, 'title': community.Title}
                             for community in self.catalog.searchResults(portal_type='ulearn.community')]
         return json.dumps(all_communities)
@@ -93,7 +93,7 @@ class StatsView(grok.View):
 
     def get_years(self, position):
         all_years = []
-        years = range(datetime.now().year - 11, datetime.now().year + 1)
+        years = list(range(datetime.now().year - 11, datetime.now().year + 1))
         last_12 = last_twelve_months_range()
         current_year = last_12[0] if position == 'start' else last_12[2]
 
@@ -274,8 +274,8 @@ class StatsQuery(StatsQueryBase):
             while current <= self.params['end']:
                 row = [
                     dict(
-                        value=self.get_month_by_num(current.month) + u' ' +
-                        unicode(current.year),
+                        value=self.get_month_by_num(current.month) + ' ' +
+                        str(current.year),
                         link=None, show_drilldown=False)]
 
                 for stat_type in self.params['stats_requested']:
@@ -545,11 +545,11 @@ class MaxStats(object):
                               ] = message['contexts'][0]['displayName']
             else:
                 # We have a private conversation
-                conversations[message['contexts'][0]['id']] = u'Conversación privada'
+                conversations[message['contexts'][0]['id']] = 'Conversación privada'
 
         for key in counter:
             rows.append(dict(context=conversations[key],
-                             username=u', '.join(list(set(counter[key])))))
+                             username=', '.join(list(set(counter[key])))))
         return rows
 
     def stat_activity(self, filters, start, end):

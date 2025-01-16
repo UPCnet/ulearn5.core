@@ -67,7 +67,7 @@ class ULearnNGDirectives(grok.Viewlet):
 
         pc = api.portal.get_tool('portal_catalog')
         tool = api.portal.get_tool(name='translation_service')
-        all_communities = [{'hash': 'all', 'title': tool.translate(_(u'Todas las comunidades'), 'ulearn5.core', target_language=lang)}]
+        all_communities = [{'hash': 'all', 'title': tool.translate(_('Todas las comunidades'), 'ulearn5.core', target_language=lang)}]
         all_communities += [{'hash': community.community_hash, 'title': community.Title} for community in pc.searchResults(portal_type='ulearn.community')]
         return json.dumps(all_communities)
 
@@ -79,8 +79,8 @@ class ULearnNGDirectives(grok.Viewlet):
             lang = 'ca'
 
         tool = api.portal.get_tool(name='translation_service')
-        info = [{'hash': 'site', 'title': tool.translate(_(u'Todo el contenido'), 'ulearn5.core', target_language=lang)}]
-        info += [{'hash': 'news', 'title': tool.translate(_(u'Noticias'), 'ulearn5.core', target_language=lang)}]
+        info = [{'hash': 'site', 'title': tool.translate(_('Todo el contenido'), 'ulearn5.core', target_language=lang)}]
+        info += [{'hash': 'news', 'title': tool.translate(_('Noticias'), 'ulearn5.core', target_language=lang)}]
         communities = json.loads(self.get_communities())
         return json.dumps(info + communities)
 
@@ -92,8 +92,8 @@ class ULearnNGDirectives(grok.Viewlet):
             lang = 'ca'
 
         tool = api.portal.get_tool(name='translation_service')
-        info = [{'hash': 'site', 'title': tool.translate(_(u'Todo el contenido'), 'ulearn5.core', target_language=lang)}]
-        info += [{'hash': 'news', 'title': tool.translate(_(u'Noticias'), 'ulearn5.core', target_language=lang)}]
+        info = [{'hash': 'site', 'title': tool.translate(_('Todo el contenido'), 'ulearn5.core', target_language=lang)}]
+        info += [{'hash': 'news', 'title': tool.translate(_('Noticias'), 'ulearn5.core', target_language=lang)}]
         communities = json.loads(self.get_communities())
         return json.dumps(info + communities)
 
@@ -204,11 +204,11 @@ class newsToolBar(viewletBase):
             if 'ContentWellPortlets' in manager_name:
                 manager = getUtility(IPortletManager, name=manager_name, context=site['front-page'])
                 mapping = getMultiAdapter((site['front-page'], manager), IPortletAssignmentMapping)
-                [active_portlets.append(item[0]) for item in mapping.items()]
+                [active_portlets.append(item[0]) for item in list(mapping.items())]
             else:
                 manager = getUtility(IPortletManager, name=manager_name, context=site)
                 mapping = getMultiAdapter((site, manager), IPortletAssignmentMapping)
-                [active_portlets.append(item[0]) for item in mapping.items()]
+                [active_portlets.append(item[0]) for item in list(mapping.items())]
 
         return active_portlets
 

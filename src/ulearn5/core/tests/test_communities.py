@@ -74,7 +74,7 @@ class TestExample(uLearnTestBase):
         self.assertTrue(self.portal.get_local_roles()[0][0], 'AuthenticatedUsers')
 
     def test_community_creation_closed(self):
-        nom = u'community-test'
+        nom = 'community-test'
         description = 'Blabla'
         image = None
         community_type = 'Closed'
@@ -101,8 +101,8 @@ class TestExample(uLearnTestBase):
         self.assertEqual(records[0].attrs.get('gwuuid', ''), IGWUUID(community).get())
         self.assertEqual(records[0].attrs.get('path', ''), '/'.join(community.getPhysicalPath()))
         self.assertEqual(records[0].attrs.get('hash', ''), sha1(community.absolute_url()).hexdigest())
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['role'], u'owner')
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], u'ulearn.testuser1')
+        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['role'], 'owner')
+        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
 
         # Test for internal objects
         self.assertEqual(community.objectIds(), ['documents', 'events', 'news'])
@@ -111,7 +111,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(community['documents'].objectIds(), ['media', ])
 
         # Test for subscribed users
-        self.assertTrue(u'ulearn.testuser1' in self.get_max_subscribed_users(community))
+        self.assertTrue('ulearn.testuser1' in self.get_max_subscribed_users(community))
 
         # Test for Plone permissions/local roles
         self.assertTrue('Reader' not in community.get_local_roles_for_userid(userid='AuthenticatedUsers'))
@@ -121,15 +121,15 @@ class TestExample(uLearnTestBase):
 
         # Test the initial MAX properties
         max_community_info = self.get_max_context_info(community)
-        self.assertEqual('helou', max_community_info.get(u'twitterHashtag', ''))
-        self.assertFalse(max_community_info.get(u'notifications', False))
-        self.assertTrue(u'[COMMUNITY]' in max_community_info.get('tags', []))
+        self.assertEqual('helou', max_community_info.get('twitterHashtag', ''))
+        self.assertFalse(max_community_info.get('notifications', False))
+        self.assertTrue('[COMMUNITY]' in max_community_info.get('tags', []))
 
         for key in CLOSED_PERMISSIONS:
             self.assertEqual(max_community_info['permissions'].get(key, ''), CLOSED_PERMISSIONS[key])
 
     def test_community_creation_open(self):
-        nom = u'community-test'
+        nom = 'community-test'
         description = 'Blabla'
         image = None
         community_type = 'Open'
@@ -156,8 +156,8 @@ class TestExample(uLearnTestBase):
         self.assertEqual(records[0].attrs.get('gwuuid', ''), IGWUUID(community).get())
         self.assertEqual(records[0].attrs.get('path', ''), '/'.join(community.getPhysicalPath()))
         self.assertEqual(records[0].attrs.get('hash', ''), sha1(community.absolute_url()).hexdigest())
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['role'], u'owner')
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], u'ulearn.testuser1')
+        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['role'], 'owner')
+        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
 
         # Test for internal objects
         self.assertEqual(community.objectIds(), ['documents', 'events', 'news'])
@@ -166,7 +166,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(community['documents'].objectIds(), ['media', ])
 
         # Test for subscribed users
-        self.assertTrue(u'ulearn.testuser1' in self.get_max_subscribed_users(community))
+        self.assertTrue('ulearn.testuser1' in self.get_max_subscribed_users(community))
 
         # Test for Plone permissions/local roles
         self.assertTrue('Reader' not in community.get_local_roles_for_userid(userid='AuthenticatedUsers'))
@@ -176,15 +176,15 @@ class TestExample(uLearnTestBase):
 
         # Test the initial MAX properties
         max_community_info = self.get_max_context_info(community)
-        self.assertEqual('helou', max_community_info.get(u'twitterHashtag', ''))
-        self.assertFalse(max_community_info.get(u'notifications', False))
-        self.assertTrue(u'[COMMUNITY]' in max_community_info.get('tags', []))
+        self.assertEqual('helou', max_community_info.get('twitterHashtag', ''))
+        self.assertFalse(max_community_info.get('notifications', False))
+        self.assertTrue('[COMMUNITY]' in max_community_info.get('tags', []))
 
         for key in OPEN_PERMISSIONS:
             self.assertEqual(max_community_info['permissions'].get(key, ''), OPEN_PERMISSIONS[key])
 
     def test_community_creation_organizative(self):
-        nom = u'community-test'
+        nom = 'community-test'
         description = 'Blabla'
         image = None
         community_type = 'Organizative'
@@ -211,8 +211,8 @@ class TestExample(uLearnTestBase):
         self.assertEqual(records[0].attrs.get('gwuuid', ''), IGWUUID(community).get())
         self.assertEqual(records[0].attrs.get('path', ''), '/'.join(community.getPhysicalPath()))
         self.assertEqual(records[0].attrs.get('hash', ''), sha1(community.absolute_url()).hexdigest())
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['role'], u'owner')
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], u'ulearn.testuser1')
+        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['role'], 'owner')
+        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
 
         # Test for internal objects
         self.assertEqual(community.objectIds(), ['documents', 'events', 'news'])
@@ -221,7 +221,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(community['documents'].objectIds(), ['media', ])
 
         # Test for subscribed users
-        self.assertTrue(u'ulearn.testuser1' in self.get_max_subscribed_users(community))
+        self.assertTrue('ulearn.testuser1' in self.get_max_subscribed_users(community))
 
         # Test for Plone permissions/local roles
         self.assertTrue('Reader' not in community.get_local_roles_for_userid(userid='AuthenticatedUsers'))
@@ -231,15 +231,15 @@ class TestExample(uLearnTestBase):
 
         # Test the initial MAX properties
         max_community_info = self.get_max_context_info(community)
-        self.assertEqual('helou', max_community_info.get(u'twitterHashtag', ''))
-        self.assertFalse(max_community_info.get(u'notifications', False))
-        self.assertTrue(u'[COMMUNITY]' in max_community_info.get('tags', []))
+        self.assertEqual('helou', max_community_info.get('twitterHashtag', ''))
+        self.assertFalse(max_community_info.get('notifications', False))
+        self.assertTrue('[COMMUNITY]' in max_community_info.get('tags', []))
 
         for key in ORGANIZATIVE_PERMISSIONS:
             self.assertEqual(max_community_info['permissions'].get(key, ''), ORGANIZATIVE_PERMISSIONS[key])
 
     def test_community_creation_not_allowed(self):
-        nom = u'community-test'
+        nom = 'community-test'
         description = 'Blabla'
         image = None
         community_type = 'Closed'
@@ -262,31 +262,31 @@ class TestExample(uLearnTestBase):
         community.twitter_hashtag = 'Modified'
         notify(ObjectModifiedEvent(community))
         max_community_info = self.get_max_context_info(community)
-        self.assertEqual('modified', max_community_info.get(u'twitterHashtag', ''))
+        self.assertEqual('modified', max_community_info.get('twitterHashtag', ''))
 
         community.notify_activity_via_push = True
         notify(ObjectModifiedEvent(community))
         max_community_info = self.get_max_context_info(community)
-        self.assertEqual('posts', max_community_info.get(u'notifications', ''))
+        self.assertEqual('posts', max_community_info.get('notifications', ''))
 
         community.notify_activity_via_push_comments_too = True
         notify(ObjectModifiedEvent(community))
         max_community_info = self.get_max_context_info(community)
-        self.assertEqual('comments', max_community_info.get(u'notifications', ''))
+        self.assertEqual('comments', max_community_info.get('notifications', ''))
 
         community.notify_activity_via_push = False
         community.notify_activity_via_push_comments_too = False
         notify(ObjectModifiedEvent(community))
         max_community_info = self.get_max_context_info(community)
-        self.assertEqual('', max_community_info.get(u'notifications', ''))
+        self.assertEqual('', max_community_info.get('notifications', ''))
 
     def test_edit_acl(self):
         login(self.portal, 'ulearn.testuser1')
         community = self.create_test_community()
-        acl = dict(users=[dict(id=u'janet.dura', displayName=u'Janet Durà', role=u'writer'),
-                          dict(id=u'victor.fernandez', displayName=u'Víctor Fernández de Alba', role=u'reader')],
-                   groups=[dict(id=u'PAS', displayName=u'PAS UPC', role=u'writer'),
-                           dict(id=u'UPCnet', displayName=u'UPCnet', role=u'reader')]
+        acl = dict(users=[dict(id='janet.dura', displayName='Janet Durà', role='writer'),
+                          dict(id='victor.fernandez', displayName='Víctor Fernández de Alba', role='reader')],
+                   groups=[dict(id='PAS', displayName='PAS UPC', role='writer'),
+                           dict(id='UPCnet', displayName='UPCnet', role='reader')]
                    )
 
         httpretty.enable()
@@ -478,14 +478,14 @@ class TestExample(uLearnTestBase):
         notify(ObjectModifiedEvent(community))
 
         info = self.get_max_context_info(community)
-        self.assertEqual(info['notifications'], u'posts')
+        self.assertEqual(info['notifications'], 'posts')
 
         community.notify_activity_via_push_comments_too = True
 
         notify(ObjectModifiedEvent(community))
 
         info = self.get_max_context_info(community)
-        self.assertEqual(info['notifications'], u'comments')
+        self.assertEqual(info['notifications'], 'comments')
 
     def test_community_type_adapters(self):
         login(self.portal, 'ulearn.testuser1')
@@ -520,9 +520,9 @@ class TestExample(uLearnTestBase):
         acl = adapter.get_acl()
         self.assertTrue(len(acl['users']), 2)
         users_subscribed = [a['id'] for a in acl['users']]
-        self.assertTrue(u'ulearn.testuser2' in users_subscribed)
+        self.assertTrue('ulearn.testuser2' in users_subscribed)
 
-        self.assertTrue(u'ulearn.testuser2' in self.get_max_subscribed_users(community))
+        self.assertTrue('ulearn.testuser2' in self.get_max_subscribed_users(community))
 
     def test_acl_migration(self):
         login(self.portal, 'ulearn.testuser1')
@@ -539,14 +539,14 @@ class TestExample(uLearnTestBase):
         adapter = community.adapted()
         acl = adapter.get_acl()
 
-        readers = [a['id'] for a in acl['users'] if a['role'] == u'reader']
-        writers = [a['id'] for a in acl['users'] if a['role'] == u'writer']
-        owners = [a['id'] for a in acl['users'] if a['role'] == u'owner']
+        readers = [a['id'] for a in acl['users'] if a['role'] == 'reader']
+        writers = [a['id'] for a in acl['users'] if a['role'] == 'writer']
+        owners = [a['id'] for a in acl['users'] if a['role'] == 'owner']
 
-        self.assertTrue(u'janet.dura' in readers)
-        self.assertTrue(u'ulearn.testuser2' in readers)
-        self.assertTrue(u'javier.otero' in writers)
-        self.assertTrue(u'victor.fernandez' in owners)
+        self.assertTrue('janet.dura' in readers)
+        self.assertTrue('ulearn.testuser2' in readers)
+        self.assertTrue('javier.otero' in writers)
+        self.assertTrue('victor.fernandez' in owners)
 
         self.assertEqual(len(readers), 2)
         self.assertEqual(len(writers), 1)
@@ -578,7 +578,7 @@ class TestExample(uLearnTestBase):
 
         users_subscribed = [a['id'] for a in acl['users']]
 
-        self.assertTrue(u'victor.fernandez' in users_subscribed)
+        self.assertTrue('victor.fernandez' in users_subscribed)
         self.assertTrue('Editor' in community.get_local_roles_for_userid(userid='victor.fernandez'))
 
         base_request['action'] = 'change_permissions'
@@ -599,6 +599,6 @@ class TestExample(uLearnTestBase):
         acl = adapter.get_acl()
         users_subscribed = [a['id'] for a in acl['users']]
 
-        self.assertTrue(u'victor.fernandez' not in users_subscribed)
+        self.assertTrue('victor.fernandez' not in users_subscribed)
         self.assertTrue('Reader' not in community.get_local_roles_for_userid(userid='victor.fernandez'))
         self.assertTrue('Editor' not in community.get_local_roles_for_userid(userid='victor.fernandez'))

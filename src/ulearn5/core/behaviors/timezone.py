@@ -29,8 +29,8 @@ class ITimezone(model.Schema):
     """ Add timezone to Events
     """
     timezone = schema.Choice(
-        title=_(u'label_event_timezone', default=u'Timezone'),
-        description=_(u'help_event_timezone', default=u'Select the Timezone, where this event happens.'),
+        title=_('label_event_timezone', default='Timezone'),
+        description=_('help_event_timezone', default='Select the Timezone, where this event happens.'),
         required=True,
         vocabulary="plone.app.vocabularies.AvailableTimezones",
         defaultFactory=timezone_user_or_default,

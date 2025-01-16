@@ -16,8 +16,8 @@ class IVideoEmbed(form.Schema):
     """ The video embed schema """
 
     video_url = schema.TextLine(
-        title=_(u'video_url'),
-        description=_(u'video_url_description'),
+        title=_('video_url'),
+        description=_('video_url_description'),
         required=True
     )
 

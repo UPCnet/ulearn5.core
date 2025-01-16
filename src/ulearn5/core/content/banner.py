@@ -14,19 +14,19 @@ grok.templatedir("templates")
 class IBanner(form.Schema):
 
     image = NamedBlobImage(
-        title=_(u'Banner'),
-        description=_(u'If you do not add an image, a default banner will be created using the title.'),
+        title=_('Banner'),
+        description=_('If you do not add an image, a default banner will be created using the title.'),
         required=False,
     )
 
     url = schema.TextLine(
-        title=_(u'Url'),
-        description=_(u'For external links use https:// or http://'),
+        title=_('Url'),
+        description=_('For external links use https:// or http://'),
         required=True
     )
 
     open_external = schema.Bool(
-        title=_(u'Open in new tab'),
+        title=_('Open in new tab'),
         required=False,
     )
 

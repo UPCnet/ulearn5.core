@@ -16,50 +16,50 @@ from ulearn5.core.utils import isBirthdayInProfile
 
 def checkActivateBirthday(value):
     if value and not isBirthdayInProfile():
-        raise Invalid(_(u'The profile not have birthday field, contact to implement this functionality, uncheck field and save to continue.'))
+        raise Invalid(_('The profile not have birthday field, contact to implement this functionality, uncheck field and save to continue.'))
     return True
 
 
 class IPopupSettings(model.Schema):
 
     model.fieldset('Notify',
-                   _(u'Notify'),
+                   _('Notify'),
                    fields=['activate_notify', 'message_notify', 'reload_notify'])
 
     model.fieldset('Birthday',
-                   _(u'Birthday'),
+                   _('Birthday'),
                    fields=['warning_birthday', 'activate_birthday', 'message_birthday'])
 
     activate_notify = schema.Bool(
-        title=_(u"Activate notify"),
+        title=_("Activate notify"),
         required=True,
         default=False,
     )
 
     directives.mode(message_notify="display")
     message_notify = schema.Text(
-        title=_(u"Message notify"),
-        description=_(u"message_notify_description"),
+        title=_("Message notify"),
+        description=_("message_notify_description"),
         required=False,
-        default=u'',
+        default='',
     )
 
     directives.mode(reload_notify="display")
     reload_notify = schema.Text(
-        title=_(u"Reset notify"),
-        description=_(u'To reset the notify access the following <a href=\"@@reset_notify">link</a>.'),
+        title=_("Reset notify"),
+        description=_('To reset the notify access the following <a href=\"@@reset_notify">link</a>.'),
         required=False,
     )
 
     directives.mode(warning_birthday="display")
     warning_birthday = schema.Text(
-        title=_(u"Warning birthday"),
-        description=_(u'To activate this functionality you have to request the addition of the birthday field in the profile.'),
+        title=_("Warning birthday"),
+        description=_('To activate this functionality you have to request the addition of the birthday field in the profile.'),
         required=False,
     )
 
     activate_birthday = schema.Bool(
-        title=_(u"Activate birthday"),
+        title=_("Activate birthday"),
         required=True,
         default=False,
         constraint=checkActivateBirthday,
@@ -67,10 +67,10 @@ class IPopupSettings(model.Schema):
 
     directives.mode(message_birthday="display")
     message_birthday = schema.Text(
-        title=_(u"Message birthday"),
-        description=_(u"message_birthday_description"),
+        title=_("Message birthday"),
+        description=_("message_birthday_description"),
         required=False,
-        default=u'',
+        default='',
     )
 
 
@@ -79,7 +79,7 @@ class PopupSettingsForm(controlpanel.RegistryEditForm):
 
     schema = IPopupSettings
     id = 'PopupSettingsForm'
-    label = _(u'Ulearn Popup settings')
+    label = _('Ulearn Popup settings')
 
     def updateFields(self):
         super(PopupSettingsForm, self).updateFields()
@@ -97,7 +97,7 @@ class PopupSettingsForm(controlpanel.RegistryEditForm):
 
     @button.buttonAndHandler(_('Cancel'), name='cancel')
     def handleCancel(self, action):
-        IStatusMessage(self.request).addStatusMessage(_(u'Edit cancelled'), 'info')
+        IStatusMessage(self.request).addStatusMessage(_('Edit cancelled'), 'info')
         self.request.response.redirect('%s/%s' % (self.context.absolute_url(),
                                                   self.control_panel_view))
 

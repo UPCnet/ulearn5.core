@@ -4,7 +4,7 @@ from plone import api
 import json
 import re
 import requests
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 FIND_URL_REGEX = r'(?<=href=\")https?\:\/\/[^\"\']+'
 DELETE_TARGET_BLANK = r'target=\"_blank\"'
@@ -45,7 +45,7 @@ def shortenURL(url, bitly_username, bitly_api_key, secure=False):
               'login': 'apiKey=%s&login=%s' % (bitly_api_key, bitly_username),
               'version': 'v3',
               'endpoint': 'shorten',
-              'endpoint_params': 'longUrl=%s' % (urllib2.quote(url))
+              'endpoint_params': 'longUrl=%s' % (urllib.parse.quote(url))
               }
 
     queryurl = '%(api_url)s/%(version)s/%(endpoint)s?%(login)s&%(endpoint_params)s' % params

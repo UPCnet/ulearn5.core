@@ -132,17 +132,17 @@ def availableCommunityTypes(context):
     if 'CC open' in user_roles or \
        'WebMaster' in user_roles or \
        'Manager' in user_roles:
-        terms.append(SimpleVocabulary.createTerm(u'Open', 'open', _(u'Open')))
+        terms.append(SimpleVocabulary.createTerm('Open', 'open', _('Open')))
 
     if 'CC closed' in user_roles or \
        'WebMaster' in user_roles or \
        'Manager' in user_roles:
-        terms.append(SimpleVocabulary.createTerm(u'Closed', 'closed', _(u'Closed')))
+        terms.append(SimpleVocabulary.createTerm('Closed', 'closed', _('Closed')))
 
     if 'CC organizative' in user_roles or \
        'WebMaster' in user_roles or \
        'Manager' in user_roles:
-        terms.append(SimpleVocabulary.createTerm(u'Organizative', 'organizative', _(u'Organizative')))
+        terms.append(SimpleVocabulary.createTerm('Organizative', 'organizative', _('Organizative')))
 
     return SimpleVocabulary(terms)
 
@@ -151,9 +151,9 @@ def availableCommunityTypes(context):
 def communityActivityViews(context):
     terms = []
 
-    terms.append(SimpleVocabulary.createTerm(u'Darreres activitats', 'darreres_activitats', _(u'Darreres activitats')))
-    terms.append(SimpleVocabulary.createTerm(u'Activitats mes valorades', 'activitats_mes_valorades', _(u'Activitats mes valorades')))
-    terms.append(SimpleVocabulary.createTerm(u'Activitats destacades', 'activitats_destacades', _(u'Activitats destacades')))
+    terms.append(SimpleVocabulary.createTerm('Darreres activitats', 'darreres_activitats', _('Darreres activitats')))
+    terms.append(SimpleVocabulary.createTerm('Activitats mes valorades', 'activitats_mes_valorades', _('Activitats mes valorades')))
+    terms.append(SimpleVocabulary.createTerm('Activitats destacades', 'activitats_destacades', _('Activitats destacades')))
 
     return SimpleVocabulary(terms)
 
@@ -161,8 +161,8 @@ def communityActivityViews(context):
 def communityTabViews(context):
     terms = []
 
-    terms.append(SimpleVocabulary.createTerm(u'Activity', 'activity', _(u'Activity')))
-    terms.append(SimpleVocabulary.createTerm(u'Documents', 'documents', _(u'Documents')))
+    terms.append(SimpleVocabulary.createTerm('Activity', 'activity', _('Activity')))
+    terms.append(SimpleVocabulary.createTerm('Documents', 'documents', _('Documents')))
 
     return SimpleVocabulary(terms)
 
@@ -171,8 +171,8 @@ def communityTabViews(context):
 def communityTypeNotify(context):
     terms = []
 
-    terms.append(SimpleVocabulary.createTerm(u'Automatic', 'automatic', _(u'Automatic')))
-    terms.append(SimpleVocabulary.createTerm(u'Manual', 'manual', _(u'Manual')))
+    terms.append(SimpleVocabulary.createTerm('Automatic', 'automatic', _('Automatic')))
+    terms.append(SimpleVocabulary.createTerm('Manual', 'manual', _('Manual')))
 
     return SimpleVocabulary(terms)
 
@@ -182,7 +182,7 @@ def communityTypeNotify(context):
 
 def isChecked(value):
     if not value:
-        raise Invalid(_(u'falta_condicions', default=u"Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."))
+        raise Invalid(_('falta_condicions', default="Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."))
     return True
 
 
@@ -191,45 +191,45 @@ class ICommunity(form.Schema):
     """
 
     title = schema.TextLine(
-        title=_(u'Nom'),
-        description=_(u'Nom de la comunitat'),
+        title=_('Nom'),
+        description=_('Nom de la comunitat'),
         required=True
     )
 
     description = schema.Text(
-        title=_(u'Descripcio'),
-        description=_(u'La descripcio de la comunitat'),
+        title=_('Descripcio'),
+        description=_('La descripcio de la comunitat'),
         required=False
     )
 
     form.mode(IEditForm, community_type='hidden')
     community_type = schema.Choice(
-        title=_(u'Tipus de comunitat'),
-        description=_(u'community_type_description'),
+        title=_('Tipus de comunitat'),
+        description=_('community_type_description'),
         source=availableCommunityTypes,
         required=True,
-        default=u'Closed'
+        default='Closed'
     )
 
     activity_view = schema.Choice(
-        title=_(u'activity_view'),
-        description=_(u'help_activity_view'),
+        title=_('activity_view'),
+        description=_('help_activity_view'),
         source=communityActivityViews,
         required=True,
-        default=u'Darreres activitats')
+        default='Darreres activitats')
 
     tab_view = schema.Choice(
-        title=_(u'tab_view'),
-        description=_(u'help_tab_view'),
+        title=_('tab_view'),
+        description=_('help_tab_view'),
         source=communityTabViews,
         required=True,
-        default=u'Activity')
+        default='Activity')
 
     form.omitted('readers', 'subscribed', 'owners')
     form.widget(readers=Select2MAXUserInputFieldWidget)
     readers = schema.List(
-        title=_(u'Readers'),
-        description=_(u'Subscribed people with read-only permissions'),
+        title=_('Readers'),
+        description=_('Subscribed people with read-only permissions'),
         value_type=schema.TextLine(),
         required=False,
         missing_value=[],
@@ -239,8 +239,8 @@ class ICommunity(form.Schema):
     # understanding that it refers to users with read/write permissions
     form.widget(subscribed=Select2MAXUserInputFieldWidget)
     subscribed = schema.List(
-        title=_(u'Editors'),
-        description=_(u'Subscribed people with editor permissions'),
+        title=_('Editors'),
+        description=_('Subscribed people with editor permissions'),
         value_type=schema.TextLine(),
         required=False,
         missing_value=[],
@@ -248,84 +248,84 @@ class ICommunity(form.Schema):
 
     form.widget(owners=Select2MAXUserInputFieldWidget)
     owners = schema.List(
-        title=_(u'Owners'),
-        description=_(u'Subscribed people with owner permissions'),
+        title=_('Owners'),
+        description=_('Subscribed people with owner permissions'),
         value_type=schema.TextLine(),
         required=False,
         missing_value=[],
         default=[])
 
     image = NamedBlobImage(
-        title=_(u'Imatge'),
-        description=_(u'Imatge que defineix la comunitat'),
+        title=_('Imatge'),
+        description=_('Imatge que defineix la comunitat'),
         required=False,
     )
 
     twitter_hashtag = schema.TextLine(
-        title=_(u'Twitter hashtag'),
-        description=_(u'hashtag_help'),
+        title=_('Twitter hashtag'),
+        description=_('hashtag_help'),
         required=False
     )
 
     show_news = schema.Bool(
-        title=_(u'Show news'),
-        description=_(u'Show news in the central area of the main community page'),
+        title=_('Show news'),
+        description=_('Show news in the central area of the main community page'),
         required=False,
         default=True
     )
 
     show_events = schema.Bool(
-        title=_(u'Show events'),
-        description=_(u'Show events in the central area of the main community page.'),
+        title=_('Show events'),
+        description=_('Show events in the central area of the main community page.'),
         required=False,
         default=True
     )
 
     notify_activity_via_push = schema.Bool(
-        title=_(u'Notify activity via push'),
-        description=_(u'notify_activity_via_push_help'),
+        title=_('Notify activity via push'),
+        description=_('notify_activity_via_push_help'),
         required=False
     )
 
     notify_activity_via_push_comments_too = schema.Bool(
-        title=_(u'Notify activity and comments via push'),
-        description=_(u'help_notify_activity_via_push_comments_too'),
+        title=_('Notify activity and comments via push'),
+        description=_('help_notify_activity_via_push_comments_too'),
         required=False
     )
 
     form.widget(notify_activity_via_mail=SingleCheckBoxNotifyEmailFieldWidget)
     notify_activity_via_mail = schema.Bool(
-        title=_(u'Notify activity via mail'),
-        description=_(u'notify_activity_via_mail_help'),
+        title=_('Notify activity via mail'),
+        description=_('notify_activity_via_mail_help'),
         required=False
     )
 
     type_notify = schema.Choice(
-        title=_(u'type_notify'),
-        description=_(u'help_type_notify'),
+        title=_('type_notify'),
+        description=_('help_type_notify'),
         source=communityTypeNotify,
         required=True,
-        default=u'Automatic')
+        default='Automatic')
 
     form.mode(IAddForm, mails_users_community_lists='hidden')
     form.mode(IEditForm, mails_users_community_lists='hidden')
     mails_users_community_lists = schema.Text(
-        title=_(u'Users comunnity lists'),
-        description=_(u'users_community_lists_help'),
+        title=_('Users comunnity lists'),
+        description=_('users_community_lists_help'),
         required=False
     )
 
     form.mode(IAddForm, mails_users_community_black_lists='hidden')
     form.mode(IEditForm, mails_users_community_black_lists='hidden')
     mails_users_community_black_lists = schema.Text(
-        title=_(u'Users comunnity black lists'),
-        description=_(u'users_community_black_lists_help'),
+        title=_('Users comunnity black lists'),
+        description=_('users_community_black_lists_help'),
         required=False
     )
 
     distribution_lists = schema.Text(
-        title=_(u'Distribution lists'),
-        description=_(u'distribution_lists_help'),
+        title=_('Distribution lists'),
+        description=_('distribution_lists_help'),
         required=False
     )
 
@@ -333,8 +333,8 @@ class ICommunity(form.Schema):
     form.mode(IEditForm, terms='hidden')
     form.widget(terms=TermsFieldWidget)
     terms = schema.Bool(
-        title=_(u'title_terms_of_user'),
-        description=_(u'description_terms_of_user'),
+        title=_('title_terms_of_user'),
+        description=_('description_terms_of_user'),
         constraint=isChecked
     )
 
@@ -529,7 +529,7 @@ class CommunityAdapterMixin(object):
             user and updating an existing one.
         """
         acl = self.get_acl()
-        new_user_acl = dict(id=username, displayName=u'', role=role)
+        new_user_acl = dict(id=username, displayName='', role=role)
 
         updating = False
         for user in acl['users']:
@@ -545,7 +545,7 @@ class CommunityAdapterMixin(object):
         self.update_acl(acl)
 
     def update_hub_subscriptions(self):
-        max_permission_mappings = {role: mappings['max'] for role, mappings in self.community_role_mappings.items()}
+        max_permission_mappings = {role: mappings['max'] for role, mappings in list(self.community_role_mappings.items())}
         portal = api.portal.get()
         registry = queryUtility(IRegistry)
         ulearn_settings = registry.forInterface(IUlearnControlPanelSettings)
@@ -756,7 +756,7 @@ class CommunityAdapterMixin(object):
         elif not isinstance(obj.mails_users_community_black_lists, dict):
             obj.mails_users_community_black_lists = ast.literal_eval(obj.mails_users_community_black_lists)
 
-        for userid in obj.mails_users_community_black_lists.keys():
+        for userid in list(obj.mails_users_community_black_lists.keys()):
             user = api.user.get(userid)
             if user is not None:
                 mail = user.getProperty('email')
@@ -1063,16 +1063,16 @@ class NotifyAtomicChange(grok.View):
             adapter = self.context.adapted()
 
             if 'read' in data['subscription']['permissions']:
-                permission = u'reader'
+                permission = 'reader'
             if 'write' in data['subscription']['permissions']:
-                permission = u'writer'
+                permission = 'writer'
             # For now, we took for granted that those users that has the
             # permissions 'flag', 'unsubscribe', 'invite' i 'kick' are owners
             if 'flag' in data['subscription']['permissions'] and \
                'unsubscribe' in data['subscription']['permissions'] and \
                'invite' in data['subscription']['permissions'] and \
                'kick' in data['subscription']['permissions']:
-                permission = u'owner'
+                permission = 'owner'
 
             if data['action'] == 'subscribe':
                 adapter.update_acl_atomic(data['username'], permission)
@@ -1137,12 +1137,12 @@ class UploadFile(grok.View):
 
     def render(self):
         if 'multipart/form-data' not in self.request['CONTENT_TYPE'] and \
-           len(self.request.form.keys()) != 1:
+           len(list(self.request.form.keys())) != 1:
             self.request.response.setHeader('Content-type', 'application/json')
             self.request.response.setStatus(400)
             return json.dumps({'Error': 'Not supported upload method'})
 
-        for key in self.request.form.keys():
+        for key in list(self.request.form.keys()):
             if isinstance(self.request.form[key], FileUpload):
                 file_key = key
 
@@ -1330,16 +1330,16 @@ class communityAdder(form.SchemaForm):
         self.widgets['mails_users_community_black_lists'].mode = 'hidden'
         self.fields['mails_users_community_black_lists'].mode = 'hidden'
 
-    @button.buttonAndHandler(_(u'Crea la comunitat'), name='save')
+    @button.buttonAndHandler(_('Crea la comunitat'), name='save')
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
             if 'title' not in data:
-                msgid = _(u'falta_titol', default=u'No es pot crear una comunitat sense titol')
+                msgid = _('falta_titol', default='No es pot crear una comunitat sense titol')
             elif 'terms' not in data:
-                msgid = _(u'falta_condicions', default=u"Es necessari acceptar les condicions d'us i privacitat per crear una comunitat.")
+                msgid = _('falta_condicions', default="Es necessari acceptar les condicions d'us i privacitat per crear una comunitat.")
             else:
-                msgid = _(u'error', default=u"Falta omplir algun camp obligatori.")
+                msgid = _('error', default="Falta omplir algun camp obligatori.")
             translated = self.context.translate(msgid)
             messages = IStatusMessage(self.request)
             messages.addStatusMessage(translated, type='error')
@@ -1374,7 +1374,7 @@ class communityAdder(form.SchemaForm):
         result = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=id_normalized)
 
         if result:
-            msgid = _(u'comunitat_existeix', default=u'La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom.', mapping={u'comunitat': nom})
+            msgid = _('comunitat_existeix', default='La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom.', mapping={'comunitat': nom})
 
             translated = self.context.translate(msgid)
 
@@ -1407,7 +1407,7 @@ class communityAdder(form.SchemaForm):
 
             new_comunitat = self.context[new_comunitat_id]
             # Redirect back to the front page with a status message
-            msgid = _(u'comunitat_creada', default=u'La comunitat ${comunitat} ha estat creada.', mapping={u'comunitat': nom})
+            msgid = _('comunitat_creada', default='La comunitat ${comunitat} ha estat creada.', mapping={'comunitat': nom})
 
             translated = self.context.translate(msgid)
 
@@ -1417,7 +1417,7 @@ class communityAdder(form.SchemaForm):
             self.request.response.redirect(new_comunitat.absolute_url())
 
     def terms(self):
-        return 'terms' in self.fields.keys()
+        return 'terms' in list(self.fields.keys())
 
 
 class communityEdit(form.SchemaForm):
@@ -1428,8 +1428,8 @@ class communityEdit(form.SchemaForm):
     schema = ICommunity
     ignoreContext = True
 
-    ctype_map = {u'Closed': 'closed', u'Open': 'open', u'Organizative': 'organizative'}
-    cview_map = {u'Darreres activitats': 'darreres_activitats', u'Activitats mes valorades': 'activitats_mes_valorades', u'Activitats destacades': 'activitats_destacades'}
+    ctype_map = {'Closed': 'closed', 'Open': 'open', 'Organizative': 'organizative'}
+    cview_map = {'Darreres activitats': 'darreres_activitats', 'Activitats mes valorades': 'activitats_mes_valorades', 'Activitats destacades': 'activitats_destacades'}
 
     def update(self):
         super(communityEdit, self).update()
@@ -1472,7 +1472,7 @@ class communityEdit(form.SchemaForm):
         converter = SelectWidgetConverter(self.fields['owners'].field, self.widgets['owners'])
         self.widgets['owners'].value = converter.toWidgetValue(self.context.owners)
 
-    @button.buttonAndHandler(_(u'Edita la comunitat'), name='save')
+    @button.buttonAndHandler(_('Edita la comunitat'), name='save')
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
@@ -1504,7 +1504,7 @@ class communityEdit(form.SchemaForm):
         result = pc.unrestrictedSearchResults(portal_type='ulearn.community', Title=nom)
 
         if result and self.context.title != nom:
-            msgid = _(u'comunitat_existeix', default=u'La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom.', mapping={u'comunitat': nom})
+            msgid = _('comunitat_existeix', default='La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom.', mapping={'comunitat': nom})
 
             translated = self.context.translate(msgid)
 
@@ -1542,7 +1542,7 @@ class communityEdit(form.SchemaForm):
 
             notify(ObjectModifiedEvent(self.context))
 
-            msgid = _(u'comunitat_modificada', default=u'La comunitat ${comunitat} ha estat modificada.', mapping={u'comunitat': nom})
+            msgid = _('comunitat_modificada', default='La comunitat ${comunitat} ha estat modificada.', mapping={'comunitat': nom})
 
             translated = self.context.translate(msgid)
 
@@ -1569,7 +1569,7 @@ class CommunityInitializeAdapter(object):
             the context directly into the MAX server with only the creator as
             subscriber (and owner).
         """
-        initial_acl = dict(users=[dict(id=unicode(community.Creator().encode('utf-8')), role='owner')])
+        initial_acl = dict(users=[dict(id=str(community.Creator().encode('utf-8')), role='owner')])
         adapter = community.adapted()
 
         adapter.create_max_context()
@@ -1611,10 +1611,10 @@ class CommunityInitializeAdapter(object):
         news = createContentInContainer(community, 'Folder', title='news', checkConstraints=False)
 
         # Set the correct title, translated
-        documents.setTitle(community.translate(_(u'Documents')))
-        media.setTitle(community.translate(_(u'Media')))
-        events.setTitle(community.translate(_(u'Esdeveniments')))
-        news.setTitle(community.translate(_(u'Noticies')))
+        documents.setTitle(community.translate(_('Documents')))
+        media.setTitle(community.translate(_('Media')))
+        events.setTitle(community.translate(_('Esdeveniments')))
+        news.setTitle(community.translate(_('Noticies')))
 
         # Set default view layout
         documents.setLayout('filtered_contents_search_view')
@@ -1665,26 +1665,26 @@ class CommunityInitializeAdapter(object):
         behavior.setImmediatelyAddableTypes(('News Item', 'Folder', 'Image'))
 
         NEWS_QUERY = [
-            {'i': u'portal_type',
-             'o': u'plone.app.querystring.operation.selection.any',
-             'v': [u'News Item'],
+            {'i': 'portal_type',
+             'o': 'plone.app.querystring.operation.selection.any',
+             'v': ['News Item'],
              },
-            {'i': u'review_state',
-             'o': u'plone.app.querystring.operation.selection.any',
-             'v': [u'published', u'intranet', u'esborrany'],
+            {'i': 'review_state',
+             'o': 'plone.app.querystring.operation.selection.any',
+             'v': ['published', 'intranet', 'esborrany'],
              },
-            {'i': u'path',
-             'o': u'plone.app.querystring.operation.string.relativePath',
-             'v': u'..',
+            {'i': 'path',
+             'o': 'plone.app.querystring.operation.string.relativePath',
+             'v': '..',
              },
         ]
         # 'v': u'..'}]
-        QUERY_SORT_ON = u'effective'
+        QUERY_SORT_ON = 'effective'
 
         # Create the aggregator with new criteria
         col_news = createContentInContainer(news, 'Collection', title='aggregator', checkConstraints=False)
-        col_news.setTitle(news.translate(_(u'Blog')))
-        col_news.setDescription(news.translate(_(u'Noticies de la comunitat')))
+        col_news.setTitle(news.translate(_('Blog')))
+        col_news.setDescription(news.translate(_('Noticies de la comunitat')))
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON
         col_news.sort_reversed = True

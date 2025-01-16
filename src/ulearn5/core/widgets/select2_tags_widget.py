@@ -25,12 +25,12 @@ import zope.schema
 class Select2TagsInputWidget(textarea.TextAreaWidget):
     """Widget for select site tags"""
     zope.interface.implementsOnly(ITagsSelectWidget)
-    klass = u'tags-token-input-widget'
+    klass = 'tags-token-input-widget'
     display_template = ViewPageTemplateFile('select2_user_display.pt')
     input_template = ViewPageTemplateFile('select2_user_input.pt')
 
     # JavaScript template
-    js_template = u"""\
+    js_template = """\
     (function($) {
         $().ready(function() {
             $('#'+'%(id)s').select2({
@@ -107,9 +107,9 @@ class TagsSelectWidgetConverter(BaseDataConverter):
         :rtype: string
         """
         if not value:
-            return u''
+            return ''
         separator = getattr(self.widget, 'separator', ',')
-        return separator.join(unicode(v) for v in value)
+        return separator.join(str(v) for v in value)
 
     def toFieldValue(self, value):
         """Converts from widget value to field.

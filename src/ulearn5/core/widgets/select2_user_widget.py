@@ -23,12 +23,12 @@ import zope.schema
 class Select2UserInputWidget(textarea.TextAreaWidget):
     """Widget for select site users"""
     zope.interface.implementsOnly(IAjaxSelectWidget)
-    klass = u'user-token-input-widget'
+    klass = 'user-token-input-widget'
     display_template = ViewPageTemplateFile('select2_user_display.pt')
     input_template = ViewPageTemplateFile('select2_user_input.pt')
 
     # JavaScript template
-    js_template = u"""\
+    js_template = """\
     (function($) {
         $().ready(function() {
             $('#'+'%(id)s').select2({
@@ -91,9 +91,9 @@ class SelectWidgetConverter(BaseDataConverter):
         :rtype: string
         """
         if not value:
-            return u''
+            return ''
         separator = getattr(self.widget, 'separator', ',')
-        return separator.join(unicode(v) for v in value)
+        return separator.join(str(v) for v in value)
 
     def toFieldValue(self, value):
         """Converts from widget value to field.
@@ -130,12 +130,12 @@ class fromUsername2DisplayName(grok.View):
                     if pm.getMemberInfo(username).get('fullname'):
                         to_fullnames.append(
                             dict(id=username,
-                                 text=u'{} ({})'.format(pm.getMemberInfo(username).get('fullname').decode('utf-8'), username.decode('utf-8')))
+                                 text='{} ({})'.format(pm.getMemberInfo(username).get('fullname').decode('utf-8'), username.decode('utf-8')))
                         )
                     else:
                         to_fullnames.append(
                             dict(id=username,
-                                 text=u'{} ({})'.format(username.decode('utf-8'), username.decode('utf-8')))
+                                 text='{} ({})'.format(username.decode('utf-8'), username.decode('utf-8')))
                         )
                 else:
                     to_fullnames.append(

@@ -16,7 +16,7 @@ import zope.schema.interfaces
 class VisibilityWidget(SingleCheckBoxWidget):
     zope.interface.implementsOnly(IVisibilityWidget)
 
-    klass = u'visibility-widget'
+    klass = 'visibility-widget'
     input_template = ViewPageTemplateFile('templates/visibility.pt')
 
     def render(self):

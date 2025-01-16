@@ -145,13 +145,13 @@ class Communities(REST):
         # Get all communities for the current user
         pc = api.portal.get_tool('portal_catalog')
         r_results_organizative = pc.searchResults(
-            portal_type="ulearn.community", community_type=u"Organizative",
+            portal_type="ulearn.community", community_type="Organizative",
             sort_on="sortable_title")
         r_results_closed = pc.searchResults(
-            portal_type="ulearn.community", community_type=u"Closed",
+            portal_type="ulearn.community", community_type="Closed",
             sort_on="sortable_title")
         ur_results_open = pc.unrestrictedSearchResults(
-            portal_type="ulearn.community", community_type=u"Open",
+            portal_type="ulearn.community", community_type="Open",
             sort_on="sortable_title")
         communities = r_results_organizative + r_results_closed + ur_results_open
 
@@ -284,7 +284,7 @@ class Communities(REST):
         if records:
             return self.username in [
                 a['id'] for a in records[0].attrs['acl']['users']
-                if a['role'] == u'owner']
+                if a['role'] == 'owner']
 
 
 class Community(REST, CommunityMixin):
@@ -800,7 +800,7 @@ class Notifymail(REST, CommunityMixin):
                             community.mails_users_community_black_lists = ast.literal_eval(
                                 community.mails_users_community_black_lists)
 
-                        black_list_mails_users_to_notify = community.mails_users_community_black_lists.values()
+                        black_list_mails_users_to_notify = list(community.mails_users_community_black_lists.values())
                         if isinstance(community.mails_users_community_lists, list):
                             # if None in community.mails_users_community_lists:
                             #     community.mails_users_community_lists.remove(None)
@@ -869,10 +869,10 @@ class Notifymail(REST, CommunityMixin):
 
                     mailhost = api.portal.get_tool(name='MailHost')
                     msg = MIMEMultipart()
-                    if isinstance(message_template, unicode):
+                    if isinstance(message_template, str):
                         message_template = message_template.encode('utf-8')
 
-                    if isinstance(subject_template, unicode):
+                    if isinstance(subject_template, str):
                         subject_template = subject_template.encode('utf-8')
 
                     if params['objectType'] == 'image':
@@ -950,7 +950,7 @@ class Documents(REST):
         portal = api.portal.get()
         doc_path = '/'.join(portal.getPhysicalPath()
                             ) + '/' + self.params.pop('community', None) + '/documents'
-        for k in self.params.keys():
+        for k in list(self.params.keys()):
             if k == 'path':
                 doc_path = self.params.pop(k, None)
         query = {
@@ -977,7 +977,7 @@ class Documents(REST):
         obj_url = sortedObj['obj'].getURL()
         internal = True
         type_next_obj = None
-        if brain.portal_type == u'Link':
+        if brain.portal_type == 'Link':
             internal = True if 'resolveuid' in brain.remoteUrl else False
             if internal:
                 uid = brain.remoteUrl.split('/resolveuid/')[1]
@@ -986,7 +986,7 @@ class Documents(REST):
                 obj_url = next_obj.absolute_url()
             else:
                 obj_url = brain.remoteUrl
-        elif brain.portal_type == u'External Content':
+        elif brain.portal_type == 'External Content':
             obj_url = brain.absolute_url() + '/@@download/' + brain.filename
         # TODO: eliminar campos duplicados cuando se deje de usar uTalk
         community = dict(absolute_url=obj_url,
@@ -1083,7 +1083,7 @@ class Search(REST):
             return s
 
         text = self.params.pop('q', None)
-        multispace = u'\u3000'.encode('utf-8')
+        multispace = '\u3000'.encode('utf-8')
         result = []
         if text is not None:
             for char in ('?', '-', '+', '*', multispace):

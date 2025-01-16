@@ -16,7 +16,7 @@ import zope.schema.interfaces
 class SingleCheckBoxNotifyEmailWidget(SingleCheckBoxWidget):
     zope.interface.implementsOnly(ISingleCheckBoxNotifyEmailWidget)
 
-    klass = u'single-checkbox-notify-email-widget'
+    klass = 'single-checkbox-notify-email-widget'
 
     input_template = ViewPageTemplateFile('templates/single-checkbox-notify-email-widget_input.pt')
     display_template = ViewPageTemplateFile('templates/single-checkbox-notify-email-widget_display.pt')

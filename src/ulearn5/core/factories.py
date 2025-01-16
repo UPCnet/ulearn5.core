@@ -1,5 +1,5 @@
 import transaction
-from thread import allocate_lock
+from _thread import allocate_lock
 
 from plone import api
 from zope.component import getMultiAdapter
@@ -62,7 +62,7 @@ class DXFileFactory(object):
             # its type name
             if 'File' in type_:
                 file = NamedBlobFile(data=data.read(),
-                                     filename=unicode(data.filename),
+                                     filename=str(data.filename),
                                      contentType=content_type)
                 obj = createContentInContainer(self.context,
                                                'AppFile',
@@ -73,7 +73,7 @@ class DXFileFactory(object):
                                                checkConstraints=False)
             elif 'Image' in type_:
                 image = NamedBlobImage(data=data.read(),
-                                       filename=unicode(data.filename),
+                                       filename=str(data.filename),
                                        contentType=content_type)
 
                 obj = createContentInContainer(self.context,

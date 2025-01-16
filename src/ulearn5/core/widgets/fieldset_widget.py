@@ -14,7 +14,7 @@ import zope.schema.interfaces
 class FieldsetWidget(z3c.form.browser.text.TextWidget):
     zope.interface.implementsOnly(IFieldsetWidget)
 
-    klass = u'fieldset-widget'
+    klass = 'fieldset-widget'
     input_template = ViewPageTemplateFile('templates/fieldset.pt')
 
     def render(self):
@@ -32,7 +32,7 @@ def FieldsetFieldWidget(field, request):
 class H3FieldsetWidget(z3c.form.browser.text.TextWidget):
     zope.interface.implementsOnly(IFieldsetWidget)
 
-    klass = u'fieldset-widget'
+    klass = 'fieldset-widget'
     input_template = ViewPageTemplateFile('templates/h3_fieldset.pt')
 
     def render(self):
@@ -50,7 +50,7 @@ def H3FieldsetFieldWidget(field, request):
 class H4FieldsetWidget(z3c.form.browser.text.TextWidget):
     zope.interface.implementsOnly(IFieldsetWidget)
 
-    klass = u'fieldset-widget'
+    klass = 'fieldset-widget'
     input_template = ViewPageTemplateFile('templates/h4_fieldset.pt')
 
     def render(self):
@@ -68,7 +68,7 @@ def H4FieldsetFieldWidget(field, request):
 class H5FieldsetWidget(z3c.form.browser.text.TextWidget):
     zope.interface.implementsOnly(IFieldsetWidget)
 
-    klass = u'fieldset-widget'
+    klass = 'fieldset-widget'
     input_template = ViewPageTemplateFile('templates/h5_fieldset.pt')
 
     def render(self):

@@ -4,7 +4,7 @@ from plone import api
 
 class uLearnTestBase(unittest.TestCase):
 
-    def create_test_community(self, id='community-test', name=u'community-test', community_type='Closed'):
+    def create_test_community(self, id='community-test', name='community-test', community_type='Closed'):
         """ Creates the community, it assumes the current logged in user """
         if api.user.is_anonymous():
             self.assertTrue(False, msg='Tried to create a community but no user logged in.')

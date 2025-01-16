@@ -20,7 +20,7 @@ class IntegrationTest(unittest.TestCase):
     def test_basic_gwuuidc(self):
         login(self.portal, TEST_USER_NAME)
         api.user.grant_roles(username=TEST_USER_NAME, obj=self.portal, roles=['Manager'])
-        self.portal.invokeFactory('Folder', 'f1', title=u"Soc una carpeta")
+        self.portal.invokeFactory('Folder', 'f1', title="Soc una carpeta")
         folder = self.portal['f1']
 
         self.assertTrue(IGWUUID(folder).get())
@@ -28,7 +28,7 @@ class IntegrationTest(unittest.TestCase):
     def test_different_from_uuid(self):
         login(self.portal, TEST_USER_NAME)
         api.user.grant_roles(username=TEST_USER_NAME, obj=self.portal, roles=['Manager'])
-        self.portal.invokeFactory('Folder', 'f1', title=u"Soc una carpeta")
+        self.portal.invokeFactory('Folder', 'f1', title="Soc una carpeta")
         folder = self.portal['f1']
 
         self.assertNotEqual(IGWUUID(folder).get(), IUUID(folder))
@@ -36,7 +36,7 @@ class IntegrationTest(unittest.TestCase):
     def test_mutable(self):
         login(self.portal, TEST_USER_NAME)
         api.user.grant_roles(username=TEST_USER_NAME, obj=self.portal, roles=['Manager'])
-        self.portal.invokeFactory('Folder', 'f1', title=u"Soc una carpeta")
+        self.portal.invokeFactory('Folder', 'f1', title="Soc una carpeta")
         folder = self.portal['f1']
         original_uuid = IGWUUID(folder).get()
 
@@ -47,7 +47,7 @@ class IntegrationTest(unittest.TestCase):
     def test_access_by_attr(self):
         login(self.portal, TEST_USER_NAME)
         api.user.grant_roles(username=TEST_USER_NAME, obj=self.portal, roles=['Manager'])
-        self.portal.invokeFactory('Folder', 'f1', title=u"Soc una carpeta")
+        self.portal.invokeFactory('Folder', 'f1', title="Soc una carpeta")
         folder = self.portal['f1']
 
         self.assertTrue(getattr(folder, ATTRIBUTE_NAME, False))

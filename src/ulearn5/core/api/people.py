@@ -2,7 +2,7 @@
 from Acquisition import aq_inner
 from DateTime.DateTime import DateTime
 from Products.CMFPlone.interfaces import IPloneSiteRoot
-from StringIO import StringIO
+from io import StringIO
 
 from five import grok
 from hashlib import sha1
@@ -52,7 +52,7 @@ class People(REST):
     def GET(self):
         portal = api.portal.get()
         soup = get_soup('user_properties', portal)
-        records = [r for r in soup.data.items()]
+        records = [r for r in list(soup.data.items())]
 
         result = {}
         user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
@@ -124,7 +124,7 @@ class Users(REST):
     def GET(self):
         portal = api.portal.get()
         soup = get_soup('user_properties', portal)
-        records = [r for r in soup.data.items()]
+        records = [r for r in list(soup.data.items())]
 
         result = []
         for record in records:
@@ -296,7 +296,7 @@ class Person(REST):
                         acl_record = records[0]
                         acl = acl_record.attrs['acl']
                         exist = [a for a in acl['users']
-                                 if a['id'] == unicode(username)]
+                                 if a['id'] == str(username)]
                         if exist:
                             acl['users'].remove(exist[0])
                             acl_record.attrs['acl'] = acl
@@ -386,7 +386,7 @@ class Person(REST):
 
         # Delete members in acl_users.
         acl_users = context.acl_users
-        if isinstance(member_ids, basestring):
+        if isinstance(member_ids, str):
             member_ids = (member_ids,)
         member_ids = list(member_ids)
         for member_id in member_ids[:]:
@@ -702,13 +702,13 @@ class Subscriptions(REST):
         # Get all communities for the current user
         pc = api.portal.get_tool('portal_catalog')
         r_results_organizative = pc.searchResults(
-            portal_type="ulearn.community", community_type=u"Organizative",
+            portal_type="ulearn.community", community_type="Organizative",
             sort_on="sortable_title")
         r_results_closed = pc.searchResults(
-            portal_type="ulearn.community", community_type=u"Closed",
+            portal_type="ulearn.community", community_type="Closed",
             sort_on="sortable_title")
         ur_results_open = pc.unrestrictedSearchResults(
-            portal_type="ulearn.community", community_type=u"Open",
+            portal_type="ulearn.community", community_type="Open",
             sort_on="sortable_title")
         communities = r_results_organizative + r_results_closed + ur_results_open
 
@@ -788,7 +788,7 @@ class Subscriptions(REST):
         if records:
             return self.username in [
                 a['id'] for a in records[0].attrs['acl']['users']
-                if a['role'] == u'owner']
+                if a['role'] == 'owner']
 
     @staticmethod
     def get_pending_community_user(community, user):

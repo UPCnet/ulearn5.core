@@ -70,9 +70,9 @@ class TestAPI(uLearnTestBase):
         username_plone = 'ulearn.testuser1'
         login(self.portal, username_plone)
         username = 'ulearn.testuser2'
-        perfil = dict(fullname=u'Test User',
-                      password=u'test123',
-                      email=u'test@email.es')
+        perfil = dict(fullname='Test User',
+                      password='test123',
+                      email='test@email.es')
 
         people_view = self.request_API_endpoint(username_plone, ['api', 'people', username], body=perfil)
         response = people_view.POST()
@@ -94,9 +94,9 @@ class TestAPI(uLearnTestBase):
 
         self.assertIsNone(api.user.get('janet.dura'))
 
-        perfil = dict(fullname=u'Test User',
-                      password=u'test123',
-                      email=u'test@email.es')
+        perfil = dict(fullname='Test User',
+                      password='test123',
+                      email='test@email.es')
 
         people_view = self.request_API_endpoint(username_plone, ['api', 'people', username], body=perfil)
         response = people_view.POST()
@@ -106,13 +106,13 @@ class TestAPI(uLearnTestBase):
     def test_news_post(self):
         username_plone = 'ulearn.testuser1'
         login(self.portal, username_plone)
-        newid = u'noticia-prueba'
-        new = dict(title=u'Noticia de Prueba',
-                   description=u'Noticia prueba test',
-                   start=u'18/10/2019/09:00',
-                   end=u'18/10/2019/09:00',
+        newid = 'noticia-prueba'
+        new = dict(title='Noticia de Prueba',
+                   description='Noticia prueba test',
+                   start='18/10/2019/09:00',
+                   end='18/10/2019/09:00',
                    imgUrl='https://www.upc.edu/++theme++homeupc/assets/images/logomark.png',
-                   body=u'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.')
+                   body='Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.')
         new_view = self.request_API_endpoint(username_plone, ['api', 'news', newid], body=new)
         response = new_view.POST()
         response = json.loads(response)
@@ -124,7 +124,7 @@ class TestAPI(uLearnTestBase):
         community = self.create_test_community()
         gwuuid = IGWUUID(community).get()
 
-        acl = dict(users=[dict(id=u'janet.dura', displayName=u'Janet Durà', role=u'writer')])
+        acl = dict(users=[dict(id='janet.dura', displayName='Janet Durà', role='writer')])
         subscriptions_view = self.request_API_endpoint(username, ['api', 'communities', gwuuid, 'subscriptions'], body=acl)
         response = subscriptions_view.PUT()
 
@@ -140,10 +140,10 @@ class TestAPI(uLearnTestBase):
         community = self.create_test_community()
         gwuuid = IGWUUID(community).get()
 
-        acl = dict(users=[dict(id=u'janet.dura', displayName=u'Janet Durà', role=u'writer'),
-                          dict(id=u'victor.fernandez', displayName=u'Víctor Fernández de Alba', role=u'reader')],
-                   groups=[dict(id=u'PAS', displayName=u'PAS UPC', role=u'writer'),
-                           dict(id=u'UPCnet', displayName=u'UPCnet', role=u'reader')]
+        acl = dict(users=[dict(id='janet.dura', displayName='Janet Durà', role='writer'),
+                          dict(id='victor.fernandez', displayName='Víctor Fernández de Alba', role='reader')],
+                   groups=[dict(id='PAS', displayName='PAS UPC', role='writer'),
+                           dict(id='UPCnet', displayName='UPCnet', role='reader')]
                    )
 
         subscriptions_view = self.request_API_endpoint(username, ['api', 'communities', gwuuid, 'subscriptions'], body=acl)
@@ -170,10 +170,10 @@ class TestAPI(uLearnTestBase):
 
         # Subscribed to community but not Owner
         login(self.portal, username)
-        acl = dict(users=[dict(id=username_not_allowed, displayName=u'Test', role=u'writer'),
-                          dict(id=u'victor.fernandez', displayName=u'Víctor Fernández de Alba', role=u'reader')],
-                   groups=[dict(id=u'PAS', displayName=u'PAS UPC', role=u'writer'),
-                           dict(id=u'UPCnet', displayName=u'UPCnet', role=u'reader')]
+        acl = dict(users=[dict(id=username_not_allowed, displayName='Test', role='writer'),
+                          dict(id='victor.fernandez', displayName='Víctor Fernández de Alba', role='reader')],
+                   groups=[dict(id='PAS', displayName='PAS UPC', role='writer'),
+                           dict(id='UPCnet', displayName='UPCnet', role='reader')]
                    )
         subscriptions_view = self.request_API_endpoint(username, ['api', 'communities', gwuuid, 'subscriptions'], body=acl)
         response = subscriptions_view.POST()
@@ -201,7 +201,7 @@ class TestAPI(uLearnTestBase):
         response = subscriptions_view.GET()
         response = json.loads(response)
 
-        self.assertEqual(ICommunityACL(community)().attrs['acl'], {'users': [{'role': 'owner', 'id': u'ulearn.testuser1'}]})
+        self.assertEqual(ICommunityACL(community)().attrs['acl'], {'users': [{'role': 'owner', 'id': 'ulearn.testuser1'}]})
 
     def test_community_put_permissions(self):
         """ Used when changing the community type. """
@@ -271,10 +271,10 @@ class TestAPI(uLearnTestBase):
         community = self.create_test_community()
         gwuuid = IGWUUID(community).get()
 
-        acl = dict(users=[dict(id=u'janet.dura', displayName=u'Janet Durà', role=u'writer'),
-                          dict(id=u'victor.fernandez', displayName=u'Víctor Fernández de Alba', role=u'reader')],
-                   groups=[dict(id=u'PAS', displayName=u'PAS UPC', role=u'writer'),
-                           dict(id=u'UPCnet', displayName=u'UPCnet', role=u'reader')]
+        acl = dict(users=[dict(id='janet.dura', displayName='Janet Durà', role='writer'),
+                          dict(id='victor.fernandez', displayName='Víctor Fernández de Alba', role='reader')],
+                   groups=[dict(id='PAS', displayName='PAS UPC', role='writer'),
+                           dict(id='UPCnet', displayName='UPCnet', role='reader')]
                    )
 
         subscriptions_view = self.request_API_endpoint(username, ['api', 'communities', gwuuid, 'subscriptions'], body=acl)
@@ -292,10 +292,10 @@ class TestAPI(uLearnTestBase):
         community = self.create_test_community(community_type='Open')
         gwuuid = IGWUUID(community).get()
 
-        acl = dict(users=[dict(id=u'janet.dura', displayName=u'Janet Durà', role=u'writer'),
-                          dict(id=u'victor.fernandez', displayName=u'Víctor Fernández de Alba', role=u'reader')],
-                   groups=[dict(id=u'PAS', displayName=u'PAS UPC', role=u'writer'),
-                           dict(id=u'UPCnet', displayName=u'UPCnet', role=u'reader')]
+        acl = dict(users=[dict(id='janet.dura', displayName='Janet Durà', role='writer'),
+                          dict(id='victor.fernandez', displayName='Víctor Fernández de Alba', role='reader')],
+                   groups=[dict(id='PAS', displayName='PAS UPC', role='writer'),
+                           dict(id='UPCnet', displayName='UPCnet', role='reader')]
                    )
 
         subscriptions_view = self.request_API_endpoint(username, ['api', 'communities', gwuuid, 'subscriptions'], body=acl)
@@ -351,16 +351,16 @@ class TestAPI(uLearnTestBase):
         login(self.portal, username)
         community = self.create_test_community(community_type='Closed')
         gwuuid = IGWUUID(community).get()
-        acl = dict(users=[dict(id=u'janet.dura', displayName=u'Janet Durà', role=u'writer'),
-                          dict(id=u'victor.fernandez', displayName=u'Víctor Fernández de Alba', role=u'reader')],
-                   groups=[dict(id=u'PAS', displayName=u'PAS UPC', role=u'writer'),
-                           dict(id=u'UPCnet', displayName=u'UPCnet', role=u'reader')]
+        acl = dict(users=[dict(id='janet.dura', displayName='Janet Durà', role='writer'),
+                          dict(id='victor.fernandez', displayName='Víctor Fernández de Alba', role='reader')],
+                   groups=[dict(id='PAS', displayName='PAS UPC', role='writer'),
+                           dict(id='UPCnet', displayName='UPCnet', role='reader')]
                    )
 
         adapter = community.adapted()
         adapter.update_acl(acl)
 
-        group = u'UPCnet'
+        group = 'UPCnet'
 
         group_view = self.request_API_endpoint(username, ['api', 'groups', group, 'communities'])
         response = group_view.GET()
@@ -379,12 +379,12 @@ class TestAPI(uLearnTestBase):
 
         username = 'ulearn.testuser1'
         login(self.portal, username)
-        eventid = u'evento-prueba'
-        event = dict(title=u'Evento de Prueba',
-                    description=u'Evento prueba test',
-                    body=u'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-                    start=u'18/10/2015/09:00',
-                    end=u'18/10/2015/09:00')
+        eventid = 'evento-prueba'
+        event = dict(title='Evento de Prueba',
+                    description='Evento prueba test',
+                    body='Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+                    start='18/10/2015/09:00',
+                    end='18/10/2015/09:00')
 
         event_view = self.request_API_endpoint(username, ['api', 'events', eventid], body=event)
         response = event_view.POST()
@@ -394,11 +394,11 @@ class TestAPI(uLearnTestBase):
         self.assertEqual(response['message'], 'Event {} created'.format(eventid))
 
         # Then check that you also update the data
-        event = dict(title=u'Evento de Prueba',
-                    description=u'Evento prueba test',
-                    body=u'Actualizacion',
-                    start=u'18/10/2015/09:00',
-                    end=u'18/10/2015/09:00')
+        event = dict(title='Evento de Prueba',
+                    description='Evento prueba test',
+                    body='Actualizacion',
+                    start='18/10/2015/09:00',
+                    end='18/10/2015/09:00')
 
         event_view = self.request_API_endpoint(username, ['api', 'events', eventid], body=event)
         response = event_view.POST()
@@ -413,7 +413,7 @@ class TestAPI(uLearnTestBase):
         login(self.portal, username)
         community = self.create_test_community()
         gwuuid = IGWUUID(community).get()
-        acl = dict(users=[dict(id=u'janet.dura', displayName=u'Janet Durà', role=u'writer')])
+        acl = dict(users=[dict(id='janet.dura', displayName='Janet Durà', role='writer')])
         subscriptions_view = self.request_API_endpoint(username, ['api', 'communities', gwuuid, 'subscriptions'], body=acl)
         response = subscriptions_view.PUT()
         response = json.loads(response)
@@ -439,7 +439,7 @@ class TestAPI(uLearnTestBase):
         response = json.loads(response)
 
         self.assertEqual(user_view.request.response.getStatus(), 200)
-        self.assertEqual(response, {u'synced_users': [u'janet.dura']})
+        self.assertEqual(response, {'synced_users': ['janet.dura']})
         logout()
 
     def test_people_subscribe_get(self):
@@ -447,14 +447,14 @@ class TestAPI(uLearnTestBase):
         username_plone = 'ulearn.testuser1'
         login(self.portal, username_plone)
 
-        acl = dict(users=[dict(id=u'janet.dura', displayName=u'Janet Durà', role=u'writer')])
+        acl = dict(users=[dict(id='janet.dura', displayName='Janet Durà', role='writer')])
 
-        community = self.create_test_community(id='test1', name=u'test1', community_type='Closed')
+        community = self.create_test_community(id='test1', name='test1', community_type='Closed')
         gwuuid = IGWUUID(community).get()
         adapter = community.adapted()
         adapter.update_acl(acl)
 
-        community = self.create_test_community(id='test2', name=u'test2', community_type='Open')
+        community = self.create_test_community(id='test2', name='test2', community_type='Open')
         gwuuid = IGWUUID(community).get()
         adapter = community.adapted()
         adapter.update_acl(acl)

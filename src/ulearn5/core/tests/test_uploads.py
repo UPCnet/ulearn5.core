@@ -120,7 +120,7 @@ class TestUploads(uLearnTestBase):
         community = self.create_test_community()
         transaction.commit()
 
-        activity_data = {'activity': u'This is my fancy file ç à'}
+        activity_data = {'activity': 'This is my fancy file ç à'}
         avatar_file = open(os.path.join(os.path.dirname(__file__), 'avatar.png'), 'rb')
         files = {'file': ('avatar.png', avatar_file)}
 

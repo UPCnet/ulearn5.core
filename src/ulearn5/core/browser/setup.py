@@ -71,10 +71,10 @@ logger = logging.getLogger(__name__)
 
 
 grok.templatedir("views_templates")
-NEWS_QUERY = [{'i': u'portal_type', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'News Item']},
-              {'i': u'review_state', 'o': u'plone.app.querystring.operation.selection.any', 'v': [u'published', u'intranet', u'esborrany']},
-              {'i': u'path', 'o': u'plone.app.querystring.operation.string.relativePath', 'v': u'..'}]
-QUERY_SORT_ON = u'effective'
+NEWS_QUERY = [{'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.any', 'v': ['News Item']},
+              {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.any', 'v': ['published', 'intranet', 'esborrany']},
+              {'i': 'path', 'o': 'plone.app.querystring.operation.string.relativePath', 'v': '..'}]
+QUERY_SORT_ON = 'effective'
 
 
 def createOrGetObject(context, newid, title, type_name):
@@ -90,7 +90,7 @@ def createOrGetObject(context, newid, title, type_name):
 
 
 def newPrivateFolder(context, newid, title):
-    return createOrGetObject(context, newid, title, u'privateFolder')
+    return createOrGetObject(context, newid, title, 'privateFolder')
 
 
 class debug(grok.View):
@@ -115,9 +115,9 @@ class setupHomePage(grok.View):
             pass
         portal = getSite()
         frontpage = portal['front-page']
-        frontpage.description = u''
+        frontpage.description = ''
         from plone.app.textfield.value import RichTextValue
-        frontpage.text = RichTextValue(u'', 'text/plain', 'text/html')
+        frontpage.text = RichTextValue('', 'text/plain', 'text/html')
         wftool = api.portal.get_tool(name='portal_workflow')
         wftool.doActionFor(frontpage, 'reject')
         wftool.doActionFor(frontpage, 'publishtointranet')
@@ -129,7 +129,7 @@ class setupHomePage(grok.View):
             api.content.delete(obj=portal['news']['aggregator'])
 
         # Create the aggregator with new criteria
-        col_news = self.create_content(portal['news'], 'Collection', 'aggregator', title='aggregator', description=u'Site news')
+        col_news = self.create_content(portal['news'], 'Collection', 'aggregator', title='aggregator', description='Site news')
         col_news.title = 'News'
         col_news.query = NEWS_QUERY
         col_news.sort_on = QUERY_SORT_ON
@@ -149,21 +149,21 @@ class setupHomePage(grok.View):
         from plone.portlets.constants import CONTEXT_CATEGORY
 
         # Get the proper portlet manager
-        manager = getUtility(IPortletManager, name=u"plone.rightcolumn")
+        manager = getUtility(IPortletManager, name="plone.rightcolumn")
         # Get the current blacklist for the location
         blacklist = getMultiAdapter((self.context, manager), ILocalPortletAssignmentManager)
         # Turn off the manager
         blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
         # Get the proper portlet manager
-        manager = getUtility(IPortletManager, name=u"plone.footerportlets")
+        manager = getUtility(IPortletManager, name="plone.footerportlets")
         # Get the current blacklist for the location
         blacklist = getMultiAdapter((self.context, manager), ILocalPortletAssignmentManager)
         # Turn off the manager
         blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
         # Get the proper portlet manager
-        manager = getUtility(IPortletManager, name=u"plone.leftcolumn")
+        manager = getUtility(IPortletManager, name="plone.leftcolumn")
         # Get the current blacklist for the location
         blacklist = getMultiAdapter((frontpage, manager), ILocalPortletAssignmentManager)
         # Turn off the manager
@@ -273,7 +273,7 @@ class createMenuFolders(grok.View):
             pass
 
         portal = getSite()
-        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion = newPrivateFolder(portal, 'gestion', 'Gestión')
         gestion.exclude_from_nav = False
         gestion.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(gestion)
@@ -282,7 +282,7 @@ class createMenuFolders(grok.View):
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
         gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
-        enlaces_cabecera = newPrivateFolder(gestion, 'menu', u'Menu')
+        enlaces_cabecera = newPrivateFolder(gestion, 'menu', 'Menu')
         enlaces_cabecera.exclude_from_nav = False
         enlaces_cabecera._Delete_objects_Permission = ('Site Administrator', 'Manager',)
         enlaces_cabecera.reindexObject()
@@ -314,7 +314,7 @@ class createCustomizedHeaderFolder(grok.View):
             pass
 
         portal = getSite()
-        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion = newPrivateFolder(portal, 'gestion', 'Gestión')
         gestion.exclude_from_nav = False
         gestion.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(gestion)
@@ -323,9 +323,9 @@ class createCustomizedHeaderFolder(grok.View):
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
         gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
-        description = u'La capçalera utilitzarà la primera imatge del directori, aquesta imatge ha de tenir una alçada de 83px. \nLa cabecera utilizará la primera imagen del directorio, esta imagen tiene que tener una altura de 83px. \nThe header will use the first image of the directory, this image must have a height of 83px.'
+        description = 'La capçalera utilitzarà la primera imatge del directori, aquesta imatge ha de tenir una alçada de 83px. \nLa cabecera utilizará la primera imagen del directorio, esta imagen tiene que tener una altura de 83px. \nThe header will use the first image of the directory, this image must have a height of 83px.'
 
-        header = newPrivateFolder(gestion, 'header', u'Header')
+        header = newPrivateFolder(gestion, 'header', 'Header')
         header.exclude_from_nav = False
         header.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(header)
@@ -362,10 +362,10 @@ class createCustomizedFooterFolder(grok.View):
         except:
             pass
 
-        description = u'El peu de pàgina utilizarà el primer document del directori.\nEl pie de página utilizará el primer documento del directorio.\nThe footer will use the first document in the directory.'
+        description = 'El peu de pàgina utilizarà el primer document del directori.\nEl pie de página utilizará el primer documento del directorio.\nThe footer will use the first document in the directory.'
 
         portal = getSite()
-        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion = newPrivateFolder(portal, 'gestion', 'Gestión')
         gestion.exclude_from_nav = False
         gestion.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(gestion)
@@ -374,7 +374,7 @@ class createCustomizedFooterFolder(grok.View):
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
         gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
-        footer = newPrivateFolder(gestion, 'footer', u'Footer')
+        footer = newPrivateFolder(gestion, 'footer', 'Footer')
         footer.exclude_from_nav = False
         footer.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(footer)
@@ -412,7 +412,7 @@ class createBannersFolder(grok.View):
             pass
 
         portal = getSite()
-        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion = newPrivateFolder(portal, 'gestion', 'Gestión')
         gestion.exclude_from_nav = False
         gestion.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(gestion)
@@ -421,7 +421,7 @@ class createBannersFolder(grok.View):
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
         gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
-        banners = newPrivateFolder(gestion, 'banners', u'Banners')
+        banners = newPrivateFolder(gestion, 'banners', 'Banners')
         banners.exclude_from_nav = False
         banners.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(banners)
@@ -463,7 +463,7 @@ class createPersonalBannerFolder(grok.View):
             user = api.user.get(username=userid)
             if user:
                 portal = getSite()
-                perFolder = self.createOrGetObject(portal['Members'], userid, userid, u'privateFolder')
+                perFolder = self.createOrGetObject(portal['Members'], userid, userid, 'privateFolder')
                 perFolder.exclude_from_nav = False
                 perFolder.setLayout('folder_listing')
                 behavior = ISelectableConstrainTypes(perFolder)
@@ -477,7 +477,7 @@ class createPersonalBannerFolder(grok.View):
                     perFolder.manage_delLocalRoles([username])
                 perFolder.manage_setLocalRoles(userid, ['Contributor', 'Editor', 'Reader'])
 
-                banFolder = self.createOrGetObject(perFolder, 'banners', 'Banners', u'Folder')
+                banFolder = self.createOrGetObject(perFolder, 'banners', 'Banners', 'Folder')
                 banFolder.exclude_from_nav = False
                 banFolder.setLayout('folder_listing')
                 behavior = ISelectableConstrainTypes(banFolder)
@@ -507,7 +507,7 @@ class createPopupStructure(grok.View):
             pass
 
         portal = getSite()
-        gestion = newPrivateFolder(portal, 'gestion', u'Gestión')
+        gestion = newPrivateFolder(portal, 'gestion', 'Gestión')
         gestion.exclude_from_nav = False
         gestion.setLayout('folder_listing')
         behavior = ISelectableConstrainTypes(gestion)
@@ -516,18 +516,18 @@ class createPopupStructure(grok.View):
         behavior.setImmediatelyAddableTypes(('Folder', 'privateFolder',))
         gestion._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
-        popup = newPrivateFolder(gestion, 'popup', u'Popup')
+        popup = newPrivateFolder(gestion, 'popup', 'Popup')
         popup.exclude_from_nav = False
         behavior.setConstrainTypesMode(1)
         behavior.setLocallyAllowedTypes(('Document', 'Image',))
         behavior.setImmediatelyAddableTypes(('Document', 'Image',))
         popup._Delete_objects_Permission = ('Site Administrator', 'Manager',)
-        popup.description = u'Important: no modificar el nom curt d\'aquest document.\nImportante: no modificar el nombre corto de estos documentos.\nImportant: do not modify the short name of these documents.'
+        popup.description = 'Important: no modificar el nom curt d\'aquest document.\nImportante: no modificar el nombre corto de estos documentos.\nImportant: do not modify the short name of these documents.'
 
-        notify = createOrGetObject(popup, 'notify', u'Notify', u'Document')
+        notify = createOrGetObject(popup, 'notify', 'Notify', 'Document')
         notify._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
-        birthday = createOrGetObject(popup, 'birthday', u'Birthday', u'Document')
+        birthday = createOrGetObject(popup, 'birthday', 'Birthday', 'Document')
         birthday._Delete_objects_Permission = ('Site Administrator', 'Manager',)
 
         transaction.commit()
@@ -645,7 +645,7 @@ class deleteUsers(grok.View):
                                     if records:
                                         acl_record = records[0]
                                         acl = acl_record.attrs['acl']
-                                        exist = [a for a in acl['users'] if a['id'] == unicode(username)]
+                                        exist = [a for a in acl['users'] if a['id'] == str(username)]
                                         if exist:
                                             acl['users'].remove(exist[0])
                                             acl_record.attrs['acl'] = acl
@@ -708,7 +708,7 @@ class deleteUsersInCommunities(grok.View):
                             if records:
                                 acl_record = records[0]
                                 acl = acl_record.attrs['acl']
-                                exist = [a for a in acl['users'] if a['id'] == unicode(username)]
+                                exist = [a for a in acl['users'] if a['id'] == str(username)]
                                 if exist:
                                     acl['users'].remove(exist[0])
                                     acl_record.attrs['acl'] = acl
@@ -792,7 +792,7 @@ r = requests.get('http://localhost:8080/Plone/importfiletofolder', params=payloa
         alsoProvides(self.request, IDisableCSRFProtection)
         file = NamedBlobFile(
             data=content,
-            filename=u'{}'.format(local_file),
+            filename='{}'.format(local_file),
             contentType='application/xls'
         )
         obj = createContentInContainer(
@@ -975,7 +975,7 @@ class viewUsersWithNotUpdatedPhoto(grok.View):
     def render(self):
         portal = api.portal.get()
         soup = get_soup('user_properties', portal)
-        records = [r for r in soup.data.items()]
+        records = [r for r in list(soup.data.items())]
 
         result = {}
         for record in records:
@@ -1415,7 +1415,7 @@ class notifyManualInCommunity(grok.View):
         for community in comunnities:
             com = community.getObject()
             if com.notify_activity_via_mail == True:
-                com.type_notify = u'Manual'
+                com.type_notify = 'Manual'
                 logger.info('Add Notify Manual in community_id: {} in the portal: {}.'.format(com.id, portal.absolute_url()))
                 com.reindexObject()
 
@@ -1474,7 +1474,7 @@ class parcheReordenarCarpetas(grok.View):
         for brain in pc(portal_type='Folder'):
             obj = brain.getObject()
             if obj._ordering == 'unordered':
-                obj.setOrdering(u'')
+                obj.setOrdering('')
                 order = obj.getOrdering()
                 for id in obj._tree:
                     if id not in order._order():

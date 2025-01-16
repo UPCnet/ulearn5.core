@@ -31,7 +31,7 @@ class MaxPortraitWidget(NamedFileWidget):
         else:
             return self.input_template(self)
 
-    klass = u'max-portrait-widget'
+    klass = 'max-portrait-widget'
 
     @property
     def width(self):
@@ -57,7 +57,7 @@ class MaxPortraitWidget(NamedFileWidget):
 
     @property
     def username(self):
-        if 'userid' in self.request.keys():
+        if 'userid' in list(self.request.keys()):
             return self.request['userid']
         elif self.context.portal_type == 'switchmed.profile':
             return self.context.Title().lower()

@@ -27,7 +27,7 @@ class Folders(REST):
         """ Returns navigation for required context. """
         portal = api.portal.get()
         folder_path = '/'.join(portal.getPhysicalPath())
-        for k in self.params.keys():
+        for k in list(self.params.keys()):
             if k == 'path':
                 folder_path = self.params.pop(k, None)
         query = {
@@ -43,7 +43,7 @@ class Folders(REST):
             obj_url = brain.getURL()
             internal = True
             type_next_obj = None
-            if obj.portal_type == u'Link':
+            if obj.portal_type == 'Link':
                 internal = True if 'resolveuid' in obj.remoteUrl else False
                 if internal:
                     uid = obj.remoteUrl.split('/resolveuid/')[1]
@@ -52,7 +52,7 @@ class Folders(REST):
                     obj_url = next_obj.absolute_url()
                 else:
                     obj_url = obj.remoteUrl
-            elif obj.portal_type == u'External Content':
+            elif obj.portal_type == 'External Content':
                 obj_url = obj.absolute_url() + '/@@download/' + obj.filename
             folder = dict(absolute_url=obj_url,
                           description=obj.Description(),

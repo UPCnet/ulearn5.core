@@ -11,7 +11,7 @@ from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
 
 class PrivatePolicyWidget(CheckBoxWidget):
-    klass = u'private_policy-widget'
+    klass = 'private_policy-widget'
     input_template = ViewPageTemplateFile('templates/private_policy.pt')
 
     def render(self):

@@ -11,7 +11,7 @@ from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 
 
 class TermsWidget(CheckBoxWidget):
-    klass = u'terms-widget'
+    klass = 'terms-widget'
     input_template = ViewPageTemplateFile('templates/terms.pt')
     hidden_template = ViewPageTemplateFile('templates/terms_hidden.pt')
 

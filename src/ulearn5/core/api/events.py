@@ -67,7 +67,7 @@ class Events(REST):
             'sort_order': 'descending',
             'start': date_range
         }
-        for k in self.params.keys():
+        for k in list(self.params.keys()):
             if k == 'path':
                 query[k] = '/'.join(portal.getPhysicalPath()
                                     ) + '/' + self.params.pop(k, None)

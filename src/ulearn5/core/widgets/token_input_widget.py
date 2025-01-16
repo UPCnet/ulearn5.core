@@ -17,12 +17,12 @@ class KeywordsTokenInputWidget(textarea.TextAreaWidget):
     """Widget for adding new keywords and autocomplete with the ones in the
     system."""
     zope.interface.implementsOnly(ITokenInputWidget)
-    klass = u'token-input-widget'
+    klass = 'token-input-widget'
     display_template = ViewPageTemplateFile('token_input_display.pt')
     input_template = ViewPageTemplateFile('token_input_input.pt')
 
     # JavaScript template
-    js_template = u"""\
+    js_template = """\
     (function($) {
         $().ready(function() {
             var newValues = [%(newtags)s];
@@ -36,14 +36,14 @@ class KeywordsTokenInputWidget(textarea.TextAreaWidget):
     def js(self):
         values = self.context.portal_catalog.uniqueValuesFor('Subject')
         old_values = self.context.Subject()
-        tags = u''
-        old_tags = u''
+        tags = ''
+        old_tags = ''
         index = 0
         for index, value in enumerate(values):
             if isinstance(value, str):
                 value = value.decode('utf-8')
-            tags += u'{id: "%s", name: "%s"}' % (
-                value.replace(u"'", u"\\'"), value.replace(u"'", u"\\'"))  # noqa
+            tags += '{id: "%s", name: "%s"}' % (
+                value.replace("'", "\\'"), value.replace("'", "\\'"))  # noqa
             if index < len(values) - 1:
                 tags += ', '
 
@@ -51,8 +51,8 @@ class KeywordsTokenInputWidget(textarea.TextAreaWidget):
         for index, value in enumerate(old_values):
             if isinstance(value, str):
                 value = value.decode('utf-8')
-            old_tags += u'{id: "%s", name: "%s"}' % (value.replace(
-                u"'", u"\\'"), value.replace(u"'", u"\\'"))  # noqa
+            old_tags += '{id: "%s", name: "%s"}' % (value.replace(
+                "'", "\\'"), value.replace("'", "\\'"))  # noqa
             if index < len(old_values) - 1:
                 old_tags += ', '
         result = self.js_template % dict(
@@ -87,14 +87,14 @@ class UsersTokenInputWidget(KeywordsTokenInputWidget):
         else:
             old_values = ()
 
-        tags = u''
-        old_tags = u''
+        tags = ''
+        old_tags = ''
         index = 0
         for index, value in enumerate(values):
             if isinstance(value, str):
                 value = value.decode('utf-8')
-            tags += u'{id: "%s", name: "%s"}' % (
-                value.replace(u"'", u"\\'"), value.replace(u"'", u"\\'"))  # noqa
+            tags += '{id: "%s", name: "%s"}' % (
+                value.replace("'", "\\'"), value.replace("'", "\\'"))  # noqa
             if index < len(values) - 1:
                 tags += ', '
 
@@ -102,8 +102,8 @@ class UsersTokenInputWidget(KeywordsTokenInputWidget):
         for index, value in enumerate(old_values):
             if isinstance(value, str):
                 value = value.decode('utf-8')
-            old_tags += u'{id: "%s", name: "%s"}' % (value.replace(
-                u"'", u"\\'"), value.replace(u"'", u"\\'"))  # noqa
+            old_tags += '{id: "%s", name: "%s"}' % (value.replace(
+                "'", "\\'"), value.replace("'", "\\'"))  # noqa
             if index < len(old_values) - 1:
                 old_tags += ', '
         result = self.js_template % dict(

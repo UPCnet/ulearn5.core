@@ -52,7 +52,7 @@ def enumerateUsers(self, id=None, login=None, exact_match=False, **kw):
 
             criteria = copy.copy(kw)
 
-            users = [(user, data) for (user, data) in self._storage.items()
+            users = [(user, data) for (user, data) in list(self._storage.items())
                      if self.testMemberData(data, criteria, exact_match)
                      and not data.get('isGroup', False)]
 
@@ -96,7 +96,7 @@ def deleteMembers(self, member_ids):
 
     # Delete members in acl_users.
     acl_users = context.acl_users
-    if isinstance(member_ids, basestring):
+    if isinstance(member_ids, str):
         member_ids = (member_ids,)
     member_ids = list(member_ids)
     for member_id in member_ids[:]:
@@ -145,7 +145,7 @@ def deleteMembers(self, member_ids):
                     if records:
                         acl_record = records[0]
                         acl = acl_record.attrs['acl']
-                        exist = [a for a in acl['users'] if a['id'] == unicode(member_id)]
+                        exist = [a for a in acl['users'] if a['id'] == str(member_id)]
                         if exist:
                             acl['users'].remove(exist[0])
                             acl_record.attrs['acl'] = acl
@@ -351,7 +351,7 @@ def handle_form(self):
                 self.context.reindexObjectSecurity()
                 notify(LocalrolesModifiedEvent(self.context, self.request))
             IStatusMessage(self.request).addStatusMessage(
-                _(u"Changes saved."), type='info')
+                _("Changes saved."), type='info')
 
         # Other buttons return to the sharing page
         if cancel_button:
@@ -389,8 +389,8 @@ def getPortletMenuItems(self, context, request):
         portal_url = getSite().absolute_url()
 
         items.append({
-            'title': _(u'manage_homepage_portlets_title', default=u'Homepage'),
-            'description': _(u'manage_homepage_portlets_description', default=u'Manage homepage portlets'),
+            'title': _('manage_homepage_portlets_title', default='Homepage'),
+            'description': _('manage_homepage_portlets_description', default='Manage homepage portlets'),
             'action': addTokenToUrl(
                 '{0}/front-page/@@manage-portletsbelowtitlecontent'.format(
                     portal_url),
@@ -411,7 +411,7 @@ def getPortletMenuItems(self, context, request):
 
             item = {
                 'title': _(manager_name,
-                           default=u' '.join(manager_name.split('.')).title()),
+                           default=' '.join(manager_name.split('.')).title()),
                 'description': manager_name,
                 'action': addTokenToUrl(
                     '{0}/@@topbar-manage-portlets/{1}'.format(
@@ -427,11 +427,11 @@ def getPortletMenuItems(self, context, request):
             }
 
             if manager_name == 'plone.leftcolumn':
-                item['title'] = _(u'manage_left_portlets_title', default=u'Left')
-                item['description'] = _(u'manage_left_portlets_description', default=u'Manage left portlets')
+                item['title'] = _('manage_left_portlets_title', default='Left')
+                item['description'] = _('manage_left_portlets_description', default='Manage left portlets')
             elif manager_name == 'plone.rightcolumn':
-                item['title'] = _(u'manage_right_portlets_title', default=u'Right')
-                item['description'] = _(u'manage_right_portlets_description', default=u'Manage right portlets')
+                item['title'] = _('manage_right_portlets_title', default='Right')
+                item['description'] = _('manage_right_portlets_description', default='Manage right portlets')
 
             items.append(item)
 
@@ -493,13 +493,13 @@ def updateWidgetsPersonalPreferences(self):
     super(PersonalPreferencesPanel, self).updateWidgets()
 
     self.widgets['language'].noValueMessage = _(
-        u"vocabulary-missing-single-value-for-edit",
-        u"Language neutral (site default)"
+        "vocabulary-missing-single-value-for-edit",
+        "Language neutral (site default)"
     )
     self.widgets["language"].mode = z3c.form.interfaces.HIDDEN_MODE
     self.widgets['wysiwyg_editor'].noValueMessage = _(
-        u"vocabulary-available-editor-novalue",
-        u"Use site default"
+        "vocabulary-available-editor-novalue",
+        "Use site default"
     )
 
 default_portrait = '/++theme++ulearn5/assets/images/defaultUser.png'
@@ -507,7 +507,7 @@ from zope.interface import alsoProvides
 from zope.component import getUtility
 from mrs5.max.utilities import IMAXClient
 from base5.core.utils import convertSquareImage
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from OFS.Image import Image
 from plone.memoize import ram
 from time import time
@@ -531,7 +531,7 @@ def getPersonalPortrait(self, id=None, verifyPermission=0):
     foto = maxclient.people[id].avatar
     imageUrl = foto.uri + '/large'
 
-    portrait = urllib.urlretrieve(imageUrl)
+    portrait = urllib.request.urlretrieve(imageUrl)
     an_image = getattr(portrait, 'filename', None)
     if an_image:
         scaled, mimetype = convertSquareImage(portrait[0])
@@ -598,7 +598,7 @@ original_update_role_settings = SharingView.update_role_settings
 @clearafter
 def update_role_settings(self, new_settings, reindex=True):
     def fix_encoding(entry):
-        if not isinstance(entry['id'], unicode):
+        if not isinstance(entry['id'], str):
             entry['id'] = entry['id'].decode('utf-8')
         return entry
     settings = [fix_encoding(entry) for entry in new_settings]
@@ -632,7 +632,7 @@ def getGroups(self, dn='*', attr=None, pwd=''):
                 if role_name not in no_show:
                     all_groups_dict[role_name] = 1
 
-            all_groups_list = all_groups_dict.keys()
+            all_groups_list = list(all_groups_dict.keys())
 
         for group in all_groups_list:
             if attr is None:
@@ -773,7 +773,7 @@ def searchGroups(self, attrs=(), exact_match=False, **kw):
     filt_list = []
     search_str = ''
 
-    for (search_param, search_term) in kw.items():
+    for (search_param, search_term) in list(kw.items()):
         if search_param not in VALID_GROUP_ATTRIBUTES:
             continue
         if search_param == 'dn':
@@ -843,7 +843,7 @@ def searchGroups(self, attrs=(), exact_match=False, **kw):
             dn = res_dicts[i].get('dn')
             rec_dict = {}
 
-            for key, val in res_dicts[i].items():
+            for key, val in list(res_dicts[i].items()):
                 if len(val) > 0:
                     rec_dict[key] = val[0]
 
@@ -853,7 +853,7 @@ def searchGroups(self, attrs=(), exact_match=False, **kw):
 
     return groups
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from ZTUtils.Zope import complex_marshal
 
 
@@ -880,8 +880,8 @@ def fixed_make_query(*args, **kwargs):
         d.update(arg)
     d.update(kwargs)
 
-    uq = urllib.quote
-    qlist = complex_marshal(d.items())
+    uq = urllib.parse.quote
+    qlist = complex_marshal(list(d.items()))
     for i in range(len(qlist)):
         k, m, v = qlist[i]
         try:
@@ -1043,13 +1043,13 @@ def update(self):
 
                 for u in toAdd:
                     self.gtool.addPrincipalToGroup(u, self.groupname, self.request)
-                self.context.plone_utils.addPortalMessage(_(u'Changes made.'))
+                self.context.plone_utils.addPortalMessage(_('Changes made.'))
 
             toDelete = form.get('delete', [])
             if toDelete:
                 for u in toDelete:
                     self.gtool.removePrincipalFromGroup(u, self.groupname, self.request)
-                self.context.plone_utils.addPortalMessage(_(u'Changes made.'))
+                self.context.plone_utils.addPortalMessage(_('Changes made.'))
 
             search = form.get('form.button.Search', None) is not None
             edit = form.get('form.button.Edit', None) is not None and toDelete
@@ -1080,7 +1080,7 @@ def getMembers(self):
         userResults.sort(key=lambda x: x is not None and x.getProperty('fullname') is not None and normalizeString(x.getProperty('fullname')) or '')
 
         mergedResults = groupResults + userResults
-        return filter(None, mergedResults)
+        return [_f for _f in mergedResults if _f]
 
 
 def aggregateIndex(self, view_name, req, req_names, local_keys):
@@ -1101,7 +1101,7 @@ def aggregateIndex(self, view_name, req, req_names, local_keys):
         req_index.append((str(key), str(val)))
     if local_keys:
         local_index = []
-        for key, val in local_keys.items():
+        for key, val in list(local_keys.items()):
             try:
                 local_index.append((str(key), str(val)))
             except:
@@ -1135,7 +1135,7 @@ def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
     if _check_allowed(context, self.request, 'personal-information'):
         tabs.append({
             'title': _('title_personal_information_form',
-                       u'Personal Information'),
+                       'Personal Information'),
             'url': navigation_root_url + '/@@personal-information',
             'selected': (self.__name__ == 'personal-information'),
             'id': 'user_data-personal-information',
@@ -1143,7 +1143,7 @@ def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
 
     if _check_allowed(context, self.request, 'ulearn-personal-preferences'):
         tabs.append({
-            'title': _(u'Personal Preferences'),
+            'title': _('Personal Preferences'),
             'url': navigation_root_url + '/@@ulearn-personal-preferences',
             'selected': (self.__name__ == 'ulearn-personal-preferences'),
             'id': 'user_data-ulearn-personal-preferences',
@@ -1152,7 +1152,7 @@ def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
     member = mt.getAuthenticatedMember()
     if member.canPasswordSet():
         tabs.append({
-            'title': _('label_password', u'Password'),
+            'title': _('label_password', 'Password'),
             'url': navigation_root_url + '/@@change-password',
             'selected': (self.__name__ == 'change-password'),
             'id': 'user_data-change-password',
@@ -1192,8 +1192,8 @@ def get_date_options(request):
                 context=request),
             'placeholder': translate(_('Enter date...'), context=request),
         },
-        'today': translate(_(u"Today"), context=request),
-        'clear': translate(_(u"Clear"), context=request),
+        'today': translate(_("Today"), context=request),
+        'clear': translate(_("Clear"), context=request),
     }
 
 

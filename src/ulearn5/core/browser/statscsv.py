@@ -20,7 +20,7 @@ from ulearn5.core.browser.stats import first_moment_of_month
 from zope.component import getUtilitiesFor
 from souper.interfaces import ICatalogFactory
 
-import StringIO
+import io
 import csv
 import unicodedata
 import time
@@ -50,7 +50,7 @@ def set_header_csv():
 def ListLastLoginCSV():
     pmd = api.portal.get_tool(name='portal_memberdata')
     output = []
-    for user in pmd._members.items():
+    for user in list(pmd._members.items()):
         user_memberdata = api.user.get(username=user[0])
 
         if user_memberdata:
@@ -146,7 +146,7 @@ class GenerateReport(StatsQueryBase):
             loginid = message.get('actor', {}).get('username', None)
             profile = get_user_properties_stats(loginid) if get_user_properties_stats(loginid) else [actor, actor, '', '', '', '', '', '', '', '']
             conversations = message.get('contexts')
-            conversation = conversations[0].get('displayName', u'Conversación privada')
+            conversation = conversations[0].get('displayName', 'Conversación privada')
 
             if actor is not None and conversation is not None:
                 user = aggregation.setdefault(actor, {})
@@ -155,8 +155,8 @@ class GenerateReport(StatsQueryBase):
                 user.setdefault(conversation, [profile, 0])
                 user[conversation][1] += 1
 
-        for user, conversations in aggregation.items():
-            for conversation, tupla in conversations.items():
+        for user, conversations in list(aggregation.items()):
+            for conversation, tupla in list(conversations.items()):
                 name = tupla[0]
                 chat = unicodedata.normalize('NFKD', conversation).encode('ascii', errors='ignore')
                 chat = chat.replace(',', '')
@@ -229,13 +229,13 @@ class GenerateReport(StatsQueryBase):
         portal = getDestinationFolder(type_info)
         filename = "%s.csv" % time.strftime("%02d-%02m-%Y")
 
-        output = StringIO.StringIO()
+        output = io.StringIO()
         a = csv.writer(output, delimiter=',')
         a.writerows(lines)
         data = output.getvalue()
 
         tb = transaction.begin()
-        file = NamedBlobFile(data=data, filename=u'{}'.format(filename), contentType='application/csv')
+        file = NamedBlobFile(data=data, filename='{}'.format(filename), contentType='application/csv')
         obj = createContentInContainer(portal, 'AppFile', id='{}'.format(filename), title='{}'.format(filename), file=file, checkConstraints=False)
         obj.reindexObject()
         tb.commit()

@@ -76,7 +76,7 @@ class TwoLevelSelectWidget(widget.MultiWidget, SelectWidget, SimpleInputWidget):
     """
     """
     zope.interface.implementsOnly(ITwoLevelSelectWidget)
-    klass = u'twolevel-widget'
+    klass = 'twolevel-widget'
     multiple = False
     size = 5
 

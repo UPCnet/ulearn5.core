@@ -16,7 +16,7 @@ import zope.schema.interfaces
 class CheckboxInfoWidget(CheckBoxWidget):
     zope.interface.implementsOnly(ICheckboxInfoWidget)
 
-    klass = u'checbox-info-widget'
+    klass = 'checbox-info-widget'
     input_template = ViewPageTemplateFile('templates/checkbox_info_input.pt')
     display_template = ViewPageTemplateFile('templates/checkbox_info_display.pt')
 

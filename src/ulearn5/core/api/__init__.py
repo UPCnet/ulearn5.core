@@ -157,7 +157,7 @@ class api_resource(object):
                 server_port = environ.get('SERVER_PORT', '8080')
                 if server_name == 'testing':
                     import traceback as trbk
-                    print trbk.format_exc()
+                    print(trbk.format_exc())
 
                 instance_id = '{}:{}'.format(server_name, server_port)
                 response_code = 500
@@ -190,7 +190,7 @@ class MethodNotImplemented(Exception):
         self.message = '{}.{}'.format(klass, method)
 
 
-def queryRESTComponent(specs, args, name=u'', parent=None, id=_marker, placeholder=None):
+def queryRESTComponent(specs, args, name='', parent=None, id=_marker, placeholder=None):
     """Query the ZCA for a REST component.
     """
     factory = getComponent(specs, IRESTComponent, name, default=None)
@@ -282,7 +282,7 @@ class REST(REST_BASE):
             Returns false if some required parameter is missing
         """
         required_params = list(required)
-        required_params += self.__matchdict__.keys()
+        required_params += list(self.__matchdict__.keys())
         self.params = {}
         self.params.update(self.__matchdict__)
         self.params.update(self.request.form)

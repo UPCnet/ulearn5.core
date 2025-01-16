@@ -48,9 +48,9 @@ logger = logging.getLogger(__name__)
 def listPloneSites(zope):
     """ List the available plonesites to be used by other function """
     out = []
-    for item in zope.values():
+    for item in list(zope.values()):
         if IFolder.providedBy(item) and not IPloneSiteRoot.providedBy(item):
-            for site in item.values():
+            for site in list(item.values()):
                 if IPloneSiteRoot.providedBy(site):
                     out.append(site)
         elif IPloneSiteRoot.providedBy(item):
@@ -70,12 +70,12 @@ class portletfix(grok.View):
             community = community.getObject()
             target_manager = queryUtility(IPortletManager, name='plone.leftcolumn', context=community)
             target_manager_assignments = getMultiAdapter((community, target_manager), IPortletAssignmentMapping)
-            for portlet in target_manager_assignments.keys():
+            for portlet in list(target_manager_assignments.keys()):
                 del target_manager_assignments[portlet]
 
             target_manager = queryUtility(IPortletManager, name='plone.rightcolumn', context=community)
             target_manager_assignments = getMultiAdapter((community, target_manager), IPortletAssignmentMapping)
-            for portlet in target_manager_assignments.keys():
+            for portlet in list(target_manager_assignments.keys()):
                 del target_manager_assignments[portlet]
 
 
@@ -92,12 +92,12 @@ class linkFolderFix(grok.View):
                          IEventsFolder.__identifier__: 'events',
                          INewsItemFolder.__identifier__: 'news'}
 
-        for iface in folder_ifaces.keys():
+        for iface in list(folder_ifaces.keys()):
             results = pc.searchResults(object_provides=iface)
             for result in results:
                 parent = aq_parent(aq_inner(result.getObject()))
                 parent.manage_renameObjects((result.id,), (folder_ifaces[iface],))
-                print('renamed {} to {} in community {}'.format(result.id, folder_ifaces[iface], parent))
+                print(('renamed {} to {} in community {}'.format(result.id, folder_ifaces[iface], parent)))
 
 
 def createMAXUser(username):
@@ -175,7 +175,7 @@ class InitializeVideos(grok.View):
             behavior.setImmediatelyAddableTypes(('Image', 'ulearn.video', 'Folder'))
 
             if media_folder.title != 'Media':
-                media_folder.setTitle(community.translate(_(u'Media')))
+                media_folder.setTitle(community.translate(_('Media')))
 
             text.append('Added type video to {}\n'.format(community.absolute_url()))
         return ''.join(text)
@@ -400,7 +400,7 @@ class MigrateOldStyleACLs(grok.View):
                 users = getattr(community, old_role)
                 for username in users:
                     acl['users'].append(dict(id=username,
-                                             displayName=get_safe_member_by_id(username).get('fullname', u''),
+                                             displayName=get_safe_member_by_id(username).get('fullname', ''),
                                              role=permission_map[old_role]))
             adapter.update_acl(acl)
             try:
@@ -493,8 +493,8 @@ class BulkRestrictTransformuLearn(grok.View):
         for k in list(kwargs):
             if isinstance(kwargs[k], dict):
                 v = kwargs[k]
-                kwargs[k + '_key'] = v.keys()
-                kwargs[k + '_value'] = [str(s) for s in v.values()]
+                kwargs[k + '_key'] = list(v.keys())
+                kwargs[k + '_value'] = [str(s) for s in list(v.values())]
                 del kwargs[k]
 
         transform.set_parameters(**kwargs)

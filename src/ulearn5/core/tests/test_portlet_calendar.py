@@ -74,7 +74,7 @@ class RendererTest(uLearnTestBase):
         #     whole_day=whole_day,
         #     open_end=open_end
         # )
-        acc.location = u'Graz, Austria'
+        acc.location = 'Graz, Austria'
 
         return context[id]
 

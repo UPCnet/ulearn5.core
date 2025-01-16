@@ -1,4 +1,4 @@
-from cStringIO import StringIO
+from io import StringIO
 from OFS.Image import Image
 from PIL import ImageOps
 from Products.PlonePAS.interfaces.membership import IMembershipTool

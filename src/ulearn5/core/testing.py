@@ -74,7 +74,7 @@ class Ulearn5CoreLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         # Needed for PAC not complain about not having one... T_T
         portal.portal_workflow.setDefaultChain("simple_publication_workflow")
-        frontpage = createContentInContainer(portal, 'Document', title=u'front-page', checkConstraints=False)
+        frontpage = createContentInContainer(portal, 'Document', title='front-page', checkConstraints=False)
         news = createContentInContainer(portal, 'Folder', title='news', checkConstraints=False)
 
         applyProfile(portal, 'ulearn5.core:default')
@@ -89,11 +89,11 @@ class Ulearn5CoreLayer(PloneSandboxLayer):
         portal.acl_users.userFolderAddUser('ulearn.testuser1', 'secret', ['Member', 'WebMaster'], [])
         portal.acl_users.userFolderAddUser('ulearn.testuser2', 'secret', ['Member', ], [])
 
-        api.user.get('ulearn.testuser1').setMemberProperties(mapping={'location': u'Test', 'email': u'test@upcnet.es'})
-        api.user.get('janet.dura').setMemberProperties(mapping={'fullname': u'Janet Durà', 'location': u'Barcelona', 'email': u'janet.dura@upcnet.es'})
+        api.user.get('ulearn.testuser1').setMemberProperties(mapping={'location': 'Test', 'email': 'test@upcnet.es'})
+        api.user.get('janet.dura').setMemberProperties(mapping={'fullname': 'Janet Durà', 'location': 'Barcelona', 'email': 'janet.dura@upcnet.es'})
 
         login(portal, 'admin')
-        setup_max(u'ulearn.testuser1', '99994183aB')
+        setup_max('ulearn.testuser1', '99994183aB')
         setup_user_max('ulearn.testuser2', '99994184aB')
         portal.portal_workflow.setDefaultChain('genweb_intranet')
         logout()

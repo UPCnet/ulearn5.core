@@ -33,7 +33,7 @@ def globGetAccumulatedTable(table):
         accTable.append([])
         for cell in row:
             accTable[-1].append(cell)
-        for i in xrange(1, len(datePoints) + 1):
+        for i in range(1, len(datePoints) + 1):
             accTable[-1][i + 1] += accTable[-1][i]
     return accTable
 
