@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from plone.namedfile import field as namedfile
-from ulearn5.core import _
-from plone.autoform.interfaces import IFormFieldProvider
-from zope.interface import provider
-from plone.directives import form
-from zope.interface import alsoProvides
 from plone.autoform import directives
+from plone.autoform.interfaces import IFormFieldProvider
+from plone.directives import form
+from plone.namedfile import field as namedfile
 from plone.supermodel import model
+from zope.interface import alsoProvides
+from zope.interface import provider
+
+from ulearn5.core import _
 
 
 @provider(IFormFieldProvider)

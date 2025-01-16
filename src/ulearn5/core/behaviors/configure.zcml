@@ -1,0 +1,33 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:grok="http://namespaces.zope.org/grok"
+  i18n_domain="ulearn">
+
+  <!-- for="plone.app.contenttypes.interfaces.INewsItem" -->
+  <plone:behavior
+    title="Thumb News Images for App"
+    description="Create thumb of News images for show in app"
+    provides=".thumbimage.IThumbimage"
+    for="plone.dexterity.interfaces.IDexterityContent"
+    />
+
+  <plone:behavior
+    title="Add awesome icon"
+    description="Add awesome icon"
+    provides=".awicon.IAwIcon"
+    for="plone.dexterity.interfaces.IDexterityContent"
+    />
+
+  <plone:behavior
+    title="Add timezone"
+    description="Add timezone"
+    provides=".timezone.ITimezone"
+    factory=".timezone.Timezone"
+    for="plone.dexterity.interfaces.IDexterityContent"
+    />
+
+  <adapter factory=".timezone.timezone" name="timezone" />
+
+</configure>

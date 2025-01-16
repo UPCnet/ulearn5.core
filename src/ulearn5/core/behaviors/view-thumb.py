@@ -6,6 +6,7 @@ from io import BytesIO
 
 import unicodedata
 
+
 class Thumbnail(BrowserView):
 
     def __init__(self, context, request):

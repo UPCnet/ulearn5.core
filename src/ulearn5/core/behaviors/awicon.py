@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from zope.interface import alsoProvides
-from zope import schema
 from plone.directives import form
+from zope import schema
+from zope.interface import alsoProvides
 from zope.interface import implements
 
 from ulearn5.core import _
