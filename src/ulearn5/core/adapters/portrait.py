@@ -1,24 +1,21 @@
-from io import StringIO
+# -*- coding: utf-8 -*-
 from OFS.Image import Image
-from PIL import ImageOps
 from Products.PlonePAS.interfaces.membership import IMembershipTool
 
+from plone import api
+from repoze.catalog.query import Eq
+from souper.soup import Record
+from souper.soup import get_soup
+from zope.component import adapts
+from zope.component import getUtility
+from zope.interface import implements
+
+from base5.core.adapters.portrait import IPortraitUploadAdapter
+from base5.core.utils import convertSquareImage, get_safe_member_by_id
 from mrs5.max.utilities import IMAXClient
 from ulearn5.theme.interfaces import IUlearn5ThemeLayer
-from base5.core.adapters.portrait import IPortraitUploadAdapter
-from zope.component import getUtility
-from repoze.catalog.query import Eq
-from souper.soup import get_soup
-from souper.soup import Record
-from plone import api
 
 import logging
-import PIL
-from zope.interface import implements
-from zope.component import adapts
-from base5.core.utils import portal_url, convertSquareImage, get_safe_member_by_id
-import requests
-import io
 
 logger = logging.getLogger(__name__)
 
