@@ -1,6 +1,5 @@
-from AccessControl import ClassSecurityInfo, getSecurityManager
+from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
-from AccessControl.User import nobody
 from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 
 
@@ -51,7 +50,8 @@ def execute_under_special_role(portal, role, function, *args, **kwargs):
             # Call the function
             return function(*args, **kwargs)
 
-        except:
+        except Exception as e:
+            print(e)
             # If special exception handlers are needed, run them here
             raise
     finally:

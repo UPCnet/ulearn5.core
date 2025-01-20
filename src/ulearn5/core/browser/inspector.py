@@ -7,12 +7,12 @@ import importlib
 
 
 MODULES_TO_INSPECT = [
-    "base5.core.setup",
+    "base5.core.browser.setup",
     "ulearn5.core.browser.setup",
 ]
 
 
-class clouseau(BrowserView):
+class Clouseau(BrowserView):
 
     def get_helpers(self):
         absolute_url = getSite().absolute_url()

@@ -77,7 +77,7 @@ def createMAXUser(username):
         logger.error("Error creating MAX user for user: %s" % username)
 
 
-class portletfix(BrowserView):
+class Portletfix(BrowserView):
 
     def __call__(self):
         pc = api.portal.get_tool(name="portal_catalog")
@@ -104,7 +104,7 @@ class portletfix(BrowserView):
                 del target_manager_assignments[portlet]
 
 
-class linkFolderFix(BrowserView):
+class LinkFolderFix(BrowserView):
 
     def __call__(self):
         pc = api.portal.get_tool(name="portal_catalog")
@@ -130,7 +130,7 @@ class linkFolderFix(BrowserView):
                 )
 
 
-class createMAXUserForAllExistingUsers(BrowserView):
+class CreateMAXUserForAllExistingUsers(BrowserView):
 
     def __call__(self):
         mtool = api.portal.get_tool(name="portal_membership")
