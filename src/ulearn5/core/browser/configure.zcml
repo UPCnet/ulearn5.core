@@ -1,12 +1,18 @@
- <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:plone="http://namespaces.plone.org/plone"
-    xmlns:grok="http://namespaces.zope.org/grok"
-    i18n_domain="ulearn">
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:grok="http://namespaces.zope.org/grok" i18n_domain="ulearn">
 
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="clouseau"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    template="inspector_templates/clouseau.pt"
+    />
 
 
 </configure>
