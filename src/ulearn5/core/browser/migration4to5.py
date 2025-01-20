@@ -12,8 +12,7 @@ from base5.core.adapters import IImportant
 from base5.core.adapters import IShowInApp
 from base5.core.utils import add_user_to_catalog
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
-from ulearn5.core.utils import is_activate_owncloud, byteify
-from ulearn5.owncloud.utils import update_owncloud_permission
+from ulearn5.core.utils import byteify
 from persistent.dict import PersistentDict
 
 import base64
@@ -147,10 +146,6 @@ class migrationCommunities(grok.View):
                                 # Communicate the change in the community subscription to the uLearnHub
                                 # XXX: Until we do not have a proper Hub online
                                 adapter.update_hub_subscriptions()
-
-                                # If is activate owncloud modify permissions owncloud
-                                if is_activate_owncloud(self.context):
-                                    update_owncloud_permission(community_new, acl)
 
                             success_response = 'Created community: ' + community['title']
 
@@ -507,10 +502,6 @@ class migrationEditaclCommunities(grok.View):
                             # Communicate the change in the community subscription to the uLearnHub
                             # XXX: Until we do not have a proper Hub online
                             adapter.update_hub_subscriptions()
-
-                            # If is activate owncloud modify permissions owncloud
-                            if is_activate_owncloud(self.context):
-                                update_owncloud_permission(community_new, acl)
 
                             success_response = 'Migrat editacl comunitat: ' + community['title']
                             logger.info(success_response)

@@ -91,15 +91,6 @@ def packages_installed():
     installed = [p['id'] for p in qi_tool.listInstalledProducts()]
     return installed
 
-
-def is_activate_owncloud(self):
-    """ Returns True id ulearn5.owncloud is installed """
-    installed = packages_installed()
-    if 'ulearn5.owncloud' in installed:
-        return True
-    return False
-
-
 def is_activate_externalstorage(self):
     """ Returns True id ulearn5.externalstorage is installed """
     installed = packages_installed()

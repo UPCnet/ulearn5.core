@@ -66,19 +66,12 @@ from ulearn5.core.interfaces import IDocumentFolder
 from ulearn5.core.interfaces import IEventsFolder
 from ulearn5.core.interfaces import INewsItemFolder
 from ulearn5.core.interfaces import IPhotosFolder
-from ulearn5.core.utils import is_activate_owncloud, is_activate_externalstorage, is_activate_etherpad
+from ulearn5.core.utils import is_activate_externalstorage, is_activate_etherpad
 from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
 from ulearn5.core.widgets.terms_widget import TermsFieldWidget
-from ulearn5.owncloud.api.owncloud import Client
-from ulearn5.owncloud.api.owncloud import HTTPResponseError
-from ulearn5.owncloud.api.owncloud import OCSResponseError
-from ulearn5.owncloud.utilities import IOwncloudClient
-from ulearn5.owncloud.api.owncloud import Client, HTTPResponseError, OCSResponseError
 from DateTime.DateTime import DateTime
 from plone.app.layout.navigation.root import getNavigationRootObject
-from ulearn5.owncloud.utils import get_domain
-from ulearn5.owncloud.utils import update_owncloud_permission
 from z3c.form.interfaces import IAddForm, IEditForm
 from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from ulearn5.core.widgets.single_checkbox_notify_email_widget import SingleCheckBoxNotifyEmailFieldWidget
@@ -664,9 +657,6 @@ class CommunityAdapterMixin(object):
         # Finally, we update the plone permissions
         self.set_plone_permissions(acl)
 
-        if is_activate_owncloud(self.context):
-            update_owncloud_permission(self.context, acl)
-
         # Unfavorite
         IFavorite(self.context).remove(user_id)
 
@@ -708,8 +698,6 @@ class CommunityAdapterMixin(object):
         acl = self.get_acl()
         # Finally, we update the plone permissions
         self.set_plone_permissions(acl)
-        if is_activate_owncloud(self.context):
-            update_owncloud_permission(self.context, acl)
 
         # Add mail user to mails_users_community_lists in community
         if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
@@ -1583,27 +1571,6 @@ class CommunityInitializeAdapter(object):
         # Auto-favorite the creator user to this community
         IFavorite(community).add(community.Creator())
 
-        if is_activate_owncloud(self.context):
-            client = getUtility(IOwncloudClient)
-            session = client.admin_connection()
-            # Create structure folders community in domain
-            domain = api.portal.get_registry_record('ulearn5.owncloud.controlpanel.IOCSettings.connector_domain')
-            try:
-                session.file_info(domain.lower() + community.id)
-            except OCSResponseError:
-                logger.warning('The community {} not has been created in owncloud due to {}'.format(community.id, OCSResponseError))
-                raise
-            except HTTPResponseError as err:
-                if err.status_code == 404:
-                    session.mkdir(domain.lower() + '/' + community.id)
-
-                    # Assign owner permissions
-                    current = api.user.get_current()
-                    session.share_file_with_user(domain.lower() + '/' + community.id, current.id, perms=Client.OCS_PERMISSION_ALL)  # Propietari
-                else:
-                    logger.warning('The community {} not has been created in owncloud due to {}'.format(community.id, err.status_code))
-                    raise
-
         # Create default content containers
         documents = createContentInContainer(community, 'Folder', title='documents', checkConstraints=False)
         media = createContentInContainer(documents, 'Folder', title='media', checkConstraints=False)
@@ -1632,15 +1599,9 @@ class CommunityInitializeAdapter(object):
         behavior = ISelectableConstrainTypes(documents)
         behavior.setConstrainTypesMode(1)
 
-        if is_activate_owncloud(self.context) and is_activate_externalstorage(self.context):
-            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile', 'ExternalContent'))
-            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile', 'ExternalContent'))
-        elif is_activate_etherpad(self.context) and is_activate_externalstorage(self.context):
+        if is_activate_etherpad(self.context) and is_activate_externalstorage(self.context):
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'Etherpad', 'ExternalContent'))
             behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'Etherpad', 'ExternalContent'))
-        elif is_activate_owncloud(self.context):
-            behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
-            behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'CloudFile'))
         elif is_activate_externalstorage(self.context):
             behavior.setLocallyAllowedTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ExternalContent'))
             behavior.setImmediatelyAddableTypes(('Document', 'File', 'Folder', 'Link', 'Image', 'privateFolder', 'ExternalContent'))
@@ -1747,24 +1708,6 @@ def delete_community(community, event):
         adapter = community.adapted()
         adapter.delete_community_all()
         portal = api.portal.get()
-        if is_activate_owncloud(portal):
-            portal_state = community.unrestrictedTraverse('@@plone_portal_state')
-            root = getNavigationRootObject(community, portal_state.portal())
-            ppath = community.getPhysicalPath()
-            relative = ppath[len(root.getPhysicalPath()):]
-            path = "/".join(relative)
-            client = getUtility(IOwncloudClient)
-            session = client.admin_connection()
-            try:
-                domain = get_domain()
-                session.file_info(domain + '/' + path)
-                session.delete(domain + '/' + path)
-            except OCSResponseError:
-                pass
-            except HTTPResponseError as err:
-                if err.status_code == 404:
-                    logger.warning('The object {} has not been removed in owncloud'.format(path))
-
     except:
         logger.error('There was an error deleting the community {}'.format(community.absolute_url()))
 

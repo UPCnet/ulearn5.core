@@ -56,7 +56,6 @@ setup(
         'base5.core',
         'base5.portlets',
         'ulearn5.theme',
-        'ulearn5.owncloud',
         'mrs5.max',
         'ipdb',
         'pytz',

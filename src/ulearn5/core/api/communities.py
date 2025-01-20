@@ -21,8 +21,6 @@ from ulearn5.core.api import api_resource
 from ulearn5.core.api import logger
 from ulearn5.core.api.root import APIRoot
 from ulearn5.core.content.community import ICommunityACL
-from ulearn5.core.utils import is_activate_owncloud
-from ulearn5.owncloud.utils import update_owncloud_permission
 from base5.core.adapters.notnotifypush import INotNotifyPush
 
 from email.header import Header
@@ -580,10 +578,6 @@ class Subscriptions(REST, CommunityMixin):
         # Communicate the change in the community subscription to the uLearnHub
         # XXX: Until we do not have a proper Hub online
         adapter.update_hub_subscriptions()
-
-        # If is activate owncloud modify permissions owncloud
-        if is_activate_owncloud(self.context):
-            update_owncloud_permission(obj, acl)
 
         if ((obj.notify_activity_via_mail == True) and (obj.type_notify == 'Automatic')):
             adapter.update_mails_users(obj, acl)

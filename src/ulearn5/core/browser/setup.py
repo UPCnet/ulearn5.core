@@ -47,12 +47,7 @@ from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import ATTRIBUTE_NAME
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
-from ulearn5.core.utils import is_activate_owncloud, is_activate_externalstorage, is_activate_etherpad
-from ulearn5.owncloud.api.owncloud import HTTPResponseError
-from ulearn5.owncloud.api.owncloud import OCSResponseError
-from ulearn5.owncloud.utilities import IOwncloudClient
-from ulearn5.owncloud.utils import get_domain
-from ulearn5.owncloud.utils import update_owncloud_permission
+from ulearn5.core.utils import is_activate_externalstorage, is_activate_etherpad
 
 import base64
 import json
@@ -1020,59 +1015,6 @@ class deletePhotoFromUser(grok.View):
         else:
             return 'Add parameter ?user=nom.cognom in url'
 
-
-class syncPlatformsPermissions(grok.View):
-    """ Syncronize permissions in plone site, in hub service and owncloud service for every community """
-    grok.name('syncPlatformsPermissions')
-    grok.context(IPloneSiteRoot)
-    grok.require('cmf.ManagePortal')
-
-    def render(self):
-        portal = api.portal.get()
-        if is_activate_owncloud(portal):
-            username = api.portal.get_registry_record('ulearn5.owncloud.controlpanel.IOCSettings.connector_username')
-            password = api.portal.get_registry_record('ulearn5.owncloud.controlpanel.IOCSettings.connector_password')
-            pc = api.portal.get_tool('portal_catalog')
-            comunities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
-            for community in comunities:
-                gwuuid = community.gwuuid
-                url = portal.absolute_url() + '/api/communities/' + gwuuid + '/subscriptions'
-                response = requests.get(url, auth=(username, password))
-                payload = response.json()
-                headers = {"Content-Type": "application/json"}
-                r = requests.post(url, auth=(username, password), headers=headers, json=payload)
-
-            return "Done"
-
-        else:
-            return "OwnCloud is not active in this site."
-
-
-class changePortalType(grok.View):
-    """ Change Portal Type ulearn5.owncloud.file_owncloud by  CloudFile """
-    grok.name('changeportaltype')
-    grok.context(IPloneSiteRoot)
-
-    def render(self):
-        try:
-            from plone.protect.interfaces import IDisableCSRFProtection
-            alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
-
-        pc = api.portal.get_tool('portal_catalog')
-        filesowncloud_old = pc.unrestrictedSearchResults(portal_type='ulearn5.owncloud.file_owncloud')
-
-        for file in filesowncloud_old:
-            obj = file.getObject()
-            obj.portal_type = 'CloudFile'
-            obj.reindexObject()
-
-        transaction.commit()
-
-        return 'Done'
-
-
 class executeCronTasks(grok.View):
     """ TODO: .....
         url/execute_cron_tasks/?user=victor&pass=123123
@@ -1128,44 +1070,6 @@ class getInfoCronTasks(grok.View):
         settings = registry.forInterface(IUlearnControlPanelSettings, check=False)
         info_cron.update({"tasks": settings.cron_tasks})
         return json.dumps(info_cron)
-
-
-class listFileUploadErrors(grok.View):
-    """ Vista per veure tots el fitchers File Upload que no estàn ven sincronitzats amb el OwnCloud. """
-    grok.name('list_fileupload_errors')
-    grok.context(IPloneSiteRoot)
-
-    def render(self):
-        portal = api.portal.get()
-        if is_activate_owncloud(portal):
-            pc = api.portal.get_tool('portal_catalog')
-            files = pc.searchResults(portal_type='CloudFile')
-
-            if files:
-                client = getUtility(IOwncloudClient)
-                session = client.admin_connection()
-                errors = ''
-                for file in files:
-                    domain = get_domain()
-                    portal_state = file.unrestrictedTraverse('@@plone_portal_state')
-                    root = getNavigationRootObject(file, portal_state.portal())
-                    path = file.getPath().split('/')
-                    path = domain + "/" + "/".join(path[len(root.getPhysicalPath()):])
-                    try:
-                        session.file_info(path)
-                    except OCSResponseError:
-                        pass
-                    except HTTPResponseError:
-                        errors += path + '\n'
-
-                if errors:
-                    return errors
-                else:
-                    return 'Todo OK'
-            else:
-                return 'No hay ficheros'
-        else:
-            return 'Owncloud no activado'
 
 
 class changePermissionsToContent(grok.View):
