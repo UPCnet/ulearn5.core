@@ -18,6 +18,7 @@ The script accepts buildout command-line options, so you can
 use the -c option to specify an alternate configuration file.
 """
 
+from __future__ import print_function
 import os
 import shutil
 import sys

@@ -12,6 +12,7 @@ from ulearn5.core.api import api_resource
 from ulearn5.core.api import BadParameters
 from ulearn5.core.api import REST
 from ulearn5.core.api.root import APIRoot
+from six.moves import range
 
 
 class Notifications(REST):

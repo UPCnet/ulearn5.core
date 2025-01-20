@@ -25,6 +25,7 @@ import csv
 import unicodedata
 import time
 import transaction
+from six.moves import range
 
 
 HEADER_CSV = ['id', 'last_login_time']

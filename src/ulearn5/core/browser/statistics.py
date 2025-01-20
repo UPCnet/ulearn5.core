@@ -13,6 +13,7 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from zope.component import getUtility
+from six.moves import range
 
 
 datePoints = ["1d", "15d", "1m", "3m", "6m", "1y"]

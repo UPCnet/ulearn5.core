@@ -15,6 +15,7 @@ import zope.component
 import zope.interface
 import zope.schema
 import zope.schema.interfaces
+from six.moves import range
 
 
 class FakeTerms(tuple):

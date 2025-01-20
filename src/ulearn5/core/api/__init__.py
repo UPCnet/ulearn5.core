@@ -1,3 +1,4 @@
+from __future__ import print_function
 from plone import api
 from infrae.rest import REST as REST_BASE
 from infrae.rest.interfaces import RESTMethodPublishedEvent
@@ -157,7 +158,7 @@ class api_resource(object):
                 server_port = environ.get('SERVER_PORT', '8080')
                 if server_name == 'testing':
                     import traceback as trbk
-                    print(trbk.format_exc())
+                    print((trbk.format_exc()))
 
                 instance_id = '{}:{}'.format(server_name, server_port)
                 response_code = 500

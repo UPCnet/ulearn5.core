@@ -1,3 +1,4 @@
+from __future__ import print_function
 from five import grok
 from plone import api
 from Acquisition import aq_parent

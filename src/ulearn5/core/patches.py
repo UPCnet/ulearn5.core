@@ -32,6 +32,7 @@ from base5.core.utils import remove_user_from_catalog
 from ulearn5.core.gwuuid import IGWUUID
 
 import logging
+from six.moves import range
 logger = logging.getLogger('event.LDAPMultiPlugin')
 
 

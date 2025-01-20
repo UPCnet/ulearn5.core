@@ -30,6 +30,7 @@ from mrs5.max.utilities import IMAXClient
 
 import json
 import os
+from six.moves import range
 
 
 class TestExample(uLearnTestBase):

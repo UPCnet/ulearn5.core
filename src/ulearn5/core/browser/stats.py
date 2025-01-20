@@ -22,6 +22,7 @@ import json
 import calendar
 from zope.schema.interfaces import IVocabularyFactory
 from ulearn5.core import _
+from six.moves import range
 
 
 def next_month(current):

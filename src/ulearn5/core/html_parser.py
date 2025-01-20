@@ -9,6 +9,7 @@ from Acquisition import aq_inner
 from plone import api
 from plone.app.layout.navigation.root import getNavigationRootObject
 from ulearn5.core.content.community import ICommunity
+from six.moves import range
 
 
 def getCommunityNameFromObj(self, value):

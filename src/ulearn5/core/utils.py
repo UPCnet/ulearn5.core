@@ -31,6 +31,7 @@ from mrs5.max.utilities import IMAXClient
 from base5.core.directory import METADATA_USER_ATTRS
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from six.moves import range
 
 
 RE_VALID_TWITTER_USERNAME = r'^\s*@?([a-zA-Z0-9_]{1,15})\s*$'

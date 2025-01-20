@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 from five import grok
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -18,6 +19,7 @@ from ulearn5.core.gwuuid import IGWUUID
 import json
 import re
 import uuid
+from six.moves import range
 
 
 class IElasticSharing(Interface):
