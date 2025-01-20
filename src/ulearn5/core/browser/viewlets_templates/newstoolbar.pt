@@ -4,88 +4,80 @@
       Gestion Noticia:
     </div>
     <div id="toggle-outoflist" tal:condition="viewlet/isPortletListActivate">
-        <div class="literal-toggle" i18n:translate="label-toogle-list">Lista</div>
-        <div tal:condition="viewlet/isNewOutOfList">
-            <label class="switch">
-              <input type="checkbox">
-              <div class="sliderbutton round"
-                   tal:attributes="data-dextobject context/absolute_url">
-              </div>
-            </label>
-        </div>
-        <div tal:condition="not:viewlet/isNewOutOfList">
-            <label class="switch">
-              <input type="checkbox" checked>
-              <div class="sliderbutton round"
-                   tal:attributes="data-dextobject context/absolute_url">
-              </div>
-            </label>
-        </div>
-     </div>
-
-     <div id="toggle-flash" tal:condition="viewlet/isPortletFlashActivate">
-       <div class="literal-toggle" i18n:translate="label-toogle-flash">Flash</div>
-       <div tal:condition="not:viewlet/isNewFlash">
-           <label class="switch">
-             <input type="checkbox">
-             <div class="sliderbutton round"
-                  tal:attributes="data-dextobject context/absolute_url">
-             </div>
-           </label>
-       </div>
-       <div tal:condition="viewlet/isNewFlash">
-           <label class="switch">
-             <input type="checkbox" checked>
-             <div class="sliderbutton round"
-                  tal:attributes="data-dextobject context/absolute_url">
-             </div>
-           </label>
-       </div>
+      <div class="literal-toggle" i18n:translate="label-toogle-list">Lista</div>
+      <div tal:condition="viewlet/isNewOutOfList">
+        <label class="switch">
+          <input type="checkbox">
+          <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
+          </div>
+        </label>
       </div>
-
-     <div id="toggle-important" tal:condition="viewlet/isPortletImportantActivate">
-         <div class="literal-toggle" i18n:translate="label-toogle-important">Destacada</div>
-         <div tal:condition="not:viewlet/isNewImportant">
-             <div tal:condition="not:viewlet/isNewImportant">
-                 <label class="switch">
-                   <input type="checkbox">
-                   <div class="sliderbutton round"
-                        tal:attributes="data-dextobject context/absolute_url">
-                   </div>
-                 </label>
-             </div>
-         </div>
-         <div tal:condition="viewlet/isNewImportant">
-             <div tal:condition="viewlet/isNewImportant">
-                 <label class="switch">
-                   <input type="checkbox" checked>
-                   <div class="sliderbutton round"
-                        tal:attributes="data-dextobject context/absolute_url">
-                   </div>
-                 </label>
-             </div>
-         </div>
+      <div tal:condition="not:viewlet/isNewOutOfList">
+        <label class="switch">
+          <input type="checkbox" checked>
+          <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
+          </div>
+        </label>
       </div>
+    </div>
 
-      <div id="toggle-newsinapp" tal:condition="viewlet/isViewInAppChecked">
-        <div class="literal-toggle" i18n:translate="label-toogle-app">App</div>
-        <div tal:condition="not:viewlet/isNewApp">
-            <label class="switch">
-                <input type="checkbox">
-                <div class="sliderbutton round"
-                    tal:attributes="data-dextobject context/absolute_url">
-                </div>
-            </label>
-        </div>
-        <div tal:condition="viewlet/isNewApp">
-            <label class="switch">
-                <input type="checkbox" checked>
-                <div class="sliderbutton round"
-                    tal:attributes="data-dextobject context/absolute_url">
-                </div>
-            </label>
+    <div id="toggle-flash" tal:condition="viewlet/isPortletFlashActivate">
+      <div class="literal-toggle" i18n:translate="label-toogle-flash">Flash</div>
+      <div tal:condition="not:viewlet/isNewFlash">
+        <label class="switch">
+          <input type="checkbox">
+          <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
+          </div>
+        </label>
+      </div>
+      <div tal:condition="viewlet/isNewFlash">
+        <label class="switch">
+          <input type="checkbox" checked>
+          <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div id="toggle-important" tal:condition="viewlet/isPortletImportantActivate">
+      <div class="literal-toggle" i18n:translate="label-toogle-important">Destacada</div>
+      <div tal:condition="not:viewlet/isNewImportant">
+        <div tal:condition="not:viewlet/isNewImportant">
+          <label class="switch">
+            <input type="checkbox">
+            <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
+            </div>
+          </label>
         </div>
       </div>
+      <div tal:condition="viewlet/isNewImportant">
+        <div tal:condition="viewlet/isNewImportant">
+          <label class="switch">
+            <input type="checkbox" checked>
+            <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div id="toggle-newsinapp" tal:condition="viewlet/isViewInAppChecked">
+      <div class="literal-toggle" i18n:translate="label-toogle-app">App</div>
+      <div tal:condition="not:viewlet/isNewApp">
+        <label class="switch">
+          <input type="checkbox">
+          <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
+          </div>
+        </label>
+      </div>
+      <div tal:condition="viewlet/isNewApp">
+        <label class="switch">
+          <input type="checkbox" checked>
+          <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
+          </div>
+        </label>
+      </div>
+    </div>
 
   </div>
 </tal:block>
