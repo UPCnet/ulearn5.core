@@ -14,5 +14,105 @@
     template="inspector_templates/clouseau.pt"
     />
 
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="portletfix"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="linkFolderFix"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="createMAXUserForAllExistingUsers"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="InitializeAllCommunities"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="InitializeVideos"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="migrate_to_new_communities"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="migrate_types_documents_communities"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="reinstall_ulearn"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="reinstall_ulearncontrolpanel"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="OFS.interfaces.IApplication"
+    name="bulk_reinstall_ulearncontrolpanel"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="GiveAllCommunitiesGWUUID"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="givegwuuid"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="migrate_acls"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="migrate_folders"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
+
+  <browser:page
+    for="OFS.interfaces.IApplication"
+    name="bulk_restrict_transform"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    />
 
 </configure>
