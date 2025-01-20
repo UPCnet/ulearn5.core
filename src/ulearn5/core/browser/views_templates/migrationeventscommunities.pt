@@ -1,72 +1,70 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      lang="en"
-      metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:i18n="http://xml.zope.org/namespaces/i18n" lang="en"
+  metal:use-macro="context/main_template/macros/master" i18n:domain="plone">
 
-<head>
-    <metal:block fill-slot="top_slot"/>
-</head>
+  <head>
+    <metal:block fill-slot="top_slot" />
+  </head>
 
-<body>
+  <body>
 
-<metal:main fill-slot="content">
-    <tal:main-macro metal:define-macro="main">
+    <metal:main fill-slot="content">
+      <tal:main-macro metal:define-macro="main">
 
-      <div metal:use-macro="context/global_statusmessage/macros/portal_message">
+        <div metal:use-macro="context/global_statusmessage/macros/portal_message">
           Status message
-      </div>
+        </div>
 
-      <div id="content">
+        <div id="content">
 
           <form method="post" enctype="multipart/form-data" action="migrationeventscommunities">
-            <span tal:replace="structure context/@@authenticator/authenticator"/>
+            <span tal:replace="structure context/@@authenticator/authenticator" />
             Afegeix la url de la instancia comunitats en Plone 4 (sense / al final):
-            <input name="url_instance_v4" type="text" style="width: 1024px;"/>
+            <input name="url_instance_v4" type="text" style="width: 1024px;" />
             <br>
             Afegeix username de la instancia comunitats en Plone 4:
-            <input name="husernamev4" type="text" style="width: 1024px;"/>
+            <input name="husernamev4" type="text" style="width: 1024px;" />
             <br>
             Afegeix token de la instancia comunitats en Plone 4:
-            <input name="htokenv4" type="text" style="width: 1024px;"/>
+            <input name="htokenv4" type="text" style="width: 1024px;" />
             <br>
             Afegeix la url de la instancia comunitats en Plone 5 (sense / al final):
-            <input name="url_instance_v5" type="text" style="width: 1024px;"/>
+            <input name="url_instance_v5" type="text" style="width: 1024px;" />
             <br>
             Afegeix username de la instancia comunitats en Plone 5:
-            <input name="remote_username" type="text" style="width: 1024px;"/>
+            <input name="remote_username" type="text" style="width: 1024px;" />
             <br>
             Afegeix password de la instancia comunitats en Plone 5:
-            <input name="remote_password" type="password" style="width: 1024px;"/>
+            <input name="remote_password" type="password" style="width: 1024px;" />
             <br>
             Afegeix els ids de les comunitats que no s'han de migrar (separats per coma):
-            <input name="comunitats_no_migrar" type="text" style="width: 1024px;"/>
+            <input name="comunitats_no_migrar" type="text" style="width: 1024px;" />
             <br>
             Afegeix els ids de les comunitats que vols migrar (separats per coma). Si esta en blanc es migraran totes:
-            <input name="comunitats_a_migrar" type="text" style="width: 1024px;"/>
+            <input name="comunitats_a_migrar" type="text" style="width: 1024px;" />
             <br>
             Afegeix el servidor de les comunitats en Plone 4 (shayla.upcnet.es):
-            <input name="servidor_comunitats_V4" type="text" style="width: 1024px;"/>
+            <input name="servidor_comunitats_V4" type="text" style="width: 1024px;" />
             <br>
-            Afegeix el certificat que utilitzem per fer un scp -r en el servidor de les comunitats en Plone 4 (shayla.upcnet.es) (p.e: ssh/jane_id_rsa para Externs):
-            <input name="certificado_maquina_comunitats_V4" type="text" style="width: 1024px;"/>
+            Afegeix el certificat que utilitzem per fer un scp -r en el servidor de les comunitats en Plone 4
+            (shayla.upcnet.es) (p.e: ssh/jane_id_rsa para Externs):
+            <input name="certificado_maquina_comunitats_V4" type="text" style="width: 1024px;" />
             <br>
             Afegeix el path on guardarem el export de les comunitats en Plone 4 (/var/plone/genweb.zope/var):
-            <input name="path_guardar_export_dexterity_comunitats_V4" type="text" style="width: 1024px;"/>
+            <input name="path_guardar_export_dexterity_comunitats_V4" type="text" style="width: 1024px;" />
             <br>
             Afegeix el path on guardarem el export de les comunitats en Plone 5 (/Dades/plone/ulearn5.zope/var):
-            <input name="path_guardar_export_dexterity_comunitats_V5" type="text" style="width: 1024px;"/>
+            <input name="path_guardar_export_dexterity_comunitats_V5" type="text" style="width: 1024px;" />
             <br>
             <button name="save" type="submit">Migra la carpeta events de les comunitats</button>
           </form>
 
-      </div>
+        </div>
 
-    </tal:main-macro>
+      </tal:main-macro>
 
-</metal:main>
+    </metal:main>
 
-</body>
+  </body>
+
 </html>

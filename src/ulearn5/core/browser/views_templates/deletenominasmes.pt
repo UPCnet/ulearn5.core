@@ -1,39 +1,35 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      lang="en"
-      metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:i18n="http://xml.zope.org/namespaces/i18n" lang="en"
+  metal:use-macro="context/main_template/macros/master" i18n:domain="plone">
 
-<head>
-    <metal:block fill-slot="top_slot"/>
-</head>
+  <head>
+    <metal:block fill-slot="top_slot" />
+  </head>
 
-<body>
+  <body>
 
-<metal:main fill-slot="content">
-    <tal:main-macro metal:define-macro="main">
+    <metal:main fill-slot="content">
+      <tal:main-macro metal:define-macro="main">
 
-      <div metal:use-macro="context/global_statusmessage/macros/portal_message">
+        <div metal:use-macro="context/global_statusmessage/macros/portal_message">
           Status message
-      </div>
+        </div>
 
-      <div id="content">
+        <div id="content">
 
           <form method="post" enctype="multipart/form-data" action="deletenominasmes">
             Afegeix el any mes del que vols esborrar les nomines (ex: 202006):
-            <input name="mes" type="text" style="width: 442px;"/>
-            <br> 
+            <input name="mes" type="text" style="width: 442px;" />
+            <br>
             <button name="save" type="submit">Esborra les nomines</button>
           </form>
-        
-      </div>
 
-    </tal:main-macro>
+        </div>
 
-</metal:main>
+      </tal:main-macro>
 
-</body>
+    </metal:main>
+
+  </body>
+
 </html>
-

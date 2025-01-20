@@ -1,51 +1,48 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      lang="en"
-      metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:i18n="http://xml.zope.org/namespaces/i18n" lang="en"
+  metal:use-macro="context/main_template/macros/master" i18n:domain="plone">
 
-<head>
-    <metal:block fill-slot="top_slot"/>
-</head>
+  <head>
+    <metal:block fill-slot="top_slot" />
+  </head>
 
-<body>
+  <body>
 
-<metal:main fill-slot="content">
-    <tal:main-macro metal:define-macro="main">
+    <metal:main fill-slot="content">
+      <tal:main-macro metal:define-macro="main">
 
-      <div metal:use-macro="context/global_statusmessage/macros/portal_message">
+        <div metal:use-macro="context/global_statusmessage/macros/portal_message">
           Status message
-      </div>
+        </div>
 
-      <div id="content">
+        <div id="content">
 
           <form method="post" enctype="multipart/form-data" action="migrationcommunities">
-            <span tal:replace="structure context/@@authenticator/authenticator"/>
+            <span tal:replace="structure context/@@authenticator/authenticator" />
             Afegeix la url de la instancia comunitats en Plone 4 (sense / al final):
-            <input name="url_instance_v4" type="text" style="width: 1024px;"/>
+            <input name="url_instance_v4" type="text" style="width: 1024px;" />
             <br>
             Afegeix username de la instancia comunitats en Plone 4:
-            <input name="husernamev4" type="text" style="width: 1024px;"/>
+            <input name="husernamev4" type="text" style="width: 1024px;" />
             <br>
             Afegeix token de la instancia comunitats en Plone 4:
-            <input name="htokenv4" type="text" style="width: 1024px;"/>
+            <input name="htokenv4" type="text" style="width: 1024px;" />
             <br>
             Afegeix els ids de les comunitats que no s'han de migrar (separats per coma):
-            <input name="comunitats_no_migrar" type="text" style="width: 1024px;"/>
+            <input name="comunitats_no_migrar" type="text" style="width: 1024px;" />
             <br>
             Afegeix els ids de les comunitats que vols migrar (separats per coma). Si esta en blanc es migraran totes:
-            <input name="comunitats_a_migrar" type="text" style="width: 1024px;"/>
+            <input name="comunitats_a_migrar" type="text" style="width: 1024px;" />
             <br>
             <button name="save" type="submit">Migra les comunitats</button>
           </form>
 
-      </div>
+        </div>
 
-    </tal:main-macro>
+      </tal:main-macro>
 
-</metal:main>
+    </metal:main>
 
-</body>
+  </body>
+
 </html>
