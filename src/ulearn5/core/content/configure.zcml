@@ -169,4 +169,11 @@
       handler="ulearn5.core.content.community.delete_community"
     />
 
+    <browser:page 
+        name="view"
+        class="ulearn5.core.content.video_embed.VideoEmbedView"
+        for="ulearn5.core.content.video_embed.IVideoEmbed"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
 </configure>
