@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-from five import grok
+# from five import grok
 from plone import api
 
 from Acquisition import aq_inner
@@ -13,14 +13,17 @@ from zope.interface import alsoProvides
 
 import urllib.request, urllib.parse, urllib.error
 
+from Products.Five.browser import BrowserView
 
-class installPloneProduct(grok.View):
+
+
+class installPloneProduct(BrowserView):
     """ Install a product passed by form parameter in the current Plone site.
         /install_product?product_name=ulearn5.core
     """
-    grok.context(IPloneSiteRoot)
-    grok.name('install_product')
-    grok.require('cmf.ManagePortal')
+    # grok.context(IPloneSiteRoot)
+    # grok.name('install_product')
+    # grok.require('cmf.ManagePortal')
 
     def render(self, portal=None):
         try:
@@ -43,13 +46,13 @@ class installPloneProduct(grok.View):
         return '\n'.join(output)
 
 
-class reinstallPloneProduct(grok.View):
+class reinstallPloneProduct(BrowserView):
     """ Reinstalls a product passed by form parameter in the current Plone site.
         /reinstall_product?product_name=ulearn5.core
     """
-    grok.context(IPloneSiteRoot)
-    grok.name('reinstall_product')
-    grok.require('cmf.ManagePortal')
+    # grok.context(IPloneSiteRoot)
+    # grok.name('reinstall_product')
+    # grok.require('cmf.ManagePortal')
 
     def render(self, portal=None):
         try:
@@ -73,13 +76,13 @@ class reinstallPloneProduct(grok.View):
         return '\n'.join(output)
 
 
-class uninstallPloneProduct(grok.View):
+class uninstallPloneProduct(BrowserView):
     """ Uninstall a product passed by form parameter in the current Plone site.
         /uninstall_product?product_name=ulearn5.etherpad
     """
-    grok.context(IPloneSiteRoot)
-    grok.name('uninstall_product')
-    grok.require('cmf.ManagePortal')
+    # grok.context(IPloneSiteRoot)
+    # grok.name('uninstall_product')
+    # grok.require('cmf.ManagePortal')
 
     def render(self, portal=None):
         try:
@@ -114,13 +117,13 @@ def listPloneSites(zope):
     return out
 
 
-class bulkExecuteScriptView(grok.View):
+class bulkExecuteScriptView(BrowserView):
     """ Execute one action view in all instances passed as a form parameter 
         http:/maquina:puerto/bulk_action?view=reinstall_product&product_name=ulearn5.core&exclude_sites=Plone
     """
-    grok.context(IApplication)
-    grok.name('bulk_action')
-    grok.require('cmf.ManagePortal')
+    # grok.context(IApplication)
+    # grok.name('bulk_action')
+    # grok.require('cmf.ManagePortal')
 
     def render(self):
         try:

@@ -7,7 +7,7 @@ from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import getUtility
 from zope.component import getUtilitiesFor
-from zope.interface import implements
+from zope.interface import implementer
 from zope.interface import providedBy
 from souper.interfaces import ICatalogFactory
 
@@ -191,9 +191,9 @@ def deleteMembers(self, member_ids):
     #logger.info('Eliminat usuari {} del local roles.'.format(member_id))
 
 
+@implementer(INegotiateLanguage)
 class NegotiateLanguage(object):
     """Perform default language negotiation"""
-    implements(INegotiateLanguage)
 
     def __init__(self, site, request):
         """Setup the current language stuff."""
