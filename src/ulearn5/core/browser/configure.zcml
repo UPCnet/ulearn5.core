@@ -1,7 +1,7 @@
 <configure xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
   xmlns:plone="http://namespaces.plone.org/plone"
-  xmlns:grok="http://namespaces.zope.org/grok" i18n_domain="ulearn">
+  i18n_domain="ulearn">
 
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
@@ -133,8 +133,250 @@
     for="zope.interface.Interface"
     name="debug"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup.Debug"
+    class="ulearn5.core.browser.setup.debug"
     />
 
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="setupHomePage"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.setupHomePage"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="createMenuFolders"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.createMenuFolders"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="createCustomizedHeaderFolder"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.createCustomizedHeaderFolder"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="createCustomizedFooterFolder"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.createCustomizedFooterFolder"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="createBannersFolder"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.createBannersFolder"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="createPersonalBannerFolder"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.createPersonalBannerFolder"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="createPopupStructure"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.createPopupStructure"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="ldapkillah"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.ldapKillah"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="memberfoldersetup"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.memberFolderSetup"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="changeurlcommunities"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.changeURLCommunities"
+    template="ulearn5.core.browser.views_templates.changeurlcommunities.pt"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="deleteusers"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.deleteUsers"
+    template="ulearn5.core.browser.views_templates.deleteusers.pt"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="deleteusersincommunities"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.deleteUsersInCommunities"
+    template="ulearn5.core.browser.views_templates.deleteusersincommunities.pt"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="importfiletofolder"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.setup.importFileToFolder"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="updatesharingcommunityelastic"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.updateSharingCommunityElastic"
+    template="ulearn5.core.browser.views_templates.updatesharingcommunityelastic.pt"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="listallcommunitiesobjects"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup.listAllCommunitiesObjects"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="updatesharingcommunitieselastic"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.updateSharingCommunitiesElastic"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="createelasticsharing"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.createElasticSharing"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="viewuserswithnotupdatedphoto"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.viewUsersWithNotUpdatedPhoto"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="deletephotofromuser"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.deletePhotoFromUser"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="execute_cron_tasks"
+    permission="ulearn.APIAccess"
+    class="ulearn5.core.browser.setup.executeCronTasks"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="get_info_cron_tasks"
+    permission="ulearn.APIAccess"
+    class="ulearn5.core.browser.setup.getInfoCronTasks"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="changepermissionsoocontent"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.changePermissionsToContent"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="addAllCommunitiesAsFavoriteFromAllUsers"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.addAllCommunitiesAsFavoriteFromAllUsers"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="addCommunityAsFavoriteFromAllUsers"
+    permission="zope2.ViewManagementScreens"
+    class="ulearn5.core.browser.setup.addCommunityAsFavoriteFromAllUsers"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="add_protected_file_in_documents_community"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup.addProtectedFileInDocumentsCommunity"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="add_etherpad_in_documents_community"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup.addEtherpadInDocumentsCommunity"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="notify_manual_in_community"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup.notifyManualInCommunity"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="deletenominasmes"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup.deleteNominasMes"
+    template="ulearn5.core.browser.views_templates.deletenominasmes.pt"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="parche_reordenar_carpetas"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup.parcheReordenarCarpetas"
+    />
+
+  <!-- <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name=""
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup."
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name=""
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup."
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name=""
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup."
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name=""
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup."
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name=""
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.setup."
+    /> -->
 
 </configure>

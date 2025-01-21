@@ -21,10 +21,9 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component.hooks import getSite
-from zope.interface import Interface
 from zope.interface import alsoProvides
 from hashlib import sha1
-
+from plone.app.textfield.value import RichTextValue
 from base5.core.adapters.favorites import IFavorite
 from base5.core.utilities import IElasticSearch
 from base5.core.utils import json_response
@@ -88,7 +87,53 @@ def newPrivateFolder(context, newid, title):
     return createOrGetObject(context, newid, title, "privateFolder")
 
 
-class Debug(BrowserView):
+def getDestinationFolder(stats_folder, create_month=True):
+    """
+    This function creates if it doesn't exist a folder in <stats_folder>/<year>/<month>.
+    If  create_month is False, then only the <year> folder is created
+    """
+    portal = api.portal.get()
+    # setSite(portal)
+    # Create 'stats_folder' folder if not exists
+    if portal.get(stats_folder) is None:
+        makeFolder(portal, stats_folder)
+    portal = portal.get(stats_folder)
+    today = datetime.now()
+    context = aq_inner(portal)
+    #    tool = api.portal.get_tool(name='translation_service')
+    #    month = tool.translate(today.strftime("%B"), 'ulearn', context=context).encode()
+    month = "march"
+    month = month.lower()
+    year = today.strftime("%G")
+    # Create year folder and month folder if not exists
+    if portal.get(year) is None:
+        makeFolder(portal, year)
+        if create_month:
+            portal = portal.get(year)
+            makeFolder(portal, month)
+    # Create month folder if not exists
+    else:
+        portal = portal.get(year)
+        if portal.get(month) is None and create_month:
+            makeFolder(portal, month)
+            portal = portal.get(month)
+    return portal
+
+
+def makeFolder(portal, name):
+    transaction.begin()
+    obj = createContentInContainer(
+        portal,
+        "Folder",
+        id="{}".format(name),
+        title="{}".format(name),
+        description="{}".format(name),
+    )
+    obj.reindexObject()
+    transaction.commit()
+
+
+class debug(BrowserView):
     """Convenience view for faster debugging. Needs to be manager."""
 
     def __call__(self):
@@ -101,20 +146,17 @@ class Debug(BrowserView):
 class setupHomePage(BrowserView):
     """Add the portlets and add the values of settings"""
 
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
-
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
         portal = getSite()
         frontpage = portal["front-page"]
         frontpage.description = ""
-        from plone.app.textfield.value import RichTextValue
 
         frontpage.text = RichTextValue("", "text/plain", "text/html")
         wftool = api.portal.get_tool(name="portal_workflow")
@@ -321,15 +363,13 @@ class setupHomePage(BrowserView):
 class createMenuFolders(BrowserView):
     """Create the directory structure of the menu"""
 
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
-
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
 
         portal = getSite()
@@ -395,15 +435,13 @@ class createMenuFolders(BrowserView):
 class createCustomizedHeaderFolder(BrowserView):
     """Create the directory structure of the customized header"""
 
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
-
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
 
         portal = getSite()
@@ -477,15 +515,13 @@ class createCustomizedHeaderFolder(BrowserView):
 class createCustomizedFooterFolder(BrowserView):
     """Create the directory structure of the customized footer"""
 
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
-
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
 
         description = "El peu de pàgina utilizarà el primer document del directori.\nEl pie de página utilizará el primer documento del directorio.\nThe footer will use the first document in the directory."
@@ -559,15 +595,13 @@ class createCustomizedFooterFolder(BrowserView):
 class createBannersFolder(BrowserView):
     """Create the directory banners in gestion"""
 
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
-
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
 
         portal = getSite()
@@ -612,9 +646,6 @@ class createBannersFolder(BrowserView):
 class createPersonalBannerFolder(BrowserView):
     """Create the directory banners in personal folder"""
 
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
-
     def createOrGetObject(self, context, newid, title, type_name):
         if newid in context.contentIds():
             obj = context[newid]
@@ -634,7 +665,8 @@ class createPersonalBannerFolder(BrowserView):
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
 
         if "user" in self.request.form:
@@ -690,15 +722,13 @@ class createPersonalBannerFolder(BrowserView):
 class createPopupStructure(BrowserView):
     """Create the directory structure of the popup menu"""
 
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
-
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
 
         portal = getSite()
@@ -761,9 +791,7 @@ class createPopupStructure(BrowserView):
         return "Done"
 
 
-class ldapkillah(BrowserView):
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
+class ldapKillah(BrowserView):
 
     def __call__(self):
         portal = getSite()
@@ -776,8 +804,6 @@ class ldapkillah(BrowserView):
 
 
 class memberFolderSetup(BrowserView):
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
 
     def __call__(self):
         portal = getSite()
@@ -792,18 +818,13 @@ class memberFolderSetup(BrowserView):
 class changeURLCommunities(BrowserView):
     """Aquesta vista canvia la url de les comunitats"""
 
-    grok.name("changeurlcommunities")
-    grok.template("changeurlcommunities")
-    grok.context(IPloneSiteRoot)
-
-    # render = ViewPageTemplateFile('views_templates/changeurlcommunities.pt')
-
-    def update(self):
+    def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
         if self.request.environ["REQUEST_METHOD"] == "POST":
             pc = api.portal.get_tool("portal_catalog")
@@ -834,18 +855,13 @@ class changeURLCommunities(BrowserView):
 class deleteUsers(BrowserView):
     """Delete users from the plone & max & communities"""
 
-    grok.name("deleteusers")
-    grok.template("deleteusers")
-    grok.context(IPloneSiteRoot)
-
-    # render = ViewPageTemplateFile('views_templates/deleteusers.pt')
-
-    def update(self):
+    def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
         if self.request.environ["REQUEST_METHOD"] == "POST":
 
@@ -911,18 +927,19 @@ class deleteUsers(BrowserView):
                                                 adapter.get_acl()
                                             )
 
-                                except:
+                                except Exception as e:
+                                    print(e)
                                     continue
 
                         try:
                             maxclient.people[username].delete()
-                        except:
+                        except Exception as e:
                             # No existe el usuari en max
-                            pass
+                            print(e)
                         logger.info("Delete user: {}".format(user))
-                    except:
+                    except Exception as e:
                         logger.error("User not deleted: {}".format(user))
-                        pass
+                        print(e)
 
                 logger.info("Finished deleted users: {}".format(users))
 
@@ -930,19 +947,13 @@ class deleteUsers(BrowserView):
 class deleteUsersInCommunities(BrowserView):
     """Delete users from the plone & max & communities"""
 
-    grok.name("deleteusersincommunities")
-    grok.template("deleteusersincommunities")
-    grok.context(IPloneSiteRoot)
-
-    # render = ViewPageTemplateFile('views_templates/deleteusersincommunities.pt')
-
-    def update(self):
+    def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         if self.request.environ["REQUEST_METHOD"] == "POST":
 
@@ -992,53 +1003,7 @@ class deleteUsersInCommunities(BrowserView):
                 logger.info("Finished deleted users in communities: {}".format(users))
 
 
-def getDestinationFolder(stats_folder, create_month=True):
-    """
-    This function creates if it doesn't exist a folder in <stats_folder>/<year>/<month>.
-    If  create_month is False, then only the <year> folder is created
-    """
-    portal = api.portal.get()
-    # setSite(portal)
-    # Create 'stats_folder' folder if not exists
-    if portal.get(stats_folder) is None:
-        makeFolder(portal, stats_folder)
-    portal = portal.get(stats_folder)
-    today = datetime.now()
-    context = aq_inner(portal)
-    #    tool = api.portal.get_tool(name='translation_service')
-    #    month = tool.translate(today.strftime("%B"), 'ulearn', context=context).encode()
-    month = "march"
-    month = month.lower()
-    year = today.strftime("%G")
-    # Create year folder and month folder if not exists
-    if portal.get(year) is None:
-        makeFolder(portal, year)
-        if create_month:
-            portal = portal.get(year)
-            makeFolder(portal, month)
-    # Create month folder if not exists
-    else:
-        portal = portal.get(year)
-        if portal.get(month) is None and create_month:
-            makeFolder(portal, month)
-            portal = portal.get(month)
-    return portal
-
-
-def makeFolder(portal, name):
-    transaction.begin()
-    obj = createContentInContainer(
-        portal,
-        "Folder",
-        id="{}".format(name),
-        title="{}".format(name),
-        description="{}".format(name),
-    )
-    obj.reindexObject()
-    transaction.commit()
-
-
-class ImportFileToFolder(BrowserView):
+class importFileToFolder(BrowserView):
     """This view takes 2 arguments on the request GET data :
     folder: the path without the '/' at the beginning, which is the base folder
         where the 'year' folders should be created
@@ -1050,11 +1015,7 @@ class ImportFileToFolder(BrowserView):
     r = requests.get('http://localhost:8080/Plone/importfiletofolder', params=payload, auth=HTTPBasicAuth('admin', 'admin'))
     """
 
-    grok.context(IPloneSiteRoot)
-    grok.name("importfiletofolder")
-    grok.require("base.webmaster")
-
-    def update(self):
+    def __call__(self):
         folder_name = self.request.get("folder")
         local_file = self.request.get("local_file")
 
@@ -1086,19 +1047,14 @@ class ImportFileToFolder(BrowserView):
 class updateSharingCommunityElastic(BrowserView):
     """Aquesta vista actualitza tots els objectes de la comunitat al elasticsearch"""
 
-    grok.name("updatesharingcommunityelastic")
-    grok.template("updatesharingcommunityelastic")
-    grok.context(IPloneSiteRoot)
-
-    # render = ViewPageTemplateFile('views_templates/updatesharingcommunityelastic.pt')
-
-    def update(self):
+    def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
+
         if self.request.environ["REQUEST_METHOD"] == "POST":
             pc = api.portal.get_tool("portal_catalog")
             portal = getSite()
@@ -1117,7 +1073,8 @@ class updateSharingCommunityElastic(BrowserView):
                 try:
                     self.elastic = getUtility(IElasticSearch)
                     self.elastic().search(index=elastic_index)
-                except:
+                except Exception as e:
+                    print(e)
                     self.elastic().indices.create(
                         index=elastic_index,
                         body={
@@ -1147,11 +1104,6 @@ class updateSharingCommunityElastic(BrowserView):
 class listAllCommunitiesObjects(BrowserView):
     """returns a json with all the comunities and the number of objects of each one"""
 
-    grok.name("listallcommunitiesobjects")
-    grok.context(IPloneSiteRoot)
-    # only for admin users
-    grok.require("cmf.ManagePortal")
-
     def __call__(self):
         pc = api.portal.get_tool(name="portal_catalog")
         communities = pc.unrestrictedSearchResults(portal_type="ulearn.community")
@@ -1169,16 +1121,13 @@ class listAllCommunitiesObjects(BrowserView):
 class updateSharingCommunitiesElastic(BrowserView):
     """Aquesta vista actualitza el sharing de tots els objectes de totes les comunitats al elasticsearch"""
 
-    grok.name("updatesharingcommunitieselastic")
-    grok.context(IPloneSiteRoot)
-
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         pc = api.portal.get_tool("portal_catalog")
         portal = getSite()
@@ -1196,7 +1145,8 @@ class updateSharingCommunitiesElastic(BrowserView):
             try:
                 self.elastic = getUtility(IElasticSearch)
                 self.elastic().search(index=elastic_index)
-            except:
+            except Exception as e:
+                print(e)
                 self.elastic().indices.create(
                     index=elastic_index,
                     body={
@@ -1232,21 +1182,19 @@ class updateSharingCommunitiesElastic(BrowserView):
 class createElasticSharing(BrowserView):
     """Aquesta vista crea l'index de l'elasticsearch i li diu que el camp principal pot tenir caracters especials 'index': 'not_analyzed'"""
 
-    grok.name("createelasticsharing")
-    grok.context(IPloneSiteRoot)
-
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
         elastic_index = ElasticSharing().get_index_name().lower()
         try:
             self.elastic = getUtility(IElasticSearch)
             self.elastic().search(index=elastic_index)
-        except:
+        except Exception as e:
+            print(e)
 
             self.elastic().indices.create(
                 index=elastic_index,
@@ -1268,10 +1216,6 @@ class createElasticSharing(BrowserView):
 class viewUsersWithNotUpdatedPhoto(BrowserView):
     """Shows the user list that the photo has not been changed"""
 
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
-
-    @json_response
     def __call__(self):
         portal = api.portal.get()
         soup = get_soup("user_properties", portal)
@@ -1303,18 +1247,14 @@ class viewUsersWithNotUpdatedPhoto(BrowserView):
 class deletePhotoFromUser(BrowserView):
     """Delete photo from user, add parameter ?user=nom.cognom"""
 
-    grok.name("deletephotofromuser")
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
-
     def __call__(self):
         # /deleteUserPhoto?user=nom.cognom
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         if "user" in self.request.form and self.request.form["user"] != "":
             user = api.user.get(username=self.request.form["user"])
@@ -1328,7 +1268,8 @@ class deletePhotoFromUser(BrowserView):
                         "Done, photo has been removed from user "
                         + self.request.form["user"]
                     )
-                except:
+                except Exception as e:
+                    print(e)
                     return (
                         "Error while deleting photo from user "
                         + self.request.form["user"]
@@ -1344,10 +1285,6 @@ class executeCronTasks(BrowserView):
     url/execute_cron_tasks/?user=victor&pass=123123
     """
 
-    grok.name("execute_cron_tasks")
-    grok.context(IPloneSiteRoot)
-    grok.require("ulearn.APIAccess")
-
     def __call__(self):
         url = self.context.absolute_url()
 
@@ -1360,7 +1297,8 @@ class executeCronTasks(BrowserView):
         try:
             username = self.request.form["user"]
             password = self.request.form["pass"]
-        except:
+        except Exception as e:
+            print(e)
             info_cron.update({"status": "Error not username or password"})
             logger.info(url + ":" + str(info_cron))
             return json.dumps(info_cron)
@@ -1384,10 +1322,6 @@ class getInfoCronTasks(BrowserView):
     url/get_info_cron_tasks
     """
 
-    grok.name("get_info_cron_tasks")
-    grok.context(IPloneSiteRoot)
-    grok.require("ulearn.APIAccess")
-
     def __call__(self):
         info_cron = {}
         portal = api.portal.get()
@@ -1399,10 +1333,9 @@ class getInfoCronTasks(BrowserView):
 
 
 class changePermissionsToContent(BrowserView):
-    """Canvia els permisos a tots el continguts que s'han creat autòmaticament (/news, /gestion, ...)"""
-
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
+    """
+    Canvia els permisos a tots el continguts que s'han creat autòmaticament (/news, /gestion, ...)
+    """
 
     def __call__(self):
         portal = getSite()
@@ -1522,18 +1455,17 @@ class changePermissionsToContent(BrowserView):
 
 
 class addAllCommunitiesAsFavoriteFromAllUsers(BrowserView):
-    """Añade a favorito todas las comunidades a las que esta suscrito los usuarios"""
-
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
+    """
+    Añade a favorito todas las comunidades a las que esta suscrito los usuarios
+    """
 
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         pc = api.portal.get_tool(name="portal_catalog")
         communities = pc.unrestrictedSearchResults(
@@ -1556,17 +1488,17 @@ class addAllCommunitiesAsFavoriteFromAllUsers(BrowserView):
 
 
 class addCommunityAsFavoriteFromAllUsers(BrowserView):
-    """Añade a favorito a todos los usuarios usuarios subcritos a X comunidad"""
-
-    grok.context(IPloneSiteRoot)
-    grok.require("zope2.ViewManagementScreens")
+    """
+    Añade a favorito a todos los usuarios usuarios subcritos a X comunidad
+    """
 
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
+        except Exception as e:
+            print(e)
             pass
 
         if "community" in self.request.form:
@@ -1596,19 +1528,19 @@ class addCommunityAsFavoriteFromAllUsers(BrowserView):
 
 
 class addProtectedFileInDocumentsCommunity(BrowserView):
-    """Si esta instalado el paquete ulearn5.externalstorage, esta vista añade en la carpeta documentos de todas las comunidades que se puedan crear archivos protegidos"""
-
-    grok.name("add_protected_file_in_documents_community")
-    grok.context(IPloneSiteRoot)
-    grok.require("cmf.ManagePortal")
+    """
+    Si esta instalado el paquete ulearn5.externalstorage,
+    esta vista añade en la carpeta documentos de todas las comunidades
+    que se puedan crear archivos protegidos
+    """
 
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         portal = api.portal.get()
         if is_activate_externalstorage(portal):
@@ -1645,19 +1577,19 @@ class addProtectedFileInDocumentsCommunity(BrowserView):
 
 
 class addEtherpadInDocumentsCommunity(BrowserView):
-    """Si esta instalado el paquete ulearn5.etherpad, esta vista añade en la carpeta documentos de todas las comunidades que se puedan crear documentos etherpad"""
-
-    grok.name("add_etherpad_in_documents_community")
-    grok.context(IPloneSiteRoot)
-    grok.require("cmf.ManagePortal")
+    """
+    Si esta instalado el paquete ulearn5.etherpad, esta vista añade
+    en la carpeta documentos de todas las comunidades que se puedan
+    crear documentos etherpad
+    """
 
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         portal = api.portal.get()
         if is_activate_etherpad(portal):
@@ -1694,19 +1626,18 @@ class addEtherpadInDocumentsCommunity(BrowserView):
 
 
 class notifyManualInCommunity(BrowserView):
-    """Somo por defecto la notificación por email es automatica esto te la cambia a manual para EBCN"""
-
-    grok.name("notify_manual_in_community")
-    grok.context(IPloneSiteRoot)
-    grok.require("cmf.ManagePortal")
+    """
+    Somo por defecto la notificación por email es automatica esto te la cambia
+    a manual para EBCN
+    """
 
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         portal = api.portal.get()
         pc = api.portal.get_tool("portal_catalog")
@@ -1729,19 +1660,13 @@ class notifyManualInCommunity(BrowserView):
 class deleteNominasMes(BrowserView):
     """Aquesta vista esborra les nomines de tots els usuaris d'un mes en concret"""
 
-    grok.name("deletenominasmes")
-    grok.template("deletenominasmes")
-    grok.context(IPloneSiteRoot)
-
-    # render = ViewPageTemplateFile('views_templates/deletenominasmes.pt')
-
-    def update(self):
+    def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
         if self.request.environ["REQUEST_METHOD"] == "POST":
             pc = api.portal.get_tool("portal_catalog")
             JSONproperties = api.portal.get_tool(
@@ -1771,21 +1696,20 @@ class deleteNominasMes(BrowserView):
 
 
 class parcheReordenarCarpetas(BrowserView):
-    """When new content is created, the default folders for news, events and Members get the ordering attribute set to unordered
-    Este parche hace que si las carpertas tienen marcado que no sean ordenables, lo quita y las permite ordenar
     """
-
-    grok.name("parche_reordenar_carpetas")
-    grok.context(IPloneSiteRoot)
-    grok.require("cmf.ManagePortal")
+    When new content is created, the default folders for news, events and
+    Members get the ordering attribute set to unordered.
+    Este parche hace que si las carpertas tienen marcado que no sean
+    ordenables, lo quita y las permite ordenar
+    """
 
     def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
             alsoProvides(self.request, IDisableCSRFProtection)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         pc = api.portal.get_tool("portal_catalog")
         for brain in pc(portal_type="Folder"):
