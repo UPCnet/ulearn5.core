@@ -14,11 +14,11 @@ from Products.PortalTransforms.transforms.safe_html import hasScript as hasScrip
 from plone.app.widgets.utils import get_date_options as get_date_options_original
 from plone.app.widgets.utils import get_datetime_options as get_datetime_options_original
 from ldap.filter import filter_format as filter_format_original
-from .patches import from_latin1
-from .patches import get_date_options
-from .patches import get_datetime_options
-from .patches import hasScript
-from .patches import filter_format
+from patches import from_latin1
+from patches import get_date_options
+from patches import get_datetime_options
+from patches import hasScript
+from patches import filter_format
 
 import inspect
 

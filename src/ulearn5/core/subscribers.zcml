@@ -54,4 +54,136 @@
              zope.container.interfaces.IObjectRemovedEvent"
         />
 
+    <subscriber
+        handler="ulearn5.core.gwuuid.addAttributeUUID"
+        for="plone.uuid.interfaces.IAttributeUUID
+             zope.container.interfaces.IObjectCreatedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.objectAdded"
+        for="plone.dexterity.interfaces.IDexterityContent
+             zope.container.interfaces.IObjectAddedEvent"
+        />    
+
+    <subscriber
+        handler="ulearn5.core.hooks.objectModified"
+        for="plone.dexterity.interfaces.IDexterityContent
+             zope.container.interfaces.IObjectModifiedEvent"
+        />   
+
+    <subscriber
+        handler="ulearn5.core.hooks.communityAdded"
+        for="ulearn5.core.content.community.ICommunity
+             zope.container.interfaces.IObjectAddedEvent"
+        />   
+
+    <subscriber
+        handler="ulearn5.core.hooks.UpdateUserCommunityAccess"
+        for="ulearn5.core.content.community.ICommunity
+             zope.container.interfaces.IObjectAddedEvent"
+        />  
+
+    <subscriber
+        handler="ulearn5.core.hooks.updateCustomLangCookie"
+        for="Products.CMFPlone.interfaces.IConfigurationChangedEvent"
+        />   
+
+    <subscriber
+        handler="ulearn5.core.hooks.updateCustomLangCookieLogginIn"
+        for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent"
+        />  
+
+    <subscriber
+        handler="ulearn5.core.hooks.CreateThumbImage"
+        for="plone.app.contenttypes.interfaces.INewsItem
+        zope.container.interfaces.IObjectAddedEvent"
+        />  
+
+    <subscriber
+        handler="ulearn5.core.hooks.CreateThumbImage"
+        for="plone.app.contenttypes.interfaces.INewsItem
+        zope.container.interfaces.IObjectModifiedEvent"
+        />  
+
+    <subscriber
+        handler="ulearn5.core.hooks.CreateThumbImageCommunity"
+        for="ulearn5.core.content.community.ICommunity
+        zope.container.interfaces.IObjectAddedEvent"
+        />  
+
+    <subscriber
+        handler="ulearn5.core.hooks.CreateThumbImageCommunity"
+        for="ulearn5.core.content.community.ICommunity
+        zope.container.interfaces.IObjectModifiedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.setLocallyAllowedTypesFolder"
+        for="plone.app.contenttypes.interfaces.IFolder
+        zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.setLocallyAllowedTypesFolder"
+        for="plone.app.contenttypes.interfaces.IFolder
+        zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.setEventTimezone"
+        for="plone.app.contenttypes.interfaces.IEvent
+        zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.setEventTimezone"
+        for="plone.app.contenttypes.interfaces.IEvent
+        zope.container.interfaces.IObjectModifiedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.AddedSendMessage"
+        for="plone.app.contenttypes.interfaces.IDocument
+        zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.AddedSendMessage"
+        for="plone.app.contenttypes.interfaces.ILink
+        zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.AddedSendMessage"
+        for="plone.app.contenttypes.interfaces.IFile
+        zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.AddedSendMessage"
+        for="plone.app.contenttypes.interfaces.IEvent
+        zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.AddedSendMessage"
+        for="plone.app.contenttypes.interfaces.INewsItem
+        Products.DCWorkflow.interfaces.IAfterTransitionEvent"
+        />
+
+      
+    <subscriber
+        handler="ulearn5.core.hooks.AddedSendMessage"
+        for="ulearn5.externalstorage.content.external_content.IExternalContent
+        zope.container.interfaces.IObjectAddedEvent"
+        />
+
+    <subscriber
+        handler="ulearn5.core.hooks.AddedSendMessage"
+        for="ulearn5.core.interfaces.IVideo
+        zope.container.interfaces.IObjectAddedEvent"
+        />
+
+
 </configure>

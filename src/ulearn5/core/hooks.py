@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from five import grok
+# from five import grok
 from Acquisition import aq_chain
 from zope.component import getUtility
 
@@ -88,7 +88,7 @@ tipus = {
 varnish_to_ban = os.environ.get('varnish_to_ban', '')
 
 
-@grok.subscribe(IDexterityContent, IObjectAddedEvent)
+# @grok.subscribe(IDexterityContent, IObjectAddedEvent)
 def objectAdded(content, event):
     """ DextirityContent modified """
     portal = getSite()
@@ -124,7 +124,7 @@ def objectAdded(content, event):
                 ';comunitat:__NO_COMMUNITY;username:' + username + ';domain:nodomain')
 
 
-@grok.subscribe(IDexterityContent, IObjectModifiedEvent)
+# @grok.subscribe(IDexterityContent, IObjectModifiedEvent)
 def objectModified(content, event):
     """ DextirityContent modified """
     portal = getSite()
@@ -167,7 +167,7 @@ def objectModified(content, event):
             timeout=1)
 
 
-@grok.subscribe(ICommunity, IObjectAddedEvent)
+# @grok.subscribe(ICommunity, IObjectAddedEvent)
 def communityAdded(content, event):
     """ Community added handler
     """
@@ -319,7 +319,7 @@ def connectMaxclient(username, oauth_token):
     return maxclient
 
 
-@grok.subscribe(ICommunity, IObjectAddedEvent)
+# @grok.subscribe(ICommunity, IObjectAddedEvent)
 def UpdateUserCommunityAccess(content, event):
     """ Update data access to the user community when you add content to the community
     """
@@ -339,7 +339,7 @@ def UpdateUserCommunityAccess(content, event):
     soup_access.reindex()
 
 
-@grok.subscribe(IConfigurationChangedEvent)
+# @grok.subscribe(IConfigurationChangedEvent)
 def updateCustomLangCookie(event):
     """ This subscriber will trigger when a user change his/her profile data. It
         sets a cookie for the 'language' user profile setting. After this, due
@@ -354,7 +354,7 @@ def updateCustomLangCookie(event):
                 event.context.context.absolute_url() + '/@@personal-information')
 
 
-@grok.subscribe(IUserLoggedInEvent)
+# @grok.subscribe(IUserLoggedInEvent)
 def updateCustomLangCookieLogginIn(event):
     """ This subscriber will trigger when a user change his/her profile data. It
         sets a cookie for the 'language' user profile setting. After this, due
@@ -368,8 +368,8 @@ def updateCustomLangCookieLogginIn(event):
         request.response.setCookie('I18N_LANGUAGE', lang, path='/')
 
 
-@grok.subscribe(INewsItem, IObjectAddedEvent)
-@grok.subscribe(INewsItem, IObjectModifiedEvent)
+# @grok.subscribe(INewsItem, IObjectAddedEvent)
+# @grok.subscribe(INewsItem, IObjectModifiedEvent)
 def CreateThumbImage(content, event):
     """ Update thumb from News Item image on save
     """
@@ -396,8 +396,8 @@ def CreateThumbImage(content, event):
         content.thumbnail_image = None
 
 
-@grok.subscribe(ICommunity, IObjectAddedEvent)
-@grok.subscribe(ICommunity, IObjectModifiedEvent)
+# @grok.subscribe(ICommunity, IObjectAddedEvent)
+# @grok.subscribe(ICommunity, IObjectModifiedEvent)
 def CreateThumbImageCommunity(content, event):
     """ Update thumb from Community image on save
     """
@@ -438,7 +438,7 @@ def CreateThumbImageCommunity(content, event):
 #         content.text = None
 
 
-@grok.subscribe(IFolder, IObjectAddedEvent)
+# @grok.subscribe(IFolder, IObjectAddedEvent)
 def setLocallyAllowedTypesFolder(content, event):
     menuPath = '/'.join(api.portal.get().getPhysicalPath()) + '/gestion/menu/'
     en = menuPath + 'en'
@@ -454,8 +454,8 @@ def setLocallyAllowedTypesFolder(content, event):
         transaction.commit()
 
 
-@grok.subscribe(IEvent, IObjectAddedEvent)
-@grok.subscribe(IEvent, IObjectModifiedEvent)
+# @grok.subscribe(IEvent, IObjectAddedEvent)
+# @grok.subscribe(IEvent, IObjectModifiedEvent)
 def setEventTimezone(content, event):
     if content.timezone:
         if content.start.tzinfo.zone != content.timezone:
@@ -474,13 +474,13 @@ def setEventTimezone(content, event):
         content.timezone = current_user.getProperty('timezone')
 
 
-@grok.subscribe(IDocument, IObjectAddedEvent)
-@grok.subscribe(ILink, IObjectAddedEvent)
-@grok.subscribe(IFile, IObjectAddedEvent)
-@grok.subscribe(IEvent, IObjectAddedEvent)
-@grok.subscribe(INewsItem, IAfterTransitionEvent)
-@grok.subscribe(IExternalContent, IObjectAddedEvent)
-@grok.subscribe(IVideo, IObjectAddedEvent)
+# @grok.subscribe(IDocument, IObjectAddedEvent)
+# @grok.subscribe(ILink, IObjectAddedEvent)
+# @grok.subscribe(IFile, IObjectAddedEvent)
+# @grok.subscribe(IEvent, IObjectAddedEvent)
+# @grok.subscribe(INewsItem, IAfterTransitionEvent)
+# @grok.subscribe(IExternalContent, IObjectAddedEvent)
+# @grok.subscribe(IVideo, IObjectAddedEvent)
 def AddedSendMessage(content, event):
     """ Send mail to notify add object in community
     """

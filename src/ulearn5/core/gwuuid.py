@@ -1,15 +1,16 @@
-from five import grok
+# from five import grok
 from zope.interface import Interface
 from zope.component import queryUtility
-from zope.interface import implements
-from zope.component import adapts
-from zope.lifecycleevent.interfaces import IObjectCreatedEvent
 from zope.lifecycleevent.interfaces import IObjectCopiedEvent
 
 from plone.indexer import indexer
 from plone.uuid.interfaces import IUUIDGenerator
 from plone.uuid.interfaces import IAttributeUUID
 from plone.uuid.interfaces import IUUIDAware
+from zope.interface import implementer
+from zope.component import adapter
+from Products.Five.browser import BrowserView
+
 
 try:
     from Acquisition import aq_base
@@ -28,7 +29,7 @@ class IGWUUID(Interface):
         """
 
 
-@grok.subscribe(IAttributeUUID, IObjectCreatedEvent)
+# @grok.subscribe(IAttributeUUID, IObjectCreatedEvent)
 def addAttributeUUID(obj, event):
     if not IObjectCopiedEvent.providedBy(event):
         if getattr(aq_base(obj), ATTRIBUTE_NAME, None):
@@ -45,9 +46,9 @@ def addAttributeUUID(obj, event):
     setattr(obj, ATTRIBUTE_NAME, uuid)
 
 
+@implementer(IGWUUID)
+@adapter(IAttributeUUID)
 class MutableAttributeUUID(object):
-    implements(IGWUUID)
-    adapts(IAttributeUUID)
 
     def __init__(self, context):
         self.context = context
@@ -63,11 +64,12 @@ class MutableAttributeUUID(object):
 @indexer(IUUIDAware)
 def gwUUID(context):
     return IGWUUID(context, None).get()
-grok.global_adapter(gwUUID, name='gwuuid')
+
+# grok.global_adapter(gwUUID, name='gwuuid')
 
 
-class GWUUIDView(grok.View):
-    grok.context(Interface)
+class GWUUIDView(BrowserView):
+    # grok.context(Interface)
 
     def render(self):
         return IGWUUID(self.context).get()

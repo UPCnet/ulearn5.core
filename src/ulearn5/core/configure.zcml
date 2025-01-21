@@ -156,4 +156,47 @@
     for="* ulearn5.theme.interfaces.IUlearn5ThemeLayer"
     />
 
+    <adapter
+        name="gwuuid"
+        factory="ulearn5.core.gwuuid.gwUUID"
+        for="zope.interface.Interface"
+        provides="zope.interface.Interface"
+    />
+
+    <browser:page 
+        name="gwuuidview"
+        for="zope.interface.Interface"
+        class="ulearn5.core.gwuuid.GWUUIDView"
+    />
+
+    <utility
+        factory="ulearn5.core.indexers.MenuQuickLinksCatalogFactory"
+        provides="ulearn5.core.interfaces.ICatalogFactory"
+        name="menu_soup"
+    />
+
+    <utility
+        factory="ulearn5.core.indexers.HeaderSoupCatalog"
+        provides="ulearn5.core.interfaces.ICatalogFactory"
+        name="header_soup"
+    />
+
+    <utility
+        factory="ulearn5.core.indexers.FooterSoupCatalog"
+        provides="ulearn5.core.interfaces.ICatalogFactory"
+        name="footer_soup"
+    />
+
+    <utility
+        factory="ulearn5.core.indexers.UserSubscribedTagsSoupCatalog"
+        provides="ulearn5.core.interfaces.ICatalogFactory"
+        name="user_subscribed_tags"
+    />
+
+    <utility
+        factory="ulearn5.core.indexers.NotifyPopupSoupCatalog"
+        provides="ulearn5.core.interfaces.ICatalogFactory"
+        name="notify_popup"
+    />
+
 </configure>

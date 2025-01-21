@@ -24,7 +24,7 @@ class MenuQuickLinksCatalogFactory(object):
         return catalog
 
 
-grok.global_utility(MenuQuickLinksCatalogFactory, name="menu_soup")
+# grok.global_utility(MenuQuickLinksCatalogFactory, name="menu_soup")
 
 
 @implementer(ICatalogFactory)
@@ -43,7 +43,7 @@ class HeaderSoupCatalog(object):
         return catalog
 
 
-grok.global_utility(HeaderSoupCatalog, name="header_soup")
+# grok.global_utility(HeaderSoupCatalog, name="header_soup")
 
 
 @implementer(ICatalogFactory)
@@ -62,7 +62,7 @@ class FooterSoupCatalog(object):
         return catalog
 
 
-grok.global_utility(FooterSoupCatalog, name="footer_soup")
+# grok.global_utility(FooterSoupCatalog, name="footer_soup")
 
 
 @implementer(ICatalogFactory)
@@ -76,7 +76,7 @@ class UserSubscribedTagsSoupCatalog(object):
         return catalog
 
 
-grok.global_utility(UserSubscribedTagsSoupCatalog, name='user_subscribed_tags')
+# grok.global_utility(UserSubscribedTagsSoupCatalog, name='user_subscribed_tags')
 
 
 @implementer(ICatalogFactory)
@@ -88,4 +88,4 @@ class NotifyPopupSoupCatalog(object):
         return catalog
 
 
-grok.global_utility(NotifyPopupSoupCatalog, name='notify_popup')
+# grok.global_utility(NotifyPopupSoupCatalog, name='notify_popup')

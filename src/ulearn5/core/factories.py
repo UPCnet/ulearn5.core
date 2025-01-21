@@ -1,11 +1,11 @@
 import transaction
-from _thread import allocate_lock
+from thread import allocate_lock
 
 from plone import api
 from zope.component import getMultiAdapter
-from zope.component import adapts
 from zope.container.interfaces import INameChooser
-from zope.interface import implements
+from zope.component import adapter
+from zope.interface import implementer
 
 from Products.CMFCore.interfaces._content import IFolderish
 
@@ -21,10 +21,10 @@ from ulearn5.core.interfaces import IDXFileFactory
 upload_lock = allocate_lock()
 
 
+@implementer(IDXFileFactory)
+@adapter(IFolderish)
 class DXFileFactory(object):
     """ Ripped out from above """
-    implements(IDXFileFactory)
-    adapts(IFolderish)
 
     def __init__(self, context):
         self.context = context
@@ -62,7 +62,7 @@ class DXFileFactory(object):
             # its type name
             if 'File' in type_:
                 file = NamedBlobFile(data=data.read(),
-                                     filename=str(data.filename),
+                                     filename=unicode(data.filename),
                                      contentType=content_type)
                 obj = createContentInContainer(self.context,
                                                'AppFile',
@@ -73,7 +73,7 @@ class DXFileFactory(object):
                                                checkConstraints=False)
             elif 'Image' in type_:
                 image = NamedBlobImage(data=data.read(),
-                                       filename=str(data.filename),
+                                       filename=unicode(data.filename),
                                        contentType=content_type)
 
                 obj = createContentInContainer(self.context,
