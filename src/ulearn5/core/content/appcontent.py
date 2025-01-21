@@ -1,4 +1,4 @@
-from zope.interface import implements
+from zope.interface import implementer
 
 from plone.app.contenttypes.interfaces import IFile
 from plone.app.contenttypes.interfaces import IImage
@@ -8,10 +8,10 @@ from plone.app.contenttypes.content import Image
 from ulearn5.core.interfaces import IAppImage
 from ulearn5.core.interfaces import IAppFile
 
-
+@implementer(IFile, IAppFile)
 class AppFile(File):
-    implements(IFile, IAppFile)
+    pass
 
-
+@implementer(IImage, IAppImage)
 class AppImage(Image):
-    implements(IImage, IAppImage)
+    pass

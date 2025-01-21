@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-from five import grok
 from zope import schema
-from zope.interface import implements
+from zope.interface import implementer
 from plone.directives import form
 from plone.dexterity.content import Item
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.Five.browser import BrowserView
+
 
 from ulearn5.core import _
 import re
@@ -22,13 +23,14 @@ class IVideoEmbed(form.Schema):
     )
 
 
+@implementer(IVideoEmbed)
 class VideoEmbed(Item):
-    implements(IVideoEmbed)
+    pass
 
 
-class VideoEmbedView(grok.View):
-    grok.context(IVideoEmbed)
-    grok.name('view')
+class VideoEmbedView(BrowserView):
+    # grok.context(IVideoEmbed)
+    # grok.name('view')
 
     def render(self):
         embed_type, code = self.getEmbed()

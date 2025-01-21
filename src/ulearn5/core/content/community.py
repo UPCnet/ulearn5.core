@@ -32,7 +32,7 @@ from souper.soup import Record
 from souper.soup import get_soup
 from z3c.form import button
 from zope import schema
-from zope.component import adapts
+from zope.component import adapter
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -45,7 +45,6 @@ from zope.interface import Interface
 from zope.interface import Invalid
 from zope.interface import alsoProvides
 from zope.interface import implementer
-from zope.interface import implements
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
@@ -75,6 +74,10 @@ from plone.app.layout.navigation.root import getNavigationRootObject
 from z3c.form.interfaces import IAddForm, IEditForm
 from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from ulearn5.core.widgets.single_checkbox_notify_email_widget import SingleCheckBoxNotifyEmailFieldWidget
+from zope.interface import provider
+from Products.Five.browser import BrowserView
+
+
 
 from plone.memoize import ram
 from time import time
@@ -116,7 +119,7 @@ class CommunityForbiddenAction(Exception):
 # DEFINICIO DE COMUNITAT
 
 
-@grok.provider(IContextSourceBinder)
+@provider(IContextSourceBinder)
 def availableCommunityTypes(context):
     terms = []
 
@@ -140,7 +143,7 @@ def availableCommunityTypes(context):
     return SimpleVocabulary(terms)
 
 
-@grok.provider(IContextSourceBinder)
+@provider(IContextSourceBinder)
 def communityActivityViews(context):
     terms = []
 
@@ -150,7 +153,7 @@ def communityActivityViews(context):
 
     return SimpleVocabulary(terms)
 
-@grok.provider(IContextSourceBinder)
+@provider(IContextSourceBinder)
 def communityTabViews(context):
     terms = []
 
@@ -160,7 +163,7 @@ def communityTabViews(context):
     return SimpleVocabulary(terms)
 
 
-@grok.provider(IContextSourceBinder)
+@provider(IContextSourceBinder)
 def communityTypeNotify(context):
     terms = []
 
@@ -168,10 +171,6 @@ def communityTypeNotify(context):
     terms.append(SimpleVocabulary.createTerm('Manual', 'manual', _('Manual')))
 
     return SimpleVocabulary(terms)
-
-# @grok.provider(IContextSourceBinder)
-# def getCommunityTab(self):
-#     return self.portal_url()
 
 def isChecked(value):
     if not value:
@@ -358,9 +357,9 @@ class ICommunityInitializeAdapter(Interface):
 
 #@grok.implementer(ICommunityACL)
 #@grok.adapter(ICommunity)
+@implementer(ICommunityACL)
+@adapter(ICommunity)
 class GetCommunityACL(object):
-    implements(ICommunityACL)
-    adapts(ICommunity)
 
     def __init__(self, context):
         self.context = context
@@ -753,11 +752,10 @@ class CommunityAdapterMixin(object):
 
         obj.reindexObject()
 
-
+@implementer(ICommunityTyped)
+@adapter(ICommunity, Interface)
 class OrganizativeCommunity(CommunityAdapterMixin):
     """ Named adapter for the organizative communities """
-    implements(ICommunityTyped)
-    adapts(ICommunity, Interface)
 
     def __init__(self, context, request):
         super(OrganizativeCommunity, self).__init__(context)
@@ -794,10 +792,10 @@ class OrganizativeCommunity(CommunityAdapterMixin):
         return 'Organizative'
 
 
+@implementer(ICommunityTyped)
+@adapter(ICommunity, Interface)
 class OpenCommunity(CommunityAdapterMixin):
     """ Named adapter for the open communities """
-    implements(ICommunityTyped)
-    adapts(ICommunity, Interface)
 
     def __init__(self, context, request):
         super(OpenCommunity, self).__init__(context)
@@ -832,10 +830,10 @@ class OpenCommunity(CommunityAdapterMixin):
         return 'Open'
 
 
+@implementer(ICommunityTyped)
+@adapter(ICommunity, Interface)
 class ClosedCommunity(CommunityAdapterMixin):
     """ Named adapter for the closed communities """
-    implements(ICommunityTyped)
-    adapts(ICommunity, Interface)
 
     def __init__(self, context, request):
         super(ClosedCommunity, self).__init__(context)
@@ -868,9 +866,8 @@ class ClosedCommunity(CommunityAdapterMixin):
     def get_community_type_adapter(self):
         return 'Closed'
 
-
+@implementer(ICommunity)
 class Community(Container):
-    implements(ICommunity)
 
     def adapted(self, request=None, name=None):
         effective_name = self.community_type if name is None else name
@@ -886,9 +883,9 @@ class Community(Container):
         return False
 
 
-class View(grok.View):
-    grok.context(ICommunity)
-    grok.require('zope2.View')
+class View(BrowserView):
+    # grok.context(ICommunity)
+    # grok.require('zope2.View')
 
     def canEditCommunity(self):
         return checkPermission('cmf.RequestReview', self.context)
@@ -942,8 +939,9 @@ class View(grok.View):
         return True
 
 
-class UpdateUserAccessDateTime(grok.View):
-    grok.context(ICommunity)
+class UpdateUserAccessDateTime(BrowserView):
+    # grok.context(ICommunity)
+    
 
     @json_response
     def render(self):
@@ -966,8 +964,8 @@ class UpdateUserAccessDateTime(grok.View):
         return dict(message='Done', status_code=200)
 
 
-class EditACL(grok.View):
-    grok.context(ICommunity)
+class EditACL(BrowserView):
+    # grok.context(ICommunity)
 
     def get_gwuuid(self):
         return IGWUUID(self.context).get()
@@ -1009,7 +1007,7 @@ class EditACL(grok.View):
         return json.dumps([{'id': role, 'header': role.upper()} for role in roles])
 
 
-class NotifyAtomicChange(grok.View):
+class NotifyAtomicChange(BrowserView):
     """ This is a context endpoint for notify the context with external changes
         to the context. This changes can be originated for example, by an user
         changing the context programatically via the maxclient or via the
@@ -1041,8 +1039,8 @@ class NotifyAtomicChange(grok.View):
         The subscription object holds the subscription information of the
         username to the context
     """
-    grok.context(ICommunity)
-    grok.name('notify')
+    # grok.context(ICommunity)
+    # grok.name('notify')
 
     @json_response
     def render(self):
@@ -1081,9 +1079,9 @@ class NotifyAtomicChange(grok.View):
                         status_code=400)
 
 
-class UploadFile(grok.View):
-    grok.context(ICommunity)
-    grok.name('upload')
+class UploadFile(BrowserView):
+    # grok.context(ICommunity)
+    # grok.name('upload')
 
     def canEditCommunity(self):
         return checkPermission('cmf.RequestReview', self.context)
@@ -1158,9 +1156,9 @@ class UploadFile(grok.View):
             return json.dumps({'Error': 'Unauthorized'})
 
 
-class ToggleFavorite(grok.View):
-    grok.context(IDexterityContent)
-    grok.name('toggle-favorite')
+class ToggleFavorite(BrowserView):
+    # grok.context(IDexterityContent)
+    # grok.name('toggle-favorite')
 
     @json_response
     def render(self):
@@ -1178,9 +1176,9 @@ class ToggleFavorite(grok.View):
                         status_code=400)
 
 
-class ToggleNotNotifyPush(grok.View):
-    grok.context(IDexterityContent)
-    grok.name('toggle-notnotifypush')
+class ToggleNotNotifyPush(BrowserView):
+    # grok.context(IDexterityContent)
+    # grok.name('toggle-notnotifypush')
 
     @json_response
     def render(self):
@@ -1202,9 +1200,9 @@ class ToggleNotNotifyPush(grok.View):
                         status_code=400)
 
 
-class ToggleNotNotifyMail(grok.View):
-    grok.context(IDexterityContent)
-    grok.name('toggle-notnotifymail')
+class ToggleNotNotifyMail(BrowserView):
+    # grok.context(IDexterityContent)
+    # grok.name('toggle-notnotifymail')
 
     @json_response
     def render(self):
@@ -1236,10 +1234,10 @@ class ToggleNotNotifyMail(grok.View):
                         status_code=400)
 
 
-class Subscribe(grok.View):
+class Subscribe(BrowserView):
     """" Subscribe a requester user to an open community """
-    grok.context(ICommunity)
-    grok.name('subscribe')
+    # grok.context(ICommunity)
+    # grok.name('subscribe')
 
     @json_response
     def render(self):
@@ -1255,11 +1253,11 @@ class Subscribe(grok.View):
                         status_code=400)
 
 
-class UnSubscribe(grok.View):
+class UnSubscribe(BrowserView):
     """ Unsubscribe from an Open or Closed community. """
 
-    grok.context(ICommunity)
-    grok.name('unsubscribe')
+    # grok.context(ICommunity)
+    # grok.name('unsubscribe')
 
     @json_response
     def render(self):
@@ -1288,7 +1286,7 @@ class UnSubscribe(grok.View):
             return dict(error='Bad request. POST request expected.',
                         status_code=400)
 
-
+# TODO
 class communityAdder(form.SchemaForm):
     grok.name('addCommunity')
     grok.context(IPloneSiteRoot)
@@ -1406,8 +1404,7 @@ class communityAdder(form.SchemaForm):
 
     def terms(self):
         return 'terms' in list(self.fields.keys())
-
-
+# TODO
 class communityEdit(form.SchemaForm):
     grok.name('editCommunity')
     grok.context(ICommunity)
@@ -1542,10 +1539,10 @@ class communityEdit(form.SchemaForm):
 
 # @grok.implementer(ICommunityInitializeAdapter)
 # @grok.adapter(ICommunity, Interface)
+@implementer(ICommunityInitializeAdapter)
+@adapter(ICommunity, Interface)
 class CommunityInitializeAdapter(object):
     """ Default adapter for initialize community custom actions """
-    implements(ICommunityInitializeAdapter)
-    adapts(ICommunity, Interface)
 
     def __init__(self, context, request):
         self.context = context
@@ -1680,7 +1677,7 @@ class CommunityInitializeAdapter(object):
         alsoProvides(community, IInitializedCommunity)
 
 
-@grok.subscribe(ICommunity, IObjectAddedEvent)
+# @grok.subscribe(ICommunity, IObjectAddedEvent)
 def initialize_community(community, event):
     """ On creation we only initialize the community based on its type and all
         the Plone-based processes. On the MAX side, for convenience we create
@@ -1691,7 +1688,7 @@ def initialize_community(community, event):
     adapter(community)
 
 
-@grok.subscribe(ICommunity, IObjectModifiedEvent)
+# @grok.subscribe(ICommunity, IObjectModifiedEvent)
 def edit_community(community, event):
     # Skip community modification if community is in creation state
     if not IInitializedCommunity.providedBy(community):
@@ -1702,7 +1699,7 @@ def edit_community(community, event):
         acl = adapter.get_acl()
         adapter.update_mails_users(community, acl)
 
-@grok.subscribe(ICommunity, IObjectRemovedEvent)
+# @grok.subscribe(ICommunity, IObjectRemovedEvent)
 def delete_community(community, event):
     try:
         adapter = community.adapted()
@@ -1729,7 +1726,7 @@ class ACLSoupCatalog(object):
         return catalog
 
 
-grok.global_utility(ACLSoupCatalog, name='communities_acl')
+# grok.global_utility(ACLSoupCatalog, name='communities_acl')
 
 
 @implementer(ICatalogFactory)
@@ -1748,7 +1745,7 @@ class UserCommunityAccessCatalogFactory(object):
         return catalog
 
 
-grok.global_utility(UserCommunityAccessCatalogFactory, name="user_community_access")
+# grok.global_utility(UserCommunityAccessCatalogFactory, name="user_community_access")
 
 # INDEXERS TO CATALOG
 
@@ -1761,7 +1758,7 @@ def imageFilename(context):
     return context.image.filename
 
 
-grok.global_adapter(imageFilename, name='image_filename')
+# grok.global_adapter(imageFilename, name='image_filename')
 
 
 @indexer(ICommunity)
@@ -1772,7 +1769,7 @@ def subscribed_items(context):
     return len(list(set(context.readers + context.subscribed + context.owners)))
 
 
-grok.global_adapter(subscribed_items, name='subscribed_items')
+# grok.global_adapter(subscribed_items, name='subscribed_items')
 
 
 @indexer(ICommunity)
@@ -1783,7 +1780,7 @@ def subscribed_users(context):
     return list(set(context.readers + context.subscribed + context.owners))
 
 
-grok.global_adapter(subscribed_users, name='subscribed_users')
+# grok.global_adapter(subscribed_users, name='subscribed_users')
 
 
 @indexer(ICommunity)
@@ -1794,7 +1791,7 @@ def community_type(context):
     return context.community_type
 
 
-grok.global_adapter(community_type, name='community_type')
+# grok.global_adapter(community_type, name='community_type')
 
 
 @indexer(ICommunity)
@@ -1810,7 +1807,7 @@ def community_hash(context):
         return sha1(ulearn_tool.url_site + '/' + context.id).hexdigest()
 
 
-grok.global_adapter(community_hash, name='community_hash')
+# grok.global_adapter(community_hash, name='community_hash')
 
 
 
@@ -1821,4 +1818,4 @@ def tab_view(context):
     """
     return context.tab_view
 
-grok.global_adapter(tab_view, name='tab_view')
+# grok.global_adapter(tab_view, name='tab_view')

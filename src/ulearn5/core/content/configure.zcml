@@ -1,0 +1,172 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="ulearn">
+
+    <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+    <include package="z3c.jbot" file="meta.zcml" />
+    
+    <browser:page 
+        name="view"
+        class="ulearn5.core.content.banner.BannerView"
+        for="ulearn5.core.content.banner.IBanner"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        template="templates/banner.pt"
+        />
+
+
+    <browser:page 
+        name="view"
+        class="ulearn5.core.content.community.View"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        permission="zope2.View"
+        /> 
+
+    <browser:page 
+        name="view"
+        class="ulearn5.core.content.community.View"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        permission="zope2.View"
+        /> 
+
+    <browser:page 
+        name="updateuseraccessdatetime"
+        class="ulearn5.core.content.community.UpdateUserAccessDateTime"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
+    <browser:page 
+        name="editacl"
+        class="ulearn5.core.content.community.EditACL"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
+    <browser:page 
+        name="notify"
+        class="ulearn5.core.content.community.NotifyAtomicChange"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
+    <browser:page 
+        name="upload"
+        class="ulearn5.core.content.community.UploadFile"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
+    <browser:page 
+        name="toggle-favorite"
+        class="ulearn5.core.content.community.ToggleFavorite"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
+    <browser:page 
+        name="toggle-notnotifypush"
+        class="ulearn5.core.content.community.ToggleNotNotifyPush"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
+    <browser:page 
+        name="toggle-notnotifymail"
+        class="ulearn5.core.content.community.ToggleNotNotifyMail"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
+    <browser:page 
+        name="subscribe"
+        class="ulearn5.core.content.community.Subscribe"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
+    <browser:page 
+        name="unsubscribe"
+        class="ulearn5.core.content.community.UnSubscribe"
+        for="ulearn5.core.content.community.ICommunity"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        /> 
+
+    <adapter
+        name="image_filename"
+        factory="ulearn5.core.content.community.imageFilename"
+        for="ulearn5.core.content.community.ICommunity"
+        provides="zope.interface.Interface"
+    />
+        
+    
+    <adapter
+        name="subscribed_items"
+        factory="ulearn5.core.content.community.subscribed_items"
+        for="ulearn5.core.content.community.ICommunity"
+        provides="zope.interface.Interface"
+    />
+
+    <adapter
+        name="subscribed_users"
+        factory="ulearn5.core.content.community.subscribed_users"
+        for="ulearn5.core.content.community.ICommunity"
+        provides="zope.interface.Interface"
+    />
+
+    <adapter
+        name="community_type"
+        factory="ulearn5.core.content.community.community_type"
+        for="ulearn5.core.content.community.ICommunity"
+        provides="zope.interface.Interface"
+    />
+
+    <adapter
+        name="community_hash"
+        factory="ulearn5.core.content.community.community_hash"
+        for="ulearn5.core.content.community.ICommunity"
+        provides="zope.interface.Interface"
+    />
+
+    <adapter
+        name="tab_view"
+        factory="ulearn5.core.content.community.tab_view"
+        for="ulearn5.core.content.community.ICommunity"
+        provides="zope.interface.Interface"
+    />
+
+    <utility
+        factory="ulearn5.core.catalog.ACLSoupCatalog"
+        provides="ulearn5.core.interfaces.ICatalogFactory"
+        name="communities_acl"
+    />
+
+
+    <utility
+        factory="ulearn5.core.catalog.UserCommunityAccessCatalogFactory"
+        provides="ulearn5.core.interfaces.ICatalogFactory"
+        name="user_community_access"
+    />
+
+    <subscriber
+      for="ulearn5.core.content.community.ICommunity
+           zope.lifecycleevent.interfaces.IObjectAddedEvent"
+      handler="ulearn5.core.content.community.initialize_community"
+    />
+
+    <subscriber
+      for="ulearn5.core.content.community.ICommunity
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      handler="ulearn5.core.content.community.edit_community"
+    />
+
+    <subscriber
+      for="ulearn5.core.content.community.ICommunity
+           zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+      handler="ulearn5.core.content.community.delete_community"
+    />
+
+</configure>

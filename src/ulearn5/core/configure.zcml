@@ -21,6 +21,7 @@
   <include package=".configure" />
   <include package=".widgets" />
   <include package=".browser" />
+  <include package=".content" />
 
   <include file="subscribers.zcml" />
   <include file="patches.zcml" />
