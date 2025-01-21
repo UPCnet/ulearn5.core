@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
 from Products.CMFPlone.interfaces import ILanguageSchema
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces import ISearchSchema
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
@@ -26,7 +25,6 @@ from hashlib import sha1
 from plone.app.textfield.value import RichTextValue
 from base5.core.adapters.favorites import IFavorite
 from base5.core.utilities import IElasticSearch
-from base5.core.utils import json_response
 from base5.core.utils import remove_user_from_catalog
 from base5.portlets.browser.manager import IColStorage
 from mrs5.max.utilities import IMAXClient

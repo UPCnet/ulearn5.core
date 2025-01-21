@@ -6,6 +6,13 @@
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
 
+  <utility
+    provides="ulearn5.core.browser.sharing.IElasticSharing"
+    name="elastic-sharing"
+    factory="ulearn5.core.browser.sharing.ElasticSharing"
+    />
+
+
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="clouseau"
@@ -344,21 +351,21 @@
     class="ulearn5.core.browser.setup.parcheReordenarCarpetas"
     />
 
-  <!-- <browser:page
-    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name=""
-    permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup."
+  <browser:page
+    for="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="shared_with_me"
+    permission="base.authenticated"
+    class="ulearn5.core.browser.sharing.SharedWithMe"
     />
 
   <browser:page
-    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name=""
-    permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup."
+    for="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="shared"
+    permission="base.authenticated"
+    class="ulearn5.core.browser.sharing.Shared"
     />
 
-  <browser:page
+  <!--<browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name=""
     permission="cmf.ManagePortal"
@@ -378,5 +385,17 @@
     permission="cmf.ManagePortal"
     class="ulearn5.core.browser.setup."
     /> -->
+
+  <adapter
+    for="zope.interface.Interface"
+    provides="ulearn5.core.browser.sharing.IShared"
+    factory="ulearn5.core.browser.sharing.SharedMarker"
+    />
+  
+  <adapter
+    factory="ulearn5.core.browser.sharing.sharedIndexer"
+    name="is_shared"
+    />
+
 
 </configure>
