@@ -386,6 +386,35 @@
     class="ulearn5.core.browser.statistics.statsAccessedCommunities"
     />
 
+  <browser:page
+    for="zope.interface.Interface"
+    name="ulearn-stats"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.stats.StatsView"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    name="stats-query-base"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.stats.StatsQueryBase"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    name="ulearn-stats-query"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.stats.StatsQuery"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    name="ulearn-stats-query-drilldown"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.stats.StatsQueryDrilldown"
+    />
+
+
   <adapter
     for="zope.interface.Interface"
     provides="ulearn5.core.browser.sharing.IShared"
