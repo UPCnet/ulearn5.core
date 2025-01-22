@@ -397,5 +397,22 @@
     name="is_shared"
     />
 
+  <adapter
+    for="plone.uuid.interfaces.IAttributeUUID"
+    provides="ulearn5.core.browser.gwuuid.IGWUUID"
+    factory="ulearn5.core.browser.gwuuid.MutableAttributeUUID"
+    />
+
+  <adapter
+    factory="ulearn5.core.browser.gwuuid.gwUUID"
+    name="gwuuid"
+    />
+
+  <subscriber
+    for="plone.uuid.interfaces.IAttributeUUID
+         zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+    handler="ulearn5.core.browser.gwuuid.addAttributeUUID"
+    />
+
 
 </configure>
