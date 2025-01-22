@@ -3,10 +3,9 @@ import json
 from os import path
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
-
+from Products.Five.browser import BrowserView
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from five import grok
 from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces import IPloneSiteRoot
@@ -21,11 +20,11 @@ dataSet = []
 
 
 def globGetDatePoints():
-    return datePoints + ['+' + datePoints[-1]]
+    return datePoints + ["+" + datePoints[-1]]
 
 
 def globGetDataset():
-    return json.dumps(dataSet, separators=(',', ':'))
+    return json.dumps(dataSet, separators=(",", ":"))
 
 
 def globGetAccumulatedTable(table):
@@ -44,27 +43,16 @@ def globGetDateIntervals():
     def textToDate(text):
         unit = text[-1]
         value = -int(text[:-1])
-        dateAbb = {
-            'd': 'days',
-            'm': 'months',
-            'y': 'years'
-        }
-        date = datetime.today() + \
-            relativedelta(**{
-                dateAbb[unit]: value
-            })
+        dateAbb = {"d": "days", "m": "months", "y": "years"}
+        date = datetime.today() + relativedelta(**{dateAbb[unit]: value})
         return date
 
-    return [textToDate(point) for point in datePoints] \
-        + [datetime.min]
+    return [textToDate(point) for point in datePoints] + [datetime.min]
 
 
-class statsAccessed(grok.View):
-    grok.context(IPloneSiteRoot)
-    grok.require('cmf.ManagePortal')
-    grok_name = 'stats_accessed'
-    grok.name(grok_name)
+class statsAccessed(BrowserView):
 
+    view_name = "stats_accessed"
     section = "Accessed"
     updatable = True
 
@@ -93,11 +81,13 @@ class statsAccessed(grok.View):
 
         def getUpToDateAnalytics(communityShortpaths):
             settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
-            if settings is None or \
-               settings.gAnalytics_view_ID is None or \
-               settings.gAnalytics_JSON_info is None or \
-               settings.gAnalytics_enabled is None or \
-               settings.gAnalytics_enabled is False:
+            if (
+                settings is None
+                or settings.gAnalytics_view_ID is None
+                or settings.gAnalytics_JSON_info is None
+                or settings.gAnalytics_enabled is None
+                or settings.gAnalytics_enabled is False
+            ):
                 return {}
             gAnalytics_view_ID = settings.gAnalytics_view_ID
             gAnalytics_JSON_info = settings.gAnalytics_JSON_info
@@ -110,40 +100,50 @@ class statsAccessed(grok.View):
 
             credentials = ServiceAccountCredentials.from_json_keyfile_dict(
                 json.loads(gAnalytics_JSON_info),
-                scopes=['https://www.googleapis.com/auth/analytics.readonly'])
-            service = build('analytics', 'v3', credentials=credentials)
+                scopes=["https://www.googleapis.com/auth/analytics.readonly"],
+            )
+            service = build("analytics", "v3", credentials=credentials)
 
-            gaFilters = ','.join('ga:pagePath=~/' + communityShortpath
-                                 for communityShortpath in communityShortpaths)
+            gaFilters = ",".join(
+                "ga:pagePath=~/" + communityShortpath
+                for communityShortpath in communityShortpaths
+            )
             numResults = 0
             totalResults = 0
             first = True
             data = {}
             while numResults < totalResults or first:
-                analyticsData = service.data().ga().get(**{
-                    'ids': 'ga:' + gAnalytics_view_ID,
-                    'start_date': '2005-01-01',
-                    'end_date': '9999-12-31',
-                    'metrics': 'ga:pageviews',
-                    'dimensions': 'ga:pagePath,ga:dateHourMinute',
-                    'filters': gaFilters,
-                    'max_results': '10000',
-                    'start_index': str(numResults + 1),
-                    'sort': 'ga:dateHourMinute'
-                }).execute()
-                numResults += len(analyticsData['rows'])
-                if not (first) and totalResults != int(analyticsData['totalResults']):
+                analyticsData = (
+                    service.data()
+                    .ga()
+                    .get(
+                        **{
+                            "ids": "ga:" + gAnalytics_view_ID,
+                            "start_date": "2005-01-01",
+                            "end_date": "9999-12-31",
+                            "metrics": "ga:pageviews",
+                            "dimensions": "ga:pagePath,ga:dateHourMinute",
+                            "filters": gaFilters,
+                            "max_results": "10000",
+                            "start_index": str(numResults + 1),
+                            "sort": "ga:dateHourMinute",
+                        }
+                    )
+                    .execute()
+                )
+                numResults += len(analyticsData["rows"])
+                if not (first) and totalResults != int(analyticsData["totalResults"]):
                     numResults = 0
                     totalResults = 0
                     first = True
                     data = {}
                     continue
 
-                totalResults = int(analyticsData['totalResults'])
-                for row in analyticsData['rows']:
+                totalResults = int(analyticsData["totalResults"])
+                for row in analyticsData["rows"]:
                     for prefix in falsePrefixes:
-                        row[0] = row[0].replace(prefix, '')
-                    row[0] = row[0].split('/')[2].split('@@')[0].split('?')[0]
+                        row[0] = row[0].replace(prefix, "")
+                    row[0] = row[0].split("/")[2].split("@@")[0].split("?")[0]
                     if not row[0] in data:
                         data[row[0]] = []
                     data[row[0]].append([row[1], int(row[2])])
@@ -161,9 +161,9 @@ class statsAccessed(grok.View):
         communityTitles = {}
         communityShortpaths = []
         for community in api.portal.get_tool(
-                name='portal_catalog').unrestrictedSearchResults(
-                portal_type='ulearn.community'):
-            communityShortpath = community.getPath().split('/')[2]
+            name="portal_catalog"
+        ).unrestrictedSearchResults(portal_type="ulearn.community"):
+            communityShortpath = community.getPath().split("/")[2]
             communityShortpaths.append(communityShortpath)
             communityTitles[communityShortpath] = community.Title
 
@@ -177,8 +177,9 @@ class statsAccessed(grok.View):
         for communityShortpath in data:
             if communityShortpath in communityTitles:
                 index = 0
-                accessedTable.append([communityTitles[communityShortpath]]
-                                     + [0]*(len(datePoints) + 1))
+                accessedTable.append(
+                    [communityTitles[communityShortpath]] + [0] * (len(datePoints) + 1)
+                )
                 for entry in data[communityShortpath]:
                     treatedDate = datetime.strptime(entry[0], "%Y%m%d%H%M%S")
                     while treatedDate < dateIntervals[index]:
@@ -187,21 +188,18 @@ class statsAccessed(grok.View):
 
         return [accessedTable, globGetAccumulatedTable(accessedTable)]
 
-    def render(self):
+    def ___call__(self):
         global dataSet
         dataSet = self.getAllAccessedTables()
         # dataSet = self.getAllAccessedTables("update" in self.request.form)
         # if self.updatable and "update" in self.request.form:
         #     return self.getDataset()
-        return ViewPageTemplateFile('statisticsTemplate.pt')(self)
+        return ViewPageTemplateFile("statisticsTemplate.pt")(self)
 
 
-class statsModified(grok.View):
-    grok.context(IPloneSiteRoot)
-    grok.require('cmf.ManagePortal')
-    grok_name = 'stats_modified'
-    grok.name(grok_name)
+class statsModified(BrowserView):
 
+    view_name = "stats_modified"
     section = "Modified"
     updatable = False
 
@@ -217,12 +215,12 @@ class statsModified(grok.View):
     def getAllModifiedTables(self):
         dateIntervals = self.getDateIntervals()
         modifiedTable = []
-        catalog = api.portal.get_tool(name='portal_catalog')
+        catalog = api.portal.get_tool(name="portal_catalog")
         for community in catalog.unrestrictedSearchResults(
-                portal_type='ulearn.community'):
-            modifiedTable.append([community.Title] + [0]*(len(datePoints) + 1))
-            for file in catalog.unrestrictedSearchResults(
-                    path=community.getPath()):
+            portal_type="ulearn.community"
+        ):
+            modifiedTable.append([community.Title] + [0] * (len(datePoints) + 1))
+            for file in catalog.unrestrictedSearchResults(path=community.getPath()):
                 index = 0
                 entry = file.modified.asdatetime().replace(tzinfo=None)
                 while entry < dateIntervals[index]:
@@ -231,23 +229,20 @@ class statsModified(grok.View):
 
         return [modifiedTable, globGetAccumulatedTable(modifiedTable)]
 
-    def render(self):
+    def ___call__(self):
         global dataSet
         dataSet = self.getAllModifiedTables()
-        return ViewPageTemplateFile('statisticsTemplate.pt')(self)
+        return ViewPageTemplateFile("statisticsTemplate.pt")(self)
 
 
-class statsAccessed(grok.View):
-    grok.context(IPloneSiteRoot)
-    grok.require('cmf.ManagePortal')
-    grok_name = 'stats_accessed_communities'
-    grok.name(grok_name)
+class statsAccessedCommunities(BrowserView):
 
+    view_name = "stats_accessed_communities"
     section = "Accessed"
     updatable = True
 
     def getDatePoints(self):
-        return ['community', 'page', 'title', 'content_type', 'data',  'pageviews']
+        return ["community", "page", "title", "content_type", "data", "pageviews"]
 
     def getDataset(self):
         return json.dumps(dataSet)
@@ -271,11 +266,13 @@ class statsAccessed(grok.View):
 
         def getUpToDateAnalytics(communityShortpaths):
             settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
-            if settings is None or \
-               settings.gAnalytics_view_ID is None or \
-               settings.gAnalytics_JSON_info is None or \
-               settings.gAnalytics_enabled is None or \
-               settings.gAnalytics_enabled is False:
+            if (
+                settings is None
+                or settings.gAnalytics_view_ID is None
+                or settings.gAnalytics_JSON_info is None
+                or settings.gAnalytics_enabled is None
+                or settings.gAnalytics_enabled is False
+            ):
                 return {}
             gAnalytics_view_ID = settings.gAnalytics_view_ID
             gAnalytics_JSON_info = settings.gAnalytics_JSON_info
@@ -288,25 +285,37 @@ class statsAccessed(grok.View):
 
             credentials = ServiceAccountCredentials.from_json_keyfile_dict(
                 json.loads(gAnalytics_JSON_info),
-                scopes=['https://www.googleapis.com/auth/analytics.readonly'])
-            service = build('analytics', 'v3', credentials=credentials)
+                scopes=["https://www.googleapis.com/auth/analytics.readonly"],
+            )
+            service = build("analytics", "v3", credentials=credentials)
 
-            gaFilters = ','.join('ga:pagePath=~/' + communityShortpath
-                                 for communityShortpath in communityShortpaths)
+            gaFilters = ",".join(
+                "ga:pagePath=~/" + communityShortpath
+                for communityShortpath in communityShortpaths
+            )
             numResults = 0
             totalResults = 0
             first = True
             data = {}
             while numResults < totalResults or first:
-                analyticsData = service.data().ga().get(
-                    **
-                    {'ids': 'ga:' + gAnalytics_view_ID, 'start_date': '2005-01-01',
-                     'end_date': '9999-12-31', 'metrics': 'ga:pageviews',
-                     'dimensions':
-                     'ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1,ga:dateHourMinute',
-                     'filters': gaFilters, 'max_results': '20',
-                     'sort': '-ga:pageviews'}).execute()
-                numResults += len(analyticsData['rows'])
+                analyticsData = (
+                    service.data()
+                    .ga()
+                    .get(
+                        **{
+                            "ids": "ga:" + gAnalytics_view_ID,
+                            "start_date": "2005-01-01",
+                            "end_date": "9999-12-31",
+                            "metrics": "ga:pageviews",
+                            "dimensions": "ga:pagePathLevel2,ga:pagePath,ga:pageTitle,ga:dimension1,ga:dateHourMinute",
+                            "filters": gaFilters,
+                            "max_results": "20",
+                            "sort": "-ga:pageviews",
+                        }
+                    )
+                    .execute()
+                )
+                numResults += len(analyticsData["rows"])
                 # if not(first) and totalResults != int(analyticsData['totalResults']):
                 #     numResults = 0
                 #     totalResults = 0
@@ -314,7 +323,7 @@ class statsAccessed(grok.View):
                 #     data = {}
                 #     continue
 
-                totalResults = int(analyticsData['totalResults'])
+                totalResults = int(analyticsData["totalResults"])
                 # for row in analyticsData['rows']:
                 #     # for prefix in falsePrefixes:
                 #     #     row[0] = row[0].replace(prefix, '')
@@ -330,14 +339,14 @@ class statsAccessed(grok.View):
             # storedAnalytics = file(path.join(gAnalyticsPath, gStoredAnalyticsFileName), "wb")
             # storedAnalytics.write(json.dumps(data, separators=(',', ':')))
             # storedAnalytics.close()
-            return analyticsData['rows']
+            return analyticsData["rows"]
 
         communityTitles = {}
         communityShortpaths = []
         for community in api.portal.get_tool(
-                name='portal_catalog').unrestrictedSearchResults(
-                portal_type='ulearn.community'):
-            communityShortpath = community.getPath().split('/')[2]
+            name="portal_catalog"
+        ).unrestrictedSearchResults(portal_type="ulearn.community"):
+            communityShortpath = community.getPath().split("/")[2]
             communityShortpaths.append(communityShortpath)
             communityTitles[communityShortpath] = community.Title
 
@@ -362,10 +371,10 @@ class statsAccessed(grok.View):
         # return [accessedTable, globGetAccumulatedTable(accessedTable)]
         return data
 
-    def render(self):
+    def ___call__(self):
         global dataSet
         dataSet = self.getAllAccessedTables()
         # dataSet = self.getAllAccessedTables("update" in self.request.form)
         # if self.updatable and "update" in self.request.form:
         #     return self.getDataset()
-        return ViewPageTemplateFile('statisticsTemplate.pt')(self)
+        return ViewPageTemplateFile("statisticsTemplate.pt")(self)

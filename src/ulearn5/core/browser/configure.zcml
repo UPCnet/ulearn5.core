@@ -365,26 +365,26 @@
     class="ulearn5.core.browser.sharing.Shared"
     />
 
-  <!--<browser:page
+  <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name=""
+    name="stats_accessed"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup."
+    class="ulearn5.core.browser.statistics.statsAccessed"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name=""
+    name="stats_modified"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup."
+    class="ulearn5.core.browser.statistics.statsModified"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name=""
+    name="stats_accessed_communities"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup."
-    /> -->
+    class="ulearn5.core.browser.statistics.statsAccessedCommunities"
+    />
 
   <adapter
     for="zope.interface.Interface"
