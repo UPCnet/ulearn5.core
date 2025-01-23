@@ -365,26 +365,55 @@
     class="ulearn5.core.browser.sharing.Shared"
     />
 
-  <!--<browser:page
+  <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name=""
+    name="stats_accessed"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup."
+    class="ulearn5.core.browser.statistics.statsAccessed"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name=""
+    name="stats_modified"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup."
+    class="ulearn5.core.browser.statistics.statsModified"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name=""
+    name="stats_accessed_communities"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup."
-    /> -->
+    class="ulearn5.core.browser.statistics.statsAccessedCommunities"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    name="ulearn-stats"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.stats.StatsView"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    name="stats-query-base"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.stats.StatsQueryBase"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    name="ulearn-stats-query"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.stats.StatsQuery"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    name="ulearn-stats-query-drilldown"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.stats.StatsQueryDrilldown"
+    />
+
 
   <adapter
     for="zope.interface.Interface"
@@ -395,6 +424,23 @@
   <adapter
     factory="ulearn5.core.browser.sharing.sharedIndexer"
     name="is_shared"
+    />
+
+  <adapter
+    for="plone.uuid.interfaces.IAttributeUUID"
+    provides="ulearn5.core.browser.gwuuid.IGWUUID"
+    factory="ulearn5.core.browser.gwuuid.MutableAttributeUUID"
+    />
+
+  <adapter
+    factory="ulearn5.core.browser.gwuuid.gwUUID"
+    name="gwuuid"
+    />
+
+  <subscriber
+    for="plone.uuid.interfaces.IAttributeUUID
+         zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+    handler="ulearn5.core.browser.gwuuid.addAttributeUUID"
     />
 
 

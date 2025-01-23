@@ -37,7 +37,7 @@
           </table>
         </div>
 
-        <script type="text/javascript" tal:define="dataset view/getDataset; grokname view/grok_name" tal:content="python:str('var dataset=' + dataset + ',endpoint=\'' + grokname + '\';')" />
+        <script type="text/javascript" tal:define="dataset view/getDataset; viewname view/view_name" tal:content="python:str('var dataset=' + dataset + ',endpoint=\'' + viewname + '\';')" />
         <script type="text/javascript">
           $(document).ready(function(){
             $('#section_checkbox').change(function(event){
