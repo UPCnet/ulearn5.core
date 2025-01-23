@@ -20,11 +20,11 @@ from ulearn5.core.widgets.interfaces import ITagsSelectWidget
 import zope.component
 import zope.interface
 import zope.schema
+from zope.interface import implementer_only
 
-
+@implementer_only(ITagsSelectWidget)
 class Select2TagsInputWidget(textarea.TextAreaWidget):
     """Widget for select site tags"""
-    zope.interface.implementsOnly(ITagsSelectWidget)
     klass = 'tags-token-input-widget'
     display_template = ViewPageTemplateFile('select2_user_display.pt')
     input_template = ViewPageTemplateFile('select2_user_input.pt')
@@ -91,11 +91,9 @@ def Select2TagsInputFieldWidget(field, request):
     """IFieldWidget factory for Select2TagsInputWidget."""
     return widget.FieldWidget(field, Select2TagsInputWidget(request))
 
-
+@adapter(ITuple, ITagsSelectWidget)
 class TagsSelectWidgetConverter(BaseDataConverter):
     """Data converter for ICollection."""
-
-    adapts(ITuple, ITagsSelectWidget)
 
     def toWidgetValue(self, value):
         """Converts from field value to widget.

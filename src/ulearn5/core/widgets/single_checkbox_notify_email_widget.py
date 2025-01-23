@@ -11,10 +11,10 @@ import z3c.form.interfaces
 import z3c.form.widget
 import zope.interface
 import zope.schema.interfaces
+from zope.interface import implementer_only
 
-
+@implementer_only(ISingleCheckBoxNotifyEmailWidget)
 class SingleCheckBoxNotifyEmailWidget(SingleCheckBoxWidget):
-    zope.interface.implementsOnly(ISingleCheckBoxNotifyEmailWidget)
 
     klass = 'single-checkbox-notify-email-widget'
 

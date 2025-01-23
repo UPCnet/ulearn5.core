@@ -12,9 +12,10 @@ import z3c.form.widget
 import zope.interface
 import zope.schema.interfaces
 
+from zope.interface import implementer_only
 
+@implementer_only(IVisibilityWidget)
 class VisibilityWidget(SingleCheckBoxWidget):
-    zope.interface.implementsOnly(IVisibilityWidget)
 
     klass = 'visibility-widget'
     input_template = ViewPageTemplateFile('templates/visibility.pt')

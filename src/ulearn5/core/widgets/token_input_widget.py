@@ -11,12 +11,12 @@ from ulearn5.core.widgets.interfaces import ITokenInputWidget
 import zope.component
 import zope.interface
 import zope.schema
+from zope.interface import implementer_only
 
-
+@implementer_only(ITokenInputWidget)
 class KeywordsTokenInputWidget(textarea.TextAreaWidget):
     """Widget for adding new keywords and autocomplete with the ones in the
     system."""
-    zope.interface.implementsOnly(ITokenInputWidget)
     klass = 'token-input-widget'
     display_template = ViewPageTemplateFile('token_input_display.pt')
     input_template = ViewPageTemplateFile('token_input_input.pt')

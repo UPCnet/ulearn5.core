@@ -3,6 +3,7 @@
 from z3c.form import interfaces
 from z3c.form.browser.checkbox import CheckBoxWidget
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
+from zope.interface import classImplementsOnly
 
 from ulearn5.core.widgets.interfaces import ICheckboxInfoWidget
 
@@ -11,10 +12,11 @@ import z3c.form.interfaces
 import z3c.form.widget
 import zope.interface
 import zope.schema.interfaces
+from zope.interface import implementer_only
 
 
+@implementer_only(ICheckboxInfoWidget)
 class CheckboxInfoWidget(CheckBoxWidget):
-    zope.interface.implementsOnly(ICheckboxInfoWidget)
 
     klass = 'checbox-info-widget'
     input_template = ViewPageTemplateFile('templates/checkbox_info_input.pt')
@@ -25,6 +27,7 @@ class CheckboxInfoWidget(CheckBoxWidget):
             return self.display_template(self)
         else:
             return self.input_template(self)
+
 
 
 @zope.interface.implementer(zope.schema.interfaces.IBool, interfaces.IFormLayer)

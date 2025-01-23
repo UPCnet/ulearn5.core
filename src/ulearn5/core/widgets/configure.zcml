@@ -132,5 +132,13 @@
         file="javascripts/single_checkbox_notify_email.js"
     />
 
+    <browser:page 
+        name="ulearn.fromusername2displayname"
+        class="ulearn5.core.widgets.select2_user_widget.fromUsername2DisplayName"
+        for="zope.interface.Interface"
+        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+        permission="base.authenticated"
+        />
+
 
 </configure>

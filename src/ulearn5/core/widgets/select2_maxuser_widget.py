@@ -9,11 +9,12 @@ from ulearn5.core.widgets.interfaces import IAjaxSelectWidget
 import zope.component
 import zope.interface
 import zope.schema
+from zope.interface import implementer_only
 
 
+@implementer_only(IAjaxSelectWidget)
 class Select2MAXUserInputWidget(textarea.TextAreaWidget):
     """Widget for select site users"""
-    zope.interface.implementsOnly(IAjaxSelectWidget)
     klass = 'user-token-input-widget'
     display_template = ViewPageTemplateFile('templates/select2_maxuser_display.pt')
     input_template = ViewPageTemplateFile('templates/select2_maxuser_input.pt')

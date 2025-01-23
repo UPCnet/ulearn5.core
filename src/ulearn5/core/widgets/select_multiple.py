@@ -5,7 +5,6 @@ from z3c.form.browser.select import SelectWidget
 from z3c.form.converter import BaseDataConverter
 from z3c.form.interfaces import ISelectWidget
 from z3c.form.widget import FieldWidget
-from zope.component import adapts
 from zope.formlib.interfaces import IInputWidget
 from zope.formlib.widget import SimpleInputWidget
 from zope.schema.interfaces import IList
@@ -16,6 +15,7 @@ import zope.interface
 import zope.schema
 import zope.schema.interfaces
 from six.moves import range
+from zope.interface import implementer_only
 
 
 class FakeTerms(tuple):
@@ -31,11 +31,9 @@ class FakeTerms(tuple):
 class ITwoLevelSelectWidget(ISelectWidget, IInputWidget):
     """Text lines widget for Gridster serialization."""
 
-
+@zope.component.adapter(IList, ITwoLevelSelectWidget)
 class TwoLevelWidgetConverter(BaseDataConverter):
     """Data converter for ICollection."""
-
-    adapts(IList, ITwoLevelSelectWidget)
 
     def toWidgetValue(self, value):
         """Converts from field value to widget.
@@ -73,10 +71,10 @@ def expandPrefix(prefix):
         return prefix
 
 
+@implementer_only(ITwoLevelSelectWidget)
 class TwoLevelSelectWidget(widget.MultiWidget, SelectWidget, SimpleInputWidget):
     """
     """
-    zope.interface.implementsOnly(ITwoLevelSelectWidget)
     klass = 'twolevel-widget'
     multiple = False
     size = 5

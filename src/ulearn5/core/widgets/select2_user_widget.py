@@ -18,11 +18,15 @@ import json
 import zope.component
 import zope.interface
 import zope.schema
+from zope.interface import implementer_only
+from zope.component import adapter
 
 
+from Products.Five.browser import BrowserView
+
+@implementer_only(IAjaxSelectWidget)
 class Select2UserInputWidget(textarea.TextAreaWidget):
     """Widget for select site users"""
-    zope.interface.implementsOnly(IAjaxSelectWidget)
     klass = 'user-token-input-widget'
     display_template = ViewPageTemplateFile('select2_user_display.pt')
     input_template = ViewPageTemplateFile('select2_user_input.pt')
@@ -75,11 +79,9 @@ def Select2UserInputFieldWidget(field, request):
     """IFieldWidget factory for Select2UserInputWidget."""
     return widget.FieldWidget(field, Select2UserInputWidget(request))
 
-
+@adapter(IList, IAjaxSelectWidget)
 class SelectWidgetConverter(BaseDataConverter):
     """Data converter for ICollection."""
-
-    adapts(IList, IAjaxSelectWidget)
 
     def toWidgetValue(self, value):
         """Converts from field value to widget.
@@ -110,11 +112,11 @@ class SelectWidgetConverter(BaseDataConverter):
         return [v for v in value.split(separator)]
 
 
-class fromUsername2DisplayName(grok.View):
-    grok.context(Interface)
-    grok.name('ulearn.fromusername2displayname')
-    grok.require('base.authenticated')
-    grok.layer(IUlearn5CoreLayer)
+class fromUsername2DisplayName(BrowserView):
+    # grok.context(Interface)
+    # grok.name('ulearn.fromusername2displayname')
+    # grok.require('base.authenticated')
+    # grok.layer(IUlearn5CoreLayer)
 
     def render(self):
         self.request.response.setHeader('Content-type', 'application/json')
