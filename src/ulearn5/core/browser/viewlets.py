@@ -1,41 +1,35 @@
 from Acquisition import aq_chain
 from Acquisition import aq_inner
-
-from five import grok
-from hashlib import sha1
-from plone import api
-from plone.app.contenttypes.interfaces import INewsItem
-from plone.app.layout.viewlets.interfaces import IAboveContentTitle
-from plone.app.layout.viewlets.interfaces import IPortalHeader
-from plone.dexterity.interfaces import IDexterityContent
-from plone.memoize.view import memoize_contextless
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import IPortletManager
-from repoze.catalog.query import Eq
-from souper.soup import get_soup
-from zope.component import getMultiAdapter
-from zope.component import getUtility
-from zope.component.hooks import getSite
-from zope.interface import Interface
-from zope.security import checkPermission
-
 from base5.core.adapters import IFlash
 from base5.core.adapters import IImportant
 from base5.core.adapters import IOutOfList
 from base5.core.adapters import IShowInApp
 from base5.core.utils import base_config
+from hashlib import sha1
+from plone import api
+from plone.app.layout.viewlets.interfaces import IAboveContentTitle
+from plone.app.layout.viewlets.interfaces import IPortalHeader
+from plone.memoize.view import memoize_contextless
+from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletManager
+from Products.Five.browser import BrowserView
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
 from ulearn5.core import _
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.gwuuid import IGWUUID
-from ulearn5.core.interfaces import IUlearn5CoreLayer
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.component.hooks import getSite
+from zope.interface import implementer
+from zope.security import checkPermission
+from zope.viewlet.interfaces import IViewlet
 
 import json
 
 
-class CommunityNGDirective(grok.Viewlet):
-    grok.context(Interface)
-    grok.name('ulearn.communityngdirective')
-    grok.viewletmanager(IPortalHeader)
+@implementer(IViewlet)
+class CommunityNGDirective(IPortalHeader, BrowserView):
 
     def update(self):
         self.community_hash = ''
@@ -52,11 +46,7 @@ class CommunityNGDirective(grok.Viewlet):
                 self.community_tab_view = obj.tab_view
 
 
-class ULearnNGDirectives(grok.Viewlet):
-    grok.context(Interface)
-    grok.name('ulearn.ulearnngdirectives')
-    grok.viewletmanager(IPortalHeader)
-    grok.layer(IUlearn5CoreLayer)
+class ULearnNGDirectives(IPortalHeader, BrowserView):
 
     def get_communities(self):
         """ Gets the communities to show in the stats selectize dropdown
@@ -104,11 +94,7 @@ class ULearnNGDirectives(grok.Viewlet):
         return api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.stats_button')
 
 
-class csrfNGDirective(grok.Viewlet):
-    grok.context(Interface)
-    grok.name('ulearn.csrfngdirective')
-    grok.viewletmanager(IPortalHeader)
-    grok.layer(IUlearn5CoreLayer)
+class csrfNGDirective(IPortalHeader, BrowserView):
 
     def update(self):
         self.csrf = ''
@@ -116,8 +102,8 @@ class csrfNGDirective(grok.Viewlet):
         self.csrf = createToken()
 
 
-class viewletBase(grok.Viewlet):
-    grok.baseclass()
+@implementer(IViewlet)
+class viewletBase(BrowserView):
 
     @memoize_contextless
     def portal_url(self):
@@ -137,12 +123,7 @@ class viewletBase(grok.Viewlet):
         return lt.getPreferredLanguage()
 
 
-class newsToolBar(viewletBase):
-    grok.name('ulearn.newstoolbar')
-    grok.context(INewsItem)
-    grok.template('newstoolbar')
-    grok.viewletmanager(IAboveContentTitle)
-    grok.require('cmf.ModifyPortalContent')
+class newsToolBar(IAboveContentTitle, viewletBase):
 
     def permisos_important(self):
         # TODO: Comprovar que l'usuari tingui permisos per a marcar com a important
@@ -239,12 +220,7 @@ class newsToolBar(viewletBase):
             return False
 
 
-class ListTagsNews(viewletBase):
-    grok.name('ulearn.listtags')
-    grok.context(INewsItem)
-    grok.template('listtags')
-    grok.viewletmanager(IAboveContentTitle)
-    grok.layer(IUlearn5CoreLayer)
+class ListTagsNews(IAboveContentTitle, viewletBase):
 
     def isTagFollowed(self, category):
         portal = getSite()
@@ -260,12 +236,7 @@ class ListTagsNews(viewletBase):
             return False
 
 
-class ObjectUniversalLink(viewletBase):
-    grok.name('ulearn.universallink')
-    grok.context(IDexterityContent)
-    grok.template('universallink')
-    grok.viewletmanager(IAboveContentTitle)
-    grok.layer(IUlearn5CoreLayer)
+class ObjectUniversalLink(IAboveContentTitle, viewletBase):
 
     def universalLink(self):
         return api.portal.get().absolute_url() + '/resolveuid/' + self.context.UID()

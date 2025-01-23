@@ -414,6 +414,18 @@
     class="ulearn5.core.browser.stats.StatsQueryDrilldown"
     />
 
+  <browser:page
+    for="zope.interface.Interface"
+    name="statscsv_view"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.statscsv.GenerateReport"
+    />
+
+  <browser:page
+    for="ulearn5.core.content.community.ICommunity"
+    name="communityVariables.js"
+    permission="zope2.View"
+    class="ulearn5.core.browser.variables.communityVariables" />
 
   <adapter
     for="zope.interface.Interface"
@@ -441,6 +453,63 @@
     for="plone.uuid.interfaces.IAttributeUUID
          zope.lifecycleevent.interfaces.IObjectCreatedEvent"
     handler="ulearn5.core.browser.gwuuid.addAttributeUUID"
+    />
+
+  <browser:viewlet
+    name="ulearn.communityngdirective"
+    class="ulearn5.core.browser.viewlets.CommunityNgDirective"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    permission="zope2.View"
+    template="viewlets_templates/communityngdirective.pt"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    />
+ 
+  <browser:viewlet
+    name="ulearn.ulearnngdirectives"
+    class="ulearn5.core.browser.viewlets.ULearnNGDirectives"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    permission="zope2.View"
+    template="viewlets_templates/ulearnngdirectives.pt"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    />
+
+  <browser:viewlet
+    name="ulearn.csrfngdirective"
+    class="ulearn5.core.browser.viewlets.csrfNGDirective"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    permission="zope2.View"
+    template="viewlets_templates/csrfngdirective.pt"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    />
+
+  <browser:viewlet
+    name="ulearn.newstoolbar"
+    class="ulearn5.core.browser.viewlets.newsToolBar"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    for="plone.app.contenttypes.interfaces.INewsItem"
+    permission="cmf.ModifyPortalContent"
+    template="viewlets_templates/newstoolbar.pt"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+    />
+
+  <browser:viewlet
+    name="ulearn.listtags"
+    class="ulearn5.core.browser.viewlets.ListTagsNews"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    for="plone.app.contenttypes.interfaces.INewsItem"
+    permission="zope2.View"
+    template="viewlets_templates/listtags.pt"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+    />
+
+  <browser:viewlet
+    name="ulearn.universallink"
+    class="ulearn5.core.browser.viewlets.ObjectUniversalLink"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    for="plone.dexterity.interfaces.IDexterityContent"
+    permission="zope2.View"
+    template="viewlets_templates/universallink.pt"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
     />
 
 

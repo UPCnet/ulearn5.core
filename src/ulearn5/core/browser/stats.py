@@ -15,7 +15,6 @@ from ulearn5.core.content.community import ICommunity
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from zope.component import getUtility
 from zope.component.hooks import getSite
-from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory
 
 import calendar

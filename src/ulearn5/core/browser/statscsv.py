@@ -1,31 +1,24 @@
 # -*- coding: utf-8 -*-
-from five import grok
-from plone import api
-from zope.interface import Interface
 from Acquisition import aq_inner
-
-from zope.component import getUtility
-
 from datetime import datetime
-
 from mrs5.max.utilities import IMAXClient
-
-from zope.site.hooks import setSite
-from plone.namedfile.file import NamedBlobFile
+from plone import api
 from plone.dexterity.utils import createContentInContainer
-
-from ulearn5.core.browser.stats import StatsQueryBase
-from ulearn5.core.browser.stats import STATS
-from ulearn5.core.browser.stats import first_moment_of_month
-from zope.component import getUtilitiesFor
+from plone.namedfile.file import NamedBlobFile
+from six.moves import range
 from souper.interfaces import ICatalogFactory
+from ulearn5.core.browser.stats import first_moment_of_month
+from ulearn5.core.browser.stats import STATS
+from ulearn5.core.browser.stats import StatsQueryBase
+from zope.component import getUtilitiesFor
+from zope.component import getUtility
+from zope.site.hooks import setSite
 
-import io
 import csv
-import unicodedata
+import io
 import time
 import transaction
-from six.moves import range
+import unicodedata
 
 
 HEADER_CSV = ['id', 'last_login_time']
@@ -36,7 +29,8 @@ def set_header_csv():
 
     try:
         extender_name = api.portal.get_registry_record('base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
-    except:
+    except Exception as e:
+        print(e)
         extender_name = ''
 
     if extender_name:
@@ -48,7 +42,7 @@ def set_header_csv():
             HEADER_CSV.remove('username')
 
 
-def ListLastLoginCSV():
+def list_last_login_csv():
     pmd = api.portal.get_tool(name='portal_memberdata')
     output = []
     for user in list(pmd._members.items()):
@@ -105,9 +99,6 @@ def makeFolder(portal, name):
 
 
 class GenerateReport(StatsQueryBase):
-    grok.context(Interface)
-    grok.name('statscsv_view')
-    grok.require('base.webmaster')
     """
     Download the content type as a CSV file.
     """
@@ -121,7 +112,7 @@ class GenerateReport(StatsQueryBase):
 
         activities = {'rows': []}
         set_header_csv()
-        usersLogin = ListLastLoginCSV()
+        usersLogin = list_last_login_csv()
         for user in usersLogin:
             if user is not None:
                 self.iterateActivities(maxclient, user, today, activities)
@@ -202,7 +193,8 @@ class GenerateReport(StatsQueryBase):
                         media += value
                 row.extend([community, str(activity), str(comments), str(documents), str(links), str(media)])
                 activities['rows'].append(row)
-        except:
+        except Exception as e:
+            print(e)
             userAttr = dict()
             userAttr = user
             userAttr.extend(['', '0', '0', '0', '0', '0'])

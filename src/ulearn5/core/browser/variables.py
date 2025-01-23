@@ -1,11 +1,10 @@
-from five import grok
-from plone import api
-from zope.component.hooks import getSite
-from zope.component import queryUtility
-from plone.registry.interfaces import IRegistry
-
 from mrs5.max.browser.controlpanel import IMAXUISettings
-from ulearn5.core.content.community import ICommunity
+from plone import api
+from plone.registry.interfaces import IRegistry
+from Products.Five.browser import BrowserView
+from zope.component import queryUtility
+from zope.component.hooks import getSite
+
 
 TEMPLATE = """\
 if (!window._MAXUI) {window._MAXUI = {}; }
@@ -24,9 +23,7 @@ window._MAXUI.domain = '%(domain)s';
 """
 
 
-class communityVariables(grok.View):
-    grok.name('communityVariables.js')
-    grok.context(ICommunity)
+class communityVariables(BrowserView):
 
     def render(self):
         self.request.response.addHeader('content-type', 'text/javascript;;charset=utf-8')
@@ -60,7 +57,8 @@ class communityVariables(grok.View):
 
         try:
             activity_view = self.context.activity_view
-        except:
+        except Exception as e:
+            print(e)
             activity_view = 'darreres_activitats'
 
         return TEMPLATE % dict(
