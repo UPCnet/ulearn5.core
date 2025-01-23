@@ -12,7 +12,6 @@
     factory="ulearn5.core.browser.sharing.ElasticSharing"
     />
 
-
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="clouseau"
@@ -425,7 +424,109 @@
     for="ulearn5.core.content.community.ICommunity"
     name="communityVariables.js"
     permission="zope2.View"
-    class="ulearn5.core.browser.variables.communityVariables" />
+    class="ulearn5.core.browser.variables.communityVariables"
+    />
+  
+  <browser:page
+    for="zope.interface.Interface"
+    name="ping"
+    permission="zope2.View"
+    class="ulearn5.core.browser.views.monitoringView"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="ulearn.ajaxusersearch"
+    permission="base.authenticated"
+    class="ulearn5.core.browser.views.AjaxUserSearch"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    name="add_user_search"
+    permission="base.authenticated"
+    class="ulearn5.core.browser.views.addUserSearch"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="remove_user_search"
+    permission="base.authenticated"
+    class="ulearn5.core.browser.views.removeUserSearch"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="search_in_searchers"
+    permission="base.authenticated"
+    class="ulearn5.core.browser.views.isSearchInSearchers"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="get_user_searchers"
+    permission="base.authenticated"
+    class="ulearn5.core.browser.views.getUserSearchers"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="migrate_avatars"
+    permission="base.member"
+    class="ulearn5.core.browser.views.MigrateAvatars"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    name="image-portlet-view"
+    permission="zope2.View"
+    class="ulearn5.core.browser.views.ImagePortletImageView"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="reset_notify"
+    permission="base.webmaster"
+    class="ulearn5.core.browser.views.ResetNotify"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="view_annotation_notify_popup"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.views.ViewAnnotationNotifyPopup"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="close_notify_popup"
+    permission="zope2.View"
+    class="ulearn5.core.browser.views.CloseNotifyPopup"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="close_notify_popup_birthday"
+    permission="zope2.View"
+    class="ulearn5.core.browser.views.CloseNotifyPopupBirthday"
+    />
+
+  <browser:page
+    for="zope.interface.Interface"
+    layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
+    name="update_birthday_profile_by_mail"
+    permission="cmf.ManagePortal"
+    class="ulearn5.core.browser.views.UpdateBirthdayProfileByMail"
+    />
 
   <adapter
     for="zope.interface.Interface"
@@ -511,6 +612,5 @@
     template="viewlets_templates/universallink.pt"
     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
     />
-
 
 </configure>

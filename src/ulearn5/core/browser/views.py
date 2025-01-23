@@ -1,62 +1,49 @@
 # -*- coding: utf-8 -*-
-from PIL import ImageOps
-from Products.statusmessages.interfaces import IStatusMessage
+from base5.core.utils import json_response
+from base5.core.utils import portal_url
 from io import StringIO
-
-from five import grok
 from itertools import chain
+from mrs5.max.utilities import IMAXClient
 from plone import api
 from plone.namedfile.utils import set_headers
 from plone.namedfile.utils import stream_data
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
 from plone.registry.interfaces import IRegistry
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from repoze.catalog.query import Eq
-from souper.soup import Record
 from souper.soup import get_soup
+from souper.soup import Record
+from ulearn5.core import _
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from ulearn5.core.utils import getSearchersFromUser
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component.hooks import getSite
-from zope.interface import Interface
 
-from base5.core.utils import json_response
-from base5.core.utils import portal_url
-from mrs5.max.utilities import IMAXClient
-
-from ulearn5.core import _
-from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-from ulearn5.core.interfaces import IUlearn5CoreLayer
-from ulearn5.core.utils import getSearchersFromUser
-
-import PIL
 import io
 import json
 import logging
 import os
+import PIL
 import requests
 
 
 logger = logging.getLogger(__name__)
 
 
-class monitoringView(grok.View):
-    """ Convenience view for monitoring software """
-    grok.name('ping')
-    grok.context(Interface)
-    grok.require('zope2.View')
+class monitoringView(BrowserView):
+    """Convenience view for monitoring software"""
 
-    def render(self):
+    def __call__(self):
         return '1'
 
 
-class AjaxUserSearch(grok.View):
-    grok.context(Interface)
-    grok.name('ulearn.ajaxusersearch')
-    grok.require('base.authenticated')
-    grok.layer(IUlearn5CoreLayer)
+class AjaxUserSearch(BrowserView):
 
-    def render(self):
+    def __call__(self):
         self.request.response.setHeader('Content-type', 'application/json')
         query = self.request.form.get('q', '')
         results = dict(more=False, results=[])
@@ -80,13 +67,9 @@ class AjaxUserSearch(grok.View):
             return json.dumps({'error': 'No query found'})
 
 
-class addUserSearch(grok.View):
-    grok.context(Interface)
-    grok.name('add_user_search')
-    grok.require('base.authenticated')
-    grok.layer(IUlearn5CoreLayer)
+class addUserSearch(BrowserView):
 
-    def render(self):
+    def __call__(self):
         portal = getSite()
         current_user = api.user.get_current()
         userid = current_user.id
@@ -124,13 +107,9 @@ class addUserSearch(grok.View):
         return json.dumps(getSearchersFromUser())
 
 
-class removeUserSearch(grok.View):
-    grok.context(Interface)
-    grok.name('remove_user_search')
-    grok.require('base.authenticated')
-    grok.layer(IUlearn5CoreLayer)
+class removeUserSearch(BrowserView):
 
-    def render(self):
+    def __call__(self):
         portal = getSite()
         current_user = api.user.get_current()
         userid = current_user.id
@@ -154,7 +133,8 @@ class removeUserSearch(grok.View):
                     if in_list:
                         try:
                             total_searches.remove(search_items)
-                        except:
+                        except Exception as e:
+                            print(e)
                             pass
                         acl_record.attrs['searches'] = total_searches
                         soup_searches.reindex(records=[acl_record])
@@ -162,13 +142,9 @@ class removeUserSearch(grok.View):
         return json.dumps(getSearchersFromUser())
 
 
-class isSearchInSearchers(grok.View):
-    grok.context(Interface)
-    grok.name('search_in_searchers')
-    grok.require('base.authenticated')
-    grok.layer(IUlearn5CoreLayer)
+class isSearchInSearchers(BrowserView):
 
-    def render(self):
+    def __call__(self):
         portal = getSite()
         current_user = api.user.get_current()
         userid = current_user.id
@@ -191,24 +167,18 @@ class isSearchInSearchers(grok.View):
         return False
 
 
-class getUserSearchers(grok.View):
-    grok.context(Interface)
-    grok.name('get_user_searchers')
-    grok.require('base.authenticated')
-    grok.layer(IUlearn5CoreLayer)
+class getUserSearchers(BrowserView):
 
-    def render(self):
+    def __call__(self):
         return json.dumps(getSearchersFromUser())
 
 
-class MigrateAvatars(grok.View):
-    """ Migrate avatar images from disk to web (migration on sunday 27/11/2017) """
-    grok.name('migrate_avatars')
-    grok.context(Interface)
-    grok.require('base.member')
-    grok.layer(IUlearn5CoreLayer)
+class MigrateAvatars(BrowserView):
+    """
+    Migrate avatar images from disk to web (migration on sunday 27/11/2017)
+    """
 
-    def render(self):
+    def __call__(self):
         path = '/var/plone/import-images/'
         for filename in os.listdir(path):
             portrait = open(path + filename, 'rb')
@@ -236,7 +206,8 @@ class MigrateAvatars(grok.View):
         CONVERT_SIZE = (250, 250)
         try:
             image = PIL.Image.open(image_file)
-        except:
+        except Exception as e:
+            print(e)
             portrait_url = portal_url() + '/++theme++ulearn5/assets/images/defaultUser.png'
             imgData = requests.get(portrait_url).content
             image = PIL.Image.open(io.BytesIO(imgData))
@@ -245,7 +216,9 @@ class MigrateAvatars(grok.View):
         format = image.format
         mimetype = 'image/%s' % format.lower()
 
-        result = ImageOps.fit(image, CONVERT_SIZE, method=PIL.Image.ANTIALIAS, centering=(0.5, 0.5))
+        result = PIL.ImageOps.fit(
+            image, CONVERT_SIZE, method=PIL.Image.ANTIALIAS, centering=(0.5, 0.5)
+        )
 
         # Bypass CMYK problem in conversion
         if result.mode not in ["1", "L", "P", "RGB", "RGBA"]:
@@ -258,17 +231,13 @@ class MigrateAvatars(grok.View):
         return new_file, mimetype
 
 
-class ImagePortletImageView(grok.View):
-    grok.name('image-portlet-view')
-    grok.context(Interface)
-    grok.require('zope2.View')
-
+class ImagePortletImageView(BrowserView):
     """
     Expose image fields as downloadable BLOBS from the image portlet.
     Allow set caching rules (content caching for this view)
     Ex: ulearn5.nomines.portlets.banner
     """
-    def render(self):
+    def __call__(self):
         content = self.context
         # Read portlet assignment pointers from the GET query
         name = self.request.form.get("portletName")
@@ -287,14 +256,9 @@ class ImagePortletImageView(grok.View):
         return stream_data(image)
 
 
-class ResetNotify(grok.View):
-    grok.name('reset_notify')
-    grok.context(Interface)
-    grok.template('reset_notify')
-    grok.require('base.webmaster')
-    grok.layer(IUlearn5CoreLayer)
+class ResetNotify(BrowserView):
 
-    def update(self):
+    def __call__(self):
         if 'confirm' in self.request.form:
             portal = api.portal.get()
             soup = get_soup('notify_popup', portal)
@@ -304,14 +268,10 @@ class ResetNotify(grok.View):
             self.request.response.redirect(getSite().absolute_url() + '/@@ulearn-control-popup')
 
 
-class ViewAnnotationNotifyPopup(grok.View):
-    grok.name('view_annotation_notify_popup')
-    grok.context(Interface)
-    grok.require('cmf.ManagePortal')
-    grok.layer(IUlearn5CoreLayer)
+class ViewAnnotationNotifyPopup(BrowserView):
 
     @json_response
-    def render(self):
+    def __call__(self):
         portal = api.portal.get()
         soup = get_soup('notify_popup', portal)
         records = [r for r in list(soup.data.items())]
@@ -321,13 +281,9 @@ class ViewAnnotationNotifyPopup(grok.View):
         return result
 
 
-class CloseNotifyPopup(grok.View):
-    grok.name('close_notify_popup')
-    grok.context(Interface)
-    grok.require('zope2.View')
-    grok.layer(IUlearn5CoreLayer)
+class CloseNotifyPopup(BrowserView):
 
-    def render(self):
+    def __call__(self):
         user = api.user.get_current()
         portal = api.portal.get()
         soup = get_soup('notify_popup', portal)
@@ -339,23 +295,15 @@ class CloseNotifyPopup(grok.View):
             soup.reindex()
 
 
-class CloseNotifyPopupBirthday(grok.View):
-    grok.name('close_notify_popup_birthday')
-    grok.context(Interface)
-    grok.require('zope2.View')
-    grok.layer(IUlearn5CoreLayer)
+class CloseNotifyPopupBirthday(BrowserView):
 
-    def render(self):
+    def __call__(self):
         self.request.response.expireCookie('popup_birthday', path='/')
 
 
-class UpdateBirthdayProfileByMail(grok.View):
-    grok.name('update_birthday_profile_by_mail')
-    grok.context(Interface)
-    grok.require('cmf.ManagePortal')
-    grok.layer(IUlearn5CoreLayer)
+class UpdateBirthdayProfileByMail(BrowserView):
 
-    def render(self):
+    def __call__(self):
         email = self.request.form.get('email', '')
         birthday = self.request.form.get('birthday', '')
         if email == '' or birthday == '':
