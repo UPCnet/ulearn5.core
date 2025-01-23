@@ -199,4 +199,33 @@
         name="notify_popup"
     />
 
+  <browser:page
+    name="install_product"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class="ulearn5.core.tocador.installPloneProduct"
+    permission="cmf.ManagePortal"
+    />
+
+
+  <browser:page
+    name="reinstall_product"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class="ulearn5.core.tocador.reinstallPloneProduct"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    name="uninstall_product"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class="ulearn5.core.tocador.uninstallPloneProduct"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    name="bulk_action"
+    for="OFS.interfaces.IApplication"
+    class="ulearn5.core.tocador.bulkExecuteScriptView"
+    permission="cmf.ManagePortal"
+    />
+
 </configure>
