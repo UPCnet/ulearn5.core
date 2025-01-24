@@ -1,0 +1,12 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+xmlns:plone="http://namespaces.plone.org/plone">
+
+    <plone:service
+        method="GET"
+        name="/api/appconfig"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        factory=".appconfig_service.AppConfig"
+        permission="base.authenticated"
+    />
+
+</configure>
