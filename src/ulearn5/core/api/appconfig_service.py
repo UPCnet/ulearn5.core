@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Appconfig(Service):
+class AppConfig(Service):
     """
     - Endpoint: /api/appconfig
     - Method: GET
