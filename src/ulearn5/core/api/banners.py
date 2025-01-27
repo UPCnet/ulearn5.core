@@ -22,6 +22,7 @@ class Banners(REST):
     grok.adapts(APIRoot, IPloneSiteRoot)
     grok.require('base.authenticated')
 
+    # Y con esto qué? Qué significa?
     @api_resource(required_roles=['Member', 'Manager', 'Api'])
     def GET(self):
         """ Return all banners. """

@@ -23,7 +23,6 @@ class Banners(Service):
         """ Return all banners. """
         banners = []
 
-
         results = self.find_banner_results()
 
         portal_url = self.get_portal_url()
