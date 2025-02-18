@@ -1,47 +1,42 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_inner
-from Products.CMFPlone.interfaces import ILanguageSchema
-from Products.CMFPlone.interfaces import ISearchSchema
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
-from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
-from Products.Five.browser import BrowserView
+import json
+import logging
 from datetime import datetime
-from plone import api
-from plone.app.discussion.interfaces import IDiscussionSettings
-from plone.dexterity.utils import createContentInContainer
-from plone.namedfile.file import NamedBlobFile
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import IPortletManager
-from plone.registry.interfaces import IRegistry
-from repoze.catalog.query import Eq
-from souper.soup import get_soup
-from zope.component import getMultiAdapter
-from zope.component import getUtility
-from zope.component import queryUtility
-from zope.component.hooks import getSite
-from zope.interface import alsoProvides
 from hashlib import sha1
-from plone.app.textfield.value import RichTextValue
+
+import requests
+import transaction
+from Acquisition import aq_inner
 from base5.core.adapters.favorites import IFavorite
 from base5.core.utilities import IElasticSearch
 from base5.core.utils import remove_user_from_catalog
 from base5.portlets.browser.manager import IColStorage
 from mrs5.max.utilities import IMAXClient
+from plone import api
+from plone.app.discussion.interfaces import IDiscussionSettings
+from plone.app.textfield.value import RichTextValue
+from plone.dexterity.utils import createContentInContainer
+from plone.namedfile.file import NamedBlobFile
+from plone.portlets.interfaces import (IPortletAssignmentMapping,
+                                       IPortletManager)
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import ILanguageSchema, ISearchSchema
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
+from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
+from Products.Five.browser import BrowserView
 from ulearn5.core.api.people import Person
-from ulearn5.core.browser.sharing import ElasticSharing
-from ulearn5.core.browser.sharing import IElasticSharing
+from ulearn5.core.browser.sharing import ElasticSharing, IElasticSharing
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import IGWUUID
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
-from ulearn5.core.utils import is_activate_externalstorage, is_activate_etherpad
-
-import json
-import logging
-import requests
-import transaction
-
+from ulearn5.core.utils import (get_or_initialize_annotation,
+                                is_activate_etherpad,
+                                is_activate_externalstorage)
+from zope.component import getMultiAdapter, getUtility, queryUtility
+from zope.component.hooks import getSite
+from zope.interface import alsoProvides
 
 ATTRIBUTE_NAME_FAVORITE = "_favoritedBy"
 
@@ -199,8 +194,8 @@ class setupHomePage(BrowserView):
             "Manager",
         )
 
-        from plone.portlets.interfaces import ILocalPortletAssignmentManager
         from plone.portlets.constants import CONTEXT_CATEGORY
+        from plone.portlets.interfaces import ILocalPortletAssignmentManager
 
         # Get the proper portlet manager
         manager = getUtility(IPortletManager, name="plone.rightcolumn")
@@ -229,23 +224,21 @@ class setupHomePage(BrowserView):
         # Turn off the manager
         blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
-        from zope.container.interfaces import INameChooser
-        from ulearn5.theme.portlets.profile.profile import (
-            Assignment as profileAssignment,
-        )
-        from ulearn5.theme.portlets.communities import (
-            Assignment as communitiesAssignment,
-        )
-        from ulearn5.theme.portlets.thinnkers import Assignment as thinnkersAssignment
         from mrs5.max.portlets.maxui import Assignment as maxAssignment
         from mrs5.max.portlets.maxuichat import Assignment as chatAssignment
-        from ulearn5.theme.portlets.buttonbar.buttonbar import (
-            Assignment as buttonbarAssignment,
-        )
-        from ulearn5.theme.portlets.calendar import Assignment as calendarAssignment
-        from ulearn5.theme.portlets.angularrouteview import (
-            Assignment as angularrouteviewAssignment,
-        )
+        from ulearn5.theme.portlets.angularrouteview import \
+            Assignment as angularrouteviewAssignment
+        from ulearn5.theme.portlets.buttonbar.buttonbar import \
+            Assignment as buttonbarAssignment
+        from ulearn5.theme.portlets.calendar import \
+            Assignment as calendarAssignment
+        from ulearn5.theme.portlets.communities import \
+            Assignment as communitiesAssignment
+        from ulearn5.theme.portlets.profile.profile import \
+            Assignment as profileAssignment
+        from ulearn5.theme.portlets.thinnkers import \
+            Assignment as thinnkersAssignment
+        from zope.container.interfaces import INameChooser
 
         # Add portlets programatically
         column = getUtility(
@@ -899,31 +892,24 @@ class deleteUsers(BrowserView):
                                             num, len(communities_subscription), obj
                                         )
                                     )
+ 
                                     gwuuid = IGWUUID(obj).get()
-                                    portal = api.portal.get()
-                                    soup = get_soup("communities_acl", portal)
+                                    communities_acl = get_or_initialize_annotation("communities_acl")
 
-                                    records = [
-                                        r for r in soup.query(Eq("gwuuid", gwuuid))
-                                    ]
+                                    acl_record = next((r for r in communities_acl.values() if r.get("gwuuid") == gwuuid), None)
 
-                                    # Save ACL into the communities_acl soup
-                                    if records:
-                                        acl_record = records[0]
-                                        acl = acl_record.attrs["acl"]
-                                        exist = [
-                                            a
-                                            for a in acl["users"]
-                                            if a["id"] == str(username)
-                                        ]
+                                    # Save ACL into the communities_acl annotation
+                                    if acl_record:
+                                        acl = acl_record["acl"]
+                                        exist = next((a for a in acl["users"] if a["id"] == str(username)), None)
+
                                         if exist:
-                                            acl["users"].remove(exist[0])
-                                            acl_record.attrs["acl"] = acl
-                                            soup.reindex(records=[acl_record])
+                                            acl["users"].remove(exist)
+                                            acl_record["acl"] = acl
+
                                             adapter = obj.adapted()
-                                            adapter.set_plone_permissions(
-                                                adapter.get_acl()
-                                            )
+                                            adapter.set_plone_permissions(adapter.get_acl())
+
 
                                 except Exception as e:
                                     print(e)
@@ -973,25 +959,25 @@ class deleteUsersInCommunities(BrowserView):
                                     num, len(comunnities), obj
                                 )
                             )
+
                             gwuuid = IGWUUID(obj).get()
-                            portal = api.portal.get()
-                            soup = get_soup("communities_acl", portal)
+                            communities_acl = get_or_initialize_annotation("communities_acl")
 
-                            records = [r for r in soup.query(Eq("gwuuid", gwuuid))]
+                            acl_record = next((r for r in communities_acl.values() if r.get("gwuuid") == gwuuid), None)
 
-                            # Save ACL into the communities_acl soup
-                            if records:
-                                acl_record = records[0]
-                                acl = acl_record.attrs["acl"]
-                                exist = [
-                                    a for a in acl["users"] if a["id"] == str(username)
-                                ]
+                            # Save ACL into the communities_acl annotation
+                            if acl_record:
+                                acl = acl_record["acl"]
+                                exist = next((a for a in acl["users"] if a["id"] == str(username)), None)
+
                                 if exist:
-                                    acl["users"].remove(exist[0])
-                                    acl_record.attrs["acl"] = acl
-                                    soup.reindex(records=[acl_record])
+                                    acl["users"].remove(exist)
+                                    acl_record["acl"] = acl
+
                                     adapter = obj.adapted()
                                     adapter.set_plone_permissions(adapter.get_acl())
+
+                            
 
                         logger.info("Delete user in communities: {}".format(user))
                     except:
@@ -1215,31 +1201,25 @@ class viewUsersWithNotUpdatedPhoto(BrowserView):
     """Shows the user list that the photo has not been changed"""
 
     def __call__(self):
-        portal = api.portal.get()
-        soup = get_soup("user_properties", portal)
-        records = [r for r in list(soup.data.items())]
+        user_properties = get_or_initialize_annotation("user_properties")
 
         result = {}
-        for record in records:
-            userID = record[1].attrs["id"]
-            if userID != "admin":
+        for record in user_properties.values():
+            userID = record.get("id")
+            if userID and userID != "admin":
                 mtool = api.portal.get_tool(name="portal_membership")
                 portrait = mtool.getPersonalPortrait(userID)
                 typePortrait = portrait.__class__.__name__
+
                 if typePortrait == "FSImage" or (
                     typePortrait == "Image"
-                    and portrait.size == 9715
-                    or portrait.size == 4831
+                    and portrait.size in (9715, 4831)
                 ):
-                    fullname = (
-                        record[1].attrs["fullname"]
-                        if "fullname" in record[1].attrs
-                        else ""
-                    )
-                    userInfo = {"fullname": fullname}
-                    result[userID] = userInfo
+                    fullname = record.get("fullname", "")
+                    result[userID] = {"fullname": fullname}
 
         return result
+
 
 
 class deletePhotoFromUser(BrowserView):

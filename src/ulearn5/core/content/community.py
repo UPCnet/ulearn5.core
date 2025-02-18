@@ -1,92 +1,75 @@
 # -*- coding: utf-8 -*-
-from AccessControl import Unauthorized
-from DateTime.DateTime import DateTime
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-from Products.CMFPlone.utils import safe_unicode
-from Products.statusmessages.interfaces import IStatusMessage
-from ZPublisher.HTTPRequest import FileUpload
-
-from five import grok
+import ast
+import json
+import logging
+import mimetypes
+import uuid
 from hashlib import sha1
+from time import time
+
+from AccessControl import Unauthorized
+from base5.core.adapters.favorites import IFavorite
+from base5.core.adapters.notnotifypush import INotNotifyPush
+from base5.core.utils import json_response
+from DateTime.DateTime import DateTime
+from five import grok
+from mrs5.max.utilities import IHubClient, IMAXClient
 from plone import api
+from plone.app.layout.navigation.root import getNavigationRootObject
 from plone.dexterity.content import Container
 from plone.dexterity.interfaces import IDexterityContent
 from plone.dexterity.utils import createContentInContainer
 from plone.directives import form
 from plone.indexer import indexer
+from plone.memoize import ram
 from plone.memoize.view import memoize_contextless
 from plone.namedfile.field import NamedBlobImage
-from plone.portlets.interfaces import IPortletManager
-from plone.portlets.interfaces import IPortletRetriever
+from plone.portlets.interfaces import IPortletManager, IPortletRetriever
 from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.CMFPlone.utils import safe_unicode
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.indexes.keyword import CatalogKeywordIndex
 from repoze.catalog.indexes.text import CatalogTextIndex
-from repoze.catalog.query import Eq
-from repoze.catalog.query import Or
 from souper.interfaces import ICatalogFactory
-from souper.soup import NodeAttributeIndexer
-from souper.soup import Record
-from souper.soup import get_soup
-from z3c.form import button
-from zope import schema
-from zope.component import adapter
-from zope.component import getMultiAdapter
-from zope.component import getUtility
-from zope.component import queryUtility
-from zope.component.hooks import getSite
-from zope.container.interfaces import INameChooser
-from zope.container.interfaces import IObjectAddedEvent
-from zope.event import notify
-from zope.globalrequest import getRequest
-from zope.interface import Interface
-from zope.interface import Invalid
-from zope.interface import alsoProvides
-from zope.interface import implementer
-from zope.lifecycleevent import ObjectModifiedEvent
-from zope.lifecycleevent.interfaces import IObjectModifiedEvent
-from zope.lifecycleevent.interfaces import IObjectRemovedEvent
-from zope.schema.interfaces import IContextSourceBinder
-from zope.schema.vocabulary import SimpleVocabulary
-from zope.security import checkPermission
-
-from base5.core.adapters.favorites import IFavorite
-from base5.core.adapters.notnotifypush import INotNotifyPush
-from base5.core.utils import json_response
-from mrs5.max.utilities import IHubClient
-from mrs5.max.utilities import IMAXClient
+#from souper.soup import NodeAttributeIndexer
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import IGWUUID
-from ulearn5.core.interfaces import IDXFileFactory
-from ulearn5.core.interfaces import IDocumentFolder
-from ulearn5.core.interfaces import IEventsFolder
-from ulearn5.core.interfaces import INewsItemFolder
-from ulearn5.core.interfaces import IPhotosFolder
-from ulearn5.core.utils import is_activate_externalstorage, is_activate_etherpad
-from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
+from ulearn5.core.interfaces import (IDocumentFolder, IDXFileFactory,
+                                     IEventsFolder, INewsItemFolder,
+                                     IPhotosFolder)
+from ulearn5.core.utils import (get_or_initialize_annotation,
+                                is_activate_etherpad,
+                                is_activate_externalstorage)
+from ulearn5.core.widgets.select2_maxuser_widget import \
+    Select2MAXUserInputFieldWidget
 from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
+from ulearn5.core.widgets.single_checkbox_notify_email_widget import \
+    SingleCheckBoxNotifyEmailFieldWidget
 from ulearn5.core.widgets.terms_widget import TermsFieldWidget
-from DateTime.DateTime import DateTime
-from plone.app.layout.navigation.root import getNavigationRootObject
-from z3c.form.interfaces import IAddForm, IEditForm
+from z3c.form import button
 from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
-from ulearn5.core.widgets.single_checkbox_notify_email_widget import SingleCheckBoxNotifyEmailFieldWidget
-from zope.interface import provider
-from Products.Five.browser import BrowserView
-
-
-
-from plone.memoize import ram
-from time import time
-
-import ast
-import json
-import logging
-import mimetypes
-
+from z3c.form.interfaces import IAddForm, IEditForm
+from zope import schema
+from zope.component import adapter, getMultiAdapter, getUtility, queryUtility
+from zope.component.hooks import getSite
+from zope.container.interfaces import INameChooser, IObjectAddedEvent
+from zope.event import notify
+from zope.globalrequest import getRequest
+from zope.interface import (Interface, Invalid, alsoProvides, implementer,
+                            provider)
+from zope.lifecycleevent import ObjectModifiedEvent
+from zope.lifecycleevent.interfaces import (IObjectModifiedEvent,
+                                            IObjectRemovedEvent)
+from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.vocabulary import SimpleVocabulary
+from zope.security import checkPermission
+from ZPublisher.HTTPRequest import FileUpload
 
 logger = logging.getLogger(__name__)
 VALID_COMMUNITY_ROLES = ['reader', 'writer', 'owner']
@@ -366,14 +349,10 @@ class GetCommunityACL(object):
 
     def __call__(self):
         portal = api.portal.get()
-        soup = get_soup('communities_acl', portal)
+        communities_acl = get_or_initialize_annotation('communities_acl')
         gwuuid = IGWUUID(self.context).get()
-        records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
-
-        if records:
-            return records[0]
-        else:
-            return None
+        record = next((r for r in communities_acl.values() if r.get('gwuuid') == gwuuid), None)
+        return record
 
 # METODES COMUNS PER A TOTS ELS TIPUS DE COMUNITATS (PARAMETRES MAX)
 
@@ -473,38 +452,32 @@ class CommunityAdapterMixin(object):
 
     def update_acl(self, acl):
         gwuuid = IGWUUID(self.context).get()
-        portal = api.portal.get()
-        soup = get_soup('communities_acl', portal)
 
-        records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
-
+        communities_acl = get_or_initialize_annotation('communities_acl')
+        record = next((r for r in communities_acl.values() if r.get('gwuuid') == gwuuid), None)
         # Save ACL into the communities_acl soup
-        if records:
-            acl_record = records[0]
-        else:
+        if not record:
             # The community isn't indexed in the acl catalog yet, so do it now.
-            record = Record()
-            record.attrs['path'] = '/'.join(self.context.getPhysicalPath())
-            record.attrs['gwuuid'] = gwuuid
-            record.attrs['hash'] = sha1(self.context.absolute_url()).hexdigest()
-            record_id = soup.add(record)
-            acl_record = soup.get(record_id)
+            record = {
+                'path': '/'.join(self.context.getPhysicalPath()),
+                'gwuuid': gwuuid,
+                'hash': sha1(self.context.absolute_url()).hexdigest(),
+            }
+            unique_key = str(uuid.uuid4())
+            communities_acl[unique_key] = record
 
-        acl_record.attrs['groups'] = [g['id'] for g in acl.get('groups', []) if g.get('id', False)]
-        acl_record.attrs['acl'] = acl
-
-        soup.reindex(records=[acl_record])
+        record['groups'] = [g['id'] for g in acl.get('groups', []) if g.get('id', False)]
+        record['acl'] = acl
+        
 
     def delete_acl(self):
         """ In case that we delete the community, delete its ACL record. """
         gwuuid = IGWUUID(self.context).get()
-        portal = api.portal.get()
-        soup = get_soup('communities_acl', portal)
+        communities_acl = get_or_initialize_annotation('communities_acl')
+        record_key, record = next(((k, v) for k, v in communities_acl.items() if v.get('gwuuid') == gwuuid), (None, None))
 
-        records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
-
-        if records:
-            del soup[records[0]]
+        if record_key is not None:
+            del communities_acl[record_key]
 
     def remove_acl_atomic(self, username):
         acl = self.get_acl()
@@ -947,19 +920,19 @@ class UpdateUserAccessDateTime(BrowserView):
     def render(self):
         """ Quan accedeixes a la comunitat, actualitza la data d'accès de l'usuari
             a la comunitat i per tant, el comptador de pendents queda a 0. """
-        portal = api.portal.get()
         current_user = api.user.get_current()
         user_community = current_user.id + '_' + self.context.id
-        soup_access = get_soup('user_community_access', portal)
-        exist = [r for r in soup_access.query(Eq('user_community', user_community))]
-        if not exist:
-            record = Record()
-            record.attrs['user_community'] = user_community
-            record.attrs['data_access'] = DateTime()
-            soup_access.add(record)
+        user_community_access = get_or_initialize_annotation('user_community_access')
+        record = next((r for r in user_community_access.values() if r.get('user_community') == user_community), None)
+        if not record:
+            record = {
+                'user_community': user_community,
+                'data_access': DateTime()
+            }
+            unique_key = str(uuid.uuid4())
+            user_community_access[unique_key] = record
         else:
-            exist[0].attrs['data_access'] = DateTime()
-        soup_access.reindex()
+            record['data_access'] = DateTime()
 
         return dict(message='Done', status_code=200)
 
@@ -973,21 +946,17 @@ class EditACL(BrowserView):
     def get_acl(self):
         acl = ICommunityACL(self.context)().attrs.get('acl', '')
         # Search for users with missing or empty displayname
-        query_missing_displaynames = [Eq('username', user.get('id')) for user in acl['users'] if not user.get('displayName', '')]
-        if query_missing_displaynames:
-            # Generate a query to find properties from all users
-            # that lacks the displayname
-            portal = api.portal.get()
-            soup = get_soup('user_properties', portal)
-            query_missing_displaynames = Or(*query_missing_displaynames)
-            results = soup.query(query_missing_displaynames)
+        missing_usernames = {user.get('id') for user in acl['users'] if not user.get('displayName', '')}
+        if missing_usernames:
+            user_properties = get_or_initialize_annotation('user_properties')
+            results = [record for record in user_properties.values() if record.get('username') in missing_usernames]
 
             # Store all the found displaynames indexed by user
             displaynames = {}
             for result in results:
                 try:
-                    displaynames[result.attrs['username']] = result.attrs['fullname']
-                except:
+                    displaynames[result.get('username')] = result.get('fullname')
+                except Exception:
                     pass
 
             # Update the acl list with recovered displaynames from soup
@@ -1713,7 +1682,7 @@ def delete_community(community, event):
 
 @implementer(ICatalogFactory)
 class ACLSoupCatalog(object):
-    def __call__(self, context):
+    def __call__old(self, context):
         catalog = Catalog()
         pathindexer = NodeAttributeIndexer('path')
         catalog['path'] = CatalogFieldIndex(pathindexer)
@@ -1724,6 +1693,15 @@ class ACLSoupCatalog(object):
         groups = NodeAttributeIndexer('groups')
         catalog['groups'] = CatalogKeywordIndex(groups)
         return catalog
+    
+    def __call__(self, context):
+        menu_soup = get_or_initialize_annotation('communities_acl')
+        return {
+            'path': menu_soup.get('path', None),
+            'hash': menu_soup.get('hash', None),
+            'gwuuid': menu_soup.get('gwuuid', None),
+            'groups': menu_soup.get('groups', None),
+        }
 
 
 # grok.global_utility(ACLSoupCatalog, name='communities_acl')
@@ -1736,13 +1714,21 @@ class UserCommunityAccessCatalogFactory(object):
         :index data_access: FieldIndex -  DateTime of user access to the community
     """
 
-    def __call__(self, context):
+    def __call__old(self, context):
         catalog = Catalog()
         idindexer = NodeAttributeIndexer('user_community')
         catalog['user_community'] = CatalogTextIndex(idindexer)
         dataindexer = NodeAttributeIndexer('data_access')
         catalog['data_access'] = CatalogFieldIndex(dataindexer)
         return catalog
+    
+    def __call__(self, context):
+        menu_soup = get_or_initialize_annotation('user_community_access')
+        return {
+            'user_community': menu_soup.get('user_community', None),
+            'data_access': menu_soup.get('data_access', None),
+        }
+
 
 
 # grok.global_utility(UserCommunityAccessCatalogFactory, name="user_community_access")

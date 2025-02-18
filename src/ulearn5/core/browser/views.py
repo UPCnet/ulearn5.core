@@ -1,35 +1,29 @@
 # -*- coding: utf-8 -*-
-from base5.core.utils import json_response
-from base5.core.utils import portal_url
-from io import StringIO
-from itertools import chain
-from mrs5.max.utilities import IMAXClient
-from plone import api
-from plone.namedfile.utils import set_headers
-from plone.namedfile.utils import stream_data
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import IPortletManager
-from plone.registry.interfaces import IRegistry
-from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
-from repoze.catalog.query import Eq
-from souper.soup import get_soup
-from souper.soup import Record
-from ulearn5.core import _
-from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-from ulearn5.core.utils import getSearchersFromUser
-from zope.component import getMultiAdapter
-from zope.component import getUtility
-from zope.component import queryUtility
-from zope.component.hooks import getSite
-
 import io
 import json
 import logging
 import os
+import uuid
+from io import StringIO
+from itertools import chain
+
 import PIL
 import requests
-
+from base5.core.utils import json_response, portal_url
+from mrs5.max.utilities import IMAXClient
+from plone import api
+from plone.namedfile.utils import set_headers, stream_data
+from plone.portlets.interfaces import (IPortletAssignmentMapping,
+                                       IPortletManager)
+from plone.registry.interfaces import IRegistry
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+from ulearn5.core import _
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from ulearn5.core.utils import (get_or_initialize_annotation,
+                                getSearchersFromUser)
+from zope.component import getMultiAdapter, getUtility, queryUtility
+from zope.component.hooks import getSite
 
 logger = logging.getLogger(__name__)
 
@@ -70,58 +64,49 @@ class AjaxUserSearch(BrowserView):
 class addUserSearch(BrowserView):
 
     def __call__(self):
-        portal = getSite()
         current_user = api.user.get_current()
         userid = current_user.id
         search_items_string = self.request.form['items']
         search_items = search_items_string.split(',')
-        soup_searches = get_soup('user_news_searches', portal)
-        exist = [r for r in soup_searches.query(Eq('id', userid))]
-        if not exist:
-            record = Record()
-            record.attrs['id'] = userid
-            record.attrs['searches'] = [search_items]
-            record_id = soup_searches.add(record)
-            acl_record = soup_searches.get(record_id)
-        else:
-            acl_record = exist[0]
-            in_list = False
-            total_searches = acl_record.attrs['searches']
-            if acl_record.attrs['searches']:
-                for search in acl_record.attrs['searches']:
-                    for i, item in enumerate(search_items):
-                        if item not in search:
-                            break
-                        if i == len(search_items) - 1:
-                            if len(search_items) < len(search):
-                                break
-                            else:
-                                in_list = True
-            if not in_list:
-                total_searches.append(search_items)
-                acl_record.attrs['searches'] = total_searches
-            else:
-                acl_record.attrs['searches'] = total_searches
 
-        soup_searches.reindex(records=[acl_record])
+        user_news_searches = get_or_initialize_annotation('user_news_searches')
+        record = next((r for r in user_news_searches.values() if r.get('id') == userid), None)
+        if not record:
+            record = {
+                'id': userid,
+                'searches': list(search_items)
+            }
+            unique_key = str(uuid.uuid4())
+            user_news_searches[unique_key] = record
+        else:
+            in_list = any(
+                all(item in search for i, item in enumerate(search_items)) and 
+                (len(search_items) >= len(search))
+                for search in record.get('searches', [])
+            )
+
+            if not in_list:
+                record['searches'].append(search_items)
+        
         return json.dumps(getSearchersFromUser())
 
 
 class removeUserSearch(BrowserView):
 
     def __call__(self):
-        portal = getSite()
         current_user = api.user.get_current()
         userid = current_user.id
         search_items = self.request.form['items']
         search_items = search_items.split(',')
-        in_list = False
-        soup_searches = get_soup('user_news_searches', portal)
-        exist = [r for r in soup_searches.query(Eq('id', userid))]
-        if exist:
-            acl_record = exist[0]
-            total_searches = acl_record.attrs['searches']
-            for search in exist[0].attrs['searches']:
+
+        user_news_searches = get_or_initialize_annotation('user_news_searches')
+        record = next((r for r in user_news_searches.values() if r.get('id') == userid), None)
+
+        if record:
+            total_searches = record.get('searches', [])
+            in_list = False
+
+            for search in total_searches:
                 for i, item in enumerate(search_items):
                     if item not in search:
                         break
@@ -130,16 +115,16 @@ class removeUserSearch(BrowserView):
                             break
                         else:
                             in_list = True
-                    if in_list:
-                        try:
-                            total_searches.remove(search_items)
-                        except Exception as e:
-                            print(e)
-                            pass
-                        acl_record.attrs['searches'] = total_searches
-                        soup_searches.reindex(records=[acl_record])
+                if in_list:
+                    try:
+                        total_searches.remove(search_items)
+                    except Exception as e:
+                        print(e)
+                        pass
+                    record['searches'] = total_searches
 
         return json.dumps(getSearchersFromUser())
+
 
 
 class isSearchInSearchers(BrowserView):
@@ -150,11 +135,11 @@ class isSearchInSearchers(BrowserView):
         userid = current_user.id
         search_items = self.request.form['items']
         search_items = search_items.split(',')
-        soup_searches = get_soup('user_news_searches', portal)
-        exist = [r for r in soup_searches.query(Eq('id', userid))]
-        if exist:
-            if exist[0].attrs['searches']:
-                for search in exist[0].attrs['searches']:
+        user_news_searches = get_or_initialize_annotation('user_news_searches')
+        record = next((r for r in user_news_searches.values() if r.get('id') == userid), None)
+        if record:
+            if record.get('searches'):
+                for search in record.get('searches'):
                     for i, item in enumerate(search_items):
                         if item not in search:
                             break
@@ -163,9 +148,7 @@ class isSearchInSearchers(BrowserView):
                                 break
                             else:
                                 return True
-                return False
         return False
-
 
 class getUserSearchers(BrowserView):
 
@@ -260,9 +243,8 @@ class ResetNotify(BrowserView):
 
     def __call__(self):
         if 'confirm' in self.request.form:
-            portal = api.portal.get()
-            soup = get_soup('notify_popup', portal)
-            soup.clear()
+            notify_popup = get_or_initialize_annotation('notify_popup')
+            notify_popup.clear()
 
             IStatusMessage(self.request).addStatusMessage(_('Reset notify from all users'), type='info')
             self.request.response.redirect(getSite().absolute_url() + '/@@ulearn-control-popup')
@@ -272,12 +254,9 @@ class ViewAnnotationNotifyPopup(BrowserView):
 
     @json_response
     def __call__(self):
-        portal = api.portal.get()
-        soup = get_soup('notify_popup', portal)
-        records = [r for r in list(soup.data.items())]
-        result = []
-        for record in records:
-            result.append(record[1].attrs['id'])
+        notify_popup = get_or_initialize_annotation('notify_popup')
+        records = [r for r in list(notify_popup.values())]
+        result = [record.get('id') for record in records]
         return result
 
 
@@ -285,15 +264,13 @@ class CloseNotifyPopup(BrowserView):
 
     def __call__(self):
         user = api.user.get_current()
-        portal = api.portal.get()
-        soup = get_soup('notify_popup', portal)
-        exist = [r for r in soup.query(Eq('id', user.id))]
-        if not exist:
-            record = Record()
-            record.attrs['id'] = user.id
-            soup.add(record)
-            soup.reindex()
+        notify_popup = get_or_initialize_annotation('notify_popup')
+        record = next((r for r in notify_popup.values() if r.get('id') == user.id), None)
 
+        if not record:
+            record = {'id': user.id}
+            unique_key = str(uuid.uuid4())
+            notify_popup[unique_key] = record
 
 class CloseNotifyPopupBirthday(BrowserView):
 
@@ -309,17 +286,17 @@ class UpdateBirthdayProfileByMail(BrowserView):
         if email == '' or birthday == '':
             return 'Es necessario pasar los parámetros email y birthday'
 
-        portal = api.portal.get()
-        soup = get_soup('user_properties', portal)
-        records = [r for r in soup.query(Eq('email', email))]
-        if records:
-            if len(records) > 1:
-                return 'KO ' + email + '. Más de un usuario tiene este correo'
+        user_properties = get_or_initialize_annotation('user_properties')
+        records = [r for r in user_properties.values() if r.get('email') == email]
 
-            username = records[0].attrs.get('username')
-            if username:
-                user = api.user.get(userid=username)
-                user.setMemberProperties({'birthday': birthday})
-                return 'OK ' + email
-
-        return 'KO ' + email + '. No se encontro ningún usuario con este correo'
+        if not records:
+            return f'KO {email}. No se encontró ningún usuario con este correo'
+        
+        if len(records) > 1:
+            return f'KO {email}. Más de un usuario tiene este correo'
+        
+        username = records[0].get('username')
+        if username:
+            user = api.user.get(userid = username)
+            user.setMemberProperties({'birthday': birthday})
+            return f'OK {email}'

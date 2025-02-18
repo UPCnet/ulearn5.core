@@ -12,9 +12,9 @@ from ulearn5.core.content.community import ICommunity
 from six.moves import range
 
 
-def getCommunityNameFromObj(self, value):
-    portal_state = self.context.unrestrictedTraverse('@@plone_portal_state')
-    root = getNavigationRootObject(self.context, portal_state.portal())
+def getCommunityNameFromObj(context, value):
+    portal_state = context.unrestrictedTraverse('@@plone_portal_state')
+    root = getNavigationRootObject(context, portal_state.portal())
     physical_path = value.getPhysicalPath()
     relative = physical_path[len(root.getPhysicalPath()):]
     for i in range(len(relative)):

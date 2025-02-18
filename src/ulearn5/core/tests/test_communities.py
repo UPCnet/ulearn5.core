@@ -1,34 +1,24 @@
 # -*- coding: utf-8 -*-
+import json
 from hashlib import sha1
-from plone import api
-from AccessControl import Unauthorized
-from zope.event import notify
-from zope.lifecycleevent import ObjectModifiedEvent
-from zope.component import getUtility
-from zope.component import getMultiAdapter
-from zope.component import getAdapter
-
-from plone.app.testing import login
-from plone.app.testing import logout
-
-
-from repoze.catalog.query import Eq
-from souper.soup import get_soup
-
-from ulearn5.core.gwuuid import IGWUUID
-
-from mrs5.max.utilities import IMAXClient
-from ulearn5.core.tests import uLearnTestBase
-from ulearn5.core.content.community import ICommunityTyped
-from ulearn5.core.testing import ULEARN5_CORE_INTEGRATION_TESTING
-
-from ulearn5.core.content.community import OPEN_PERMISSIONS
-from ulearn5.core.content.community import CLOSED_PERMISSIONS
-from ulearn5.core.content.community import ORGANIZATIVE_PERMISSIONS
-from ulearn5.core.tests.mockers import http_mock_hub_syncacl
 
 import httpretty
-import json
+from AccessControl import Unauthorized
+from mrs5.max.utilities import IMAXClient
+from plone import api
+from plone.app.testing import login, logout
+from ulearn5.core.content.community import (CLOSED_PERMISSIONS,
+                                            OPEN_PERMISSIONS,
+                                            ORGANIZATIVE_PERMISSIONS,
+                                            ICommunityTyped)
+from ulearn5.core.gwuuid import IGWUUID
+from ulearn5.core.testing import ULEARN5_CORE_INTEGRATION_TESTING
+from ulearn5.core.tests import uLearnTestBase
+from ulearn5.core.tests.mockers import http_mock_hub_syncacl
+from ulearn5.core.utils import get_or_initialize_annotation
+from zope.component import getAdapter, getMultiAdapter, getUtility
+from zope.event import notify
+from zope.lifecycleevent import ObjectModifiedEvent
 
 
 class TestExample(uLearnTestBase):
@@ -93,16 +83,15 @@ class TestExample(uLearnTestBase):
 
         logout()
 
-        # Test for the acl registry
-        soup = get_soup('communities_acl', self.portal)
-        # By the gwuuid
-        records = [r for r in soup.query(Eq('gwuuid', IGWUUID(community).get()))]
+        communities_acl = get_or_initialize_annotation('communities_acl')
+        gwuuid = IGWUUID(community).get()
+        records = [r for r in communities_acl.values() if r.get('gwuuid') == gwuuid]
         self.assertEqual(len(records), 1)
-        self.assertEqual(records[0].attrs.get('gwuuid', ''), IGWUUID(community).get())
-        self.assertEqual(records[0].attrs.get('path', ''), '/'.join(community.getPhysicalPath()))
-        self.assertEqual(records[0].attrs.get('hash', ''), sha1(community.absolute_url()).hexdigest())
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['role'], 'owner')
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
+        self.assertEqual(records[0].get('gwuuid', ''), gwuuid)
+        self.assertEqual(records[0].get('path', ''), '/'.join(community.getPhysicalPath()))
+        self.assertEqual(records[0].get('hash', ''), sha1(community.absolute_url()).hexdigest())
+        self.assertEqual(records[0].get('acl', '').get('users', [])[0]['role'], 'owner')
+        self.assertEqual(records[0].get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
 
         # Test for internal objects
         self.assertEqual(community.objectIds(), ['documents', 'events', 'news'])
@@ -149,15 +138,15 @@ class TestExample(uLearnTestBase):
         logout()
 
         # Test for the acl registry
-        soup = get_soup('communities_acl', self.portal)
-        # By the gwuuid
-        records = [r for r in soup.query(Eq('gwuuid', IGWUUID(community).get()))]
+        communities_acl = get_or_initialize_annotation('communities_acl')
+        gwuuid = IGWUUID(community).get()
+        records = [r for r in communities_acl.values() if r.get('gwuuid') == gwuuid]
         self.assertEqual(len(records), 1)
-        self.assertEqual(records[0].attrs.get('gwuuid', ''), IGWUUID(community).get())
-        self.assertEqual(records[0].attrs.get('path', ''), '/'.join(community.getPhysicalPath()))
-        self.assertEqual(records[0].attrs.get('hash', ''), sha1(community.absolute_url()).hexdigest())
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['role'], 'owner')
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
+        self.assertEqual(records[0].get('gwuuid', ''), gwuuid)
+        self.assertEqual(records[0].get('path', ''), '/'.join(community.getPhysicalPath()))
+        self.assertEqual(records[0].get('hash', ''), sha1(community.absolute_url()).hexdigest())
+        self.assertEqual(records[0].get('acl', '').get('users', [])[0]['role'], 'owner')
+        self.assertEqual(records[0].get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
 
         # Test for internal objects
         self.assertEqual(community.objectIds(), ['documents', 'events', 'news'])
@@ -204,15 +193,15 @@ class TestExample(uLearnTestBase):
         logout()
 
         # Test for the acl registry
-        soup = get_soup('communities_acl', self.portal)
-        # By the gwuuid
-        records = [r for r in soup.query(Eq('gwuuid', IGWUUID(community).get()))]
+        communities_acl = get_or_initialize_annotation('communities_acl')
+        gwuuid = IGWUUID(community).get()
+        records = [r for r in communities_acl.values() if r.get('gwuuid') == gwuuid]
         self.assertEqual(len(records), 1)
-        self.assertEqual(records[0].attrs.get('gwuuid', ''), IGWUUID(community).get())
-        self.assertEqual(records[0].attrs.get('path', ''), '/'.join(community.getPhysicalPath()))
-        self.assertEqual(records[0].attrs.get('hash', ''), sha1(community.absolute_url()).hexdigest())
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['role'], 'owner')
-        self.assertEqual(records[0].attrs.get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
+        self.assertEqual(records[0].get('gwuuid', ''), gwuuid)
+        self.assertEqual(records[0].get('path', ''), '/'.join(community.getPhysicalPath()))
+        self.assertEqual(records[0].get('hash', ''), sha1(community.absolute_url()).hexdigest())
+        self.assertEqual(records[0].get('acl', '').get('users', [])[0]['role'], 'owner')
+        self.assertEqual(records[0].get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
 
         # Test for internal objects
         self.assertEqual(community.objectIds(), ['documents', 'events', 'news'])
@@ -298,10 +287,10 @@ class TestExample(uLearnTestBase):
         httpretty.disable()
         httpretty.reset()
 
-        soup = get_soup('communities_acl', self.portal)
-        records = [r for r in soup.query(Eq('gwuuid', IGWUUID(community).get()))]
-
-        self.assertEqual(cmp(records[0].attrs['acl'], acl), 0)
+        communities_acl = get_or_initialize_annotation('communities_acl')
+        gwuuid = IGWUUID(community).get()
+        records = [r for r in communities_acl.values() if r.get('gwuuid') == gwuuid]
+        self.assertEqual(cmp(records[0].get('acl', ''), acl), 0)
 
     def test_events_visibility(self):
         login(self.portal, 'ulearn.testuser1')
@@ -498,10 +487,9 @@ class TestExample(uLearnTestBase):
         gwuuid = IGWUUID(community).get()
         api.content.delete(obj=community)
 
-        soup = get_soup('communities_acl', self.portal)
-        records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
-
-        self.assertFalse(records)
+        communities_acl = get_or_initialize_annotation('communities_acl')
+        record = next((r for r in communities_acl.values() if r.get('gwuuid') == gwuuid), None)
+        self.assertFalse(record)
 
     def test_auto_subscribe_to_open(self):
         login(self.portal, 'ulearn.testuser1')

@@ -1,31 +1,25 @@
-from Acquisition import aq_chain
-from Acquisition import aq_inner
-from base5.core.adapters import IFlash
-from base5.core.adapters import IImportant
-from base5.core.adapters import IOutOfList
-from base5.core.adapters import IShowInApp
-from base5.core.utils import base_config
+import json
 from hashlib import sha1
+
+from Acquisition import aq_chain, aq_inner
+from base5.core.adapters import IFlash, IImportant, IOutOfList, IShowInApp
+from base5.core.utils import base_config
 from plone import api
-from plone.app.layout.viewlets.interfaces import IAboveContentTitle
-from plone.app.layout.viewlets.interfaces import IPortalHeader
+from plone.app.layout.viewlets.interfaces import (IAboveContentTitle,
+                                                  IPortalHeader)
 from plone.memoize.view import memoize_contextless
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import IPortletManager
+from plone.portlets.interfaces import (IPortletAssignmentMapping,
+                                       IPortletManager)
 from Products.Five.browser import BrowserView
-from repoze.catalog.query import Eq
-from souper.soup import get_soup
 from ulearn5.core import _
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.gwuuid import IGWUUID
-from zope.component import getMultiAdapter
-from zope.component import getUtility
+from ulearn5.core.utils import get_or_initialize_annotation
+from zope.component import getMultiAdapter, getUtility
 from zope.component.hooks import getSite
 from zope.interface import implementer
 from zope.security import checkPermission
 from zope.viewlet.interfaces import IViewlet
-
-import json
 
 
 @implementer(IViewlet)
@@ -223,17 +217,17 @@ class newsToolBar(IAboveContentTitle, viewletBase):
 class ListTagsNews(IAboveContentTitle, viewletBase):
 
     def isTagFollowed(self, category):
-        portal = getSite()
         current_user = api.user.get_current()
         userid = current_user.id
+        
+        user_subscribed_tags = get_or_initialize_annotation('user_subscribed_tags')
+        record = next((r for r in user_subscribed_tags.values() if r.get('id') == userid), None)
 
-        soup_tags = get_soup('user_subscribed_tags', portal)
-        tags_soup = [r for r in soup_tags.query(Eq('id', userid))]
-        if tags_soup:
-            tags = tags_soup[0].attrs['tags']
-            return True if category in tags else False
-        else:
-            return False
+        if record:
+            tags = record.get('tags', [])
+            return category in tags
+        
+        return False
 
 
 class ObjectUniversalLink(IAboveContentTitle, viewletBase):

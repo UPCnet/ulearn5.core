@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from repoze.catalog.query import Eq
-from repoze.catalog.query import Or
-from repoze.catalog.query import And
-from souper.soup import get_soup
-from zope.component import getUtility
-from Products.Five.browser import BrowserView
-from base5.core.utils import add_user_to_catalog
-from mrs5.max.utilities import IMAXClient
-
 import json
 import re
 import unicodedata
+import uuid
+
+from mrs5.max.utilities import IMAXClient
+from plone import api
+from Products.Five.browser import BrowserView
+from ulearn5.core.utils import get_or_initialize_annotation
+from zope.component import getUtility
 
 
 class Omega13UserSearch(BrowserView):
@@ -20,10 +17,11 @@ class Omega13UserSearch(BrowserView):
         query = self.request.form.get("q", "")
         last_query = self.request.form.get("last_query", "")
         last_query_count = self.request.form.get("last_query_count", 0)
+
         if query:
-            portal = api.portal.get()
             self.request.response.setHeader("Content-type", "application/json")
-            soup = get_soup("user_properties", portal)
+            user_properties = get_or_initialize_annotation("user_properties")
+
             searching_surname = len(
                 re.match(r"^[^\ \.]+(?: |\.)*(.*?)$", query).groups()[0]
             )
@@ -37,23 +35,23 @@ class Omega13UserSearch(BrowserView):
             normalized_query = normalized_query.replace(".", " ") + "*"
 
             def user_entry(record):
-                username = record.attrs.get("username")
-                fullname = record.attrs.get("fullname")
-                return dict(id=username, displayName=fullname if fullname else username)
+                return {
+                    "id": record.get("username"),
+                    "displayName": record.get("fullname") or record.get("username"),
+                }
 
             def searchable_text():
-                return soup.query(Eq("searchable_text", normalized_query))
+                return [
+                    r for r in user_properties.values() 
+                    if r.get("searchable_text") == normalized_query
+                ]
 
             def not_legit_users():
-                return soup.query(
-                    And(
-                        Or(
-                            Eq("username", normalized_query),
-                            Eq("fullname", normalized_query),
-                        ),
-                        Eq("notlegit", True),
-                    )
-                )
+                return [
+                    r for r in user_properties.values()
+                    if (r.get("username") == normalized_query or r.get("fullname") == normalized_query)
+                    and r.get("notlegit") is True
+                ]
 
             users_in_soup = [user_entry(r) for r in searchable_text()] + [
                 user_entry(r) for r in not_legit_users()
@@ -61,9 +59,7 @@ class Omega13UserSearch(BrowserView):
 
             too_much_results = len(users_in_soup) > result_threshold
 
-            is_useless_request = query.startswith(last_query) and len(
-                users_in_soup
-            ) == int(last_query_count)
+            is_useless_request = query.startswith(last_query) and len(users_in_soup) == int(last_query_count)
 
             if is_useless_request and (not too_much_results or searching_surname):
                 current_user = api.user.get_current()
@@ -75,34 +71,37 @@ class Omega13UserSearch(BrowserView):
 
                 max_users = maxclient.people.get(qs={"limit": 0, "username": query})
                 users_in_max = [
-                    dict(id=user.get("username"), displayName=user.get("displayName"))
+                    {"id": user.get("username"), "displayName": user.get("displayName")}
                     for user in max_users
                 ]
 
                 for user in users_in_max:
-                    add_user_to_catalog(
-                        user["id"], dict(displayName=user["displayName"]), notlegit=True
-                    )
+                    unique_key = str(uuid.uuid4())
+                    user_properties[unique_key] = {
+                        "username": user["id"],
+                        "fullname": user["displayName"],
+                        "notlegit": True,
+                    }
 
                 return json.dumps(
-                    dict(
-                        results=users_in_max,
-                        last_query=query,
-                        last_query_count=len(users_in_max),
-                    )
+                    {
+                        "results": users_in_max,
+                        "last_query": query,
+                        "last_query_count": len(users_in_max),
+                    }
                 )
             else:
                 return json.dumps(
-                    dict(
-                        results=users_in_soup,
-                        last_query=query,
-                        last_query_count=len(users_in_soup),
-                    )
+                    {
+                        "results": users_in_soup,
+                        "last_query": query,
+                        "last_query_count": len(users_in_soup),
+                    }
                 )
 
         else:
             return json.dumps(
-                dict(error="No query found", last_query="", last_query_count=0)
+                {"error": "No query found", "last_query": "", "last_query_count": 0}
             )
 
 
@@ -111,14 +110,16 @@ class Omega13GroupSearch(BrowserView):
     def __call__(self):
         query = self.request.form.get("q", "")
         if query:
-            portal = api.portal.get()
-            soup = get_soup("ldap_groups", portal)
+            ldap_groups = get_or_initialize_annotation("ldap_groups")
             normalized_query = query.replace(".", " ") + "*"
 
             results = [
-                dict(id=r.attrs.get("id"))
-                for r in soup.query(Eq("searchable_id", normalized_query))
+                {"id": r.get("id")}
+                for r in ldap_groups.values()
+                if r.get("searchable_id") == normalized_query
             ]
-            return json.dumps(dict(results=results))
+
+            return json.dumps({"results": results})
         else:
-            return json.dumps(dict(id="No results yet."))
+            return json.dumps({"id": "No results yet."})
+

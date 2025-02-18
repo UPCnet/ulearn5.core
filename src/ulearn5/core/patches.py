@@ -1,38 +1,32 @@
 # -*- encoding: utf-8 -*-
 import copy
+import logging
+import uuid
+
 import z3c.form.interfaces
-
-from plone import api
-from zope.component import getMultiAdapter
-from zope.component import getSiteManager
-from zope.component import getUtility
-from zope.component import getUtilitiesFor
-from zope.interface import implementer
-from zope.interface import providedBy
-from souper.interfaces import ICatalogFactory
-
-from AccessControl import ClassSecurityInfo
-from AccessControl import Unauthorized
+from AccessControl import ClassSecurityInfo, Unauthorized
 from Acquisition import aq_inner
-from zExceptions import Forbidden
+from base5.core.patches import deletePersonalPortrait
+from base5.core.utils import remove_user_from_catalog
+from mrs5.max.utilities import IMAXClient
+from plone import api
+from plone.app.users.browser.personalpreferences import \
+    PersonalPreferencesPanel
+from plone.i18n.interfaces import INegotiateLanguage
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.permissions import View
 from Products.CMFPlone import utils
 from Products.CMFPlone.interfaces import ILanguageSchema
-from mrs5.max.utilities import IMAXClient
-from plone.app.users.browser.personalpreferences import PersonalPreferencesPanel
-from plone.i18n.interfaces import INegotiateLanguage
-from plone.registry.interfaces import IRegistry
-from repoze.catalog.query import Eq
-from souper.soup import get_soup
-from souper.soup import Record
-
-from base5.core.patches import deletePersonalPortrait
-from base5.core.utils import remove_user_from_catalog
-from ulearn5.core.gwuuid import IGWUUID
-
-import logging
 from six.moves import range
+from souper.interfaces import ICatalogFactory
+from ulearn5.core.gwuuid import IGWUUID
+from ulearn5.core.utils import get_or_initialize_annotation
+from zExceptions import Forbidden
+from zope.component import (getMultiAdapter, getSiteManager, getUtilitiesFor,
+                            getUtility)
+from zope.interface import implementer, providedBy
+
 logger = logging.getLogger('event.LDAPMultiPlugin')
 
 
@@ -137,23 +131,19 @@ def deleteMembers(self, member_ids):
                     obj = community[0]._unrestrictedGetObject()
                     logger.info('Processant {} de {}. Comunitat {}'.format(num, len(communities_subscription), obj))
                     gwuuid = IGWUUID(obj).get()
-                    portal = api.portal.get()
-                    soup = get_soup('communities_acl', portal)
-
-                    records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
+                    communities_acl = get_or_initialize_annotation('communities_acl')
+                    record = next((r for r in communities_acl.values() if r.get('gwuuid') == gwuuid), None)
 
                     # Save ACL into the communities_acl soup
-                    if records:
-                        acl_record = records[0]
-                        acl = acl_record.attrs['acl']
-                        exist = [a for a in acl['users'] if a['id'] == str(member_id)]
+                    if record:
+                        acl = record['acl']
+                        exist = next((a for a in acl['users'] if a['id'] == str(member_id)), None)
                         if exist:
-                            acl['users'].remove(exist[0])
-                            acl_record.attrs['acl'] = acl
-                            soup.reindex(records=[acl_record])
+                            acl['users'].remove(exist)
+                            record['acl'] = acl
+
                             adapter = obj.adapted()
                             adapter.set_plone_permissions(adapter.get_acl())
-
                 except:
                     continue
 
@@ -165,15 +155,12 @@ def deleteMembers(self, member_ids):
             logger.info('Eliminat usuari {} del portal_memberdata.'.format(member_id))
 
             # Guardamos el username en el soup para borrar el usuario del local roles
-            portal = api.portal.get()
-            soup_users_delete = get_soup('users_delete_local_roles', portal)
-            exist = [r for r in soup_users_delete.query(Eq('id_username', member_id))]
+            users_delete_local_roles = get_or_initialize_annotation('users_delete_local_roles')
+            record = next((r for r in users_delete_local_roles.values() if r.get('id_username') == member_id), None)
 
-            if not exist:
-                record = Record()
-                record.attrs['id_username'] = member_id
-                soup_users_delete.add(record)
-                soup_users_delete.reindex()
+            if not record:
+                unique_key = str(uuid.uuid4())  # Generamos un identificador único
+                users_delete_local_roles[unique_key] = {'id_username': member_id}
 
             try:
                 self.maxclient.people[member_id].delete()
@@ -264,10 +251,11 @@ class NegotiateLanguage(object):
                 self.language = custom_lang_cookie
 
 
-from plone.registry.interfaces import IRegistry
-from zope.component import queryUtility
 from mrs5.max.browser.controlpanel import IMAXUISettings
+from plone.registry.interfaces import IRegistry
 from ulearn5.core.hooks import packages_installed
+from zope.component import queryUtility
+
 
 def authenticateCredentials(self, credentials):
     """ Fulfill AuthenticationPlugin requirements """
@@ -301,10 +289,11 @@ def authenticateCredentials(self, credentials):
 
 
 
-from zope.event import notify
+from plone.app.workflow import PloneMessageFactory as _
 from plone.app.workflow.events import LocalrolesModifiedEvent
 from Products.statusmessages.interfaces import IStatusMessage
-from plone.app.workflow import PloneMessageFactory as _
+from zope.event import notify
+
 
 # Notify LocalrolesModifiedEvent if settings
 # plone.app.workflow.browser.sharing.SharingView
@@ -362,13 +351,12 @@ def handle_form(self):
 
 
 from AccessControl import getSecurityManager
-from plone.portlets.interfaces import IPortletManager
 from plone.app.contentmenu.menu import PortletManagerSubMenuItem
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
-from zope.component import getUtilitiesFor
+from plone.portlets.interfaces import IPortletManager
 from plone.protect.utils import addTokenToUrl
+from plone.registry.interfaces import IRegistry
 from ulearn5.core import _
+from zope.component import getUtilitiesFor, getUtility
 from zope.component.hooks import getSite
 
 
@@ -504,14 +492,18 @@ def updateWidgetsPersonalPreferences(self):
     )
 
 default_portrait = '/++theme++ulearn5/assets/images/defaultUser.png'
-from zope.interface import alsoProvides
-from zope.component import getUtility
-from mrs5.max.utilities import IMAXClient
+import urllib.error
+import urllib.parse
+import urllib.request
+from time import time
+
 from base5.core.utils import convertSquareImage
-import urllib.request, urllib.parse, urllib.error
+from mrs5.max.utilities import IMAXClient
 from OFS.Image import Image
 from plone.memoize import ram
-from time import time
+from zope.component import getUtility
+from zope.interface import alsoProvides
+
 
 @ram.cache(lambda *args: time() // (60 * 60))
 def getPersonalPortrait(self, id=None, verifyPermission=0):
@@ -560,9 +552,11 @@ def getPersonalPortrait(self, id=None, verifyPermission=0):
     return portrait
 
 import os
+
 import ldap
-from ldap.filter import filter_format
 from base5.core.directory.views import get_ldap_config
+from ldap.filter import filter_format
+
 
 def from_latin1(s):
     """
@@ -575,6 +569,7 @@ def from_latin1(s):
        return s.decode('latin-1').encode("utf-8")
 
 from ldap.filter import escape_filter_chars
+
 
 def filter_format(filter_template,assertion_values):
   """
@@ -590,8 +585,8 @@ def filter_format(filter_template,assertion_values):
     return filter_template % tuple(escape_filter_chars(v).decode('utf-8', errors='ignore') for v in assertion_values)
 
 
-from plone.memoize.instance import clearafter
 from plone.app.workflow.browser.sharing import SharingView
+from plone.memoize.instance import clearafter
 
 original_update_role_settings = SharingView.update_role_settings
 
@@ -688,9 +683,11 @@ def addGroup(self, id, **kw):
     return self.acl_users.manage_addGroup(id)
 
 
+from Acquisition import aq_parent
 from base5.core.directory.views import get_create_group_type
 from Products.LDAPUserFolder.utils import GROUP_MEMBER_MAP
-from Acquisition import aq_parent
+
+
 def manage_addGroup( self
                    , newgroup_name
                    , newgroup_type='groupOfUniqueNames'
@@ -748,9 +745,8 @@ def manage_addGroup( self
     else:
         return False
 
-from Products.LDAPUserFolder.utils import VALID_GROUP_ATTRIBUTES
-from Products.LDAPUserFolder.utils import guid2string
 from Products.LDAPUserFolder.LDAPUserFolder import logger
+from Products.LDAPUserFolder.utils import VALID_GROUP_ATTRIBUTES, guid2string
 
 
 def searchGroups(self, attrs=(), exact_match=False, **kw):
@@ -854,7 +850,10 @@ def searchGroups(self, attrs=(), exact_match=False, **kw):
 
     return groups
 
-import urllib.request, urllib.parse, urllib.error
+import urllib.error
+import urllib.parse
+import urllib.request
+
 from ZTUtils.Zope import complex_marshal
 
 
@@ -896,6 +895,7 @@ def fixed_make_query(*args, **kwargs):
 
 
 import unicodedata
+
 _marker = []
 from BTrees.IIBTree import IITreeSet
 
@@ -929,9 +929,11 @@ def insertForwardIndexEntry(self, entry, documentId):
             self._index[entry] = indexRow
 
 
-from ZODB.POSException import ConflictError
-from BTrees.Length import Length
 from logging import getLogger
+
+from BTrees.Length import Length
+from ZODB.POSException import ConflictError
+
 LOG = getLogger('Zope.UnIndex')
 import sys
 
@@ -980,8 +982,9 @@ def removeForwardIndexEntry(self, entry, documentId):
                       'should not happen.' % (self.__class__.__name__, repr(entry), str(self.id)))
 
 
-from Acquisition import aq_parent, aq_inner, aq_get
+from Acquisition import aq_get, aq_inner, aq_parent
 from Products.PlonePAS.utils import getGroupsForPrincipal
+
 
 def getRolesForPrincipal(self, principal, request=None):
         """ See IRolesPlugin.
@@ -1163,10 +1166,11 @@ def prepareObjectTabs(self, default_tab='view', sort_first=['folderContents']):
 
 def get_date_options(request):
     from datetime import datetime
-    from zope.i18n import translate
-    from zope.component import getUtility
+
     from plone.registry.interfaces import IRegistry
     from Products.CMFPlone.interfaces import IDateAndTimeSchema
+    from zope.component import getUtility
+    from zope.i18n import translate
 
     calendar = request.locale.dates.calendars['gregorian']
     registry = getUtility(IRegistry)
@@ -1229,7 +1233,9 @@ def get_datetime_options(request):
     return options
 
 import unicodedata
+
 from zope import schema
+
 
 def _setProperty(self, name, value):
     if isinstance(value, set):
@@ -1244,8 +1250,9 @@ def _setProperty(self, name, value):
     )
 
 
-from Products.PortalTransforms.transforms.safe_html import decode_htmlentities
 import re
+
+from Products.PortalTransforms.transforms.safe_html import decode_htmlentities
 
 CSS_COMMENT = re.compile(r'/\*.*\*/')
 
@@ -1280,8 +1287,9 @@ def updateGroup(self, id, **kw):
     return True
 
 
-from Products.CMFPlone.PloneBatch import Batch
 import json
+
+from Products.CMFPlone.PloneBatch import Batch
 
 
 def ajaxSearchCall(self):

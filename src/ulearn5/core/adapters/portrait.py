@@ -1,21 +1,17 @@
 # -*- coding: utf-8 -*-
-from OFS.Image import Image
-from Products.PlonePAS.interfaces.membership import IMembershipTool
-
-from plone import api
-from repoze.catalog.query import Eq
-from souper.soup import Record
-from souper.soup import get_soup
-from zope.component import adapts
-from zope.component import getUtility
-from zope.interface import implements
+import logging
+import uuid
 
 from base5.core.adapters.portrait import IPortraitUploadAdapter
 from base5.core.utils import convertSquareImage, get_safe_member_by_id
 from mrs5.max.utilities import IMAXClient
+from OFS.Image import Image
+from plone import api
+from Products.PlonePAS.interfaces.membership import IMembershipTool
+from ulearn5.core.utils import get_or_initialize_annotation
 from ulearn5.theme.interfaces import IUlearn5ThemeLayer
-
-import logging
+from zope.component import adapts, getUtility
+from zope.interface import implements
 
 logger = logging.getLogger(__name__)
 
@@ -47,20 +43,19 @@ class PortraitUploadAdapter(object):
                 else:
                     portrait_user = False
 
-                portal = api.portal.get()
-                soup_users_portrait = get_soup('users_portrait', portal)
-                exist = [r for r in soup_users_portrait.query(Eq('id_username', safe_id))]
-                if exist:
-                    user_record = exist[0]
-                    user_record.attrs['id_username'] = safe_id
-                    user_record.attrs['portrait'] = portrait_user
+                soup_users_portrait = get_or_initialize_annotation('users_portrait')
+
+                record = next((r for r in soup_users_portrait.values() if r.get('id_username') == safe_id), None)
+
+                if record:
+                    record['id_username'] = safe_id
+                    record['portrait'] = portrait_user
                 else:
-                    record = Record()
-                    record_id = soup_users_portrait.add(record)
-                    user_record = soup_users_portrait.get(record_id)
-                    user_record.attrs['id_username'] = safe_id
-                    user_record.attrs['portrait'] = portrait_user
-                soup_users_portrait.reindex(records=[user_record])
+                    unique_key = str(uuid.uuid4())
+                    soup_users_portrait[unique_key] = {
+                        'id_username': safe_id,
+                        'portrait': portrait_user
+                    }
 
 
                 # Update the user's avatar on MAX

@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
-import unittest2 as unittest
-from zope.component import getUtility
-from zope.component import getMultiAdapter
-
-from souper.soup import get_soup
-
-from mrs5.max.utilities import IMAXClient
-from ulearn5.core.tests import uLearnTestBase
-from ulearn5.core.testing import ULEARN5_CORE_INTEGRATION_TESTING
-
 import os
+
+import unittest2 as unittest
+from mrs5.max.utilities import IMAXClient
+from ulearn5.core.testing import ULEARN5_CORE_INTEGRATION_TESTING
+from ulearn5.core.tests import uLearnTestBase
+from ulearn5.core.utils import get_or_initialize_annotation
+from zope.component import getMultiAdapter, getUtility
 
 
 class TestExample(uLearnTestBase):
@@ -33,6 +30,6 @@ class TestExample(uLearnTestBase):
         sync_view = getMultiAdapter((self.portal, self.request), name='syncldapgroups')
         sync_view.render()
 
-        soup = get_soup('ldap_groups', self.portal)
+        ldap_groups = get_or_initialize_annotation('ldap_groups')
+        self.assertTrue(len(list(ldap_groups.keys())) > 0)
 
-        self.assertTrue(len(list(soup.data.keys())) > 0)

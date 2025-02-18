@@ -1,38 +1,29 @@
 # -*- coding: utf-8 -*-
 import json
-import pytz
 import re
-import transaction
-
 from datetime import timedelta
 from time import time
 
-from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
-from Products.Five.browser import BrowserView
-
+import pytz
+import transaction
+from base5.core.directory import METADATA_USER_ATTRS
+from mrs5.max.utilities import IMAXClient
 from plone import api
 from plone.event.interfaces import IEventAccessor
-from plone.event.utils import is_datetime
-from plone.event.utils import is_date
+from plone.event.utils import is_date, is_datetime
 from plone.memoize import ram
 from plone.registry.interfaces import IRegistry
-from repoze.catalog.query import Eq
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from Products.Five.browser import BrowserView
+from six.moves import range
 from souper.interfaces import ICatalogFactory
-from souper.soup import get_soup
-from zope import schema
-from zope.component import getUtility
-from zope.component import queryUtility
-from zope.component import getMultiAdapter
-from zope.component import getUtilitiesFor
-from zope.component.hooks import getSite
-from zope.contentprovider.interfaces import IContentProvider
-
-from mrs5.max.utilities import IMAXClient
-from base5.core.directory import METADATA_USER_ATTRS
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-from six.moves import range
-
+from zope import schema
+from zope.annotation.interfaces import IAnnotations
+from zope.component import (getMultiAdapter, getUtilitiesFor, getUtility,
+                            queryUtility)
+from zope.contentprovider.interfaces import IContentProvider
 
 RE_VALID_TWITTER_USERNAME = r'^\s*@?([a-zA-Z0-9_]{1,15})\s*$'
 
@@ -197,20 +188,17 @@ class ulearnUtils(BrowserView):
 
 
 def getSearchersFromUser():
-    portal = getSite()
     current_user = api.user.get_current()
     userid = current_user.id
-    soup_searches = get_soup('user_news_searches', portal)
-    exist = [r for r in soup_searches.query(Eq('id', userid))]
+    user_news_searches = get_or_initialize_annotation('user_news_searches')
+    record = next((r for r in user_news_searches.values() if r.get('id') == userid), None)
 
     res = []
-    if exist:
-        values = exist[0].attrs['searches']
-        if values:
-            for val in values:
-                res.append(' '.join(val))
-    return res
+    if record:
+        values = record.get('searches', [])
+        res = [' '.join(val) for val in values]
 
+    return res
 
 def getUserPytzTimezone():
     """If the user does not have a timezone, the default portal is used.
@@ -338,3 +326,12 @@ def calculatePortalTypeOfInternalPath(url, portal_url):
         return nextObj.Type()
     except:
         return None
+
+
+def get_or_initialize_annotation(annotation_name):
+    portal = api.portal.get()
+    annotations = IAnnotations(portal)
+    if annotation_name not in annotations:
+        annotations[annotation_name] = {}
+
+    return annotations[annotation_name]

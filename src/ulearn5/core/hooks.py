@@ -1,66 +1,53 @@
 # -*- coding: utf-8 -*-
 # from five import grok
-from Acquisition import aq_chain
-from zope.component import getUtility
-
-from zope.component.hooks import getSite
-from zope.container.interfaces import IObjectAddedEvent
-from zope.lifecycleevent.interfaces import IObjectModifiedEvent
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-
-from Products.DCWorkflow.interfaces import IBeforeTransitionEvent, IAfterTransitionEvent
-
-from ulearn5.core.interfaces import IAppImage
-from ulearn5.core.interfaces import IAppFile
-from ulearn5.core.content.community import ICommunity
-
-from mrs5.max.utilities import IMAXClient
-from plone import api
-from souper.soup import get_soup
-from souper.soup import Record
-from repoze.catalog.query import Eq
-from DateTime.DateTime import DateTime
-from zope.component import providedBy
-from plone.app.workflow.interfaces import ILocalrolesModifiedEvent
-from Products.CMFPlone.interfaces import IConfigurationChangedEvent
-from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
-from plone.event.interfaces import IRecurrenceSupport
-from plone.app.contenttypes.interfaces import IFolder
-from plone.app.contenttypes.interfaces import IEvent
-from plone.app.contenttypes.interfaces import INewsItem
-from plone.app.contenttypes.interfaces import IDocument
-from plone.app.contenttypes.interfaces import IFile
-from plone.app.contenttypes.interfaces import IImage
-from plone.app.contenttypes.interfaces import ILink
-from ulearn5.core.interfaces import IVideo
-from ulearn5.externalstorage.content.external_content import IExternalContent
-from zope.globalrequest import getRequest
-from plone.namedfile.file import NamedBlobImage
-from io import BytesIO as StringIO
-
-from mrs5.max.browser.controlpanel import IMAXUISettings
-from plone.registry.interfaces import IRegistry
-from zope.component import queryUtility
-from plone.dexterity.interfaces import IDexterityContent
-
-from email.header import Header
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.utils import formatdate
-
-from plone.memoize import ram
-from time import time
-# from ulearn5.core.formatting import formatMessageEntities
-# from plone.app.textfield.value import RichTextValue
-
 import ast
 import io
 import logging
 import os
+from email.header import Header
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.utils import formatdate
+from io import BytesIO as StringIO
+from time import time
+
 import PIL
 import pytz
 import requests
 import transaction
+from Acquisition import aq_chain
+from DateTime.DateTime import DateTime
+from mrs5.max.browser.controlpanel import IMAXUISettings
+from mrs5.max.utilities import IMAXClient
+from plone import api
+from plone.app.contenttypes.interfaces import (IDocument, IEvent, IFile,
+                                               IFolder, IImage, ILink,
+                                               INewsItem)
+from plone.app.workflow.interfaces import ILocalrolesModifiedEvent
+from plone.dexterity.interfaces import IDexterityContent
+from plone.event.interfaces import IRecurrenceSupport
+from plone.memoize import ram
+from plone.namedfile.file import NamedBlobImage
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import IConfigurationChangedEvent
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.DCWorkflow.interfaces import (IAfterTransitionEvent,
+                                            IBeforeTransitionEvent)
+from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
+from ulearn5.core.content.community import ICommunity
+from ulearn5.core.interfaces import IAppFile, IAppImage, IVideo
+from ulearn5.core.utils import get_or_initialize_annotation
+from ulearn5.externalstorage.content.external_content import IExternalContent
+from zope.component import getUtility, providedBy, queryUtility
+from zope.component.hooks import getSite
+from zope.container.interfaces import IObjectAddedEvent
+from zope.globalrequest import getRequest
+from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+
+# from ulearn5.core.formatting import formatMessageEntities
+# from plone.app.textfield.value import RichTextValue
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -327,16 +314,14 @@ def UpdateUserCommunityAccess(content, event):
     community = findContainerCommunity(content)
     current_user = api.user.get_current()
     user_community = current_user.id + '_' + community.id
-    soup_access = get_soup('user_community_access', portal)
-    exist = [r for r in soup_access.query(Eq('user_community', user_community))]
-    if not exist:
-        record = Record()
-        record.attrs['user_community'] = user_community
-        record.attrs['data_access'] = DateTime()
-        soup_access.add(record)
-    else:
-        exist[0].attrs['data_access'] = DateTime()
-    soup_access.reindex()
+    user_community_access = get_or_initialize_annotation('user_community_access')
+    record = next((r for r in user_community_access.values() if r.get('user_community') == user_community), None)
+
+    if not record:
+        record = {'user_community': user_community}
+        user_community_access[user_community] = record
+
+    record['data_access'] = DateTime()
 
 
 # @grok.subscribe(IConfigurationChangedEvent)
