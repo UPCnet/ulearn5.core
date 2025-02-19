@@ -13,6 +13,7 @@ from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.controlportlets import IPortletsSettings
+from ulearn5.core.utils import get_or_initialize_annotation
 from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.component.hooks import getSite
 from zope.interface import implementer
@@ -152,6 +153,25 @@ def setup_ulearn_portlets():
     import transaction
     transaction.commit()
 
+def setup_annotations():
+    ANNOTATIONS = [
+        'communities_acl',
+        'user_community_access',
+        'users_delete_local_roles',
+        'user_news_searches',
+        'users_portrait',
+        'notify_popup',
+        'user_properties',
+        'ldap_groups',
+        'user_subscribed_tags',
+        'footer_soup',
+        'menu_soup',
+        'header_soup'
+    ]
+
+    for annotation in ANNOTATIONS:
+        get_or_initialize_annotation(annotation_name=annotation)
+
 
 def setupVarious(context):
     # Ordinarily, GenericSetup handlers check for the existence of XML files.
@@ -167,6 +187,7 @@ def setupVarious(context):
     add_catalog_indexes(portal, logger)
     setup_ulearn_icon_set()
     setup_ulearn_portlets()
+    setup_annotations()
 
     # Set the default page to the homepage view
     portal.setDefaultPage('front-page')
