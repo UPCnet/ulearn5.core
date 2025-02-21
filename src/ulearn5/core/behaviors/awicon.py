@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from plone.directives import form
-from zope import schema
-from zope.interface import alsoProvides
-from zope.interface import implements
-
 from ulearn5.core import _
+from zope import schema
+from zope.interface import alsoProvides, implementer
 
 
 class IAwIcon(form.Schema):
@@ -25,8 +23,8 @@ class IAwIcon(form.Schema):
 alsoProvides(IAwIcon, form.IFormFieldProvider)
 
 
+@implementer(IAwIcon)
 class AwesomeIcon(object):
-    implements(IAwIcon)
 
     def __init__(self, context):
         self.context = context

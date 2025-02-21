@@ -1,6 +1,11 @@
 from AccessControl import getSecurityManager
-from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
-from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
+from AccessControl.SecurityManagement import (newSecurityManager,
+                                              setSecurityManager)
+
+try:
+    from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
+except ImportError:
+    from AccessControl.users import UnrestrictedUser as BaseUnrestrictedUser
 
 
 class UnrestrictedUser(BaseUnrestrictedUser):

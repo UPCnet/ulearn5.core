@@ -4,12 +4,10 @@ from plone.app.contenttypes.interfaces import IEvent
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.indexer import indexer
 from plone.supermodel import model
+from ulearn5.core import _
 from zope import schema
 from zope.component import adapts
-from zope.interface import implements
-from zope.interface import provider
-
-from ulearn5.core import _
+from zope.interface import implementer, provider
 
 
 def timezone_user_or_default():
@@ -32,8 +30,8 @@ class ITimezone(model.Schema):
     )
 
 
+@implementer(ITimezone)
 class Timezone(object):
-    implements(ITimezone)
     adapts(IEvent)
 
     def __init__(self, context):

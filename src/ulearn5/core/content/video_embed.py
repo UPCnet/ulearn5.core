@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
+import re
+
+from plone.dexterity.content import Item
+from plone.supermodel import model
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ulearn5.core import _
 from zope import schema
 from zope.interface import implementer
-from plone.directives import form
-from plone.dexterity.content import Item
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.Five.browser import BrowserView
-
-
-from ulearn5.core import _
-import re
 
 YOUTUBE_REGEX = re.compile(r'youtube.*?(?:v=|embed\/)([\w\d-]+)', re.IGNORECASE)
 
 
-class IVideoEmbed(form.Schema):
+class IVideoEmbed(model.Schema):
     """ The video embed schema """
 
     video_url = schema.TextLine(

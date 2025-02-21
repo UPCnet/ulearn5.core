@@ -10,16 +10,16 @@ from plone import api
 from Products.PlonePAS.interfaces.membership import IMembershipTool
 from ulearn5.core.utils import get_or_initialize_annotation
 from ulearn5.theme.interfaces import IUlearn5ThemeLayer
-from zope.component import adapts, getUtility
-from zope.interface import implements
+from zope.component import adapter, getUtility
+from zope.interface import implementer
 
 logger = logging.getLogger(__name__)
 
 
+@implementer(IPortraitUploadAdapter)
+@adapter(IMembershipTool, IUlearn5ThemeLayer)
 class PortraitUploadAdapter(object):
     """ Default adapter for portrait custom actions """
-    implements(IPortraitUploadAdapter)
-    adapts(IMembershipTool, IUlearn5ThemeLayer)
 
     def __init__(self, context, request):
         self.context = context
