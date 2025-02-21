@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import (ObjectNotFound, UnknownEndpoint,
-                                   check_methods)
-from minimal.core.services.utils import lookup_user
 from plone import api
 from plone.restapi.services import Service
 from souper.interfaces import ICatalogFactory
+from ulearn5.core.services import (ObjectNotFound, UnknownEndpoint,
+                                   check_methods)
+from ulearn5.core.services.utils import lookup_user
 from zope.component import getUtilitiesFor, getUtility
 
 # from ulearn5.core.controlpanel import IUlearnControlPanelSettings

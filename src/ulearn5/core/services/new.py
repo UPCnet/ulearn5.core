@@ -4,15 +4,15 @@ from datetime import datetime
 
 import requests
 from lxml import html
-from minimal.core.services import (MethodNotAllowed, ObjectNotFound,
-                                   UnknownEndpoint, check_methods,
-                                   check_required_params)
-from minimal.core.services.utils import lookup_new, show_news_in_app
 from plone import api
 from plone.app.contenttypes.behaviors.richtext import IRichText
 from plone.dexterity.utils import createContentInContainer
 from plone.namedfile.file import NamedBlobImage
 from plone.restapi.services import Service
+from ulearn5.core.services import (MethodNotAllowed, ObjectNotFound,
+                                   UnknownEndpoint, check_methods,
+                                   check_required_params)
+from ulearn5.core.services.utils import lookup_new, show_news_in_app
 
 # from ulearn5.core.formatting import formatMessageEntities
 # from ulearn5.core.html_parser import (HTMLParser, getCommunityNameFromObj,

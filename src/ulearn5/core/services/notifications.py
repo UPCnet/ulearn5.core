@@ -2,13 +2,13 @@
 import logging
 from datetime import datetime
 
-from minimal.core.services import (MethodNotAllowed, ObjectNotFound,
-                                   UnknownEndpoint, check_methods,
-                                   check_required_params)
-from minimal.core.services.utils import replace_image_path_by_url
-from minimal.core.utils import get_or_initialize_annotation
 from plone import api
 from plone.restapi.services import Service
+from ulearn5.core.services import (MethodNotAllowed, ObjectNotFound,
+                                   UnknownEndpoint, check_methods,
+                                   check_required_params)
+from ulearn5.core.services.utils import replace_image_path_by_url
+from ulearn5.core.utils import get_or_initialize_annotation
 
 logger = logging.getLogger(__name__)
 

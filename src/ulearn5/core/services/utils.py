@@ -2,9 +2,9 @@ import logging
 import re
 
 from AccessControl import getSecurityManager
-from minimal.core.services import MissingParameters, ObjectNotFound
 from plone import api
 from Products.CMFCore.permissions import ModifyPortalContent
+from ulearn5.core.services import MissingParameters, ObjectNotFound
 
 
 def lookup_community(community_id=None):

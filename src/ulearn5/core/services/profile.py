@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import (ObjectNotFound, UnknownEndpoint,
-                                   check_methods, check_required_params)
 from plone import api
 from plone.restapi.services import Service
 from souper.interfaces import ICatalogFactory
+from ulearn5.core.services import (ObjectNotFound, UnknownEndpoint,
+                                   check_methods, check_required_params)
 from zope.component import ComponentLookupError, getUtilitiesFor, getUtility
 
 logger = logging.getLogger(__name__)

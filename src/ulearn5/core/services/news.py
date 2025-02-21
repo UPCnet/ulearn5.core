@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import check_methods
-from minimal.core.services.new import New
-from minimal.core.services.utils import show_news_in_app
 from plone import api
 from plone.restapi.services import Service
+from ulearn5.core.services import check_methods
+from ulearn5.core.services.new import New
+from ulearn5.core.services.utils import show_news_in_app
 
 # from ulearn5.core.html_parser import (HTMLParser, getCommunityNameFromObj,
 #                                       replaceImagePathByURL)

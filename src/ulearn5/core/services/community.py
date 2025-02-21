@@ -5,14 +5,14 @@ from hashlib import sha1
 from mimetypes import MimeTypes
 
 import requests
-from minimal.core.services import MethodNotAllowed, check_methods, check_roles
-from minimal.core.services.documents import Documents
-from minimal.core.services.search import Search
-from minimal.core.services.subscriptions import Subscriptions
-from minimal.core.services.utils import lookup_community
 from plone import api
 from plone.namedfile.file import NamedBlobImage
 from plone.restapi.services import Service
+from ulearn5.core.services import MethodNotAllowed, check_methods, check_roles
+from ulearn5.core.services.documents import Documents
+from ulearn5.core.services.search import Search
+from ulearn5.core.services.subscriptions import Subscriptions
+from ulearn5.core.services.utils import lookup_community
 from zope.component import getUtility
 
 logger = logging.getLogger(__name__)

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import ObjectNotFound, check_methods
-from minimal.core.services.person import Person
-from minimal.core.services.sync import Sync
-from minimal.core.services.users import Users
-from minimal.core.utils import get_or_initialize_annotation
 from plone import api
 from plone.restapi.services import Service
 from souper.interfaces import ICatalogFactory
+from ulearn5.core.services import ObjectNotFound, check_methods
+from ulearn5.core.services.person import Person
+from ulearn5.core.services.sync import Sync
+from ulearn5.core.services.users import Users
+from ulearn5.core.utils import get_or_initialize_annotation
 from zope.component import getUtilitiesFor, getUtility
 
 logger = logging.getLogger(__name__)

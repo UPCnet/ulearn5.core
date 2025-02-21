@@ -2,11 +2,11 @@
 import ast
 import logging
 
-from minimal.core.services import (UnknownEndpoint, check_methods,
-                                   check_required_params)
-from minimal.core.services.utils import lookup_community
 from plone import api
 from plone.restapi.services import Service
+from ulearn5.core.services import (UnknownEndpoint, check_methods,
+                                   check_required_params)
+from ulearn5.core.services.utils import lookup_community
 
 logger = logging.getLogger(__name__)
 

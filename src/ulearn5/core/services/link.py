@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import (ObjectNotFound, UnknownEndpoint,
-                                   check_methods)
 from plone import api
 from plone.app.contenttypes.interfaces import ILink
 from plone.registry.interfaces import IRegistry
 from plone.restapi.services import Service
+from ulearn5.core.services import (ObjectNotFound, UnknownEndpoint,
+                                   check_methods)
 # from ulearn5.core.api.root import urlBelongsToCommunity
 # from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 # from ulearn5.core.hooks import packages_installed

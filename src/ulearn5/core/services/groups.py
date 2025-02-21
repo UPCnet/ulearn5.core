@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import UnknownEndpoint, check_methods
-from minimal.core.services.group import Group
-from minimal.core.services.utils import lookup_group
 from plone.restapi.services import Service
+from ulearn5.core.services import UnknownEndpoint, check_methods
+from ulearn5.core.services.group import Group
+from ulearn5.core.services.utils import lookup_group
 
 logger = logging.getLogger(__name__)
 

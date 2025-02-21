@@ -2,13 +2,13 @@
 import logging
 from datetime import datetime
 
-from minimal.core.services import (MethodNotAllowed, ObjectNotFound,
-                                   UnknownEndpoint, check_methods,
-                                   check_required_params)
 from plone import api
 from plone.app.textfield.value import RichTextValue
 from plone.dexterity.utils import createContentInContainer
 from plone.restapi.services import Service
+from ulearn5.core.services import (MethodNotAllowed, ObjectNotFound,
+                                   UnknownEndpoint, check_methods,
+                                   check_required_params)
 
 # from ulearn5.core.html_parser import replaceImagePathByURL
 # from ulearn5.core.html_parser import HTMLParser

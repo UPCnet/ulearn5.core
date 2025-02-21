@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import UnknownEndpoint, check_methods, check_roles
-from minimal.core.services.utils import check_include_cloudfile
 from plone import api
 from plone.restapi.services import Service
+from ulearn5.core.services import UnknownEndpoint, check_methods, check_roles
+from ulearn5.core.services.utils import check_include_cloudfile
 
 logger = logging.getLogger(__name__)
 

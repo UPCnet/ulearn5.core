@@ -3,11 +3,11 @@ import logging
 from base64 import b64encode
 
 import requests
-from minimal.core.services import (UnknownEndpoint, check_methods,
-                                   check_required_params)
 from plone import api
 from plone.app.uuid.utils import uuidToURL
 from plone.restapi.services import Service
+from ulearn5.core.services import (UnknownEndpoint, check_methods,
+                                   check_required_params)
 
 # from ulearn5.core.api.root import urlBelongsToCommunity
 # from ulearn5.core.html_parser import HTMLParser, replaceImagePathByURL

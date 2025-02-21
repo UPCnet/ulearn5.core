@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import (BadParameters, UnknownEndpoint,
-                                   check_methods, check_roles)
 from plone import api
 from plone.restapi.services import Service
+from ulearn5.core.services import (BadParameters, UnknownEndpoint,
+                                   check_methods, check_roles)
 
 # from ulearn5.core.content.community import ICommunityACL
 

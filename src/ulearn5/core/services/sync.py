@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
 
-# from base5.core.utils import add_user_to_catalog, get_all_user_properties
-from minimal.core.services import (UnknownEndpoint, check_methods,
-                                   check_required_params)
 # from mrs5.max.utilities import IMAXClient
 from plone import api
 from plone.restapi.services import Service
+# from base5.core.utils import add_user_to_catalog, get_all_user_properties
+from ulearn5.core.services import (UnknownEndpoint, check_methods,
+                                   check_required_params)
 from zope.component import getUtility
 
 # from ulearn5.core.controlpanel import IUlearnControlPanelSettings

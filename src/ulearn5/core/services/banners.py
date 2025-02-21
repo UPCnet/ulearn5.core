@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import UnknownEndpoint, check_methods, check_roles
 from plone import api
 from plone.registry.interfaces import IRegistry
 from plone.restapi.services import Service
+from ulearn5.core.services import UnknownEndpoint, check_methods, check_roles
 from zope.component import queryUtility
 
 # from ulearn5.core.controlpanel import IUlearnControlPanelSettings

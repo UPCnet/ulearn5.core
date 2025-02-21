@@ -5,16 +5,16 @@ from hashlib import sha1
 from mimetypes import MimeTypes
 
 import requests
-from minimal.core.services import (MethodNotAllowed, UnknownEndpoint,
-                                   check_methods, check_required_params,
-                                   check_roles)
-from minimal.core.services.community import Community
-from minimal.core.services.count import Count
-from minimal.core.services.utils import lookup_community
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.namedfile.file import NamedBlobImage
 from plone.restapi.services import Service
+from ulearn5.core.services import (MethodNotAllowed, UnknownEndpoint,
+                                   check_methods, check_required_params,
+                                   check_roles)
+from ulearn5.core.services.community import Community
+from ulearn5.core.services.count import Count
+from ulearn5.core.services.utils import lookup_community
 from zope.component import queryUtility
 
 logger = logging.getLogger(__name__)

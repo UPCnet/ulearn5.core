@@ -4,22 +4,22 @@ from io import StringIO
 
 import requests
 from Acquisition import aq_inner
-# from base5.core.patches import changeMemberPortrait
-# from base5.core.utils import (add_user_to_catalog, get_all_user_properties,
-#                              remove_user_from_catalog)
-from minimal.core.services import (Forbidden, MethodNotAllowed, ObjectNotFound,
-                                   UnknownEndpoint, check_methods,
-                                   check_required_params)
-from minimal.core.services.all import All
-from minimal.core.services.user_subscriptions import UserSubscriptions
-from minimal.core.services.ushare import Ushare
-from minimal.core.services.utils import lookup_community, lookup_user
-from minimal.core.services.visualizations import Visualizations
-from minimal.core.utils import get_or_initialize_annotation
 # from mrs5.max.utilities import IMAXClient
 from plone import api
 from plone.restapi.services import Service
 from souper.interfaces import ICatalogFactory
+# from base5.core.patches import changeMemberPortrait
+# from base5.core.utils import (add_user_to_catalog, get_all_user_properties,
+#                              remove_user_from_catalog)
+from ulearn5.core.services import (Forbidden, MethodNotAllowed, ObjectNotFound,
+                                   UnknownEndpoint, check_methods,
+                                   check_required_params)
+from ulearn5.core.services.all import All
+from ulearn5.core.services.user_subscriptions import UserSubscriptions
+from ulearn5.core.services.ushare import Ushare
+from ulearn5.core.services.utils import lookup_community, lookup_user
+from ulearn5.core.services.visualizations import Visualizations
+from ulearn5.core.utils import get_or_initialize_annotation
 # from ulearn5.core.browser.security import execute_under_special_role
 # from ulearn5.core.gwuuid import IGWUUID
 from zope.component import getUtilitiesFor, getUtility

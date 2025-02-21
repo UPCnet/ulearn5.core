@@ -3,10 +3,10 @@ import logging
 from datetime import datetime
 
 import pytz
-from minimal.core.services import UnknownEndpoint, check_methods
-from minimal.core.services.event import Event
 from plone import api
 from plone.restapi.services import Service
+from ulearn5.core.services import UnknownEndpoint, check_methods
+from ulearn5.core.services.event import Event
 
 #from ulearn5.core.html_parser import getCommunityNameFromObj
 

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from minimal.core.services import UnknownEndpoint, check_methods
-from minimal.core.services.link import Link
 from plone import api
 from plone.restapi.services import Service
+from ulearn5.core.services import UnknownEndpoint, check_methods
+from ulearn5.core.services.link import Link
 
 logger = logging.getLogger(__name__)
 

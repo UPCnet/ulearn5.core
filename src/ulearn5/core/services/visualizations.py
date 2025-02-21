@@ -2,10 +2,10 @@
 import logging
 
 from DateTime.DateTime import DateTime
-from minimal.core.services import (UnknownEndpoint, check_methods,
-                                   check_required_params)
-from minimal.core.utils import get_or_initialize_annotation
 from plone.restapi.services import Service
+from ulearn5.core.services import (UnknownEndpoint, check_methods,
+                                   check_required_params)
+from ulearn5.core.utils import get_or_initialize_annotation
 
 # from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 # from ulearn5.core.utils import calculatePortalTypeOfInternalPath

@@ -4,12 +4,12 @@ import logging
 from hashlib import sha1
 
 from DateTime.DateTime import DateTime
-from minimal.core.services import UnknownEndpoint, check_methods, check_roles
-from minimal.core.services.utils import lookup_community
-from minimal.core.utils import get_or_initialize_annotation
 # from mrs5.max.utilities import IMAXClient
 from plone import api
 from plone.restapi.services import Service
+from ulearn5.core.services import UnknownEndpoint, check_methods, check_roles
+from ulearn5.core.services.utils import lookup_community
+from ulearn5.core.utils import get_or_initialize_annotation
 from zope.component import getUtility
 
 # from ulearn5.core.controlpanel import IUlearnControlPanelSettings
