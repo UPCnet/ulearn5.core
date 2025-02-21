@@ -173,11 +173,11 @@
         />
 
       
-    <subscriber
+<!--     <subscriber
         handler="ulearn5.core.hooks.AddedSendMessage"
         for="ulearn5.externalstorage.content.external_content.IExternalContent
         zope.container.interfaces.IObjectAddedEvent"
-        />
+        /> -->
 
     <subscriber
         handler="ulearn5.core.hooks.AddedSendMessage"

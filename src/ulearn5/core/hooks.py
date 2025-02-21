@@ -37,7 +37,7 @@ from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.interfaces import IAppFile, IAppImage, IVideo
 from ulearn5.core.utils import get_or_initialize_annotation
-from ulearn5.externalstorage.content.external_content import IExternalContent
+# from ulearn5.externalstorage.content.external_content import IExternalContent
 from zope.component import getUtility, providedBy, queryUtility
 from zope.component.hooks import getSite
 from zope.container.interfaces import IObjectAddedEvent

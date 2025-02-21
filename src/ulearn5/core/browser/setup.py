@@ -25,11 +25,11 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.interfaces.controlpanel import ISiteSchema
 from Products.CMFPlone.interfaces.syndication import ISiteSyndicationSettings
 from Products.Five.browser import BrowserView
-from ulearn5.core.api.people import Person
 from ulearn5.core.browser.sharing import ElasticSharing, IElasticSharing
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import IGWUUID
+from ulearn5.core.services.person import Person
 from ulearn5.core.setuphandlers import setup_ulearn_portlets
 from ulearn5.core.utils import (get_or_initialize_annotation,
                                 is_activate_etherpad,
@@ -862,8 +862,8 @@ class deleteUsers(BrowserView):
                 for user in users:
                     user = user.strip()
                     try:
-                        person = Person(self.context, [user])
-                        person.deleteMembers([user])
+                        person = Person(self.context, self.request, user)
+                        person.delete_member()
                         remove_user_from_catalog(user.lower())
                         pc = api.portal.get_tool(name="portal_catalog")
                         username = user

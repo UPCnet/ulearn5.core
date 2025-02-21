@@ -1,28 +1,21 @@
-from plone import api
-from five import grok
-from zope.interface import Interface
-from zope.component import adapts
-from z3c.form import interfaces
-from z3c.form import widget
-from z3c.form.browser import textarea
-from z3c.form.converter import BaseDataConverter
-from zope.schema.interfaces import IList
-
-
-from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
-
-from ulearn5.core.interfaces import IUlearn5CoreLayer
-from ulearn5.core.widgets.interfaces import IAjaxSelectWidget
-
 import json
+
 import zope.component
 import zope.interface
 import zope.schema
-from zope.interface import implementer_only
-from zope.component import adapter
-
-
+from plone import api
 from Products.Five.browser import BrowserView
+from ulearn5.core.interfaces import IUlearn5CoreLayer
+from ulearn5.core.widgets.interfaces import IAjaxSelectWidget
+from z3c.form import interfaces, widget
+from z3c.form.browser import textarea
+from z3c.form.converter import BaseDataConverter
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
+from zope.component import adapter, adapts
+# from five import grok
+from zope.interface import Interface, implementer_only
+from zope.schema.interfaces import IList
+
 
 @implementer_only(IAjaxSelectWidget)
 class Select2UserInputWidget(textarea.TextAreaWidget):

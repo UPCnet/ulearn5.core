@@ -12,20 +12,22 @@ from base5.core.adapters.favorites import IFavorite
 from base5.core.adapters.notnotifypush import INotNotifyPush
 from base5.core.utils import json_response
 from DateTime.DateTime import DateTime
-from five import grok
+# from five import grok
 from mrs5.max.utilities import IHubClient, IMAXClient
 from plone import api
 from plone.app.layout.navigation.root import getNavigationRootObject
+from plone.autoform import directives
+from plone.autoform.form import AutoExtensibleForm
 from plone.dexterity.content import Container
 from plone.dexterity.interfaces import IDexterityContent
 from plone.dexterity.utils import createContentInContainer
-from plone.directives import form
 from plone.indexer import indexer
 from plone.memoize import ram
 from plone.memoize.view import memoize_contextless
 from plone.namedfile.field import NamedBlobImage
 from plone.portlets.interfaces import IPortletManager, IPortletRetriever
 from plone.registry.interfaces import IRegistry
+from plone.supermodel import model
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.utils import safe_unicode
@@ -52,7 +54,7 @@ from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
 from ulearn5.core.widgets.single_checkbox_notify_email_widget import \
     SingleCheckBoxNotifyEmailFieldWidget
 from ulearn5.core.widgets.terms_widget import TermsFieldWidget
-from z3c.form import button
+from z3c.form import button, form
 from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from z3c.form.interfaces import IAddForm, IEditForm
 from zope import schema
@@ -160,10 +162,8 @@ def isChecked(value):
         raise Invalid(_('falta_condicions', default="Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."))
     return True
 
-
-class ICommunity(form.Schema):
-    """ A manageable community
-    """
+class ICommunity(model.Schema):
+    """A manageable community"""
 
     title = schema.TextLine(
         title=_('Nom'),
@@ -177,7 +177,8 @@ class ICommunity(form.Schema):
         required=False
     )
 
-    form.mode(IEditForm, community_type='hidden')
+    # Ocultar el campo 'community_type' en el formulario de edición
+    directives.mode(community_type={"edit": "hidden"})
     community_type = schema.Choice(
         title=_('Tipus de comunitat'),
         description=_('community_type_description'),
@@ -191,44 +192,45 @@ class ICommunity(form.Schema):
         description=_('help_activity_view'),
         source=communityActivityViews,
         required=True,
-        default='Darreres activitats')
+        default='Darreres activitats'
+    )
 
     tab_view = schema.Choice(
         title=_('tab_view'),
         description=_('help_tab_view'),
         source=communityTabViews,
         required=True,
-        default='Activity')
+        default='Activity'
+    )
 
-    form.omitted('readers', 'subscribed', 'owners')
-    form.widget(readers=Select2MAXUserInputFieldWidget)
+    # Omitir campos en el formulario
+    directives.omitted('readers', 'subscribed', 'owners')
+    directives.widget(readers=Select2MAXUserInputFieldWidget)
     readers = schema.List(
         title=_('Readers'),
         description=_('Subscribed people with read-only permissions'),
         value_type=schema.TextLine(),
         required=False,
-        missing_value=[],
-        default=[])
+        default=[]
+    )
 
-    # We maintain the subscribed field for backwards compatibility,
-    # understanding that it refers to users with read/write permissions
-    form.widget(subscribed=Select2MAXUserInputFieldWidget)
+    directives.widget(subscribed=Select2MAXUserInputFieldWidget)
     subscribed = schema.List(
         title=_('Editors'),
         description=_('Subscribed people with editor permissions'),
         value_type=schema.TextLine(),
         required=False,
-        missing_value=[],
-        default=[])
+        default=[]
+    )
 
-    form.widget(owners=Select2MAXUserInputFieldWidget)
+    directives.widget(owners=Select2MAXUserInputFieldWidget)
     owners = schema.List(
         title=_('Owners'),
         description=_('Subscribed people with owner permissions'),
         value_type=schema.TextLine(),
         required=False,
-        missing_value=[],
-        default=[])
+        default=[]
+    )
 
     image = NamedBlobImage(
         title=_('Imatge'),
@@ -268,7 +270,7 @@ class ICommunity(form.Schema):
         required=False
     )
 
-    form.widget(notify_activity_via_mail=SingleCheckBoxNotifyEmailFieldWidget)
+    directives.widget(notify_activity_via_mail=SingleCheckBoxNotifyEmailFieldWidget)
     notify_activity_via_mail = schema.Bool(
         title=_('Notify activity via mail'),
         description=_('notify_activity_via_mail_help'),
@@ -280,18 +282,18 @@ class ICommunity(form.Schema):
         description=_('help_type_notify'),
         source=communityTypeNotify,
         required=True,
-        default='Automatic')
+        default='Automatic'
+    )
 
-    form.mode(IAddForm, mails_users_community_lists='hidden')
-    form.mode(IEditForm, mails_users_community_lists='hidden')
+    # Ocultar el campo 'mails_users_community_lists' en los formularios de añadido y edición
+    directives.mode(mails_users_community_lists={"add": "hidden", "edit": "hidden"})
     mails_users_community_lists = schema.Text(
         title=_('Users comunnity lists'),
         description=_('users_community_lists_help'),
         required=False
     )
 
-    form.mode(IAddForm, mails_users_community_black_lists='hidden')
-    form.mode(IEditForm, mails_users_community_black_lists='hidden')
+    directives.mode(mails_users_community_black_lists={"add": "hidden", "edit": "hidden"})
     mails_users_community_black_lists = schema.Text(
         title=_('Users comunnity black lists'),
         description=_('users_community_black_lists_help'),
@@ -304,16 +306,13 @@ class ICommunity(form.Schema):
         required=False
     )
 
-    form.mode(IAddForm, terms='hidden')
-    form.mode(IEditForm, terms='hidden')
-    form.widget(terms=TermsFieldWidget)
+    directives.mode(terms={"add": "hidden", "edit": "hidden"})
+    directives.widget(terms=TermsFieldWidget)
     terms = schema.Bool(
         title=_('title_terms_of_user'),
         description=_('description_terms_of_user'),
         constraint=isChecked
     )
-
-
 
 # INTERFICIES QUE POT IMPLEMENTAR UNA COMUNITAT
 
@@ -1256,28 +1255,27 @@ class UnSubscribe(BrowserView):
                         status_code=400)
 
 # TODO
-class communityAdder(form.SchemaForm):
-    grok.name('addCommunity')
-    grok.context(IPloneSiteRoot)
-    grok.require('ulearn.addCommunity')
-
+class CommunityAdder(AutoExtensibleForm, form.Form):
+    """
+    Formulario para añadir un ítem de tipo Community.
+    """
     schema = ICommunity
     ignoreContext = True
 
     def update(self):
-        super(communityAdder, self).update()
+        super(CommunityAdder, self).update()
         self.actions['save'].addClass('context')
 
     def updateWidgets(self):
-        super(communityAdder, self).updateWidgets()
+        super(CommunityAdder, self).updateWidgets()
         registry = queryUtility(IRegistry)
         ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
-        if ulearn_tool.url_terms == None or ulearn_tool.url_terms == '':
-           self.widgets['terms'].mode = 'hidden'
-           self.fields['terms'].mode = 'hidden'
+        if not ulearn_tool.url_terms:
+            self.widgets['terms'].mode = 'hidden'
+            self.fields['terms'].mode = 'hidden'
         else:
-           self.widgets['terms'].mode = 'input'
-           self.fields['terms'].mode = 'input'
+            self.widgets['terms'].mode = 'input'
+            self.fields['terms'].mode = 'input'
 
         self.widgets['mails_users_community_lists'].mode = 'hidden'
         self.fields['mails_users_community_lists'].mode = 'hidden'
@@ -1285,16 +1283,16 @@ class communityAdder(form.SchemaForm):
         self.widgets['mails_users_community_black_lists'].mode = 'hidden'
         self.fields['mails_users_community_black_lists'].mode = 'hidden'
 
-    @button.buttonAndHandler(_('Crea la comunitat'), name='save')
+    @button.buttonAndHandler(u'Crea la comunitat', name='save')
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
             if 'title' not in data:
-                msgid = _('falta_titol', default='No es pot crear una comunitat sense titol')
+                msgid = u'No es pot crear una comunitat sense titol'
             elif 'terms' not in data:
-                msgid = _('falta_condicions', default="Es necessari acceptar les condicions d'us i privacitat per crear una comunitat.")
+                msgid = u"Es necessari acceptar les condicions d'us i privacitat per crear una comunitat."
             else:
-                msgid = _('error', default="Falta omplir algun camp obligatori.")
+                msgid = u"Falta omplir algun camp obligatori."
             translated = self.context.translate(msgid)
             messages = IStatusMessage(self.request)
             messages.addStatusMessage(translated, type='error')
@@ -1316,26 +1314,20 @@ class communityAdder(form.SchemaForm):
         mails_users_community_lists = data['mails_users_community_lists']
         mails_users_community_black_lists = data['mails_users_community_black_lists']
         distribution_lists = data['distribution_lists']
-
         terms = data['terms']
 
         portal = api.portal.get()
         pc = api.portal.get_tool('portal_catalog')
-
         nom = safe_unicode(nom)
         chooser = INameChooser(self.context)
         id_normalized = chooser.chooseName(nom, self.context.aq_parent)
 
         result = pc.unrestrictedSearchResults(portal_type='ulearn.community', id=id_normalized)
-
         if result:
-            msgid = _('comunitat_existeix', default='La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom.', mapping={'comunitat': nom})
-
-            translated = self.context.translate(msgid)
-
+            msgid = u'La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom.'
+            translated = self.context.translate(msgid, mapping={'comunitat': nom})
             messages = IStatusMessage(self.request)
             messages.addStatusMessage(translated, type='info')
-
             self.request.response.redirect('{}/++add++ulearn.community'.format(portal.absolute_url()))
         else:
             new_comunitat_id = self.context.invokeFactory(
@@ -1358,117 +1350,117 @@ class communityAdder(form.SchemaForm):
                 mails_users_community_black_lists=mails_users_community_black_lists,
                 distribution_lists=distribution_lists,
                 terms=terms,
-                checkConstraints=False)
-
+                checkConstraints=False
+            )
             new_comunitat = self.context[new_comunitat_id]
-            # Redirect back to the front page with a status message
-            msgid = _('comunitat_creada', default='La comunitat ${comunitat} ha estat creada.', mapping={'comunitat': nom})
-
-            translated = self.context.translate(msgid)
-
+            msgid = u'La comunitat ${comunitat} ha estat creada.'
+            translated = self.context.translate(msgid, mapping={'comunitat': nom})
             messages = IStatusMessage(self.request)
             messages.addStatusMessage(translated, type='info')
-
             self.request.response.redirect(new_comunitat.absolute_url())
 
     def terms(self):
         return 'terms' in list(self.fields.keys())
+    
 # TODO
-class communityEdit(form.SchemaForm):
-    grok.name('editCommunity')
-    grok.context(ICommunity)
-    grok.require('cmf.ModifyPortalContent')
-
+class CommunityEdit(AutoExtensibleForm, form.Form):
+    """ Formulario para editar comunidades """
+    
+    context = ICommunity
     schema = ICommunity
     ignoreContext = True
 
     ctype_map = {'Closed': 'closed', 'Open': 'open', 'Organizative': 'organizative'}
-    cview_map = {'Darreres activitats': 'darreres_activitats', 'Activitats mes valorades': 'activitats_mes_valorades', 'Activitats destacades': 'activitats_destacades'}
+    cview_map = {'Darreres activitats': 'darreres_activitats', 
+                 'Activitats mes valorades': 'activitats_mes_valorades', 
+                 'Activitats destacades': 'activitats_destacades'}
 
     def update(self):
-        super(communityEdit, self).update()
-        self.actions['save'].addClass('context')
+        super().update()
+        self.actions["save"].addClass("context")
 
     def updateWidgets(self):
-        super(communityEdit, self).updateWidgets()
+        """ Actualiza los valores de los widgets con la información actual de la comunidad """
+        super().updateWidgets()
 
-        self.widgets['title'].value = self.context.title
-        self.widgets['description'].value = self.context.description
-        self.widgets['community_type'].value = [self.ctype_map[self.context.community_type]]
-        self.widgets['activity_view'].value = [self.cview_map[self.context.activity_view]]
-        self.widgets['tab_view'].value = [self.cview_map[self.context.tab_view]]
-        self.widgets['show_news'].value = self.context.show_news
-        self.widgets['show_events'].value = self.context.show_events
-        self.widgets['twitter_hashtag'].value = self.context.twitter_hashtag
-        self.widgets['notify_activity_via_mail'].value = [self.cview_map[self.context.notify_activity_via_mail]]
-        self.widgets['type_notify'].value = [self.cview_map[self.context.type_notify]]
-        self.widgets['mails_users_community_lists'].value = [self.cview_map[self.context.mails_users_community_lists]]
-        self.widgets['mails_users_community_black_lists'].value = [self.cview_map[self.context.mails_users_community_black_lists]]
-        self.widgets['distribution_lists'].value = [self.cview_map[self.context.distribution_lists]]
-        self.widgets['terms'].value = ['true']
+        self.widgets["title"].value = self.context.title
+        self.widgets["description"].value = self.context.description
+        self.widgets["community_type"].value = [self.ctype_map[self.context.community_type]]
+        self.widgets["activity_view"].value = [self.cview_map[self.context.activity_view]]
+        self.widgets["tab_view"].value = [self.cview_map[self.context.tab_view]]
+        self.widgets["show_news"].value = self.context.show_news
+        self.widgets["show_events"].value = self.context.show_events
+        self.widgets["twitter_hashtag"].value = self.context.twitter_hashtag
+        self.widgets["notify_activity_via_mail"].value = [self.cview_map[self.context.notify_activity_via_mail]]
+        self.widgets["type_notify"].value = [self.cview_map[self.context.type_notify]]
+        self.widgets["mails_users_community_lists"].value = [self.cview_map[self.context.mails_users_community_lists]]
+        self.widgets["mails_users_community_black_lists"].value = [self.cview_map[self.context.mails_users_community_black_lists]]
+        self.widgets["distribution_lists"].value = [self.cview_map[self.context.distribution_lists]]
+        self.widgets["terms"].value = ["true"]
 
         if self.context.notify_activity_via_push:
-            self.widgets['notify_activity_via_push'].value = ['selected']
-            # Bool widgets should call update() once modified
-            self.widgets['notify_activity_via_push'].update()
+            self.widgets["notify_activity_via_push"].value = ["selected"]
+            self.widgets["notify_activity_via_push"].update()
 
         if self.context.notify_activity_via_push_comments_too:
-            self.widgets['notify_activity_via_push_comments_too'].value = ['selected']
-            # Bool widgets should call update() once modified
-            self.widgets['notify_activity_via_push_comments_too'].update()
+            self.widgets["notify_activity_via_push_comments_too"].value = ["selected"]
+            self.widgets["notify_activity_via_push_comments_too"].update()
 
-        converter = SelectWidgetConverter(self.fields['readers'].field, self.widgets['readers'])
-        self.widgets['readers'].value = converter.toWidgetValue(self.context.readers)
+        converter = SelectWidgetConverter(self.fields["readers"].field, self.widgets["readers"])
+        self.widgets["readers"].value = converter.toWidgetValue(self.context.readers)
 
-        converter = SelectWidgetConverter(self.fields['subscribed'].field, self.widgets['subscribed'])
-        self.widgets['subscribed'].value = converter.toWidgetValue(self.context.subscribed)
+        converter = SelectWidgetConverter(self.fields["subscribed"].field, self.widgets["subscribed"])
+        self.widgets["subscribed"].value = converter.toWidgetValue(self.context.subscribed)
 
-        converter = SelectWidgetConverter(self.fields['owners'].field, self.widgets['owners'])
-        self.widgets['owners'].value = converter.toWidgetValue(self.context.owners)
+        converter = SelectWidgetConverter(self.fields["owners"].field, self.widgets["owners"])
+        self.widgets["owners"].value = converter.toWidgetValue(self.context.owners)
 
-    @button.buttonAndHandler(_('Edita la comunitat'), name='save')
+    @button.buttonAndHandler(_("Edita la comunitat"), name="save")
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
             return
 
-        nom = data['title']
-        description = data['description']
-        readers = data['readers']
-        subscribed = data['subscribed']
-        owners = data['owners']
-        image = data['image']
-        community_type = data['community_type']
-        activity_view = data['activity_view']
-        tab_view = data['tab_view']
-        show_news = data['show_news']
-        show_events = data['show_events']
-        twitter_hashtag = data['twitter_hashtag']
-        notify_activity_via_push = data['notify_activity_via_push']
-        notify_activity_via_push_comments_too = data['notify_activity_via_push_comments_too']
-        notify_activity_via_mail = data['notify_activity_via_mail']
-        type_notify = data['type_notify']
-        mails_users_community_lists = data['mails_users_community_lists']
-        mails_users_community_black_lists = data['mails_users_community_black_lists']
-        distribution_lists = data['distribution_lists']
+        nom = data["title"]
+        description = data["description"]
+        readers = data["readers"]
+        subscribed = data["subscribed"]
+        owners = data["owners"]
+        image = data["image"]
+        community_type = data["community_type"]
+        activity_view = data["activity_view"]
+        tab_view = data["tab_view"]
+        show_news = data["show_news"]
+        show_events = data["show_events"]
+        twitter_hashtag = data["twitter_hashtag"]
+        notify_activity_via_push = data["notify_activity_via_push"]
+        notify_activity_via_push_comments_too = data["notify_activity_via_push_comments_too"]
+        notify_activity_via_mail = data["notify_activity_via_mail"]
+        type_notify = data["type_notify"]
+        mails_users_community_lists = data["mails_users_community_lists"]
+        mails_users_community_black_lists = data["mails_users_community_black_lists"]
+        distribution_lists = data["distribution_lists"]
 
         portal = getSite()
-        pc = api.portal.get_tool(name='portal_catalog')
-        result = pc.unrestrictedSearchResults(portal_type='ulearn.community', Title=nom)
+        pc = api.portal.get_tool(name="portal_catalog")
+        result = pc.unrestrictedSearchResults(portal_type="ulearn.community", Title=nom)
 
         if result and self.context.title != nom:
-            msgid = _('comunitat_existeix', default='La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom.', mapping={'comunitat': nom})
+            msgid = _(
+                "comunitat_existeix",
+                default="La comunitat ${comunitat} ja existeix, si us plau, escolliu un altre nom.",
+                mapping={"comunitat": nom},
+            )
 
             translated = self.context.translate(msgid)
 
             messages = IStatusMessage(self.request)
-            messages.addStatusMessage(translated, type='info')
+            messages.addStatusMessage(translated, type="info")
 
-            self.request.response.redirect('{}/edit'.format(self.context.absolute_url()))
+            self.request.response.redirect("{}/edit".format(self.context.absolute_url()))
 
         else:
-            # Set new values in community
             self.context.title = nom
             self.context.description = description
             self.context.readers = readers
@@ -1493,17 +1485,21 @@ class communityEdit(form.SchemaForm):
                 self.context.image = image
 
             self.context.reindexObject()
-
             notify(ObjectModifiedEvent(self.context))
 
-            msgid = _('comunitat_modificada', default='La comunitat ${comunitat} ha estat modificada.', mapping={'comunitat': nom})
+            msgid = _(
+                "comunitat_modificada",
+                default="La comunitat ${comunitat} ha estat modificada.",
+                mapping={"comunitat": nom},
+            )
 
             translated = self.context.translate(msgid)
 
             messages = IStatusMessage(self.request)
-            messages.addStatusMessage(translated, type='info')
+            messages.addStatusMessage(translated, type="info")
 
             self.request.response.redirect(self.context.absolute_url())
+
 
 
 # @grok.implementer(ICommunityInitializeAdapter)

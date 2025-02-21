@@ -95,6 +95,21 @@
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
         /> 
 
+    <browser:page
+        name="addCommunity"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        permission="ulearn.addCommunity"
+        class="ulearn5.core.content.community.CommunityAdder"
+        template="community_templates/communityadder.pt" />
+
+    <browser:page
+        name="editCommunity"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        permission="cmf.ModifyPortalContent"
+        class="ulearn5.core.content.community.CommunityEdit"
+        template="community_templates/communityedit.pt" />
+
+
     <adapter
         name="image_filename"
         factory="ulearn5.core.content.community.imageFilename"

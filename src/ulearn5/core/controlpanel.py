@@ -1,24 +1,20 @@
 # -*- coding: utf-8 -*-
-from Products.statusmessages.interfaces import IStatusMessage
-
+import transaction
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
+from mrs5.max.utilities import IMAXClient
 from plone import api
 from plone.app.registry.browser import controlpanel
-from plone.directives import dexterity, form
+from plone.autoform import directives
 from plone.supermodel import model
+from Products.statusmessages.interfaces import IStatusMessage
+from ulearn5.core import _
+from ulearn5.core.widgets.select2_maxuser_widget import \
+    Select2MAXUserInputFieldWidget
 from z3c.form import button
 from zope import schema
 from zope.component import getUtility
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-
-from mrs5.max.utilities import IMAXClient
-
-from ulearn5.core import _
-from ulearn5.core.widgets.select2_maxuser_widget import Select2MAXUserInputFieldWidget
-
-import transaction
-
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 communityActivityView = SimpleVocabulary(
     [SimpleTerm(value='Darreres activitats', title=_('Darreres activitats')),
@@ -58,7 +54,7 @@ typesNotifyMailVocabulary = SimpleVocabulary(
 )
 
 
-class ILiteralQuickLinks(form.Schema):
+class ILiteralQuickLinks(model.Schema):
     language = schema.Choice(
         title=_('Language'),
         required=True,
@@ -67,7 +63,7 @@ class ILiteralQuickLinks(form.Schema):
     text = schema.TextLine(title=_('Text'), required=False)
 
 
-class ITableQuickLinks(form.Schema):
+class ITableQuickLinks(model.Schema):
     language = schema.Choice(
         title=_('Language'),
         required=True,
@@ -368,7 +364,7 @@ class IUlearnControlPanelSettings(model.Schema):
         default='#556B2F',
     )
 
-    form.widget(nonvisibles=Select2MAXUserInputFieldWidget)
+    directives.widget('nonvisibles', Select2MAXUserInputFieldWidget)
     nonvisibles = schema.List(
         title=_('no_visibles'),
         description=_('Llista amb les persones que no han de sortir a les cerques i que tenen acces restringit per la resta de persones.'),
@@ -383,7 +379,7 @@ class IUlearnControlPanelSettings(model.Schema):
         required=True,
         default=_('persones'))
 
-    form.widget(quicklinks_literal=DataGridFieldFactory)
+    directives.widget('quicklinks_table', DataGridFieldFactory)
     quicklinks_literal = schema.List(title=_('Text Quick Links'),
                                      description=_('Add the quick links by language'),
                                      value_type=DictRow(title=_('help_quicklinks_literal'),
@@ -398,7 +394,7 @@ class IUlearnControlPanelSettings(model.Schema):
         default='',
     )
 
-    form.widget(quicklinks_table=DataGridFieldFactory)
+    directives.widget('quicklinks_table', DataGridFieldFactory)
     quicklinks_table = schema.List(title=_('QuickLinks'),
                                    description=_('Add the quick links by language'),
                                    value_type=DictRow(title=_('help_quicklinks_table'),
@@ -410,7 +406,7 @@ class IUlearnControlPanelSettings(model.Schema):
         required=True,
         default='Darreres activitats')
 
-    dexterity.write_permission(language='zope2.ViewManagementScreens')
+    directives.write_permission(language='zope2.ViewManagementScreens')
     language = schema.Choice(
         title=_('language',
                 default=_('Idioma de l\'espai')),
@@ -516,8 +512,8 @@ class IUlearnControlPanelSettings(model.Schema):
         required=True,
     )
 
-    dexterity.read_permission(bitly_api_key='zope2.ViewManagementScreens')
-    dexterity.write_permission(bitly_api_key='zope2.ViewManagementScreens')
+    directives.read_permission(bitly_api_key='zope2.ViewManagementScreens')
+    directives.write_permission(bitly_api_key='zope2.ViewManagementScreens')
     bitly_api_key = schema.TextLine(
         title=_('Bitly api key'),
         description=_('The API Key Bitly'),

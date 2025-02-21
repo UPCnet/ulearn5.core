@@ -23,7 +23,7 @@ from zope.viewlet.interfaces import IViewlet
 
 
 @implementer(IViewlet)
-class CommunityNGDirective(IPortalHeader, BrowserView):
+class CommunityNGDirective(BrowserView):
 
     def update(self):
         self.community_hash = ''
@@ -40,7 +40,7 @@ class CommunityNGDirective(IPortalHeader, BrowserView):
                 self.community_tab_view = obj.tab_view
 
 
-class ULearnNGDirectives(IPortalHeader, BrowserView):
+class ULearnNGDirectives(BrowserView):
 
     def get_communities(self):
         """ Gets the communities to show in the stats selectize dropdown
@@ -88,7 +88,7 @@ class ULearnNGDirectives(IPortalHeader, BrowserView):
         return api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.stats_button')
 
 
-class csrfNGDirective(IPortalHeader, BrowserView):
+class csrfNGDirective(BrowserView):
 
     def update(self):
         self.csrf = ''
@@ -117,7 +117,7 @@ class viewletBase(BrowserView):
         return lt.getPreferredLanguage()
 
 
-class newsToolBar(IAboveContentTitle, viewletBase):
+class newsToolBar(viewletBase):
 
     def permisos_important(self):
         # TODO: Comprovar que l'usuari tingui permisos per a marcar com a important
@@ -214,7 +214,7 @@ class newsToolBar(IAboveContentTitle, viewletBase):
             return False
 
 
-class ListTagsNews(IAboveContentTitle, viewletBase):
+class ListTagsNews(viewletBase):
 
     def isTagFollowed(self, category):
         current_user = api.user.get_current()
@@ -230,7 +230,7 @@ class ListTagsNews(IAboveContentTitle, viewletBase):
         return False
 
 
-class ObjectUniversalLink(IAboveContentTitle, viewletBase):
+class ObjectUniversalLink(viewletBase):
 
     def universalLink(self):
         return api.portal.get().absolute_url() + '/resolveuid/' + self.context.UID()
