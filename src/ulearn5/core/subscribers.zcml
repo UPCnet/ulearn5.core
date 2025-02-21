@@ -57,7 +57,7 @@
     <subscriber
         handler="ulearn5.core.gwuuid.addAttributeUUID"
         for="plone.uuid.interfaces.IAttributeUUID
-             zope.container.interfaces.IObjectCreatedEvent"
+             zope.container.interfaces.IObjectAddedEvent"
         />
 
     <subscriber

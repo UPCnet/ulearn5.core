@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from z3c.form import interfaces
-from z3c.form.browser.checkbox import CheckBoxWidget
-from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
-from zope.interface import classImplementsOnly
-
-from ulearn5.core.widgets.interfaces import ICheckboxInfoWidget
-
 import z3c.form.browser.text
 import z3c.form.interfaces
 import z3c.form.widget
 import zope.interface
 import zope.schema.interfaces
+from ulearn5.core.widgets.interfaces import ICheckboxInfoWidget
+from z3c.form import interfaces
+from z3c.form.browser.checkbox import CheckBoxWidget
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 from zope.interface import implementer_only
 
 

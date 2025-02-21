@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 from plone.dexterity.content import Item
-from plone.directives import form
 from plone.namedfile.field import NamedBlobImage
+from plone.supermodel import model
+from Products.Five.browser import BrowserView
+from ulearn5.core import _
 from zope import schema
 from zope.interface import implementer
-from Products.Five.browser import BrowserView
-
-
-from ulearn5.core import _
 
 # grok.templatedir("templates")
 
 
-class IBanner(form.Schema):
+class IBanner(model.Schema):
 
     image = NamedBlobImage(
         title=_('Banner'),

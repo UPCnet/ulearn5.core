@@ -1,17 +1,14 @@
-import transaction
-from thread import allocate_lock
+from _thread import allocate_lock
 
+import transaction
 from plone import api
-from zope.component import getMultiAdapter
+from Products.CMFCore.interfaces._content import IFolderish
+from zope.component import adapter, getMultiAdapter
 from zope.container.interfaces import INameChooser
-from zope.component import adapter
 from zope.interface import implementer
 
-from Products.CMFCore.interfaces._content import IFolderish
-
 try:
-    from plone.namedfile.file import NamedBlobImage
-    from plone.namedfile.file import NamedBlobFile
+    from plone.namedfile.file import NamedBlobFile, NamedBlobImage
 except ImportError:
     # only for dext
     pass

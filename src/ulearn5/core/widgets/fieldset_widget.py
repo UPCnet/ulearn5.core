@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
-
-from ulearn5.core.widgets.interfaces import IFieldsetWidget
-
 import z3c.form.browser.text
 import z3c.form.interfaces
 import z3c.form.widget
-import zope.interface
-import zope.schema.interfaces
-from zope.interface import implementer_only
+from ulearn5.core.widgets.interfaces import IFieldsetWidget
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
+from zope.interface import implementer, implementer_only
 
 
 @implementer_only(IFieldsetWidget)
@@ -26,13 +22,12 @@ class FieldsetWidget(z3c.form.browser.text.TextWidget):
         
 
 
-@zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
+@implementer(z3c.form.interfaces.IFieldWidget)
 def FieldsetFieldWidget(field, request):
     return z3c.form.widget.FieldWidget(field, FieldsetWidget(request))
 
-
+@implementer_only(IFieldsetWidget)
 class H3FieldsetWidget(z3c.form.browser.text.TextWidget):
-    zope.interface.implementsOnly(IFieldsetWidget)
 
     klass = 'fieldset-widget'
     input_template = ViewPageTemplateFile('templates/h3_fieldset.pt')
@@ -44,13 +39,12 @@ class H3FieldsetWidget(z3c.form.browser.text.TextWidget):
             return self.input_template(self)
 
 
-@zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
+@implementer(z3c.form.interfaces.IFieldWidget)
 def H3FieldsetFieldWidget(field, request):
     return z3c.form.widget.FieldWidget(field, H3FieldsetWidget(request))
 
-
+@implementer_only(IFieldsetWidget)
 class H4FieldsetWidget(z3c.form.browser.text.TextWidget):
-    zope.interface.implementsOnly(IFieldsetWidget)
 
     klass = 'fieldset-widget'
     input_template = ViewPageTemplateFile('templates/h4_fieldset.pt')
@@ -62,13 +56,13 @@ class H4FieldsetWidget(z3c.form.browser.text.TextWidget):
             return self.input_template(self)
 
 
-@zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
+@implementer(z3c.form.interfaces.IFieldWidget)
 def H4FieldsetFieldWidget(field, request):
     return z3c.form.widget.FieldWidget(field, H4FieldsetWidget(request))
 
 
+@implementer_only(IFieldsetWidget)
 class H5FieldsetWidget(z3c.form.browser.text.TextWidget):
-    zope.interface.implementsOnly(IFieldsetWidget)
 
     klass = 'fieldset-widget'
     input_template = ViewPageTemplateFile('templates/h5_fieldset.pt')
@@ -80,6 +74,6 @@ class H5FieldsetWidget(z3c.form.browser.text.TextWidget):
             return self.input_template(self)
 
 
-@zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
+@implementer(z3c.form.interfaces.IFieldWidget)
 def H5FieldsetFieldWidget(field, request):
     return z3c.form.widget.FieldWidget(field, H5FieldsetWidget(request))

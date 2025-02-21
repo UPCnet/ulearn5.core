@@ -93,23 +93,27 @@
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="GiveAllCommunitiesGWUUID"
+    permission="cmf.ManagePortal"
     class="ulearn5.core.browser.migrations.GiveAllCommunitiesGWUUID"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="givegwuuid"
+    permission="cmf.ManagePortal"
     class="ulearn5.core.browser.migrations.GiveGWUUID"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    permission="cmf.ManagePortal"
     name="migrate_acls"
     class="ulearn5.core.browser.migrations.MigrateOldStyleACLs"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    permission="cmf.ManagePortal"
     name="migrate_folders"
     class="ulearn5.core.browser.migrations.MigrateOldStyleFolders"
     />
@@ -125,14 +129,14 @@
     for="zope.interface.Interface"
     name="Omega13UserSearch"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.Omega13UserSearch"
+    class="ulearn5.core.browser.omega13.Omega13UserSearch"
     />
 
   <browser:page
     for="zope.interface.Interface"
     name="Omega13GroupSearch"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.Omega13GroupSearch"
+    class="ulearn5.core.browser.omega13.Omega13GroupSearch"
     />
 
   <browser:page
@@ -210,7 +214,7 @@
     name="changeurlcommunities"
     permission="zope2.ViewManagementScreens"
     class="ulearn5.core.browser.setup.changeURLCommunities"
-    template="ulearn5.core.browser.views_templates.changeurlcommunities.pt"
+    template="views_templates/changeurlcommunities.pt"
     />
 
   <browser:page
@@ -218,7 +222,7 @@
     name="deleteusers"
     permission="zope2.ViewManagementScreens"
     class="ulearn5.core.browser.setup.deleteUsers"
-    template="ulearn5.core.browser.views_templates.deleteusers.pt"
+    template="views_templates/deleteusers.pt"
     />
 
   <browser:page
@@ -226,7 +230,7 @@
     name="deleteusersincommunities"
     permission="zope2.ViewManagementScreens"
     class="ulearn5.core.browser.setup.deleteUsersInCommunities"
-    template="ulearn5.core.browser.views_templates.deleteusersincommunities.pt"
+    template="views_templates/deleteusersincommunities.pt"
     />
 
   <browser:page
@@ -241,7 +245,7 @@
     name="updatesharingcommunityelastic"
     permission="zope2.ViewManagementScreens"
     class="ulearn5.core.browser.setup.updateSharingCommunityElastic"
-    template="ulearn5.core.browser.views_templates.updatesharingcommunityelastic.pt"
+    template="views_templates/updatesharingcommunityelastic.pt"
     />
 
   <browser:page
@@ -340,7 +344,7 @@
     name="deletenominasmes"
     permission="cmf.ManagePortal"
     class="ulearn5.core.browser.setup.deleteNominasMes"
-    template="ulearn5.core.browser.views_templates.deletenominasmes.pt"
+    template="views_templates/deletenominasmes.pt"
     />
 
   <browser:page
@@ -541,24 +545,24 @@
 
   <adapter
     for="plone.uuid.interfaces.IAttributeUUID"
-    provides="ulearn5.core.browser.gwuuid.IGWUUID"
-    factory="ulearn5.core.browser.gwuuid.MutableAttributeUUID"
+    provides="ulearn5.core.gwuuid.IGWUUID"
+    factory="ulearn5.core.gwuuid.MutableAttributeUUID"
     />
 
   <adapter
-    factory="ulearn5.core.browser.gwuuid.gwUUID"
+    factory="ulearn5.core.gwuuid.gwUUID"
     name="gwuuid"
     />
 
   <subscriber
     for="plone.uuid.interfaces.IAttributeUUID
          zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-    handler="ulearn5.core.browser.gwuuid.addAttributeUUID"
+    handler="ulearn5.core.gwuuid.addAttributeUUID"
     />
 
   <browser:viewlet
     name="ulearn.communityngdirective"
-    class="ulearn5.core.browser.viewlets.CommunityNgDirective"
+    class="ulearn5.core.browser.viewlets.CommunityNGDirective"
     layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
     permission="zope2.View"
     template="viewlets_templates/communityngdirective.pt"

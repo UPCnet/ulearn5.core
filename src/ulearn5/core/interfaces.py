@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
 
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from zope.interface import Interface
+from souper.interfaces import ICatalogFactory
 from zope.filerepresentation.interfaces import IFileFactory
+from zope.interface import Interface
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 
 class IUlearn5CoreLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
+class IFolder(Interface):
+    """ Marker for folder """
 
 class IDocumentFolder(Interface):
     """ Marker for documents folder """
@@ -49,6 +52,8 @@ class IAppFile(Interface):
 class IVideo(Interface):
     """ Marker to identify content type Video """
 
+class ICatalogFactory(ICatalogFactory):
+    " Marker to identify Catalog Factory - souper "
 
 class IUlearnUtils(Interface):
     """ Marker describing the functionality of the convenience methods

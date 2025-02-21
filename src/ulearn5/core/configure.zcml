@@ -18,14 +18,15 @@
 
   <i18n:registerTranslations directory="locales" />
 
-  <include package=".configure" />
+  <!-- <include package=".configure" /> -->
   <include package=".widgets" />
   <include package=".browser" />
   <include package=".content" />
+  <include package=".services" />
+  <include package=".behaviors" />
 
   <include file="subscribers.zcml" />
   <include file="patches.zcml" />
-  <include file="behaviors.zcml" />
 
   <browser:resource
     name="cpulearn.jpg"
@@ -43,7 +44,7 @@
   <browser:page
     for="*"
     name="thumbnail-image"
-    class=".behaviors.view-thumb.Thumbnail"
+    class=".behaviors.view_thumb.Thumbnail"
     layer="ulearn5.theme.interfaces.IUlearn5ThemeLayer"
     permission="zope2.Public"
     />
@@ -167,6 +168,7 @@
         name="gwuuidview"
         for="zope.interface.Interface"
         class="ulearn5.core.gwuuid.GWUUIDView"
+        permission="cmf.ManagePortal"
     />
 
     <utility

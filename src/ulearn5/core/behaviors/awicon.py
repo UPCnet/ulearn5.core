@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-from plone.directives import form
+from plone.autoform.interfaces import IFormFieldProvider
+from plone.supermodel import model
 from ulearn5.core import _
 from zope import schema
 from zope.interface import alsoProvides, implementer
 
 
-class IAwIcon(form.Schema):
+class IAwIcon(model.Schema):
     """Add icon to object
     """
-    form.fieldset(
+    model.fieldset(
         'awsome_icon',
         label=_('Icon'),
         fields=('awicon',),
@@ -20,7 +21,7 @@ class IAwIcon(form.Schema):
         required=False,
     )
 
-alsoProvides(IAwIcon, form.IFormFieldProvider)
+alsoProvides(IAwIcon, IFormFieldProvider)
 
 
 @implementer(IAwIcon)
