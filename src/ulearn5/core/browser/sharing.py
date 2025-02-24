@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-from plone import api
-from plone.dexterity.interfaces import IDexterityContent
-from plone.indexer import indexer
-from Products.Five.browser import BrowserView
-from zope.component import adapts
-from zope.component import getUtility
-from zope.component import queryUtility
-from zope.component.hooks import getSite
-from zope.interface import Interface, implementer
-from base5.core.utilities import IElasticSearch
-from ulearn5.core.gwuuid import IGWUUID
 
 import json
 import re
 import uuid
+
+from base5.core.utilities import IElasticSearch
+from plone import api
+from plone.dexterity.interfaces import IDexterityContent
+from plone.indexer import indexer
+from Products.Five.browser import BrowserView
 from six.moves import range
+from ulearn5.core.gwuuid import IGWUUID
+from zope.component import adapts, getUtility, queryUtility
+from zope.component.hooks import getSite
+from zope.interface import Interface, implementer
 
 
 class IElasticSharing(Interface):
@@ -40,7 +39,7 @@ class ElasticSharing(object):
         try:
             self.elastic = getUtility(IElasticSearch)
         except Exception as e:
-            print("ElasticSearch not available: " + e)
+            print(f"ElasticSearch not available: {e}")
         self._root_path = None
 
     @property
@@ -472,6 +471,8 @@ def SharingChanged(content, event):
 def RemoveObject(content, event):
     """Hook delete object plone remove object elastic"""
     elastic_sharing = queryUtility(IElasticSharing)
+    if not elastic_sharing:
+        return 'IElasticSharing utility not found'
     current_local_roles = elastic_sharing.object_local_roles(content)
     content.manage_delLocalRoles(current_local_roles)
     elastic_sharing.modified(content)

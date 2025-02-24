@@ -25,13 +25,14 @@
         permission="zope2.View"
         /> 
 
-    <browser:page 
+        <!-- Duplicado -->
+<!--     <browser:page 
         name="view"
         class="ulearn5.core.content.community.View"
         for="ulearn5.core.content.community.ICommunity"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
         permission="zope2.View"
-        /> 
+        />  -->
 
     <browser:page 
         name="updateuseraccessdatetime"

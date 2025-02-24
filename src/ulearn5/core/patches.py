@@ -1009,7 +1009,7 @@ def getRolesForPrincipal(self, principal, request=None):
             principal_ids.update(getGroupsForPrincipal(principal, plugins,
                                                        request))
         for pid in principal_ids:
-            roles.update(self._principal_roles.get(pid.encode('utf-8'), ()))
+            roles.update(self._principal_roles.get(pid, ()))            
         return tuple(roles)
 
 
