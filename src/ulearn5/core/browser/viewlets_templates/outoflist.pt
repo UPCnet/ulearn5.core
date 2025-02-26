@@ -1,14 +1,14 @@
-<tal:block condition="viewlet/canManageSite">
+<tal:block condition="view/canManageSite">
   <div i18n:domain="ulearn" id="toggle-outoflist">
     <div>Lista</div>
-    <div tal:condition="viewlet/isNewOutOfList">
+    <div tal:condition="view/isNewOutOfList">
       <label class="switch">
         <input type="checkbox">
         <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
         </div>
       </label>
     </div>
-    <div tal:condition="not:viewlet/isNewOutOfList">
+    <div tal:condition="not:view/isNewOutOfList">
       <label class="switch">
         <input type="checkbox" checked>
         <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">

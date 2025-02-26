@@ -23,7 +23,36 @@ from zope.viewlet.interfaces import IViewlet
 
 
 @implementer(IViewlet)
-class CommunityNGDirective(BrowserView):
+class viewletBase(BrowserView):
+
+    def __init__(self, context, request, view, manager):
+        super().__init__(context, request)
+        self.view = view
+        self.manager = manager
+
+    @memoize_contextless
+    def portal_url(self):
+        return self.portal().absolute_url()
+
+    @memoize_contextless
+    def portal(self):
+        return getSite()
+
+    def base_config(self):
+        return base_config()
+
+    def pref_lang(self):
+        """ Extracts the current language for the current user
+        """
+        lt = api.portal.get_tool(name='portal_languages')
+        return lt.getPreferredLanguage()
+    
+    def __call__(self):
+        return self.render()
+
+
+@implementer(IViewlet)
+class CommunityNGDirective(viewletBase):
 
     def update(self):
         self.community_hash = ''
@@ -40,7 +69,7 @@ class CommunityNGDirective(BrowserView):
                 self.community_tab_view = obj.tab_view
 
 
-class ULearnNGDirectives(BrowserView):
+class ULearnNGDirectives(viewletBase):
 
     def get_communities(self):
         """ Gets the communities to show in the stats selectize dropdown
@@ -88,33 +117,12 @@ class ULearnNGDirectives(BrowserView):
         return api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.stats_button')
 
 
-class csrfNGDirective(BrowserView):
+class csrfNGDirective(viewletBase):
 
     def update(self):
         self.csrf = ''
         from plone.protect.authenticator import createToken
         self.csrf = createToken()
-
-
-@implementer(IViewlet)
-class viewletBase(BrowserView):
-
-    @memoize_contextless
-    def portal_url(self):
-        return self.portal().absolute_url()
-
-    @memoize_contextless
-    def portal(self):
-        return getSite()
-
-    def base_config(self):
-        return base_config()
-
-    def pref_lang(self):
-        """ Extracts the current language for the current user
-        """
-        lt = api.portal.get_tool(name='portal_languages')
-        return lt.getPreferredLanguage()
 
 
 class newsToolBar(viewletBase):

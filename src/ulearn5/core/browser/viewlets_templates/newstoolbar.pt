@@ -1,18 +1,18 @@
-<tal:block i18n:domain="ulearn" tal:condition="viewlet/isManagementNewsActivate">
+<tal:block i18n:domain="ulearn" tal:condition="view/isManagementNewsActivate">
   <div class="toogle-group">
     <div id="newtoolbar-title" i18n:translate="label-newstoolbar">
       Gestion Noticia:
     </div>
-    <div id="toggle-outoflist" tal:condition="viewlet/isPortletListActivate">
+    <div id="toggle-outoflist" tal:condition="view/isPortletListActivate">
       <div class="literal-toggle" i18n:translate="label-toogle-list">Lista</div>
-      <div tal:condition="viewlet/isNewOutOfList">
+      <div tal:condition="view/isNewOutOfList">
         <label class="switch">
           <input type="checkbox">
           <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
           </div>
         </label>
       </div>
-      <div tal:condition="not:viewlet/isNewOutOfList">
+      <div tal:condition="not:view/isNewOutOfList">
         <label class="switch">
           <input type="checkbox" checked>
           <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
@@ -21,16 +21,16 @@
       </div>
     </div>
 
-    <div id="toggle-flash" tal:condition="viewlet/isPortletFlashActivate">
+    <div id="toggle-flash" tal:condition="view/isPortletFlashActivate">
       <div class="literal-toggle" i18n:translate="label-toogle-flash">Flash</div>
-      <div tal:condition="not:viewlet/isNewFlash">
+      <div tal:condition="not:view/isNewFlash">
         <label class="switch">
           <input type="checkbox">
           <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
           </div>
         </label>
       </div>
-      <div tal:condition="viewlet/isNewFlash">
+      <div tal:condition="view/isNewFlash">
         <label class="switch">
           <input type="checkbox" checked>
           <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
@@ -39,10 +39,10 @@
       </div>
     </div>
 
-    <div id="toggle-important" tal:condition="viewlet/isPortletImportantActivate">
+    <div id="toggle-important" tal:condition="view/isPortletImportantActivate">
       <div class="literal-toggle" i18n:translate="label-toogle-important">Destacada</div>
-      <div tal:condition="not:viewlet/isNewImportant">
-        <div tal:condition="not:viewlet/isNewImportant">
+      <div tal:condition="not:view/isNewImportant">
+        <div tal:condition="not:view/isNewImportant">
           <label class="switch">
             <input type="checkbox">
             <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
@@ -50,8 +50,8 @@
           </label>
         </div>
       </div>
-      <div tal:condition="viewlet/isNewImportant">
-        <div tal:condition="viewlet/isNewImportant">
+      <div tal:condition="view/isNewImportant">
+        <div tal:condition="view/isNewImportant">
           <label class="switch">
             <input type="checkbox" checked>
             <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
@@ -61,16 +61,16 @@
       </div>
     </div>
 
-    <div id="toggle-newsinapp" tal:condition="viewlet/isViewInAppChecked">
+    <div id="toggle-newsinapp" tal:condition="view/isViewInAppChecked">
       <div class="literal-toggle" i18n:translate="label-toogle-app">App</div>
-      <div tal:condition="not:viewlet/isNewApp">
+      <div tal:condition="not:view/isNewApp">
         <label class="switch">
           <input type="checkbox">
           <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">
           </div>
         </label>
       </div>
-      <div tal:condition="viewlet/isNewApp">
+      <div tal:condition="view/isNewApp">
         <label class="switch">
           <input type="checkbox" checked>
           <div class="sliderbutton round" tal:attributes="data-dextobject context/absolute_url">

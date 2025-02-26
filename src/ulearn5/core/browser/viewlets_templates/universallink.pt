@@ -1,5 +1,5 @@
 <a href="#" id="object-universal-link" data-clipboard-action="copy" i18n:domain="ulearn"
-    tal:condition="viewlet/viewViewlet" tal:attributes="data-clipboard-text viewlet/universalLink" i18n:attributes="data-clipboard-success clipboard-success;
+    tal:condition="view/viewViewlet" tal:attributes="data-clipboard-text view/universalLink" i18n:attributes="data-clipboard-success clipboard-success;
                     title clipboard-title">
     <span class="fa fa-link fa-lg"></span>
 </a>
