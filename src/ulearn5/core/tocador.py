@@ -1,20 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-# from five import grok
-from plone import api
+
+import urllib.error
+import urllib.parse
+import urllib.request
 
 from Acquisition import aq_inner
-from OFS.interfaces import IApplication
-from OFS.interfaces import IFolder
+from OFS.interfaces import IApplication, IFolder
+# from five import grok
+from plone import api
 from plone.subrequest import subrequest
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFCore.utils import getToolByName
-from zope.interface import alsoProvides
-
-import urllib.request, urllib.parse, urllib.error
-
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.Five.browser import BrowserView
-
+from zope.interface import alsoProvides
 
 
 class installPloneProduct(BrowserView):
@@ -25,7 +24,7 @@ class installPloneProduct(BrowserView):
     # grok.name('install_product')
     # grok.require('cmf.ManagePortal')
 
-    def render(self, portal=None):
+    def __call__(self, portal=None):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
             alsoProvides(self.request, IDisableCSRFProtection)
@@ -54,7 +53,7 @@ class reinstallPloneProduct(BrowserView):
     # grok.name('reinstall_product')
     # grok.require('cmf.ManagePortal')
 
-    def render(self, portal=None):
+    def __call__(self, portal=None):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
             alsoProvides(self.request, IDisableCSRFProtection)
@@ -84,7 +83,7 @@ class uninstallPloneProduct(BrowserView):
     # grok.name('uninstall_product')
     # grok.require('cmf.ManagePortal')
 
-    def render(self, portal=None):
+    def __call__(self, portal=None):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
             alsoProvides(self.request, IDisableCSRFProtection)
@@ -125,7 +124,7 @@ class bulkExecuteScriptView(BrowserView):
     # grok.name('bulk_action')
     # grok.require('cmf.ManagePortal')
 
-    def render(self):
+    def __call__(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
             alsoProvides(self.request, IDisableCSRFProtection)

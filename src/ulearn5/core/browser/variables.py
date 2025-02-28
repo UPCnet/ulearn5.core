@@ -5,7 +5,6 @@ from Products.Five.browser import BrowserView
 from zope.component import queryUtility
 from zope.component.hooks import getSite
 
-
 TEMPLATE = """\
 if (!window._MAXUI) {window._MAXUI = {}; }
 window._MAXUI.username = '%(username)s';
@@ -25,7 +24,7 @@ window._MAXUI.domain = '%(domain)s';
 
 class communityVariables(BrowserView):
 
-    def render(self):
+    def __call__(self):
         self.request.response.addHeader('content-type', 'text/javascript;;charset=utf-8')
         self.request.response.addHeader('cache-control', 'must-revalidate, max-age=0, no-cache, no-store')
         portal_url = getSite().absolute_url()

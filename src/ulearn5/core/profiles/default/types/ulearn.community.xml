@@ -20,6 +20,9 @@
  <!-- add permission -->
  <property name="add_permission">ulearn.addCommunity</property>
 
+   <property name="add_view_expr">string:${folder_url}/addCommunity</property>
+   <property name="schema_policy">dexterity</property>
+
  <!-- enabled behaviors -->
  <property name="behaviors">
     <element value="plone.app.content.interfaces.INameFromTitle"/>

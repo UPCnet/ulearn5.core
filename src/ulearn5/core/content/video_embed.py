@@ -31,7 +31,7 @@ class VideoEmbedView(BrowserView):
     # grok.context(IVideoEmbed)
     # grok.name('view')
 
-    def render(self):
+    def __call__(self):
         embed_type, code = self.getEmbed()
         try:
             self.template = ViewPageTemplateFile('videoembed_templates/{}.pt'.format(embed_type))

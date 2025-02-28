@@ -111,7 +111,7 @@ class fromUsername2DisplayName(BrowserView):
     # grok.require('base.authenticated')
     # grok.layer(IUlearn5CoreLayer)
 
-    def render(self):
+    def __call__(self):
         self.request.response.setHeader('Content-type', 'application/json')
         query = self.request.form.get('q', '')
 

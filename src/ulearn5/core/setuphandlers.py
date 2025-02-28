@@ -220,8 +220,8 @@ def setupVarious(context):
 
     pl = api.portal.get_tool(name='portal_languages')
     language = settings.language
-    if isinstance(language, str):
-        language = language.decode('UTF-8')
+    #if isinstance(language, str):
+    #    language = language.decode('UTF-8')
     pl.setDefaultLanguage(language)
     pl.addSupportedLanguage(language)
 

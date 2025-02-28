@@ -54,7 +54,7 @@ from ulearn5.core.widgets.select2_user_widget import SelectWidgetConverter
 from ulearn5.core.widgets.single_checkbox_notify_email_widget import \
     SingleCheckBoxNotifyEmailFieldWidget
 from ulearn5.core.widgets.terms_widget import TermsFieldWidget
-from z3c.form import button, form
+from z3c.form import button, field, form
 from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from z3c.form.interfaces import IAddForm, IEditForm
 from zope import schema
@@ -178,7 +178,6 @@ class ICommunity(model.Schema):
     )
 
     # Ocultar el campo 'community_type' en el formulario de edición
-    directives.mode(community_type={"edit": "hidden"})
     community_type = schema.Choice(
         title=_('Tipus de comunitat'),
         description=_('community_type_description'),
@@ -286,14 +285,14 @@ class ICommunity(model.Schema):
     )
 
     # Ocultar el campo 'mails_users_community_lists' en los formularios de añadido y edición
-    directives.mode(mails_users_community_lists={"add": "hidden", "edit": "hidden"})
+    #directives.mode(mails_users_community_lists={"add": "hidden", "edit": "hidden"})
     mails_users_community_lists = schema.Text(
         title=_('Users comunnity lists'),
         description=_('users_community_lists_help'),
         required=False
     )
 
-    directives.mode(mails_users_community_black_lists={"add": "hidden", "edit": "hidden"})
+    #directives.mode(mails_users_community_black_lists={"add": "hidden", "edit": "hidden"})
     mails_users_community_black_lists = schema.Text(
         title=_('Users comunnity black lists'),
         description=_('users_community_black_lists_help'),
@@ -306,7 +305,7 @@ class ICommunity(model.Schema):
         required=False
     )
 
-    directives.mode(terms={"add": "hidden", "edit": "hidden"})
+    #directives.mode(terms={"add": "hidden", "edit": "hidden"})
     directives.widget(terms=TermsFieldWidget)
     terms = schema.Bool(
         title=_('title_terms_of_user'),
@@ -859,6 +858,9 @@ class View(BrowserView):
     # grok.context(ICommunity)
     # grok.require('zope2.View')
 
+    def __call__(self):
+        return self.render()
+
     def canEditCommunity(self):
         return checkPermission('cmf.RequestReview', self.context)
 
@@ -916,7 +918,7 @@ class UpdateUserAccessDateTime(BrowserView):
     
 
     @json_response
-    def render(self):
+    def __call__(self):
         """ Quan accedeixes a la comunitat, actualitza la data d'accès de l'usuari
             a la comunitat i per tant, el comptador de pendents queda a 0. """
         current_user = api.user.get_current()
@@ -938,6 +940,9 @@ class UpdateUserAccessDateTime(BrowserView):
 
 class EditACL(BrowserView):
     # grok.context(ICommunity)
+
+    def __call__(self):
+        pass
 
     def get_gwuuid(self):
         return IGWUUID(self.context).get()
@@ -1011,7 +1016,7 @@ class NotifyAtomicChange(BrowserView):
     # grok.name('notify')
 
     @json_response
-    def render(self):
+    def __call__(self):
         if self.request.method == 'POST':
             data = json.loads(self.request['BODY'])
             adapter = self.context.adapted()
@@ -1089,7 +1094,7 @@ class UploadFile(BrowserView):
             if IDocumentFolder.providedBy(self.context[obj]):
                 return self.context[obj]
 
-    def render(self):
+    def __call__(self):
         if 'multipart/form-data' not in self.request['CONTENT_TYPE'] and \
            len(list(self.request.form.keys())) != 1:
             self.request.response.setHeader('Content-type', 'application/json')
@@ -1129,7 +1134,7 @@ class ToggleFavorite(BrowserView):
     # grok.name('toggle-favorite')
 
     @json_response
-    def render(self):
+    def __call__(self):
         if self.request.method == 'POST':
             current_user = api.user.get_current()
             if current_user.id in IFavorite(self.context).get():
@@ -1149,7 +1154,7 @@ class ToggleNotNotifyPush(BrowserView):
     # grok.name('toggle-notnotifypush')
 
     @json_response
-    def render(self):
+    def __call__(self):
         if self.request.method == 'POST':
             community = self.context
             adapter = community.adapted()
@@ -1173,7 +1178,7 @@ class ToggleNotNotifyMail(BrowserView):
     # grok.name('toggle-notnotifymail')
 
     @json_response
-    def render(self):
+    def __call__(self):
         if self.request.method == 'POST':
             current_user = api.user.get_current()
             user_id = current_user.id
@@ -1208,7 +1213,7 @@ class Subscribe(BrowserView):
     # grok.name('subscribe')
 
     @json_response
-    def render(self):
+    def __call__(self):
         community = self.context
         current_user = api.user.get_current()
 
@@ -1228,7 +1233,7 @@ class UnSubscribe(BrowserView):
     # grok.name('unsubscribe')
 
     @json_response
-    def render(self):
+    def __call__(self):
         current_user = api.user.get_current()
 
         if self.request.method == 'POST':
@@ -1261,6 +1266,7 @@ class CommunityAdder(AutoExtensibleForm, form.Form):
     """
     schema = ICommunity
     ignoreContext = True
+    fields = field.Fields(ICommunity)
 
     def update(self):
         super(CommunityAdder, self).update()

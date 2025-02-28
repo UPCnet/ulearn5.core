@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
+import importlib
+import inspect
+
 from Products.Five.browser import BrowserView
 from zope.component.hooks import getSite
-
-import inspect
-import importlib
-
 
 MODULES_TO_INSPECT = [
     "base5.core.browser.setup",
@@ -13,6 +12,9 @@ MODULES_TO_INSPECT = [
 
 
 class Clouseau(BrowserView):
+
+    def __call__(self):
+        pass
 
     def get_helpers(self):
         absolute_url = getSite().absolute_url()
