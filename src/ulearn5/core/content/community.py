@@ -72,6 +72,7 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
 from ZPublisher.HTTPRequest import FileUpload
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 logger = logging.getLogger(__name__)
 VALID_COMMUNITY_ROLES = ['reader', 'writer', 'owner']
@@ -446,7 +447,10 @@ class CommunityAdapterMixin(object):
         self.delete_acl()
 
     def get_acl(self):
-        return ICommunityACL(self.context)().attrs.get('acl', '')
+        acl_record = ICommunityACL(self.context)()
+        if acl_record:
+            return acl_record.get('acl', '')
+        return ''
 
     def update_acl(self, acl):
         gwuuid = IGWUUID(self.context).get()
@@ -459,14 +463,14 @@ class CommunityAdapterMixin(object):
             record = {
                 'path': '/'.join(self.context.getPhysicalPath()),
                 'gwuuid': gwuuid,
-                'hash': sha1(self.context.absolute_url()).hexdigest(),
+                'hash': sha1(self.context.absolute_url().encode('utf-8')).hexdigest(),  # Codificar en bytes
             }
             unique_key = str(uuid.uuid4())
             communities_acl[unique_key] = record
 
         record['groups'] = [g['id'] for g in acl.get('groups', []) if g.get('id', False)]
         record['acl'] = acl
-        
+
 
     def delete_acl(self):
         """ In case that we delete the community, delete its ACL record. """
@@ -858,8 +862,10 @@ class View(BrowserView):
     # grok.context(ICommunity)
     # grok.require('zope2.View')
 
+    index = ViewPageTemplateFile("community_templates/view.pt")
+
     def __call__(self):
-        return self.render()
+        return self.index()
 
     def canEditCommunity(self):
         return checkPermission('cmf.RequestReview', self.context)
@@ -915,7 +921,7 @@ class View(BrowserView):
 
 class UpdateUserAccessDateTime(BrowserView):
     # grok.context(ICommunity)
-    
+
 
     @json_response
     def __call__(self):
@@ -1367,18 +1373,18 @@ class CommunityAdder(AutoExtensibleForm, form.Form):
 
     def terms(self):
         return 'terms' in list(self.fields.keys())
-    
+
 # TODO
 class CommunityEdit(AutoExtensibleForm, form.Form):
     """ Formulario para editar comunidades """
-    
+
     context = ICommunity
     schema = ICommunity
     ignoreContext = True
 
     ctype_map = {'Closed': 'closed', 'Open': 'open', 'Organizative': 'organizative'}
-    cview_map = {'Darreres activitats': 'darreres_activitats', 
-                 'Activitats mes valorades': 'activitats_mes_valorades', 
+    cview_map = {'Darreres activitats': 'darreres_activitats',
+                 'Activitats mes valorades': 'activitats_mes_valorades',
                  'Activitats destacades': 'activitats_destacades'}
 
     def update(self):
@@ -1695,7 +1701,7 @@ class ACLSoupCatalog(object):
         groups = NodeAttributeIndexer('groups')
         catalog['groups'] = CatalogKeywordIndex(groups)
         return catalog
-    
+
     def __call__(self, context):
         menu_soup = get_or_initialize_annotation('communities_acl')
         return {
@@ -1723,7 +1729,7 @@ class UserCommunityAccessCatalogFactory(object):
         dataindexer = NodeAttributeIndexer('data_access')
         catalog['data_access'] = CatalogFieldIndex(dataindexer)
         return catalog
-    
+
     def __call__(self, context):
         menu_soup = get_or_initialize_annotation('user_community_access')
         return {

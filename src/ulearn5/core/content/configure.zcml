@@ -6,8 +6,8 @@
 
     <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
     <include package="z3c.jbot" file="meta.zcml" />
-    
-    <browser:page 
+
+    <browser:page
         name="view"
         class="ulearn5.core.content.banner.BannerView"
         for="ulearn5.core.content.banner.IBanner"
@@ -17,16 +17,16 @@
         />
 
 
-    <browser:page 
+    <browser:page
         name="view"
         class="ulearn5.core.content.community.View"
         for="ulearn5.core.content.community.ICommunity"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
         permission="zope2.View"
-        /> 
+        />
 
         <!-- Duplicado -->
-<!--     <browser:page 
+<!--     <browser:page
         name="view"
         class="ulearn5.core.content.community.View"
         for="ulearn5.core.content.community.ICommunity"
@@ -34,77 +34,77 @@
         permission="zope2.View"
         />  -->
 
-    <browser:page 
+    <browser:page
         name="updateuseraccessdatetime"
         class="ulearn5.core.content.community.UpdateUserAccessDateTime"
         for="ulearn5.core.content.community.ICommunity"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
         permission="zope2.View"
-        /> 
+        />
 
-    <browser:page 
+    <browser:page
         name="editacl"
         class="ulearn5.core.content.community.EditACL"
         for="ulearn5.core.content.community.ICommunity"
         permission="zope2.View"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
-        /> 
+        />
 
-    <browser:page 
+    <browser:page
         name="notify"
         class="ulearn5.core.content.community.NotifyAtomicChange"
         for="ulearn5.core.content.community.ICommunity"
         permission="zope2.View"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
-        /> 
+        />
 
-    <browser:page 
+    <browser:page
         name="upload"
         class="ulearn5.core.content.community.UploadFile"
         for="ulearn5.core.content.community.ICommunity"
         permission="zope2.View"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
-        /> 
+        />
 
-    <browser:page 
+    <browser:page
         name="toggle-favorite"
         class="ulearn5.core.content.community.ToggleFavorite"
         for="ulearn5.core.content.community.ICommunity"
         permission="zope2.View"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
-        /> 
+        />
 
-    <browser:page 
+    <browser:page
         name="toggle-notnotifypush"
         class="ulearn5.core.content.community.ToggleNotNotifyPush"
         for="ulearn5.core.content.community.ICommunity"
         permission="zope2.View"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
-        /> 
+        />
 
-    <browser:page 
+    <browser:page
         name="toggle-notnotifymail"
         class="ulearn5.core.content.community.ToggleNotNotifyMail"
         for="ulearn5.core.content.community.ICommunity"
         permission="zope2.View"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
-        /> 
+        />
 
-    <browser:page 
+    <browser:page
         name="subscribe"
         class="ulearn5.core.content.community.Subscribe"
         permission="zope2.View"
         for="ulearn5.core.content.community.ICommunity"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
-        /> 
+        />
 
-    <browser:page 
+    <browser:page
         name="unsubscribe"
         class="ulearn5.core.content.community.UnSubscribe"
         for="ulearn5.core.content.community.ICommunity"
         permission="zope2.View"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
-        /> 
+        />
 
     <browser:page
         name="addCommunity"
@@ -127,8 +127,8 @@
         for="ulearn5.core.content.community.ICommunity"
         provides="zope.interface.Interface"
     />
-        
-    
+
+
     <adapter
         name="subscribed_items"
         factory="ulearn5.core.content.community.subscribed_items"
@@ -195,12 +195,12 @@
       handler="ulearn5.core.content.community.delete_community"
     />
 
-    <browser:page 
+    <browser:page
         name="view"
         class="ulearn5.core.content.video_embed.VideoEmbedView"
         for="ulearn5.core.content.video_embed.IVideoEmbed"
         layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
         permission="zope2.View"
-        /> 
+        />
 
 </configure>
