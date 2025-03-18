@@ -13,9 +13,6 @@ MODULES_TO_INSPECT = [
 
 class Clouseau(BrowserView):
 
-    def __call__(self):
-        pass
-
     def get_helpers(self):
         absolute_url = getSite().absolute_url()
 

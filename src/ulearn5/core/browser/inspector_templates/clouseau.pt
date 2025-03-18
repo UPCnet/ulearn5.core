@@ -18,7 +18,7 @@
 
     <div metal:fill-slot="main" tal:define="helpers view/get_helpers">
       <h1>Plone site related</h1>
-      <div class="lead clearfix" tal:repeat="helper python:helpers[0]">
+      <div class="lead clearfix" tal:repeat="helper python:helpers['plone_site']">
         <h4>
           <a tal:attributes="href helper/url" tal:content="helper/url">The url</a>
         </h4>
@@ -26,7 +26,7 @@
       </div>
 
       <h1>Configure LDAP</h1>
-      <div class="lead clearfix" tal:repeat="helper python:helpers[3]">
+      <div class="lead clearfix" tal:repeat="helper python:helpers['ldap']">
         <h4>
           <a tal:attributes="href helper/url" tal:content="helper/url">The url</a>
         </h4>
@@ -34,31 +34,12 @@
       </div>
 
       <h1>Configure Elastic</h1>
-      <div class="lead clearfix" tal:repeat="helper python:helpers[4]">
+      <div class="lead clearfix" tal:repeat="helper python:helpers['elastic']">
         <h4>
           <a tal:attributes="href helper/url" tal:content="helper/url">The url</a>
         </h4>
         <p tal:content="helper/description">The description</p>
       </div>
-
-      <h1>Migration (Plone 4 to 5)</h1>
-      <div class="lead clearfix" tal:repeat="helper python:helpers[2]">
-        <h4>
-          <a tal:attributes="href helper/url" tal:content="helper/url">The url</a>
-        </h4>
-        <p tal:content="helper/description">The description</p>
-      </div>
-
-      <h1>Application related (Zope)</h1>
-      <div class="lead clearfix" tal:repeat="helper python:helpers[1]">
-        <h4>
-          <a tal:attributes="href helper/url" tal:content="helper/url">The url</a>
-        </h4>
-        <p tal:content="helper/description">The description</p>
-      </div>
-
-
-
     </div>
 
     <div metal:fill-slot="portlets_two_slot">
