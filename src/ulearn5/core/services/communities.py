@@ -143,7 +143,7 @@ class Communities(Service):
             'url': brain.getURL(),
             'url_tab_view': url,
             'gwuuid': brain.gwuuid,
-            'hash': sha1(brain.getURL()).hexdigest(),
+            'hash': sha1(brain.getURL().encode('utf-8')).hexdigest(),
             'type': brain.community_type,
             'image': brain.image_filename if brain.image_filename else False,
             'image_community': brain.getURL() + '/thumbnail-image' if brain.image_filename else portal_url + '/++theme++ulearn5/assets/images/avatar_default.png',
@@ -206,7 +206,7 @@ class Communities(Service):
         new_community = self.context[new_community_id]
 
         success_response = 'Created community "{}" with hash "{}".'.format(
-            new_community.absolute_url(), sha1(new_community.absolute_url()).hexdigest())
+            new_community.absolute_url(), sha1(new_community.absolute_url().encode('utf-8')).hexdigest())
 
         status = 201
         logger.info(success_response)

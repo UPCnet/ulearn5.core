@@ -892,7 +892,7 @@ class deleteUsers(BrowserView):
                                             num, len(communities_subscription), obj
                                         )
                                     )
- 
+
                                     gwuuid = IGWUUID(obj).get()
                                     communities_acl = get_or_initialize_annotation("communities_acl")
 
@@ -977,7 +977,7 @@ class deleteUsersInCommunities(BrowserView):
                                     adapter = obj.adapted()
                                     adapter.set_plone_permissions(adapter.get_acl())
 
-                            
+
 
                         logger.info("Delete user in communities: {}".format(user))
                     except:
@@ -1456,7 +1456,7 @@ class addAllCommunitiesAsFavoriteFromAllUsers(BrowserView):
 
         for community in communities:
             communityObj = community._unrestrictedGetObject()
-            community_hash = sha1(communityObj.absolute_url()).hexdigest()
+            community_hash = sha1(communityObj.absolute_url().encode('utf-8')).hexdigest()
             users_subscription = maxclient.contexts[community_hash].subscriptions.get(
                 qs={"limit": 0}
             )
@@ -1492,7 +1492,7 @@ class addCommunityAsFavoriteFromAllUsers(BrowserView):
             if communities:
                 for community in communities:
                     communityObj = community._unrestrictedGetObject()
-                    community_hash = sha1(communityObj.absolute_url()).hexdigest()
+                    community_hash = sha1(communityObj.absolute_url().encode('utf-8')).hexdigest()
                     users_subscription = maxclient.contexts[
                         community_hash
                     ].subscriptions.get(qs={"limit": 0})

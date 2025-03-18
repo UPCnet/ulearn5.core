@@ -683,10 +683,10 @@ class CommunityAdapterMixin(object):
         self.context.reindexObject()
 
     def subscribe_user_push(self, user_id):
-        self.maxclient.contexts[sha1(self.context.absolute_url()).hexdigest()].subscriptionpush[user_id].delete()
+        self.maxclient.contexts[sha1(self.context.absolute_url().encode('utf-8')).hexdigest()].subscriptionpush[user_id].delete()
 
     def unsubscribe_user_push(self, user_id):
-        self.maxclient.contexts[sha1(self.context.absolute_url()).hexdigest()].unsubscriptionpush[user_id].post()
+        self.maxclient.contexts[sha1(self.context.absolute_url().encode('utf-8')).hexdigest()].unsubscriptionpush[user_id].post()
 
     def update_mails_users(self, obj, acl):
         """
@@ -1796,9 +1796,9 @@ def community_hash(context):
     registry = queryUtility(IRegistry)
     ulearn_tool = registry.forInterface(IUlearnControlPanelSettings)
     if ulearn_tool.url_site == None or ulearn_tool.url_site == '':
-        return sha1(context.absolute_url()).hexdigest()
+        return sha1(context.absolute_url().encode('utf-8')).hexdigest()
     else:
-        return sha1(ulearn_tool.url_site + '/' + context.id).hexdigest()
+        return sha1((ulearn_tool.url_site + '/' + context.id).encode('utf-8')).hexdigest()
 
 
 # grok.global_adapter(community_hash, name='community_hash')

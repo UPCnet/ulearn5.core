@@ -89,7 +89,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(len(records), 1)
         self.assertEqual(records[0].get('gwuuid', ''), gwuuid)
         self.assertEqual(records[0].get('path', ''), '/'.join(community.getPhysicalPath()))
-        self.assertEqual(records[0].get('hash', ''), sha1(community.absolute_url()).hexdigest())
+        self.assertEqual(records[0].get('hash', ''), sha1(community.absolute_url().encode('utf-8')).hexdigest())
         self.assertEqual(records[0].get('acl', '').get('users', [])[0]['role'], 'owner')
         self.assertEqual(records[0].get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
 
@@ -144,7 +144,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(len(records), 1)
         self.assertEqual(records[0].get('gwuuid', ''), gwuuid)
         self.assertEqual(records[0].get('path', ''), '/'.join(community.getPhysicalPath()))
-        self.assertEqual(records[0].get('hash', ''), sha1(community.absolute_url()).hexdigest())
+        self.assertEqual(records[0].get('hash', ''), sha1(community.absolute_url().encode('utf-8')).hexdigest())
         self.assertEqual(records[0].get('acl', '').get('users', [])[0]['role'], 'owner')
         self.assertEqual(records[0].get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
 
@@ -199,7 +199,7 @@ class TestExample(uLearnTestBase):
         self.assertEqual(len(records), 1)
         self.assertEqual(records[0].get('gwuuid', ''), gwuuid)
         self.assertEqual(records[0].get('path', ''), '/'.join(community.getPhysicalPath()))
-        self.assertEqual(records[0].get('hash', ''), sha1(community.absolute_url()).hexdigest())
+        self.assertEqual(records[0].get('hash', ''), sha1(community.absolute_url().encode('utf-8')).hexdigest())
         self.assertEqual(records[0].get('acl', '').get('users', [])[0]['role'], 'owner')
         self.assertEqual(records[0].get('acl', '').get('users', [])[0]['id'], 'ulearn.testuser1')
 

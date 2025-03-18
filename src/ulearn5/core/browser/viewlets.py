@@ -46,7 +46,7 @@ class viewletBase(BrowserView):
         """
         lt = api.portal.get_tool(name='portal_languages')
         return lt.getPreferredLanguage()
-    
+
     def __call__(self):
         return self.render()
 
@@ -62,7 +62,7 @@ class CommunityNGDirective(viewletBase):
         self.community_tab_view = ''
         for obj in aq_chain(self.context):
             if ICommunity.providedBy(obj):
-                self.community_hash = sha1(obj.absolute_url()).hexdigest()
+                self.community_hash = sha1(obj.absolute_url().encode('utf-8')).hexdigest()
                 self.community_gwuuid = IGWUUID(obj).get()
                 self.community_url = obj.absolute_url()
                 self.community_type = obj.community_type
@@ -77,7 +77,6 @@ class ULearnNGDirectives(viewletBase):
         lang = api.user.get_current().getProperty('language')
         if lang not in ['ca', 'en', 'es']:
             lang = 'ca'
-
         pc = api.portal.get_tool('portal_catalog')
         tool = api.portal.get_tool(name='translation_service')
         all_communities = [{'hash': 'all', 'title': tool.translate(_('Todas las comunidades'), 'ulearn5.core', target_language=lang)}]
@@ -90,7 +89,6 @@ class ULearnNGDirectives(viewletBase):
         lang = api.user.get_current().getProperty('language')
         if lang not in ['ca', 'en', 'es']:
             lang = 'ca'
-
         tool = api.portal.get_tool(name='translation_service')
         info = [{'hash': 'site', 'title': tool.translate(_('Todo el contenido'), 'ulearn5.core', target_language=lang)}]
         info += [{'hash': 'news', 'title': tool.translate(_('Noticias'), 'ulearn5.core', target_language=lang)}]
@@ -227,14 +225,14 @@ class ListTagsNews(viewletBase):
     def isTagFollowed(self, category):
         current_user = api.user.get_current()
         userid = current_user.id
-        
+
         user_subscribed_tags = get_or_initialize_annotation('user_subscribed_tags')
         record = next((r for r in user_subscribed_tags.values() if r.get('id') == userid), None)
 
         if record:
             tags = record.get('tags', [])
             return category in tags
-        
+
         return False
 
 

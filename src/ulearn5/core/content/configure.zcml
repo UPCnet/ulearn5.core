@@ -124,44 +124,32 @@
     <adapter
         name="image_filename"
         factory="ulearn5.core.content.community.imageFilename"
-        for="ulearn5.core.content.community.ICommunity"
-        provides="zope.interface.Interface"
     />
 
 
     <adapter
         name="subscribed_items"
         factory="ulearn5.core.content.community.subscribed_items"
-        for="ulearn5.core.content.community.ICommunity"
-        provides="zope.interface.Interface"
     />
 
     <adapter
         name="subscribed_users"
         factory="ulearn5.core.content.community.subscribed_users"
-        for="ulearn5.core.content.community.ICommunity"
-        provides="zope.interface.Interface"
     />
 
     <adapter
         name="community_type"
         factory="ulearn5.core.content.community.community_type"
-        for="ulearn5.core.content.community.ICommunity"
-        provides="zope.interface.Interface"
     />
 
     <adapter
         name="community_hash"
         factory="ulearn5.core.content.community.community_hash"
-        for="ulearn5.core.content.community.ICommunity"
-        provides="zope.interface.Interface"
     />
 
     <adapter
         name="tab_view"
         factory="ulearn5.core.content.community.tab_view"
-        for="ulearn5.core.content.community.ICommunity"
-        provides="zope.interface.Interface"
     />
 
     <utility

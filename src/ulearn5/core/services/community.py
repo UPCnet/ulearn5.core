@@ -57,8 +57,8 @@ class Community(Service):
             kwargs = {'obj': self.obj}
 
             handler = handler_class(self.context, self.request, **kwargs)
-            return handler.handle_subpath(subpath[1:]) 
-    
+            return handler.handle_subpath(subpath[1:])
+
         return {"error": f"Unknown sub-endpoint: {'/'.join(subpath)}"}
 
     @check_methods(methods=['GET', 'PUT', 'DELETE'])
@@ -71,7 +71,7 @@ class Community(Service):
         elif method == 'DELETE':
             return self.reply_delete()
         raise MethodNotAllowed(f"Unknown method: {method}")
-    
+
 
     """ GET """
     @check_roles(roles=['Member', 'Manager', 'Api'])
@@ -90,7 +90,7 @@ class Community(Service):
         maxclient.setActor(settings.max_restricted_username)
         maxclient.setToken(settings.max_restricted_token)
         return maxclient.people[username].subscriptions.get()
-        
+
     def build_community_info(self, obj, communities_subscriptions):
         """ Build the community information """
         can_write = False
@@ -106,11 +106,11 @@ class Community(Service):
                             description=obj.Description,
                             url=obj.getURL(),
                             gwuuid=obj.gwuuid,
-                            hash=sha1(obj.getURL()).hexdigest(),
+                            hash=sha1(obj.getURL().encode('utf-8')).hexdigest(),
                             type=obj.community_type,
                             show_events_tab=obj.show_events,
                             show_news_tab=obj.show_news)
-    
+
 
     """ PUT """
     @check_roles(roles=['Owner', 'Manager', 'Api'])
@@ -143,8 +143,8 @@ class Community(Service):
 
         logger.info(success_response)
         return {"message": success_response, "code": 200}
-        
-    
+
+
     def build_params(self):
         params = {}
         params['title'] = self.request.form.pop('title', None)
@@ -158,7 +158,7 @@ class Community(Service):
             'notify_activity_via_push', None)
         params['notify_activity_via_push_comments_too'] = self.request.form.pop(
             'notify_activity_via_push_comments_too', None)
-        
+
         return params
 
     def update_community(self, properties):
@@ -173,7 +173,7 @@ class Community(Service):
         }
 
         obj = lookup_community(properties['community'])
-        
+
         if obj:
             community = obj
             for prop, attr in property_map.items():
@@ -189,9 +189,9 @@ class Community(Service):
 
             community.reindexObject()
             return True
-        
+
         return False
-        
+
     def build_image_object(self, image):
         mime = MimeTypes()
         mime_type = mime.guess_type(image)
@@ -200,7 +200,7 @@ class Community(Service):
         return NamedBlobImage(data=imgData,
                                     filename=imgName,
                                     contentType=mime_type[0])
-    
+
 
     """ DELETE """
     @check_roles(roles=['Owner', 'Manager', 'Api'])
@@ -211,6 +211,6 @@ class Community(Service):
 
         success_response = 'Deleted community "{}"'.format(community_id)
         return {"message": success_response, "code": 204}
-    
+
     def delete_community(self, community):
-            api.content.delete(community)    
+            api.content.delete(community)

@@ -70,7 +70,7 @@ class UserSubscriptions(Service):
                 'description': community.Description(),
                 'url': community.absolute_url(),
                 'gwuuid': community.gwuuid,
-                'hash': sha1(community.absolute_url()).hexdigest(),
+                'hash': sha1(community.absolute_url().encode('utf-8')).hexdigest(),
                 'type': community.community_type,
                 'image': community.image_filename if community.image_filename else False,
                 'image_url': community.getURL() + '/thumbnail-image' if community.image_filename else portal_url + '/++theme++ulearn5/assets/images/avatar_default.png',
