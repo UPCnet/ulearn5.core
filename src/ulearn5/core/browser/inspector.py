@@ -27,7 +27,7 @@ class Clouseau(BrowserView):
             members = inspect.getmembers(themodule, inspect.isclass)
 
             for name, klass in members:
-                if "ulearn5." in str(klass):
+                if any(x in str(klass) for x in MODULES_TO_INSPECT):
                     if "LDAP" in name or "ldap" in name:
                         result["ldap"].append(
                             dict(
