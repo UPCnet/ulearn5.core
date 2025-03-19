@@ -454,7 +454,6 @@ class CommunityAdapterMixin(object):
 
     def update_acl(self, acl):
         gwuuid = IGWUUID(self.context).get()
-
         communities_acl = get_or_initialize_annotation('communities_acl')
         record = next((r for r in communities_acl.values() if r.get('gwuuid') == gwuuid), None)
         # Save ACL into the communities_acl soup
@@ -1531,7 +1530,7 @@ class CommunityInitializeAdapter(object):
             the context directly into the MAX server with only the creator as
             subscriber (and owner).
         """
-        initial_acl = dict(users=[dict(id=str(community.Creator().encode('utf-8')), role='owner')])
+        initial_acl = dict(users=[dict(id=community.Creator(), role='owner')])
         adapter = community.adapted()
 
         adapter.create_max_context()
