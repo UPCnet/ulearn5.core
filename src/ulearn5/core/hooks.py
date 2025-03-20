@@ -226,7 +226,7 @@ def Added(content, event):
     parts = dict(
         un=articles[default_lang][content.portal_type],
         type=tipus[default_lang][content.portal_type],
-        name=content.Title().decode('utf-8') or getattr(getattr(content, 'file', ''),'filename', '').decode('utf-8') or getattr(getattr(content, 'image', ''),'filename', '').decode('utf-8'),
+        name=content.Title() or getattr(getattr(content, 'file', ''),'filename', '') or getattr(getattr(content, 'image', ''),'filename', ''),
         link='{}/view'.format(content.absolute_url()))
 
     activity_text = {
@@ -583,17 +583,17 @@ def AddedSendMessage(content, event):
         mailhost = api.portal.get_tool(name='MailHost')
 
         if isinstance(message_template, str):
-            message_template = message_template.encode('utf-8')
+            message_template = message_template
 
         if isinstance(subject_template, str):
-            subject_template = subject_template.encode('utf-8')
+            subject_template = subject_template
 
         map = {
-            'community': community.title.encode('utf-8'),
+            'community': community.title,
             'link': '{}/view'.format(content.absolute_url()),
-            'title': content.title.encode('utf-8'),
-            'description': content.description.encode('utf-8'),
-            'type': tipus[lang].get(content.portal_type.replace(" ", ""), '').encode('utf-8')
+            'title': content.title,
+            'description': content.description,
+            'type': tipus[lang].get(content.portal_type.replace(" ", ""), '')
         }
 
         body = message_template % map
