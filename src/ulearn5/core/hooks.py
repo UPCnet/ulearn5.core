@@ -185,7 +185,7 @@ def communityAdded(content, event):
     try:
         maxclient.people[username].activities.post(
             object_content=activity_text[default_lang].format(
-                content.Title().decode('utf-8')),
+                content.Title()),
             contexts=[dict(url=content.absolute_url(),
                            objectType="context")])
     except:
