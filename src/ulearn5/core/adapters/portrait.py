@@ -12,6 +12,7 @@ from ulearn5.core.utils import get_or_initialize_annotation
 from ulearn5.theme.interfaces import IUlearn5ThemeLayer
 from zope.component import adapter, getUtility
 from zope.interface import implementer
+from io import BytesIO
 
 logger = logging.getLogger(__name__)
 
@@ -26,9 +27,15 @@ class PortraitUploadAdapter(object):
         self.request = request
 
     def __call__(self, portrait, safe_id):
+        if not isinstance(portrait, BytesIO):
+            raise ValueError("Invalid image format. Expected BytesIO.")
+
+        portrait.seek(0)
+        portrait_data = portrait.read()
+
         if portrait and portrait.filename:
             # scaled, mimetype = scale_image(portrait, max_size=(250, 250))
-            scaled, mimetype = convertSquareImage(portrait)
+            scaled, mimetype = convertSquareImage(BytesIO(portrait_data))
             if scaled:
                 portrait = Image(id=safe_id, file=scaled, title='')
                 membertool = api.portal.get_tool(name='portal_memberdata')
