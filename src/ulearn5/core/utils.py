@@ -24,6 +24,10 @@ from zope.annotation.interfaces import IAnnotations
 from zope.component import (getMultiAdapter, getUtilitiesFor, getUtility,
                             queryUtility)
 from zope.contentprovider.interfaces import IContentProvider
+from persistent.mapping import PersistentMapping  # Para la anotación persistente
+from persistent.list import PersistentList  # Para listas persistentes
+from persistent.dict import PersistentDict
+
 
 RE_VALID_TWITTER_USERNAME = r'^\s*@?([a-zA-Z0-9_]{1,15})\s*$'
 
@@ -328,10 +332,40 @@ def calculatePortalTypeOfInternalPath(url, portal_url):
         return None
 
 
+# def get_or_initialize_annotation(annotation_name):
+#     portal = api.portal.get()
+#     annotations = IAnnotations(portal)
+#     if annotation_name not in annotations:
+#         annotations[annotation_name] = {}
+
+#     return annotations[annotation_name]
+
 def get_or_initialize_annotation(annotation_name):
     portal = api.portal.get()
     annotations = IAnnotations(portal)
+
     if annotation_name not in annotations:
-        annotations[annotation_name] = {}
+        annotations[annotation_name] = PersistentDict()  # 🔹 Usa PersistentDict para persistencia
+        portal._p_changed = True  # 🔹 Asegura que ZODB detecte el cambio
+        transaction.commit()
 
     return annotations[annotation_name]
+
+def get_or_initialize_annotation_persistent(annotation_name):
+    portal = api.portal.get()
+    annotations = IAnnotations(portal)
+    if annotation_name not in annotations:
+        annotations[annotation_name] = PersistentMapping()
+    return annotations[annotation_name]
+
+def convert_persistent_objects(obj):
+    # Si es un PersistentMapping, lo convertimos a un diccionario normal
+    if isinstance(obj, PersistentMapping):
+        return {key: convert_persistent_objects(value) for key, value in obj.items()}
+
+    # Si es un PersistentList, lo convertimos a una lista estándar
+    elif isinstance(obj, PersistentList):
+        return [convert_persistent_objects(item) for item in obj]
+
+    # Si es otro tipo de objeto persistente, simplemente lo devolvemos tal cual
+    return obj

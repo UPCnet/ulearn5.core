@@ -14,12 +14,13 @@ from Products.Five.browser import BrowserView
 from ulearn5.core import _
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.gwuuid import IGWUUID
-from ulearn5.core.utils import get_or_initialize_annotation
 from zope.component import getMultiAdapter, getUtility
 from zope.component.hooks import getSite
 from zope.interface import implementer
 from zope.security import checkPermission
 from zope.viewlet.interfaces import IViewlet
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
 
 
 @implementer(IViewlet)
@@ -223,17 +224,18 @@ class newsToolBar(viewletBase):
 class ListTagsNews(viewletBase):
 
     def isTagFollowed(self, category):
+        portal = api.portal.get()
         current_user = api.user.get_current()
         userid = current_user.id
 
-        user_subscribed_tags = get_or_initialize_annotation('user_subscribed_tags')
-        record = next((r for r in user_subscribed_tags.values() if r.get('id') == userid), None)
+        soup_tags = get_soup('user_subscribed_tags', portal)
+        tags_soup = [r for r in soup_tags.query(Eq('id', userid))]
+        if tags_soup:
+            tags = tags_soup[0].attrs['tags']
+            return True if category in tags else False
+        else:
+            return False
 
-        if record:
-            tags = record.get('tags', [])
-            return category in tags
-
-        return False
 
 
 class ObjectUniversalLink(viewletBase):

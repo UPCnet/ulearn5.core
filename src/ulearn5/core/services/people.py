@@ -31,7 +31,7 @@ class People(Service):
     def __init__(self, context, request, **kwargs):
         self.context = context
         self.request = request
-        
+
 
     def handle_subpath(self, subpath):
         """ Function used to spread the request to the corresponding subpath """
@@ -43,10 +43,10 @@ class People(Service):
 
         if handler_class:
             handler = handler_class(self.context, self.request)
-            return handler.handle_subpath(subpath[1:]) 
-        
+            return handler.handle_subpath(subpath[1:])
+
         # No subpath is considered wrong, as any user will be
-        # updated if it's found, and created otherwise 
+        # updated if it's found, and created otherwise
         # This means any string in its path will be the User id
         kwargs = {'username': next_segment}
         new_handler = Person(self.context, self.request, **kwargs)
@@ -64,16 +64,16 @@ class People(Service):
         for record in records:
             username = record.get('username')
             user = api.user.get(username=username)
-            
+
             if not user:
                 raise ObjectNotFound(f'User with ID {username} not found')
-            
+
             rendered_properties = []
             if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
                 extended_user_properties_utility = getUtility(
                     ICatalogFactory, name=extender_name)
                 rendered_properties = self.extract_properties(extended_user_properties_utility, user)
-            
+
             else:
                 rendered_properties = self.extract_properties(user_properties_utility, user)
 
@@ -84,7 +84,7 @@ class People(Service):
         # TODO: Mirar si esto hay que hacerlo en ambos casos
         if '@' in user.getId():
                 return []
-        
+
         has_public_properties = hasattr(utility, 'public_properties')
         directory_properties = getattr(utility, 'directory_properties', [])
         public_properties = getattr(utility, 'public_properties', [])
@@ -107,7 +107,10 @@ class People(Service):
                 })
 
         return rendered_properties
-                    
+
     def get_records(self):
-        user_properties = get_or_initialize_annotation('user_properties')
+        # user_properties = get_or_initialize_annotation('user_properties')
+        # TODO  no se que se quiere hacer con esto
+        portal = api.portal.get()
+        user_properties = get_soup('user_properties', portal)
         return list(user_properties.values())

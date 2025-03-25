@@ -55,7 +55,9 @@ class Subscriptions(Service):
 
     def reply_get(self):
         """ Get the subscriptions for the community. """
-        result = ICommunityACL(self.obj)().attrs.get('acl', '')
+        # result = ICommunityACL(self.obj)().attrs.get('acl', '')
+        acl_result= ICommunityACL(self.context)()
+        result = acl_result.get('acl', '')
 
         return {"data": result, "code": 200}
 

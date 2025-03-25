@@ -5,9 +5,8 @@ import unittest2 as unittest
 from mrs5.max.utilities import IMAXClient
 from ulearn5.core.testing import ULEARN5_CORE_INTEGRATION_TESTING
 from ulearn5.core.tests import uLearnTestBase
-from ulearn5.core.utils import get_or_initialize_annotation
 from zope.component import getMultiAdapter, getUtility
-
+from souper.soup import get_soup
 
 class TestExample(uLearnTestBase):
 
@@ -30,6 +29,6 @@ class TestExample(uLearnTestBase):
         sync_view = getMultiAdapter((self.portal, self.request), name='syncldapgroups')
         sync_view.render()
 
-        ldap_groups = get_or_initialize_annotation('ldap_groups')
-        self.assertTrue(len(list(ldap_groups.keys())) > 0)
+        soup = get_soup('ldap_groups', self.portal)
 
+        self.assertTrue(len(soup.data.keys()) > 0)

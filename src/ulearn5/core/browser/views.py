@@ -24,6 +24,9 @@ from ulearn5.core.utils import (get_or_initialize_annotation,
                                 getSearchersFromUser)
 from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.component.hooks import getSite
+from repoze.catalog.query import Eq
+from souper.soup import Record
+from souper.soup import get_soup
 
 logger = logging.getLogger(__name__)
 
@@ -80,14 +83,14 @@ class addUserSearch(BrowserView):
             user_news_searches[unique_key] = record
         else:
             in_list = any(
-                all(item in search for i, item in enumerate(search_items)) and 
+                all(item in search for i, item in enumerate(search_items)) and
                 (len(search_items) >= len(search))
                 for search in record.get('searches', [])
             )
 
             if not in_list:
                 record['searches'].append(search_items)
-        
+
         return json.dumps(getSearchersFromUser())
 
 
@@ -286,17 +289,17 @@ class UpdateBirthdayProfileByMail(BrowserView):
         if email == '' or birthday == '':
             return 'Es necessario pasar los parámetros email y birthday'
 
-        user_properties = get_or_initialize_annotation('user_properties')
-        records = [r for r in user_properties.values() if r.get('email') == email]
+        portal = api.portal.get()
+        soup = get_soup('user_properties', portal)
+        records = [r for r in soup.query(Eq('email', email))]
+        if records:
+            if len(records) > 1:
+                return 'KO ' + email + '. Más de un usuario tiene este correo'
 
-        if not records:
-            return f'KO {email}. No se encontró ningún usuario con este correo'
-        
-        if len(records) > 1:
-            return f'KO {email}. Más de un usuario tiene este correo'
-        
-        username = records[0].get('username')
-        if username:
-            user = api.user.get(userid = username)
-            user.setMemberProperties({'birthday': birthday})
-            return f'OK {email}'
+            username = records[0].attrs.get('username')
+            if username:
+                user = api.user.get(userid=username)
+                user.setMemberProperties({'birthday': birthday})
+                return 'OK ' + email
+
+        return 'KO ' + email + '. No se encontro ningún usuario con este correo'

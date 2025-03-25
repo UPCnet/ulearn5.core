@@ -47,7 +47,6 @@
         class="ulearn5.core.content.community.EditACL"
         for="ulearn5.core.content.community.ICommunity"
         permission="zope2.View"
-        layer="ulearn5.core.interfaces.IUlearn5CoreLayer"
         />
 
     <browser:page

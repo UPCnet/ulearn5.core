@@ -955,17 +955,23 @@ class EditACL(BrowserView):
     def get_acl(self):
         acl = ICommunityACL(self.context)().attrs.get('acl', '')
         # Search for users with missing or empty displayname
-        missing_usernames = {user.get('id') for user in acl['users'] if not user.get('displayName', '')}
-        if missing_usernames:
-            user_properties = get_or_initialize_annotation('user_properties')
-            results = [record for record in user_properties.values() if record.get('username') in missing_usernames]
+        query_missing_displaynames = [
+            Eq('username', user.get('id')) for user in acl['users']
+            if not user.get('displayName', '')]
+        if query_missing_displaynames:
+            # Generate a query to find properties from all users
+            # that lacks the displayname
+            portal = api.portal.get()
+            soup = get_soup('user_properties', portal)
+            query_missing_displaynames = Or(*query_missing_displaynames)
+            results = soup.query(query_missing_displaynames)
 
             # Store all the found displaynames indexed by user
             displaynames = {}
             for result in results:
                 try:
-                    displaynames[result.get('username')] = result.get('fullname')
-                except Exception:
+                    displaynames[result.attrs['username']] = result.attrs['fullname']
+                except:
                     pass
 
             # Update the acl list with recovered displaynames from soup

@@ -19,7 +19,11 @@ from ulearn5.core.tests import uLearnTestBase
 from ulearn5.core.utils import get_or_initialize_annotation
 from zope.component import getMultiAdapter, getUtility, provideUtility
 from zope.interface import implementer
-
+from souper.soup import NodeAttributeIndexer
+from repoze.catalog.query import Eq
+from repoze.catalog.query import Or
+from repoze.catalog.query import And
+from souper.soup import get_soup
 
 class TestExample(uLearnTestBase):
 
@@ -175,9 +179,8 @@ class TestExample(uLearnTestBase):
         self.assertTrue(result['last_query_count'] > 5)
         self.assertEqual(result['last_query'], 'victor.fer')
 
-        user_properties = get_or_initialize_annotation('user_properties')
-        records = [r for r in user_properties.values() if fnmatch.fnmatch(r.get('username', ''), 'victor fer*')]
-        self.assertTrue(len(records) > 5)
+        soup = get_soup('user_properties', self.portal)
+        self.assertTrue(len([r for r in soup.query(Eq('username', 'victor fer*'))]) > 5)
 
         # Amb un altre usuari (janet)
         add_user_to_catalog('janet.dura', dict(fullname='Janet'))
@@ -217,9 +220,8 @@ class TestExample(uLearnTestBase):
 
         login(self.portal, 'ulearn.testuser1')
 
-        user_properties = get_or_initialize_annotation('user_properties')
-        records = [r for r in user_properties.values() if fnmatch.fnmatch(r.get('searchable_text', ''), 'victor Nex*')]
-        self.assertTrue(records)
+        soup = get_soup('user_properties', self.portal)
+        self.assertTrue([r for r in soup.query(Eq('searchable_text', 'victor Nex*'))])
         logout()
 
         login(self.portal, 'admin')
@@ -265,55 +267,45 @@ class TestExample(uLearnTestBase):
         self.create_default_test_users()
         reset_user_catalog()
         # Add a legit user
-        add_user_to_catalog('victor.fernandez', dict(fullname='Víctor'))
+        add_user_to_catalog(u'victor.fernandez', dict(fullname=u'Víctor'))
         normalized_query = 'victor fer*'
-        user_properties = get_or_initialize_annotation('user_properties')
-        records = [
-            r for r in user_properties.values()
-            if fnmatch.fnmatch(r.get('searchable_text', ''), normalized_query)
-        ]
+        soup = get_soup('user_properties', self.portal)
+
         # Search for it via the searchable_text
-        self.assertEqual(records[0].get('id'), 'victor.fernandez')
-        self.assertEqual(len(records), 1)
+        result = [r for r in soup.query(Eq('searchable_text', normalized_query))]
+        self.assertEqual(result[0].attrs['id'], 'victor.fernandez')
+        self.assertEqual(len(result), 1)
 
         # Add a non legit user from the initial set
-        add_user_to_catalog('victor.fernandez.1', dict(fullname='Víctor'), notlegit=True)
+        add_user_to_catalog(u'victor.fernandez.1', dict(fullname=u'Víctor'), notlegit=True)
 
         # The result is still the legit one alone
-        records = [
-            r for r in user_properties.values()
-            if fnmatch.fnmatch(r.get('searchable_text', ''), normalized_query)
-        ]
-        # Search for it via the searchable_text
-        self.assertEqual(records[0].get('id'), 'victor.fernandez')
-        self.assertEqual(len(records), 1)
+        result = [r for r in soup.query(Eq('searchable_text', normalized_query))]
+        self.assertEqual(result[0].attrs['id'], 'victor.fernandez')
+        self.assertEqual(len(result), 1)
 
         # The non legit only can be accessed directly by querying the notlegit
         # index and the legit one does not show, of course
-        records =  [r for r in user_properties.values() if r.get('notlegit') == True]
-        self.assertEqual(records[0].get('id'), 'victor.fernandez.1')
-        self.assertEqual(len(records), 1)
+        result = [r for r in soup.query(Eq('notlegit', True))]
+        self.assertEqual(result[0].attrs['id'], 'victor.fernandez.1')
+        self.assertEqual(len(result), 1)
 
         # The non legit only can be accessed directly by querying the fields
         # directly
-
-        records = [r for r in user_properties.values() 
-                  if ( (fnmatch.fnmatch(r.get('username', ''), normalized_query) or fnmatch.fnmatch(r.get('fullname', ''), normalized_query)) and r.get('notlegit') == True )]
-        
-        self.assertEqual(records[0].get('id'), 'victor.fernandez.1')
-        self.assertEqual(len(records), 1)
+        result = [r for r in soup.query(And(Or(Eq('username', normalized_query), Eq('fullname', normalized_query)), Eq('notlegit', True)))]
+        self.assertEqual(result[0].attrs['id'], 'victor.fernandez.1')
+        self.assertEqual(len(result), 1)
 
         # If the non legit became legit at some point of time via a subscriber
-        api.user.get('victor.fernandez.1').setMemberProperties(mapping={'fullname': 'Test', 'location': 'Barcelona', 'telefon': '654321 123 123'})
+        api.user.get('victor.fernandez.1').setMemberProperties(mapping={'fullname': u'Test', 'location': u'Barcelona', 'telefon': u'654321 123 123'})
 
         # Then it does not show as not legit
-        records = [r for r in user_properties.values() 
-                  if ( (fnmatch.fnmatch(r.get('username', ''), normalized_query) or fnmatch.fnmatch(r.get('fullname', ''), normalized_query)) and r.get('notlegit') == True )]
-        self.assertEqual(len(records), 0)
+        result = [r for r in soup.query(And(Or(Eq('username', normalized_query), Eq('fullname', normalized_query)), Eq('notlegit', True)))]
+        self.assertEqual(len(result), 0)
 
         # And it shows as legit
-        records = [r for r in user_properties.values() if fnmatch.fnmatch(r.get('searchable_text', ''), normalized_query) ]
-        self.assertEqual(len(records), 2)
+        result = [r for r in soup.query(Eq('searchable_text', normalized_query))]
+        self.assertEqual(len(result), 2)
 
     def test_rebuild_user_catalog_with_user_extended_properties(self):
         """ This is the case when a client has customized user properties """

@@ -153,25 +153,29 @@ def setup_ulearn_portlets():
     import transaction
     transaction.commit()
 
-def setup_annotations():
-    ANNOTATIONS = [
-        'communities_acl',
-        'user_community_access',
-        'users_delete_local_roles',
-        'user_news_searches',
-        'users_portrait',
-        'notify_popup',
-        'user_properties',
-        'ldap_groups',
-        'user_subscribed_tags',
-        'footer_soup',
-        'menu_soup',
-        'header_soup'
-    ]
+# def setup_annotations():
+#     ANNOTATIONS = [
+#         'communities_acl',
+#         'user_community_access',
+#         'users_delete_local_roles',
+#         'user_news_searches',
+#         'users_portrait',
+#         'notify_popup',
+#         'user_properties', - OK PDT PROBAR
+#         'ldap_groups', - OK PDT PROBAR
+#         'user_subscribed_tags', - OK PDT PROBAR
+#         'footer_soup', - OK
+#         'menu_soup', - OK
+#         'header_soup' - OK
+#     ]
 
-    for annotation in ANNOTATIONS:
-        get_or_initialize_annotation(annotation_name=annotation)
-
+#     for annotation in ANNOTATIONS:
+#         if annotation not in annotations:
+#             logger.info(f"⚠️ Inicializando anotación: {annotation}")
+#             annotations[annotation] = PersistentDict()
+#             portal._p_changed = True
+#         else:
+#             logger.info(f"✅ Anotación {annotation} ya existe")
 
 def setupVarious(context):
     # Ordinarily, GenericSetup handlers check for the existence of XML files.
@@ -187,7 +191,7 @@ def setupVarious(context):
     add_catalog_indexes(portal, logger)
     setup_ulearn_icon_set()
     setup_ulearn_portlets()
-    setup_annotations()
+    # setup_annotations()
 
     # Set the default page to the homepage view
     portal.setDefaultPage('front-page')
