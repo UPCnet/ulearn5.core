@@ -382,6 +382,7 @@ class IUlearnControlPanelSettings(model.Schema):
     directives.widget('quicklinks_table', DataGridFieldFactory)
     quicklinks_literal = schema.List(title=_('Text Quick Links'),
                                      description=_('Add the quick links by language'),
+                                     required=False,
                                      value_type=DictRow(title=_('help_quicklinks_literal'),
                                                         schema=ILiteralQuickLinks))
 
@@ -397,6 +398,7 @@ class IUlearnControlPanelSettings(model.Schema):
     directives.widget('quicklinks_table', DataGridFieldFactory)
     quicklinks_table = schema.List(title=_('QuickLinks'),
                                    description=_('Add the quick links by language'),
+                                   required=False,
                                    value_type=DictRow(title=_('help_quicklinks_table'),
                                                       schema=ITableQuickLinks))
     activity_view = schema.Choice(
