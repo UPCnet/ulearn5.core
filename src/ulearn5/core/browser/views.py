@@ -67,49 +67,60 @@ class AjaxUserSearch(BrowserView):
 class addUserSearch(BrowserView):
 
     def __call__(self):
+        portal = api.portal.get()
         current_user = api.user.get_current()
         userid = current_user.id
         search_items_string = self.request.form['items']
         search_items = search_items_string.split(',')
 
-        user_news_searches = get_or_initialize_annotation('user_news_searches')
-        record = next((r for r in user_news_searches.values() if r.get('id') == userid), None)
-        if not record:
-            record = {
-                'id': userid,
-                'searches': list(search_items)
-            }
-            unique_key = str(uuid.uuid4())
-            user_news_searches[unique_key] = record
+        soup_searches = get_soup('user_news_searches', portal)
+        exist = [r for r in soup_searches.query(Eq('id', userid))]
+        if not exist:
+            record = Record()
+            record.attrs['id'] = userid
+            record.attrs['searches'] = [search_items]
+            record_id = soup_searches.add(record)
+            acl_record = soup_searches.get(record_id)
         else:
-            in_list = any(
-                all(item in search for i, item in enumerate(search_items)) and
-                (len(search_items) >= len(search))
-                for search in record.get('searches', [])
-            )
-
+            acl_record = exist[0]
+            in_list = False
+            total_searches = acl_record.attrs['searches']
+            if acl_record.attrs['searches']:
+                for search in acl_record.attrs['searches']:
+                    for i, item in enumerate(search_items):
+                        if item not in search:
+                            break
+                        if i == len(search_items) - 1:
+                            if len(search_items) < len(search):
+                                break
+                            else:
+                                in_list = True
             if not in_list:
-                record['searches'].append(search_items)
+                total_searches.append(search_items)
+                acl_record.attrs['searches'] = total_searches
+            else:
+                acl_record.attrs['searches'] = total_searches
 
+        soup_searches.reindex(records=[acl_record])
         return json.dumps(getSearchersFromUser())
 
 
 class removeUserSearch(BrowserView):
 
     def __call__(self):
+        portal = api.portal.get()
         current_user = api.user.get_current()
         userid = current_user.id
         search_items = self.request.form['items']
         search_items = search_items.split(',')
 
-        user_news_searches = get_or_initialize_annotation('user_news_searches')
-        record = next((r for r in user_news_searches.values() if r.get('id') == userid), None)
-
-        if record:
-            total_searches = record.get('searches', [])
-            in_list = False
-
-            for search in total_searches:
+        in_list = False
+        soup_searches = get_soup('user_news_searches', portal)
+        exist = [r for r in soup_searches.query(Eq('id', userid))]
+        if exist:
+            acl_record = exist[0]
+            total_searches = acl_record.attrs['searches']
+            for search in exist[0].attrs['searches']:
                 for i, item in enumerate(search_items):
                     if item not in search:
                         break
@@ -118,13 +129,13 @@ class removeUserSearch(BrowserView):
                             break
                         else:
                             in_list = True
-                if in_list:
-                    try:
-                        total_searches.remove(search_items)
-                    except Exception as e:
-                        print(e)
-                        pass
-                    record['searches'] = total_searches
+                    if in_list:
+                        try:
+                            total_searches.remove(search_items)
+                        except:
+                            pass
+                        acl_record.attrs['searches'] = total_searches
+                        soup_searches.reindex(records=[acl_record])
 
         return json.dumps(getSearchersFromUser())
 
@@ -133,16 +144,16 @@ class removeUserSearch(BrowserView):
 class isSearchInSearchers(BrowserView):
 
     def __call__(self):
-        portal = getSite()
+        portal = api.portal.get()
         current_user = api.user.get_current()
         userid = current_user.id
         search_items = self.request.form['items']
         search_items = search_items.split(',')
-        user_news_searches = get_or_initialize_annotation('user_news_searches')
-        record = next((r for r in user_news_searches.values() if r.get('id') == userid), None)
-        if record:
-            if record.get('searches'):
-                for search in record.get('searches'):
+        soup_searches = get_soup('user_news_searches', portal)
+        exist = [r for r in soup_searches.query(Eq('id', userid))]
+        if exist:
+            if exist[0].attrs['searches']:
+                for search in exist[0].attrs['searches']:
                     for i, item in enumerate(search_items):
                         if item not in search:
                             break
@@ -151,6 +162,7 @@ class isSearchInSearchers(BrowserView):
                                 break
                             else:
                                 return True
+                return False
         return False
 
 class getUserSearchers(BrowserView):

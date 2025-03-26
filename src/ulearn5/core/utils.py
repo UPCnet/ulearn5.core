@@ -192,16 +192,18 @@ class ulearnUtils(BrowserView):
 
 
 def getSearchersFromUser():
+    portal = api.portal.get()
     current_user = api.user.get_current()
     userid = current_user.id
-    user_news_searches = get_or_initialize_annotation('user_news_searches')
-    record = next((r for r in user_news_searches.values() if r.get('id') == userid), None)
+    soup_searches = get_soup('user_news_searches', portal)
+    exist = [r for r in soup_searches.query(Eq('id', userid))]
 
     res = []
-    if record:
-        values = record.get('searches', [])
-        res = [' '.join(val) for val in values]
-
+    if exist:
+        values = exist[0].attrs['searches']
+        if values:
+            for val in values:
+                res.append(' '.join(val))
     return res
 
 def getUserPytzTimezone():
