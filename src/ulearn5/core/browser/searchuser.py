@@ -21,7 +21,7 @@ def searchUsersFunction(context, request, search_string):  # noqa
     maxclient.setActor(current_user.getId())
     maxclient.setToken(oauth_token)
 
-    user_properties = get_or_initialize_annotation("user_properties")
+    soup = get_soup('user_properties', portal)
     users = []
 
     if IPloneSiteRoot.providedBy(context):
@@ -30,11 +30,14 @@ def searchUsersFunction(context, request, search_string):  # noqa
                 "ascii", errors="ignore"
             ).replace(".", " ") + "*"
 
-            users = [r for r in user_properties.values() if r.get("searchable_text") == normalized_query]
+            users = [r for r in soup.query(Eq('searchable_text', normalized_query))]
         else:
-            too_many_users = api.portal.get_registry_record("plone.many_users")
-            if not too_many_users:
-                users = [r for r in user_properties.values() if not r.get("notlegit", False)]
+            too_many_users = api.portal.get_registry_record('plone.many_users')
+            if too_many_users:
+                users = []
+            else:
+                # Query for all users in the user_properties, showing only the legit ones
+                users = [r for r in soup.query(Eq('notlegit', False))]
 
     elif ICommunity.providedBy(context):
         maxclientrestricted, settings = getUtility(IMAXClient)()
@@ -50,28 +53,62 @@ def searchUsersFunction(context, request, search_string):  # noqa
                 "ascii", errors="ignore"
             ).replace(".", " ") + "*"
 
-            plone_results = [r for r in user_properties.values() if r.get("searchable_text") == normalized_query]
-            merged_results = list(set(r["username"] for r in plone_results) & set(u["username"] for u in max_users))
+            plone_results = [r for r in soup.query(Eq('searchable_text', normalized_query))]
+            if max_users:
+                merged_results = list(set([plone_user.attrs['username'] for plone_user in plone_results]) &
+                                      set([max_user['username'] for max_user in max_users]))
+                users = []
+                for user in merged_results:
+                    users.append([r for r in soup.query(Eq('id', user))][0])
 
-            users = [r for r in user_properties.values() if r.get("id") in merged_results]
+            else:
+                merged_results = []
+                users = []
+                for plone_user in plone_results:
+                    max_results = maxclientrestricted.contexts[context.absolute_url()].subscriptions.get(qs={'username': plone_user.attrs['username'], 'limit': 0})
+                    merged_results_user = list(set([plone_user.attrs['username']]) &
+                                               set([max_user['username'] for max_user in max_results]))
+                    if merged_results_user != []:
+                        merged_results.append(merged_results_user[0])
+
+                if merged_results:
+                    for user in merged_results:
+                        record = [r for r in soup.query(Eq('id', user))]
+                        if record:
+                            users.append(record[0])
+                        else:
+                            # User subscribed, but no local profile found, append empty profile for display
+                            pass
 
         else:
-            max_users = maxclientrestricted.contexts[context.absolute_url()].subscriptions.get(qs={"limit": 0})
-            max_usernames = {user.get("username") for user in max_users}
+            max_users = maxclientrestricted.contexts[context.absolute_url()].subscriptions.get(qs={'limit': 0})
+            max_users = [user.get('username') for user in max_users]
 
-            users = [r for r in user_properties.values() if r.get("id") in max_usernames]
+            users = []
+            for user in max_users:
+                record = [r for r in soup.query(Eq('id', user))]
+                if record:
+                    users.append(record[0])
+                else:
+                    # User subscribed, but no local profile found, append empty profile for display
+                    pass
 
+    # solución provisional para que no pete cuando estas en la biblioteca o en cualquier carpeta dentro de una comunidad
+    # pendiente decidir cual sera el funcionamiento
     else:
         if search_string:
             normalized_query = unicodedata.normalize("NFKD", search_string).encode(
                 "ascii", errors="ignore"
             ).replace(".", " ") + "*"
 
-            users = [r for r in user_properties.values() if r.get("searchable_text") == normalized_query]
+            users = [r for r in soup.query(Eq('searchable_text', normalized_query))]
         else:
-            too_many_users = api.portal.get_registry_record("plone.many_users")
-            if not too_many_users:
-                users = [r for r in user_properties.values() if not r.get("notlegit", False)]
+            too_many_users = api.portal.get_registry_record('plone.many_users')
+            if too_many_users:
+                users = []
+            else:
+                # Query for all users in the user_properties, showing only the legit ones
+                users = [r for r in soup.query(Eq('notlegit', False))]
 
     has_extended_properties = False
     extender_name = api.portal.get_registry_record(

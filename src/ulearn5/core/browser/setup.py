@@ -1202,11 +1202,13 @@ class viewUsersWithNotUpdatedPhoto(BrowserView):
     """Shows the user list that the photo has not been changed"""
 
     def __call__(self):
-        user_properties = get_or_initialize_annotation("user_properties")
+        portal = api.portal.get()
+        soup = get_soup('user_properties', portal)
+        records = [r for r in soup.data.items()]
 
         result = {}
-        for record in user_properties.values():
-            userID = record.get("id")
+        for record in records:
+            userID = record[1].attrs['id']
             if userID and userID != "admin":
                 mtool = api.portal.get_tool(name="portal_membership")
                 portrait = mtool.getPersonalPortrait(userID)
@@ -1216,7 +1218,7 @@ class viewUsersWithNotUpdatedPhoto(BrowserView):
                     typePortrait == "Image"
                     and portrait.size in (9715, 4831)
                 ):
-                    fullname = record.get("fullname", "")
+                    fullname = record[1].attrs['fullname'] if 'fullname' in record[1].attrs else ''
                     result[userID] = {"fullname": fullname}
 
         return result

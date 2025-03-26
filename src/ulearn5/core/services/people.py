@@ -62,7 +62,7 @@ class People(Service):
         user_properties_utility = getUtility(ICatalogFactory, name='user_properties')
 
         for record in records:
-            username = record.get('username')
+            username = record[1].attrs['username']
             user = api.user.get(username=username)
 
             if not user:
@@ -77,7 +77,7 @@ class People(Service):
             else:
                 rendered_properties = self.extract_properties(user_properties_utility, user)
 
-            result[record.get('id')] = rendered_properties
+            result[record[1].attrs['id']] = rendered_properties
         return {"data": result, "code": 200}
 
     def extract_properties(self, utility, user):
@@ -109,8 +109,7 @@ class People(Service):
         return rendered_properties
 
     def get_records(self):
-        # user_properties = get_or_initialize_annotation('user_properties')
-        # TODO  no se que se quiere hacer con esto
         portal = api.portal.get()
         user_properties = get_soup('user_properties', portal)
-        return list(user_properties.values())
+        records = [r for r in user_properties.data.items()]
+        return records

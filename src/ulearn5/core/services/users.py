@@ -33,8 +33,13 @@ class Users(Service):
 
     @check_methods(methods=['GET'])
     def reply(self):
-        user_properties = get_or_initialize_annotation('user_properties')
-        result = [record.get('id') for record in user_properties.values() if 'id' in record]
+        portal = api.portal.get()
+        soup = get_soup('user_properties', portal)
+        records = [r for r in soup.data.items()]
+
+        result = []
+        for record in records:
+            result.append(record[1].attrs['id'])
 
         result.sort()
         return {"data": result, "code": 200}
