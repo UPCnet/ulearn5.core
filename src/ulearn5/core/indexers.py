@@ -80,18 +80,11 @@ class UserSubscribedTagsSoupCatalog(object):
 
 @implementer(ICatalogFactory)
 class NotifyPopupSoupCatalog(object):
-    def __call__old(self, context):
+    def __call__(self, context):
         catalog = Catalog()
         idindexer = NodeAttributeIndexer('id')
         catalog['id'] = CatalogFieldIndex(idindexer)
         return catalog
-
-    def __call__(self, context):
-        notify_popup = get_or_initialize_annotation('notify_popup')
-        return {
-            'id': notify_popup.get('id', None),
-        }
-
 
 
 # grok.global_utility(NotifyPopupSoupCatalog, name='notify_popup')

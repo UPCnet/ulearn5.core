@@ -9,6 +9,9 @@ from ulearn5.core.services import (MethodNotAllowed, ObjectNotFound,
                                    check_required_params)
 from ulearn5.core.services.utils import replace_image_path_by_url
 from ulearn5.core.utils import get_or_initialize_annotation
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
+from souper.soup import Record
 
 logger = logging.getLogger(__name__)
 
@@ -83,8 +86,8 @@ class Notifications(Service):
         else:
             msg = ""
 
-        notify_popup = get_or_initialize_annotation('notify_popup')
-        user_soup = [record for record in notify_popup.values() if record.get('id') == user.id]
+        soup = get_soup('notify_popup', portal)
+        user_soup = [r for r in soup.query(Eq('id', user.id))]
 
         return {
             "is_active": True,
@@ -133,10 +136,13 @@ class Notifications(Service):
     def reply_post(self):
         """Dismiss notification."""
         user = self.get_user()
-        notify_popup = get_or_initialize_annotation('notify_popup')
-
-        if user.id not in notify_popup:
-            record = {"id": user.id}
-            notify_popup[user.id] = record
+        portal = api.portal.get()
+        soup = get_soup('notify_popup', portal)
+        exist = [r for r in soup.query(Eq('id', user.id))]
+        if not exist:
+            record = Record()
+            record.attrs['id'] = user.id
+            soup.add(record)
+            soup.reindex()
 
         return {"success": "Notificació general tancada amb èxit", "code": 200}

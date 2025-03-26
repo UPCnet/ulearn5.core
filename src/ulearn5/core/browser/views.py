@@ -258,8 +258,10 @@ class ResetNotify(BrowserView):
 
     def __call__(self):
         if 'confirm' in self.request.form:
-            notify_popup = get_or_initialize_annotation('notify_popup')
-            notify_popup.clear()
+            portal = api.portal.get()
+            soup = get_soup('notify_popup', portal)
+            soup.clear()
+
 
             IStatusMessage(self.request).addStatusMessage(_('Reset notify from all users'), type='info')
             self.request.response.redirect(getSite().absolute_url() + '/@@ulearn-control-popup')
@@ -269,9 +271,12 @@ class ViewAnnotationNotifyPopup(BrowserView):
 
     @json_response
     def __call__(self):
-        notify_popup = get_or_initialize_annotation('notify_popup')
-        records = [r for r in list(notify_popup.values())]
-        result = [record.get('id') for record in records]
+        portal = api.portal.get()
+        soup = get_soup('notify_popup', portal)
+        records = [r for r in soup.data.items()]
+        result = []
+        for record in records:
+            result.append(record[1].attrs['id'])
         return result
 
 
@@ -279,13 +284,14 @@ class CloseNotifyPopup(BrowserView):
 
     def __call__(self):
         user = api.user.get_current()
-        notify_popup = get_or_initialize_annotation('notify_popup')
-        record = next((r for r in notify_popup.values() if r.get('id') == user.id), None)
-
-        if not record:
-            record = {'id': user.id}
-            unique_key = str(uuid.uuid4())
-            notify_popup[unique_key] = record
+        portal = api.portal.get()
+        soup = get_soup('notify_popup', portal)
+        exist = [r for r in soup.query(Eq('id', user.id))]
+        if not exist:
+            record = Record()
+            record.attrs['id'] = user.id
+            soup.add(record)
+            soup.reindex()
 
 class CloseNotifyPopupBirthday(BrowserView):
 
