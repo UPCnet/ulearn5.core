@@ -13,6 +13,9 @@ from ulearn5.theme.interfaces import IUlearn5ThemeLayer
 from zope.component import adapter, getUtility
 from zope.interface import implementer
 from io import BytesIO
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
+from souper.soup import Record
 
 logger = logging.getLogger(__name__)
 
@@ -50,19 +53,20 @@ class PortraitUploadAdapter(object):
                 else:
                     portrait_user = False
 
-                soup_users_portrait = get_or_initialize_annotation('users_portrait')
-
-                record = next((r for r in soup_users_portrait.values() if r.get('id_username') == safe_id), None)
-
-                if record:
-                    record['id_username'] = safe_id
-                    record['portrait'] = portrait_user
+                portal = api.portal.get()
+                soup_users_portrait = get_soup('users_portrait', portal)
+                exist = [r for r in soup_users_portrait.query(Eq('id_username', safe_id))]
+                if exist:
+                    user_record = exist[0]
+                    user_record.attrs['id_username'] = safe_id
+                    user_record.attrs['portrait'] = portrait_user
                 else:
-                    unique_key = str(uuid.uuid4())
-                    soup_users_portrait[unique_key] = {
-                        'id_username': safe_id,
-                        'portrait': portrait_user
-                    }
+                    record = Record()
+                    record_id = soup_users_portrait.add(record)
+                    user_record = soup_users_portrait.get(record_id)
+                    user_record.attrs['id_username'] = safe_id
+                    user_record.attrs['portrait'] = portrait_user
+                soup_users_portrait.reindex(records=[user_record])
 
 
                 # Update the user's avatar on MAX

@@ -159,7 +159,7 @@ def setup_ulearn_portlets():
 #         'user_community_access', - OK PDT PROBAR
 #         'users_delete_local_roles', - OK PDT PROBAR
 #         'user_news_searches', - OK PDT PROBAR
-#         'users_portrait',
+#         'users_portrait', - OK PDT PROBAR
 #         'notify_popup',
 #         'user_properties', - OK
 #         'ldap_groups', - OK PDT PROBAR
