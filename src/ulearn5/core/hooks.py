@@ -46,7 +46,9 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
 # from ulearn5.core.formatting import formatMessageEntities
 # from plone.app.textfield.value import RichTextValue
-
+from souper.soup import get_soup
+from souper.soup import Record
+from repoze.catalog.query import Eq
 
 
 logger = logging.getLogger(__name__)
@@ -314,14 +316,16 @@ def UpdateUserCommunityAccess(content, event):
     community = findContainerCommunity(content)
     current_user = api.user.get_current()
     user_community = current_user.id + '_' + community.id
-    user_community_access = get_or_initialize_annotation('user_community_access')
-    record = next((r for r in user_community_access.values() if r.get('user_community') == user_community), None)
-
-    if not record:
-        record = {'user_community': user_community}
-        user_community_access[user_community] = record
-
-    record['data_access'] = DateTime()
+    soup_access = get_soup('user_community_access', portal)
+    exist = [r for r in soup_access.query(Eq('user_community', user_community))]
+    if not exist:
+        record = Record()
+        record.attrs['user_community'] = user_community
+        record.attrs['data_access'] = DateTime()
+        soup_access.add(record)
+    else:
+        exist[0].attrs['data_access'] = DateTime()
+    soup_access.reindex()
 
 
 # @grok.subscribe(IConfigurationChangedEvent)

@@ -11,6 +11,9 @@ from ulearn5.core.services import UnknownEndpoint, check_methods, check_roles
 from ulearn5.core.services.utils import lookup_community
 from ulearn5.core.utils import get_or_initialize_annotation
 from zope.component import getUtility
+from repoze.catalog.query import Eq
+from souper.soup import Record
+from souper.soup import get_soup
 
 # from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 # from ulearn5.core.utils import calculatePortalTypeOfInternalPath
@@ -136,10 +139,15 @@ class UserSubscriptions(Service):
 
     def get_data_access_community_user(self, community, user):
         """ Returns the date of user access to the community. """
+        portal = api.portal.get()
         user_community = user + '_' + community.id
-        user_community_access = get_or_initialize_annotation('user_community_access')
+        user_community_access = get_soup('user_community_access', portal)
 
-        record = next((r for r in user_community_access.values()
-                       if r.get('user_community') == user_community), None)
+        exist = [r for r in user_community_access.query(Eq('user_community', user_community))]
 
-        return record.get('data_access', DateTime()) if record else DateTime()
+        if not exist:
+            record = DateTime()
+        else:
+            record = exist[0].attrs['data_access']
+
+        return record

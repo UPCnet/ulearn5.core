@@ -156,7 +156,7 @@ def setup_ulearn_portlets():
 # def setup_annotations():
 #     ANNOTATIONS = [
 #         'communities_acl', - OK
-#         'user_community_access',
+#         'user_community_access', - OK PDT PROBAR
 #         'users_delete_local_roles',
 #         'user_news_searches',
 #         'users_portrait',

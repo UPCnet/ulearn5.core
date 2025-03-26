@@ -6,7 +6,9 @@ from plone.restapi.services import Service
 from ulearn5.core.services import (UnknownEndpoint, check_methods,
                                    check_required_params)
 from ulearn5.core.utils import get_or_initialize_annotation
-
+from repoze.catalog.query import Eq
+from souper.soup import Record
+from souper.soup import get_soup
 # from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 # from ulearn5.core.utils import calculatePortalTypeOfInternalPath
 
@@ -37,21 +39,25 @@ class Visualizations(Service):
     @check_methods(methods=['PUT'])
     @check_required_params(params=['community'])
     def reply(self):
+        portal = api.portal.get()
         user_community = self.username + '_' + self.request.form.get('community')
-        user_community_access = get_or_initialize_annotation('user_community_access')
+        user_community_access = get_soup('user_community_access', portal)
 
         record = self.get_or_create_record(user_community_access, user_community)
 
         return {"success": "Visualitzacions pendents actualitzades", "code": 200}
 
     def get_or_create_record(self, user_community_access, user_community):
-        record = next((r for r in user_community_access.values()
-                       if r.get('user_community') == user_community), None)
+        exist = [r for r in user_community_access.query(Eq('user_community', user_community))]
 
-        if not record:
-            record = {'user_community': user_community}
-            user_community_access[user_community] = record
-
-        record['data_access'] = DateTime()
+        if not exist:
+            record = Record()
+            record.attrs['user_community'] = user_community
+            record.attrs['data_access'] = DateTime()
+            user_community_access.add(record)
+        else:
+            exist[0].attrs['data_access'] = DateTime()
+            record = exist[0]
+        user_community_access.reindex()
 
         return record

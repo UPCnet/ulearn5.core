@@ -944,19 +944,19 @@ class UpdateUserAccessDateTime(BrowserView):
     def __call__(self):
         """ Quan accedeixes a la comunitat, actualitza la data d'accès de l'usuari
             a la comunitat i per tant, el comptador de pendents queda a 0. """
+        portal = api.portal.get()
         current_user = api.user.get_current()
         user_community = current_user.id + '_' + self.context.id
-        user_community_access = get_or_initialize_annotation('user_community_access')
-        record = next((r for r in user_community_access.values() if r.get('user_community') == user_community), None)
-        if not record:
-            record = {
-                'user_community': user_community,
-                'data_access': DateTime()
-            }
-            unique_key = str(uuid.uuid4())
-            user_community_access[unique_key] = record
+        soup_access = get_soup('user_community_access', portal)
+        exist = [r for r in soup_access.query(Eq('user_community', user_community))]
+        if not exist:
+            record = Record()
+            record.attrs['user_community'] = user_community
+            record.attrs['data_access'] = DateTime()
+            soup_access.add(record)
         else:
-            record['data_access'] = DateTime()
+            exist[0].attrs['data_access'] = DateTime()
+        soup_access.reindex()
 
         return dict(message='Done', status_code=200)
 
@@ -1737,7 +1737,7 @@ class UserCommunityAccessCatalogFactory(object):
         :index data_access: FieldIndex -  DateTime of user access to the community
     """
 
-    def __call__old(self, context):
+    def __call__(self, context):
         catalog = Catalog()
         idindexer = NodeAttributeIndexer('user_community')
         catalog['user_community'] = CatalogTextIndex(idindexer)
@@ -1745,16 +1745,7 @@ class UserCommunityAccessCatalogFactory(object):
         catalog['data_access'] = CatalogFieldIndex(dataindexer)
         return catalog
 
-    def __call__(self, context):
-        menu_soup = get_or_initialize_annotation('user_community_access')
-        return {
-            'user_community': menu_soup.get('user_community', None),
-            'data_access': menu_soup.get('data_access', None),
-        }
-
-
-
-# grok.global_utility(UserCommunityAccessCatalogFactory, name="user_community_access")
+# grok.global_utility(UserCommunityAccessCatalogFactory, name='user_community_access')
 
 # INDEXERS TO CATALOG
 
