@@ -211,8 +211,8 @@ class Person(Service):
             maxclient.people[self.username].put(displayName=properties['fullename'])
             status = maxclient.last_response_code
             return {"message": f'User {self.username} updated', "code": status}
-        
-        return {"message": f'User {self.username} not updated. No displayName', "code": 500}        
+
+        return {"message": f'User {self.username} not updated. No displayName', "code": 500}
 
     def reply_delete(self):
         self.delete_member()
@@ -260,12 +260,12 @@ class Person(Service):
         if not member.canDelete() or ('Manager' in member.getRoles() and not self.is_zope_manager()):
             raise Forbidden(
                 f'Insufficient permissions to delete user with ID {self.username}')
-        
+
         try:
             acl_users.userFolderDelUsers(list(self.username))
         except Exception as e:
             raise NotImplementedError("The underlying user folder doesn't support deleting members")
-        
+
         self.delete_memberdata()
 
     def delete_memberdata(self):
@@ -273,10 +273,17 @@ class Person(Service):
         if memberdata_tool:
             memberdata_tool.deleteMemberData(self.username)
 
-            users_delete_local_roles = get_or_initialize_annotation('users_delete_local_roles')
-            if self.username not in users_delete_local_roles:
-                record = {'id_username': self.username}
-                users_delete_local_roles[self.username] = record
+            # Guardamos el username en el soup para borrar el usuario del local roles
+            portal = api.portal.get()
+            soup_users_delete = get_soup('users_delete_local_roles', portal)
+            exist = [r for r in soup_users_delete.query(
+                Eq('id_username', member_id))]
+
+            if not exist:
+                record = Record()
+                record.attrs['id_username'] = member_id
+                soup_users_delete.add(record)
+                soup_users_delete.reindex()
 
 
     def manage_maxclient(self):
@@ -285,4 +292,3 @@ class Person(Service):
         maxclient.setToken(settings.max_restricted_token)
 
         return maxclient
-

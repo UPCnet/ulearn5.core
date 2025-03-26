@@ -162,13 +162,16 @@ def deleteMembers(self, member_ids):
             mdtool.deleteMemberData(member_id)
             logger.info('Eliminat usuari {} del portal_memberdata.'.format(member_id))
 
-            # Guardamos el username en el soup para borrar el usuario del local roles
-            users_delete_local_roles = get_or_initialize_annotation('users_delete_local_roles')
-            record = next((r for r in users_delete_local_roles.values() if r.get('id_username') == member_id), None)
+             # Guardamos el username en el soup para borrar el usuario del local roles
+            portal = api.portal.get()
+            soup_users_delete = get_soup('users_delete_local_roles', portal)
+            exist = [r for r in soup_users_delete.query(Eq('id_username', member_id))]
 
-            if not record:
-                unique_key = str(uuid.uuid4())  # Generamos un identificador único
-                users_delete_local_roles[unique_key] = {'id_username': member_id}
+            if not exist:
+                record = Record()
+                record.attrs['id_username'] = member_id
+                soup_users_delete.add(record)
+                soup_users_delete.reindex()
 
             try:
                 self.maxclient.people[member_id].delete()
