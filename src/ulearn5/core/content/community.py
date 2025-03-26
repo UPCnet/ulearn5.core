@@ -38,7 +38,12 @@ from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.indexes.keyword import CatalogKeywordIndex
 from repoze.catalog.indexes.text import CatalogTextIndex
 from souper.interfaces import ICatalogFactory
-#from souper.soup import NodeAttributeIndexer
+from repoze.catalog.query import Eq
+from repoze.catalog.query import Or
+from souper.interfaces import ICatalogFactory
+from souper.soup import NodeAttributeIndexer
+from souper.soup import Record
+from souper.soup import get_soup
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from ulearn5.core.gwuuid import IGWUUID
@@ -348,10 +353,14 @@ class GetCommunityACL(object):
 
     def __call__(self):
         portal = api.portal.get()
-        communities_acl = get_or_initialize_annotation('communities_acl')
+        soup = get_soup('communities_acl', portal)
         gwuuid = IGWUUID(self.context).get()
-        record = next((r for r in communities_acl.values() if r.get('gwuuid') == gwuuid), None)
-        return record
+        records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
+
+        if records:
+            return records[0]
+        else:
+            return None
 
 # METODES COMUNS PER A TOTS ELS TIPUS DE COMUNITATS (PARAMETRES MAX)
 
@@ -449,36 +458,45 @@ class CommunityAdapterMixin(object):
     def get_acl(self):
         acl_record = ICommunityACL(self.context)()
         if acl_record:
-            return acl_record.get('acl', '')
-        return ''
+            return acl_record.get('acl', {})
+        return {}
 
     def update_acl(self, acl):
         gwuuid = IGWUUID(self.context).get()
-        communities_acl = get_or_initialize_annotation('communities_acl')
-        record = next((r for r in communities_acl.values() if r.get('gwuuid') == gwuuid), None)
-        # Save ACL into the communities_acl soup
-        if not record:
-            # The community isn't indexed in the acl catalog yet, so do it now.
-            record = {
-                'path': '/'.join(self.context.getPhysicalPath()),
-                'gwuuid': gwuuid,
-                'hash': sha1(self.context.absolute_url().encode('utf-8')).hexdigest(),  # Codificar en bytes
-            }
-            unique_key = str(uuid.uuid4())
-            communities_acl[unique_key] = record
+        portal = api.portal.get()
+        soup = get_soup('communities_acl', portal)
 
-        record['groups'] = [g['id'] for g in acl.get('groups', []) if g.get('id', False)]
-        record['acl'] = acl
+        records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
+
+        # Save ACL into the communities_acl soup
+        if records:
+            acl_record = records[0]
+        else:
+            # The community isn't indexed in the acl catalog yet, so do it now.
+            record = Record()
+            record.attrs['path'] = '/'.join(self.context.getPhysicalPath())
+            record.attrs['gwuuid'] = gwuuid
+            record.attrs['hash'] = sha1(self.context.absolute_url().encode('utf-8')).hexdigest()
+            record_id = soup.add(record)
+            acl_record = soup.get(record_id)
+
+        acl_record.attrs['groups'] = [g['id']
+                                      for g in acl.get('groups', []) if g.get('id', False)]
+        acl_record.attrs['acl'] = acl
+
+        soup.reindex(records=[acl_record])
 
 
     def delete_acl(self):
         """ In case that we delete the community, delete its ACL record. """
         gwuuid = IGWUUID(self.context).get()
-        communities_acl = get_or_initialize_annotation('communities_acl')
-        record_key, record = next(((k, v) for k, v in communities_acl.items() if v.get('gwuuid') == gwuuid), (None, None))
+        portal = api.portal.get()
+        soup = get_soup('communities_acl', portal)
 
-        if record_key is not None:
-            del communities_acl[record_key]
+        records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
+
+        if records:
+            del soup[records[0]]
 
     def remove_acl_atomic(self, username):
         acl = self.get_acl()
@@ -946,8 +964,10 @@ class UpdateUserAccessDateTime(BrowserView):
 class EditACL(BrowserView):
     # grok.context(ICommunity)
 
+    index = ViewPageTemplateFile("community_templates/editacl.pt")
+
     def __call__(self):
-        pass
+        return self.index()
 
     def get_gwuuid(self):
         return IGWUUID(self.context).get()
@@ -1695,7 +1715,7 @@ def delete_community(community, event):
 
 @implementer(ICatalogFactory)
 class ACLSoupCatalog(object):
-    def __call__old(self, context):
+    def __call__(self, context):
         catalog = Catalog()
         pathindexer = NodeAttributeIndexer('path')
         catalog['path'] = CatalogFieldIndex(pathindexer)
@@ -1706,16 +1726,6 @@ class ACLSoupCatalog(object):
         groups = NodeAttributeIndexer('groups')
         catalog['groups'] = CatalogKeywordIndex(groups)
         return catalog
-
-    def __call__(self, context):
-        menu_soup = get_or_initialize_annotation('communities_acl')
-        return {
-            'path': menu_soup.get('path', None),
-            'hash': menu_soup.get('hash', None),
-            'gwuuid': menu_soup.get('gwuuid', None),
-            'groups': menu_soup.get('groups', None),
-        }
-
 
 # grok.global_utility(ACLSoupCatalog, name='communities_acl')
 

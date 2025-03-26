@@ -37,6 +37,8 @@ from ulearn5.core.utils import (get_or_initialize_annotation,
 from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.component.hooks import getSite
 from zope.interface import alsoProvides
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
 
 ATTRIBUTE_NAME_FAVORITE = "_favoritedBy"
 
@@ -894,22 +896,22 @@ class deleteUsers(BrowserView):
                                     )
 
                                     gwuuid = IGWUUID(obj).get()
-                                    communities_acl = get_or_initialize_annotation("communities_acl")
+                                    portal = api.portal.get()
+                                    soup = get_soup('communities_acl', portal)
 
-                                    acl_record = next((r for r in communities_acl.values() if r.get("gwuuid") == gwuuid), None)
+                                    records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
 
-                                    # Save ACL into the communities_acl annotation
-                                    if acl_record:
-                                        acl = acl_record["acl"]
-                                        exist = next((a for a in acl["users"] if a["id"] == str(username)), None)
-
+                                    # Save ACL into the communities_acl soup
+                                    if records:
+                                        acl_record = records[0]
+                                        acl = acl_record.attrs['acl']
+                                        exist = [a for a in acl['users'] if a['id'] == unicode(username)]
                                         if exist:
-                                            acl["users"].remove(exist)
-                                            acl_record["acl"] = acl
-
+                                            acl['users'].remove(exist[0])
+                                            acl_record.attrs['acl'] = acl
+                                            soup.reindex(records=[acl_record])
                                             adapter = obj.adapted()
                                             adapter.set_plone_permissions(adapter.get_acl())
-
 
                                 except Exception as e:
                                     print(e)
@@ -961,23 +963,22 @@ class deleteUsersInCommunities(BrowserView):
                             )
 
                             gwuuid = IGWUUID(obj).get()
-                            communities_acl = get_or_initialize_annotation("communities_acl")
+                            portal = api.portal.get()
+                            soup = get_soup('communities_acl', portal)
 
-                            acl_record = next((r for r in communities_acl.values() if r.get("gwuuid") == gwuuid), None)
+                            records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
 
-                            # Save ACL into the communities_acl annotation
-                            if acl_record:
-                                acl = acl_record["acl"]
-                                exist = next((a for a in acl["users"] if a["id"] == str(username)), None)
-
+                            # Save ACL into the communities_acl soup
+                            if records:
+                                acl_record = records[0]
+                                acl = acl_record.attrs['acl']
+                                exist = [a for a in acl['users'] if a['id'] == unicode(username)]
                                 if exist:
-                                    acl["users"].remove(exist)
-                                    acl_record["acl"] = acl
-
+                                    acl['users'].remove(exist[0])
+                                    acl_record.attrs['acl'] = acl
+                                    soup.reindex(records=[acl_record])
                                     adapter = obj.adapted()
                                     adapter.set_plone_permissions(adapter.get_acl())
-
-
 
                         logger.info("Delete user in communities: {}".format(user))
                     except:

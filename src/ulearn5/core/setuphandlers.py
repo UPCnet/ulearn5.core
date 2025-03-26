@@ -155,13 +155,13 @@ def setup_ulearn_portlets():
 
 # def setup_annotations():
 #     ANNOTATIONS = [
-#         'communities_acl',
+#         'communities_acl', - OK
 #         'user_community_access',
 #         'users_delete_local_roles',
 #         'user_news_searches',
 #         'users_portrait',
 #         'notify_popup',
-#         'user_properties', - OK PDT PROBAR
+#         'user_properties', - OK
 #         'ldap_groups', - OK PDT PROBAR
 #         'user_subscribed_tags', - OK PDT PROBAR
 #         'footer_soup', - OK

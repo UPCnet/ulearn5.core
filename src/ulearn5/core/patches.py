@@ -26,6 +26,9 @@ from zExceptions import Forbidden
 from zope.component import (getMultiAdapter, getSiteManager, getUtilitiesFor,
                             getUtility)
 from zope.interface import implementer, providedBy
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
+from souper.soup import Record
 
 logger = logging.getLogger('event.LDAPMultiPlugin')
 
@@ -131,21 +134,26 @@ def deleteMembers(self, member_ids):
                     obj = community[0]._unrestrictedGetObject()
                     logger.info('Processant {} de {}. Comunitat {}'.format(num, len(communities_subscription), obj))
                     gwuuid = IGWUUID(obj).get()
-                    communities_acl = get_or_initialize_annotation('communities_acl')
-                    record = next((r for r in communities_acl.values() if r.get('gwuuid') == gwuuid), None)
+                    portal = api.portal.get()
+                    soup = get_soup('communities_acl', portal)
+
+                    records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
 
                     # Save ACL into the communities_acl soup
-                    if record:
-                        acl = record['acl']
-                        exist = next((a for a in acl['users'] if a['id'] == str(member_id)), None)
+                    if records:
+                        acl_record = records[0]
+                        acl = acl_record.attrs['acl']
+                        exist = [a for a in acl['users'] if a['id'] == unicode(member_id)]
                         if exist:
-                            acl['users'].remove(exist)
-                            record['acl'] = acl
-
+                            acl['users'].remove(exist[0])
+                            acl_record.attrs['acl'] = acl
+                            soup.reindex(records=[acl_record])
                             adapter = obj.adapted()
                             adapter.set_plone_permissions(adapter.get_acl())
+
                 except:
                     continue
+
 
     # Delete member data in portal_memberdata.
     mdtool = api.portal.get_tool(name='portal_memberdata')
