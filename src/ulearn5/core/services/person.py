@@ -227,19 +227,22 @@ class Person(Service):
                 logger.info('Processant {} de {}. Comunitat {}'.format(
                     num, len(communities_subscription), community))
                 gwuuid = IGWUUID(community).get()
-                communities_acl = get_or_initialize_annotation('communities_acl')
-                records = [record for record in communities_acl.values() if record.get('gwuuid') == gwuuid]
+                portal = api.portal.get()
+                soup = get_soup('communities_acl', portal)
+
+                records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
 
                 # Save ACL into the communities_acl soup
                 if records:
                     acl_record = records[0]
                     acl = acl_record.attrs['acl']
-                    exist = next((user for user in acl.get('users', []) if user['id'] == str(self.username)), None)
+                    exist = [a for a in acl['users']
+                             if a['id'] == str(self.username)]
 
                     if exist:
-                        acl['users'].remove(exist)
-                        acl_record['acl'] = acl
-                        communities_acl[acl_record['gwuuid']] = acl_record
+                        acl['users'].remove(exist[0])
+                        acl_record.attrs['acl'] = acl
+                        soup.reindex(records=[acl_record])
                         adapter = community.adapted()
                         adapter.set_plone_permissions(adapter.get_acl())
 

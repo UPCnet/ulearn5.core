@@ -4,6 +4,8 @@ import logging
 from plone.restapi.services import Service
 from ulearn5.core.services import UnknownEndpoint, check_methods
 from ulearn5.core.utils import get_or_initialize_annotation
+from repoze.catalog.query import Eq
+from souper.soup import get_soup
 
 logger = logging.getLogger(__name__)
 
@@ -35,20 +37,17 @@ class GroupCommunities(Service):
         records = self.get_records()
         result = []
         for record in records:
-            users = [user['id'] for user in record.get('acl', {}).get('users', [])]
-
-            result.append({
-                'url': record.get('hash'),
-                'groups': record.get('groups'),
-                'users': users,
-                'path': record.get('path')
-            })
+            users = [user['id'] for user in record.attrs['acl']['users']]
+            result.append(dict(
+                url=record.attrs['hash'],
+                groups=record.attrs['groups'],
+                users=users,
+                path=record.attrs['path'],
+            ))
         return {"data": result, "code": 200}
-    
+
     def get_records(self):
-        communities_acl = get_or_initialize_annotation('communities_acl', {})
-        return [
-            record 
-            for record in communities_acl.values() 
-            if self.obj.id in record.get('groups', [])
-        ]
+        portal = api.portal.get()
+        soup = get_soup('communities_acl', portal)
+        records = [r for r in soup.query(Eq('groups', self.params['group']))]
+        return records
