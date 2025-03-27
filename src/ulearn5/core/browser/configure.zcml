@@ -127,14 +127,14 @@
 
   <browser:page
     for="zope.interface.Interface"
-    name="Omega13UserSearch"
+    name="omega13usersearch"
     permission="cmf.ManagePortal"
     class="ulearn5.core.browser.omega13.Omega13UserSearch"
     />
 
   <browser:page
     for="zope.interface.Interface"
-    name="Omega13GroupSearch"
+    name="omega13groupsearch"
     permission="cmf.ManagePortal"
     class="ulearn5.core.browser.omega13.Omega13GroupSearch"
     />
@@ -438,7 +438,7 @@
     permission="zope2.View"
     class="ulearn5.core.browser.variables.communityVariables"
     />
-  
+
   <browser:page
     for="zope.interface.Interface"
     name="ping"
@@ -552,7 +552,7 @@
     provides="ulearn5.core.browser.sharing.IShared"
     factory="ulearn5.core.browser.sharing.SharedMarker"
     />
-  
+
   <adapter
     factory="ulearn5.core.browser.sharing.sharedIndexer"
     name="is_shared"
@@ -583,7 +583,7 @@
     template="viewlets_templates/communityngdirective.pt"
     manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
     />
- 
+
   <browser:viewlet
     name="ulearn.ulearnngdirectives"
     class="ulearn5.core.browser.viewlets.ULearnNGDirectives"
