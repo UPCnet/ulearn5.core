@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
-import logging
-
 from plone import api
 from plone.restapi.services import Service
 from souper.interfaces import ICatalogFactory
-from ulearn5.core.services import (ObjectNotFound, UnknownEndpoint,
-                                   check_methods)
-from ulearn5.core.services.utils import lookup_user
 from zope.component import getUtilitiesFor, getUtility
 
-# from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-# from ulearn5.core.utils import calculatePortalTypeOfInternalPath
+from ulearn5.core.services import (ObjectNotFound, UnknownEndpoint, check_methods)
+from ulearn5.core.services.utils import lookup_user
 
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -38,10 +34,10 @@ class All(Service):
 
     @check_methods(methods=['GET'])
     def reply(self):
-        user = lookup_user(self.username, raisable=True)
-        rendered_properties = {self.username: {}}
-
         try:
+            user = lookup_user(self.username, raisable=True)
+            rendered_properties = {self.username: {}}
+
             extender_name = self.get_extender_name()
             if extender_name and extender_name in self.get_available_extenders():
                 extended_user_properties_utility = getUtility(
@@ -51,12 +47,10 @@ class All(Service):
             else:
                 self.update_rendered_properties(rendered_properties, getUtility(
                     ICatalogFactory, name='user_properties'), user)
-        except ObjectNotFound:
-            raise
-        except Exception as e:
-            raise ObjectNotFound('User not found') from e
 
-        return {"data": rendered_properties, "code": 200}
+            return {"data": rendered_properties, "code": 200}
+        except Exception as e:
+            return {"error": str(e), "code": 404}
 
     def get_extender_name(self):
         return api.portal.get_registry_record(

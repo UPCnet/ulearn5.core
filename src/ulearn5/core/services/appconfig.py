@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-import logging
-
-import requests
 from plone import api
 from plone.restapi.services import Service
+
 from ulearn5.core.services import UnknownEndpoint, check_methods
+
+import logging
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +52,7 @@ class AppConfig(Service):
             logger.error(
                 f"XXX mobile access username {self.username} in domain {registry_records['domain']}")
 
-        return {"data": info, "code": 200}
+        return info
 
     def get_registry_records(self):
         """ Obtain the registry records for the appconfig service """
@@ -74,15 +75,18 @@ class AppConfig(Service):
             name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
 
         return {
-            'main_color': main_color,
-            'secondary_color': secondary_color,
-            'max_server': max_server,
-            'max_server_alias': max_server_alias,
-            'hub_server': hub_server,
-            'domain': domain,
-            'oauth_server': oauth_server,
-            'buttonbar_selected': buttonbar_selected,
-            'show_news_in_app': show_news_in_app
+            'data': {
+                'main_color': main_color,
+                'secondary_color': secondary_color,
+                'max_server': max_server,
+                'max_server_alias': max_server_alias,
+                'hub_server': hub_server,
+                'domain': domain,
+                'oauth_server': oauth_server,
+                'buttonbar_selected': buttonbar_selected,
+                'show_news_in_app': show_news_in_app
+            },
+            "code": 200
         }
 
     def check_lang_for_username(self, username):

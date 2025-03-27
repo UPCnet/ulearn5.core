@@ -4,12 +4,13 @@ import logging
 from plone import api
 from plone.restapi.services import Service
 from souper.interfaces import ICatalogFactory
+from souper.soup import get_soup
+from zope.component import getUtilitiesFor, getUtility
+
 from ulearn5.core.services import ObjectNotFound, check_methods
 from ulearn5.core.services.person import Person
 from ulearn5.core.services.sync import Sync
 from ulearn5.core.services.users import Users
-from ulearn5.core.utils import get_or_initialize_annotation
-from zope.component import getUtilitiesFor, getUtility
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,6 @@ class People(Service):
         self.context = context
         self.request = request
 
-
     def handle_subpath(self, subpath):
         """ Function used to spread the request to the corresponding subpath """
         if not subpath:
@@ -51,7 +51,6 @@ class People(Service):
         kwargs = {'username': next_segment}
         new_handler = Person(self.context, self.request, **kwargs)
         return new_handler.handle_subpath(subpath[1:])
-
 
     @check_methods(methods=['GET'])
     def reply(self):
@@ -85,13 +84,12 @@ class People(Service):
         if '@' in user.getId():
                 return []
 
-        has_public_properties = hasattr(utility, 'public_properties')
         directory_properties = getattr(utility, 'directory_properties', [])
         public_properties = getattr(utility, 'public_properties', [])
         rendered_properties = []
 
         for prop in directory_properties:
-            if has_public_properties and prop not in public_properties:
+            if public_properties and prop not in public_properties:
                 continue
 
             user_prop = user.getProperty(prop, '')

@@ -4,13 +4,13 @@ from io import StringIO
 
 import requests
 from Acquisition import aq_inner
-# from mrs5.max.utilities import IMAXClient
+from mrs5.max.utilities import IMAXClient
 from plone import api
 from plone.restapi.services import Service
 from souper.interfaces import ICatalogFactory
-# from base5.core.patches import changeMemberPortrait
-# from base5.core.utils import (add_user_to_catalog, get_all_user_properties,
-#                              remove_user_from_catalog)
+from base5.core.patches import changeMemberPortrait
+from base5.core.utils import (add_user_to_catalog, get_all_user_properties,
+                             remove_user_from_catalog)
 from ulearn5.core.services import (Forbidden, MethodNotAllowed, ObjectNotFound,
                                    UnknownEndpoint, check_methods,
                                    check_required_params)
@@ -20,9 +20,11 @@ from ulearn5.core.services.ushare import Ushare
 from ulearn5.core.services.utils import lookup_community, lookup_user
 from ulearn5.core.services.visualizations import Visualizations
 from ulearn5.core.utils import get_or_initialize_annotation
-# from ulearn5.core.browser.security import execute_under_special_role
-# from ulearn5.core.gwuuid import IGWUUID
+from ulearn5.core.browser.security import execute_under_special_role
+from ulearn5.core.gwuuid import IGWUUID
 from zope.component import getUtilitiesFor, getUtility
+from souper.soup import get_soup
+from souper.soup import Record
 
 logger = logging.getLogger(__name__)
 
@@ -86,49 +88,49 @@ class Person(Service):
     def reply(self):
         method = self.request.get('method')
         if method == 'GET':
-            self.reply_get()
+            return self.reply_get()
         elif method == 'POST':
-            self.reply_post()
+            return self.reply_post()
         elif method == 'PUT':
-            self.reply_put()
+            return self.reply_put()
         elif method == 'DELETE':
-            self.reply_delete()
+            return self.reply_delete()
 
         raise MethodNotAllowed(f"Unknown method: {method}")
 
     def reply_get(self):
-        user = lookup_user(self.username, raisable=True)
+        try:
+            user = lookup_user(self.username, raisable=True)
+            user_properties_utility = getUtility(
+                ICatalogFactory, name='user_properties')
+            extender_name = api.portal.get_registry_record(
+                'base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
 
-        user_properties_utility = getUtility(
-            ICatalogFactory, name='user_properties')
-        extender_name = api.portal.get_registry_record(
-            'base5.core.controlpanel.core.IBaseCoreControlPanelSettings.user_properties_extender')
+            rendered_properties = []
+            if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
+                extended_user_properties_utility = getUtility(
+                    ICatalogFactory, name=extender_name)
+                rendered_properties = self.extract_properties(
+                    extended_user_properties_utility, user)
+            else:
+                rendered_properties = self.extract_properties(
+                    user_properties_utility, user)
 
-        rendered_properties = []
-        if extender_name in [a[0] for a in getUtilitiesFor(ICatalogFactory)]:
-            extended_user_properties_utility = getUtility(
-                ICatalogFactory, name=extender_name)
-            rendered_properties = self.extract_properties(
-                extended_user_properties_utility, user)
-
-        else:
-            rendered_properties = self.extract_properties(
-                user_properties_utility, user)
-
-        return {"data": rendered_properties, "code": 200}
+            return {"data": rendered_properties, "code": 200}
+        except Exception as e:
+            return {"error": f'User with ID {id} not found', "code": 404}
 
     def extract_properties(self, utility, user):
         # TODO: Mirar si esto hay que hacerlo en ambos casos
         if '@' in self.username:
             return []
 
-        has_public_properties = hasattr(utility, 'public_properties')
         directory_properties = getattr(utility, 'directory_properties', [])
         public_properties = getattr(utility, 'public_properties', [])
         rendered_properties = []
 
         for property in directory_properties:
-            if has_public_properties and property not in public_properties:
+            if public_properties and property not in public_properties:
                 continue
 
             user_prop = user.getProperty(property, '')
@@ -150,7 +152,7 @@ class Person(Service):
         maxclient, settings = getUtility(IMAXClient)()
         maxclient.setActor(settings.max_restricted_username)
         maxclient.setToken(settings.max_restricted_token)
-        avatar = self.request.form.get('avatar', None)
+        avatar = self.params.pop('avatar', None)
 
         user = lookup_user(self.username, raisable=False)
         if user:
@@ -162,15 +164,37 @@ class Person(Service):
         return {"message": response, "code": code}
 
     def create_user(self, avatar, maxclient):
-        """ TODO: Revisar si self.request.form solo contiene los params """
-        new_user = api.user.create(**self.request.form)
+        username = self.username.lower()
+        email = self.params.pop('email')
+        password = self.params.pop('password', None)
+
+        user_args = dict(
+            email=email,
+            username=username,
+            password=password,
+            properties=self.params
+        )
+
+        response = api.user.create(**user_args)
+
         maxclient.people[self.username].put(
-            displayName=self.request.form.get('fullname'))
+            displayName=self.params.get('fullname'))
 
         if avatar:
             self.manage_avatar(avatar)
 
         return f'User {self.username} created'
+
+    def update_user(self, user, avatar, maxclient):
+        user.setMemberProperties(mapping=self.params)
+        maxclient.people[self.username].post()
+        maxclient.people[self.username].put(
+            displayName=self.params.get('fullname'))
+
+        if avatar:
+            self.manage_avatar(avatar)
+
+        return f'User {self.username} updated'
 
     def manage_avatar(self, avatar):
         portal = api.portal.get()
@@ -189,68 +213,60 @@ class Person(Service):
         except Exception:
             raise ObjectNotFound(f'Image data {img_name} not found')
 
-    def update_user(self, user, avatar, maxclient):
-        """ TODO: Revisar si self.request.form solo contiene los params """
-        user.setMemberProperties(**self.request.form)
-        maxclient.people[self.username].post()
-        maxclient.people[self.username].put(
-            displayName=self.request.form.get('fullname'))
-        if avatar:
-            self.manage_avatar(avatar)
-
-        return f'User {self.username} updated'
-
+    @check_required_params(params=['displayName'])
     def reply_put(self):
-        user = lookup_user(self.username, raisable=True)
-        maxclient = self.manage_maxclient()
+        try:
+            user = lookup_user(self.username, raisable=True)
+            maxclient = self.manage_maxclient()
 
-        if 'displayName' in self.request.form:
-            user.setMemberProperties({'fullname': self.request.form.get('fullname')})
+            user.setMemberProperties({'fullname': self.params.get('displayName')})
             properties = get_all_user_properties(user)
             add_user_to_catalog(user, properties, overwrite=True)
-            maxclient.people[self.username].put(displayName=properties['fullename'])
+            maxclient.people[self.username].put(displayName=properties['fullname'])
             status = maxclient.last_response_code
             return {"message": f'User {self.username} updated', "code": status}
-
-        return {"message": f'User {self.username} not updated. No displayName', "code": 500}
+        except Exception as e:
+            return {"error": f'User with ID {self.username} not found', "code": 404}
 
     def reply_delete(self):
-        self.delete_member()
-        remove_user_from_catalog(self.username)
+        try:
+            self.delete_member()
+            remove_user_from_catalog(self.username)
 
-        maxclient = self.manage_maxclient()
-        communities_subscription = maxclient.people[self.username].subscriptions.get()
+            maxclient = self.manage_maxclient()
+            communities_subscription = maxclient.people[self.username].subscriptions.get()
 
-        for num, community_subscription in enumerate(communities_subscription):
-            community = lookup_community(community_subscription['hash'])
-            try:
-                logger.info('Processant {} de {}. Comunitat {}'.format(
-                    num, len(communities_subscription), community))
-                gwuuid = IGWUUID(community).get()
-                portal = api.portal.get()
-                soup = get_soup('communities_acl', portal)
+            for num, community_subscription in enumerate(communities_subscription):
+                community = lookup_community(community_subscription['hash'])
+                try:
+                    logger.info('Processant {} de {}. Comunitat {}'.format(
+                        num, len(communities_subscription), community))
+                    gwuuid = IGWUUID(community).get()
+                    portal = api.portal.get()
+                    soup = get_soup('communities_acl', portal)
 
-                records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
+                    records = [r for r in soup.query(Eq('gwuuid', gwuuid))]
 
-                # Save ACL into the communities_acl soup
-                if records:
-                    acl_record = records[0]
-                    acl = acl_record.attrs['acl']
-                    exist = [a for a in acl['users']
-                             if a['id'] == str(self.username)]
+                    # Save ACL into the communities_acl soup
+                    if records:
+                        acl_record = records[0]
+                        acl = acl_record.attrs['acl']
+                        exist = next((user for user in acl.get('users', []) if user['id'] == str(self.username)), None)
 
-                    if exist:
-                        acl['users'].remove(exist[0])
-                        acl_record.attrs['acl'] = acl
-                        soup.reindex(records=[acl_record])
-                        adapter = community.adapted()
-                        adapter.set_plone_permissions(adapter.get_acl())
+                        if exist:
+                            acl['users'].remove(exist[0])
+                            acl_record.attrs['acl'] = acl
+                            soup.reindex(records=[acl_record])
+                            adapter = community.adapted()
+                            adapter.set_plone_permissions(adapter.get_acl())
 
-            except:
-                continue
+                except:
+                    continue
 
-        maxclient.people[self.username].delete()
-        return {"data": f'Delete user: {self.username}', "code": 204}
+            maxclient.people[self.username].delete()
+            return {"data": f'Delete user: {self.username}', "code": 204}
+        except Exception as e:
+            return {"error": f'User with ID {self.username} not found', "code": 404}
 
     def delete_member(self):
         context = aq_inner(self.context)
@@ -280,14 +296,13 @@ class Person(Service):
             portal = api.portal.get()
             soup_users_delete = get_soup('users_delete_local_roles', portal)
             exist = [r for r in soup_users_delete.query(
-                Eq('id_username', member_id))]
+                Eq('id_username', self.username))]
 
             if not exist:
                 record = Record()
-                record.attrs['id_username'] = member_id
+                record.attrs['id_username'] = self.username
                 soup_users_delete.add(record)
                 soup_users_delete.reindex()
-
 
     def manage_maxclient(self):
         maxclient, settings = getUtility(IMAXClient)()

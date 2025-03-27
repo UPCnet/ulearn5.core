@@ -16,7 +16,7 @@ def check_methods(methods=[]):
         def wrapped_function(self, *args, **kwargs):
             if self.request.method not in methods:
                 raise MethodNotAllowed(f"Method not allowed: {self.request.method}")
-            
+
             return func(self, *args, **kwargs)
         return wrapped_function
     return wrapper
@@ -29,17 +29,23 @@ def check_required_params(params=[]):
     def wrapper(func):
         @wraps(func)
         def wrapped_function(self, *args, **kwargs):
-            body = self.request.BODYFILE.read().decode('utf-8')
-            body_params = json.loads(body)
+            try:
+                body_params = json.loads(self.request['BODY'])
+            except:
+                body_params = self.request.form
+
+            self.params = body_params
             for param in params:
                 if param not in body_params:
                     raise MissingParameters(f'Missing required parameter: {param}')
 
-            # Check for unexpected parameters
-            unexpected_params = set(body_params.keys()) - set(params)
-            if unexpected_params:
-                raise BadParameters(
-                    f'Unexpected parameters: {", ".join(unexpected_params)}')
+            # TODO: Comentado, no hace falta porque por ejemplo para la creación de usuarios pueden
+            #       pasarnos más parametros de los requeridos
+            # # Check for unexpected parameters
+            # unexpected_params = set(body_params.keys()) - set(params)
+            # if unexpected_params:
+            #     raise BadParameters(
+            #         f'Unexpected parameters: {", ".join(unexpected_params)}')
 
             return func(self, *args, **kwargs)
         return wrapped_function
