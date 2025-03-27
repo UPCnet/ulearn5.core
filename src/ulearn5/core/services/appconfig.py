@@ -75,18 +75,15 @@ class AppConfig(Service):
             name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.show_news_in_app')
 
         return {
-            'data': {
-                'main_color': main_color,
-                'secondary_color': secondary_color,
-                'max_server': max_server,
-                'max_server_alias': max_server_alias,
-                'hub_server': hub_server,
-                'domain': domain,
-                'oauth_server': oauth_server,
-                'buttonbar_selected': buttonbar_selected,
-                'show_news_in_app': show_news_in_app
-            },
-            "code": 200
+            'main_color': main_color,
+            'secondary_color': secondary_color,
+            'max_server': max_server,
+            'max_server_alias': max_server_alias,
+            'hub_server': hub_server,
+            'domain': domain,
+            'oauth_server': oauth_server,
+            'buttonbar_selected': buttonbar_selected,
+            'show_news_in_app': show_news_in_app
         }
 
     def check_lang_for_username(self, username):

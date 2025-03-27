@@ -4,7 +4,7 @@
 
     <plone:service
         method="GET"
-        name="@api"
+        name="api"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         factory=".api.APIBase"
         permission="zope2.View"
@@ -12,7 +12,7 @@
 
     <plone:service
         method="POST"
-        name="@api"
+        name="api"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         factory=".api.APIBase"
         permission="zope2.View"
@@ -20,7 +20,7 @@
 
     <plone:service
         method="PUT"
-        name="@api"
+        name="api"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         factory=".api.APIBase"
         permission="zope2.View"
@@ -28,7 +28,7 @@
 
     <plone:service
         method="DELETE"
-        name="@api"
+        name="api"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         factory=".api.APIBase"
         permission="zope2.View"
