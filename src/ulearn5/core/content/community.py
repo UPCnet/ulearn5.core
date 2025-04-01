@@ -654,12 +654,11 @@ class CommunityAdapterMixin(object):
 
         INotNotifyPush(self.context).remove(user_id)
 
-
         # Remove mail user to mails_users_community_lists in community
         if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
             if self.context.mails_users_community_lists != None:
                 if api.user.get(user_id).getProperty('email') in self.context.mails_users_community_lists:
-                    self.context.mails_users_community_lists.pop(api.user.get(user_id).getProperty('email'))
+                    self.context.mails_users_community_lists.remove(api.user.get(user_id).getProperty('email'))
 
             if self.context.mails_users_community_black_lists is None:
                 self.context.mails_users_community_black_lists = {}
@@ -667,7 +666,7 @@ class CommunityAdapterMixin(object):
                 self.context.mails_users_community_black_lists = ast.literal_eval(self.context.mails_users_community_black_lists)
 
             if user_id in self.context.mails_users_community_black_lists:
-                self.context.mails_users_community_black_lists.pop(user_id)
+                self.context.mails_users_community_black_lists.remove(user_id)
 
         self.context.reindexObject()
 
