@@ -208,7 +208,7 @@ class ICommunity(model.Schema):
         default='Activity'
     )
 
-    # Omitir campos en el formulario
+    # # Omitir campos en el formulario
     directives.omitted('readers', 'subscribed', 'owners')
     directives.widget(readers=Select2MAXUserInputFieldWidget)
     readers = schema.List(
@@ -292,6 +292,7 @@ class ICommunity(model.Schema):
 
     # Ocultar el campo 'mails_users_community_lists' en los formularios de añadido y edición
     #directives.mode(mails_users_community_lists={"add": "hidden", "edit": "hidden"})
+    directives.mode(mails_users_community_lists="hidden")
     mails_users_community_lists = schema.Text(
         title=_('Users comunnity lists'),
         description=_('users_community_lists_help'),
@@ -299,6 +300,7 @@ class ICommunity(model.Schema):
     )
 
     #directives.mode(mails_users_community_black_lists={"add": "hidden", "edit": "hidden"})
+    directives.mode(mails_users_community_black_lists="hidden")
     mails_users_community_black_lists = schema.Text(
         title=_('Users comunnity black lists'),
         description=_('users_community_black_lists_help'),
@@ -312,6 +314,7 @@ class ICommunity(model.Schema):
     )
 
     #directives.mode(terms={"add": "hidden", "edit": "hidden"})
+    directives.mode(terms="hidden")
     directives.widget(terms=TermsFieldWidget)
     terms = schema.Bool(
         title=_('title_terms_of_user'),
@@ -1317,6 +1320,16 @@ class CommunityAdder(AutoExtensibleForm, form.Form):
 
         self.widgets['mails_users_community_black_lists'].mode = 'hidden'
         self.fields['mails_users_community_black_lists'].mode = 'hidden'
+
+        self.widgets['readers'].mode = 'hidden'
+        self.fields['readers'].mode = 'hidden'
+
+        self.widgets['subscribed'].mode = 'hidden'
+        self.fields['subscribed'].mode = 'hidden'
+
+        self.widgets['owners'].mode = 'hidden'
+        self.fields['owners'].mode = 'hidden'
+
 
     @button.buttonAndHandler(u'Crea la comunitat', name='save')
     def handleApply(self, action):
