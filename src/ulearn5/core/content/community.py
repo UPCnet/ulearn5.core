@@ -456,10 +456,8 @@ class CommunityAdapterMixin(object):
         self.delete_acl()
 
     def get_acl(self):
-        acl_record = ICommunityACL(self.context)()
-        if acl_record:
-            return acl_record.get('acl', {})
-        return {}
+        acl = ICommunityACL(self.context)().attrs.get('acl', '')
+        return acl
 
     def update_acl(self, acl):
         gwuuid = IGWUUID(self.context).get()

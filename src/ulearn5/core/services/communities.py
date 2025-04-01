@@ -91,7 +91,7 @@ class Communities(Service):
                 brain, favorites, notnotifypush)
             result.append(community)
 
-        return {"data": result, "code": 200}
+        return result
 
     def get_communities_by_type(self):
         """ Get all communities """
@@ -123,6 +123,7 @@ class Communities(Service):
 
     def build_community_info(self, brain, favorites, notnotifypush):
         portal_url = api.portal.get().absolute_url()
+        self.username = api.user.get_current().id
 
         if brain.tab_view == 'Documents':
             url = brain.getURL() + '/documents'

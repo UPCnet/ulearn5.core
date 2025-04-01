@@ -6,7 +6,7 @@ from ulearn5.core.services import (BadParameters, MethodNotAllowed,
                                    UnknownEndpoint, check_methods,
                                    check_required_params, check_roles)
 
-# from ulearn5.core.content.community import ICommunityACL
+from ulearn5.core.content.community import ICommunityACL
 
 
 logger = logging.getLogger(__name__)
@@ -55,16 +55,13 @@ class Subscriptions(Service):
 
     def reply_get(self):
         """ Get the subscriptions for the community. """
-        # result = ICommunityACL(self.obj)().attrs.get('acl', '')
-        acl_result= ICommunityACL(self.context)()
-        result = acl_result.get('acl', '')
+        result = ICommunityACL(self.obj)().attrs.get('acl', '')
 
-        return {"data": result, "code": 200}
+        return result
 
     @check_required_params(params=['users'])
     def reply_post(self):
         """ Subscribes a bunch of users to a community """
-
         self.set_subscriptions(self.request.form)
 
         # Response successful
