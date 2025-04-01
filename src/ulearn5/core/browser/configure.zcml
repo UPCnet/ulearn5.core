@@ -199,21 +199,21 @@
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="ldapkillah"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.ldapKillah"
+    class="ulearn5.core.browser.setup.ldapkillah"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="memberfoldersetup"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.memberFolderSetup"
+    class="ulearn5.core.browser.setup.memberfoldersetup"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="changeurlcommunities"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.changeURLCommunities"
+    class="ulearn5.core.browser.setup.changeurlcommunities"
     template="views_templates/changeurlcommunities.pt"
     />
 
@@ -221,7 +221,7 @@
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="deleteusers"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.deleteUsers"
+    class="ulearn5.core.browser.setup.deleteusers"
     template="views_templates/deleteusers.pt"
     />
 
@@ -229,7 +229,7 @@
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="deleteusersincommunities"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.deleteUsersInCommunities"
+    class="ulearn5.core.browser.setup.deleteusersincommunities"
     template="views_templates/deleteusersincommunities.pt"
     />
 
@@ -238,14 +238,14 @@
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="importfiletofolder"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup.importFileToFolder"
+    class="ulearn5.core.browser.setup.importfiletofolder"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="updatesharingcommunityelastic"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.updateSharingCommunityElastic"
+    class="ulearn5.core.browser.setup.updatesharingcommunityelastic"
     template="views_templates/updatesharingcommunityelastic.pt"
     />
 
@@ -253,98 +253,98 @@
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="listallcommunitiesobjects"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup.listAllCommunitiesObjects"
+    class="ulearn5.core.browser.setup.listallcommunitiesobjects"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="updatesharingcommunitieselastic"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.updateSharingCommunitiesElastic"
+    class="ulearn5.core.browser.setup.updatesharingcommunitieselastic"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="createelasticsharing"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.createElasticSharing"
+    class="ulearn5.core.browser.setup.createelasticsharing"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="viewuserswithnotupdatedphoto"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.viewUsersWithNotUpdatedPhoto"
+    class="ulearn5.core.browser.setup.viewuserswithnotupdatedphoto"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="deletephotofromuser"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.deletePhotoFromUser"
+    class="ulearn5.core.browser.setup.deletephotofromuser"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="execute_cron_tasks"
     permission="ulearn.APIAccess"
-    class="ulearn5.core.browser.setup.executeCronTasks"
+    class="ulearn5.core.browser.setup.execute_cron_tasks"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="get_info_cron_tasks"
     permission="ulearn.APIAccess"
-    class="ulearn5.core.browser.setup.getInfoCronTasks"
+    class="ulearn5.core.browser.setup.get_info_cron_tasks"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="changepermissionsoocontent"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.changePermissionsToContent"
+    class="ulearn5.core.browser.setup.changepermissionsoocontent"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name="addAllCommunitiesAsFavoriteFromAllUsers"
+    name="addallcommunitiesasfavoritefromallusers"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.addAllCommunitiesAsFavoriteFromAllUsers"
+    class="ulearn5.core.browser.setup.addallcommunitiesasfavoritefromallusers"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name="addCommunityAsFavoriteFromAllUsers"
+    name="addcommunityasfavoritefromallusers"
     permission="zope2.ViewManagementScreens"
-    class="ulearn5.core.browser.setup.addCommunityAsFavoriteFromAllUsers"
+    class="ulearn5.core.browser.setup.addcommunityasfavoritefromallusers"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="add_protected_file_in_documents_community"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup.addProtectedFileInDocumentsCommunity"
+    class="ulearn5.core.browser.setup.add_protected_file_in_documents_community"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="add_etherpad_in_documents_community"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup.addEtherpadInDocumentsCommunity"
+    class="ulearn5.core.browser.setup.add_etherpad_in_documents_community"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="notify_manual_in_community"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup.notifyManualInCommunity"
+    class="ulearn5.core.browser.setup.notify_manual_in_community"
     />
 
   <browser:page
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="deletenominasmes"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup.deleteNominasMes"
+    class="ulearn5.core.browser.setup.deletenominasmes"
     template="views_templates/deletenominasmes.pt"
     />
 
@@ -352,7 +352,7 @@
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     name="parche_reordenar_carpetas"
     permission="cmf.ManagePortal"
-    class="ulearn5.core.browser.setup.parcheReordenarCarpetas"
+    class="ulearn5.core.browser.setup.parche_reordenar_carpetas"
     />
 
   <!-- BASE.AUTHENTICATED CAMBIO -->

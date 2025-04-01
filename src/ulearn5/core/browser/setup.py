@@ -784,7 +784,7 @@ class createPopupStructure(BrowserView):
         return "Done"
 
 
-class ldapKillah(BrowserView):
+class ldapkillah(BrowserView):
 
     def __call__(self):
         portal = getSite()
@@ -796,7 +796,7 @@ class ldapKillah(BrowserView):
             portal.acl_users.manage_delObjects("ldapexterns")
 
 
-class memberFolderSetup(BrowserView):
+class memberfoldersetup(BrowserView):
 
     def __call__(self):
         portal = getSite()
@@ -808,7 +808,7 @@ class memberFolderSetup(BrowserView):
             portal.manage_delObjects("Members")
 
 
-class changeURLCommunities(BrowserView):
+class changeurlcommunities(BrowserView):
     """Aquesta vista canvia la url de les comunitats"""
 
     def __call__(self):
@@ -845,7 +845,7 @@ class changeURLCommunities(BrowserView):
                     )
 
 
-class deleteUsers(BrowserView):
+class deleteusers(BrowserView):
     """Delete users from the plone & max & communities"""
 
     def __call__(self):
@@ -930,7 +930,7 @@ class deleteUsers(BrowserView):
                 logger.info("Finished deleted users: {}".format(users))
 
 
-class deleteUsersInCommunities(BrowserView):
+class deleteusersincommunities(BrowserView):
     """Delete users from the plone & max & communities"""
 
     def __call__(self):
@@ -988,7 +988,7 @@ class deleteUsersInCommunities(BrowserView):
                 logger.info("Finished deleted users in communities: {}".format(users))
 
 
-class importFileToFolder(BrowserView):
+class importfiletofolder(BrowserView):
     """This view takes 2 arguments on the request GET data :
     folder: the path without the '/' at the beginning, which is the base folder
         where the 'year' folders should be created
@@ -1029,7 +1029,7 @@ class importFileToFolder(BrowserView):
         self.response.setBody("OK")
 
 
-class updateSharingCommunityElastic(BrowserView):
+class updatesharingcommunityelastic(BrowserView):
     """Aquesta vista actualitza tots els objectes de la comunitat al elasticsearch"""
 
     def __call__(self):
@@ -1086,7 +1086,7 @@ class updateSharingCommunityElastic(BrowserView):
                         )
 
 
-class listAllCommunitiesObjects(BrowserView):
+class listallcommunitiesobjects(BrowserView):
     """returns a json with all the comunities and the number of objects of each one"""
 
     def __call__(self):
@@ -1103,7 +1103,7 @@ class listAllCommunitiesObjects(BrowserView):
         return json.dumps(result_list)
 
 
-class updateSharingCommunitiesElastic(BrowserView):
+class updatesharingcommunitieselastic(BrowserView):
     """Aquesta vista actualitza el sharing de tots els objectes de totes les comunitats al elasticsearch"""
 
     def __call__(self):
@@ -1164,7 +1164,7 @@ class updateSharingCommunitiesElastic(BrowserView):
         self.response.setBody("OK")
 
 
-class createElasticSharing(BrowserView):
+class createelasticsharing(BrowserView):
     """Aquesta vista crea l'index de l'elasticsearch i li diu que el camp principal pot tenir caracters especials 'index': 'not_analyzed'"""
 
     def __call__(self):
@@ -1198,7 +1198,7 @@ class createElasticSharing(BrowserView):
             self.response.setBody("OK")
 
 
-class viewUsersWithNotUpdatedPhoto(BrowserView):
+class viewuserswithnotupdatedphoto(BrowserView):
     """Shows the user list that the photo has not been changed"""
 
     def __call__(self):
@@ -1225,7 +1225,7 @@ class viewUsersWithNotUpdatedPhoto(BrowserView):
 
 
 
-class deletePhotoFromUser(BrowserView):
+class deletephotofromuser(BrowserView):
     """Delete photo from user, add parameter ?user=nom.cognom"""
 
     def __call__(self):
@@ -1261,7 +1261,7 @@ class deletePhotoFromUser(BrowserView):
             return "Add parameter ?user=nom.cognom in url"
 
 
-class executeCronTasks(BrowserView):
+class execute_cron_tasks(BrowserView):
     """TODO: .....
     url/execute_cron_tasks/?user=victor&pass=123123
     """
@@ -1298,7 +1298,7 @@ class executeCronTasks(BrowserView):
         return json.dumps(info_cron)
 
 
-class getInfoCronTasks(BrowserView):
+class get_info_cron_tasks(BrowserView):
     """TODO: .....
     url/get_info_cron_tasks
     """
@@ -1313,7 +1313,7 @@ class getInfoCronTasks(BrowserView):
         return json.dumps(info_cron)
 
 
-class changePermissionsToContent(BrowserView):
+class changepermissionsoocontent(BrowserView):
     """
     Canvia els permisos a tots el continguts que s'han creat autòmaticament (/news, /gestion, ...)
     """
@@ -1435,7 +1435,7 @@ class changePermissionsToContent(BrowserView):
         return "OK"
 
 
-class addAllCommunitiesAsFavoriteFromAllUsers(BrowserView):
+class addallcommunitiesasfavoritefromallusers(BrowserView):
     """
     Añade a favorito todas las comunidades a las que esta suscrito los usuarios
     """
@@ -1468,7 +1468,7 @@ class addAllCommunitiesAsFavoriteFromAllUsers(BrowserView):
         return "OK"
 
 
-class addCommunityAsFavoriteFromAllUsers(BrowserView):
+class addcommunityasfavoritefromallusers(BrowserView):
     """
     Añade a favorito a todos los usuarios usuarios subcritos a X comunidad
     """
@@ -1508,7 +1508,7 @@ class addCommunityAsFavoriteFromAllUsers(BrowserView):
             return "Error add community parameter - /addcommunityasfavoritefromallusers?community=community.id"
 
 
-class addProtectedFileInDocumentsCommunity(BrowserView):
+class add_protected_file_in_documents_community(BrowserView):
     """
     Si esta instalado el paquete ulearn5.externalstorage,
     esta vista añade en la carpeta documentos de todas las comunidades
@@ -1557,7 +1557,7 @@ class addProtectedFileInDocumentsCommunity(BrowserView):
             return "ulearn5.externalstorage is not active in this site."
 
 
-class addEtherpadInDocumentsCommunity(BrowserView):
+class add_etherpad_in_documents_community(BrowserView):
     """
     Si esta instalado el paquete ulearn5.etherpad, esta vista añade
     en la carpeta documentos de todas las comunidades que se puedan
@@ -1606,7 +1606,7 @@ class addEtherpadInDocumentsCommunity(BrowserView):
             return "ulearn5.ethepad is not active in this site."
 
 
-class notifyManualInCommunity(BrowserView):
+class notify_manual_in_community(BrowserView):
     """
     Somo por defecto la notificación por email es automatica esto te la cambia
     a manual para EBCN
@@ -1638,7 +1638,7 @@ class notifyManualInCommunity(BrowserView):
         return "OK Add notify Manual in Communities"
 
 
-class deleteNominasMes(BrowserView):
+class deletenominasmes(BrowserView):
     """Aquesta vista esborra les nomines de tots els usuaris d'un mes en concret"""
 
     def __call__(self):
@@ -1676,7 +1676,7 @@ class deleteNominasMes(BrowserView):
                 )
 
 
-class parcheReordenarCarpetas(BrowserView):
+class parche_reordenar_carpetas(BrowserView):
     """
     When new content is created, the default folders for news, events and
     Members get the ordering attribute set to unordered.
