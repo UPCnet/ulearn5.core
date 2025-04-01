@@ -46,7 +46,7 @@ class Subscriptions(Service):
         if method == 'GET':
             return self.reply_get()
         elif method == 'POST':
-            return self.reply_get()
+            return self.reply_post()
         elif method == 'PUT':
             return self.reply_put()
         elif method == 'DELETE':
@@ -62,7 +62,7 @@ class Subscriptions(Service):
     @check_required_params(params=['users'])
     def reply_post(self):
         """ Subscribes a bunch of users to a community """
-        self.set_subscriptions(self.request.form)
+        self.set_subscriptions(self.params)
 
         # Response successful
         success_response = f'Updated community "{self.obj.absolute_url()}" subscriptions'
@@ -72,7 +72,6 @@ class Subscriptions(Service):
     @check_required_params(params=['users'])
     def reply_put(self):
         """ Subscribes a bunch of users to a community """
-
         self.update_subscriptions()
 
         # Response successful
@@ -92,10 +91,7 @@ class Subscriptions(Service):
 
     def set_subscriptions(self, payload):
         adapter = self.obj.adapted(request=self.request)
-
-        # TODO: self.payload? De dónde viene? No sé si es esto (self.request.form)
         adapter.update_acl(payload)
-        # adapter.update_acl(self.payload)
         acl = adapter.get_acl()
         adapter.set_plone_permissions(acl)
 
