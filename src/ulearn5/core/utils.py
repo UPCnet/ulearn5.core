@@ -16,7 +16,10 @@ from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser import BrowserView
 from six.moves import range
+from plone.registry.interfaces import IRegistry
+from repoze.catalog.query import Eq
 from souper.interfaces import ICatalogFactory
+from souper.soup import get_soup
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from zope import schema
