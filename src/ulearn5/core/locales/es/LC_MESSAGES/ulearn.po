@@ -1946,12 +1946,12 @@ msgstr "Título de la web con tags HTML (negritas) [CA]"
 #. Default: "Títol del web amb HTML tags (negretes) [EN]"
 #: ../controlpanel.py:143
 msgid "html_title_en"
-msgstr "Título de la web con tags HTML (negritas) [ES]"
+msgstr "Título de la web con tags HTML (negritas) [EN]"
 
 #. Default: "Títol del web amb HTML tags (negretes) [ES]"
 #: ../controlpanel.py:135
 msgid "html_title_es"
-msgstr "Título de la web con tags HTML (negritas) [EN]"
+msgstr "Título de la web con tags HTML (negritas) [ES]"
 
 #. Default: "Important News"
 #: ulearn5/theme/portlets/importantnews/importantnews.py:45
