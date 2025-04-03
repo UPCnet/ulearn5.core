@@ -78,6 +78,8 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
 from ZPublisher.HTTPRequest import FileUpload
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.event.interfaces import IEvent
+
 
 logger = logging.getLogger(__name__)
 VALID_COMMUNITY_ROLES = ['reader', 'writer', 'owner']
@@ -1290,7 +1292,6 @@ class UnSubscribe(BrowserView):
             return dict(error='Bad request. POST request expected.',
                         status_code=400)
 
-# TODO
 class CommunityAdder(AutoExtensibleForm, form.Form):
     """
     Formulario para añadir un ítem de tipo Community.
@@ -1409,7 +1410,6 @@ class CommunityAdder(AutoExtensibleForm, form.Form):
     def terms(self):
         return 'terms' in list(self.fields.keys())
 
-# TODO
 class CommunityEdit(AutoExtensibleForm, form.Form):
     """ Formulario para editar comunidades """
 
@@ -1792,7 +1792,7 @@ def subscribed_users(context):
 
 # grok.global_adapter(subscribed_users, name='subscribed_users')
 
-
+@indexer(IEvent)
 @indexer(ICommunity)
 def community_type(context):
     """ Create a catalogue indexer, registered as an adapter, which can

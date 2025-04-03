@@ -474,7 +474,6 @@ def AddedSendMessage(content, event):
     """ Send mail to notify add object in community
     """
     community = findContainerCommunity(content)
-
     if not community or \
        IAppFile.providedBy(content) or \
        IAppImage.providedBy(content):
