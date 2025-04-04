@@ -59,7 +59,20 @@ def check_roles(roles=[]):
     def wrapper(func):
         @wraps(func)
         def wrapped_function(self, *args, **kwargs):
-            user = ploneapi.user.get_current()
+            request = self.request
+            oauth_user = request.get('HTTP_X_OAUTH_USERNAME', None)
+            user = None
+
+            if oauth_user:
+                user = ploneapi.user.get(oauth_user)
+            else:
+                user = ploneapi.user.get_current()
+
+            if not user:
+                raise Forbidden("User not found")
+
+            user_roles = ploneapi.user.get_roles(user=user)
+
             if not user.has_role(roles):
                 raise Forbidden('You are not allowed to access this resource')
             return func(self, *args, **kwargs)

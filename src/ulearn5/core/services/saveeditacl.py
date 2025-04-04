@@ -6,7 +6,7 @@ from plone.restapi.services import Service
 from ulearn5.core.services import (BadParameters, UnknownEndpoint,
                                    check_methods, check_roles)
 
-# from ulearn5.core.content.community import ICommunityACL
+from ulearn5.core.content.community import ICommunityACL
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +43,7 @@ class SaveEditACL(Service):
 
             try:
                 unrestricted_obj = item._unrestrictedGetObject()
-                payload = ICommunityACL(unrestricted_obj).__getattribute__('acl', '')
+                payload = ICommunityACL(unrestricted_obj)().attrs.get('acl', '')
 
                 logger.info(
                     f'---- Community: {str(unrestricted_obj.absolute_url())} ----')
@@ -55,8 +55,7 @@ class SaveEditACL(Service):
                 users = payload.get('users', [])
                 users_checked = self.check_users(adapter, users)
 
-                obj = item.getObject()
-                self.make_adapter_operations(adapter, obj)
+                self.make_adapter_operations(adapter, unrestricted_obj)
 
                 updated = f'Updated community subscriptions on: {str(unrestricted_obj.absolute_url())}'
                 logger.info(updated)
@@ -95,11 +94,13 @@ class SaveEditACL(Service):
 
         return users_checked
 
-    def make_adapter_operations(self, adapter, obj):
+    def make_adapter_operations(self, adapter, unrestricted_obj):
         """ Make the adapter operations """
         acl = adapter.get_acl()
         adapter.set_plone_permissions(acl)
         adapter.update_hub_subscriptions()
-        if ((obj.notify_activity_via_mail == True) and (obj.type_notify == 'Automatic')):
-            adapter.update_mails_users(obj, acl)
+
+        if ((unrestricted_obj.notify_activity_via_mail == True) and (unrestricted_obj.type_notify == 'Automatic')):
+            adapter.update_mails_users(unrestricted_obj, acl)
+
         return acl
