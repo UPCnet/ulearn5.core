@@ -179,10 +179,10 @@ class Communities(Service):
 
         return False
 
+    @check_roles(roles=['Manager', 'Api'])
     @check_required_params(params=['title', 'community_type'])
     def reply_post(self):
         """ Create a new community """
-
         # GET PARAMS
         params = self.build_params(self.request.form)
 
@@ -191,25 +191,26 @@ class Communities(Service):
 
         # SEARCH COMMUNITY
         result = lookup_community(id_normalized)
-        if result:
-            success_response = 'community already exists.'
-            status = 200
-            logger.info(success_response)
-            return {"message": success_response, "code": status}
 
         # CREATE IMG OBJECT TO USE AS COMMUNITY IMAGE
         imageObj = ''
         if params['image']:
             imageObj = self.build_image_object(params['image'])
 
-        # ELSE CREATE COMMUNITY
-        new_community_id = self.create_community_object(id_normalized, imageObj, params)
-        new_community = self.context[new_community_id]
+        if result:
+            success_response = 'community already exists.'
+            status = 200
+            logger.info(success_response)
+            return {"message": success_response, "code": status}
+        else:
+            # ELSE CREATE COMMUNITY
+            new_community_id = self.create_community_object(id_normalized, imageObj, params)
+            new_community = self.context[new_community_id]
 
-        success_response = 'Created community "{}" with hash "{}".'.format(
-            new_community.absolute_url(), sha1(new_community.absolute_url().encode('utf-8')).hexdigest())
+            success_response = 'Created community "{}" with hash "{}".'.format(
+                new_community.absolute_url(), sha1(new_community.absolute_url().encode('utf-8')).hexdigest())
 
-        status = 201
+            status = 201
         logger.info(success_response)
         return {"message": success_response, "code": status}
 
@@ -233,7 +234,7 @@ class Communities(Service):
         """ Build the image object """
         mime = MimeTypes()
         mime_type = mime.guess_type(image)
-        img_name = (image.split('/')[-1]).decode('utf-8')
+        img_name = (image.split('/')[-1])
         img_data = requests.get(image).content
         return NamedBlobImage(data=img_data,
                               filename=img_name,

@@ -17,19 +17,18 @@ def lookup_community(community_id=None):
         logging.error(error_message)
         raise MissingParameters('Community ID not provided')
 
-    result = pc.searchResults(community_hash=community_id)
+    result = pc.unrestrictedSearchResults(portal_type='ulearn.community',
+                                          id=community_id)
 
     if not result:
         # Fallback search by gwuuid
         result = pc.searchResults(gwuuid=community_id)
 
-    if not result:
-        # Not found either by hash nor by gwuuid
-        error_message = f'Community with ID {community_id} not found.'
-        logging.error(error_message)
-        raise ObjectNotFound(f'Community with ID {community_id} not found')
+    if result:
+        return result[0].getObject()
+    else:
+        return result
 
-    return result[0].getObject()
 
 
 def lookup_group(id):
