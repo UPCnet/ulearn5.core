@@ -1,5 +1,6 @@
 import json
 from functools import wraps
+from AccessControl.SecurityManagement import newSecurityManager
 
 # We name it ploneapi to avoid conflicts with api.py file
 from plone import api as ploneapi
@@ -64,7 +65,11 @@ def check_roles(roles=[]):
             user = None
 
             if oauth_user:
-                user = ploneapi.user.get(oauth_user)
+                acl_users = self.context.acl_users
+                user = acl_users.getUserById(oauth_user)
+                if user:
+                    # Autentica al usuario manualmente
+                    newSecurityManager(request, user)
             else:
                 user = ploneapi.user.get_current()
 
