@@ -10,9 +10,9 @@ from ulearn5.core.services import (MethodNotAllowed, ObjectNotFound,
                                    UnknownEndpoint, check_methods,
                                    check_required_params)
 
-# from ulearn5.core.html_parser import replaceImagePathByURL
-# from ulearn5.core.html_parser import HTMLParser
-# from ulearn5.core.html_parser import getCommunityNameFromObj
+from ulearn5.core.html_parser import replaceImagePathByURL
+from ulearn5.core.html_parser import HTMLParser
+from ulearn5.core.html_parser import getCommunityNameFromObj
 
 
 logger = logging.getLogger(__name__)

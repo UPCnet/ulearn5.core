@@ -5,10 +5,10 @@ from datetime import datetime
 import pytz
 from plone import api
 from plone.restapi.services import Service
-from ulearn5.core.services import UnknownEndpoint, check_methods
+from ulearn5.core.services import UnknownEndpoint, check_methods, check_roles
 from ulearn5.core.services.event import Event
 
-#from ulearn5.core.html_parser import getCommunityNameFromObj
+from ulearn5.core.html_parser import getCommunityNameFromObj
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +22,7 @@ class Events(Service):
             - path: (str) Community name
             - start: (timestamp) The start date of the events to retrieve.
             - end: (timestamp) The end date of the events to retrieve.
-        
+
         Returns a list of events.
 
     - Subpaths allowed: YES
@@ -35,11 +35,11 @@ class Events(Service):
     def __init__(self, context, request, **kwargs):
         self.context = context
         self.request = request
+        self.params = kwargs
         self.page = kwargs.get('page', None)
         self.path = kwargs.get('path', None)
         self.start = kwargs.get('start', None)
         self.end = kwargs.get('end', None)
-        
 
     def handle_subpath(self, subpath):
         """ Function used to spread the request to the corresponding subpath """
@@ -51,18 +51,18 @@ class Events(Service):
 
         if handler_class:
             handler = handler_class(self.context, self.request)
-            return handler.handle_subpath(subpath[1:]) 
+            return handler.handle_subpath(subpath[1:])
 
         raise UnknownEndpoint(f"Unknown sub-endpoint: {next_segment}")
 
+    @check_roles(roles=['Member', 'Manager', 'Api'])
     @check_methods(methods=['GET'])
     def reply(self):
         more_items = False
         total_events = 0
         date_range = self.get_date_range()
         results = []
-
-        events = self.get_brains(date_range, self.request.form)
+        events = self.get_brains(date_range, self.params)
         total_events= len(events)
         events, more_items = self.paginate_events(events, total_events)
 
@@ -77,11 +77,11 @@ class Events(Service):
                 'portal_type': obj.portal_type,
                 'recurrence': obj.recurrence,
                 'start': obj.start.strftime('%Y-%m-%dT%H:%M:%S'),
-                'title': obj.title.encode('utf-8'),
+                'title': obj.title,
                 'uid': event.UID,
                 'whole_day': obj.whole_day
             })
-        
+
         response = {
             'items': results,
             'more_items': more_items,
@@ -102,7 +102,7 @@ class Events(Service):
                 ),
                 'range': 'min:max',
             }
-        
+
         return {}
 
     def get_brains(self, date_range, params):
@@ -112,14 +112,23 @@ class Events(Service):
             'review_state': ['intranet', 'published'],
             'sort_on': 'start',
             'sort_order': 'descending',
-            'start': date_range
         }
+
+        # Solo agrega el rango de fechas si es válido
+        if date_range:
+            query['start'] = date_range
 
         query.update({
             k: '/'.join(portal.getPhysicalPath()) + '/' + params.pop(k, None) if k == 'path' else params.pop(k, None)
             for k in list(params.keys())
         })
-        
+
+        # Solo agrega el rango de fechas si es válido
+        if date_range:
+            query['start'] = date_range
+
+         # Elimina valores redundantes o incorrectos
+        query.pop('end', None)  # Asegúrate de que 'end' no esté en la consulta
 
         return api.content.find(**query)
 
