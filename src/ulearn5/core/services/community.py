@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-#from mrs5.max.utilities import IMAXClient
+from mrs5.max.utilities import IMAXClient
 from hashlib import sha1
 from mimetypes import MimeTypes
 
@@ -14,6 +14,7 @@ from ulearn5.core.services.search import Search
 from ulearn5.core.services.subscriptions import Subscriptions
 from ulearn5.core.services.utils import lookup_community
 from zope.component import getUtility
+from urllib.parse import parse_qs
 
 logger = logging.getLogger(__name__)
 
@@ -76,11 +77,14 @@ class Community(Service):
     """ GET """
     @check_roles(roles=['Member', 'Manager', 'Api'])
     def reply_get(self):
+        pc = api.portal.get_tool('portal_catalog')
+        communities = pc.unrestrictedSearchResults(
+            portal_type='ulearn.community', id=self.obj.id)
         username = api.user.get_current().id
         communities_subscriptions = self.get_communities_subscriptions(username)
 
         result = []
-        community = self.build_community_info(self.obj, communities_subscriptions)
+        community = self.build_community_info(self.obj, communities, communities_subscriptions)
         result.append(community)
 
         return {"data": result, "code": 200}
@@ -91,25 +95,27 @@ class Community(Service):
         maxclient.setToken(settings.max_restricted_token)
         return maxclient.people[username].subscriptions.get()
 
-    def build_community_info(self, obj, communities_subscriptions):
+    def build_community_info(self, obj, communities, communities_subscriptions):
         """ Build the community information """
-        can_write = False
-        user_permission = [
-            i for i in communities_subscriptions
-            if i['hash'] == obj.community_hash]
-        if user_permission != [] and 'write' in user_permission[0]['permissions']:
-            can_write = True
+        for brain in communities:
+            can_write = False
+            user_permission = [
+                i for i in communities_subscriptions
+                if i['hash'] == brain.community_hash]
+            if user_permission != [] and 'write' in user_permission[0]['permissions']:
+                can_write = True
 
-        return dict(id=obj.id,
-                            can_write=can_write,
-                            title=obj.Title,
-                            description=obj.Description,
-                            url=obj.getURL(),
-                            gwuuid=obj.gwuuid,
-                            hash=sha1(obj.getURL().encode('utf-8')).hexdigest(),
-                            type=obj.community_type,
-                            show_events_tab=obj.show_events,
-                            show_news_tab=obj.show_news)
+            brainObj = self.context.unrestrictedTraverse(brain.getPath())
+            return dict(id=brain.id,
+                        can_write=can_write,
+                        title=brain.Title,
+                        description=brain.Description,
+                        url=brain.getURL(),
+                        gwuuid=brain.gwuuid,
+                        hash=sha1(brain.getURL().encode('utf-8')).hexdigest(),
+                        type=brain.community_type,
+                        show_events_tab=brainObj.show_events,
+                        show_news_tab=brainObj.show_news)
 
 
     """ PUT """
@@ -132,36 +138,36 @@ class Community(Service):
             # Everything is ok, proceed
             adapter.update_community_type()
 
-
-        modified = self.update_community(params)
+        community = self.obj
+        modified = self.update_community(community, params)
         if modified:
             success_response = 'Updated community "{}"'.format(
-                self.target.absolute_url())
+                self.obj.absolute_url())
         else:
             success_response = 'Error with change values "{}".'.format(
-                self.target.absolute_url())
+                self.obj.absolute_url())
 
         logger.info(success_response)
         return {"message": success_response, "code": 200}
 
-
     def build_params(self):
+        query_params = parse_qs(self.request.QUERY_STRING)
         params = {}
-        params['title'] = self.request.form.pop('title', None)
-        params['community_type'] = self.request.form.pop('community_type', None)
-        params['description'] = self.request.form.pop('description', None)
-        params['image'] = self.request.form.pop('image', None)
-        params['activity_view'] = self.request.form.pop('activity_view', None)
-        params['tab_view'] = self.request.form.pop('tab_view', None)
-        params['twitter_hashtag'] = self.request.form.pop('twitter_hashtag', None)
-        params['notify_activity_via_push'] = self.request.form.pop(
-            'notify_activity_via_push', None)
-        params['notify_activity_via_push_comments_too'] = self.request.form.pop(
-            'notify_activity_via_push_comments_too', None)
+        params['title'] = query_params.get('title', [None])[0]
+        params['community_type'] = query_params.get('community_type', [None])[0]
+        params['description'] = query_params.get('description', [None])[0]
+        params['image'] = query_params.get('image', [None])[0]
+        params['activity_view'] = query_params.get('activity_view', [None])[0]
+        params['tab_view'] = query_params.get('tab_view', [None])[0]
+        params['twitter_hashtag'] = query_params.get('twitter_hashtag', [None])[0]
+        params['notify_activity_via_push'] = query_params.get(
+            'notify_activity_via_push', [None])[0]
+        params['notify_activity_via_push_comments_too'] = query_params.get(
+            'notify_activity_via_push_comments_too', [None])[0]
 
         return params
 
-    def update_community(self, properties):
+    def update_community(self, community, properties):
         property_map = {
             'title': 'title',
             'description': 'description',
@@ -172,10 +178,7 @@ class Community(Service):
             'notify_activity_via_push_comments_too': lambda x: True if x == 'True' else None
         }
 
-        obj = lookup_community(properties['community'])
-
-        if obj:
-            community = obj
+        if community:
             for prop, attr in property_map.items():
                 if properties.get(prop) is not None:
                     value = properties[prop]
@@ -205,7 +208,7 @@ class Community(Service):
     """ DELETE """
     @check_roles(roles=['Owner', 'Manager', 'Api'])
     def reply_delete(self):
-        community_id = self.request.form.pop('id')
+        community_id = self.obj.id
         community = lookup_community(community_id)
         self.delete_community(community)
 

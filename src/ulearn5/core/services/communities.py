@@ -44,6 +44,7 @@ class Communities(Service):
         self.context = context
         self.request = request
 
+    @check_roles(roles=['Member', 'Manager', 'Api'])
     def handle_subpath(self, subpath):
         """ Function used to spread the request to the corresponding subpath """
         if not subpath:
@@ -78,7 +79,6 @@ class Communities(Service):
     @check_roles(roles=['Member', 'Manager', 'Api'])
     def reply_get(self):
         """ Returns all the user communities and the open ones. """
-
         communities = self.get_communities_by_type()
         username = api.user.get_current().id
 

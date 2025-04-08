@@ -63,7 +63,6 @@ def check_roles(roles=[]):
             request = self.request
             oauth_user = request.get('HTTP_X_OAUTH_USERNAME', None)
             user = None
-
             if oauth_user:
                 acl_users = self.context.acl_users
                 user = acl_users.getUserById(oauth_user)
