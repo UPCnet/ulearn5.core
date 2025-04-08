@@ -61,7 +61,7 @@ class Documents(Service):
     def get_favorites(self, doc_path):
         """ Return all user favorites """
         current_user = api.user.get_current().id
-        brains = self.get_brains(doc_path, {'favoritedBy': current_user})
+        brains = self.get_brains(doc_path, favoritedBy=current_user)
 
         return [{'obj': brain, 'tipus': self.ORDER_BY_TYPE.get(brain.portal_type, 6)} for brain in brains]
 
@@ -130,7 +130,7 @@ class Documents(Service):
             'internal': internal,
             'path': '/'.join(obj.getPhysicalPath()),
             'portal_type': obj.portal_type,
-            'state': obj.review_state,
+            'state': sortedBrain['obj'].review_state,
             'title': obj.Title(),
             'type': obj.portal_type,  # To DELETE
             'type_when_follow_url': type_next_obj,
