@@ -6,11 +6,11 @@ from plone.app.contenttypes.interfaces import ILink
 from plone.registry.interfaces import IRegistry
 from plone.restapi.services import Service
 from ulearn5.core.services import (ObjectNotFound, UnknownEndpoint,
-                                   check_methods)
-# from ulearn5.core.api.root import urlBelongsToCommunity
-# from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-# from ulearn5.core.hooks import packages_installed
-# from ulearn5.core.utils import calculatePortalTypeOfInternalPath
+                                   check_methods, check_roles)
+from ulearn5.core.services.utils import urlBelongsToCommunity
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from ulearn5.core.hooks import packages_installed
+from ulearn5.core.utils import calculatePortalTypeOfInternalPath
 from zope.component import getUtility, queryUtility
 
 logger = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ class Link(Service):
     def __init__(self, context, request, **kwargs):
         self.context = context
         self.request = request
-        self.lang = kwargs.get('lang', None)
+        self.lang = kwargs.get('language', None)
         self.portal_url = ''
 
     def handle_subpath(self, subpath):
@@ -36,6 +36,7 @@ class Link(Service):
 
         return self.reply()
 
+    @check_roles(roles=['Member', 'Manager', 'Api'])
     @check_methods(methods=['GET'])
     def reply(self):
         self.portal_url = self.get_portal_url()
@@ -74,7 +75,7 @@ class Link(Service):
             'Menu_Gestion': results_gestio,
             'Menu_Controlpanel': results_controlpanel
         }
-        return {"data": values, "code": 200}
+        return values
 
     def get_portal_url(self):
         portal = api.portal.get()
@@ -124,7 +125,6 @@ class Link(Service):
 
     def check_gestio_menu(self):
         portal = api.portal.get()
-
         try:
             path = portal['gestion']['menu'][self.lang]
             folders = api.content.find(context=path, portal_type=(
