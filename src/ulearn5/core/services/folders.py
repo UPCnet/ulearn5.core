@@ -44,7 +44,7 @@ class Folders(Service):
         portal = api.portal.get()
         folder_path = '/'.join(portal.getPhysicalPath())
         if 'path' in self.request.form:
-            folder_path = self.requst.form.get('path')
+            folder_path = self.request.form.get('path')
 
         return folder_path
 
