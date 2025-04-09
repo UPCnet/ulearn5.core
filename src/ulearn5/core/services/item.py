@@ -7,10 +7,10 @@ from plone import api
 from plone.app.uuid.utils import uuidToURL
 from plone.restapi.services import Service
 from ulearn5.core.services import (UnknownEndpoint, check_methods,
-                                   check_required_params)
+                                   check_required_params, check_roles)
 
-# from ulearn5.core.api.root import urlBelongsToCommunity
-# from ulearn5.core.html_parser import HTMLParser, replaceImagePathByURL
+from ulearn5.core.services.utils import urlBelongsToCommunity
+from ulearn5.core.html_parser import HTMLParser, replaceImagePathByURL
 
 logger = logging.getLogger(__name__)
 
@@ -37,11 +37,12 @@ class Item(Service):
 
         return self.reply()
 
+    @check_roles(roles=['Member', 'Manager', 'Api'])
     @check_required_params(params=['url'])
     @check_methods(methods=['GET'])
     def reply(self):
         """ Expanded bitly links """
-        request_url = self.request.form.get('url')
+        request_url = self.url
         expanded = self.get_expanded_url(request_url)
         portal = api.portal.get()
         portal_url = portal.absolute_url()
@@ -56,7 +57,8 @@ class Item(Service):
                 results.append(result)
         else:
             results.append(self.process_external_url(expanded))
-        return {"data": results, "code": 200}
+
+        return results
 
     def get_expanded_url(self, request_url):
         session = requests.Session()
@@ -134,14 +136,20 @@ class Item(Service):
         text = HTMLParser(text) if text else None
         image = item.image.filename if item.image else None
         image_caption = item.image_caption
-        raw_image = b64encode(
-            item.image.data) if item.image and item.image.data else None
+        raw_image = (
+            b64encode(item.image.data).decode('utf-8')
+            if item.image and item.image.data
+            else None
+        )
         return text, image, image_caption, raw_image
 
     def process_image(self, item):
         image = item.image.filename
-        raw_image = b64encode(
-            item.image.data) if item.image and item.image.data else None
+        raw_image = (
+            b64encode(item.image.data).decode('utf-8')
+            if item.image and item.image.data
+            else None
+        )
         content_type = item.image.contentType
         return image, raw_image, content_type
 
@@ -152,7 +160,7 @@ class Item(Service):
 
     def process_link(self, item):
         if 'resolveuid' in item.remoteUrl:
-            uid = item.remoteUrl.encode('utf-8').split('/')[-1]
+            uid = item.remoteUrl.split('/')[-1]
             next_obj = api.content.get(UID=uid)
             text = next_obj.absolute_url()
             type_when_follow_url = next_obj.Type()
@@ -169,7 +177,11 @@ class Item(Service):
         return text
 
     def process_file(self, item):
-        raw_file = b64encode(item.file.data) if item.file and item.file.data else None
+        raw_file = (
+            b64encode(item.file.data).decode('utf-8')
+            if item.file and item.file.data
+            else None
+        )
         content_type = item.file.contentType
         return raw_file, content_type
 
