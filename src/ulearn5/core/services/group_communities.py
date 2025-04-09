@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from plone import api
 from plone.restapi.services import Service
 from ulearn5.core.services import UnknownEndpoint, check_methods
 from ulearn5.core.utils import get_or_initialize_annotation
@@ -49,5 +50,5 @@ class GroupCommunities(Service):
     def get_records(self):
         portal = api.portal.get()
         soup = get_soup('communities_acl', portal)
-        records = [r for r in soup.query(Eq('groups', self.params['group']))]
+        records = [r for r in soup.query(Eq('groups', self.obj.id))]
         return records
