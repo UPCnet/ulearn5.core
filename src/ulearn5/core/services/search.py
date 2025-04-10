@@ -22,6 +22,7 @@ class Search(Service):
     def __init__(self, context, request, **kwargs):
         self.context = context
         self.request = request
+        self.obj = kwargs.get('obj', None) # The community object
 
     def handle_subpath(self, subpath):
         """ Function used to spread the request to the corresponding subpath """
@@ -57,8 +58,7 @@ class Search(Service):
 
     def get_physical_path(self):
         portal = api.portal.get()
-        return '/'.join(portal.getPhysicalPath()
-                        ) + '/' + self.request.form.pop('community', None) + '/documents'
+        return '/'.join(portal.getPhysicalPath()) + '/' + self.obj.id + '/documents'
 
     def get_brains(self, path, text):
         query = {
@@ -70,7 +70,7 @@ class Search(Service):
         return api.content.find(**query)
 
     def parse_text(self, text):
-        multispace = '\u3000'.encode('utf-8')
+        multispace = '\u3000'
 
         for char in ('?', '-', '+', '*', multispace):
             text = text.replace(char, ' ')
@@ -78,6 +78,7 @@ class Search(Service):
         text = text.split()
         text = " AND ".join(text)
         text = self.quote_bad_chars(text) + '*'
+        return text
 
     def quotestring(self, s):
         return '"%s"' % s
