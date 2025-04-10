@@ -1,7 +1,7 @@
 import json
 from functools import wraps
 from AccessControl.SecurityManagement import newSecurityManager
-
+import urllib.parse
 # We name it ploneapi to avoid conflicts with api.py file
 from plone import api as ploneapi
 
@@ -31,13 +31,23 @@ def check_required_params(params=[]):
         @wraps(func)
         def wrapped_function(self, *args, **kwargs):
             try:
+                # Intenta cargar parámetros del cuerpo de la solicitud
                 body_params = json.loads(self.request['BODY'])
             except:
                 body_params = self.request.form
 
-            self.params = body_params
+            # Procesa los parámetros de la query string
+            query_string = self.request.get('QUERY_STRING', '')
+            query_params = {key: value[0] for key, value in urllib.parse.parse_qs(query_string).items()}
+
+            # Combina parámetros del cuerpo y de la query string
+            all_params = {**body_params, **query_params}
+
+            self.params = all_params  # Guarda todos los parámetros en self.params
+
+            # Verifica que los parámetros requeridos estén presentes
             for param in params:
-                if param not in body_params:
+                if param not in all_params or not all_params[param]:
                     raise MissingParameters(f'Missing required parameter: {param}')
 
             # TODO: Comentado, no hace falta porque por ejemplo para la creación de usuarios pueden

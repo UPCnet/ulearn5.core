@@ -25,6 +25,7 @@ from ulearn5.core.gwuuid import IGWUUID
 from zope.component import getUtilitiesFor, getUtility
 from souper.soup import get_soup
 from souper.soup import Record
+from repoze.catalog.query import Eq
 
 logger = logging.getLogger(__name__)
 
@@ -121,7 +122,6 @@ class Person(Service):
             return {"error": f'User with ID {id} not found', "code": 404}
 
     def extract_properties(self, utility, user):
-        # TODO: Mirar si esto hay que hacerlo en ambos casos
         if '@' in self.username:
             return []
 
@@ -213,12 +213,11 @@ class Person(Service):
         except Exception:
             raise ObjectNotFound(f'Image data {img_name} not found')
 
-    @check_required_params(params=['displayName'])
+    @check_required_params(params=['username'])
     def reply_put(self):
         try:
             user = lookup_user(self.username, raisable=True)
             maxclient = self.manage_maxclient()
-
             user.setMemberProperties({'fullname': self.params.get('displayName')})
             properties = get_all_user_properties(user)
             add_user_to_catalog(user, properties, overwrite=True)
