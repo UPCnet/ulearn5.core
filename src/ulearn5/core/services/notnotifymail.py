@@ -17,7 +17,7 @@ class Notnotifymail(Service):
     - Method: POST
         Required params:
             - username: (str) The username of the user.
-            - community_id: (str) The ID of the community.
+            - community: (str) The ID of the community.
         Description:
             Makes the user not receive email notifications. If the user is already in the blacklist,
             they will be removed from it (reactivating notifications). Otherwise, the user will be
@@ -38,11 +38,11 @@ class Notnotifymail(Service):
         return self.reply()
 
     @check_roles(roles=['Member', 'Manager', 'Api'])
-    @check_required_params(params=['username', 'community_id'])
+    @check_required_params(params=['username', 'community'])
     @check_methods(methods=['POST'])
     def reply(self):
         user_id = self.request.form.get('username', None)
-        community_id = self.request.form.get('community_id', None)
+        community_id = self.request.form.get('community', None)
 
         community = lookup_community(community_id)
         user = api.user.get(username=user_id)
