@@ -5,7 +5,7 @@ import logging
 from plone import api
 from plone.restapi.services import Service
 from ulearn5.core.services import (UnknownEndpoint, check_methods,
-                                   check_required_params)
+                                   check_required_params, check_roles)
 from ulearn5.core.services.utils import lookup_community
 
 logger = logging.getLogger(__name__)
@@ -31,17 +31,16 @@ class Notnotifymail(Service):
 
         return self.reply()
 
-    @check_required_params(params=['username', 'community'])
+    @check_roles(roles=['Member', 'Manager', 'Api'])
+    @check_required_params(params=['username', 'community_id'])
     @check_methods(methods=['POST'])
     def reply(self):
-
-        user_id = self.request.form.get('user_id', None)
-        community_id = self.request.form('community_id', None)
+        user_id = self.request.form.get('username', None)
+        community_id = self.request.form.get('community_id', None)
 
         community = lookup_community(community_id)
         user = api.user.get(username=user_id)
 
-        # TODO: Probar todo esto de aquí abajo y ver si hace falta de verdad
         if community.mails_users_community_black_lists is None:
             community.mails_users_community_black_lists = {}
         elif not isinstance(community.mails_users_community_black_lists, dict):
