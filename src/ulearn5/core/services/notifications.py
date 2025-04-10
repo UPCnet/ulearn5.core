@@ -5,10 +5,9 @@ from datetime import datetime
 from plone import api
 from plone.restapi.services import Service
 from ulearn5.core.services import (MethodNotAllowed, ObjectNotFound,
-                                   UnknownEndpoint, check_methods,
+                                   UnknownEndpoint,BadParameters, check_methods,
                                    check_required_params)
 from ulearn5.core.services.utils import replace_image_path_by_url
-from ulearn5.core.utils import get_or_initialize_annotation
 from repoze.catalog.query import Eq
 from souper.soup import get_soup
 from souper.soup import Record
@@ -49,9 +48,9 @@ class Notifications(Service):
     def reply(self):
         method = self.request.get('method')
         if method == 'GET':
-            self.reply_get()
+            return self.reply_get()
         elif method == 'POST':
-            self.reply_post()
+            return self.reply_post()
 
         raise MethodNotAllowed(f"Unknown method: {method}")
 
@@ -79,7 +78,6 @@ class Notifications(Service):
         fullname = user.getProperty('fullname', user.id)
         raw_msg = getattr(portal.get('gestion', {}).get(
             'popup', {}).get('notify', {}), 'text', None)
-
         if raw_msg and hasattr(raw_msg, 'raw'):
             msg = raw_msg.raw.format(fullname=fullname)
             msg = replace_image_path_by_url(msg)
@@ -99,8 +97,12 @@ class Notifications(Service):
         return api.portal.get_registry_record(
             'ulearn5.core.controlpopup.IPopupSettings.activate_notify')
 
+    def check_notify_birthday_is_active(self):
+        return api.portal.get_registry_record(
+            'ulearn5.core.controlpopup.IPopupSettings.activate_birthday')
+
     def get_birthday_information_notification(self, portal, user):
-        if not self.check_notify_is_active():
+        if not self.check_notify_birthday_is_active():
             return {"is_active": False}
 
         current_year, user_year = self.get_years(user)

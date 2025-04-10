@@ -78,7 +78,7 @@ def show_news_in_app():
     )
 
 
-def replace_image_path_by_url(self, msg):
+def replace_image_path_by_url(msg):
     srcs = re.findall('src="([^"]+)"', msg)
 
     # Transform internal images
