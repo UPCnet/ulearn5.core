@@ -15,7 +15,13 @@ class Notnotifymail(Service):
     """
     - Endpoint: @api/notnotifymail
     - Method: POST
-        Makes the user not receive email notifications.
+        Required params:
+            - username: (str) The username of the user.
+            - community_id: (str) The ID of the community.
+        Description:
+            Makes the user not receive email notifications. If the user is already in the blacklist,
+            they will be removed from it (reactivating notifications). Otherwise, the user will be
+            added to the blacklist (disabling notifications).
 
     - Subpaths allowed: NO
     """
