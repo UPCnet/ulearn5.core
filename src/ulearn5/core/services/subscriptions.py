@@ -75,7 +75,7 @@ class Subscriptions(Service):
         self.update_subscriptions()
 
         # Response successful
-        success_response = f'Updated community "{self.target.absolute_url()}" subscriptions'
+        success_response = f'Updated community "{self.obj.absolute_url()}" subscriptions'
         logger.info(success_response)
         return {"message": success_response, "code": 200}
 
@@ -111,8 +111,7 @@ class Subscriptions(Service):
     def _modify_subscriptions(self, action='update'):
         """ Either remove or update a subscription """
         adapter = self.obj.adapted(request=self.request)
-
-        users = self.request.form.pop('users')
+        users = self.params.get('users', None)
         for user in users:
             try:
                 if action == 'remove':
