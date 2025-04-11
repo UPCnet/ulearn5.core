@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 import logging
 
-# from mrs5.max.utilities import IMAXClient
+from mrs5.max.utilities import IMAXClient
 from plone import api
 from plone.restapi.services import Service
-# from base5.core.utils import add_user_to_catalog, get_all_user_properties
+from base5.core.utils import add_user_to_catalog, get_all_user_properties
 from ulearn5.core.services import (UnknownEndpoint, check_methods,
                                    check_required_params)
 from zope.component import getUtility
-
-# from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-# from ulearn5.core.utils import calculatePortalTypeOfInternalPath
-
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +35,7 @@ class Sync(Service):
     @check_required_params(params=['users'])
     def reply(self):
         maxclient = self.manage_max_client()
-        users = self.request.form.get('users', [])
+        users = self.params.get('users', [])
         notfound_errors = []
         properties_errors = []
         max_errors = []
@@ -80,7 +76,7 @@ class Sync(Service):
             'max_errors': max_errors,
             'synced_users': users_sync
         }
-        
+
         return {"data": response, "code": 200}
 
     def manage_max_client(self):
@@ -94,13 +90,14 @@ class Sync(Service):
         """ Invalidate cache of user in ldap """
         username = user.getId()
         for prop in user.getOrderedPropertySheets():
-            if 'ldap' not in prop.getId():
+            if 'ldap' in prop.getId():
+                ldap = prop
+                ldap._invalidateCache(user)
+                user._getPAS().ZCacheable_invalidate(view_name='_findUser-' + username)
+                ldap._getLDAPUserFolder(user)._expireUser(username)
+                return
+            else:
                 continue
-            ldap = prop
-            ldap._invalidateCache(user)
-            user._getPAS().ZCacheable_invalidate(view_name='_findUser-' + username)
-            ldap._getLDAPUserFolder(user)._expireUser(user)
-            return
 
     def manage_add_user_to_catalog(self, user, properties):
         """ Will return False if it fails """
