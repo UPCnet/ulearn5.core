@@ -4,20 +4,13 @@ import logging
 from hashlib import sha1
 
 from DateTime.DateTime import DateTime
-# from mrs5.max.utilities import IMAXClient
+from mrs5.max.utilities import IMAXClient
 from plone import api
 from plone.restapi.services import Service
 from ulearn5.core.services import UnknownEndpoint, check_methods, check_roles
-from ulearn5.core.services.utils import lookup_community
-from ulearn5.core.utils import get_or_initialize_annotation
 from zope.component import getUtility
 from repoze.catalog.query import Eq
-from souper.soup import Record
 from souper.soup import get_soup
-
-# from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-# from ulearn5.core.utils import calculatePortalTypeOfInternalPath
-
 
 logger = logging.getLogger(__name__)
 
@@ -53,37 +46,43 @@ class UserSubscriptions(Service):
         favorites = self.get_favorites()
         notnotifypush = self.get_notnotifypush()
 
+        pc = api.portal.get_tool(name='portal_catalog')
+        portal_url = api.portal.get().absolute_url()
+
         for obj in communities_subscription:
-            community = lookup_community(obj['hash'])
-            if not community:
+            brain = pc.unrestrictedSearchResults(portal_type='ulearn.community', community_hash=obj['hash'])
+
+            if not brain:
+                logger.warning(f"No community found for hash: {obj['hash']}")
                 continue
 
-            can_write = 'write' in obj['permissions']
-            if community.mails_users_community_black_lists is None:
-                community.mails_users_community_black_lists = {}
-            elif not isinstance(community.mails_users_community_black_lists, dict):
-                community.mails_users_community_black_lists = ast.literal_eval(
-                    community.mails_users_community_black_lists)
+            brain = brain[0]
+            can_write = True if 'write' in obj['permissions'] else False
+            brainObj = self.context.unrestrictedTraverse(brain.getPath())
 
-            portal_url = api.portal.get().absolute_url()
+            if brainObj.mails_users_community_black_lists is None:
+                brainObj.mails_users_community_black_lists = {}
+            elif not isinstance(brainObj.mails_users_community_black_lists, dict):
+                brainObj.mails_users_community_black_lists = ast.literal_eval(
+                    brainObj.mails_users_community_black_lists)
 
             result.append({
-                'id': community.getId(),
-                'title': community.Title(),
-                'description': community.Description(),
-                'url': community.absolute_url(),
-                'gwuuid': community.gwuuid,
-                'hash': sha1(community.absolute_url().encode('utf-8')).hexdigest(),
-                'type': community.community_type,
-                'image': community.image_filename if community.image_filename else False,
-                'image_url': community.getURL() + '/thumbnail-image' if community.image_filename else portal_url + '/++theme++ulearn5/assets/images/avatar_default.png',
-                'favorited': community.id in favorites,
-                'pending': self.get_pending_community_user(community, self.username),
-                'activate_notify_push': community.notify_activity_via_push or community.notify_activity_via_push_comments_too,
-                'activate_notify_mail': community.notify_activity_via_mail and community.type_notify == 'Automatic',
-                'not_notify_push': community.id in notnotifypush,
-                'not_notify_mail': self.username in community.mails_users_community_black_lists,
-                'can_manage': self.is_community_manager(community),
+                'id': brain.id,
+                'title': brain.Title,
+                'description': brain.Description,
+                'url': brain.getURL(),
+                'gwuuid': brain.gwuuid,
+                'hash': sha1(brain.absolute_url().encode('utf-8')).hexdigest(),
+                'type': brain.community_type,
+                'image': brain.image_filename if brain.image_filename else False,
+                'image_url': brain.getURL() + '/thumbnail-image' if brain.image_filename else portal_url + '/++theme++ulearn5/assets/images/avatar_default.png',
+                'favorited': brain.id in favorites,
+                'pending': self.get_pending_community_user(brain, self.username),
+                'activate_notify_push': brainObj.notify_activity_via_push or brainObj.notify_activity_via_push_comments_too,
+                'activate_notify_mail': brainObj.notify_activity_via_mail and brainObj.type_notify == 'Automatic',
+                'not_notify_push': brain.id in notnotifypush,
+                'not_notify_mail': self.username in brainObj.mails_users_community_black_lists,
+                'can_manage': self.is_community_manager(brain),
                 'can_write': can_write
             })
 
@@ -151,3 +150,24 @@ class UserSubscriptions(Service):
             record = exist[0].attrs['data_access']
 
         return record
+
+    def is_community_manager(self, community):
+        """ Check if user has role 'Manager' """
+        global_roles = api.user.get_roles()
+        if 'Manager' in global_roles:
+            return True
+
+        gwuuid = community.gwuuid
+        catalog = api.portal.get_tool(name='portal_catalog')
+        results = catalog.unrestrictedSearchResults({'gwuuid': gwuuid})
+
+        if results:
+            community_brain = results[0]
+            community_obj = community_brain.getObject()
+            acl = getattr(community_obj, 'acl', None)
+            if acl:
+                return self.username in [
+                    a['id'] for a in acl['users']
+                    if a['role'] == 'owner']
+
+        return False
