@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-
+from plone import api
 from DateTime.DateTime import DateTime
 from plone.restapi.services import Service
 from ulearn5.core.services import (UnknownEndpoint, check_methods,
@@ -9,8 +9,6 @@ from ulearn5.core.utils import get_or_initialize_annotation
 from repoze.catalog.query import Eq
 from souper.soup import Record
 from souper.soup import get_soup
-# from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-# from ulearn5.core.utils import calculatePortalTypeOfInternalPath
 
 
 logger = logging.getLogger(__name__)
