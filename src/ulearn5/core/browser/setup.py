@@ -1262,8 +1262,8 @@ class deletephotofromuser(BrowserView):
 
 
 class execute_cron_tasks(BrowserView):
-    """TODO: .....
-    url/execute_cron_tasks/?user=victor&pass=123123
+    """
+    url/execute_cron_tasks/?user=victor
     """
 
     def __call__(self):
@@ -1277,16 +1277,22 @@ class execute_cron_tasks(BrowserView):
 
         try:
             username = self.request.form["user"]
-            password = self.request.form["pass"]
+            token = api.user.get(username).getProperty('oauth_token')
         except Exception as e:
             print(e)
-            info_cron.update({"status": "Error not username or password"})
+            info_cron.update({"status": "Error not username or token"})
             logger.info(url + ":" + str(info_cron))
             return json.dumps(info_cron)
 
         info_cron.update({"status": ""})
         for task in tasks:
-            result = requests.get(url + "/" + task, auth=(username, password))
+            headers = {
+                "X-Oauth-Username": username,
+                "X-Oauth-Token": token,
+                "X-Oauth-Scope": "widgetcli",
+                "Accept": "application/json"
+            }
+            result = requests.get(url + "/" + task, headers=headers)
             if result.status_code == 200 and "Error" not in result.text:
                 info_cron.update({task: "OK"})
             else:
@@ -1299,7 +1305,7 @@ class execute_cron_tasks(BrowserView):
 
 
 class get_info_cron_tasks(BrowserView):
-    """TODO: .....
+    """
     url/get_info_cron_tasks
     """
 
