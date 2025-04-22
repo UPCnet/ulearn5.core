@@ -28,6 +28,9 @@ from ulearn5.core.api.root import APIRoot
 from ulearn5.core.browser.security import execute_under_special_role
 from ulearn5.core.gwuuid import IGWUUID
 
+from zope.component import getMultiAdapter
+from itertools import chain
+
 import ast
 import json
 import logging
@@ -857,3 +860,75 @@ class Visualizations(REST):
         soup_access.reindex()
 
         return ApiResponse({"success": "Visualitzacions pendents actualitzades."})
+
+class UsersPropertiesMigration(REST):
+    """
+        /api/userspropertiesmigration
+    """
+
+    placeholder_type = 'person'
+    placeholder_id = 'username'
+
+    grok.adapts(APIRoot, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    def GET(self):
+        """ Returns all users properties """
+
+        # Get all ldap users
+        searchString = ''
+        searchView = getMultiAdapter((aq_inner(self.context), self.request), name='pas_search')
+        ldap_users = searchView.merge(chain(*[searchView.searchUsers(**{field: searchString}) for field in ['name']]), 'userid')
+
+        result = []
+        for user in ldap_users:
+            user = api.user.get(username=user['id'])
+            properties = get_all_user_properties(user)
+
+            try:
+                info_user = dict(id=user.id,
+                                 properties=properties
+                                 )
+                result.append(info_user)
+            except:
+                logger.info('HA FALLAT LA INFO DE {}'.format(user.id))
+
+        return json.dumps(result)
+
+
+class UsersPropertiesMigrationSoup(REST):
+    """
+        /api/userspropertiesmigrationsoup
+    """
+
+    placeholder_type = 'person'
+    placeholder_id = 'username'
+
+    grok.adapts(APIRoot, IPloneSiteRoot)
+    grok.require('base.authenticated')
+
+    def GET(self):
+        """ Returns all users properties """
+
+        # Get all users soup
+        portal = api.portal.get()
+        soup = get_soup('user_properties', portal)
+        records = [r for r in soup.data.items()]
+        result = []
+        for record in records:
+            userid = str(record[1].attrs['id'])
+            user = api.user.get(username=userid)
+            try:
+                properties = get_all_user_properties(user)
+            except:
+                pass
+
+            try:
+                info_user = dict(id=user.id,
+                                 properties=properties
+                                 )
+                result.append(info_user)
+            except:
+                logger.info('HA FALLAT LA INFO DE {}'.format(userid))
+
+        return json.dumps(result)
