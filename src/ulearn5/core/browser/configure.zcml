@@ -632,4 +632,21 @@
     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
     />
 
+  <browser:page
+    name="migrationcommunities"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".migration4to5.MigrationCommunitiesView"
+    template="views_templates/migrationcommunities.pt"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    name="migrationusersprofile"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".migration4to5.MigrationUsersProfiles"
+    template="views_templates/migrationusersprofile.pt"
+    permission="cmf.ManagePortal"
+    />
+
+
 </configure>
