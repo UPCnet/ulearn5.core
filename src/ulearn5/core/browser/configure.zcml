@@ -648,5 +648,12 @@
     permission="cmf.ManagePortal"
     />
 
+  <browser:page
+    name="migrationusersprofilesoup"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".migration4to5.MigrationUsersProfilesSoup"
+    template="views_templates/migrationusersprofilesoup.pt"
+    permission="cmf.ManagePortal"
+    />
 
 </configure>

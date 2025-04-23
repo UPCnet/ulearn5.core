@@ -16,6 +16,7 @@ from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from zope.component import getMultiAdapter
 from base5.core.utils import add_user_to_catalog
+from ulearn5.core.utils import byteify
 
 # Define tus atributos constantes aquí si no están importados
 ATTRIBUTE_NAME = 'gwuuid'
@@ -171,6 +172,46 @@ class MigrationUsersProfiles(BrowserView):
                 json_users = requests.get(url_instance_v4 + '/api/userspropertiesmigration', headers={'X-Oauth-Username': husernamev4, 'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                 logger.info('Buscant users per migrar')
                 users = json.loads(json_users.content)
+
+                for user in users:
+                    try:
+                        existing_user = api.user.get(user['id'])
+                        existing_user.setMemberProperties(user['properties'])
+                        # properties = get_all_user_properties(existing_user)
+                        add_user_to_catalog(existing_user, user['properties'], overwrite=True)
+                        logger.info('Usuari migrat: ' + user['id'])
+                    except:
+                        logger.error('Usuari NO migrat: ' + user['id'])
+
+        logger.info('Ha finalitzat la migració dels usuaris.')
+
+class MigrationUsersProfilesSoup(BrowserView):
+    """ Aquesta vista migra les properties dels usuaris de Plone 4 que estan en el soup a la nova versió en Plone 5 i ho afegeix al soup de Plone 5"""
+
+    def __call__(self):
+        self.request.set('disable_border', True)
+        self.update()
+        return self.index()
+
+    def update(self):
+        try:
+            from plone.protect.interfaces import IDisableCSRFProtection
+            alsoProvides(self.request, IDisableCSRFProtection)
+        except:
+            pass
+
+        if self.request.environ['REQUEST_METHOD'] == 'POST':
+            hscope = 'widgetcli'
+
+            if self.request.form['url_instance_v4'] != '':
+                url_instance_v4 = self.request.form['url_instance_v4']
+                husernamev4 = self.request.form['husernamev4']
+                htokenv4 = self.request.form['htokenv4']
+
+                json_users = requests.get(url_instance_v4 + '/api/userspropertiesmigrationsoup', headers={'X-Oauth-Username': husernamev4, 'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
+                logger.info('Buscant users per migrar')
+                users_json = json.loads(json_users.content)
+                users = byteify(users_json)
 
                 for user in users:
                     try:
