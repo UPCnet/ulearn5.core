@@ -2,11 +2,11 @@ Changelog
 =========
 
 
-0.141 (unreleased)
+0.141 (2025-04-25)
 ------------------
 
-- Nothing changed yet.
-
+* /api/userspropertiesmigration /api/migrationcommunities [pilar.marinas]
+* [FIX] Traduccion [Iago López]
 
 0.140 (2024-10-07)
 ------------------
