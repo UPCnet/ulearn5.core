@@ -105,12 +105,16 @@ class StatsView(BrowserView):
 class StatsQueryBase(BrowserView):
     """Base methods for ease the extension of the base StatsQuery view."""
 
-    def __call__(self):
+    def __init__(self, context, request):
+        super().__init__(context, request)
+        self._params = None  # Solo esto aquí
         catalog = api.portal.get_tool(name="portal_catalog")
         self.plone_stats = PloneStats(catalog)
         self.max_stats = MaxStats(self.get_max_client())
         self.analytic_data = AnalyticsData(catalog)
-        self._params = None
+
+    def __call__(self):
+        return self.render()  # o una plantilla, como self.index()
 
     @memoize_contextless
     def portal(self):
@@ -420,7 +424,6 @@ class PloneStats(object):
         # Prepare filtes search to get all the
         # target communities
         catalog_filters = dict(portal_type="ulearn.community")
-
         if filters["community"]:
             catalog_filters["community_hash"] = filters["community"]
 
@@ -443,7 +446,6 @@ class PloneStats(object):
         if filters["keywords"]:
             catalog_filters["SearchableText"] = {
                 "query": filters["keywords"],
-                "operator": "or",
             }
 
         if filters["portal_type"]:
