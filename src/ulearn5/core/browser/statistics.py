@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
 from os import path
-from apiclient.discovery import build
-from oauth2client.service_account import ServiceAccountCredentials
+from googleapiclient.discovery import build  # Mantén la importación de googleapiclient
+from google.oauth2 import service_account  # Usamos google.oauth2 para las credenciales
 from Products.Five.browser import BrowserView
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -67,17 +67,7 @@ class statsAccessed(BrowserView):
 
     def getAllAccessedTables(self):
         dateIntervals = self.getDateIntervals()
-        # gStoredAnalyticsFileName = "storedAnalytics.json"
         gAnalyticsPath = path.join(path.dirname(__file__))
-
-        # def getStoredAnalytics():
-        #     try:
-        #         storedAnalytics = file(path.join(gAnalyticsPath, gStoredAnalyticsFileName), "r")
-        #         data = json.loads(storedAnalytics.read())
-        #         storedAnalytics.close()
-        #         return data
-        #     except:
-        #         return {}
 
         def getUpToDateAnalytics(communityShortpaths):
             settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
@@ -92,13 +82,9 @@ class statsAccessed(BrowserView):
             gAnalytics_view_ID = settings.gAnalytics_view_ID
             gAnalytics_JSON_info = settings.gAnalytics_JSON_info
 
-            # falsePrefixes = ['/2/intranetupcnet',
-            #                  '/acl_users/credentials_cookie_auth/require_login?'
-            #                  'came_from=https://comunitats.upcnet.es']
-
             falsePrefixes = []
 
-            credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+            credentials = service_account.Credentials.from_service_account_info(
                 json.loads(gAnalytics_JSON_info),
                 scopes=["https://www.googleapis.com/auth/analytics.readonly"],
             )
@@ -144,17 +130,13 @@ class statsAccessed(BrowserView):
                     for prefix in falsePrefixes:
                         row[0] = row[0].replace(prefix, "")
                     row[0] = row[0].split("/")[2].split("@@")[0].split("?")[0]
-                    if not row[0] in data:
+                    if row[0] not in data:
                         data[row[0]] = []
                     data[row[0]].append([row[1], int(row[2])])
                 first = False
 
             for communityShortpath in data:
                 data[communityShortpath].reverse()
-
-            # storedAnalytics = file(path.join(gAnalyticsPath, gStoredAnalyticsFileName), "wb")
-            # storedAnalytics.write(json.dumps(data, separators=(',', ':')))
-            # storedAnalytics.close()
 
             return data
 
@@ -170,7 +152,6 @@ class statsAccessed(BrowserView):
         if True:
             data = getUpToDateAnalytics(communityShortpaths)
         else:
-            # data = getStoredAnalytics()
             data = {}
 
         accessedTable = []
@@ -191,11 +172,7 @@ class statsAccessed(BrowserView):
     def ___call__(self):
         global dataSet
         dataSet = self.getAllAccessedTables()
-        # dataSet = self.getAllAccessedTables("update" in self.request.form)
-        # if self.updatable and "update" in self.request.form:
-        #     return self.getDataset()
         return ViewPageTemplateFile("statisticsTemplate.pt")(self)
-
 
 class statsModified(BrowserView):
 
@@ -252,17 +229,7 @@ class statsAccessedCommunities(BrowserView):
 
     def getAllAccessedTables(self):
         dateIntervals = self.getDateIntervals()
-        # gStoredAnalyticsFileName = "storedAnalytics.json"
         gAnalyticsPath = path.join(path.dirname(__file__))
-
-        # def getStoredAnalytics():
-        #     try:
-        #         storedAnalytics = file(path.join(gAnalyticsPath, gStoredAnalyticsFileName), "r")
-        #         data = json.loads(storedAnalytics.read())
-        #         storedAnalytics.close()
-        #         return data
-        #     except:
-        #         return {}
 
         def getUpToDateAnalytics(communityShortpaths):
             settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
@@ -277,13 +244,10 @@ class statsAccessedCommunities(BrowserView):
             gAnalytics_view_ID = settings.gAnalytics_view_ID
             gAnalytics_JSON_info = settings.gAnalytics_JSON_info
 
-            # falsePrefixes = ['/2/intranetupcnet',
-            #                  '/acl_users/credentials_cookie_auth/require_login?'
-            #                  'came_from=https://comunitats.upcnet.es']
-
             falsePrefixes = []
 
-            credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+            # Utilizando las credenciales de Google Analytics
+            credentials = service_account.Credentials.from_service_account_info(
                 json.loads(gAnalytics_JSON_info),
                 scopes=["https://www.googleapis.com/auth/analytics.readonly"],
             )
@@ -316,29 +280,10 @@ class statsAccessedCommunities(BrowserView):
                     .execute()
                 )
                 numResults += len(analyticsData["rows"])
-                # if not(first) and totalResults != int(analyticsData['totalResults']):
-                #     numResults = 0
-                #     totalResults = 0
-                #     first = True
-                #     data = {}
-                #     continue
 
                 totalResults = int(analyticsData["totalResults"])
-                # for row in analyticsData['rows']:
-                #     # for prefix in falsePrefixes:
-                #     #     row[0] = row[0].replace(prefix, '')
-                #     row[0] = row[0].split('/')[1].split('@@')[0].split('?')[0]
-                #     if not row[0] in data:
-                #         data[row[0]] = []
-                #     data[row[0]].append([row[1],row[2],row[3],row[4],int(row[5])])
                 first = False
 
-            # for communityShortpath in data:
-            #     data[communityShortpath].reverse()
-
-            # storedAnalytics = file(path.join(gAnalyticsPath, gStoredAnalyticsFileName), "wb")
-            # storedAnalytics.write(json.dumps(data, separators=(',', ':')))
-            # storedAnalytics.close()
             return analyticsData["rows"]
 
         communityTitles = {}
@@ -350,31 +295,11 @@ class statsAccessedCommunities(BrowserView):
             communityShortpaths.append(communityShortpath)
             communityTitles[communityShortpath] = community.Title
 
-        if True:
-            data = getUpToDateAnalytics(communityShortpaths)
-        else:
-            # data = getStoredAnalytics()
-            data = {}
+        data = getUpToDateAnalytics(communityShortpaths)
 
-        # accessedTable = []
-        # for communityShortpath in data:
-        #     if communityShortpath in communityTitles:
-        #         index = 0
-        #         accessedTable.append([communityTitles[communityShortpath]]
-        #                              + [0]*(len(datePoints) + 1))
-        #         for entry in data[communityShortpath]:
-        #             treatedDate = datetime.strptime(entry[3], "%Y%m%d%H%M%S")
-        #             import ipdb;ipdb.set_trace()
-        #             while treatedDate < dateIntervals[index]:
-        #                 index += 1
-        #             accessedTable[-1][index + 1] += entry[4]
-        # return [accessedTable, globGetAccumulatedTable(accessedTable)]
         return data
 
     def ___call__(self):
         global dataSet
         dataSet = self.getAllAccessedTables()
-        # dataSet = self.getAllAccessedTables("update" in self.request.form)
-        # if self.updatable and "update" in self.request.form:
-        #     return self.getDataset()
         return ViewPageTemplateFile("statisticsTemplate.pt")(self)

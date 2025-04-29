@@ -168,7 +168,6 @@ class MigrationUsersProfiles(BrowserView):
                 url_instance_v4 = self.request.form['url_instance_v4']
                 husernamev4 = self.request.form['husernamev4']
                 htokenv4 = self.request.form['htokenv4']
-                import ipdb; ipdb.set_trace()
                 json_users = requests.get(url_instance_v4 + '/api/userspropertiesmigration', headers={'X-Oauth-Username': husernamev4, 'X-Oauth-Token': htokenv4, 'X-Oauth-Scope': hscope})
                 logger.info('Buscant users per migrar')
                 users = json.loads(json_users.content)
