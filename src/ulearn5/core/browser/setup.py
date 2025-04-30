@@ -812,6 +812,11 @@ class changeurlcommunities(BrowserView):
     """Aquesta vista canvia la url de les comunitats"""
 
     def __call__(self):
+        self.request.set('disable_border', True)
+        self.update()
+        return self.index()
+
+    def update(self):
         try:
             from plone.protect.interfaces import IDisableCSRFProtection
 
@@ -819,6 +824,7 @@ class changeurlcommunities(BrowserView):
         except Exception as e:
             print(e)
             pass
+
         if self.request.environ["REQUEST_METHOD"] == "POST":
             pc = api.portal.get_tool("portal_catalog")
             communities = pc.searchResults(portal_type="ulearn.community")
