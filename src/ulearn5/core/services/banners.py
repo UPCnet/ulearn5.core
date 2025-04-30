@@ -82,13 +82,14 @@ class Banners(Service):
         link = obj_url.replace('#', '') if internal else obj_url
         obj_type = calculatePortalTypeOfInternalPath(
             link, portal_url) if internal else None
+
         banner = dict(
             id=result.id,
             internal=internal,
             title=result.Title,
             image=obj.absolute_url() + '/thumbnail-image',
-            filename=obj.image.filename,
-            contentType=obj.image.contentType,
+            filename=getattr(obj.image, 'filename', None),
+            contentType=getattr(obj.image, 'contentType', None),
             link=link,
             type_when_follow_url=obj_type,
         )

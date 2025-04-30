@@ -43,6 +43,7 @@ setup(
         'zope.formlib',
         'ipdb',
         'Products.PloneKeywordManager',
+        'plone.restapi',
         'google-analytics-data',   # Cliente oficial de GA4 (Google Analytics Data API)
         'google-auth',             # Para manejar las credenciales del servicio
         'google-api-python-client', # Cliente de la API de Google
