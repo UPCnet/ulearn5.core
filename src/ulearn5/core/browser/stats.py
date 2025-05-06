@@ -272,8 +272,8 @@ class StatsQuery(StatsQueryBase):
             for line in stats:
                 event_category = line["dimensions"][0]
                 event_action = line["dimensions"][1]
-                event_label = line["dimensions"][2]
-                total_events = line["metrics"][0]["values"][0]
+                event_label = line["dimensions"][2][0 : line["dimensions"][2].rfind(" -")]
+                total_events = line["metrics"][0]
 
                 row = [
                     dict(value="", link=None, show_drilldown=False),
@@ -863,7 +863,6 @@ class AnalyticsData:
                 else:
                     return None  # Si no hay expresiones, no se retorna nada
 
-
     def count_visits(self, filters, start, end=None):
         _, client, property_id = self._get_settings_and_client()
         if client is None:
@@ -933,12 +932,14 @@ class AnalyticsData:
         date_ranges = [DateRange(start_date=start_str, end_date=end_str)]
         metrics = [Metric(name="eventCount")]
         dimensions = [
-            Dimension(name="eventName"),
             Dimension(name="pagePath"),
+            Dimension(name="eventName"),
+            Dimension(name="pageTitle"),
         ]
 
         filter_expr = self._build_filter_expression(filters)
-
+        # print("Filter expression:")
+        # print(filter_expr)
         request = RunReportRequest(
             property=f"properties/{property_id}",
             dimensions=dimensions,
@@ -947,15 +948,21 @@ class AnalyticsData:
             dimension_filter=filter_expr if filter_expr else None,
             limit=40,
         )
+        # print("Request:")
+        # print(request)
 
         response = client.run_report(request)
-
+        # print("Response:")
+        # print(response)
         return [
             {
                 "dimensions": [dim.value for dim in row.dimension_values],
                 "metrics": [met.value for met in row.metric_values],
             }
             for row in response.rows
+            if "++" not in row.dimension_values[0].value
+            and not row.dimension_values[0].value.endswith("/editacl")
+            and not row.dimension_values[0].value.endswith("/edit")
         ] if response.rows else []
 
     def stat_appviews(self, filters, start, end=None):
