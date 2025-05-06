@@ -247,11 +247,11 @@ class StatsQuery(StatsQueryBase):
                 if "?" in community:
                     pos = community.find("?")
                     community = community[0:pos]
-                communityLink = portal_url + line["dimensions"][0]
+                communityLink = portal_url + '/' + line["dimensions"][0]
                 title = line["dimensions"][2][0 : line["dimensions"][2].rfind(" -")]
                 titleLink = line["dimensions"][1]
                 typeContent = line["dimensions"][3]
-                views = line["metrics"][0]["values"][0]
+                views = line["metrics"][0]
 
                 row = [
                     dict(value="", link=None, show_drilldown=False),
@@ -755,48 +755,114 @@ class AnalyticsData:
 
     def _build_filter_expression(self, filters):
         community = filters.get("community")
-
         if community == "site":
-            return FilterExpressionList(
-                expressions=[
-                    FilterExpression(
-                        filter=Filter(
-                            field_name="pagePath",
-                            string_filter=Filter.StringFilter(value="/++", match_type=Filter.StringFilter.MatchType.CONTAINS)
-                        )
-                    ),
-                    FilterExpression(
-                        filter=Filter(
-                            field_name="customEvent:dimension1",
-                            string_filter=Filter.StringFilter(value="plone-site", match_type=Filter.StringFilter.MatchType.EXACT),
+            return FilterExpression(
+                and_group=FilterExpressionList(
+                    expressions=[
+                        # pagePath BEGIN WITH "/"
+                        FilterExpression(
+                            filter=Filter(
+                                field_name="pagePath",
+                                string_filter=Filter.StringFilter(
+                                    value="/",
+                                    match_type=Filter.StringFilter.MatchType.BEGINS_WITH,
+                                )
+                            )
                         ),
-                        not_expression=True
-                    )
-                ]
+                        # EXCLUDE customEvent:comunidad == "plone-site"
+                        FilterExpression(
+                            not_expression=FilterExpression(
+                                filter=Filter(
+                                    field_name="customEvent:content_type",
+                                    string_filter=Filter.StringFilter(
+                                        value="plone-site",
+                                        match_type=Filter.StringFilter.MatchType.EXACT,
+                                    )
+                                )
+                            )
+                        ),
+                        # EXCLUDE pagePath CONTAINS "/++"
+                        FilterExpression(
+                            not_expression=FilterExpression(
+                                filter=Filter(
+                                    field_name="pagePath",
+                                    string_filter=Filter.StringFilter(
+                                        value="/++",
+                                        match_type=Filter.StringFilter.MatchType.CONTAINS,
+                                    )
+                                )
+                            )
+                        ),
+                        # EXCLUDE pagePath CONTAINS "/@@"
+                        FilterExpression(
+                            not_expression=FilterExpression(
+                                filter=Filter(
+                                    field_name="pagePath",
+                                    string_filter=Filter.StringFilter(
+                                        value="/@@",
+                                        match_type=Filter.StringFilter.MatchType.CONTAINS,
+                                    )
+                                )
+                            )
+                        ),
+                    ]
+                )
             )
         elif community == "news":
             return FilterExpression(
-                filter=Filter(
-                    field_name="pagePath",
-                    string_filter=Filter.StringFilter(value="/news", match_type=Filter.StringFilter.MatchType.BEGINS_WITH)
+                and_group=FilterExpressionList(
+                    expressions=[
+                        FilterExpression(
+                            filter=Filter(
+                                field_name="pagePath",
+                                string_filter=Filter.StringFilter(
+                                    value="/news",
+                                    match_type=Filter.StringFilter.MatchType.BEGINS_WITH,
+                                ),
+                            )
+                        ),
+                        FilterExpression(
+                            filter=Filter(
+                                field_name="customEvent:content_type",
+                                string_filter=Filter.StringFilter(
+                                    value="news-item",
+                                    match_type=Filter.StringFilter.MatchType.EXACT,
+                                ),
+                            )
+                        ),
+                    ]
                 )
             )
-        elif community:
-            catalog_filters = dict(portal_type="ulearn.community", community_hash=community)
+        else:
+            catalog_filters = dict(portal_type="ulearn.community")
+            if filters["community"]:
+                catalog_filters["community_hash"] = filters["community"]
+
             communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
-            expressions = [
-                FilterExpression(
-                    filter=Filter(
-                        field_name="pagePath",
-                        string_filter=Filter.StringFilter(
-                            value=f"/{community_obj.id}", match_type=Filter.StringFilter.MatchType.BEGINS_WITH
+            if communities:
+                # Crear las expresiones de filtro
+                expressions = [
+                    FilterExpression(
+                        filter=Filter(
+                            field_name="pagePath",
+                            string_filter=Filter.StringFilter(
+                                match_type=Filter.StringFilter.MatchType.PARTIAL_REGEXP,
+                                value=f"^/{community.id}(/|$)"
+                            )
                         )
                     )
-                )
-                for community_obj in communities
-            ]
-            return FilterExpressionList(expressions=expressions)
-        return None
+                    for community in communities
+                ]
+                # Si hay expresiones, crear el filtro "OR" usando las expresiones
+                if expressions:
+                    # Google Analytics permite agrupar con "or_group" de forma diferente
+                    ga_filter_expression = FilterExpression(
+                        or_group=FilterExpressionList(expressions=expressions)
+                    )
+                    return ga_filter_expression  # Retorna el filtro generado
+                else:
+                    return None  # Si no hay expresiones, no se retorna nada
+
 
     def count_visits(self, filters, start, end=None):
         _, client, property_id = self._get_settings_and_client()
@@ -811,8 +877,10 @@ class AnalyticsData:
         end_str = end.strftime('%Y-%m-%d') if isinstance(end, datetime) else str(end)
 
         dimensions = [
+            Dimension(name="customEvent:comunidad"),
             Dimension(name="pagePath"),
             Dimension(name="pageTitle"),
+            Dimension(name="customEvent:content_type"),
         ]
 
         metrics = [Metric(name="screenPageViews")]
@@ -820,6 +888,8 @@ class AnalyticsData:
         date_ranges = [DateRange(start_date=start_str, end_date=end_str)]
 
         filter_expr = self._build_filter_expression(filters)
+        # print("Filter expression:")
+        # print(filter_expr)
 
         request = RunReportRequest(
             property=f"properties/{property_id}",
@@ -829,8 +899,11 @@ class AnalyticsData:
             dimension_filter=filter_expr if filter_expr else None,
             limit=40,
         )
-
+        # print("Request:")
+        # print(request)
         response = client.run_report(request)
+        # print("Response:")
+        # print(response)
 
         return [
             {
@@ -838,6 +911,9 @@ class AnalyticsData:
                 "metrics": [met.value for met in row.metric_values],
             }
             for row in response.rows
+            if "++" not in row.dimension_values[1].value
+            and not row.dimension_values[1].value.endswith("/editacl")
+            and not row.dimension_values[1].value.endswith("/edit")
         ] if response.rows else []
 
     def stat_pageviews(self, filters, start, end=None):
