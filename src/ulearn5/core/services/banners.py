@@ -45,7 +45,7 @@ class Banners(Service):
             if banner:
                 banners.append(banner)
 
-        return {"data": banners, "code": 200}
+        return banners
 
     def find_banner_results(self):
         """ Find all banners """

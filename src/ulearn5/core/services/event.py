@@ -89,7 +89,7 @@ class Event(Service):
             })
         else:
             raise ObjectNotFound(f"Event item with uid {self.request.form.get('eventuid', None)} not found.")
-        return {"data": results, "code": 200}
+        return results
 
     @check_roles(roles=['Manager', 'Api'])
     @check_required_params(params=['eventid', 'title', 'description', 'body', 'start', 'end'])

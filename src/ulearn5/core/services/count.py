@@ -38,4 +38,4 @@ class Count(Service):
         else:
             results = pc.unrestrictedSearchResults(portal_type='ulearn.community')
 
-        return {"data": len(results), "code": 200}
+        return len(results)

@@ -54,7 +54,7 @@ class Search(Service):
                     'state': brain.review_state if brain.review_state else None
                 })
 
-        return {"data": result, "code": 200}
+        return result
 
     def get_physical_path(self):
         portal = api.portal.get()

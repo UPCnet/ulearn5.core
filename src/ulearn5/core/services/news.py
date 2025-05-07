@@ -77,7 +77,7 @@ class News(Service):
             'more_items': more_items,
             'total_news': total_news
         }
-        return {"data": info, "code": 200}
+        return info
 
 
     def find_news(self):

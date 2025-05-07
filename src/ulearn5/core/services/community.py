@@ -87,7 +87,7 @@ class Community(Service):
         community = self.build_community_info(self.obj, communities, communities_subscriptions)
         result.append(community)
 
-        return {"data": result, "code": 200}
+        return result
 
     def get_communities_subscriptions(self, username):
         maxclient, settings = getUtility(IMAXClient)()

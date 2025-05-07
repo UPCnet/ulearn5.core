@@ -47,7 +47,7 @@ class Profile(Service):
             return self.handle_component_lookup_error(e, username)
 
         value = f"L'usuari {username} s'ha actualitzat."
-        return {"success": value, "code": 200}
+        return {"success": value}
 
     def is_valid_user(self, username):
         mt = api.portal.get_tool(name='portal_membership')

@@ -87,7 +87,7 @@ class Events(Service):
             'more_items': more_items,
             'total_events': total_events
         }
-        return {"data": response, "code": 200}
+        return response
 
     def get_date_range(self):
         if self.start and self.end:

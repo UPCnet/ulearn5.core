@@ -86,7 +86,7 @@ class UserSubscriptions(Service):
                 'can_write': can_write
             })
 
-        return {"data": result, "code": 200}
+        return result
 
     def get_communities_for_current_user(self):
         pc = api.portal.get_tool('portal_catalog')

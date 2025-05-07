@@ -48,7 +48,7 @@ class All(Service):
                 self.update_rendered_properties(rendered_properties, getUtility(
                     ICatalogFactory, name='user_properties'), user)
 
-            return {"data": rendered_properties, "code": 200}
+            return rendered_properties
         except Exception as e:
             return {"error": str(e), "code": 404}
 

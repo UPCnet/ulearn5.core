@@ -72,7 +72,7 @@ class SaveEditACL(Service):
             'error_updating_communities': communities_error
         })
 
-        return {"data": results, "code": 200}
+        return results
 
     def get_communities(self):
         """ Get all communities """

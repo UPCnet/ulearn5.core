@@ -38,7 +38,7 @@ class Folders(Service):
         brains = self.get_brains(folder_path)
         results = []
         results = [self.get_folder_from_object(brain) for brain in brains]
-        return {"data": results, "code": 200}
+        return results
 
     def get_folder_path(self):
         portal = api.portal.get()

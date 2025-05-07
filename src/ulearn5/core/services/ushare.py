@@ -71,7 +71,7 @@ class Ushare(Service):
 
         except Exception as e:
             raise ObjectNotFound('Something went wrong') from e
-        return {"data": result, "code": 200}
+        return result
 
     def get_user_language(self):
         current = api.user.get_current()

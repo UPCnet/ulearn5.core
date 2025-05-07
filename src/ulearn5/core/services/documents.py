@@ -49,7 +49,7 @@ class Documents(Service):
         result = [
             self.get_community_from_object(item)
             for item_list in items.values() for item in item_list]
-        return {"data": result, "code": 200}
+        return result
 
     def construct_doc_path(self):
         portal = api.portal.get()

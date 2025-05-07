@@ -62,7 +62,7 @@ class Notifications(Service):
         result['general'] = self.get_general_information_notification(portal, user)
         result['birthday'] = self.get_birthday_information_notification(portal, user)
 
-        return {"data": result, "code": 200}
+        return result
 
     def get_user(self):
         user = api.user.get(username=self.request.form.get('username'))

@@ -45,7 +45,7 @@ class GroupCommunities(Service):
                 users=users,
                 path=record.attrs['path'],
             ))
-        return {"data": result, "code": 200}
+        return result
 
     def get_records(self):
         portal = api.portal.get()

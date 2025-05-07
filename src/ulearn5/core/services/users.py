@@ -44,4 +44,4 @@ class Users(Service):
             result.append(record[1].attrs['id'])
 
         result.sort()
-        return {"data": result, "code": 200}
+        return result

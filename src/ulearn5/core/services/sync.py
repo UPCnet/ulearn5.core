@@ -77,7 +77,7 @@ class Sync(Service):
             'synced_users': users_sync
         }
 
-        return {"data": response, "code": 200}
+        return response
 
     def manage_max_client(self):
         maxclient, settings = getUtility(IMAXClient)()
