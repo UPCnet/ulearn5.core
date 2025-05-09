@@ -38,7 +38,8 @@ class Visualizations(Service):
     @check_required_params(params=['community'])
     def reply(self):
         portal = api.portal.get()
-        user_community = self.username + '_' + self.request.form.get('community')
+        community = self.request.form.get('community') or self.params.get('community')
+        user_community = self.username + '_' + community
         user_community_access = get_soup('user_community_access', portal)
 
         record = self.get_or_create_record(user_community_access, user_community)
