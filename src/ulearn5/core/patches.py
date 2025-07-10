@@ -1031,7 +1031,7 @@ def update(self):
         self.groupname = getattr(self.request, 'groupname')
         self.gtool = api.portal.get_tool(name='portal_groups')
         self.mtool = api.portal.get_tool(name='portal_membership')
-        self.group = self.gtool.getGroupById(self.groupname.decode('utf-8'))
+        self.group = self.gtool.getGroupById(self.groupname)
         self.grouptitle = self.group.getGroupTitleOrName() or self.groupname
 
         self.request.set('grouproles', self.group.getRoles() if self.group else [])
@@ -1086,7 +1086,7 @@ def update(self):
 
 
 def getMembers(self):
-        searchResults = self.gtool.getGroupMembers(self.groupname.decode('utf-8'))
+        searchResults = self.gtool.getGroupMembers(self.groupname)
 
         groupResults = [self.gtool.getGroupById(m) for m in searchResults]
         groupResults.sort(key=lambda x: x is not None and normalizeString(x.getGroupTitleOrName()))
