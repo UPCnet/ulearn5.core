@@ -359,7 +359,7 @@
   <browser:page
     for="ulearn5.core.interfaces.IUlearn5CoreLayer"
     name="shared_with_me"
-    permission="zope2.View"
+    permission="base.authenticated"
     class="ulearn5.core.browser.sharing.SharedWithMe"
     />
 
@@ -367,7 +367,7 @@
   <browser:page
     for="ulearn5.core.interfaces.IUlearn5CoreLayer"
     name="shared"
-    permission="zope2.View"
+    permission="base.authenticated"
     class="ulearn5.core.browser.sharing.Shared"
     />
 

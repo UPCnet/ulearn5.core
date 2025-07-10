@@ -38,8 +38,8 @@ class ElasticSharing(object):
     def __init__(self):
         try:
             self.elastic = getUtility(IElasticSearch)
-        except Exception as e:
-            print(f"ElasticSearch not available: {e}")
+        except:
+            pass
         self._root_path = None
 
     @property
@@ -465,6 +465,8 @@ class SharedMarker(object):
 def SharingChanged(content, event):
     """Hook to store shared mark on object & elastic"""
     elastic_sharing = queryUtility(IElasticSharing)
+    if not elastic_sharing:
+        return 'IElasticSharing utility not found'
     elastic_sharing.modified(content)
 
 
