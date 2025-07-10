@@ -166,7 +166,7 @@ class Communities(Service):
 
         gwuuid = community.gwuuid
         catalog = api.portal.get_tool(name='portal_catalog')
-        results = catalog.unrestrictedSearchResults({'gwuuid': gwuuid})
+        results = catalog.searchResults({'gwuuid': gwuuid})
 
         if results:
             community_brain = results[0]

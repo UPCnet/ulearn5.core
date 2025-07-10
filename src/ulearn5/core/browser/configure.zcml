@@ -435,7 +435,7 @@
   <browser:page
     for="ulearn5.core.content.community.ICommunity"
     name="communityVariables.js"
-    permission="zope2.View"
+    permission="base.authenticated"
     class="ulearn5.core.browser.variables.communityVariables"
     />
 

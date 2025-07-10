@@ -81,6 +81,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.event.interfaces import IEvent
 
 
+
 logger = logging.getLogger(__name__)
 VALID_COMMUNITY_ROLES = ['reader', 'writer', 'owner']
 
@@ -546,7 +547,6 @@ class CommunityAdapterMixin(object):
         subscribe_request['ignore_grants_and_vetos'] = True
         subscribe_request['context'] = url_site + '/' + '/'.join(self.context.absolute_url().split('/')[-1:])
         subscribe_request['acl'] = self.get_acl()
-
         self.hubclient.api.domains[self.settings.domain].services['syncacl'].post(**subscribe_request)
 
     def add_max_subscription_atomic(self, username):
