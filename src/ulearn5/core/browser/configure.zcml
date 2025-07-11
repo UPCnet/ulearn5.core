@@ -128,14 +128,14 @@
   <browser:page
     for="zope.interface.Interface"
     name="omega13usersearch"
-    permission="cmf.ManagePortal"
+    permission="base.authenticated"
     class="ulearn5.core.browser.omega13.Omega13UserSearch"
     />
 
   <browser:page
     for="zope.interface.Interface"
     name="omega13groupsearch"
-    permission="cmf.ManagePortal"
+    permission="base.authenticated"
     class="ulearn5.core.browser.omega13.Omega13GroupSearch"
     />
 
