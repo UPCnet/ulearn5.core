@@ -1460,6 +1460,14 @@ class addallcommunitiesasfavoritefromallusers(BrowserView):
         except Exception as e:
             print(e)
 
+        portal = api.portal.get()
+        registry = queryUtility(IRegistry)
+        ulearn_settings = registry.forInterface(IUlearnControlPanelSettings)
+        if ulearn_settings.url_site != None and ulearn_settings.url_site != '':
+            url_site = ulearn_settings.url_site
+        else:
+            url_site = portal.absolute_url()
+
         pc = api.portal.get_tool(name="portal_catalog")
         communities = pc.unrestrictedSearchResults(
             object_provides=ICommunity.__identifier__
@@ -1471,7 +1479,7 @@ class addallcommunitiesasfavoritefromallusers(BrowserView):
 
         for community in communities:
             communityObj = community._unrestrictedGetObject()
-            community_hash = sha1(communityObj.absolute_url().encode('utf-8')).hexdigest()
+            community_hash = sha1((url_site + '/' + communityObj.id).encode('utf-8')).hexdigest()
             users_subscription = maxclient.contexts[community_hash].subscriptions.get(
                 qs={"limit": 0}
             )
