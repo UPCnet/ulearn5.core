@@ -19,7 +19,7 @@ class Count(Service):
     def __init__(self, context, request, **kwargs):
         self.context = context
         self.request = request
-        self.community_type = kwargs.get('community_type', None)
+        self.community_type = request.form.get('community_type', None)
 
     def handle_subpath(self, subpath):
         """ Function used to spread the request to the corresponding subpath """
@@ -38,4 +38,4 @@ class Count(Service):
         else:
             results = pc.unrestrictedSearchResults(portal_type='ulearn.community')
 
-        return {"data": len(results), "code": 200}
+        return len(results)

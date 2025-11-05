@@ -16,7 +16,10 @@ from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser import BrowserView
 from six.moves import range
+from plone.registry.interfaces import IRegistry
+from repoze.catalog.query import Eq
 from souper.interfaces import ICatalogFactory
+from souper.soup import get_soup
 from ulearn5.core import _
 from ulearn5.core.controlpanel import IUlearnControlPanelSettings
 from zope import schema
@@ -323,7 +326,7 @@ def calculatePortalTypeOfInternalPath(url, portal_url):
         partial_path = partial_path.split('/view/')[0]
     elif partial_path.endswith('/view'):
         partial_path = partial_path.split('/view')[0]
-    custom_path = base_path + partial_path.encode('utf-8')
+    custom_path = base_path + partial_path
     try:
         if 'resolveuid' in custom_path:
             nextObj = api.content.get(UID=custom_path.split('resolveuid/')[-1])

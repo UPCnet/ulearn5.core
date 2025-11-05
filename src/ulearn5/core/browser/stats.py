@@ -4,7 +4,7 @@ from apiclient.discovery import build
 from collections import Counter
 from datetime import datetime
 from mrs5.max.utilities import IMAXClient
-from oauth2client.service_account import ServiceAccountCredentials
+# from oauth2client.service_account import ServiceAccountCredentials
 from plone import api
 from plone.memoize.view import memoize_contextless
 from plone.registry.interfaces import IRegistry
@@ -19,6 +19,17 @@ from zope.schema.interfaces import IVocabularyFactory
 
 import calendar
 import json
+from google.oauth2 import service_account
+from google.analytics.data_v1beta import BetaAnalyticsDataClient
+from google.analytics.data_v1beta.types import (
+    DateRange,
+    Dimension,
+    Metric,
+    FilterExpression,
+    Filter,
+    RunReportRequest,
+    FilterExpressionList
+)
 
 
 def next_month(current):
@@ -105,12 +116,16 @@ class StatsView(BrowserView):
 class StatsQueryBase(BrowserView):
     """Base methods for ease the extension of the base StatsQuery view."""
 
-    def __call__(self):
+    def __init__(self, context, request):
+        super().__init__(context, request)
+        self._params = None  # Solo esto aquí
         catalog = api.portal.get_tool(name="portal_catalog")
         self.plone_stats = PloneStats(catalog)
         self.max_stats = MaxStats(self.get_max_client())
         self.analytic_data = AnalyticsData(catalog)
-        self._params = None
+
+    def __call__(self):
+        return self.render()  # o una plantilla, como self.index()
 
     @memoize_contextless
     def portal(self):
@@ -232,11 +247,11 @@ class StatsQuery(StatsQueryBase):
                 if "?" in community:
                     pos = community.find("?")
                     community = community[0:pos]
-                communityLink = portal_url + line["dimensions"][0]
+                communityLink = portal_url + '/' + line["dimensions"][0]
                 title = line["dimensions"][2][0 : line["dimensions"][2].rfind(" -")]
                 titleLink = line["dimensions"][1]
                 typeContent = line["dimensions"][3]
-                views = line["metrics"][0]["values"][0]
+                views = line["metrics"][0]
 
                 row = [
                     dict(value="", link=None, show_drilldown=False),
@@ -257,8 +272,8 @@ class StatsQuery(StatsQueryBase):
             for line in stats:
                 event_category = line["dimensions"][0]
                 event_action = line["dimensions"][1]
-                event_label = line["dimensions"][2]
-                total_events = line["metrics"][0]["values"][0]
+                event_label = line["dimensions"][2][0 : line["dimensions"][2].rfind(" -")]
+                total_events = line["metrics"][0]
 
                 row = [
                     dict(value="", link=None, show_drilldown=False),
@@ -420,7 +435,6 @@ class PloneStats(object):
         # Prepare filtes search to get all the
         # target communities
         catalog_filters = dict(portal_type="ulearn.community")
-
         if filters["community"]:
             catalog_filters["community_hash"] = filters["community"]
 
@@ -443,7 +457,6 @@ class PloneStats(object):
         if filters["keywords"]:
             catalog_filters["SearchableText"] = {
                 "query": filters["keywords"],
-                "operator": "or",
             }
 
         if filters["portal_type"]:
@@ -719,195 +732,430 @@ class MaxStats(object):
             except:
                 return "?"
 
-
-class AnalyticsData(object):
-    """ """
-
+class AnalyticsData:
     def __init__(self, catalog):
         self.catalog = catalog
 
-    def count_visits(self, search_folder, filters, start, end=None):
-        """ """
+    def _get_settings_and_client(self):
         settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
         if (
-            settings is None
-            or settings.gAnalytics_view_ID is None
-            or settings.gAnalytics_JSON_info is None
-            or settings.gAnalytics_enabled is None
-            or settings.gAnalytics_enabled is False
+            not settings
+            or not settings.gAnalytics_view_ID
+            or not settings.gAnalytics_JSON_info
+            or not settings.gAnalytics_enabled
         ):
-            return {}
-        gAnalytics_view_ID = settings.gAnalytics_view_ID
-        gAnalytics_JSON_info = settings.gAnalytics_JSON_info
+            return None, None, None
 
-        credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-            json.loads(gAnalytics_JSON_info),
-            scopes=["https://www.googleapis.com/auth/analytics.readonly"],
-        )
-        service = build("analyticsreporting", "v4", credentials=credentials)
+        credentials_info = json.loads(settings.gAnalytics_JSON_info)
+        credentials = service_account.Credentials.from_service_account_info(credentials_info)
+        client = BetaAnalyticsDataClient(credentials=credentials)
+        property_id = settings.gAnalytics_view_ID
 
-        if filters["community"] == "site":
-            gaFilters = {
-                "filters": [
-                    {
-                        "dimensionName": "ga:pagePathLevel1",
-                        "operator": "REGEXP",
-                        "expressions": ["^/"],
-                    },
-                    {
-                        "dimensionName": "ga:dimension1",
-                        "operator": "REGEXP",
-                        "not": True,
-                        "expressions": ["plone-site"],
-                    },
-                    {
-                        "dimensionName": "ga:pagePathLevel1",
-                        "operator": "REGEXP",
-                        "not": True,
-                        "expressions": ["/"],
-                    },
-                    {
-                        "dimensionName": "ga:pagePath",
-                        "operator": "PARTIAL",
-                        "expressions": ["/++"],
-                    },
-                ]
-            }
-        elif filters["community"] == "news":
-            gaFilters = {
-                "filters": [
-                    {
-                        "dimensionName": "ga:pagePathLevel1",
-                        "operator": "REGEXP",
-                        "expressions": ["^/news"],
-                    },
-                    {
-                        "dimensionName": "ga:dimension1",
-                        "operator": "REGEXP",
-                        "expressions": ["news-item"],
-                    },
-                ]
-            }
+        return settings, client, property_id
+
+    def _build_filter_expression(self, filters):
+        community = filters.get("community")
+        if community == "site":
+            return FilterExpression(
+                and_group=FilterExpressionList(
+                    expressions=[
+                        # pagePath BEGIN WITH "/"
+                        FilterExpression(
+                            filter=Filter(
+                                field_name="pagePath",
+                                string_filter=Filter.StringFilter(
+                                    value="/",
+                                    match_type=Filter.StringFilter.MatchType.BEGINS_WITH,
+                                )
+                            )
+                        ),
+                        # EXCLUDE customEvent:comunidad == "plone-site"
+                        FilterExpression(
+                            not_expression=FilterExpression(
+                                filter=Filter(
+                                    field_name="customEvent:content_type",
+                                    string_filter=Filter.StringFilter(
+                                        value="plone-site",
+                                        match_type=Filter.StringFilter.MatchType.EXACT,
+                                    )
+                                )
+                            )
+                        ),
+                        # EXCLUDE pagePath CONTAINS "/++"
+                        FilterExpression(
+                            not_expression=FilterExpression(
+                                filter=Filter(
+                                    field_name="pagePath",
+                                    string_filter=Filter.StringFilter(
+                                        value="/++",
+                                        match_type=Filter.StringFilter.MatchType.CONTAINS,
+                                    )
+                                )
+                            )
+                        ),
+                        # EXCLUDE pagePath CONTAINS "/@@"
+                        FilterExpression(
+                            not_expression=FilterExpression(
+                                filter=Filter(
+                                    field_name="pagePath",
+                                    string_filter=Filter.StringFilter(
+                                        value="/@@",
+                                        match_type=Filter.StringFilter.MatchType.CONTAINS,
+                                    )
+                                )
+                            )
+                        ),
+                    ]
+                )
+            )
+        elif community == "news":
+            return FilterExpression(
+                and_group=FilterExpressionList(
+                    expressions=[
+                        FilterExpression(
+                            filter=Filter(
+                                field_name="pagePath",
+                                string_filter=Filter.StringFilter(
+                                    value="/news",
+                                    match_type=Filter.StringFilter.MatchType.BEGINS_WITH,
+                                ),
+                            )
+                        ),
+                        FilterExpression(
+                            filter=Filter(
+                                field_name="customEvent:content_type",
+                                string_filter=Filter.StringFilter(
+                                    value="news-item",
+                                    match_type=Filter.StringFilter.MatchType.EXACT,
+                                ),
+                            )
+                        ),
+                    ]
+                )
+            )
         else:
             catalog_filters = dict(portal_type="ulearn.community")
             if filters["community"]:
                 catalog_filters["community_hash"] = filters["community"]
+
             communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
-            gaFilters = {
-                "filters": [
-                    {
-                        "dimensionName": "ga:pagePathLevel1",
-                        "operator": "REGEXP",
-                        "expressions": ["^/" + community.id],
-                    }
+            if communities:
+                # Crear las expresiones de filtro
+                expressions = [
+                    FilterExpression(
+                        filter=Filter(
+                            field_name="pagePath",
+                            string_filter=Filter.StringFilter(
+                                match_type=Filter.StringFilter.MatchType.PARTIAL_REGEXP,
+                                value=f"^/{community.id}(/|$)"
+                            )
+                        )
+                    )
                     for community in communities
                 ]
-            }
+                # Si hay expresiones, crear el filtro "OR" usando las expresiones
+                if expressions:
+                    # Google Analytics permite agrupar con "or_group" de forma diferente
+                    ga_filter_expression = FilterExpression(
+                        or_group=FilterExpressionList(expressions=expressions)
+                    )
+                    return ga_filter_expression  # Retorna el filtro generado
+                else:
+                    return None  # Si no hay expresiones, no se retorna nada
 
-        request = {
-            "viewId": "ga:" + gAnalytics_view_ID,
-            "dateRanges": [
-                {
-                    "startDate": str(datetime.date(start)),
-                    "endDate": str(datetime.date(end)),
-                }
-            ],
-            "metrics": [{"expression": "ga:pageviews"}],
-            "dimensions": [
-                {"name": "ga:pagePathLevel1"},
-                {"name": "ga:pagePath"},
-                {"name": "ga:pageTitle"},
-                {"name": "ga:dimension1"},
-            ],
-            "dimensionFilterClauses": [gaFilters],
-            "orderBys": [{"fieldName": "ga:pageviews", "sortOrder": "DESCENDING"}],
-            "pageSize": 40,
-        }
-        response = (
-            service.reports().batchGet(body={"reportRequests": [request]}).execute()
+    def count_visits(self, filters, start, end=None):
+        _, client, property_id = self._get_settings_and_client()
+        if client is None:
+            return {}
+
+        if not end:
+            end = start
+
+        # Convertir fechas datetime a string en formato 'YYYY-MM-DD'
+        start_str = start.strftime('%Y-%m-%d') if isinstance(start, datetime) else str(start)
+        end_str = end.strftime('%Y-%m-%d') if isinstance(end, datetime) else str(end)
+
+        dimensions = [
+            Dimension(name="customEvent:comunidad"),
+            Dimension(name="pagePath"),
+            Dimension(name="pageTitle"),
+            Dimension(name="customEvent:content_type"),
+        ]
+
+        metrics = [Metric(name="screenPageViews")]
+
+        date_ranges = [DateRange(start_date=start_str, end_date=end_str)]
+
+        filter_expr = self._build_filter_expression(filters)
+        # print("Filter expression:")
+        # print(filter_expr)
+
+        request = RunReportRequest(
+            property=f"properties/{property_id}",
+            dimensions=dimensions,
+            metrics=metrics,
+            date_ranges=date_ranges,
+            dimension_filter=filter_expr if filter_expr else None,
+            limit=40,
         )
+        # print("Request:")
+        # print(request)
+        response = client.run_report(request)
+        # print("Response:")
+        # print(response)
 
-        if int(response["reports"][0]["data"]["totals"][0]["values"][0]) > 0:
-            return response["reports"][0]["data"]["rows"]
-        else:
-            return []
-        # return [{u'metrics': [{u'values': [u'1275']}], u'dimensions': [u'/miranza', u'/miranza', u'MIRANZA - Miranzalia', u'ulearn-community']}, {u'metrics': [{u'values': [u'267']}], u'dimensions': [u'/miranza/', u'/miranza/news/retomamos-los-eventos/view', u'\xa1Retomamos los eventos! - Miranzalia', u'news-item']}]
+        return [
+            {
+                "dimensions": [dim.value for dim in row.dimension_values],
+                "metrics": [met.value for met in row.metric_values],
+            }
+            for row in response.rows
+            if "++" not in row.dimension_values[1].value
+            and not row.dimension_values[1].value.endswith("/editacl")
+            and not row.dimension_values[1].value.endswith("/edit")
+        ] if response.rows else []
 
     def stat_pageviews(self, filters, start, end=None):
-        """ """
-        return self.count_visits("pageviews", filters, start, end)
+        return self.count_visits(filters, start, end)
 
-    def stat_by_app(self, search_folder, filters, start, end=None):
-        """ """
-        settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
-        if (
-            settings is None
-            or settings.gAnalytics_view_ID is None
-            or settings.gAnalytics_JSON_info is None
-            or settings.gAnalytics_enabled is None
-            or settings.gAnalytics_enabled is False
-        ):
+    def stat_by_app(self, filters, start, end=None):
+        _, client, property_id = self._get_settings_and_client()
+        if client is None:
             return {}
-        gAnalytics_view_ID = settings.gAnalytics_view_ID
-        gAnalytics_JSON_info = settings.gAnalytics_JSON_info
 
-        credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-            json.loads(gAnalytics_JSON_info),
-            scopes=["https://www.googleapis.com/auth/analytics.readonly"],
+        if not end:
+            end = start
+
+        start_str = start.strftime('%Y-%m-%d') if isinstance(start, datetime) else str(start)
+        end_str = end.strftime('%Y-%m-%d') if isinstance(end, datetime) else str(end)
+
+        date_ranges = [DateRange(start_date=start_str, end_date=end_str)]
+        metrics = [Metric(name="eventCount")]
+        dimensions = [
+            Dimension(name="pagePath"),
+            Dimension(name="eventName"),
+            Dimension(name="pageTitle"),
+        ]
+
+        filter_expr = self._build_filter_expression(filters)
+        # print("Filter expression:")
+        # print(filter_expr)
+        request = RunReportRequest(
+            property=f"properties/{property_id}",
+            dimensions=dimensions,
+            metrics=metrics,
+            date_ranges=date_ranges,
+            dimension_filter=filter_expr if filter_expr else None,
+            limit=40,
         )
-        service = build("analyticsreporting", "v4", credentials=credentials)
+        # print("Request:")
+        # print(request)
 
-        if filters["community"] == "site":
-            expression = "/$"
-        elif filters["community"] == "news":
-            expression = "/news"
-        else:
-            catalog_filters = dict(portal_type="ulearn.community")
-            if filters["community"]:
-                catalog_filters["community_hash"] = filters["community"]
-            communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
-            expression = (
-                "/(" + "|".join(community.id for community in communities) + ")"
-            )
-
-        request = {
-            "viewId": "ga:" + gAnalytics_view_ID,
-            "dateRanges": [
-                {
-                    "startDate": str(datetime.date(start)),
-                    "endDate": str(datetime.date(end)),
-                }
-            ],
-            "metrics": [{"expression": "ga:totalEvents"}],
-            "dimensions": [
-                {"name": "ga:eventCategory"},
-                {"name": "ga:eventAction"},
-                {"name": "ga:eventLabel"},
-            ],
-            "dimensionFilterClauses": [
-                {
-                    "filters": [
-                        {
-                            "dimensionName": "ga:eventCategory",
-                            "operator": "REGEXP",
-                            "expressions": [expression],
-                        }
-                    ]
-                }
-            ],
-            "orderBys": [{"fieldName": "ga:totalEvents", "sortOrder": "DESCENDING"}],
-            "pageSize": 40,
-        }
-
-        response = (
-            service.reports().batchGet(body={"reportRequests": [request]}).execute()
-        )
-        if int(response["reports"][0]["data"]["totals"][0]["values"][0]) > 0:
-            return response["reports"][0]["data"]["rows"]
-        else:
-            return []
-        # return [[{u'metrics': [{u'values': [u'10']}], u'dimensions': [u'/comunitats/test', u'COMUNIDAD', u'Test']}, {u'metrics': [{u'values': [u'3']}], u'dimensions': [u'/comunitats/test', u'SECCION_docu', u'Test']},]]
+        response = client.run_report(request)
+        # print("Response:")
+        # print(response)
+        return [
+            {
+                "dimensions": [dim.value for dim in row.dimension_values],
+                "metrics": [met.value for met in row.metric_values],
+            }
+            for row in response.rows
+            if "++" not in row.dimension_values[0].value
+            and not row.dimension_values[0].value.endswith("/editacl")
+            and not row.dimension_values[0].value.endswith("/edit")
+        ] if response.rows else []
 
     def stat_appviews(self, filters, start, end=None):
-        """ """
-        return self.stat_by_app("appviews", filters, start, end)
+        return self.stat_by_app(filters, start, end)
+
+# class AnalyticsData(object):
+#     """ """
+
+#     def __init__(self, catalog):
+#         self.catalog = catalog
+
+#     def count_visits(self, search_folder, filters, start, end=None):
+#         """ """
+#         settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
+#         if (
+#             settings is None
+#             or settings.gAnalytics_view_ID is None
+#             or settings.gAnalytics_JSON_info is None
+#             or settings.gAnalytics_enabled is None
+#             or settings.gAnalytics_enabled is False
+#         ):
+#             return {}
+#         gAnalytics_view_ID = settings.gAnalytics_view_ID
+#         gAnalytics_JSON_info = settings.gAnalytics_JSON_info
+
+#         credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+#             json.loads(gAnalytics_JSON_info),
+#             scopes=["https://www.googleapis.com/auth/analytics.readonly"],
+#         )
+#         service = build("analyticsreporting", "v4", credentials=credentials)
+
+#         if filters["community"] == "site":
+#             gaFilters = {
+#                 "filters": [
+#                     {
+#                         "dimensionName": "ga:pagePathLevel1",
+#                         "operator": "REGEXP",
+#                         "expressions": ["^/"],
+#                     },
+#                     {
+#                         "dimensionName": "ga:dimension1",
+#                         "operator": "REGEXP",
+#                         "not": True,
+#                         "expressions": ["plone-site"],
+#                     },
+#                     {
+#                         "dimensionName": "ga:pagePathLevel1",
+#                         "operator": "REGEXP",
+#                         "not": True,
+#                         "expressions": ["/"],
+#                     },
+#                     {
+#                         "dimensionName": "ga:pagePath",
+#                         "operator": "PARTIAL",
+#                         "expressions": ["/++"],
+#                     },
+#                 ]
+#             }
+#         elif filters["community"] == "news":
+#             gaFilters = {
+#                 "filters": [
+#                     {
+#                         "dimensionName": "ga:pagePathLevel1",
+#                         "operator": "REGEXP",
+#                         "expressions": ["^/news"],
+#                     },
+#                     {
+#                         "dimensionName": "ga:dimension1",
+#                         "operator": "REGEXP",
+#                         "expressions": ["news-item"],
+#                     },
+#                 ]
+#             }
+#         else:
+#             catalog_filters = dict(portal_type="ulearn.community")
+#             if filters["community"]:
+#                 catalog_filters["community_hash"] = filters["community"]
+#             communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
+#             gaFilters = {
+#                 "filters": [
+#                     {
+#                         "dimensionName": "ga:pagePathLevel1",
+#                         "operator": "REGEXP",
+#                         "expressions": ["^/" + community.id],
+#                     }
+#                     for community in communities
+#                 ]
+#             }
+
+#         request = {
+#             "viewId": "ga:" + gAnalytics_view_ID,
+#             "dateRanges": [
+#                 {
+#                     "startDate": str(datetime.date(start)),
+#                     "endDate": str(datetime.date(end)),
+#                 }
+#             ],
+#             "metrics": [{"expression": "ga:pageviews"}],
+#             "dimensions": [
+#                 {"name": "ga:pagePathLevel1"},
+#                 {"name": "ga:pagePath"},
+#                 {"name": "ga:pageTitle"},
+#                 {"name": "ga:dimension1"},
+#             ],
+#             "dimensionFilterClauses": [gaFilters],
+#             "orderBys": [{"fieldName": "ga:pageviews", "sortOrder": "DESCENDING"}],
+#             "pageSize": 40,
+#         }
+#         response = (
+#             service.reports().batchGet(body={"reportRequests": [request]}).execute()
+#         )
+
+#         if int(response["reports"][0]["data"]["totals"][0]["values"][0]) > 0:
+#             return response["reports"][0]["data"]["rows"]
+#         else:
+#             return []
+#         # return [{u'metrics': [{u'values': [u'1275']}], u'dimensions': [u'/miranza', u'/miranza', u'MIRANZA - Miranzalia', u'ulearn-community']}, {u'metrics': [{u'values': [u'267']}], u'dimensions': [u'/miranza/', u'/miranza/news/retomamos-los-eventos/view', u'\xa1Retomamos los eventos! - Miranzalia', u'news-item']}]
+
+#     def stat_pageviews(self, filters, start, end=None):
+#         """ """
+#         return self.count_visits("pageviews", filters, start, end)
+
+#     def stat_by_app(self, search_folder, filters, start, end=None):
+#         """ """
+#         settings = getUtility(IRegistry).forInterface(IUlearnControlPanelSettings)
+#         if (
+#             settings is None
+#             or settings.gAnalytics_view_ID is None
+#             or settings.gAnalytics_JSON_info is None
+#             or settings.gAnalytics_enabled is None
+#             or settings.gAnalytics_enabled is False
+#         ):
+#             return {}
+#         gAnalytics_view_ID = settings.gAnalytics_view_ID
+#         gAnalytics_JSON_info = settings.gAnalytics_JSON_info
+
+#         credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+#             json.loads(gAnalytics_JSON_info),
+#             scopes=["https://www.googleapis.com/auth/analytics.readonly"],
+#         )
+#         service = build("analyticsreporting", "v4", credentials=credentials)
+
+#         if filters["community"] == "site":
+#             expression = "/$"
+#         elif filters["community"] == "news":
+#             expression = "/news"
+#         else:
+#             catalog_filters = dict(portal_type="ulearn.community")
+#             if filters["community"]:
+#                 catalog_filters["community_hash"] = filters["community"]
+#             communities = self.catalog.unrestrictedSearchResults(**catalog_filters)
+#             expression = (
+#                 "/(" + "|".join(community.id for community in communities) + ")"
+#             )
+
+#         request = {
+#             "viewId": "ga:" + gAnalytics_view_ID,
+#             "dateRanges": [
+#                 {
+#                     "startDate": str(datetime.date(start)),
+#                     "endDate": str(datetime.date(end)),
+#                 }
+#             ],
+#             "metrics": [{"expression": "ga:totalEvents"}],
+#             "dimensions": [
+#                 {"name": "ga:eventCategory"},
+#                 {"name": "ga:eventAction"},
+#                 {"name": "ga:eventLabel"},
+#             ],
+#             "dimensionFilterClauses": [
+#                 {
+#                     "filters": [
+#                         {
+#                             "dimensionName": "ga:eventCategory",
+#                             "operator": "REGEXP",
+#                             "expressions": [expression],
+#                         }
+#                     ]
+#                 }
+#             ],
+#             "orderBys": [{"fieldName": "ga:totalEvents", "sortOrder": "DESCENDING"}],
+#             "pageSize": 40,
+#         }
+
+#         response = (
+#             service.reports().batchGet(body={"reportRequests": [request]}).execute()
+#         )
+#         if int(response["reports"][0]["data"]["totals"][0]["values"][0]) > 0:
+#             return response["reports"][0]["data"]["rows"]
+#         else:
+#             return []
+#         # return [[{u'metrics': [{u'values': [u'10']}], u'dimensions': [u'/comunitats/test', u'COMUNIDAD', u'Test']}, {u'metrics': [{u'values': [u'3']}], u'dimensions': [u'/comunitats/test', u'SECCION_docu', u'Test']},]]
+
+#     def stat_appviews(self, filters, start, end=None):
+#         """ """
+#         return self.stat_by_app("appviews", filters, start, end)

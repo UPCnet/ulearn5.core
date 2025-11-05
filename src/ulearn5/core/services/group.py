@@ -18,7 +18,7 @@ class Group(Service):
     """
 
     PATH_DICT = {
-        'communitites': GroupCommunities
+        'communities': GroupCommunities
     }
 
     def __init__(self, context, request, **kwargs):

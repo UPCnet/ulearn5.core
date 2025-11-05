@@ -78,6 +78,9 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
 from ZPublisher.HTTPRequest import FileUpload
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.event.interfaces import IEvent
+
+
 
 logger = logging.getLogger(__name__)
 VALID_COMMUNITY_ROLES = ['reader', 'writer', 'owner']
@@ -208,7 +211,7 @@ class ICommunity(model.Schema):
         default='Activity'
     )
 
-    # Omitir campos en el formulario
+    # # Omitir campos en el formulario
     directives.omitted('readers', 'subscribed', 'owners')
     directives.widget(readers=Select2MAXUserInputFieldWidget)
     readers = schema.List(
@@ -292,6 +295,7 @@ class ICommunity(model.Schema):
 
     # Ocultar el campo 'mails_users_community_lists' en los formularios de añadido y edición
     #directives.mode(mails_users_community_lists={"add": "hidden", "edit": "hidden"})
+    directives.mode(mails_users_community_lists="hidden")
     mails_users_community_lists = schema.Text(
         title=_('Users comunnity lists'),
         description=_('users_community_lists_help'),
@@ -299,6 +303,7 @@ class ICommunity(model.Schema):
     )
 
     #directives.mode(mails_users_community_black_lists={"add": "hidden", "edit": "hidden"})
+    directives.mode(mails_users_community_black_lists="hidden")
     mails_users_community_black_lists = schema.Text(
         title=_('Users comunnity black lists'),
         description=_('users_community_black_lists_help'),
@@ -312,6 +317,7 @@ class ICommunity(model.Schema):
     )
 
     #directives.mode(terms={"add": "hidden", "edit": "hidden"})
+    directives.mode(terms="hidden")
     directives.widget(terms=TermsFieldWidget)
     terms = schema.Bool(
         title=_('title_terms_of_user'),
@@ -456,10 +462,8 @@ class CommunityAdapterMixin(object):
         self.delete_acl()
 
     def get_acl(self):
-        acl_record = ICommunityACL(self.context)()
-        if acl_record:
-            return acl_record.get('acl', {})
-        return {}
+        acl = ICommunityACL(self.context)().attrs.get('acl', '')
+        return acl
 
     def update_acl(self, acl):
         gwuuid = IGWUUID(self.context).get()
@@ -543,7 +547,6 @@ class CommunityAdapterMixin(object):
         subscribe_request['ignore_grants_and_vetos'] = True
         subscribe_request['context'] = url_site + '/' + '/'.join(self.context.absolute_url().split('/')[-1:])
         subscribe_request['acl'] = self.get_acl()
-
         self.hubclient.api.domains[self.settings.domain].services['syncacl'].post(**subscribe_request)
 
     def add_max_subscription_atomic(self, username):
@@ -653,12 +656,11 @@ class CommunityAdapterMixin(object):
 
         INotNotifyPush(self.context).remove(user_id)
 
-
         # Remove mail user to mails_users_community_lists in community
         if ((self.context.notify_activity_via_mail == True) and (self.context.type_notify == 'Automatic')):
             if self.context.mails_users_community_lists != None:
                 if api.user.get(user_id).getProperty('email') in self.context.mails_users_community_lists:
-                    self.context.mails_users_community_lists.pop(api.user.get(user_id).getProperty('email'))
+                    self.context.mails_users_community_lists.remove(api.user.get(user_id).getProperty('email'))
 
             if self.context.mails_users_community_black_lists is None:
                 self.context.mails_users_community_black_lists = {}
@@ -666,7 +668,7 @@ class CommunityAdapterMixin(object):
                 self.context.mails_users_community_black_lists = ast.literal_eval(self.context.mails_users_community_black_lists)
 
             if user_id in self.context.mails_users_community_black_lists:
-                self.context.mails_users_community_black_lists.pop(user_id)
+                self.context.mails_users_community_black_lists.remove(user_id)
 
         self.context.reindexObject()
 
@@ -1290,7 +1292,6 @@ class UnSubscribe(BrowserView):
             return dict(error='Bad request. POST request expected.',
                         status_code=400)
 
-# TODO
 class CommunityAdder(AutoExtensibleForm, form.Form):
     """
     Formulario para añadir un ítem de tipo Community.
@@ -1319,6 +1320,16 @@ class CommunityAdder(AutoExtensibleForm, form.Form):
 
         self.widgets['mails_users_community_black_lists'].mode = 'hidden'
         self.fields['mails_users_community_black_lists'].mode = 'hidden'
+
+        self.widgets['readers'].mode = 'hidden'
+        self.fields['readers'].mode = 'hidden'
+
+        self.widgets['subscribed'].mode = 'hidden'
+        self.fields['subscribed'].mode = 'hidden'
+
+        self.widgets['owners'].mode = 'hidden'
+        self.fields['owners'].mode = 'hidden'
+
 
     @button.buttonAndHandler(u'Crea la comunitat', name='save')
     def handleApply(self, action):
@@ -1399,7 +1410,6 @@ class CommunityAdder(AutoExtensibleForm, form.Form):
     def terms(self):
         return 'terms' in list(self.fields.keys())
 
-# TODO
 class CommunityEdit(AutoExtensibleForm, form.Form):
     """ Formulario para editar comunidades """
 
@@ -1782,7 +1792,7 @@ def subscribed_users(context):
 
 # grok.global_adapter(subscribed_users, name='subscribed_users')
 
-
+@indexer(IEvent)
 @indexer(ICommunity)
 def community_type(context):
     """ Create a catalogue indexer, registered as an adapter, which can

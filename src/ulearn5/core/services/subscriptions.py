@@ -6,7 +6,7 @@ from ulearn5.core.services import (BadParameters, MethodNotAllowed,
                                    UnknownEndpoint, check_methods,
                                    check_required_params, check_roles)
 
-# from ulearn5.core.content.community import ICommunityACL
+from ulearn5.core.content.community import ICommunityACL
 
 
 logger = logging.getLogger(__name__)
@@ -46,7 +46,7 @@ class Subscriptions(Service):
         if method == 'GET':
             return self.reply_get()
         elif method == 'POST':
-            return self.reply_get()
+            return self.reply_post()
         elif method == 'PUT':
             return self.reply_put()
         elif method == 'DELETE':
@@ -55,17 +55,14 @@ class Subscriptions(Service):
 
     def reply_get(self):
         """ Get the subscriptions for the community. """
-        # result = ICommunityACL(self.obj)().attrs.get('acl', '')
-        acl_result= ICommunityACL(self.context)()
-        result = acl_result.get('acl', '')
+        result = ICommunityACL(self.obj)().attrs.get('acl', '')
 
-        return {"data": result, "code": 200}
+        return result
 
     @check_required_params(params=['users'])
     def reply_post(self):
         """ Subscribes a bunch of users to a community """
-
-        self.set_subscriptions(self.request.form)
+        self.set_subscriptions(self.params)
 
         # Response successful
         success_response = f'Updated community "{self.obj.absolute_url()}" subscriptions'
@@ -75,11 +72,10 @@ class Subscriptions(Service):
     @check_required_params(params=['users'])
     def reply_put(self):
         """ Subscribes a bunch of users to a community """
-
         self.update_subscriptions()
 
         # Response successful
-        success_response = f'Updated community "{self.target.absolute_url()}" subscriptions'
+        success_response = f'Updated community "{self.obj.absolute_url()}" subscriptions'
         logger.info(success_response)
         return {"message": success_response, "code": 200}
 
@@ -95,10 +91,7 @@ class Subscriptions(Service):
 
     def set_subscriptions(self, payload):
         adapter = self.obj.adapted(request=self.request)
-
-        # TODO: self.payload? De dónde viene? No sé si es esto (self.request.form)
         adapter.update_acl(payload)
-        # adapter.update_acl(self.payload)
         acl = adapter.get_acl()
         adapter.set_plone_permissions(acl)
 
@@ -118,8 +111,7 @@ class Subscriptions(Service):
     def _modify_subscriptions(self, action='update'):
         """ Either remove or update a subscription """
         adapter = self.obj.adapted(request=self.request)
-
-        users = self.request.form.pop('users')
+        users = self.params.get('users', None)
         for user in users:
             try:
                 if action == 'remove':

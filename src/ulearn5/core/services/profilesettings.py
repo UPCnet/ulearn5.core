@@ -42,7 +42,7 @@ class ProfileSettings(Service):
             user_properties_utility, 'profile_properties_ushare_novisible'),
             'available_languages': self.get_available_languages()}
 
-        return {"data": result, "code": 200}
+        return result
 
     def get_user_properties_utility(self):
         user_properties_utility = getUtility(ICatalogFactory, name='user_properties')

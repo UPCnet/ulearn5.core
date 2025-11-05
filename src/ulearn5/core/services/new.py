@@ -5,18 +5,19 @@ from datetime import datetime
 import requests
 from lxml import html
 from plone import api
-from plone.app.contenttypes.behaviors.richtext import IRichText
+from plone.app.textfield.value import RichTextValue
+
 from plone.dexterity.utils import createContentInContainer
 from plone.namedfile.file import NamedBlobImage
 from plone.restapi.services import Service
 from ulearn5.core.services import (MethodNotAllowed, ObjectNotFound,
                                    UnknownEndpoint, check_methods,
-                                   check_required_params)
+                                   check_required_params, check_roles)
 from ulearn5.core.services.utils import lookup_new, show_news_in_app
 
-# from ulearn5.core.formatting import formatMessageEntities
-# from ulearn5.core.html_parser import (HTMLParser, getCommunityNameFromObj,
-#                                       replaceImagePathByURL)
+from ulearn5.core.formatting import formatMessageEntities
+from ulearn5.core.html_parser import (HTMLParser, getCommunityNameFromObj,
+                                      replaceImagePathByURL)
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +44,7 @@ class New(Service):
     def __init__(self, context, request, **kwargs):
         self.context = context
         self.request = request
-        self.news_item_id = kwargs.get('news_item_id', None)
+        self.new_id = kwargs.get('new_id', None)
 
     def handle_subpath(self, subpath):
         """ Function used to spread the request to the corresponding subpath """
@@ -52,6 +53,7 @@ class New(Service):
 
         return self.reply()
 
+    @check_roles(roles=['Member', 'Manager', 'Api'])
     @check_methods(methods=['GET', 'POST'])
     def reply(self):
         method = self.request.get('method')
@@ -69,14 +71,14 @@ class New(Service):
             news_item = lookup_new({
                 'portal_type': 'News Item',
                 'path': default_path,
-                'id': self.news_item_id
+                'id': self.new_id
             })
 
             if not news_item:
-                raise ObjectNotFound(f'News Item with ID {self.news_item_id} not found')
+                raise ObjectNotFound(f'News Item with ID {self.new_id} not found')
 
             news_item_info = self.process_news_item(news_item)
-            return {"data": news_item_info, "code": 200}
+            return news_item_info
 
         else:
             return {"message": "Show in App is not enabled on this site", "code": 404}
@@ -108,7 +110,7 @@ class New(Service):
             'title': news_item.title,
             'id': news_item.id,
             'description': news_item.description,
-            'path': news_item.getURL(),
+            'path': news_item.absolute_url(),
             'url_site': api.portal.get().absolute_url(),
             'absolute_url': news_item.absolute_url_path(),
             'text': text,
@@ -136,7 +138,7 @@ class New(Service):
             text = formatMessageEntities(
                 html.tostring(
                     html.fromstring(item.text.output)
-                )
+                ).decode('utf-8')
             )
             if text:
                 text = replaceImagePathByURL(text)
@@ -159,7 +161,7 @@ class New(Service):
     @check_required_params(params=['title', 'description', 'body', 'start'])
     def reply_post(self):
         image = self.get_image_data()
-        news_item = lookup_new({'id': self.news_item_id})
+        news_item = lookup_new({'id': self.new_id})
         if news_item:
             result = self.update_news_item(news_item, image)
             res = f'News Item {result.id} updated'
@@ -198,9 +200,12 @@ class New(Service):
 
     def set_news_item_attributes(self, news_item):
         setattr(news_item, 'title', self.request.form.get('title'))
-        setattr(news_item, 'description', self.request.form.get('desc'))
-        setattr(news_item, 'text', IRichText['text'].fromUnicode(
-            self.request.form.get('body')))
+        setattr(news_item, 'description', self.request.form.get('description'))
+        setattr(news_item, 'text', RichTextValue(
+            self.request.form.get('body'),
+            'text/html',
+            'text/x-html-safe'
+        ))
         self.set_date(news_item, self.request.form.get('start'), 'setEffectiveDate')
         if self.request.form.get('end', None):
             self.set_date(news_item, self.request.form.get('end'), 'setExpirationDate')
@@ -234,7 +239,7 @@ class New(Service):
         news_item_params = {
             'container': news_url,
             'portal_type': 'News Item',
-            'title': self.news_item_id,
+            'title': self.new_id,
             'description': self.request.form.get('description'),
             'timezone': 'Europe/Madrid',
             'checkConstraints': False

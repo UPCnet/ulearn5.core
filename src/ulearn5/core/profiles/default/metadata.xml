@@ -9,5 +9,6 @@
           <dependency>profile-base5.core:default</dependency>
           <dependency>profile-base5.portlets:default</dependency>
           <dependency>profile-ulearn5.theme:default</dependency>
+          <dependency>profile-plone.restapi:default</dependency>
       </dependencies>
 </metadata>

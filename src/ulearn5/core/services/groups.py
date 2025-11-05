@@ -4,6 +4,7 @@ import logging
 from plone.restapi.services import Service
 from ulearn5.core.services import UnknownEndpoint, check_methods
 from ulearn5.core.services.group import Group
+from ulearn5.core.services.group_communities import GroupCommunities
 from ulearn5.core.services.utils import lookup_group
 
 logger = logging.getLogger(__name__)
@@ -23,7 +24,7 @@ class Groups(Service):
     def __init__(self, context, request, **kwargs):
         self.context = context
         self.request = request
-        
+
 
     def handle_subpath(self, subpath):
         """ Function used to spread the request to the corresponding subpath """
@@ -35,8 +36,8 @@ class Groups(Service):
 
         if handler_class:
             handler = handler_class(self.context, self.request)
-            return handler.handle_subpath(subpath[1:]) 
-        
+            return handler.handle_subpath(subpath[1:])
+
         # There's a subpath, but there's no handler for it
         # May be a group? -> Delegate to Group
         group = lookup_group(next_segment)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-
+from plone import api
 from DateTime.DateTime import DateTime
 from plone.restapi.services import Service
 from ulearn5.core.services import (UnknownEndpoint, check_methods,
@@ -9,8 +9,6 @@ from ulearn5.core.utils import get_or_initialize_annotation
 from repoze.catalog.query import Eq
 from souper.soup import Record
 from souper.soup import get_soup
-# from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-# from ulearn5.core.utils import calculatePortalTypeOfInternalPath
 
 
 logger = logging.getLogger(__name__)
@@ -40,7 +38,8 @@ class Visualizations(Service):
     @check_required_params(params=['community'])
     def reply(self):
         portal = api.portal.get()
-        user_community = self.username + '_' + self.request.form.get('community')
+        community = self.request.form.get('community') or self.params.get('community')
+        user_community = self.username + '_' + community
         user_community_access = get_soup('user_community_access', portal)
 
         record = self.get_or_create_record(user_community_access, user_community)

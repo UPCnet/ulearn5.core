@@ -51,7 +51,7 @@ class AjaxUserSearch(BrowserView):
             portal = getSite()
             hunter = getMultiAdapter((portal, self.request), name='pas_search')
             fulluserinfo = hunter.merge(chain(*[hunter.searchUsers(**{field: query}) for field in ['fullname', 'name']]), 'userid')
-            values = [dict(id=userinfo.get('login'), text='{} ({})'.format(userinfo.get('title').decode('utf-8'), userinfo.get('login'))) for userinfo in fulluserinfo]
+            values = [dict(id=userinfo.get('login'), text='{} ({})'.format(userinfo.get('title'), userinfo.get('login'))) for userinfo in fulluserinfo]
 
             if settings.nonvisibles:
                 if query in settings.nonvisibles:

@@ -7,8 +7,8 @@ from plone.restapi.services import Service
 from ulearn5.core.services import UnknownEndpoint, check_methods, check_roles
 from zope.component import queryUtility
 
-# from ulearn5.core.controlpanel import IUlearnControlPanelSettings
-# from ulearn5.core.utils import calculatePortalTypeOfInternalPath
+from ulearn5.core.controlpanel import IUlearnControlPanelSettings
+from ulearn5.core.utils import calculatePortalTypeOfInternalPath
 
 
 logger = logging.getLogger(__name__)
@@ -37,7 +37,6 @@ class Banners(Service):
     @check_methods(methods=['GET'])
     def reply(self):
         banners = []
-
         results = self.find_banner_results()
         portal_url = self.get_portal_url()
 
@@ -46,7 +45,7 @@ class Banners(Service):
             if banner:
                 banners.append(banner)
 
-        return {"data": banners, "code": 200}
+        return banners
 
     def find_banner_results(self):
         """ Find all banners """
@@ -83,13 +82,14 @@ class Banners(Service):
         link = obj_url.replace('#', '') if internal else obj_url
         obj_type = calculatePortalTypeOfInternalPath(
             link, portal_url) if internal else None
+
         banner = dict(
             id=result.id,
             internal=internal,
             title=result.Title,
             image=obj.absolute_url() + '/thumbnail-image',
-            filename=obj.image.filename,
-            contentType=obj.image.contentType,
+            filename=getattr(obj.image, 'filename', None),
+            contentType=getattr(obj.image, 'contentType', None),
             link=link,
             type_when_follow_url=obj_type,
         )

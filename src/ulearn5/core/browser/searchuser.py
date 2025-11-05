@@ -5,7 +5,10 @@ from operator import itemgetter
 from mrs5.max.utilities import IMAXClient
 from plone import api
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+from repoze.catalog.query import Eq
 from souper.interfaces import ICatalogFactory
+from souper.soup import get_soup
+from souper.soup import Record
 from ulearn5.core.content.community import ICommunity
 from ulearn5.core.utils import get_or_initialize_annotation
 from zope.component import getUtilitiesFor, getUtility
@@ -28,7 +31,7 @@ def searchUsersFunction(context, request, search_string):  # noqa
         if search_string:
             normalized_query = unicodedata.normalize("NFKD", search_string).encode(
                 "ascii", errors="ignore"
-            ).replace(".", " ") + "*"
+            ).decode("ascii").replace(".", " ") + "*"
 
             users = [r for r in soup.query(Eq('searchable_text', normalized_query))]
         else:
@@ -121,45 +124,73 @@ def searchUsersFunction(context, request, search_string):  # noqa
     user_properties_utility = getUtility(ICatalogFactory, name="user_properties")
 
     users_profile = []
-    nonvisibles = api.portal.get_registry_record(
-        name="ulearn5.core.controlpanel.IUlearnControlPanelSettings.nonvisibles"
-    ) or []
-
     for user in users:
-        if user and user.get("username") != "admin":
-            can_view_properties = (
-                current_user.id == "admin"
-                or "WebMaster" in api.user.get_roles(username=current_user.id, obj=portal)
-                or "Manager" in api.user.get_roles(username=current_user.id, obj=portal)
-            )
+        nonvisibles = api.portal.get_registry_record(name='ulearn5.core.controlpanel.IUlearnControlPanelSettings.nonvisibles')
+        if nonvisibles == None:
+            nonvisibles = []
+        if user is not None and user.attrs['username'] != 'admin':
+            if current_user.id == 'admin':
+                can_view_properties = True
+            else:
+                roles = api.user.get_roles(username=current_user.id, obj=portal)
+                can_view_properties = current_user == user.attrs['username'] or 'WebMaster' in roles or 'Manager' in roles
+                if user.attrs['username'] in nonvisibles:
+                    continue
+            if isinstance(user, Record):
+                user_info = api.user.get(user.attrs['username'])
+                if user_info:
+                    user_dict = {}
+                    for user_property in user_properties_utility.properties:
+                        if 'check_' not in user_property:
+                            check = user_info.getProperty('check_' + user_property, '')
+                            if can_view_properties or check == '' or check:
+                                user_dict.update({user_property: user.attrs.get(user_property, '')})
 
-            if user.get("username") in nonvisibles:
-                continue
+                    if has_extended_properties:
+                        for user_property in extended_user_properties_utility.properties:
+                            if 'check_' not in user_property:
+                                check = user_info.getProperty('check_' + user_property, '')
+                                if can_view_properties or check == '' or check:
+                                    user_dict.update({user_property: user.attrs.get(user_property, '')})
 
-            user_info = api.user.get(user.get("username"))
-            if user_info:
-                user_dict = {
-                    prop: user.get(prop, "")
-                    for prop in user_properties_utility.properties
-                    if "check_" not in prop and (can_view_properties or user_info.getProperty("check_" + prop, ""))
-                }
+                    user_dict.update(dict(id=user.attrs['username']))
+                    userImage = (f'<img src="{settings.max_server}/people/{user.attrs["username"]}/avatar/large" '
+                                 f'alt="{user.attrs["username"]}" title="{user.attrs["username"]}" '
+                                 f'height="105" width="105" >')
+                    # userImage = pm.getPersonalPortrait(user.attrs['username'])
+                    # userImage.alt = user.attrs['username']
+                    # userImage.title = user.attrs['username']
+                    # userImage.height = 105
+                    # userImage.width = 105
+
+                    user_dict.update(dict(foto=str(userImage)))
+                    user_dict.update(dict(url=portal.absolute_url() + '/profile/' + user.attrs['username']))
+                    users_profile.append(user_dict)
+
+            else:
+                # User is NOT an standard Plone user!! is a dict provided by the patched enumerateUsers
+                user_dict = {}
+                for user_property in user_properties_utility.properties:
+                    user_dict.update({user_property: user.get(user_property, '')})
 
                 if has_extended_properties:
-                    user_dict.update({
-                        prop: user.get(prop, "")
-                        for prop in extended_user_properties_utility.properties
-                        if "check_" not in prop and (can_view_properties or user_info.getProperty("check_" + prop, ""))
-                    })
+                    for user_property in extended_user_properties_utility.properties:
+                        user_dict.update({user_property: user.get(user_property, '')})
 
-                user_dict.update({"id": user.get("username")})
-                user_image = (
-                    f'<img src="{settings.max_server}/people/{user["username"]}/avatar/large" '
-                    f'alt="{user["username"]}" title="{user["username"]}" height="105" width="105">'
-                )
+                user_dict.update(dict(id=user.get('id', '')))
+                userImage = (f'<img src="{settings.max_server}/people/{user.attrs["username"]}/avatar/large" '
+                             f'alt="{user.attrs["username"]}" title="{user.attrs["username"]}" '
+                             f'height="105" width="105" >')
+                # userImage = pm.getPersonalPortrait(user.attrs['username'])
+                # userImage.alt = user.attrs['username']
+                # userImage.title = user.attrs['username']
+                # userImage.height = 105
+                # userImage.width = 105
 
-                user_dict["foto"] = str(user_image)
-                user_dict["url"] = f'{portal.absolute_url()}/profile/{user["username"]}'
+                user_dict.update(dict(foto=str(userImage)))
+                user_dict.update(dict(url=f'{portal.absolute_url()}/profile/{user.get("id", "")}'))
                 users_profile.append(user_dict)
 
-    users_profile.sort(key=lambda x: x["id"])
-    return {"content": users_profile, "length": len(users_profile), "big": False}
+    len_usuaris = len(users_profile)
+    users_profile.sort(key=itemgetter('username'))
+    return {'content': users_profile, 'length': len_usuaris, 'big': False}

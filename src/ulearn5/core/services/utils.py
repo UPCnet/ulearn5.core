@@ -1,10 +1,15 @@
 import logging
 import re
 
+from Acquisition import aq_inner
 from AccessControl import getSecurityManager
 from plone import api
 from Products.CMFCore.permissions import ModifyPortalContent
 from ulearn5.core.services import MissingParameters, ObjectNotFound
+from ulearn5.core.content.community import ICommunity
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def lookup_community(community_id=None):
@@ -17,19 +22,18 @@ def lookup_community(community_id=None):
         logging.error(error_message)
         raise MissingParameters('Community ID not provided')
 
-    result = pc.searchResults(community_hash=community_id)
+    result = pc.unrestrictedSearchResults(portal_type='ulearn.community',
+                                          id=community_id)
 
     if not result:
         # Fallback search by gwuuid
         result = pc.searchResults(gwuuid=community_id)
 
-    if not result:
-        # Not found either by hash nor by gwuuid
-        error_message = f'Community with ID {community_id} not found.'
-        logging.error(error_message)
-        raise ObjectNotFound(f'Community with ID {community_id} not found')
+    if result:
+        return result[0].getObject()
+    else:
+        return result
 
-    return result[0].getObject()
 
 
 def lookup_group(id):
@@ -74,7 +78,7 @@ def show_news_in_app():
     )
 
 
-def replace_image_path_by_url(self, msg):
+def replace_image_path_by_url(msg):
     srcs = re.findall('src="([^"]+)"', msg)
 
     # Transform internal images
@@ -90,3 +94,27 @@ def replace_image_path_by_url(self, msg):
         msg = re.sub(images[i], '/thumbnail-image"', msg)
 
     return msg
+
+
+def urlBelongsToCommunity(url, portal_url):
+    tree_site = api.portal.get()
+    partial_path = url.split(portal_url)[1]
+    partial_path.replace('#', '')  # Sanitize if necessary
+    if partial_path.endswith('/view/'):
+        partial_path = partial_path.split('/view/')[0]
+    elif partial_path.endswith('/view'):
+        partial_path = partial_path.split('/view')[0]
+
+    segments = partial_path.split('/')
+    leafs = [segment for segment in segments if segment]
+    for leaf in leafs:
+        try:
+            obj = aq_inner(tree_site.unrestrictedTraverse(leaf))
+            if (ICommunity.providedBy(obj)):
+                return True
+            else:
+                tree_site = obj
+        except:
+            logger.error('Error in retrieving object: %s' % url)
+
+    return False

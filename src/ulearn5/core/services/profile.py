@@ -15,6 +15,8 @@ class Profile(Service):
     """
     - Endpoint: @api/profile
     - Method: PUT
+        Required params:
+            - username (str)
         Updates profile.
 
     - Subpaths allowed: NO
@@ -34,18 +36,18 @@ class Profile(Service):
     @check_methods(methods=['PUT'])
     @check_required_params(params=['username'])
     def reply(self):
-        username = self.request.form.get('username')
+        username = self.params.get('username')
         if not self.is_valid_user(username):
             raise ObjectNotFound(f"User with ID  {username} not found")
 
         try:
             user = self.get_user(username)
-            self.update_user_properties(user, self.request.form)
+            self.update_user_properties(user, self.params)
         except ComponentLookupError as e:
             return self.handle_component_lookup_error(e, username)
 
         value = f"L'usuari {username} s'ha actualitzat."
-        return {"success": value, "code": 200}
+        return {"success": value}
 
     def is_valid_user(self, username):
         mt = api.portal.get_tool(name='portal_membership')

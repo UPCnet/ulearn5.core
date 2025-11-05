@@ -19,7 +19,22 @@ class People(Service):
     """
     - Endpoint: @api/people
     - Method: GET
-        Returns all Users with their properties
+        Description:
+            Returns all users with their properties. This endpoint retrieves user data from the
+            user properties catalog and processes it to include only the relevant public properties.
+
+        Required params: None
+
+        Behavior:
+            - If no subpath is provided, it returns all users with their properties.
+            - If a subpath is provided:
+                - "users": Delegates the request to the Users service.
+                - "sync": Delegates the request to the Sync service.
+                - Any other subpath is treated as a username and is handled by the Person service.
+
+        Returns:
+            - A dictionary where the keys are user IDs and the values are the rendered properties
+              of each user.
 
     - Subpaths allowed: YES
     """
@@ -77,12 +92,11 @@ class People(Service):
                 rendered_properties = self.extract_properties(user_properties_utility, user)
 
             result[record[1].attrs['id']] = rendered_properties
-        return {"data": result, "code": 200}
+        return result
 
     def extract_properties(self, utility, user):
-        # TODO: Mirar si esto hay que hacerlo en ambos casos
         if '@' in user.getId():
-                return []
+            return []
 
         directory_properties = getattr(utility, 'directory_properties', [])
         public_properties = getattr(utility, 'public_properties', [])

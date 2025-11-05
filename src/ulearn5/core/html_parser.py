@@ -31,9 +31,12 @@ def replaceImagePathByURL(msg):
     # Transformamos imagenes internas
     uids = re.findall(r"resolveuid/(.*?)/@@images", msg)
     for i in range(len(uids)):
-        thumb_url = api.content.get(UID=uids[i]).absolute_url() + '/thumbnail-image'
-        plone_url = srcs[i]
-        msg = re.sub(plone_url, thumb_url, msg)
+        try:
+            thumb_url = api.content.get(UID=uids[i]).absolute_url() + '/thumbnail-image'
+            plone_url = srcs[i]
+            msg = re.sub(plone_url, thumb_url, msg)
+        except:
+            continue
 
     # Transformamos imagenes contra la propia web
     images = re.findall(r"/@@images/.*?\"", msg)

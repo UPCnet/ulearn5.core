@@ -16,7 +16,6 @@
         </div>
 
         <div id="content">
-
           <form method="post" enctype="multipart/form-data" action="changeurlcommunities">
             Afegeix la url antiga:
             <input name="url_antiga" type="text" style="width: 442px;" />

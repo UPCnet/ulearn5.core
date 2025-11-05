@@ -39,7 +39,7 @@ class Links(Service):
         # There's a subpath, but there's no handler for it
         # May be an available language? -> Delegate to Link
         if self.is_language_available(next_segment):
-            kwargs = {'lang': next_segment}
+            kwargs = {'language': next_segment}
             link_handler = Link(self.context, self.request, **kwargs)
             return link_handler.handle_subpath(subpath[1:])
 

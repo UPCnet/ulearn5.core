@@ -11,11 +11,11 @@ import requests
 from plone import api
 from plone.restapi.services import Service
 from ulearn5.core.services import (MissingParameters, UnknownEndpoint,
-                                   check_methods, check_required_params)
+                                   check_methods, check_roles, check_required_params)
 from ulearn5.core.services.utils import lookup_community
 from zope.component import getUtility
 
-# from mrs5.max.utilities import IMAXClient
+from mrs5.max.utilities import IMAXClient
 
 
 logger = logging.getLogger(__name__)
@@ -25,7 +25,17 @@ class Notifymail(Service):
     """
     - Endpoint: @api/notifymail
     - Method: POST
-        Subscribe a bunch of users to a community
+        Params:
+            - community_url: (str) The URL of the community.
+            - community_name: (str) The name of the community.
+            - actor_displayName: (str) The display name of the actor performing the action.
+            - activity_content: (str) The content of the activity to be notified.
+            - content_type: (str) The type of content (e.g., "activity", "comment").
+            - thumbURL: (str) The URL of the thumbnail image (optional, required if objectType is "image").
+            - filename: (str) The name of the image file (optional, required if objectType is "image").
+            - objectType: (str) The type of object (e.g., "image", "text").
+        Description:
+            Sends email notifications to users subscribed to a community based on the provided parameters.
 
     - Subpaths allowed: NO
     """
@@ -41,17 +51,8 @@ class Notifymail(Service):
 
         return self.reply()
 
+    @check_roles(roles=['Member', 'Manager', 'Api'])
     @check_methods(methods=['POST'])
-    @check_required_params(params=[
-        'community_url',
-        'community_name',
-        'actor_displayName',
-        'activity_content',
-        'content_type',
-        'thumbURL',
-        'filename',
-        'objectType'
-    ])
     def reply(self):
         """ Subscribe a bunch of users to a community """
         community_url = self.request.form.get('community_url', None)
@@ -143,9 +144,9 @@ class Notifymail(Service):
 
         # Templates mapping
         map = {
-            'community': self.request.form['community_name'].encode('utf-8'),
+            'community': self.request.form['community_name'],
             'link': self.request.form['community_url'],
-            'title': self.request.form['community_name'].encode('utf-8'),
+            'title': self.request.form['community_name'],
             'description': html_activity_content,
             'type': '',
             'author': self.request.form['actor_displayName'],

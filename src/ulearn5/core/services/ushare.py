@@ -46,6 +46,7 @@ class Ushare(Service):
 
         user = lookup_user(self.username, raisable=True)
         ts = api.portal.get_tool(name='translation_service')
+        domain = self.request.form.get('domain', None)
         domain = 'ulearn5.' + domain if domain else 'ulearn'
         lang = self.get_user_language()
 
@@ -70,7 +71,7 @@ class Ushare(Service):
 
         except Exception as e:
             raise ObjectNotFound('Something went wrong') from e
-        return {"data": result, "code": 200}
+        return result
 
     def get_user_language(self):
         current = api.user.get_current()
