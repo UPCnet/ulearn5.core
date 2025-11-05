@@ -8,7 +8,8 @@
                  single_checkbox python:len(items) == 1">
      <span tal:define="portal_state context/@@plone_portal_state;
                     portal_url portal_state/portal_url;">
-       <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++notify_email.js"></script>
+                    <!-- This file does not exist in the folder. Do not use it. -->
+       <!-- <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++notify_email.js"></script> -->
     </span>            
 
     <span tal:attributes="id view/id"
